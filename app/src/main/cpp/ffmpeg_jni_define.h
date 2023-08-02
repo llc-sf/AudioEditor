@@ -19,7 +19,7 @@ extern "C" { \
     (JNIEnv *env, jobject thiz, ##__VA_ARGS__)\
 
 #define FFMPEG_FUNC(RETURN_TYPE, FUNC_NAME, ...) \
-    JNIEXPORT RETURN_TYPE JNICALL Java_com_frank_ffmpeg_FFmpegCmd_ ## FUNC_NAME \
+    JNIEXPORT RETURN_TYPE JNICALL Java_com_san_audioeditor_FFmpegCmd_ ## FUNC_NAME \
     (JNIEnv *env, jclass thiz, ##__VA_ARGS__)\
 
 #define FFPROBE_FUNC(RETURN_TYPE, FUNC_NAME, ...) \

@@ -1,6 +1,7 @@
 #include <jni.h>
 #include "ffmpeg/ffmpeg.h"
 #include "ffmpeg_jni_define.h"
+#include <libavutil/log.h>
 
 #define FFMPEG_TAG "FFmpegCmd"
 #define INPUT_SIZE (8 * 1024)

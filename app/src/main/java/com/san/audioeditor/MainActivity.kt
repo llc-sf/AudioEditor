@@ -1,8 +1,7 @@
 package com.san.audioeditor
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.san.audioeditor.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -16,19 +15,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Example of a call to a native method
-        binding.sampleText.text = stringFromJNI()
+//        binding.sampleText.text = stringFromJNI()
     }
 
     /**
      * A native method that is implemented by the 'audioeditor' native library,
      * which is packaged with this application.
      */
-    external fun stringFromJNI(): String
+//    external fun stringFromJNI(): String
 
     companion object {
         // Used to load the 'audioeditor' library on application startup.
         init {
-            System.loadLibrary("audioeditor")
+            System.loadLibrary("media-handle")
         }
     }
 }

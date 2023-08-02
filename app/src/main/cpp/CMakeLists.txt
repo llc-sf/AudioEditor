@@ -18,14 +18,21 @@ project("audioeditor")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
 
 
+
+
 # 1. 定义so库和头文件所在目录，方面后面使用
 set(ffmpeg_lib_dir ${CMAKE_SOURCE_DIR}/../../../libs/${ANDROID_ABI})
 set(ffmpeg_head_dir ${CMAKE_SOURCE_DIR})
 
 # 2. 添加头文件目录
-include_directories(${ffmpeg_head_dir}/include)
-include_directories(${ffmpeg_head_dir}/ffmpeg)
+#include_directories(${ffmpeg_head_dir}/../include/)
+#include_directories(${ffmpeg_head_dir}/../ffmpeg/)
+#include_directories(${ffmpeg_head_dir}/)
+#include_directories(.)
+#include_directories(${ffmpeg_lib_dir}/)
+
 include_directories(.)
+include_directories(include)
 
 # 3. 添加ffmpeg相关的so库
 add_library(avutil
@@ -85,24 +92,38 @@ find_library( # Sets the name of the path variable.
         # you want CMake to locate.
         log)
 
-# 配置目标so库编译信息
+set(SRC_FFMPEG
+        ffmpeg_cmd.c
+        ffmpeg/cmdutils.c
+        ffmpeg/ffmpeg.c
+        ffmpeg/ffmpeg_demux.c
+        ffmpeg/ffmpeg_filter.c
+        ffmpeg/ffmpeg_hw.c
+        ffmpeg/ffmpeg_mux.c
+        ffmpeg/ffmpeg_mux_init.c
+        ffmpeg/ffmpeg_opt.c
+        ffmpeg/ffprobe.c
+        ffmpeg/objpool.c
+        ffmpeg/opt_common.c
+        ffmpeg/sync_queue.c
+        ffmpeg/thread_queue.c
+        )
 add_library( # Sets the name of the library.
-        native-lib
+        media-handle
 
         # Sets the library as a shared library.
         SHARED
 
         # Provides a relative path to your source file(s).
-        native-lib.cpp
+        ${SRC_FFMPEG}
         )
+
 
 # 指定编译目标库时，cmake要链接的库
 target_link_libraries(
-
-        # 指定目标库，native-lib 是在上面 add_library 中配置的目标库
-        native-lib
-
         # 4. 连接 FFmpeg 相关的库
+        media-handle
+
         avutil
         swresample
         avcodec
@@ -115,47 +136,3 @@ target_link_libraries(
         # included in the NDK.
         ${log-lib})
 
-
-add_library( # Sets the name of the library.
-        audioeditor
-
-        # Sets the library as a shared library.
-        SHARED
-
-        # Provides a relative path to your source file(s).
-        native-lib.cpp)
-target_link_libraries( # Specifies the target library.
-        audioeditor
-
-        # Links the target library to the log library
-        # included in the NDK.
-        ${log-lib})
-
-
-set(SRC_FFMPEG
-        ffmpeg_cmd.c
-        ffmpeg/ffmpeg.c
-        )
-
-#set(SRC_VISUALIZER
-#        visualizer/fft.cpp
-#        visualizer/fixed_fft.cpp
-#        visualizer/frank_visualizer.cpp
-#        visualizer/frank_visualizer_jni.cpp
-#        visualizer/window.cpp)
-
-#set(SRC_METADATA
-#        metadata/media_retriever.cpp
-#        metadata/media_retriever_jni.cpp
-#        metadata/metadata_util.c
-#        metadata/ffmpeg_media_retriever.c)
-
-add_library( # Sets the name of the library.
-        media-handle
-
-        # Sets the library as a shared library.
-        SHARED
-
-        # Provides a relative path to your source file(s).
-        ${SRC_FFMPEG}
-        )
