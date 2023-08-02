@@ -107,6 +107,7 @@ set(SRC_FFMPEG
         ffmpeg/opt_common.c
         ffmpeg/sync_queue.c
         ffmpeg/thread_queue.c
+        ffprobe_cmd.cpp
         )
 add_library( # Sets the name of the library.
         media-handle
