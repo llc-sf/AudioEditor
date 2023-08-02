@@ -391,6 +391,10 @@ class AudioHandleActivity : BaseActivity() {
         private const val mixAudio = true
 
         private var outputPath: String? = null
+
+        init {
+            System.loadLibrary("media-handle")
+        }
     }
 
 }

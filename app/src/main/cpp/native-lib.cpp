@@ -8,19 +8,3 @@ Java_com_san_audioeditor_MainActivity_stringFromJNI(
     std::string hello = "Hello from C++";
     return env->NewStringUTF(hello.c_str());
 }
-
-
-// 默认生成的方法
-
-extern "C" JNIEXPORT jstring JNICALL
-
-Java_com_example_ffmpeg_MainActivity_stringFromJNI(
-
-        JNIEnv *env,
-
-        jobject /* this */) {
-
-    std::string hello = "Hello from C++";
-
-    return env->NewStringUTF(hello.c_str());
-}
