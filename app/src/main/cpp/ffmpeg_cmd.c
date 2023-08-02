@@ -1,7 +1,6 @@
 #include <jni.h>
 #include "ffmpeg/ffmpeg.h"
 #include "ffmpeg_jni_define.h"
-#include <libavutil/log.h>
 
 #define FFMPEG_TAG "FFmpegCmd"
 #define INPUT_SIZE (8 * 1024)
@@ -22,7 +21,8 @@ void init(JNIEnv *env) {
     err_count = 0;
     ff_class = (*env)->FindClass(env, "com/san/audioeditor/FFmpegCmd");
     ff_method = (*env)->GetStaticMethodID(env, ff_class, "onProgressCallback", "(III)V");
-    msg_method = (*env)->GetStaticMethodID(env, ff_class, "onMsgCallback", "(Ljava/lang/String;I)V");
+    msg_method = (*env)->GetStaticMethodID(env, ff_class, "onMsgCallback",
+                                           "(Ljava/lang/String;I)V");
 }
 
 FFMPEG_FUNC(jint, handle, jobjectArray commands) {
