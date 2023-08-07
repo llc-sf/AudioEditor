@@ -133,7 +133,7 @@ class AudioHandleActivity : BaseActivity() {
             getString(R.string.audio_waveform),
             getString(R.string.audio_encode),
             getString(R.string.audio_surround),
-            getString(R.string.audio_reverb), "淡入淡出"
+            getString(R.string.audio_reverb), "淡入淡出","多轨道"
         )
 
         layoutAudioHandle = findViewById(R.id.list_audio_item)
@@ -230,6 +230,21 @@ class AudioHandleActivity : BaseActivity() {
                     fadeInOutAudio(srcFile, fadeInTime, fadeOutTime, totalDuration, outputPath)
 
             }
+
+            17->{
+                //cut audio, it's best not include special characters
+                var  srcFiles = mutableListOf<String>().apply {
+                    add("/storage/emulated/0/Android/data/com.san.audioeditor/files/Music/1.mp3")
+                    add("/storage/emulated/0/Android/data/com.san.audioeditor/files/Music/2.mp3")
+                }
+                val suffix = FileUtil.getFileSuffix(srcFiles.get(0));
+                if (suffix == null || suffix.isEmpty()) {
+                    return;
+                }
+                outputPath = PATH + File.separator + "mutiAudio_${System.currentTimeMillis()}" + suffix;
+                commandLine = FFmpegUtil.mutiAudio(srcFiles, 5.5f, 15.0f, outputPath);
+            }
+
 
             2 -> { //concat audio
                 if (!FileUtil.checkFileExist(appendFile)) {

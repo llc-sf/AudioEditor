@@ -98,6 +98,19 @@ public class FFmpegUtil {
         return fadeInOutCmd.split(" ");
     }
 
+
+    public static String[] mutiAudio(List<String> inputPaths, float startTime, float duration, String outputPath) {
+        StringBuilder inputs = new StringBuilder();
+        for (String path : inputPaths) {
+            inputs.append("-i ").append(path).append(" ");
+        }
+
+        String cutAudioCmd = "ffmpeg " + inputs.toString() + "-ss %f -t %f -filter_complex amix=inputs=%d -y %s";
+        cutAudioCmd = String.format(Locale.getDefault(), cutAudioCmd, startTime, duration, inputPaths.size(),outputPath);
+        return cutAudioCmd.split(" ");
+    }
+
+
     /**
      * concat all the audio together
      *
