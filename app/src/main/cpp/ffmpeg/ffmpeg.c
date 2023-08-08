@@ -4150,15 +4150,20 @@ static int64_t getmaxrss(void)
 
 int run(int argc, char **argv)
 {
+    av_log(NULL, AV_LOG_INFO, "llc_run1");
     int ret;
     BenchmarkTimeStamps ti;
     main_return_code = 0;
+    av_log(NULL, AV_LOG_INFO, "llc_run2");
+    av_log(NULL, AV_LOG_INFO, "x run\n"); // 日志1
 
     init_dynload();
 
     register_exit(ffmpeg_cleanup);
 
-    setvbuf(stderr,NULL,_IONBF,0); /* win32 runtime needs this */
+    setvbuf(stderr,NULL,_IONBF,0); // win32 runtime needs this
+
+    av_log(NULL, AV_LOG_INFO, "Initialized dynamic loading\n"); // 日志2
 
     av_log_set_flags(AV_LOG_SKIP_REPEATED);
     parse_loglevel(argc, argv, options);
@@ -4171,7 +4176,10 @@ int run(int argc, char **argv)
 #if CONFIG_AVDEVICE
     avdevice_register_all();
 #endif
+    av_log(NULL, AV_LOG_INFO, "llc_run3");
     avformat_network_init();
+
+    av_log(NULL, AV_LOG_INFO, "Network initialized\n"); // 日志3
 
     show_banner(argc, argv, options);
 
@@ -4179,6 +4187,8 @@ int run(int argc, char **argv)
     ret = ffmpeg_parse_options(argc, argv);
     if (ret < 0)
         exit_program(1);
+
+    av_log(NULL, AV_LOG_INFO, "Options parsed\n"); // 日志4
 
     if (nb_output_files <= 0 && nb_input_files == 0) {
         show_usage();
@@ -4195,6 +4205,9 @@ int run(int argc, char **argv)
     current_time = ti = get_benchmark_time_stamps();
     if (transcode() < 0)
         exit_program(1);
+
+    av_log(NULL, AV_LOG_INFO, "Transcoding completed\n"); // 日志5
+
     if (do_benchmark) {
         int64_t utime, stime, rtime;
         current_time = get_benchmark_time_stamps();
@@ -4205,6 +4218,10 @@ int run(int argc, char **argv)
                "bench: utime=%0.3fs stime=%0.3fs rtime=%0.3fs\n",
                utime / 1000000.0, stime / 1000000.0, rtime / 1000000.0);
     }
+
+    av_log(NULL, AV_LOG_INFO, "Benchmark completed\n"); // 日志6
+    av_log(NULL, AV_LOG_INFO, "llc_run Benchmark");
+
     av_log(NULL, AV_LOG_DEBUG, "%"PRIu64" frames successfully decoded, %"PRIu64" decoding errors\n",
            decode_error_stat[0], decode_error_stat[1]);
     if ((decode_error_stat[0] + decode_error_stat[1]) * max_error_rate < decode_error_stat[1])
@@ -4216,8 +4233,11 @@ int run(int argc, char **argv)
     progress_callback(100, 100, main_return_code == 0 ? STATE_FINISH : STATE_ERROR);
     ffmpeg_cleanup(0);
 
+    av_log(NULL, AV_LOG_INFO, "Ending run\n"); // 日志7
+    av_log(NULL, AV_LOG_INFO, "llc_run4");
     return main_return_code;
 }
+
 
 void cancel_task(int cancel) {
     cancel_execute = cancel;
