@@ -1,6 +1,7 @@
 package com.san.audioeditor.handler;
 
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 
@@ -92,7 +93,9 @@ public class FFmpegHandler {
                     mHandler.obtainMessage(MSG_CONTINUE).sendToTarget();
                 } else {
                     mHandler.removeMessages(MSG_PROGRESS);
-                    mHandler.obtainMessage(MSG_FINISH).sendToTarget();
+                    Message msg =  mHandler.obtainMessage(MSG_FINISH);
+                    msg.obj = resultCode;
+                    msg.sendToTarget();
                 }
             }
         });

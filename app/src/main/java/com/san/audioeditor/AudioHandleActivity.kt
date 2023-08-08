@@ -2,19 +2,25 @@ package com.san.audioeditor
 
 import android.annotation.SuppressLint
 import android.media.MediaMetadataRetriever
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.os.Message
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.san.audioeditor.adapter.WaterfallAdapter
 import com.frank.ffmpeg.listener.OnItemClickListener
+import com.san.audioeditor.adapter.WaterfallAdapter
 import com.san.audioeditor.handler.FFmpegHandler
 import com.san.audioeditor.handler.FFmpegHandler.MSG_BEGIN
 import com.san.audioeditor.handler.FFmpegHandler.MSG_FINISH
@@ -24,7 +30,9 @@ import com.san.audioeditor.tool.FFmpegUtil
 import com.san.audioeditor.tool.FFmpegUtil.fadeInOutAudio
 import com.san.audioeditor.tool.FileUtil
 import java.io.File
+import java.io.IOException
 import java.util.Locale
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -59,7 +67,6 @@ class AudioHandleActivity : BaseActivity() {
 
                 MSG_FINISH -> {
                     layoutProgress!!.visibility = View.GONE
-                    layoutAudioHandle!!.visibility = View.VISIBLE
                     if (isJointing) {
                         isJointing = false
                         FileUtil.deleteFile(outputPath1)
@@ -72,6 +79,11 @@ class AudioHandleActivity : BaseActivity() {
                         ).show()
                         infoBuilder = null
                     }
+                    if (msg.obj is Int && msg.obj as Int == 0) {
+                        findViewById<TextView>(R.id.path).text = "剪辑成功 路径: $outputPath"
+                    } else {
+                        findViewById<TextView>(R.id.path).text = "剪辑失败 路径: $outputPath"
+                    }
                     if (!outputPath.isNullOrEmpty() && !this@AudioHandleActivity.isDestroyed) {
                         showToast("Save to:$outputPath")
                         outputPath = ""
@@ -81,6 +93,7 @@ class AudioHandleActivity : BaseActivity() {
                 }
 
                 MSG_PROGRESS -> {
+                    findViewById<TextView>(R.id.path).text = "剪辑中"
                     val progress = msg.arg1
                     if (progress > 0) {
                         txtProgress!!.visibility = View.VISIBLE
@@ -118,22 +131,22 @@ class AudioHandleActivity : BaseActivity() {
         layoutProgress = getView(R.id.layout_progress)
         txtProgress = getView(R.id.txt_progress)
         val list = listOf(
-            getString(R.string.audio_transform),
+//            getString(R.string.audio_transform),
             getString(R.string.audio_cut),
-            getString(R.string.audio_concat),
-            getString(R.string.audio_mix),
-            getString(R.string.audio_play),
-            getString(R.string.audio_speed),
-            getString(R.string.audio_echo),
-            getString(R.string.audio_tremolo),
-            getString(R.string.audio_denoise),
-            getString(R.string.audio_add_equalizer),
-            getString(R.string.audio_silence),
-            getString(R.string.audio_volume),
-            getString(R.string.audio_waveform),
-            getString(R.string.audio_encode),
-            getString(R.string.audio_surround),
-            getString(R.string.audio_reverb), "淡入淡出","多轨道"
+//            getString(R.string.audio_concat),
+//            getString(R.string.audio_mix),
+//            getString(R.string.audio_play),
+//            getString(R.string.audio_speed),
+//            getString(R.string.audio_echo),
+//            getString(R.string.audio_tremolo),
+//            getString(R.string.audio_denoise),
+//            getString(R.string.audio_add_equalizer),
+//            getString(R.string.audio_silence),
+//            getString(R.string.audio_volume),
+//            getString(R.string.audio_waveform),
+//            getString(R.string.audio_encode),
+//            getString(R.string.audio_surround),
+//            getString(R.string.audio_reverb), "淡入淡出","多轨道"
         )
 
         layoutAudioHandle = findViewById(R.id.list_audio_item)
@@ -148,7 +161,160 @@ class AudioHandleActivity : BaseActivity() {
             }
         })
         layoutAudioHandle?.adapter = adapter
+
+        findViewById<View>(R.id.btn_cut).setOnClickListener {
+            currentPosition = 1
+            selectFile()
+        }
+
+        //监测EditText变化
+        findViewById<EditText>(R.id.startTime).addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+//                startTime = s.toString().toFloat()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+//                startTime = s.toString().toFloat()
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                try {
+                    startTime = s.toString().toFloat()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        })
+
+        findViewById<EditText>(R.id.durationTime).addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+//                startTime = s.toString().toFloat()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+//                startTime = s.toString().toFloat()
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                try {
+                    durationTime = s.toString().toFloat()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        })
+
+        findViewById<EditText>(R.id.outName).addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+//                startTime = s.toString().toFloat()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+//                startTime = s.toString().toFloat()
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                try {
+                    outName = s.toString()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        })
+
+        findViewById<View>(R.id.play).setOnClickListener {
+
+            if (TextUtils.isEmpty(cutAudioOutPutPath)) {
+                Toast.makeText(this, "请先剪辑", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            //懒加载 mediaPlayer
+            mediaPlayer.reset()
+
+            try {
+                mediaPlayer.setDataSource(cutAudioOutPutPath)
+                mediaPlayer.prepare() // 可能需要一些时间来缓冲
+                mediaPlayer.start() // 开始播放
+
+
+                // 格式化并设置总时间
+                val totalTime = String.format("%02d:%02d:%02d",
+                    TimeUnit.MILLISECONDS.toHours(mediaPlayer.duration.toLong()),
+                    TimeUnit.MILLISECONDS.toMinutes(mediaPlayer.duration.toLong()) -
+                            TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(mediaPlayer.duration.toLong())),
+                    TimeUnit.MILLISECONDS.toSeconds(mediaPlayer.duration.toLong()) -
+                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(mediaPlayer.duration.toLong()))
+                )
+                totalTimeTextView.text = totalTime
+                currentTimeTextView.text = "00:00:00"
+
+
+                seekBar.max = mediaPlayer.duration
+                seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                    override fun onProgressChanged(
+                        seekBar: SeekBar?,
+                        progress: Int,
+                        fromUser: Boolean
+                    ) {
+                        if (fromUser) {
+                            mediaPlayer.seekTo(progress)
+                        }
+                    }
+
+                    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+                    override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+                })
+
+                // 定期更新进度条的进度
+                mHandler?.postDelayed(object : Runnable {
+                    override fun run() {
+                        val currentProgress = mediaPlayer.currentPosition
+                        seekBar.progress = currentProgress
+
+
+                        // 格式化并设置当前时间
+                        val currentTime = String.format("%02d:%02d:%02d",
+                            TimeUnit.MILLISECONDS.toHours(currentProgress.toLong()),
+                            TimeUnit.MILLISECONDS.toMinutes(currentProgress.toLong()) -
+                                    TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(currentProgress.toLong())),
+                            TimeUnit.MILLISECONDS.toSeconds(currentProgress.toLong()) -
+                                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(currentProgress.toLong()))
+                        )
+                        currentTimeTextView.text = currentTime
+
+
+
+                        mHandler?.postDelayed(this, 1000)
+                    }
+                }, 1000)
+
+
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+
+        }
     }
+
+
+    val seekBar: SeekBar by lazy {
+        findViewById(R.id.seekBar)
+    }
+    val currentTimeTextView: TextView by lazy {
+        findViewById(R.id.currentTime)
+    }
+    val totalTimeTextView: TextView by lazy {
+        findViewById(R.id.totalTime)
+    }
+    val mediaPlayer: MediaPlayer by lazy {
+        MediaPlayer()
+    }
+
+    var startTime: Float = 0f
+    var durationTime: Float = 0f
+    var outName: String? = null
 
     override fun onViewClick(view: View) {
 
@@ -201,9 +367,30 @@ class AudioHandleActivity : BaseActivity() {
                 if (suffix == null || suffix.isEmpty()) {
                     return
                 }
+
+                val mediaMetadataRetriever = MediaMetadataRetriever()
+                mediaMetadataRetriever.setDataSource(srcFile)
+                val durationStr =
+                    mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
+                val totalDuration = (durationStr?.toFloat() ?: 0F) / 1000 // 转换为秒
+
+                if (startTime < 0) {
+                    Toast.makeText(this, "开始时间不能小于0", Toast.LENGTH_SHORT).show()
+                    return
+                }
+                if (startTime >= totalDuration) {
+                    Toast.makeText(this, "开始时间不能大于歌曲总时长", Toast.LENGTH_SHORT).show()
+                    return
+                }
+                if (startTime + durationTime > totalDuration) {
+                    Toast.makeText(this, "开始时间+截取时长不能大于歌曲总时长", Toast.LENGTH_SHORT)
+                        .show()
+                    return
+                }
                 outputPath =
-                    PATH + File.separator + "cutAudio_${System.currentTimeMillis()}" + suffix
-                commandLine = FFmpegUtil.cutAudio(srcFile, 10.5f, 25.0f, outputPath)
+                    PATH + File.separator + "${if (outName?.isNotEmpty() == true) outName else "cutAudio_${startTime}_${durationTime}"}" + suffix
+                cutAudioOutPutPath = outputPath
+                commandLine = FFmpegUtil.cutAudio(srcFile, startTime, durationTime, outputPath)
             }
 
             16 -> { //cut audio, it's best not include special characters
@@ -231,9 +418,9 @@ class AudioHandleActivity : BaseActivity() {
 
             }
 
-            17->{
+            17 -> {
                 //cut audio, it's best not include special characters
-                var  srcFiles = mutableListOf<String>().apply {
+                var srcFiles = mutableListOf<String>().apply {
                     add("/storage/emulated/0/Android/data/com.san.audioeditor/files/Music/1.mp3")
                     add("/storage/emulated/0/Android/data/com.san.audioeditor/files/Music/2.mp3")
                 }
@@ -241,7 +428,8 @@ class AudioHandleActivity : BaseActivity() {
                 if (suffix == null || suffix.isEmpty()) {
                     return;
                 }
-                outputPath = PATH + File.separator + "mutiAudio_${System.currentTimeMillis()}" + suffix;
+                outputPath =
+                    PATH + File.separator + "mutiAudio_${System.currentTimeMillis()}" + suffix;
                 commandLine = FFmpegUtil.mutiAudio(srcFiles, 5.5f, 15.0f, outputPath);
             }
 
@@ -406,6 +594,7 @@ class AudioHandleActivity : BaseActivity() {
         private const val mixAudio = true
 
         private var outputPath: String? = null
+        private var cutAudioOutPutPath: String? = null
 
         init {
             System.loadLibrary("media-handle")
