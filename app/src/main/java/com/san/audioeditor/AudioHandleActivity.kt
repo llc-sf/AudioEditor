@@ -21,9 +21,11 @@ import com.san.audioeditor.handler.FFmpegHandler.MSG_BEGIN
 import com.san.audioeditor.handler.FFmpegHandler.MSG_FINISH
 import com.san.audioeditor.handler.FFmpegHandler.MSG_INFO
 import com.san.audioeditor.handler.FFmpegHandler.MSG_PROGRESS
+import com.san.audioeditor.tool.AndroidUtil
 import com.san.audioeditor.tool.FFmpegUtil
 import com.san.audioeditor.tool.FFmpegUtil.fadeInOutAudio
 import com.san.audioeditor.tool.FileUtil
+import com.san.audioeditor.tool.StoragePermissionManager
 import java.io.File
 import java.util.Locale
 
@@ -113,6 +115,26 @@ class AudioHandleActivity : BaseActivity() {
 //        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
 //            PATH = cacheDir.absolutePath
 //        }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        adapterPermission()
+    }
+
+    private var isPermissionGranted = false
+    private fun adapterPermission() {
+        isPermissionGranted = AndroidUtil.hasStoragePermissionAdapter33(this)
+        if (!isPermissionGranted) {
+            requestPermission()
+        }
+    }
+
+    private fun requestPermission() {
+        StoragePermissionManager.onAfterRequestPermission(this) {
+            isPermissionGranted = true
+        }
     }
 
     private fun initView() {

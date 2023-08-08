@@ -398,7 +398,7 @@ class AudioCutHandleActivity : BaseActivity() {
                     return
                 }
                 outputPath =
-                    PATH + File.separator + "${if (outName?.isNotEmpty() == true) outName else "cutAudio_${startTime}_${durationTime}"}" + suffix
+                    PATH + File.separator + "${if (outName?.isNotEmpty() == true) outName else "cutAudio_${startTime.toInt()}_${durationTime.toInt()}"}" + suffix
                 cutAudioOutPutPath = outputPath
                 commandLine = FFmpegUtil.cutAudio(srcFile, startTime, durationTime, outputPath)
             }
