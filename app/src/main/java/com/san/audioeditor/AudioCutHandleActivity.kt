@@ -162,19 +162,27 @@ class AudioCutHandleActivity : BaseActivity() {
         })
         layoutAudioHandle?.adapter = adapter
 
-        findViewById<View>(R.id.btn_cut).setOnClickListener {
+        findViewById<View>(R.id.oriFile).setOnClickListener {
             currentPosition = 1
             selectFile()
+        }
+
+
+        findViewById<View>(R.id.btn_cut).setOnClickListener {
+            if (TextUtils.isEmpty(oriPath)) {
+                Toast.makeText(this, "请选择文件", Toast.LENGTH_SHORT).show()
+            } else {
+                doHandleAudio(oriPath!!)
+            }
+
         }
 
         //监测EditText变化
         findViewById<EditText>(R.id.startTime).addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-//                startTime = s.toString().toFloat()
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-//                startTime = s.toString().toFloat()
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -188,11 +196,9 @@ class AudioCutHandleActivity : BaseActivity() {
 
         findViewById<EditText>(R.id.durationTime).addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-//                startTime = s.toString().toFloat()
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-//                startTime = s.toString().toFloat()
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -330,8 +336,11 @@ class AudioCutHandleActivity : BaseActivity() {
 
     }
 
+    var oriPath: String? = null
     override fun onSelectedFile(filePath: String) {
-        doHandleAudio(filePath)
+        oriPath = filePath
+        findViewById<TextView>(R.id.oriPath).text = "源文件路径：$filePath"
+//        doHandleAudio(filePath)
     }
 
     /**

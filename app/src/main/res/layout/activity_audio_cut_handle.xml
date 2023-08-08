@@ -15,20 +15,39 @@
     <!--        android:text="@string/audio_transform"-->
     <!--        android:visibility="gone" />-->
 
+    <Button
+        android:id="@+id/oriFile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="选择原文件"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/oriPath"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="源文件路径："
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/oriFile"></TextView>
+
     <EditText
         android:id="@+id/startTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="填写开始时间 如:5.5"
+        android:layout_marginTop="20dp"
+        android:hint="填写开始时间 如:5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></EditText>
+        app:layout_constraintTop_toBottomOf="@id/oriPath"></EditText>
 
     <EditText
         android:id="@+id/durationTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="填写持续时间 如:10.1"
+        android:hint="填写持续时间 如:10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/startTime"></EditText>
@@ -80,7 +99,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="选择audio文件剪切"
+        android:text="剪辑"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/totalTime" />
 
