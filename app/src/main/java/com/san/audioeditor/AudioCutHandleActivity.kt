@@ -55,6 +55,7 @@ class AudioCutHandleActivity : BaseActivity() {
     private var isJointing = false
     private var infoBuilder: StringBuilder? = null
 
+
     @SuppressLint("HandlerLeak")
     private val mHandler = object : Handler() {
         override fun handleMessage(msg: Message) {
@@ -228,44 +229,70 @@ class AudioCutHandleActivity : BaseActivity() {
             }
         })
 
-        findViewById<View>(R.id.play).setOnClickListener {
+        findViewById<View>(R.id.pauseOri).setOnClickListener {
+            if (mediaPlayerOri.isPlaying) {
+                mediaPlayerOri.pause()
+                findViewById<TextView>(R.id.pauseOri).text = "继续播放"
+            } else {
+                mediaPlayerOri.start()
+                findViewById<TextView>(R.id.pauseOri).text = "暂停"
+            }
+        }
 
-            if (TextUtils.isEmpty(cutAudioOutPutPath)) {
-                Toast.makeText(this, "请先剪辑", Toast.LENGTH_SHORT).show()
+
+        findViewById<View>(R.id.pauseCut).setOnClickListener {
+            if (mediaPlayerCut.isPlaying) {
+                mediaPlayerCut.pause()
+                findViewById<TextView>(R.id.pauseCut).text = "继续播放"
+            } else {
+                mediaPlayerCut.start()
+                findViewById<TextView>(R.id.pauseCut).text = "暂停"
+            }
+        }
+
+
+        findViewById<View>(R.id.playOri).setOnClickListener {
+            findViewById<TextView>(R.id.pauseOri).text = "暂停"
+            if (TextUtils.isEmpty(oriPath)) {
+                Toast.makeText(this, "请先选择源文件", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             //懒加载 mediaPlayer
-            mediaPlayer.reset()
+            mediaPlayerOri.reset()
 
             try {
-                mediaPlayer.setDataSource(cutAudioOutPutPath)
-                mediaPlayer.prepare() // 可能需要一些时间来缓冲
-                mediaPlayer.start() // 开始播放
+                mediaPlayerOri.setDataSource(oriPath)
+                mediaPlayerOri.prepare() // 可能需要一些时间来缓冲
+                mediaPlayerOri.start() // 开始播放
 
 
                 // 格式化并设置总时间
                 val totalTime = String.format(
                     "%02d:%02d:%02d",
-                    TimeUnit.MILLISECONDS.toHours(mediaPlayer.duration.toLong()),
-                    TimeUnit.MILLISECONDS.toMinutes(mediaPlayer.duration.toLong()) -
-                            TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(mediaPlayer.duration.toLong())),
-                    TimeUnit.MILLISECONDS.toSeconds(mediaPlayer.duration.toLong()) -
-                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(mediaPlayer.duration.toLong()))
+                    TimeUnit.MILLISECONDS.toHours(mediaPlayerOri.duration.toLong()),
+                    TimeUnit.MILLISECONDS.toMinutes(mediaPlayerOri.duration.toLong()) -
+                            TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(mediaPlayerOri.duration.toLong())),
+                    TimeUnit.MILLISECONDS.toSeconds(mediaPlayerOri.duration.toLong()) -
+                            TimeUnit.MINUTES.toSeconds(
+                                TimeUnit.MILLISECONDS.toMinutes(
+                                    mediaPlayerOri.duration.toLong()
+                                )
+                            )
                 )
-                totalTimeTextView.text = totalTime
-                currentTimeTextView.text = "00:00:00"
+                totalTimeOriTextView.text = totalTime
+                currentTimeOriTextView.text = "00:00:00"
 
 
-                seekBar.max = mediaPlayer.duration
-                seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                seekBarOri.max = mediaPlayerOri.duration
+                seekBarOri.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                     override fun onProgressChanged(
                         seekBar: SeekBar?,
                         progress: Int,
                         fromUser: Boolean
                     ) {
                         if (fromUser) {
-                            mediaPlayer.seekTo(progress)
+                            mediaPlayerOri.seekTo(progress)
                         }
                     }
 
@@ -277,7 +304,97 @@ class AudioCutHandleActivity : BaseActivity() {
                 // 定期更新进度条的进度
                 mHandler?.postDelayed(object : Runnable {
                     override fun run() {
-                        val currentProgress = mediaPlayer.currentPosition
+                        val currentProgress = mediaPlayerOri.currentPosition
+                        seekBarOri.progress = currentProgress
+
+
+                        // 格式化并设置当前时间
+                        val currentTime = String.format(
+                            "%02d:%02d:%02d",
+                            TimeUnit.MILLISECONDS.toHours(currentProgress.toLong()),
+                            TimeUnit.MILLISECONDS.toMinutes(currentProgress.toLong()) -
+                                    TimeUnit.HOURS.toMinutes(
+                                        TimeUnit.MILLISECONDS.toHours(
+                                            currentProgress.toLong()
+                                        )
+                                    ),
+                            TimeUnit.MILLISECONDS.toSeconds(currentProgress.toLong()) -
+                                    TimeUnit.MINUTES.toSeconds(
+                                        TimeUnit.MILLISECONDS.toMinutes(
+                                            currentProgress.toLong()
+                                        )
+                                    )
+                        )
+                        currentTimeOriTextView.text = currentTime
+
+
+
+                        mHandler?.postDelayed(this, 1000)
+                    }
+                }, 1000)
+
+
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+
+        }
+
+
+        findViewById<View>(R.id.play).setOnClickListener {
+            findViewById<TextView>(R.id.pauseCut).text = "暂停"
+            if (TextUtils.isEmpty(cutAudioOutPutPath)) {
+                Toast.makeText(this, "请先剪辑", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            //懒加载 mediaPlayer
+            mediaPlayerCut.reset()
+
+            try {
+                mediaPlayerCut.setDataSource(cutAudioOutPutPath)
+                mediaPlayerCut.prepare() // 可能需要一些时间来缓冲
+                mediaPlayerCut.start() // 开始播放
+
+
+                // 格式化并设置总时间
+                val totalTime = String.format(
+                    "%02d:%02d:%02d",
+                    TimeUnit.MILLISECONDS.toHours(mediaPlayerCut.duration.toLong()),
+                    TimeUnit.MILLISECONDS.toMinutes(mediaPlayerCut.duration.toLong()) -
+                            TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(mediaPlayerCut.duration.toLong())),
+                    TimeUnit.MILLISECONDS.toSeconds(mediaPlayerCut.duration.toLong()) -
+                            TimeUnit.MINUTES.toSeconds(
+                                TimeUnit.MILLISECONDS.toMinutes(
+                                    mediaPlayerCut.duration.toLong()
+                                )
+                            )
+                )
+                totalTimeTextView.text = totalTime
+                currentTimeTextView.text = "00:00:00"
+
+
+                seekBar.max = mediaPlayerCut.duration
+                seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                    override fun onProgressChanged(
+                        seekBar: SeekBar?,
+                        progress: Int,
+                        fromUser: Boolean
+                    ) {
+                        if (fromUser) {
+                            mediaPlayerCut.seekTo(progress)
+                        }
+                    }
+
+                    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+                    override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+                })
+
+                // 定期更新进度条的进度
+                mHandler?.postDelayed(object : Runnable {
+                    override fun run() {
+                        val currentProgress = mediaPlayerCut.currentPosition
                         seekBar.progress = currentProgress
 
 
@@ -318,13 +435,25 @@ class AudioCutHandleActivity : BaseActivity() {
     val seekBar: SeekBar by lazy {
         findViewById(R.id.seekBar)
     }
+    val seekBarOri: SeekBar by lazy {
+        findViewById(R.id.seekBarOri)
+    }
     val currentTimeTextView: TextView by lazy {
         findViewById(R.id.currentTime)
     }
     val totalTimeTextView: TextView by lazy {
         findViewById(R.id.totalTime)
     }
-    val mediaPlayer: MediaPlayer by lazy {
+    val currentTimeOriTextView: TextView by lazy {
+        findViewById(R.id.currentTimeOri)
+    }
+    val totalTimeOriTextView: TextView by lazy {
+        findViewById(R.id.totalTimeOri)
+    }
+    val mediaPlayerCut: MediaPlayer by lazy {
+        MediaPlayer()
+    }
+    val mediaPlayerOri: MediaPlayer by lazy {
         MediaPlayer()
     }
 
