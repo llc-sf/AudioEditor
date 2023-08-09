@@ -301,8 +301,21 @@ class AudioCutHandleActivity : BaseActivity() {
                     override fun onStopTrackingTouch(seekBar: SeekBar?) {}
                 })
 
+
+                mHandler?.postDelayed(object : Runnable{
+                    override fun run() {
+                        val currentProgress = mediaPlayerOri.currentPosition
+                        val seconds = currentProgress / 1000
+                        val milliseconds = currentProgress % 1000
+                        val currentTime = "$seconds.$milliseconds"
+                        findViewById<TextView>(R.id.currentOri).text = currentTime
+                        mHandler?.postDelayed(this, 50)
+                    }
+
+                }, 50)
+
                 // 定期更新进度条的进度
-                mHandler?.postDelayed(object : Runnable {
+                mHandler?.post(object : Runnable {
                     override fun run() {
                         val currentProgress = mediaPlayerOri.currentPosition
                         seekBarOri.progress = currentProgress
@@ -329,9 +342,9 @@ class AudioCutHandleActivity : BaseActivity() {
 
 
 
-                        mHandler?.postDelayed(this, 1000)
+                        mHandler?.postDelayed(this, 200)
                     }
-                }, 1000)
+                })
 
 
             } catch (e: IOException) {
@@ -391,8 +404,21 @@ class AudioCutHandleActivity : BaseActivity() {
                     override fun onStopTrackingTouch(seekBar: SeekBar?) {}
                 })
 
+
+                mHandler?.postDelayed(object : Runnable{
+                    override fun run() {
+                        val currentProgress = mediaPlayerCut.currentPosition
+                        val seconds = currentProgress / 1000
+                        val milliseconds = currentProgress % 1000
+                        val currentTime = "$seconds.$milliseconds"
+                        findViewById<TextView>(R.id.currentCut).text = currentTime
+                        mHandler?.postDelayed(this, 50)
+                    }
+
+                }, 50)
+
                 // 定期更新进度条的进度
-                mHandler?.postDelayed(object : Runnable {
+                mHandler?.post(object : Runnable {
                     override fun run() {
                         val currentProgress = mediaPlayerCut.currentPosition
                         seekBar.progress = currentProgress
@@ -419,9 +445,9 @@ class AudioCutHandleActivity : BaseActivity() {
 
 
 
-                        mHandler?.postDelayed(this, 1000)
+                        mHandler?.postDelayed(this, 200)
                     }
-                }, 1000)
+                })
 
 
             } catch (e: IOException) {

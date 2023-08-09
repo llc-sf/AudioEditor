@@ -36,12 +36,20 @@
         app:layout_constraintTop_toBottomOf="@id/oriPath" />
 
     <TextView
+        android:id="@+id/currentOri"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/seekBarOri"
+        app:layout_constraintStart_toStartOf="@id/seekBarOri"
+        app:layout_constraintTop_toBottomOf="@id/seekBarOri"></TextView>
+
+    <TextView
         android:id="@+id/currentTimeOri"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@id/seekBarOri"
-        app:layout_constraintTop_toBottomOf="@id/seekBarOri"></TextView>
+        app:layout_constraintTop_toBottomOf="@id/currentOri"></TextView>
 
     <TextView
         android:id="@+id/totalTimeOri"
@@ -49,7 +57,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@id/seekBarOri"
-        app:layout_constraintTop_toBottomOf="@id/seekBarOri"></TextView>
+        app:layout_constraintTop_toBottomOf="@id/currentOri"></TextView>
 
     <Button
         android:id="@+id/playOri"
@@ -115,12 +123,20 @@
         app:layout_constraintTop_toBottomOf="@id/path" />
 
     <TextView
+        android:id="@+id/currentCut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/seekBar"
+        app:layout_constraintStart_toStartOf="@id/seekBar"
+        app:layout_constraintTop_toBottomOf="@id/seekBar"></TextView>
+
+    <TextView
         android:id="@+id/currentTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@id/seekBar"
-        app:layout_constraintTop_toBottomOf="@id/seekBar"></TextView>
+        app:layout_constraintTop_toBottomOf="@id/currentCut"></TextView>
 
     <TextView
         android:id="@+id/totalTime"
@@ -128,7 +144,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@id/seekBar"
-        app:layout_constraintTop_toBottomOf="@id/seekBar"></TextView>
+        app:layout_constraintTop_toBottomOf="@id/currentCut"></TextView>
 
     <Button
         android:id="@+id/btn_cut"
