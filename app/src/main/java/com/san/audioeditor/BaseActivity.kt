@@ -84,8 +84,8 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_setting, menu)
-        return true
+//        menuInflater.inflate(R.menu.menu_setting, menu)
+        return false
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
