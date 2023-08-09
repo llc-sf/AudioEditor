@@ -20,7 +20,7 @@
         android:id="@+id/oriPath"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="源文件路径："
+        android:text="原文件路径："
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/oriFile"></TextView>
