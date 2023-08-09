@@ -82,7 +82,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:hint="填写开始时间 如:5"
+        android:hint="填写开始时间 如:5.5 必填"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/playOri"></EditText>
@@ -91,7 +91,7 @@
         android:id="@+id/durationTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="填写持续时间 如:10"
+        android:hint="填写持续时间 如:10.5 必填"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/startTime"></EditText>
@@ -100,7 +100,7 @@
         android:id="@+id/outName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="输出文件命名"
+        android:hint="输出文件命名 非必填"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/durationTime"></EditText>
