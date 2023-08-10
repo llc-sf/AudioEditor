@@ -82,7 +82,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:hint="填写开始时间 如:5.5 必填"
+        android:hint="填写裁剪开始时间 如:5.5 必填"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/playOri"></EditText>
@@ -91,7 +92,8 @@
         android:id="@+id/durationTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="填写持续时间 如:10.5 必填"
+        android:hint="填写裁剪持续时间 如:10.5 必填"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/startTime"></EditText>
@@ -101,6 +103,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="输出文件命名 非必填"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/durationTime"></EditText>
@@ -175,109 +178,14 @@
         app:layout_constraintStart_toEndOf="@id/play"
         app:layout_constraintTop_toTopOf="@id/btn_cut" />
 
-    <!--    <Button-->
-    <!--        android:id="@+id/btn_concat"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="10dp"-->
-    <!--        android:text="@string/audio_concat"-->
-    <!--        android:visibility="gone" />-->
-
-    <!--    <Button-->
-    <!--        android:id="@+id/btn_mix"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="10dp"-->
-    <!--        android:text="@string/audio_mix"-->
-    <!--        android:visibility="gone" />-->
-
-    <!--    <Button-->
-    <!--        android:id="@+id/btn_play_audio"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="10dp"-->
-    <!--        android:text="@string/audio_play"-->
-    <!--        android:visibility="gone" />-->
-
-    <!--    <Button-->
-    <!--        android:id="@+id/btn_play_opensl"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="10dp"-->
-    <!--        android:text="@string/audio_opensl"-->
-    <!--        android:visibility="gone" />-->
-
-    <!--    <Button-->
-    <!--        android:id="@+id/btn_audio_encode"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="10dp"-->
-    <!--        android:text="@string/audio_encode"-->
-    <!--        android:visibility="gone" />-->
-
-    <!--    <Button-->
-    <!--        android:id="@+id/btn_audio_speed"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="10dp"-->
-    <!--        android:text="@string/audio_speed"-->
-    <!--        android:visibility="gone" />-->
-
-    <!--    <Button-->
-    <!--        android:id="@+id/btn_audio_echo"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="10dp"-->
-    <!--        android:text="@string/audio_echo"-->
-    <!--        android:visibility="gone" />-->
-
-    <!--    <Button-->
-    <!--        android:id="@+id/btn_audio_tremolo"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="10dp"-->
-    <!--        android:text="@string/audio_tremolo"-->
-    <!--        android:visibility="gone" />-->
-
-    <!--    <Button-->
-    <!--        android:id="@+id/btn_audio_denoise"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="10dp"-->
-    <!--        android:text="@string/audio_denoise"-->
-    <!--        android:visibility="gone" />-->
-
-    <!--    <Button-->
-    <!--        android:id="@+id/btn_audio_equalizer"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="10dp"-->
-    <!--        android:text="@string/audio_add_equalizer"-->
-    <!--        android:visibility="gone" />-->
-
-    <!--    <Button-->
-    <!--        android:id="@+id/btn_audio_silence"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="10dp"-->
-    <!--        android:text="@string/audio_silence"-->
-    <!--        android:visibility="gone" />-->
-
-    <!--    <Button-->
-    <!--        android:id="@+id/btn_audio_volume"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="10dp"-->
-    <!--        android:text="@string/audio_volume"-->
-    <!--        android:visibility="gone" />-->
-
-    <!--    <Button-->
-    <!--        android:id="@+id/btn_audio_waveform"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="10dp"-->
-    <!--        android:text="@string/audio_waveform"-->
-    <!--        android:visibility="gone" />-->
+    <Button
+        android:id="@+id/btn_play_both"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="同时播放"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pauseCut" />
 
 
     <include

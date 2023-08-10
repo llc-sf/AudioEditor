@@ -82,6 +82,8 @@ class AudioCutHandleActivity : BaseActivity() {
                     }
                     if (msg.obj is Int && msg.obj as Int == 0) {
                         findViewById<TextView>(R.id.path).text = "剪辑成功 路径: $outputPath"
+//                        initCutPlayer()
+                        initMediaPlayerCut()
                     } else {
                         findViewById<TextView>(R.id.path).text = "剪辑失败 路径: $outputPath"
                     }
@@ -126,6 +128,26 @@ class AudioCutHandleActivity : BaseActivity() {
 //        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
 //            PATH = cacheDir.absolutePath
 //        }
+    }
+
+    private fun initCutPlayer() {
+        if (!TextUtils.isEmpty(cutAudioOutPutPath)) {
+            mediaPlayerCut.reset()
+            mediaPlayerCut.setDataSource(cutAudioOutPutPath)
+            mediaPlayerCut.prepare() // 可能需要一些时间来缓冲
+        } else {
+//            Toast.makeText(this, "请先剪辑音频", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun initOriPlayer() {
+        if (!TextUtils.isEmpty(oriPath)) {
+            mediaPlayerOri.reset()
+            mediaPlayerOri.setDataSource(oriPath)
+            mediaPlayerOri.prepare() // 可能需要一些时间来缓冲
+        } else {
+//            Toast.makeText(this, "请先选择音频原文件", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun initView() {
@@ -229,10 +251,24 @@ class AudioCutHandleActivity : BaseActivity() {
             }
         })
 
+        findViewById<View>(R.id.btn_play_both).setOnClickListener {
+            try {
+                mediaPlayerCut.start()
+                mediaPlayerOri.start()
+
+                findViewById<TextView>(R.id.pauseOri).text = "暂停播放"
+                findViewById<TextView>(R.id.pauseCut).text = "暂停播放"
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
         findViewById<View>(R.id.pauseOri).setOnClickListener {
             if (mediaPlayerOri.isPlaying) {
                 mediaPlayerOri.pause()
                 findViewById<TextView>(R.id.pauseOri).text = "继续播放"
+                setStartTime()
+
             } else {
                 mediaPlayerOri.start()
                 findViewById<TextView>(R.id.pauseOri).text = "暂停"
@@ -252,208 +288,226 @@ class AudioCutHandleActivity : BaseActivity() {
 
 
         findViewById<View>(R.id.playOri).setOnClickListener {
-            findViewById<TextView>(R.id.pauseOri).text = "暂停"
-            if (TextUtils.isEmpty(oriPath)) {
-                Toast.makeText(this, "请先选择源文件", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            //懒加载 mediaPlayer
-            mediaPlayerOri.reset()
-
-            try {
-                mediaPlayerOri.setDataSource(oriPath)
-                mediaPlayerOri.prepare() // 可能需要一些时间来缓冲
-                mediaPlayerOri.start() // 开始播放
-
-
-                // 格式化并设置总时间
-                val totalTime = String.format(
-                    "%02d:%02d:%02d",
-                    TimeUnit.MILLISECONDS.toHours(mediaPlayerOri.duration.toLong()),
-                    TimeUnit.MILLISECONDS.toMinutes(mediaPlayerOri.duration.toLong()) -
-                            TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(mediaPlayerOri.duration.toLong())),
-                    TimeUnit.MILLISECONDS.toSeconds(mediaPlayerOri.duration.toLong()) -
-                            TimeUnit.MINUTES.toSeconds(
-                                TimeUnit.MILLISECONDS.toMinutes(
-                                    mediaPlayerOri.duration.toLong()
-                                )
-                            )
-                )
-                totalTimeOriTextView.text = totalTime
-                currentTimeOriTextView.text = "00:00:00"
-
-
-                seekBarOri.max = mediaPlayerOri.duration
-                seekBarOri.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-                    override fun onProgressChanged(
-                        seekBar: SeekBar?,
-                        progress: Int,
-                        fromUser: Boolean
-                    ) {
-                        if (fromUser) {
-                            mediaPlayerOri.seekTo(progress)
-                        }
-                    }
-
-                    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-
-                    override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-                })
-
-
-                mHandler?.postDelayed(object : Runnable{
-                    override fun run() {
-                        val currentProgress = mediaPlayerOri.currentPosition
-                        val seconds = currentProgress / 1000
-                        val milliseconds = currentProgress % 1000
-                        val currentTime = "$seconds.$milliseconds"
-                        findViewById<TextView>(R.id.currentOri).text = currentTime
-                        mHandler?.postDelayed(this, 5)
-                    }
-
-                }, 5)
-
-                // 定期更新进度条的进度
-                mHandler?.post(object : Runnable {
-                    override fun run() {
-                        val currentProgress = mediaPlayerOri.currentPosition
-                        seekBarOri.progress = currentProgress
-
-
-                        // 格式化并设置当前时间
-                        val currentTime = String.format(
-                            "%02d:%02d:%02d",
-                            TimeUnit.MILLISECONDS.toHours(currentProgress.toLong()),
-                            TimeUnit.MILLISECONDS.toMinutes(currentProgress.toLong()) -
-                                    TimeUnit.HOURS.toMinutes(
-                                        TimeUnit.MILLISECONDS.toHours(
-                                            currentProgress.toLong()
-                                        )
-                                    ),
-                            TimeUnit.MILLISECONDS.toSeconds(currentProgress.toLong()) -
-                                    TimeUnit.MINUTES.toSeconds(
-                                        TimeUnit.MILLISECONDS.toMinutes(
-                                            currentProgress.toLong()
-                                        )
-                                    )
-                        )
-                        currentTimeOriTextView.text = currentTime
-
-
-
-                        mHandler?.postDelayed(this, 200)
-                    }
-                })
-
-
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-
+            initOriPlayer()
+            mediaPlayerOri.start() // 开始播放
         }
 
 
         findViewById<View>(R.id.play).setOnClickListener {
-            findViewById<TextView>(R.id.pauseCut).text = "暂停"
-            if (TextUtils.isEmpty(cutAudioOutPutPath)) {
-                Toast.makeText(this, "请先剪辑", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
+            initCutPlayer()
+            mediaPlayerCut.start() // 开始播放
+        }
+    }
 
-            //懒加载 mediaPlayer
-            mediaPlayerCut.reset()
+    private fun initMediaPlayerCut() {
+        findViewById<TextView>(R.id.pauseCut).text = "暂停"
+        if (TextUtils.isEmpty(cutAudioOutPutPath)) {
+            Toast.makeText(this, "请先剪辑", Toast.LENGTH_SHORT).show()
+            return
+        }
 
-            try {
-                mediaPlayerCut.setDataSource(cutAudioOutPutPath)
-                mediaPlayerCut.prepare() // 可能需要一些时间来缓冲
-                mediaPlayerCut.start() // 开始播放
+        //懒加载 mediaPlayer
+        mediaPlayerCut.reset()
+
+        try {
+            mediaPlayerCut.setDataSource(cutAudioOutPutPath)
+            mediaPlayerCut.prepare() // 可能需要一些时间来缓冲
 
 
-                // 格式化并设置总时间
-                val totalTime = String.format(
-                    "%02d:%02d:%02d",
-                    TimeUnit.MILLISECONDS.toHours(mediaPlayerCut.duration.toLong()),
-                    TimeUnit.MILLISECONDS.toMinutes(mediaPlayerCut.duration.toLong()) -
-                            TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(mediaPlayerCut.duration.toLong())),
-                    TimeUnit.MILLISECONDS.toSeconds(mediaPlayerCut.duration.toLong()) -
-                            TimeUnit.MINUTES.toSeconds(
-                                TimeUnit.MILLISECONDS.toMinutes(
-                                    mediaPlayerCut.duration.toLong()
-                                )
+
+            // 格式化并设置总时间
+            val totalTime = String.format(
+                "%02d:%02d:%02d",
+                TimeUnit.MILLISECONDS.toHours(mediaPlayerCut.duration.toLong()),
+                TimeUnit.MILLISECONDS.toMinutes(mediaPlayerCut.duration.toLong()) -
+                        TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(mediaPlayerCut.duration.toLong())),
+                TimeUnit.MILLISECONDS.toSeconds(mediaPlayerCut.duration.toLong()) -
+                        TimeUnit.MINUTES.toSeconds(
+                            TimeUnit.MILLISECONDS.toMinutes(
+                                mediaPlayerCut.duration.toLong()
                             )
-                )
-                totalTimeTextView.text = totalTime
-                currentTimeTextView.text = "00:00:00"
-
-
-                seekBar.max = mediaPlayerCut.duration
-                seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-                    override fun onProgressChanged(
-                        seekBar: SeekBar?,
-                        progress: Int,
-                        fromUser: Boolean
-                    ) {
-                        if (fromUser) {
-                            mediaPlayerCut.seekTo(progress)
-                        }
-                    }
-
-                    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-
-                    override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-                })
-
-
-                mHandler?.postDelayed(object : Runnable{
-                    override fun run() {
-                        val currentProgress = mediaPlayerCut.currentPosition
-                        val seconds = currentProgress / 1000
-                        val milliseconds = currentProgress % 1000
-                        val currentTime = "$seconds.$milliseconds"
-                        findViewById<TextView>(R.id.currentCut).text = currentTime
-                        mHandler?.postDelayed(this, 50)
-                    }
-
-                }, 50)
-
-                // 定期更新进度条的进度
-                mHandler?.post(object : Runnable {
-                    override fun run() {
-                        val currentProgress = mediaPlayerCut.currentPosition
-                        seekBar.progress = currentProgress
-
-
-                        // 格式化并设置当前时间
-                        val currentTime = String.format(
-                            "%02d:%02d:%02d",
-                            TimeUnit.MILLISECONDS.toHours(currentProgress.toLong()),
-                            TimeUnit.MILLISECONDS.toMinutes(currentProgress.toLong()) -
-                                    TimeUnit.HOURS.toMinutes(
-                                        TimeUnit.MILLISECONDS.toHours(
-                                            currentProgress.toLong()
-                                        )
-                                    ),
-                            TimeUnit.MILLISECONDS.toSeconds(currentProgress.toLong()) -
-                                    TimeUnit.MINUTES.toSeconds(
-                                        TimeUnit.MILLISECONDS.toMinutes(
-                                            currentProgress.toLong()
-                                        )
-                                    )
                         )
-                        currentTimeTextView.text = currentTime
+            )
+            totalTimeTextView.text = totalTime
+            currentTimeTextView.text = "00:00:00"
 
 
-
-                        mHandler?.postDelayed(this, 200)
+            seekBar.max = mediaPlayerCut.duration
+            seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(
+                    seekBar: SeekBar?,
+                    progress: Int,
+                    fromUser: Boolean
+                ) {
+                    if (fromUser) {
+                        mediaPlayerCut.seekTo(progress)
                     }
-                })
+                }
+
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+            })
 
 
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
+            mHandler?.postDelayed(object : Runnable {
+                override fun run() {
+                    val currentProgress = mediaPlayerCut.currentPosition
+                    val seconds = currentProgress / 1000
+                    val milliseconds = currentProgress % 1000
+                    val currentTime = "$seconds.$milliseconds"
+                    findViewById<TextView>(R.id.currentCut).text = currentTime
+                    mHandler?.postDelayed(this, 50)
+                }
 
+            }, 50)
+
+            // 定期更新进度条的进度
+            mHandler?.post(object : Runnable {
+                override fun run() {
+                    val currentProgress = mediaPlayerCut.currentPosition
+                    seekBar.progress = currentProgress
+
+
+                    // 格式化并设置当前时间
+                    val currentTime = String.format(
+                        "%02d:%02d:%02d",
+                        TimeUnit.MILLISECONDS.toHours(currentProgress.toLong()),
+                        TimeUnit.MILLISECONDS.toMinutes(currentProgress.toLong()) -
+                                TimeUnit.HOURS.toMinutes(
+                                    TimeUnit.MILLISECONDS.toHours(
+                                        currentProgress.toLong()
+                                    )
+                                ),
+                        TimeUnit.MILLISECONDS.toSeconds(currentProgress.toLong()) -
+                                TimeUnit.MINUTES.toSeconds(
+                                    TimeUnit.MILLISECONDS.toMinutes(
+                                        currentProgress.toLong()
+                                    )
+                                )
+                    )
+                    currentTimeTextView.text = currentTime
+
+
+
+                    mHandler?.postDelayed(this, 200)
+                }
+            })
+
+
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun initMediaPlayerOri() {
+        findViewById<TextView>(R.id.pauseOri).text = "暂停"
+        if (TextUtils.isEmpty(oriPath)) {
+            Toast.makeText(this, "请先选择源文件", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        //懒加载 mediaPlayer
+        mediaPlayerOri.reset()
+
+        try {
+            mediaPlayerOri.setDataSource(oriPath)
+            mediaPlayerOri.prepare() // 可能需要一些时间来缓冲
+
+            // 格式化并设置总时间
+            val totalTime = String.format(
+                "%02d:%02d:%02d",
+                TimeUnit.MILLISECONDS.toHours(mediaPlayerOri.duration.toLong()),
+                TimeUnit.MILLISECONDS.toMinutes(mediaPlayerOri.duration.toLong()) -
+                        TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(mediaPlayerOri.duration.toLong())),
+                TimeUnit.MILLISECONDS.toSeconds(mediaPlayerOri.duration.toLong()) -
+                        TimeUnit.MINUTES.toSeconds(
+                            TimeUnit.MILLISECONDS.toMinutes(
+                                mediaPlayerOri.duration.toLong()
+                            )
+                        )
+            )
+            totalTimeOriTextView.text = totalTime
+            currentTimeOriTextView.text = "00:00:00"
+
+
+            seekBarOri.max = mediaPlayerOri.duration
+            seekBarOri.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(
+                    seekBar: SeekBar?,
+                    progress: Int,
+                    fromUser: Boolean
+                ) {
+                    if (fromUser) {
+                        mediaPlayerOri.seekTo(progress)
+                    }
+                    setStartTime()
+                }
+
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+            })
+
+
+            mHandler?.postDelayed(object : Runnable {
+                override fun run() {
+                    val currentProgress = mediaPlayerOri.currentPosition
+                    val seconds = currentProgress / 1000
+                    val milliseconds = currentProgress % 1000
+                    val currentTime = "$seconds.$milliseconds"
+                    findViewById<TextView>(R.id.currentOri).text = currentTime
+                    mHandler?.postDelayed(this, 5)
+                }
+
+            }, 5)
+
+            // 定期更新进度条的进度
+            mHandler?.post(object : Runnable {
+                override fun run() {
+                    val currentProgress = mediaPlayerOri.currentPosition
+                    seekBarOri.progress = currentProgress
+
+
+                    // 格式化并设置当前时间
+                    val currentTime = String.format(
+                        "%02d:%02d:%02d",
+                        TimeUnit.MILLISECONDS.toHours(currentProgress.toLong()),
+                        TimeUnit.MILLISECONDS.toMinutes(currentProgress.toLong()) -
+                                TimeUnit.HOURS.toMinutes(
+                                    TimeUnit.MILLISECONDS.toHours(
+                                        currentProgress.toLong()
+                                    )
+                                ),
+                        TimeUnit.MILLISECONDS.toSeconds(currentProgress.toLong()) -
+                                TimeUnit.MINUTES.toSeconds(
+                                    TimeUnit.MILLISECONDS.toMinutes(
+                                        currentProgress.toLong()
+                                    )
+                                )
+                    )
+                    currentTimeOriTextView.text = currentTime
+
+
+
+                    mHandler?.postDelayed(this, 200)
+                }
+            })
+
+
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun setStartTime() {
+        if (!mediaPlayerOri.isPlaying) {
+            val currentProgress = mediaPlayerOri.currentPosition
+            val seconds = currentProgress / 1000
+            val milliseconds = currentProgress % 1000
+            val currentTime = "$seconds.$milliseconds"
+            findViewById<EditText>(R.id.startTime).setText(currentTime)
+            startTime = currentTime.toFloat()
         }
     }
 
@@ -495,6 +549,8 @@ class AudioCutHandleActivity : BaseActivity() {
     override fun onSelectedFile(filePath: String) {
         oriPath = filePath
         findViewById<TextView>(R.id.oriPath).text = "源文件路径：$filePath"
+//        initOriPlayer()
+        initMediaPlayerOri()
 //        doHandleAudio(filePath)
     }
 
@@ -558,6 +614,11 @@ class AudioCutHandleActivity : BaseActivity() {
                 }
                 if (startTime + durationTime > totalDuration) {
                     Toast.makeText(this, "开始时间+截取时长不能大于歌曲总时长", Toast.LENGTH_SHORT)
+                        .show()
+                    return
+                }
+                if (durationTime == 0f) {
+                    Toast.makeText(this, "截取时长不能为0", Toast.LENGTH_SHORT)
                         .show()
                     return
                 }
@@ -778,7 +839,6 @@ class AudioCutHandleActivity : BaseActivity() {
             System.loadLibrary("media-handle")
         }
     }
-
 
 
 }
