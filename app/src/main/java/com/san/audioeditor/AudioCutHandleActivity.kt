@@ -309,10 +309,10 @@ class AudioCutHandleActivity : BaseActivity() {
                         val milliseconds = currentProgress % 1000
                         val currentTime = "$seconds.$milliseconds"
                         findViewById<TextView>(R.id.currentOri).text = currentTime
-                        mHandler?.postDelayed(this, 50)
+                        mHandler?.postDelayed(this, 5)
                     }
 
-                }, 50)
+                }, 5)
 
                 // 定期更新进度条的进度
                 mHandler?.post(object : Runnable {
@@ -754,6 +754,10 @@ class AudioCutHandleActivity : BaseActivity() {
     override fun onDestroy() {
         super.onDestroy()
         mHandler.removeCallbacksAndMessages(null)
+        mediaPlayerCut.stop()
+        mediaPlayerCut.release()
+        mediaPlayerOri.stop()
+        mediaPlayerOri.release()
     }
 
     companion object {
@@ -774,5 +778,7 @@ class AudioCutHandleActivity : BaseActivity() {
             System.loadLibrary("media-handle")
         }
     }
+
+
 
 }
