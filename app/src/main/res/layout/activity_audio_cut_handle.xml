@@ -187,6 +187,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/pauseCut" />
 
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="裁剪之后可点击 同时播放  按钮，对比与原音频是否同步 \n 注意：可能会存在很细小的差别，因为原始文件是从暂停状态直接到播放状态。被裁剪的歌曲要播放得经过一个初始化歌曲的过程，可能会耗时一点，但不会有很大差别。"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_play_both"
+        ></TextView>
 
     <include
         layout="@layout/item_progress"
