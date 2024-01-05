@@ -50,8 +50,10 @@ class AmplitudaActivity : AppCompatActivity() {
             waveMinHeight = Utils.dp(this@AmplitudaActivity, 5)
             waveCornerRadius = Utils.dp(this@AmplitudaActivity, 2)
             waveGravity = WaveGravity.CENTER
-            waveBackgroundColor = ContextCompat.getColor(this@AmplitudaActivity, com.masoudss.lib.R.color.yellow)
-            waveProgressColor = ContextCompat.getColor(this@AmplitudaActivity, com.masoudss.lib.R.color.blue)
+            waveBackgroundColor =
+                ContextCompat.getColor(this@AmplitudaActivity, com.masoudss.lib.R.color.yellow)
+            waveProgressColor =
+                ContextCompat.getColor(this@AmplitudaActivity, com.masoudss.lib.R.color.blue)
             sample = getDummyWaveSample()
             marker = getDummyMarkerSample()
             onProgressChanged = object : SeekBarOnProgressChanged {
@@ -198,21 +200,27 @@ class AmplitudaActivity : AppCompatActivity() {
 
     private fun checkStoragePermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val hasReadPermission = checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-            val hasWritePermission = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-
-            val permissions = ArrayList<String>()
-
-            if (hasReadPermission != PackageManager.PERMISSION_GRANTED)
-                permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE)
-
-            if (hasWritePermission != PackageManager.PERMISSION_GRANTED)
-                permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-
-            if (permissions.isNotEmpty())
-                requestPermissions(permissions.toTypedArray(), REQ_CODE_STORAGE_PERMISSION)
-            else
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 launchSelectAudioActivity()
+            } else {
+                val hasReadPermission =
+                    checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                val hasWritePermission =
+                    checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+                val permissions = ArrayList<String>()
+
+                if (hasReadPermission != PackageManager.PERMISSION_GRANTED)
+                    permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE)
+
+                if (hasWritePermission != PackageManager.PERMISSION_GRANTED)
+                    permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+                if (permissions.isNotEmpty())
+                    requestPermissions(permissions.toTypedArray(), REQ_CODE_STORAGE_PERMISSION)
+                else
+                    launchSelectAudioActivity()
+            }
 
         } else
             launchSelectAudioActivity()
