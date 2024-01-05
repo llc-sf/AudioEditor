@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.masoudss.lib.demo.AmplitudaActivity
+import com.masoudss.lib.demo.AmplitudaValueActivity
 import dev.audio.ffmpeglib.listener.OnItemClickListener
 import com.san.audioeditor.adapter.WaterfallAdapter
 import com.san.audioeditor.handler.FFmpegHandler
@@ -143,6 +144,7 @@ class AudioHandleActivity : BaseActivity() {
             getString(R.string.audio_cut),
             getString(R.string.audio_concat),
             getString(R.string.audio_waveform),
+            "音频振幅解析",
             "淡入淡出", "多轨道"
         )
 
@@ -169,6 +171,15 @@ class AudioHandleActivity : BaseActivity() {
                             Intent(
                                 this@AudioHandleActivity,
                                 AmplitudaActivity::class.java
+                            )
+                        )
+                    }
+
+                    3 -> {
+                        startActivity(
+                            Intent(
+                                this@AudioHandleActivity,
+                                AmplitudaValueActivity::class.java
                             )
                         )
                     }
