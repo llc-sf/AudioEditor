@@ -6,5 +6,6 @@
     <application>
         <activity android:name="com.masoudss.lib.demo.AmplitudaActivity"></activity>
         <activity android:name="com.masoudss.lib.demo.SelectAudioActivity"></activity>
+        <activity android:name="com.masoudss.lib.demo.AmplitudaValueActivity"></activity>
     </application>
 </manifest>
