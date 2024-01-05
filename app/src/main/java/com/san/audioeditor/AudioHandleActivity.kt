@@ -14,18 +14,19 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.frank.ffmpeg.listener.OnItemClickListener
+import dev.audio.ffmpeglib.listener.OnItemClickListener
 import com.san.audioeditor.adapter.WaterfallAdapter
 import com.san.audioeditor.handler.FFmpegHandler
 import com.san.audioeditor.handler.FFmpegHandler.MSG_BEGIN
 import com.san.audioeditor.handler.FFmpegHandler.MSG_FINISH
 import com.san.audioeditor.handler.FFmpegHandler.MSG_INFO
 import com.san.audioeditor.handler.FFmpegHandler.MSG_PROGRESS
-import com.san.audioeditor.tool.AndroidUtil
-import com.san.audioeditor.tool.FFmpegUtil
-import com.san.audioeditor.tool.FFmpegUtil.fadeInOutAudio
-import com.san.audioeditor.tool.FileUtil
-import com.san.audioeditor.tool.StoragePermissionManager
+import dev.audio.ffmpeglib.FFmpegApplication
+import dev.audio.ffmpeglib.tool.AndroidUtil
+import dev.audio.ffmpeglib.tool.FFmpegUtil
+import dev.audio.ffmpeglib.tool.FFmpegUtil.fadeInOutAudio
+import dev.audio.ffmpeglib.tool.FileUtil
+import dev.audio.ffmpeglib.tool.StoragePermissionManager
 import java.io.File
 import java.util.Locale
 

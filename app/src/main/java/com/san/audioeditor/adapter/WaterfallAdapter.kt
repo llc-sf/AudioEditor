@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.frank.ffmpeg.listener.OnItemClickListener
+import dev.audio.ffmpeglib.listener.OnItemClickListener
 import com.san.audioeditor.R
 import java.util.*
 

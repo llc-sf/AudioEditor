@@ -19,3 +19,4 @@ dependencyResolutionManagement {
 rootProject.name = "AudioEditor"
 include ':app'
 include ':waveform'
+include ':ffmpegLib'

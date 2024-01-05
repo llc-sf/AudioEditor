@@ -5,10 +5,10 @@ import android.os.Message;
 import android.util.Log;
 
 
-import com.frank.ffmpeg.listener.OnHandleListener;
-import com.frank.ffmpeg.model.MediaBean;
-import com.frank.ffmpeg.tool.JsonParseTool;
-import com.san.audioeditor.FFmpegCmd;
+import dev.audio.ffmpeglib.FFmpegCmd;
+import dev.audio.ffmpeglib.listener.OnHandleListener;
+import dev.audio.ffmpeglib.model.MediaBean;
+import dev.audio.ffmpeglib.tool.JsonParseTool;
 
 import org.jetbrains.annotations.NotNull;
 

@@ -245,8 +245,8 @@ class AmplitudaActivity : AppCompatActivity() {
     }
 
     private fun launchSelectAudioActivity() {
-//        val intent = Intent(this@AmplitudaActivity, SelectAudioActivity::class.java)
-//        startActivityForResult(intent, REQ_CODE_PICK_SOUND_FILE)
+        val intent = Intent(this@AmplitudaActivity, SelectAudioActivity::class.java)
+        startActivityForResult(intent, REQ_CODE_PICK_SOUND_FILE)
     }
 
     private fun getDummyWaveSample(): IntArray {

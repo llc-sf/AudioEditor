@@ -2,13 +2,13 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 32
+    compileSdk 34
     ndkVersion "21.1.6352462"
     namespace 'com.masoudss.lib'
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 32
+        minSdkVersion 21
+        targetSdk 34
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -28,5 +28,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "androidx.appcompat:appcompat:1.4.2"
-    compileOnly 'com.github.lincollincol:amplituda:2.1.0'
+
+    api project(":ffmpegLib")
 }
