@@ -1,4 +1,4 @@
-package com.san.audioeditor
+package dev.audio.ffmpeglib.tool
 
 import android.annotation.TargetApi
 import android.content.ContentUris
