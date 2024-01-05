@@ -1,1 +1,10 @@
-<manifest package="com.masoudss.lib" />
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.masoudss.lib">
+
+    <application>
+        <activity android:name="com.masoudss.lib.demo.AmplitudaActivity"></activity>
+        <activity android:name="com.masoudss.lib.demo.SelectAudioActivity"></activity>
+    </application>
+</manifest>

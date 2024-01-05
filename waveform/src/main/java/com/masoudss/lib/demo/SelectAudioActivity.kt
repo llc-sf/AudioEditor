@@ -1,4 +1,4 @@
-package com.san.audioeditor
+package com.masoudss.lib.demo
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -8,7 +8,8 @@ import android.os.Bundle
 import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.san.audioeditor.databinding.ActivitySelectAudioBinding
+import com.masoudss.lib.databinding.ActivitySelectAudioBinding
+import com.masoudss.lib.demo.AudioAdapter
 import dev.audio.ffmpeglib.model.AudioModel
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread

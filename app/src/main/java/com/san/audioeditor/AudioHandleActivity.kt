@@ -14,6 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.masoudss.lib.demo.AmplitudaActivity
 import dev.audio.ffmpeglib.listener.OnItemClickListener
 import com.san.audioeditor.adapter.WaterfallAdapter
 import com.san.audioeditor.handler.FFmpegHandler

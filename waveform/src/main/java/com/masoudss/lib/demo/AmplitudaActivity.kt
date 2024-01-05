@@ -1,4 +1,4 @@
-package com.san.audioeditor
+package com.masoudss.lib.demo
 
 import android.Manifest
 import android.app.Activity
@@ -14,11 +14,12 @@ import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.masoudss.lib.R
 import com.masoudss.lib.SeekBarOnProgressChanged
 import com.masoudss.lib.WaveformSeekBar
+import com.masoudss.lib.databinding.ActivityAmplitudaBinding
 import com.masoudss.lib.utils.Utils
 import com.masoudss.lib.utils.WaveGravity
-import com.san.audioeditor.databinding.ActivityAmplitudaBinding
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import java.util.Random
@@ -51,9 +52,9 @@ class AmplitudaActivity : AppCompatActivity() {
             waveCornerRadius = Utils.dp(this@AmplitudaActivity, 2)
             waveGravity = WaveGravity.CENTER
             waveBackgroundColor =
-                ContextCompat.getColor(this@AmplitudaActivity, com.masoudss.lib.R.color.yellow)
+                ContextCompat.getColor(this@AmplitudaActivity, R.color.yellow)
             waveProgressColor =
-                ContextCompat.getColor(this@AmplitudaActivity, com.masoudss.lib.R.color.blue)
+                ContextCompat.getColor(this@AmplitudaActivity, R.color.blue)
             sample = getDummyWaveSample()
             marker = getDummyMarkerSample()
             onProgressChanged = object : SeekBarOnProgressChanged {
@@ -149,9 +150,9 @@ class AmplitudaActivity : AppCompatActivity() {
             val radioButton = binding.waveColorRadioGroup.findViewById(checkedId) as RadioButton
             val index = binding.waveColorRadioGroup.indexOfChild(radioButton)
             binding.waveformSeekBar.waveBackgroundColor = when (index) {
-                0 -> ContextCompat.getColor(this, com.masoudss.lib.R.color.pink)
-                1 -> ContextCompat.getColor(this, com.masoudss.lib.R.color.yellow)
-                else -> ContextCompat.getColor(this, com.masoudss.lib.R.color.white)
+                0 -> ContextCompat.getColor(this, R.color.pink)
+                1 -> ContextCompat.getColor(this, R.color.yellow)
+                else -> ContextCompat.getColor(this, R.color.white)
             }
         }
 
@@ -160,9 +161,9 @@ class AmplitudaActivity : AppCompatActivity() {
             val radioButton = binding.progressColorRadioGroup.findViewById(checkedId) as RadioButton
             val index = binding.progressColorRadioGroup.indexOfChild(radioButton)
             binding.waveformSeekBar.waveProgressColor = when (index) {
-                0 -> ContextCompat.getColor(this, com.masoudss.lib.R.color.red)
-                1 -> ContextCompat.getColor(this, com.masoudss.lib.R.color.blue)
-                else -> ContextCompat.getColor(this, com.masoudss.lib.R.color.green)
+                0 -> ContextCompat.getColor(this, R.color.red)
+                1 -> ContextCompat.getColor(this, R.color.blue)
+                else -> ContextCompat.getColor(this, R.color.green)
             }
         }
 
@@ -184,7 +185,7 @@ class AmplitudaActivity : AppCompatActivity() {
             val path = data.getStringExtra("path")
 
             val progressDialog = ProgressDialog(this@AmplitudaActivity)
-            progressDialog.setMessage(getString(com.masoudss.lib.R.string.message_waiting))
+            progressDialog.setMessage(getString(R.string.message_waiting))
             progressDialog.show()
 
 
@@ -242,7 +243,7 @@ class AmplitudaActivity : AppCompatActivity() {
             if (denied)
                 Toast.makeText(
                     this@AmplitudaActivity,
-                    getString(com.masoudss.lib.R.string.permission_error),
+                    getString(R.string.permission_error),
                     Toast.LENGTH_SHORT
                 ).show()
             else

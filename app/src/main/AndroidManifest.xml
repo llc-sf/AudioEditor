@@ -50,8 +50,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".AudioCutHandleActivity"></activity>
-        <activity android:name=".AmplitudaActivity"></activity>
-        <activity android:name=".SelectAudioActivity"></activity>
     </application>
 
 </manifest>

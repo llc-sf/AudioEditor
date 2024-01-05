@@ -1,10 +1,10 @@
-package com.san.audioeditor
+package com.masoudss.lib.demo
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.san.audioeditor.databinding.ItemAudioBinding
+import com.masoudss.lib.databinding.ItemAudioBinding
 import dev.audio.ffmpeglib.model.AudioModel
 
 class AudioAdapter(
