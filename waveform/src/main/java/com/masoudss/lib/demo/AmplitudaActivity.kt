@@ -68,6 +68,78 @@ class AmplitudaActivity : AppCompatActivity() {
                 }
             }
         }
+        binding.waveformSeekBar1.apply {
+            progress = 33.2F
+            waveWidth = Utils.dp(this@AmplitudaActivity, 5)
+            waveGap = Utils.dp(this@AmplitudaActivity, 2)
+            waveMinHeight = Utils.dp(this@AmplitudaActivity, 5)
+            waveCornerRadius = Utils.dp(this@AmplitudaActivity, 2)
+            waveGravity = WaveGravity.CENTER
+            waveBackgroundColor =
+                ContextCompat.getColor(this@AmplitudaActivity, R.color.yellow)
+            waveProgressColor =
+                ContextCompat.getColor(this@AmplitudaActivity, R.color.blue)
+            sample = getDummyWaveSample()
+            marker = getDummyMarkerSample()
+            onProgressChanged = object : SeekBarOnProgressChanged {
+                override fun onProgressChanged(
+                    waveformSeekBar: WaveformSeekBar,
+                    progress: Float,
+                    fromUser: Boolean
+                ) {
+                    if (fromUser)
+                        binding.waveProgress.progress = progress.toInt()
+                }
+            }
+        }
+        binding.waveformSeekBar2.apply {
+            progress = 33.2F
+            waveWidth = Utils.dp(this@AmplitudaActivity, 5)
+            waveGap = Utils.dp(this@AmplitudaActivity, 2)
+            waveMinHeight = Utils.dp(this@AmplitudaActivity, 5)
+            waveCornerRadius = Utils.dp(this@AmplitudaActivity, 2)
+            waveGravity = WaveGravity.CENTER
+            waveBackgroundColor =
+                ContextCompat.getColor(this@AmplitudaActivity, R.color.yellow)
+            waveProgressColor =
+                ContextCompat.getColor(this@AmplitudaActivity, R.color.blue)
+            sample = getDummyWaveSample()
+            marker = getDummyMarkerSample()
+            onProgressChanged = object : SeekBarOnProgressChanged {
+                override fun onProgressChanged(
+                    waveformSeekBar: WaveformSeekBar,
+                    progress: Float,
+                    fromUser: Boolean
+                ) {
+                    if (fromUser)
+                        binding.waveProgress.progress = progress.toInt()
+                }
+            }
+        }
+        binding.waveformSeekBar3.apply {
+            progress = 33.2F
+            waveWidth = Utils.dp(this@AmplitudaActivity, 5)
+            waveGap = Utils.dp(this@AmplitudaActivity, 2)
+            waveMinHeight = Utils.dp(this@AmplitudaActivity, 5)
+            waveCornerRadius = Utils.dp(this@AmplitudaActivity, 2)
+            waveGravity = WaveGravity.CENTER
+            waveBackgroundColor =
+                ContextCompat.getColor(this@AmplitudaActivity, R.color.yellow)
+            waveProgressColor =
+                ContextCompat.getColor(this@AmplitudaActivity, R.color.blue)
+            sample = getDummyWaveSample()
+            marker = getDummyMarkerSample()
+            onProgressChanged = object : SeekBarOnProgressChanged {
+                override fun onProgressChanged(
+                    waveformSeekBar: WaveformSeekBar,
+                    progress: Float,
+                    fromUser: Boolean
+                ) {
+                    if (fromUser)
+                        binding.waveProgress.progress = progress.toInt()
+                }
+            }
+        }
 
         binding.waveWidth.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -191,6 +263,9 @@ class AmplitudaActivity : AppCompatActivity() {
 
             doAsync {
                 binding.waveformSeekBar.setSampleFrom(path!!)
+                binding.waveformSeekBar1.setSampleFrom(path!!)
+                binding.waveformSeekBar2.setSampleFrom(path!!)
+                binding.waveformSeekBar3.setSampleFrom(path!!)
 
                 uiThread {
                     progressDialog.dismiss()

@@ -29,6 +29,7 @@ import dev.audio.ffmpeglib.tool.FFmpegUtil
 import dev.audio.ffmpeglib.tool.FFmpegUtil.fadeInOutAudio
 import dev.audio.ffmpeglib.tool.FileUtil
 import dev.audio.ffmpeglib.tool.StoragePermissionManager
+import dev.audio.timeruler.demo.TimeRulerActivity
 import java.io.File
 import java.util.Locale
 
@@ -180,6 +181,15 @@ class AudioHandleActivity : BaseActivity() {
                             Intent(
                                 this@AudioHandleActivity,
                                 AmplitudaValueActivity::class.java
+                            )
+                        )
+                    }
+
+                    5 -> {
+                        startActivity(
+                            Intent(
+                                this@AudioHandleActivity,
+                                TimeRulerActivity::class.java
                             )
                         )
                     }

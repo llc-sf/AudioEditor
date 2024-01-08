@@ -20,3 +20,4 @@ rootProject.name = "AudioEditor"
 include ':app'
 include ':waveform'
 include ':ffmpegLib'
+include ':timeRuler'
