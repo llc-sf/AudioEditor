@@ -53,7 +53,7 @@ public class BaseScaleBar extends View implements ScaleGestureDetector.OnScaleGe
     private float mCursorPositionProportion = 0.5f;
     // 刻度尺横线位置
     private float mBaselinePosition;
-    private float mBaselinePositionProportion = 0.1f;
+    private float mBaselinePositionProportion = 0.01f;
     private float maxUnitPixel;
     private float minUnitPixel;
     private int tickColor;
@@ -117,9 +117,7 @@ public class BaseScaleBar extends View implements ScaleGestureDetector.OnScaleGe
             mCursorPositionProportion = position;
         }
         position = typedArray.getFloat(R.styleable.BaseScaleBar_baselinePosition, 0.67f);
-        if (position != 0) {
-            mBaselinePositionProportion = position;
-        }
+        mBaselinePositionProportion = position;
         // 释放
         typedArray.recycle();
 
@@ -241,12 +239,18 @@ public class BaseScaleBar extends View implements ScaleGestureDetector.OnScaleGe
                 result = contentHeight;
                 break;
             case MeasureSpec.EXACTLY:
-                result = specSize > contentHeight ? specSize : contentHeight;
+                result = specSize;
                 break;
         }
         return result;
     }
 
+    /**
+     * 计算内容高度
+     * todo
+     * @param baselinePositionProportion
+     * @return
+     */
     protected int calcContentHeight(float baselinePositionProportion) {
         int tickValueHeight = 0;
         if (showTickValue && null != mTickMarkStrategy) {
