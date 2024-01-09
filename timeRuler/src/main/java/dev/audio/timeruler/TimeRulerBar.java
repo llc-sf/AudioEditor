@@ -40,6 +40,9 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
 
 
     public static final long VALUE_1_MIN = 1 * 60 * 1000;
+    public static final long VALUE_2_MIN = 2 * 60 * 1000;
+    public static final long VALUE_3_MIN = 3 * 60 * 1000;
+    public static final long VALUE_4_MIN = 4 * 60 * 1000;
     public static final long VALUE_5_MIN = 5 * 60 * 1000;
     public static final long VALUE_10_MIN = 10 * 60 * 1000;
     public static final long VALUE_30_MIN = 30 * 60 * 1000;
@@ -118,6 +121,10 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
         }
     }
 
+    public void setScreenSpanValue(long screenSpanValue){
+        this.minScreenSpanValue = screenSpanValue;
+    }
+
     public void setMode(@Mode String m, boolean setScaleRatio) {
         if (mMode == m) {
 //            Log.e(TAG, " same mode.");
@@ -127,28 +134,28 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
         switch (m) {
             case MODE_UINT_1_MIN:
                 this.mMode = m;
-                updateScaleInfo(5 * 60 * 1000, 1 * 60 * 1000);
-                spanValue = MODE_UINT_1_MIN_VALUE;
+                updateScaleInfo(VALUE_5_MIN, VALUE_1_MIN);
+                spanValue = VALUE_3_MIN;
                 break;
             case MODE_UINT_5_MIN:
                 this.mMode = m;
-                updateScaleInfo(10 * 60 * 1000, 5 * 60 * 1000);
-                spanValue = MODE_UINT_5_MIN_VALUE;
+                updateScaleInfo(VALUE_10_MIN, VALUE_5_MIN);
+                spanValue = VALUE_5_MIN;
                 break;
             case MODE_UINT_10_MIN:
                 this.mMode = m;
-                updateScaleInfo(30 * 60 * 1000, 10 * 60 * 1000);
-                spanValue = MODE_UINT_10_MIN_VALUE;
+                updateScaleInfo(VALUE_30_MIN, VALUE_10_MIN);
+                spanValue = VALUE_10_MIN;
                 break;
             case MODE_UINT_30_MIN:
                 this.mMode = m;
-                updateScaleInfo(1 * 60 * 60 * 1000, 30 * 60 * 1000);
-                spanValue = MODE_UINT_30_MIN_VALUE;
+                updateScaleInfo(VALUE_1_HOUR, VALUE_30_MIN);
+                spanValue = VALUE_30_MIN;
                 break;
             case MODE_UINT_1_HOUR:
                 this.mMode = m;
-                updateScaleInfo(2 * 60 * 60 * 1000, 1 * 60 * 60 * 1000);
-                spanValue = MODE_UINT_1_HOUR_VALUE;
+                updateScaleInfo(VALUE_2_HOUR, VALUE_1_HOUR);
+                spanValue = VALUE_1_HOUR;
                 break;
             default:
                 throw new RuntimeException("not support mode: " + m);

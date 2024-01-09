@@ -43,9 +43,12 @@ public class BaseScaleBar extends View implements ScaleGestureDetector.OnScaleGe
     private Paint mScalePaint;
     private ScaleMode mScaleInfo;
     private float unitPixel;
-    //
-    private long minScreenSpanValue;
+    /*一个屏幕宽度显示多少毫秒*/
+    protected long minScreenSpanValue;
     private long maxScreenSpanValue;
+    /*一毫秒占多少像素*/
+    private float maxUnitPixel;
+    private float minUnitPixel;
     private long mCursorValue;
     private GestureDetectorCompat mGestureDetectorCompat;
     private boolean scrollHappened;
@@ -54,8 +57,6 @@ public class BaseScaleBar extends View implements ScaleGestureDetector.OnScaleGe
     // 刻度尺横线位置
     private float mBaselinePosition;
     private float mBaselinePositionProportion = 0.01f;
-    private float maxUnitPixel;
-    private float minUnitPixel;
     private int tickColor;
     private boolean tickDirectionUp;//刻度线方向
     private final int cursorLineColor;
@@ -132,7 +133,7 @@ public class BaseScaleBar extends View implements ScaleGestureDetector.OnScaleGe
         mScalePaint.setDither(true);
         mScalePaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
-        minScreenSpanValue = 30 * 60 * 1000;
+        minScreenSpanValue = 10 * 60 * 1000;
         maxScreenSpanValue = 24 * 60 * 60 * 1000;
         mScaleInfo = new ScaleMode();
         mScaleInfo.unitValue = 60000;
