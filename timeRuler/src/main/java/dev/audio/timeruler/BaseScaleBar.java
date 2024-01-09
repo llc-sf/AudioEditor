@@ -213,13 +213,17 @@ public class BaseScaleBar extends View implements ScaleGestureDetector.OnScaleGe
         invalidate();
     }
 
+    /**
+     * @param keyScaleRange 关键刻度值
+     * @param unitValue     每个刻度的值
+     */
     protected void updateScaleInfo(long keyScaleRange, long unitValue) {
         mScaleInfo.keyScaleRange = keyScaleRange;
         mScaleInfo.unitValue = unitValue;
     }
 
     protected float getBaselinePosition() {
-        return mBaselinePosition+10;
+        return mBaselinePosition + 10;
     }
 
     @Override

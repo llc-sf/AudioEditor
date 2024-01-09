@@ -24,10 +24,25 @@ import dev.audio.timeruler.utils.SizeUtils;
 
 public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkStrategy {
 
+    /**
+     * updateScaleInfo(VALUE_5_MIN, VALUE_1_MIN);
+     */
     public static final String MODE_UINT_1_MIN = "unit 1 minute";
+    /**
+     * updateScaleInfo(VALUE_10_MIN, VALUE_5_MIN);
+     */
     public static final String MODE_UINT_5_MIN = "unit 5 minute";
+    /**
+     * updateScaleInfo(VALUE_30_MIN, VALUE_10_MIN);
+     */
     public static final String MODE_UINT_10_MIN = "unit 10 minute";
+    /**
+     * updateScaleInfo(VALUE_1_HOUR, VALUE_30_MIN);
+     */
     public static final String MODE_UINT_30_MIN = "unit 30 minute";
+    /**
+     * updateScaleInfo(VALUE_2_HOUR, VALUE_1_HOUR);
+     */
     public static final String MODE_UINT_1_HOUR = "unit 1 hour";
 
 

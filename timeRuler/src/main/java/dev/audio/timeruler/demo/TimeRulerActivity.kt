@@ -41,10 +41,11 @@ class TimeRulerActivity : AppCompatActivity() {
         calendar[Calendar.MILLISECOND] = 0
         var endTime = calendar.timeInMillis
 
-
+        //一个手机宽度显示多长时间
         binding.timeBar.setScreenSpanValue(TimeRulerBar.VALUE_10_MIN)
+        //
+        binding.timeBar.setMode(TimeRulerBar.MODE_UINT_30_MIN)
         binding.timeBar.setRange(startTime, endTime)
-        binding.timeBar.setMode(TimeRulerBar.MODE_UINT_1_MIN)
         binding.timeBar.cursorValue = System.currentTimeMillis()
 
         binding.timeBar.setOnCursorListener(object : BaseScaleBar.OnCursorListener {
