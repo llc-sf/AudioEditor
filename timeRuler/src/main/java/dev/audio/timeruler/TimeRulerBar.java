@@ -8,7 +8,9 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
+
 import android.util.AttributeSet;
+
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
@@ -36,6 +38,7 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
     private @Mode
     String mMode = MODE_UINT_1_MIN;
 
+
     public static final long VALUE_1_MIN = 1 * 60 * 1000;
     public static final long VALUE_5_MIN = 5 * 60 * 1000;
     public static final long VALUE_10_MIN = 10 * 60 * 1000;
@@ -51,19 +54,6 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
     public static final long MODE_UINT_10_MIN_VALUE = 2 * 60 * 60 * 1000;
     public static final long MODE_UINT_30_MIN_VALUE = 8 * 60 * 60 * 1000;
     public static final long MODE_UINT_1_HOUR_VALUE = 16 * 60 * 60 * 1000;
-
-
-    public static final long key_scale_range_1 = 5 * 60 * 1000;
-    public static final long key_scale_range_2 = 10 * 60 * 1000;
-    public static final long key_scale_range_3 = 30 * 60 * 1000;
-    public static final long key_scale_range_4 = 1 * 60 * 60 * 1000;
-    public static final long key_scale_range_5 = 2 * 60 * 60 * 1000;
-
-    public static final long unitValue_1 = 1 * 60 * 1000;
-    public static final long unitValue_2 = 5 * 60 * 1000;
-    public static final long unitValue_3 = 10 * 60 * 1000;
-    public static final long unitValue_4 = 30 * 60 * 1000;
-    public static final long unitValue_5 = 1 * 60 * 60 * 1000;
     private Paint mTickPaint;
     private Paint mColorCursorPaint;
     private float mTriangleHeight = 10;
@@ -72,7 +62,7 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
     private int cursorBackgroundColor;
     private float cursorValueSize;
     private final int colorScaleBackground;
-    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd HH:mm:ss");
+    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
     float tickValueBoundOffsetH = 20;
     private float videoAreaHeight;
     private float videoAreaOffset;
@@ -137,28 +127,28 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
         switch (m) {
             case MODE_UINT_1_MIN:
                 this.mMode = m;
-                updateScaleInfo(VALUE_5_MIN, VALUE_1_MIN);
-                spanValue = VALUE_30_MIN;
+                updateScaleInfo(5 * 60 * 1000, 1 * 60 * 1000);
+                spanValue = MODE_UINT_1_MIN_VALUE;
                 break;
             case MODE_UINT_5_MIN:
                 this.mMode = m;
-                updateScaleInfo(VALUE_10_MIN, VALUE_5_MIN);
-                spanValue = VALUE_1_HOUR;
+                updateScaleInfo(10 * 60 * 1000, 5 * 60 * 1000);
+                spanValue = MODE_UINT_5_MIN_VALUE;
                 break;
             case MODE_UINT_10_MIN:
                 this.mMode = m;
-                updateScaleInfo(VALUE_30_MIN, VALUE_10_MIN);
-                spanValue = VALUE_2_HOUR;
+                updateScaleInfo(30 * 60 * 1000, 10 * 60 * 1000);
+                spanValue = MODE_UINT_10_MIN_VALUE;
                 break;
             case MODE_UINT_30_MIN:
                 this.mMode = m;
-                updateScaleInfo(VALUE_1_HOUR, VALUE_30_MIN);
-                spanValue = VALUE_8_HOUR;
+                updateScaleInfo(1 * 60 * 60 * 1000, 30 * 60 * 1000);
+                spanValue = MODE_UINT_30_MIN_VALUE;
                 break;
             case MODE_UINT_1_HOUR:
                 this.mMode = m;
-                updateScaleInfo(VALUE_2_HOUR, VALUE_1_HOUR);
-                spanValue = VALUE_16_HOUR;
+                updateScaleInfo(2 * 60 * 60 * 1000, 1 * 60 * 60 * 1000);
+                spanValue = MODE_UINT_1_HOUR_VALUE;
                 break;
             default:
                 throw new RuntimeException("not support mode: " + m);
@@ -177,15 +167,7 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
     @NonNull
     @Override
     public String getScaleValue(long scaleValue, boolean keyScale) {
-        String formattedTime = simpleDateFormat.format(scaleValue);
-        // 解析天、小时、分钟和秒
-        String[] parts = formattedTime.split(" ")[1].split(":");
-        int days = Integer.parseInt(formattedTime.split(" ")[0]);
-        int hours = Integer.parseInt(parts[0]);
-        int minutes = Integer.parseInt(parts[1]);
-        int seconds = Integer.parseInt(parts[2]);
-        // 转换为秒
-        return String.valueOf((days * 24 * 3600) + (hours * 3600) + (minutes * 60) + seconds) + "s";
+        return simpleDateFormat.format(scaleValue);
     }
 
     @Override

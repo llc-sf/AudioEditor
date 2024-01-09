@@ -35,8 +35,8 @@ class TimeRulerActivity : AppCompatActivity() {
         var startTime = calendar.timeInMillis
 
         // 23:59:59 999
-        calendar[Calendar.HOUR_OF_DAY] = 24
-        calendar[Calendar.MINUTE] = 0
+        calendar[Calendar.HOUR_OF_DAY] = 0
+        calendar[Calendar.MINUTE] = 30
         calendar[Calendar.SECOND] = 0
         calendar[Calendar.MILLISECOND] = 0
         var endTime = calendar.timeInMillis
