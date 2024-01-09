@@ -29,8 +29,6 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
     public static final String MODE_UINT_1_HOUR = "unit 1 hour";
 
 
-
-
     @StringDef({MODE_UINT_1_MIN, MODE_UINT_5_MIN, MODE_UINT_10_MIN, MODE_UINT_30_MIN, MODE_UINT_1_HOUR})
     public @interface Mode {
     }
@@ -38,6 +36,7 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
     private @Mode
     String mMode = MODE_UINT_1_MIN;
 
+    public static final long VALUE_1_MIN = 1 * 60 * 1000;
     public static final long VALUE_5_MIN = 5 * 60 * 1000;
     public static final long VALUE_10_MIN = 10 * 60 * 1000;
     public static final long VALUE_30_MIN = 30 * 60 * 1000;
@@ -45,7 +44,6 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
     public static final long VALUE_2_HOUR = 2 * 60 * 60 * 1000;
     public static final long VALUE_8_HOUR = 8 * 60 * 60 * 1000;
     public static final long VALUE_16_HOUR = 16 * 60 * 60 * 1000;
-
 
 
     public static final long MODE_UINT_1_MIN_VALUE = 30 * 60 * 1000;
@@ -74,7 +72,7 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
     private int cursorBackgroundColor;
     private float cursorValueSize;
     private final int colorScaleBackground;
-    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd HH:mm:ss");
     float tickValueBoundOffsetH = 20;
     private float videoAreaHeight;
     private float videoAreaOffset;
@@ -139,28 +137,28 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
         switch (m) {
             case MODE_UINT_1_MIN:
                 this.mMode = m;
-                updateScaleInfo(key_scale_range_1, unitValue_1);
-                spanValue = MODE_UINT_1_MIN_VALUE;
+                updateScaleInfo(VALUE_5_MIN, VALUE_1_MIN);
+                spanValue = VALUE_30_MIN;
                 break;
             case MODE_UINT_5_MIN:
                 this.mMode = m;
-                updateScaleInfo(key_scale_range_2, unitValue_2);
-                spanValue = MODE_UINT_5_MIN_VALUE;
+                updateScaleInfo(VALUE_10_MIN, VALUE_5_MIN);
+                spanValue = VALUE_1_HOUR;
                 break;
             case MODE_UINT_10_MIN:
                 this.mMode = m;
-                updateScaleInfo(key_scale_range_3, unitValue_3);
-                spanValue = MODE_UINT_10_MIN_VALUE;
+                updateScaleInfo(VALUE_30_MIN, VALUE_10_MIN);
+                spanValue = VALUE_2_HOUR;
                 break;
             case MODE_UINT_30_MIN:
                 this.mMode = m;
-                updateScaleInfo(key_scale_range_4, unitValue_4);
-                spanValue = MODE_UINT_30_MIN_VALUE;
+                updateScaleInfo(VALUE_1_HOUR, VALUE_30_MIN);
+                spanValue = VALUE_8_HOUR;
                 break;
             case MODE_UINT_1_HOUR:
                 this.mMode = m;
-                updateScaleInfo(key_scale_range_5, unitValue_5);
-                spanValue = MODE_UINT_1_HOUR_VALUE;
+                updateScaleInfo(VALUE_2_HOUR, VALUE_1_HOUR);
+                spanValue = VALUE_16_HOUR;
                 break;
             default:
                 throw new RuntimeException("not support mode: " + m);
@@ -180,13 +178,14 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
     @Override
     public String getScaleValue(long scaleValue, boolean keyScale) {
         String formattedTime = simpleDateFormat.format(scaleValue);
-        // 解析小时、分钟和秒
-        String[] parts = formattedTime.split(":");
+        // 解析天、小时、分钟和秒
+        String[] parts = formattedTime.split(" ")[1].split(":");
+        int days = Integer.parseInt(formattedTime.split(" ")[0]);
         int hours = Integer.parseInt(parts[0]);
         int minutes = Integer.parseInt(parts[1]);
         int seconds = Integer.parseInt(parts[2]);
         // 转换为秒
-        return String.valueOf(hours * 3600 + minutes * 60 + seconds) + "s";
+        return String.valueOf((days * 24 * 3600) + (hours * 3600) + (minutes * 60) + seconds) + "s";
     }
 
     @Override
