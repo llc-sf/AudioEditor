@@ -133,8 +133,9 @@ public class BaseScaleBar extends View implements ScaleGestureDetector.OnScaleGe
         mScalePaint.setDither(true);
         mScalePaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
-        minScreenSpanValue = 10 * 60 * 1000;
-        maxScreenSpanValue = 24 * 60 * 60 * 1000;
+        minScreenSpanValue = 8 * 1000;
+        maxScreenSpanValue = 80 * 1000;
+
         mScaleInfo = new ScaleMode();
         mScaleInfo.unitValue = 60000;
         mScaleInfo.keyScaleRange = 5 * 60 * 1000;

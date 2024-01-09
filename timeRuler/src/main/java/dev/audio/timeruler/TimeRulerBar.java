@@ -10,6 +10,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 
 import android.util.AttributeSet;
+import android.util.Log;
 
 
 import androidx.annotation.ColorInt;
@@ -25,53 +26,36 @@ import dev.audio.timeruler.utils.SizeUtils;
 public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkStrategy {
 
     /**
-     * updateScaleInfo(VALUE_5_MIN, VALUE_1_MIN);
+     * updateScaleInfo(500ms, 100ms);
      */
-    public static final String MODE_UINT_1_MIN = "unit 1 minute";
+    public static final String MODE_UINT_100_MS = "unit 100 ms";
     /**
-     * updateScaleInfo(VALUE_10_MIN, VALUE_5_MIN);
+     * updateScaleInfo(2.5s, 500ms);
      */
-    public static final String MODE_UINT_5_MIN = "unit 5 minute";
+    public static final String MODE_UINT_500_MS = "unit 500 ms";
     /**
-     * updateScaleInfo(VALUE_30_MIN, VALUE_10_MIN);
+     * updateScaleInfo(5s, 1s);
      */
-    public static final String MODE_UINT_10_MIN = "unit 10 minute";
-    /**
-     * updateScaleInfo(VALUE_1_HOUR, VALUE_30_MIN);
-     */
-    public static final String MODE_UINT_30_MIN = "unit 30 minute";
-    /**
-     * updateScaleInfo(VALUE_2_HOUR, VALUE_1_HOUR);
-     */
-    public static final String MODE_UINT_1_HOUR = "unit 1 hour";
+    public static final String MODE_UINT_1000_MS = "unit 1000 ms";
 
 
-    @StringDef({MODE_UINT_1_MIN, MODE_UINT_5_MIN, MODE_UINT_10_MIN, MODE_UINT_30_MIN, MODE_UINT_1_HOUR})
+    @StringDef({MODE_UINT_100_MS, MODE_UINT_500_MS, MODE_UINT_1000_MS})
     public @interface Mode {
     }
 
     private @Mode
-    String mMode = MODE_UINT_1_MIN;
+    String mMode = MODE_UINT_1000_MS;
 
 
-    public static final long VALUE_1_MIN = 1 * 60 * 1000;
-    public static final long VALUE_2_MIN = 2 * 60 * 1000;
-    public static final long VALUE_3_MIN = 3 * 60 * 1000;
-    public static final long VALUE_4_MIN = 4 * 60 * 1000;
-    public static final long VALUE_5_MIN = 5 * 60 * 1000;
-    public static final long VALUE_10_MIN = 10 * 60 * 1000;
-    public static final long VALUE_30_MIN = 30 * 60 * 1000;
-    public static final long VALUE_1_HOUR = 60 * 60 * 1000;
-    public static final long VALUE_2_HOUR = 2 * 60 * 60 * 1000;
-    public static final long VALUE_8_HOUR = 8 * 60 * 60 * 1000;
-    public static final long VALUE_16_HOUR = 16 * 60 * 60 * 1000;
+    public static final long VALUE_100_MS = 100;
+    public static final long VALUE_500_MS = 500;
+    public static final long VALUE_1000_MS = 1000;
 
 
-    public static final long MODE_UINT_1_MIN_VALUE = 30 * 60 * 1000;
-    public static final long MODE_UINT_5_MIN_VALUE = 1 * 60 * 60 * 1000;
-    public static final long MODE_UINT_10_MIN_VALUE = 2 * 60 * 60 * 1000;
-    public static final long MODE_UINT_30_MIN_VALUE = 8 * 60 * 60 * 1000;
-    public static final long MODE_UINT_1_HOUR_VALUE = 16 * 60 * 60 * 1000;
+    public static final long MODE_UINT_100_MS_VALUE = VALUE_100_MS * 10 * 8;
+    public static final long MODE_UINT_500_MS_VALUE = VALUE_500_MS * 10 * 8;
+    public static final long MODE_UINT_1000_MS_VALUE = VALUE_1000_MS * 10 * 8;
+
     private Paint mTickPaint;
     private Paint mColorCursorPaint;
     private float mTriangleHeight = 10;
@@ -80,7 +64,7 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
     private int cursorBackgroundColor;
     private float cursorValueSize;
     private final int colorScaleBackground;
-    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
     float tickValueBoundOffsetH = 20;
     private float videoAreaHeight;
     private float videoAreaOffset;
@@ -131,46 +115,30 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
     @Override
     public void setRange(long start, long end) {
         super.setRange(start, end);
-        if (mMode != MODE_UINT_1_MIN) {
-            setMode(mMode, true);
-        }
+        setMode(mMode, true);
     }
 
-    public void setScreenSpanValue(long screenSpanValue){
+    public void setScreenSpanValue(long screenSpanValue) {
         this.minScreenSpanValue = screenSpanValue;
     }
 
     public void setMode(@Mode String m, boolean setScaleRatio) {
-        if (mMode == m) {
-//            Log.e(TAG, " same mode.");
-            return;
-        }
         long spanValue;
         switch (m) {
-            case MODE_UINT_1_MIN:
+            case MODE_UINT_100_MS:
                 this.mMode = m;
-                updateScaleInfo(VALUE_5_MIN, VALUE_1_MIN);
-                spanValue = VALUE_3_MIN;
+                updateScaleInfo(VALUE_100_MS * 10, VALUE_100_MS);
+                spanValue = MODE_UINT_100_MS_VALUE;
                 break;
-            case MODE_UINT_5_MIN:
+            case MODE_UINT_500_MS:
                 this.mMode = m;
-                updateScaleInfo(VALUE_10_MIN, VALUE_5_MIN);
-                spanValue = VALUE_5_MIN;
+                updateScaleInfo(VALUE_500_MS * 5, VALUE_500_MS);
+                spanValue = MODE_UINT_500_MS_VALUE;
                 break;
-            case MODE_UINT_10_MIN:
+            case MODE_UINT_1000_MS:
                 this.mMode = m;
-                updateScaleInfo(VALUE_30_MIN, VALUE_10_MIN);
-                spanValue = VALUE_10_MIN;
-                break;
-            case MODE_UINT_30_MIN:
-                this.mMode = m;
-                updateScaleInfo(VALUE_1_HOUR, VALUE_30_MIN);
-                spanValue = VALUE_30_MIN;
-                break;
-            case MODE_UINT_1_HOUR:
-                this.mMode = m;
-                updateScaleInfo(VALUE_2_HOUR, VALUE_1_HOUR);
-                spanValue = VALUE_1_HOUR;
+                updateScaleInfo(VALUE_1000_MS * 5, VALUE_1000_MS);
+                spanValue = MODE_UINT_1000_MS_VALUE;
                 break;
             default:
                 throw new RuntimeException("not support mode: " + m);
@@ -189,7 +157,14 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
     @NonNull
     @Override
     public String getScaleValue(long scaleValue, boolean keyScale) {
-        return simpleDateFormat.format(scaleValue);
+        String formattedTime = simpleDateFormat.format(scaleValue);
+        // 解析天、小时、分钟和秒
+        String[] parts = formattedTime.split(":");
+        int hours = Integer.parseInt(parts[0]);
+        int minutes = Integer.parseInt(parts[1]);
+        int seconds = Integer.parseInt(parts[2]);
+        // 转换为秒
+        return String.valueOf((hours * 3600) + (minutes * 60) + seconds) + "s";
     }
 
     @Override
@@ -277,16 +252,13 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
     }
 
     protected void updateMode(float screenSpanValue) {
-        if (screenSpanValue > MODE_UINT_1_HOUR_VALUE) {
-            setMode(MODE_UINT_1_HOUR, false);
-        } else if (screenSpanValue > MODE_UINT_30_MIN_VALUE) {
-            setMode(MODE_UINT_30_MIN, false);
-        } else if (screenSpanValue > MODE_UINT_10_MIN_VALUE) {
-            setMode(MODE_UINT_10_MIN, false);
-        } else if (screenSpanValue > MODE_UINT_5_MIN_VALUE) {
-            setMode(MODE_UINT_5_MIN, false);
+        Log.i("TAG", "updateMode: " + screenSpanValue);
+        if (screenSpanValue >= MODE_UINT_1000_MS_VALUE) {
+            setMode(MODE_UINT_1000_MS, false);
+        } else if (screenSpanValue >= MODE_UINT_500_MS_VALUE) {
+            setMode(MODE_UINT_500_MS, false);
         } else {
-            setMode(MODE_UINT_1_MIN, false);
+            setMode(MODE_UINT_100_MS, false);
         }
     }
 

@@ -35,16 +35,16 @@ class TimeRulerActivity : AppCompatActivity() {
         var startTime = calendar.timeInMillis
 
         // 23:59:59 999
-        calendar[Calendar.HOUR_OF_DAY] = 5
+        calendar[Calendar.HOUR_OF_DAY] = 0
         calendar[Calendar.MINUTE] = 5
         calendar[Calendar.SECOND] = 0
         calendar[Calendar.MILLISECOND] = 0
         var endTime = calendar.timeInMillis
 
         //一个手机宽度显示多长时间
-        binding.timeBar.setScreenSpanValue(TimeRulerBar.VALUE_10_MIN)
+//        binding.timeBar.setScreenSpanValue(TimeRulerBar.VALUE_1000_MS * 8)
         //
-        binding.timeBar.setMode(TimeRulerBar.MODE_UINT_30_MIN)
+        binding.timeBar.setMode(TimeRulerBar.MODE_UINT_1000_MS)
         binding.timeBar.setRange(startTime, endTime)
         binding.timeBar.cursorValue = System.currentTimeMillis()
 
@@ -89,7 +89,7 @@ class TimeRulerActivity : AppCompatActivity() {
         })
 
         binding.btnDir.setOnClickListener {
-            binding. btnDir.isSelected = !binding.btnDir.isSelected
+            binding.btnDir.isSelected = !binding.btnDir.isSelected
             binding.timeBar.setTickDirection(binding.btnDir.isSelected)
         }
 
