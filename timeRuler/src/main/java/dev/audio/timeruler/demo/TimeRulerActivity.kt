@@ -35,14 +35,14 @@ class TimeRulerActivity : AppCompatActivity() {
         var startTime = calendar.timeInMillis
 
         // 23:59:59 999
-        calendar[Calendar.HOUR_OF_DAY] = 23
-        calendar[Calendar.MINUTE] = 59
-        calendar[Calendar.SECOND] = 59
-        calendar[Calendar.MILLISECOND] = 999
+        calendar[Calendar.HOUR_OF_DAY] = 0
+        calendar[Calendar.MINUTE] = 5
+        calendar[Calendar.SECOND] = 0
+        calendar[Calendar.MILLISECOND] = 0
         var endTime = calendar.timeInMillis
 
         binding.timeBar.setRange(startTime, endTime)
-        binding.timeBar.setMode(TimeRulerBar.MODE_UINT_30_MIN)
+        binding.timeBar.setMode(TimeRulerBar.MODE_UINT_1_MIN)
         binding.timeBar.cursorValue = System.currentTimeMillis()
 
         binding.timeBar.setOnCursorListener(object : BaseScaleBar.OnCursorListener {

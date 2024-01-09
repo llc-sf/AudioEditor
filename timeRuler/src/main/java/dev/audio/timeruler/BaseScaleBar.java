@@ -218,7 +218,7 @@ public class BaseScaleBar extends View implements ScaleGestureDetector.OnScaleGe
     }
 
     protected float getBaselinePosition() {
-        return mBaselinePosition;
+        return mBaselinePosition+10;
     }
 
     @Override
@@ -248,6 +248,7 @@ public class BaseScaleBar extends View implements ScaleGestureDetector.OnScaleGe
     /**
      * 计算内容高度
      * todo
+     *
      * @param baselinePositionProportion
      * @return
      */
@@ -332,7 +333,7 @@ public class BaseScaleBar extends View implements ScaleGestureDetector.OnScaleGe
 
         }
 
-        onEndTickDraw(canvas);
+//        onEndTickDraw(canvas);
 
         drawCursor(canvas, mCursorPosition, mCursorValue);
     }
