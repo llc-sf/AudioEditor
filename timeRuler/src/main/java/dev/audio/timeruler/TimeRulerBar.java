@@ -70,6 +70,10 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
     public static final long VALUE_6000_MS = 6000;
 
 
+    /**
+     * 屏幕宽度分成60份
+     * 控制刻度尺的密度 一个刻度多少像素 值越大刻度越密集
+     */
     public static final long SCALE = 60;
     public static final long MODE_UINT_100_MS_VALUE = VALUE_100_MS * SCALE;
     public static final long MODE_UINT_500_MS_VALUE = VALUE_500_MS * SCALE;
