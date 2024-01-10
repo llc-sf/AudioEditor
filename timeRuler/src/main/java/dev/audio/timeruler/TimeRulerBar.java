@@ -79,20 +79,26 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
     }
 
     public void setMode(@Mode String mode) {
-        setMode(mode, true);
+        setMode(mode, true,true);
     }
 
     @Override
     public void setRange(long start, long end) {
         super.setRange(start, end);
-        setMode(mMode, true);
+        setMode(mMode, true,true);
     }
 
     public void setScreenSpanValue(long screenSpanValue) {
         this.minScreenSpanValue = screenSpanValue;
     }
 
-    public void setMode(@Mode String m, boolean setScaleRatio) {
+    /**
+     * 1、手动直接设置
+     * 2、放大缩小设置
+     * @param m
+     * @param setScaleRatio
+     */
+    public void setMode(@Mode String m, boolean setScaleRatio,boolean isRefreshUnitPixel) {
         long spanValue;
         switch (m) {
             case MODE_UINT_100_MS:
@@ -128,7 +134,9 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
             default:
                 throw new RuntimeException("not support mode: " + m);
         }
-//        unitPixel = getWidth() * 1f / spanValue;
+        if(isRefreshUnitPixel){
+            unitPixel = getWidth() * 1f / spanValue;
+        }
         Log.e("TAG", "unitPixel: " + unitPixel);
         if (setScaleRatio) {
             setScaleRatio(getMinScreenSpanValue() * 1.0f / spanValue);
@@ -241,17 +249,17 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
     protected void updateMode(float screenSpanValue) {
         Log.i("TAG", "updateMode: " + screenSpanValue);
         if (screenSpanValue >= MODE_UINT_6000_MS_VALUE) {
-            setMode(MODE_UINT_6000_MS, false);
+            setMode(MODE_UINT_6000_MS, false,false);
         } else if (screenSpanValue >= MODE_UINT_3000_MS_VALUE) {
-            setMode(MODE_UINT_3000_MS, false);
+            setMode(MODE_UINT_3000_MS, false,false);
         } else if (screenSpanValue >= MODE_UINT_2000_MS_VALUE) {
-            setMode(MODE_UINT_2000_MS, false);
+            setMode(MODE_UINT_2000_MS, false,false);
         } else if (screenSpanValue >= MODE_UINT_1000_MS_VALUE) {
-            setMode(MODE_UINT_1000_MS, false);
+            setMode(MODE_UINT_1000_MS, false,false);
         } else if (screenSpanValue >= MODE_UINT_500_MS_VALUE) {
-            setMode(MODE_UINT_500_MS, false);
+            setMode(MODE_UINT_500_MS, false,false);
         } else {
-            setMode(MODE_UINT_100_MS, false);
+            setMode(MODE_UINT_100_MS, false,false);
         }
     }
 

@@ -201,7 +201,7 @@ public class BaseScaleBar extends View implements ScaleGestureDetector.OnScaleGe
         minScreenSpanValue = MODE_UINT_100_MS_VALUE;
         maxScreenSpanValue = MODE_UINT_6000_MS_VALUE;
 
-        
+
         mScaleInfo = new ScaleMode();
         mScaleInfo.unitValue = 60000;
         mScaleInfo.keyScaleRange = 5 * 60 * 1000;
