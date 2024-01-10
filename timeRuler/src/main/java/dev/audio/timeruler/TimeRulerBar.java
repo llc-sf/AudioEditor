@@ -70,13 +70,13 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
     public static final long VALUE_6000_MS = 6000;
 
 
-    public static final long MODE_UINT_100_MS_VALUE = VALUE_100_MS * 10 * 8;
-    public static final long MODE_UINT_500_MS_VALUE = VALUE_500_MS * 10 * 8;
-    public static final long MODE_UINT_1000_MS_VALUE = VALUE_1000_MS * 10 * 8;
-
-    public static final long MODE_UINT_2000_MS_VALUE = VALUE_2000_MS * 10 * 8;
-    public static final long MODE_UINT_3000_MS_VALUE = VALUE_3000_MS * 10 * 8;
-    public static final long MODE_UINT_6000_MS_VALUE = VALUE_6000_MS * 10 * 8;
+    public static final long SCALE = 60;
+    public static final long MODE_UINT_100_MS_VALUE = VALUE_100_MS * SCALE;
+    public static final long MODE_UINT_500_MS_VALUE = VALUE_500_MS * SCALE;
+    public static final long MODE_UINT_1000_MS_VALUE = VALUE_1000_MS * SCALE;
+    public static final long MODE_UINT_2000_MS_VALUE = VALUE_2000_MS * SCALE;
+    public static final long MODE_UINT_3000_MS_VALUE = VALUE_3000_MS * SCALE;
+    public static final long MODE_UINT_6000_MS_VALUE = VALUE_6000_MS * SCALE;
 
     private Paint mTickPaint;
     private Paint mColorCursorPaint;
