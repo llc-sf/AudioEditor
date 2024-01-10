@@ -100,41 +100,48 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
         isRefreshUnitPixel: Boolean = true
     ) {
         val spanValue: Long
+        var index = 0
         when (m) {
             MODE_UINT_100_MS -> {
+                index = 0
                 mMode = m
-                updateScaleInfo(VALUE_100_MS * 5, VALUE_100_MS)
-                spanValue = MODE_UINT_100_MS_VALUE
+                updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
+                spanValue = MODE_UINT_VALUE_ARRAY[index]
             }
 
             MODE_UINT_500_MS -> {
                 mMode = m
-                updateScaleInfo(VALUE_500_MS * 5, VALUE_500_MS)
-                spanValue = MODE_UINT_500_MS_VALUE
+                index = 1
+                updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
+                spanValue = MODE_UINT_VALUE_ARRAY[1]
             }
 
             MODE_UINT_1000_MS -> {
                 mMode = m
-                updateScaleInfo(VALUE_1000_MS * 5, VALUE_1000_MS)
-                spanValue = MODE_UINT_1000_MS_VALUE
+                index = 2
+                updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
+                spanValue = MODE_UINT_VALUE_ARRAY[index]
             }
 
             MODE_UINT_2000_MS -> {
                 mMode = m
-                updateScaleInfo(VALUE_2000_MS * 5, VALUE_2000_MS)
-                spanValue = MODE_UINT_2000_MS_VALUE
+                index = 3
+                updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
+                spanValue = MODE_UINT_VALUE_ARRAY[index]
             }
 
             MODE_UINT_3000_MS -> {
                 mMode = m
-                updateScaleInfo(VALUE_3000_MS * 5, VALUE_3000_MS)
-                spanValue = MODE_UINT_3000_MS_VALUE
+                index = 4
+                updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
+                spanValue = MODE_UINT_VALUE_ARRAY[index]
             }
 
             MODE_UINT_6000_MS -> {
                 mMode = m
-                updateScaleInfo(VALUE_6000_MS * 5, VALUE_6000_MS)
-                spanValue = MODE_UINT_6000_MS_VALUE
+                index = 5
+                updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
+                spanValue = MODE_UINT_VALUE_ARRAY[index]
             }
 
             else -> throw RuntimeException("not support mode: $m")

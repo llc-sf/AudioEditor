@@ -5,7 +5,6 @@ import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import dev.audio.timeruler.BaseScaleBar
 import dev.audio.timeruler.R
-import dev.audio.timeruler.TimeRulerBar
 import dev.audio.timeruler.bean.TimeBean
 import dev.audio.timeruler.bean.VideoBean
 import dev.audio.timeruler.databinding.ActivityTimeRulerBinding

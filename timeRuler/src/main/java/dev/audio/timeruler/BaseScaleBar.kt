@@ -27,6 +27,9 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
     GestureDetector.OnGestureListener {
 
     companion object {
+
+        private const val TAG = "BaseScaleBar"
+
         /**
          * updateScaleInfo(500ms, 100ms);
          */
@@ -56,14 +59,27 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
          * updateScaleInfo(30s, 6s);
          */
         const val MODE_UINT_6000_MS = "unit 6000 ms"
+
+
+
         const val VALUE_100_MS: Long = 100
         const val VALUE_500_MS: Long = 500
         const val VALUE_1000_MS: Long = 1000
         const val VALUE_2000_MS: Long = 2000
         const val VALUE_3000_MS: Long = 3000
         const val VALUE_6000_MS: Long = 6000
+        //数组管理
+        val VALUE_ARRAY = arrayOf(
+            VALUE_100_MS,
+            VALUE_500_MS,
+            VALUE_1000_MS,
+            VALUE_2000_MS,
+            VALUE_3000_MS,
+            VALUE_6000_MS
+        )
 
         /**
+         * 6个档位
          * 屏幕宽度分成60份
          * 控制刻度尺的密度 一个刻度多少像素 值越大刻度越密集
          */
@@ -74,7 +90,14 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         const val MODE_UINT_2000_MS_VALUE = VALUE_2000_MS * SCALE
         const val MODE_UINT_3000_MS_VALUE = VALUE_3000_MS * SCALE
         const val MODE_UINT_6000_MS_VALUE = VALUE_6000_MS * SCALE
-        private const val TAG = "BaseScaleBar"
+        val MODE_UINT_VALUE_ARRAY = arrayOf(
+            MODE_UINT_100_MS_VALUE,
+            MODE_UINT_500_MS_VALUE,
+            MODE_UINT_1000_MS_VALUE,
+            MODE_UINT_2000_MS_VALUE,
+            MODE_UINT_3000_MS_VALUE,
+            MODE_UINT_6000_MS_VALUE
+        )
 
         /**
          * 默认状态
@@ -189,8 +212,9 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         mScalePaint!!.strokeWidth = 1.0f
         mScalePaint!!.isDither = true
         mScalePaint!!.style = Paint.Style.FILL_AND_STROKE
-        minScreenSpanValue = MODE_UINT_100_MS_VALUE
-        maxScreenSpanValue = MODE_UINT_6000_MS_VALUE
+        minScreenSpanValue = MODE_UINT_VALUE_ARRAY[0]
+        maxScreenSpanValue = MODE_UINT_VALUE_ARRAY[MODE_UINT_VALUE_ARRAY.size-1]
+
         mScaleInfo = ScaleMode()
         mScaleInfo!!.unitValue = 60000
         mScaleInfo!!.keyScaleRange = (5 * 60 * 1000).toLong()
@@ -199,10 +223,12 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         calendar[Calendar.MINUTE] = 0
         calendar[Calendar.SECOND] = 0
         mScaleInfo!!.startValue = calendar.timeInMillis
+
         calendar[Calendar.HOUR_OF_DAY] = 23
         calendar[Calendar.MINUTE] = 59
         calendar[Calendar.SECOND] = 59
         mScaleInfo!!.endValue = calendar.timeInMillis
+
         mCursorValue = mScaleInfo!!.startValue
     }
 
