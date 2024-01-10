@@ -102,42 +102,42 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
         val spanValue: Long
         var index = 0
         when (m) {
-            MODE_UINT_100_MS -> {
+            MODE_ARRAY[0] -> {
                 index = 0
                 mMode = m
                 updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
                 spanValue = MODE_UINT_VALUE_ARRAY[index]
             }
 
-            MODE_UINT_500_MS -> {
+            MODE_ARRAY[1] -> {
                 mMode = m
                 index = 1
                 updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
                 spanValue = MODE_UINT_VALUE_ARRAY[1]
             }
 
-            MODE_UINT_1000_MS -> {
+            MODE_ARRAY[2] -> {
                 mMode = m
                 index = 2
                 updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
                 spanValue = MODE_UINT_VALUE_ARRAY[index]
             }
 
-            MODE_UINT_2000_MS -> {
+            MODE_ARRAY[3] -> {
                 mMode = m
                 index = 3
                 updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
                 spanValue = MODE_UINT_VALUE_ARRAY[index]
             }
 
-            MODE_UINT_3000_MS -> {
+            MODE_ARRAY[4] -> {
                 mMode = m
                 index = 4
                 updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
                 spanValue = MODE_UINT_VALUE_ARRAY[index]
             }
 
-            MODE_UINT_6000_MS -> {
+            MODE_ARRAY[5] -> {
                 mMode = m
                 index = 5
                 updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
@@ -256,18 +256,18 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
 
     private fun updateMode(screenSpanValue: Float) {
         Log.i("TAG", "updateMode: $screenSpanValue")
-        if (screenSpanValue >= MODE_UINT_6000_MS_VALUE) {
-            setMode(MODE_UINT_6000_MS, setScaleRatio = false, isRefreshUnitPixel = false)
-        } else if (screenSpanValue >= MODE_UINT_3000_MS_VALUE) {
-            setMode(MODE_UINT_3000_MS, setScaleRatio = false, isRefreshUnitPixel = false)
-        } else if (screenSpanValue >= MODE_UINT_2000_MS_VALUE) {
-            setMode(MODE_UINT_2000_MS, setScaleRatio = false, isRefreshUnitPixel = false)
-        } else if (screenSpanValue >= MODE_UINT_1000_MS_VALUE) {
-            setMode(MODE_UINT_1000_MS, setScaleRatio = false, isRefreshUnitPixel = false)
-        } else if (screenSpanValue >= MODE_UINT_500_MS_VALUE) {
-            setMode(MODE_UINT_500_MS, setScaleRatio = false, isRefreshUnitPixel = false)
+        if (screenSpanValue >= MODE_UINT_VALUE_ARRAY[5]) {
+            setMode(MODE_ARRAY[5], setScaleRatio = false, isRefreshUnitPixel = false)
+        } else if (screenSpanValue >= MODE_UINT_VALUE_ARRAY[4]) {
+            setMode(MODE_ARRAY[4], setScaleRatio = false, isRefreshUnitPixel = false)
+        } else if (screenSpanValue >= MODE_UINT_VALUE_ARRAY[3]) {
+            setMode(MODE_ARRAY[3], setScaleRatio = false, isRefreshUnitPixel = false)
+        } else if (screenSpanValue >= MODE_UINT_VALUE_ARRAY[2]) {
+            setMode(MODE_ARRAY[2], setScaleRatio = false, isRefreshUnitPixel = false)
+        } else if (screenSpanValue >= MODE_UINT_VALUE_ARRAY[1]) {
+            setMode(MODE_ARRAY[1], setScaleRatio = false, isRefreshUnitPixel = false)
         } else {
-            setMode(MODE_UINT_100_MS, setScaleRatio = false, isRefreshUnitPixel = false)
+            setMode(MODE_ARRAY[0], setScaleRatio = false, isRefreshUnitPixel = false)
         }
     }
 

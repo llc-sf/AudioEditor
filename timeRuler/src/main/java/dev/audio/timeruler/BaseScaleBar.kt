@@ -33,42 +33,50 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         /**
          * updateScaleInfo(500ms, 100ms);
          */
-        const val MODE_UINT_100_MS = "unit 100 ms"
+        private const val MODE_UINT_100_MS = "unit 100 ms"
 
         /**
          * updateScaleInfo(2.5s, 500ms);
          */
-        const val MODE_UINT_500_MS = "unit 500 ms"
+        private const val MODE_UINT_500_MS = "unit 500 ms"
 
         /**
          * updateScaleInfo(5s, 1s);
          */
-        const val MODE_UINT_1000_MS = "unit 1000 ms"
+        private const val MODE_UINT_1000_MS = "unit 1000 ms"
 
         /**
          * updateScaleInfo(10s, 2s);
          */
-        const val MODE_UINT_2000_MS = "unit 2000 ms"
+        private const val MODE_UINT_2000_MS = "unit 2000 ms"
 
         /**
          * updateScaleInfo(15s, 3s);
          */
-        const val MODE_UINT_3000_MS = "unit 3000 ms"
+        private const val MODE_UINT_3000_MS = "unit 3000 ms"
 
         /**
          * updateScaleInfo(30s, 6s);
          */
-        const val MODE_UINT_6000_MS = "unit 6000 ms"
+        private const val MODE_UINT_6000_MS = "unit 6000 ms"
 
-
-
-        const val VALUE_100_MS: Long = 100
-        const val VALUE_500_MS: Long = 500
-        const val VALUE_1000_MS: Long = 1000
-        const val VALUE_2000_MS: Long = 2000
-        const val VALUE_3000_MS: Long = 3000
-        const val VALUE_6000_MS: Long = 6000
         //数组管理
+        val MODE_ARRAY = arrayOf(
+            MODE_UINT_100_MS,
+            MODE_UINT_500_MS,
+            MODE_UINT_1000_MS,
+            MODE_UINT_2000_MS,
+            MODE_UINT_3000_MS,
+            MODE_UINT_6000_MS
+        )
+
+
+        private const val VALUE_100_MS: Long = 100
+        private const val VALUE_500_MS: Long = 500
+        private const val VALUE_1000_MS: Long = 1000
+        private const val VALUE_2000_MS: Long = 2000
+        private const val VALUE_3000_MS: Long = 3000
+        private const val VALUE_6000_MS: Long = 6000
         val VALUE_ARRAY = arrayOf(
             VALUE_100_MS,
             VALUE_500_MS,
@@ -84,12 +92,12 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
          * 控制刻度尺的密度 一个刻度多少像素 值越大刻度越密集
          */
         const val SCALE: Long = 60
-        const val MODE_UINT_100_MS_VALUE = VALUE_100_MS * SCALE
-        const val MODE_UINT_500_MS_VALUE = VALUE_500_MS * SCALE
-        const val MODE_UINT_1000_MS_VALUE = VALUE_1000_MS * SCALE
-        const val MODE_UINT_2000_MS_VALUE = VALUE_2000_MS * SCALE
-        const val MODE_UINT_3000_MS_VALUE = VALUE_3000_MS * SCALE
-        const val MODE_UINT_6000_MS_VALUE = VALUE_6000_MS * SCALE
+        private const val MODE_UINT_100_MS_VALUE = VALUE_100_MS * SCALE
+        private const val MODE_UINT_500_MS_VALUE = VALUE_500_MS * SCALE
+        private const val MODE_UINT_1000_MS_VALUE = VALUE_1000_MS * SCALE
+        private const val MODE_UINT_2000_MS_VALUE = VALUE_2000_MS * SCALE
+        private const val MODE_UINT_3000_MS_VALUE = VALUE_3000_MS * SCALE
+        private const val MODE_UINT_6000_MS_VALUE = VALUE_6000_MS * SCALE
         val MODE_UINT_VALUE_ARRAY = arrayOf(
             MODE_UINT_100_MS_VALUE,
             MODE_UINT_500_MS_VALUE,
@@ -213,7 +221,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         mScalePaint!!.isDither = true
         mScalePaint!!.style = Paint.Style.FILL_AND_STROKE
         minScreenSpanValue = MODE_UINT_VALUE_ARRAY[0]
-        maxScreenSpanValue = MODE_UINT_VALUE_ARRAY[MODE_UINT_VALUE_ARRAY.size-1]
+        maxScreenSpanValue = MODE_UINT_VALUE_ARRAY[MODE_UINT_VALUE_ARRAY.size - 1]
 
         mScaleInfo = ScaleMode()
         mScaleInfo!!.unitValue = 60000
