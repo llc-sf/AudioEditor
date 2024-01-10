@@ -25,6 +25,85 @@ import java.util.Date
 open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
     View(context, attrs), ScaleGestureDetector.OnScaleGestureListener,
     GestureDetector.OnGestureListener {
+
+    companion object {
+        /**
+         * updateScaleInfo(500ms, 100ms);
+         */
+        const val MODE_UINT_100_MS = "unit 100 ms"
+
+        /**
+         * updateScaleInfo(2.5s, 500ms);
+         */
+        const val MODE_UINT_500_MS = "unit 500 ms"
+
+        /**
+         * updateScaleInfo(5s, 1s);
+         */
+        const val MODE_UINT_1000_MS = "unit 1000 ms"
+
+        /**
+         * updateScaleInfo(10s, 2s);
+         */
+        const val MODE_UINT_2000_MS = "unit 2000 ms"
+
+        /**
+         * updateScaleInfo(15s, 3s);
+         */
+        const val MODE_UINT_3000_MS = "unit 3000 ms"
+
+        /**
+         * updateScaleInfo(30s, 6s);
+         */
+        const val MODE_UINT_6000_MS = "unit 6000 ms"
+        const val VALUE_100_MS: Long = 100
+        const val VALUE_500_MS: Long = 500
+        const val VALUE_1000_MS: Long = 1000
+        const val VALUE_2000_MS: Long = 2000
+        const val VALUE_3000_MS: Long = 3000
+        const val VALUE_6000_MS: Long = 6000
+
+        /**
+         * 屏幕宽度分成60份
+         * 控制刻度尺的密度 一个刻度多少像素 值越大刻度越密集
+         */
+        const val SCALE: Long = 60
+        const val MODE_UINT_100_MS_VALUE = VALUE_100_MS * SCALE
+        const val MODE_UINT_500_MS_VALUE = VALUE_500_MS * SCALE
+        const val MODE_UINT_1000_MS_VALUE = VALUE_1000_MS * SCALE
+        const val MODE_UINT_2000_MS_VALUE = VALUE_2000_MS * SCALE
+        const val MODE_UINT_3000_MS_VALUE = VALUE_3000_MS * SCALE
+        const val MODE_UINT_6000_MS_VALUE = VALUE_6000_MS * SCALE
+        private const val TAG = "BaseScaleBar"
+
+        /**
+         * 默认状态
+         */
+        const val STATUS_NONE = 0
+
+        /**
+         * 按下
+         */
+        const val STATUS_DOWN = 1
+
+        /**
+         * 拖拽滚动
+         */
+        const val STATUS_SCROLL = STATUS_DOWN + 1
+
+        /**
+         * 甩动滚动(惯性)
+         */
+        const val STATUS_SCROLL_FLING = STATUS_SCROLL + 1
+
+        /**
+         * 缩放
+         */
+        const val STATUS_ZOOM = STATUS_SCROLL_FLING + 1
+
+    }
+
+
     @StringDef(
         MODE_UINT_100_MS,
         MODE_UINT_500_MS,
@@ -66,8 +145,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
     protected var minScreenSpanValue: Long = 0
 
     /*一个屏幕宽度最多显示多少毫秒  80s*/
-    protected var maxScreenSpanValue: Long = 0
-        private set
+    private var maxScreenSpanValue: Long = 0
 
     /*一毫秒最多占多少像素*/
     private var maxUnitPixel = 0f
@@ -466,21 +544,21 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         }
     }
 
-    val scaleGestureDetect: ScaleGestureDetector
+    private val scaleGestureDetect: ScaleGestureDetector
         get() {
             if (null == mScaleGestureDetector) {
                 mScaleGestureDetector = ScaleGestureDetector(context, this)
             }
             return mScaleGestureDetector!!
         }
-    val gestureDetectorCompat: GestureDetectorCompat
+    private val gestureDetectorCompat: GestureDetectorCompat
         get() {
             if (null == mGestureDetectorCompat) {
                 mGestureDetectorCompat = GestureDetectorCompat(context, this)
             }
             return mGestureDetectorCompat!!
         }
-    val scroller: Scroller
+    private val scroller: Scroller
         get() {
             if (null == mScroller) {
                 mScroller = Scroller(context)
@@ -786,83 +864,5 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         fun getSize(scaleValue: Long, keyScale: Boolean, maxScaleValueSize: Float): Float
     }
 
-    companion object {
-        /**
-         * updateScaleInfo(500ms, 100ms);
-         */
-        const val MODE_UINT_100_MS = "unit 100 ms"
 
-        /**
-         * updateScaleInfo(2.5s, 500ms);
-         */
-        const val MODE_UINT_500_MS = "unit 500 ms"
-
-        /**
-         * updateScaleInfo(5s, 1s);
-         */
-        const val MODE_UINT_1000_MS = "unit 1000 ms"
-
-        /**
-         * updateScaleInfo(10s, 2s);
-         */
-        const val MODE_UINT_2000_MS = "unit 2000 ms"
-
-        /**
-         * updateScaleInfo(15s, 3s);
-         */
-        const val MODE_UINT_3000_MS = "unit 3000 ms"
-
-        /**
-         * updateScaleInfo(30s, 6s);
-         */
-        const val MODE_UINT_6000_MS = "unit 6000 ms"
-        const val VALUE_100_MS: Long = 100
-        const val VALUE_500_MS: Long = 500
-        const val VALUE_1000_MS: Long = 1000
-        const val VALUE_2000_MS: Long = 2000
-        const val VALUE_3000_MS: Long = 3000
-        const val VALUE_6000_MS: Long = 6000
-
-        /**
-         * 屏幕宽度分成60份
-         * 控制刻度尺的密度 一个刻度多少像素 值越大刻度越密集
-         */
-        const val SCALE: Long = 60
-        const val MODE_UINT_100_MS_VALUE = VALUE_100_MS * SCALE
-        const val MODE_UINT_500_MS_VALUE = VALUE_500_MS * SCALE
-        const val MODE_UINT_1000_MS_VALUE = VALUE_1000_MS * SCALE
-        const val MODE_UINT_2000_MS_VALUE = VALUE_2000_MS * SCALE
-        const val MODE_UINT_3000_MS_VALUE = VALUE_3000_MS * SCALE
-        const val MODE_UINT_6000_MS_VALUE = VALUE_6000_MS * SCALE
-        private const val TAG = "BaseScaleBar"
-
-        /**
-         * 默认状态
-         */
-        const val STATUS_NONE = 0
-
-        /**
-         * 按下
-         */
-        const val STATUS_DOWN = 1
-
-        /**
-         * 拖拽滚动
-         */
-        const val STATUS_SCROLL = STATUS_DOWN + 1
-
-        /**
-         * 甩动滚动(惯性)
-         */
-        const val STATUS_SCROLL_FLING = STATUS_SCROLL + 1
-
-        /**
-         * 缩放
-         */
-        const val STATUS_ZOOM = STATUS_SCROLL_FLING + 1
-        fun dip2px(dipValue: Float): Int {
-            val scale = Resources.getSystem().displayMetrics.density
-            return (dipValue * scale + 0.5f).toInt()
-        }
-    }
 }

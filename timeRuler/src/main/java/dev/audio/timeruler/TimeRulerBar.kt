@@ -14,7 +14,7 @@ import dev.audio.timeruler.BaseScaleBar.TickMarkStrategy
 import dev.audio.timeruler.utils.SizeUtils
 import java.text.SimpleDateFormat
 
-class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
+open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
     BaseScaleBar(context, attrs), TickMarkStrategy {
     private var mTickPaint: Paint? = null
     private var mColorCursorPaint: Paint? = null
@@ -25,11 +25,41 @@ class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: AttributeS
     private val cursorValueSize: Float
     private val colorScaleBackground: Int
     private val simpleDateFormat = SimpleDateFormat("HH:mm:ss")
-    var tickValueBoundOffsetH = 20f
+    private var tickValueBoundOffsetH = 20f
     private val videoAreaHeight: Float
     private var videoAreaOffset: Float
     private var drawCursorContent: Boolean
-    fun init() {
+
+
+    init {
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.TimeRulerBar)
+        videoAreaHeight = typedArray.getDimension(
+            R.styleable.TimeRulerBar_videoAreaHeight,
+            SizeUtils.sp2px(getContext(), 20f).toFloat()
+        )
+        videoAreaOffset = typedArray.getDimension(
+            R.styleable.TimeRulerBar_videoAreaOffset,
+            SizeUtils.sp2px(getContext(), 0f).toFloat()
+        )
+        tickValueColor = typedArray.getColor(R.styleable.TimeRulerBar_tickValueColor, Color.BLACK)
+        tickValueSize = typedArray.getDimension(
+            R.styleable.TimeRulerBar_tickValueSize,
+            SizeUtils.sp2px(getContext(), 8f).toFloat()
+        )
+        cursorBackgroundColor =
+            typedArray.getColor(R.styleable.TimeRulerBar_cursorBackgroundColor, Color.RED)
+        cursorValueSize = typedArray.getDimension(
+            R.styleable.TimeRulerBar_cursorValueSize,
+            SizeUtils.sp2px(getContext(), 10f).toFloat()
+        )
+        colorScaleBackground =
+            typedArray.getColor(R.styleable.TimeRulerBar_colorScaleBackground, Color.WHITE)
+        drawCursorContent = typedArray.getBoolean(R.styleable.TimeRulerBar_drawCursorContent, true)
+        typedArray.recycle()
+        init()
+    }
+
+    private fun init() {
         tickValueBoundOffsetH = SizeUtils.dp2px(context, 6f).toFloat()
         mTickPaint = Paint()
         mTickPaint!!.color = tickValueColor
@@ -46,12 +76,12 @@ class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: AttributeS
     }
 
     fun setMode(@Mode mode: String) {
-        setMode(mode, true, true)
+        setMode(mode, true)
     }
 
     override fun setRange(start: Long, end: Long) {
         super.setRange(start, end)
-        setMode(mMode, true, true)
+        setMode(mMode, true)
     }
 
     fun setScreenSpanValue(screenSpanValue: Long) {
@@ -64,7 +94,11 @@ class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: AttributeS
      * @param m
      * @param setScaleRatio
      */
-    fun setMode(@Mode m: String, setScaleRatio: Boolean, isRefreshUnitPixel: Boolean) {
+    private fun setMode(
+        @Mode m: String,
+        setScaleRatio: Boolean,
+        isRefreshUnitPixel: Boolean = true
+    ) {
         val spanValue: Long
         when (m) {
             MODE_UINT_100_MS -> {
@@ -213,20 +247,20 @@ class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: AttributeS
         invalidate()
     }
 
-    protected fun updateMode(screenSpanValue: Float) {
+    private fun updateMode(screenSpanValue: Float) {
         Log.i("TAG", "updateMode: $screenSpanValue")
         if (screenSpanValue >= MODE_UINT_6000_MS_VALUE) {
-            setMode(MODE_UINT_6000_MS, false, false)
+            setMode(MODE_UINT_6000_MS, setScaleRatio = false, isRefreshUnitPixel = false)
         } else if (screenSpanValue >= MODE_UINT_3000_MS_VALUE) {
-            setMode(MODE_UINT_3000_MS, false, false)
+            setMode(MODE_UINT_3000_MS, setScaleRatio = false, isRefreshUnitPixel = false)
         } else if (screenSpanValue >= MODE_UINT_2000_MS_VALUE) {
-            setMode(MODE_UINT_2000_MS, false, false)
+            setMode(MODE_UINT_2000_MS, setScaleRatio = false, isRefreshUnitPixel = false)
         } else if (screenSpanValue >= MODE_UINT_1000_MS_VALUE) {
-            setMode(MODE_UINT_1000_MS, false, false)
+            setMode(MODE_UINT_1000_MS, setScaleRatio = false, isRefreshUnitPixel = false)
         } else if (screenSpanValue >= MODE_UINT_500_MS_VALUE) {
-            setMode(MODE_UINT_500_MS, false, false)
+            setMode(MODE_UINT_500_MS, setScaleRatio = false, isRefreshUnitPixel = false)
         } else {
-            setMode(MODE_UINT_100_MS, false, false)
+            setMode(MODE_UINT_100_MS, setScaleRatio = false, isRefreshUnitPixel = false)
         }
     }
 
@@ -278,33 +312,6 @@ class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: AttributeS
 
     private var mColorScale: ColorScale? = null
 
-    init {
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.TimeRulerBar)
-        videoAreaHeight = typedArray.getDimension(
-            R.styleable.TimeRulerBar_videoAreaHeight,
-            SizeUtils.sp2px(getContext(), 20f).toFloat()
-        )
-        videoAreaOffset = typedArray.getDimension(
-            R.styleable.TimeRulerBar_videoAreaOffset,
-            SizeUtils.sp2px(getContext(), 0f).toFloat()
-        )
-        tickValueColor = typedArray.getColor(R.styleable.TimeRulerBar_tickValueColor, Color.BLACK)
-        tickValueSize = typedArray.getDimension(
-            R.styleable.TimeRulerBar_tickValueSize,
-            SizeUtils.sp2px(getContext(), 8f).toFloat()
-        )
-        cursorBackgroundColor =
-            typedArray.getColor(R.styleable.TimeRulerBar_cursorBackgroundColor, Color.RED)
-        cursorValueSize = typedArray.getDimension(
-            R.styleable.TimeRulerBar_cursorValueSize,
-            SizeUtils.sp2px(getContext(), 10f).toFloat()
-        )
-        colorScaleBackground =
-            typedArray.getColor(R.styleable.TimeRulerBar_colorScaleBackground, Color.WHITE)
-        drawCursorContent = typedArray.getBoolean(R.styleable.TimeRulerBar_drawCursorContent, true)
-        typedArray.recycle()
-        init()
-    }
 
     fun setColorScale(scale: ColorScale?) {
         mColorScale = scale
