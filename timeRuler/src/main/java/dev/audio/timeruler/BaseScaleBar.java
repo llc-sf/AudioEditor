@@ -42,13 +42,17 @@ public class BaseScaleBar extends View implements ScaleGestureDetector.OnScaleGe
     private ScaleGestureDetector mScaleGestureDetector;
     private Paint mScalePaint;
     private ScaleMode mScaleInfo;
+    /*每毫秒多少像素*/
     private float unitPixel;
-    /*一个屏幕宽度显示多少毫秒*/
+    /*一个屏幕宽度最少显示多少毫秒*/
     protected long minScreenSpanValue;
+    /*一个屏幕宽度最多显示多少毫秒*/
     private long maxScreenSpanValue;
-    /*一毫秒占多少像素*/
+    /*一毫秒最多占多少像素*/
     private float maxUnitPixel;
+    /*一毫秒最少占多少像素*/
     private float minUnitPixel;
+
     private long mCursorValue;
     private GestureDetectorCompat mGestureDetectorCompat;
     private boolean scrollHappened;

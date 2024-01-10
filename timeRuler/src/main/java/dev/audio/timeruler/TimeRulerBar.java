@@ -110,6 +110,7 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
 
     public void setMode(@Mode String mode) {
         setMode(mode, true);
+        invalidate();
     }
 
     @Override

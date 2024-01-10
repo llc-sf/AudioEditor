@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import dev.audio.timeruler.BaseScaleBar
+import dev.audio.timeruler.R
 import dev.audio.timeruler.TimeRulerBar
 import dev.audio.timeruler.bean.TimeBean
 import dev.audio.timeruler.bean.VideoBean
@@ -101,6 +102,21 @@ class TimeRulerActivity : AppCompatActivity() {
         binding.btnPlay.setOnClickListener {
             nowTime++
             binding.timeBar.cursorValue = System.currentTimeMillis() + 1000 * nowTime * 60
+        }
+        binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.rb1 -> {
+                    binding.timeBar.setMode(TimeRulerBar.MODE_UINT_100_MS)
+                }
+
+                R.id.rb2 -> {
+                    binding.timeBar.setMode(TimeRulerBar.MODE_UINT_500_MS)
+                }
+
+                R.id.rb3 -> {
+                    binding.timeBar.setMode(TimeRulerBar.MODE_UINT_1000_MS)
+                }
+            }
         }
         setData()
 
