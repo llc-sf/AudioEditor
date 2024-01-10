@@ -19,6 +19,7 @@ import androidx.annotation.Dimension;
 import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringDef;
 import androidx.core.view.GestureDetectorCompat;
 
 
@@ -30,6 +31,64 @@ import dev.audio.timeruler.utils.SizeUtils;
 
 public class BaseScaleBar extends View implements ScaleGestureDetector.OnScaleGestureListener,
         GestureDetector.OnGestureListener {
+
+    /**
+     * updateScaleInfo(500ms, 100ms);
+     */
+    public static final String MODE_UINT_100_MS = "unit 100 ms";
+    /**
+     * updateScaleInfo(2.5s, 500ms);
+     */
+    public static final String MODE_UINT_500_MS = "unit 500 ms";
+    /**
+     * updateScaleInfo(5s, 1s);
+     */
+    public static final String MODE_UINT_1000_MS = "unit 1000 ms";
+
+
+    /**
+     * updateScaleInfo(10s, 2s);
+     */
+    public static final String MODE_UINT_2000_MS = "unit 2000 ms";
+
+    /**
+     * updateScaleInfo(15s, 3s);
+     */
+    public static final String MODE_UINT_3000_MS = "unit 3000 ms";
+
+    /**
+     * updateScaleInfo(30s, 6s);
+     */
+    public static final String MODE_UINT_6000_MS = "unit 6000 ms";
+
+    @StringDef({MODE_UINT_100_MS, MODE_UINT_500_MS, MODE_UINT_1000_MS, MODE_UINT_2000_MS, MODE_UINT_3000_MS, MODE_UINT_6000_MS})
+    public @interface Mode {
+    }
+
+    protected @Mode
+    String mMode = MODE_UINT_1000_MS;
+
+
+    public static final long VALUE_100_MS = 100;
+    public static final long VALUE_500_MS = 500;
+    public static final long VALUE_1000_MS = 1000;
+    public static final long VALUE_2000_MS = 2000;
+    public static final long VALUE_3000_MS = 3000;
+    public static final long VALUE_6000_MS = 6000;
+
+
+    /**
+     * 屏幕宽度分成60份
+     * 控制刻度尺的密度 一个刻度多少像素 值越大刻度越密集
+     */
+    public static final long SCALE = 60;
+    public static final long MODE_UINT_100_MS_VALUE = VALUE_100_MS * SCALE;
+    public static final long MODE_UINT_500_MS_VALUE = VALUE_500_MS * SCALE;
+    public static final long MODE_UINT_1000_MS_VALUE = VALUE_1000_MS * SCALE;
+    public static final long MODE_UINT_2000_MS_VALUE = VALUE_2000_MS * SCALE;
+    public static final long MODE_UINT_3000_MS_VALUE = VALUE_3000_MS * SCALE;
+    public static final long MODE_UINT_6000_MS_VALUE = VALUE_6000_MS * SCALE;
+
     private static final String TAG = "BaseScaleBar";
     /* 缩放比例*/
     private float mScaleRatio = 1.0f;
@@ -139,10 +198,10 @@ public class BaseScaleBar extends View implements ScaleGestureDetector.OnScaleGe
         mScalePaint.setDither(true);
         mScalePaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
+        minScreenSpanValue = MODE_UINT_100_MS_VALUE;
+        maxScreenSpanValue = MODE_UINT_6000_MS_VALUE;
 
-        minScreenSpanValue = 8 * 1000;
-        maxScreenSpanValue = 80 * 1000;
-
+        
         mScaleInfo = new ScaleMode();
         mScaleInfo.unitValue = 60000;
         mScaleInfo.keyScaleRange = 5 * 60 * 1000;
