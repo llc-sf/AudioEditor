@@ -54,7 +54,7 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
      */
     public static final String MODE_UINT_6000_MS = "unit 6000 ms";
 
-    @StringDef({MODE_UINT_100_MS, MODE_UINT_500_MS, MODE_UINT_1000_MS,MODE_UINT_2000_MS,MODE_UINT_3000_MS,MODE_UINT_6000_MS})
+    @StringDef({MODE_UINT_100_MS, MODE_UINT_500_MS, MODE_UINT_1000_MS, MODE_UINT_2000_MS, MODE_UINT_3000_MS, MODE_UINT_6000_MS})
     public @interface Mode {
     }
 
@@ -181,7 +181,7 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
             default:
                 throw new RuntimeException("not support mode: " + m);
         }
-        unitPixel  =  getWidth()*1f/spanValue;
+        unitPixel = getWidth() * 1f / spanValue;
         Log.e("TAG", "unitPixel: " + unitPixel);
         if (setScaleRatio) {
             setScaleRatio(getMinScreenSpanValue() * 1.0f / spanValue);
@@ -292,7 +292,13 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
 
     protected void updateMode(float screenSpanValue) {
         Log.i("TAG", "updateMode: " + screenSpanValue);
-        if (screenSpanValue >= MODE_UINT_1000_MS_VALUE) {
+        if (screenSpanValue >= MODE_UINT_6000_MS_VALUE) {
+            setMode(MODE_UINT_6000_MS, false);
+        } else if (screenSpanValue >= MODE_UINT_3000_MS_VALUE) {
+            setMode(MODE_UINT_3000_MS, false);
+        } else if (screenSpanValue >= MODE_UINT_2000_MS_VALUE) {
+            setMode(MODE_UINT_2000_MS, false);
+        } else if (screenSpanValue >= MODE_UINT_1000_MS_VALUE) {
             setMode(MODE_UINT_1000_MS, false);
         } else if (screenSpanValue >= MODE_UINT_500_MS_VALUE) {
             setMode(MODE_UINT_500_MS, false);
