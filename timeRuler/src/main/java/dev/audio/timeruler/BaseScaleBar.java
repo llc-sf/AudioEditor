@@ -324,7 +324,9 @@ public class BaseScaleBar extends View implements ScaleGestureDetector.OnScaleGe
             } else {
                 if ((onDrawTickValue - mScaleInfo.startValue) % mScaleInfo.keyScaleRange == 0) {
                     canvas.drawLine(onDrawTickPosition, baselinePosition, onDrawTickPosition, baselinePosition + mKeyTickHeight, mScalePaint);
-                    drawTickValue(canvas, onDrawTickPosition, baselinePosition - mKeyTickHeight, onDrawTickValue, true);
+                    if ((onDrawTickValue - mScaleInfo.startValue) % (mScaleInfo.keyScaleRange * 2) == 0) {
+                        drawTickValue(canvas, onDrawTickPosition, baselinePosition - mKeyTickHeight, onDrawTickValue, true);
+                    }
                 } else {
                     canvas.drawLine(onDrawTickPosition, baselinePosition, onDrawTickPosition, baselinePosition + mTickHeight, mScalePaint);
                     drawTickValue(canvas, onDrawTickPosition, baselinePosition - mTickHeight, onDrawTickValue, false);
@@ -353,7 +355,9 @@ public class BaseScaleBar extends View implements ScaleGestureDetector.OnScaleGe
             } else {
                 if ((onDrawTickValue - mScaleInfo.startValue) % mScaleInfo.keyScaleRange == 0) {
                     canvas.drawLine(onDrawTickPosition, baselinePosition, onDrawTickPosition, baselinePosition + mKeyTickHeight, mScalePaint);
-                    drawTickValue(canvas, onDrawTickPosition, baselinePosition - mKeyTickHeight, onDrawTickValue, true);
+                    if ((onDrawTickValue - mScaleInfo.startValue) % (mScaleInfo.keyScaleRange * 2) == 0) {
+                        drawTickValue(canvas, onDrawTickPosition, baselinePosition - mKeyTickHeight, onDrawTickValue, true);
+                    }
                 } else {
                     canvas.drawLine(onDrawTickPosition, baselinePosition, onDrawTickPosition, baselinePosition + mTickHeight, mScalePaint);
                     drawTickValue(canvas, onDrawTickPosition, baselinePosition - mTickHeight, onDrawTickValue, false);
