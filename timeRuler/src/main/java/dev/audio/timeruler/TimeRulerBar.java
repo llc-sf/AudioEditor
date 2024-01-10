@@ -39,7 +39,22 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
     public static final String MODE_UINT_1000_MS = "unit 1000 ms";
 
 
-    @StringDef({MODE_UINT_100_MS, MODE_UINT_500_MS, MODE_UINT_1000_MS})
+    /**
+     * updateScaleInfo(10s, 2s);
+     */
+    public static final String MODE_UINT_2000_MS = "unit 2000 ms";
+
+    /**
+     * updateScaleInfo(15s, 3s);
+     */
+    public static final String MODE_UINT_3000_MS = "unit 3000 ms";
+
+    /**
+     * updateScaleInfo(30s, 6s);
+     */
+    public static final String MODE_UINT_6000_MS = "unit 6000 ms";
+
+    @StringDef({MODE_UINT_100_MS, MODE_UINT_500_MS, MODE_UINT_1000_MS,MODE_UINT_2000_MS,MODE_UINT_3000_MS,MODE_UINT_6000_MS})
     public @interface Mode {
     }
 
@@ -50,11 +65,18 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
     public static final long VALUE_100_MS = 100;
     public static final long VALUE_500_MS = 500;
     public static final long VALUE_1000_MS = 1000;
+    public static final long VALUE_2000_MS = 2000;
+    public static final long VALUE_3000_MS = 3000;
+    public static final long VALUE_6000_MS = 6000;
 
 
     public static final long MODE_UINT_100_MS_VALUE = VALUE_100_MS * 10 * 8;
     public static final long MODE_UINT_500_MS_VALUE = VALUE_500_MS * 10 * 8;
     public static final long MODE_UINT_1000_MS_VALUE = VALUE_1000_MS * 10 * 8;
+
+    public static final long MODE_UINT_2000_MS_VALUE = VALUE_2000_MS * 10 * 8;
+    public static final long MODE_UINT_3000_MS_VALUE = VALUE_3000_MS * 10 * 8;
+    public static final long MODE_UINT_6000_MS_VALUE = VALUE_6000_MS * 10 * 8;
 
     private Paint mTickPaint;
     private Paint mColorCursorPaint;
@@ -140,6 +162,21 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
                 this.mMode = m;
                 updateScaleInfo(VALUE_1000_MS * 5, VALUE_1000_MS);
                 spanValue = MODE_UINT_1000_MS_VALUE;
+                break;
+            case MODE_UINT_2000_MS:
+                this.mMode = m;
+                updateScaleInfo(VALUE_2000_MS * 5, VALUE_2000_MS);
+                spanValue = MODE_UINT_2000_MS_VALUE;
+                break;
+            case MODE_UINT_3000_MS:
+                this.mMode = m;
+                updateScaleInfo(VALUE_3000_MS * 5, VALUE_3000_MS);
+                spanValue = MODE_UINT_3000_MS_VALUE;
+                break;
+            case MODE_UINT_6000_MS:
+                this.mMode = m;
+                updateScaleInfo(VALUE_6000_MS * 5, VALUE_6000_MS);
+                spanValue = MODE_UINT_6000_MS_VALUE;
                 break;
             default:
                 throw new RuntimeException("not support mode: " + m);

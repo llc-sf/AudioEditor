@@ -116,6 +116,18 @@ class TimeRulerActivity : AppCompatActivity() {
                 R.id.rb3 -> {
                     binding.timeBar.setMode(TimeRulerBar.MODE_UINT_1000_MS)
                 }
+
+                R.id.rb4 -> {
+                    binding.timeBar.setMode(TimeRulerBar.MODE_UINT_2000_MS)
+                }
+
+                R.id.rb5 -> {
+                    binding.timeBar.setMode(TimeRulerBar.MODE_UINT_3000_MS)
+                }
+
+                R.id.rb6 -> {
+                    binding.timeBar.setMode(TimeRulerBar.MODE_UINT_6000_MS)
+                }
             }
         }
         setData()
