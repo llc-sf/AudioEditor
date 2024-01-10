@@ -22,7 +22,9 @@ import androidx.annotation.Nullable;
 import androidx.core.view.GestureDetectorCompat;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import dev.audio.timeruler.utils.SizeUtils;
 
@@ -43,7 +45,7 @@ public class BaseScaleBar extends View implements ScaleGestureDetector.OnScaleGe
     private Paint mScalePaint;
     private ScaleMode mScaleInfo;
     /*每毫秒多少像素*/
-    private float unitPixel;
+    protected float unitPixel;
     /*一个屏幕宽度最少显示多少毫秒  8s*/
     protected long minScreenSpanValue;
     /*一个屏幕宽度最多显示多少毫秒  80s*/
@@ -52,7 +54,7 @@ public class BaseScaleBar extends View implements ScaleGestureDetector.OnScaleGe
     private float maxUnitPixel;
     /*一毫秒最少占多少像素*/
     private float minUnitPixel;
-
+    /*时间戳*/
     private long mCursorValue;
     private GestureDetectorCompat mGestureDetectorCompat;
     private boolean scrollHappened;
@@ -208,10 +210,14 @@ public class BaseScaleBar extends View implements ScaleGestureDetector.OnScaleGe
     }
 
     public void setCursorValue(long cursorValue) {
+//        print(cursorValue);
+//        print(mScaleInfo.startValue);
+//        print(mScaleInfo.endValue);
         if (status != STATUS_NONE) {
             return;
         }
         if (cursorValue < mScaleInfo.startValue || cursorValue > mScaleInfo.endValue) {
+            //mScaleInfo.startValue 转 年月日 时分秒
             return;
         }
         this.mCursorValue = cursorValue;
@@ -219,8 +225,20 @@ public class BaseScaleBar extends View implements ScaleGestureDetector.OnScaleGe
         invalidate();
     }
 
+    public void print(long timestamp) {
+        // 假设这是你的时间戳
+        // 创建一个日期对象
+        Date date = new Date(timestamp);
+        // 创建SimpleDateFormat对象，定义日期和时间的格式
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        // 使用SimpleDateFormat对象格式化日期对象
+        String formattedDate = sdf.format(date);
+        // 打印格式化后的日期和时间
+        Log.i("llc_date", "formattedDate:" + formattedDate);
+    }
+
     /**
-     * @param keyScaleRange 关键刻度值
+     * @param keyScaleRange 关键刻度值f
      * @param unitValue     每个刻度的值
      */
     protected void updateScaleInfo(long keyScaleRange, long unitValue) {
@@ -344,7 +362,7 @@ public class BaseScaleBar extends View implements ScaleGestureDetector.OnScaleGe
 
         }
 
-//        onEndTickDraw(canvas);
+        onEndTickDraw(canvas);
 
         drawCursor(canvas, mCursorPosition, mCursorValue);
     }
@@ -541,6 +559,7 @@ public class BaseScaleBar extends View implements ScaleGestureDetector.OnScaleGe
         status = STATUS_SCROLL;
         // 游标刻度值增量
         long courseIncrement = (long) (distanceX / unitPixel);
+        Log.i(TAG, "unitPixel: " + unitPixel);
         mCursorValue += courseIncrement;
         boolean result = true;
         if (mCursorValue < mScaleInfo.startValue) {
@@ -606,9 +625,16 @@ public class BaseScaleBar extends View implements ScaleGestureDetector.OnScaleGe
     }
 
     protected class ScaleMode {
-        public long unitValue;
+
         public long startValue;
         public long endValue;
+        /**
+         * 间隔多少毫秒是一个刻度（普通）
+         */
+        public long unitValue;
+        /**
+         * 间隔多少毫秒是一个关键刻度
+         */
         public long keyScaleRange;
     }
 

@@ -128,7 +128,7 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
         switch (m) {
             case MODE_UINT_100_MS:
                 this.mMode = m;
-                updateScaleInfo(VALUE_100_MS * 10, VALUE_100_MS);
+                updateScaleInfo(VALUE_100_MS * 5, VALUE_100_MS);
                 spanValue = MODE_UINT_100_MS_VALUE;
                 break;
             case MODE_UINT_500_MS:
@@ -144,7 +144,8 @@ public class TimeRulerBar extends BaseScaleBar implements BaseScaleBar.TickMarkS
             default:
                 throw new RuntimeException("not support mode: " + m);
         }
-//        Log.e("TAG", " mode: " + mMode);
+        unitPixel  =  getWidth()*1f/spanValue;
+        Log.e("TAG", "unitPixel: " + unitPixel);
         if (setScaleRatio) {
             setScaleRatio(getMinScreenSpanValue() * 1.0f / spanValue);
         }
