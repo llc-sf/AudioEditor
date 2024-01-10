@@ -1,0 +1,327 @@
+package dev.audio.timeruler
+
+import android.content.Context
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.Rect
+import android.graphics.RectF
+import android.util.AttributeSet
+import android.util.Log
+import androidx.annotation.ColorInt
+import dev.audio.timeruler.BaseScaleBar.TickMarkStrategy
+import dev.audio.timeruler.utils.SizeUtils
+import java.text.SimpleDateFormat
+
+class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
+    BaseScaleBar(context, attrs), TickMarkStrategy {
+    private var mTickPaint: Paint? = null
+    private var mColorCursorPaint: Paint? = null
+    private val mTriangleHeight = 10f
+    private val tickValueColor: Int
+    private val tickValueSize: Float
+    private val cursorBackgroundColor: Int
+    private val cursorValueSize: Float
+    private val colorScaleBackground: Int
+    private val simpleDateFormat = SimpleDateFormat("HH:mm:ss")
+    var tickValueBoundOffsetH = 20f
+    private val videoAreaHeight: Float
+    private var videoAreaOffset: Float
+    private var drawCursorContent: Boolean
+    fun init() {
+        tickValueBoundOffsetH = SizeUtils.dp2px(context, 6f).toFloat()
+        mTickPaint = Paint()
+        mTickPaint!!.color = tickValueColor
+        mTickPaint!!.isAntiAlias = true
+        mTickPaint!!.style = Paint.Style.FILL_AND_STROKE
+        mTickPaint!!.textAlign = Paint.Align.CENTER
+        mTickPaint!!.textSize = tickValueSize
+        mTickPaint!!.strokeWidth = 1f
+        mTickPaint!!.isDither = true
+        mColorCursorPaint = Paint()
+        mColorCursorPaint!!.style = Paint.Style.FILL_AND_STROKE
+        mColorCursorPaint!!.isDither = true
+        setTickMarkStrategy(this)
+    }
+
+    fun setMode(@Mode mode: String) {
+        setMode(mode, true, true)
+    }
+
+    override fun setRange(start: Long, end: Long) {
+        super.setRange(start, end)
+        setMode(mMode, true, true)
+    }
+
+    fun setScreenSpanValue(screenSpanValue: Long) {
+        minScreenSpanValue = screenSpanValue
+    }
+
+    /**
+     * 1、手动直接设置
+     * 2、放大缩小设置
+     * @param m
+     * @param setScaleRatio
+     */
+    fun setMode(@Mode m: String, setScaleRatio: Boolean, isRefreshUnitPixel: Boolean) {
+        val spanValue: Long
+        when (m) {
+            MODE_UINT_100_MS -> {
+                mMode = m
+                updateScaleInfo(VALUE_100_MS * 5, VALUE_100_MS)
+                spanValue = MODE_UINT_100_MS_VALUE
+            }
+
+            MODE_UINT_500_MS -> {
+                mMode = m
+                updateScaleInfo(VALUE_500_MS * 5, VALUE_500_MS)
+                spanValue = MODE_UINT_500_MS_VALUE
+            }
+
+            MODE_UINT_1000_MS -> {
+                mMode = m
+                updateScaleInfo(VALUE_1000_MS * 5, VALUE_1000_MS)
+                spanValue = MODE_UINT_1000_MS_VALUE
+            }
+
+            MODE_UINT_2000_MS -> {
+                mMode = m
+                updateScaleInfo(VALUE_2000_MS * 5, VALUE_2000_MS)
+                spanValue = MODE_UINT_2000_MS_VALUE
+            }
+
+            MODE_UINT_3000_MS -> {
+                mMode = m
+                updateScaleInfo(VALUE_3000_MS * 5, VALUE_3000_MS)
+                spanValue = MODE_UINT_3000_MS_VALUE
+            }
+
+            MODE_UINT_6000_MS -> {
+                mMode = m
+                updateScaleInfo(VALUE_6000_MS * 5, VALUE_6000_MS)
+                spanValue = MODE_UINT_6000_MS_VALUE
+            }
+
+            else -> throw RuntimeException("not support mode: $m")
+        }
+        if (isRefreshUnitPixel) {
+            unitPixel = width * 1f / spanValue
+        }
+        Log.e("TAG", "unitPixel: $unitPixel")
+        if (setScaleRatio) {
+            setScaleRatio(minScreenSpanValue * 1.0f / spanValue)
+        }
+        invalidate()
+    }
+
+    override fun disPlay(scaleValue: Long, keyScale: Boolean): Boolean {
+        return keyScale
+    }
+
+    override fun getScaleValue(scaleValue: Long, keyScale: Boolean): String {
+        val formattedTime = simpleDateFormat.format(scaleValue)
+        // 解析天、小时、分钟和秒
+        val parts = formattedTime.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        val hours = parts[0].toInt()
+        val minutes = parts[1].toInt()
+        val seconds = parts[2].toInt()
+        // 转换为秒
+        return (hours * 3600 + minutes * 60 + seconds).toString() + "s"
+    }
+
+    override fun getColor(scaleValue: Long, keyScale: Boolean): Int {
+        return tickValueColor
+    }
+
+    override fun getSize(scaleValue: Long, keyScale: Boolean, maxScaleValueSize: Float): Float {
+        return tickValueSize
+    }
+
+    override fun onEndTickDraw(canvas: Canvas?) {
+        val startLimit = scrollX
+        val endLimit = scrollX + width
+        val startY = videoAreaOffset
+        val endY = videoAreaHeight + videoAreaOffset
+        // ① 绘制背景
+        mColorCursorPaint!!.color = colorScaleBackground
+        canvas!!.drawRect(
+            startLimit.toFloat(),
+            startY,
+            endLimit.toFloat(),
+            endY,
+            mColorCursorPaint!!
+        )
+        //  绘制颜色刻度尺
+        if (null != mColorScale) {
+            val cursorPosition = cursorPosition
+            val cursorValue = cursorValue
+            val unitPixel = unitPixel
+            val size = mColorScale!!.size
+            val rect = RectF()
+            rect.top = startY
+            rect.bottom = endY
+            var startValue: Long
+            var endValue: Long
+            var startPiexl: Float
+            var endPiexl: Float
+            // ② 绘制颜色刻度
+            for (i in 0 until size) {
+                startValue = mColorScale!!.getStart(i)
+                endValue = mColorScale!!.getEnd(i)
+                startPiexl = cursorPosition + (startValue - cursorValue) * unitPixel
+                endPiexl = cursorPosition + (endValue - cursorValue) * unitPixel
+                if (endPiexl < startLimit) {
+                    continue
+                }
+                if (startPiexl > endLimit) {
+                    continue
+                }
+                rect.left = startPiexl
+                rect.right = endPiexl
+                mColorCursorPaint!!.color = mColorScale!!.getColor(i)
+                canvas.drawRect(rect, mColorCursorPaint!!)
+            }
+        }
+    }
+
+    override fun calcContentHeight(baselinePositionProportion: Float): Int {
+        val contentHeight = super.calcContentHeight(baselinePositionProportion)
+        mColorCursorPaint!!.textSize = cursorValueSize
+        val fontMetrics = mColorCursorPaint!!.fontMetrics
+        val ceil = Math.ceil((fontMetrics.bottom - fontMetrics.top).toDouble())
+        val cursorValueHeight = (ceil + mTriangleHeight + tickValueBoundOffsetH).toInt() + 5
+        val cursorContentHeight =
+            ((keyTickHeight + cursorValueHeight) / baselinePositionProportion + 0.5f).toInt()
+        return Math.max(contentHeight, cursorContentHeight)
+    }
+
+    override fun onScale(info: ScaleMode?, unitPixel: Float) {
+        val width = width
+        // 计算一屏刻度值跨度
+        val screenSpanValue = width / unitPixel
+        updateMode(screenSpanValue)
+    }
+
+    fun setShowCursor(isShowCursorContent: Boolean) {
+        drawCursorContent = isShowCursorContent
+        invalidate()
+    }
+
+    fun setVideoAreaOffset(progress: Int) {
+        videoAreaOffset = progress.toFloat()
+        invalidate()
+    }
+
+    protected fun updateMode(screenSpanValue: Float) {
+        Log.i("TAG", "updateMode: $screenSpanValue")
+        if (screenSpanValue >= MODE_UINT_6000_MS_VALUE) {
+            setMode(MODE_UINT_6000_MS, false, false)
+        } else if (screenSpanValue >= MODE_UINT_3000_MS_VALUE) {
+            setMode(MODE_UINT_3000_MS, false, false)
+        } else if (screenSpanValue >= MODE_UINT_2000_MS_VALUE) {
+            setMode(MODE_UINT_2000_MS, false, false)
+        } else if (screenSpanValue >= MODE_UINT_1000_MS_VALUE) {
+            setMode(MODE_UINT_1000_MS, false, false)
+        } else if (screenSpanValue >= MODE_UINT_500_MS_VALUE) {
+            setMode(MODE_UINT_500_MS, false, false)
+        } else {
+            setMode(MODE_UINT_100_MS, false, false)
+        }
+    }
+
+    var cursorDateFormat = SimpleDateFormat("HH:mm:ss")
+
+    /*可自行绘制浮标*/
+    override fun drawCursor(canvas: Canvas, cursorPosition: Float, cursorValue: Long) {
+        super.drawCursor(canvas, cursorPosition, cursorValue)
+        if (!drawCursorContent) return
+        val keyTickHeight = keyTickHeight
+        val baselinePosition = baselinePosition
+        // ①绘制倒三角
+        val path = Path()
+        val statY = baselinePosition - keyTickHeight
+        // 倒三角形顶边的 y
+        val topSidePosition = statY - mTriangleHeight
+        path.moveTo(cursorPosition, statY)
+        path.lineTo(cursorPosition - 3.5f, topSidePosition)
+        path.lineTo(cursorPosition + 3.5f, topSidePosition)
+        path.close()
+        mTickPaint!!.color = cursorBackgroundColor
+        canvas.drawPath(path, mTickPaint!!)
+        val content = cursorDateFormat.format(cursorValue)
+        val textBound = Rect()
+        mTickPaint!!.textSize = cursorValueSize
+        // 测量内容大小
+        mTickPaint!!.getTextBounds(content, 0, content.length, textBound)
+
+        // ②绘制内容背景
+        // 创建包裹内容的背景大小
+        val rectF = RectF(
+            0f,
+            0f,
+            (textBound.width() + 20).toFloat(),
+            textBound.height() + tickValueBoundOffsetH
+        )
+        // 背景位置
+        // x方向： 关于游标居中  y方向:在倒三角形上边
+        rectF.offset(cursorPosition - rectF.width() * 0.5f, topSidePosition + 0.5f - rectF.height())
+        val rx = rectF.width() * 0.5f
+        mTickPaint!!.color = cursorBackgroundColor
+        canvas.drawRoundRect(rectF, rx, rx, mTickPaint!!)
+        mTickPaint!!.color = tickValueColor
+        // ③ 绘制内容
+        // 使内容绘制在背景内,达到包裹效果
+        val textY = rectF.centerY() + textBound.height() * 0.5f
+        canvas.drawText(content, cursorPosition, textY, mTickPaint!!)
+    }
+
+    private var mColorScale: ColorScale? = null
+
+    init {
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.TimeRulerBar)
+        videoAreaHeight = typedArray.getDimension(
+            R.styleable.TimeRulerBar_videoAreaHeight,
+            SizeUtils.sp2px(getContext(), 20f).toFloat()
+        )
+        videoAreaOffset = typedArray.getDimension(
+            R.styleable.TimeRulerBar_videoAreaOffset,
+            SizeUtils.sp2px(getContext(), 0f).toFloat()
+        )
+        tickValueColor = typedArray.getColor(R.styleable.TimeRulerBar_tickValueColor, Color.BLACK)
+        tickValueSize = typedArray.getDimension(
+            R.styleable.TimeRulerBar_tickValueSize,
+            SizeUtils.sp2px(getContext(), 8f).toFloat()
+        )
+        cursorBackgroundColor =
+            typedArray.getColor(R.styleable.TimeRulerBar_cursorBackgroundColor, Color.RED)
+        cursorValueSize = typedArray.getDimension(
+            R.styleable.TimeRulerBar_cursorValueSize,
+            SizeUtils.sp2px(getContext(), 10f).toFloat()
+        )
+        colorScaleBackground =
+            typedArray.getColor(R.styleable.TimeRulerBar_colorScaleBackground, Color.WHITE)
+        drawCursorContent = typedArray.getBoolean(R.styleable.TimeRulerBar_drawCursorContent, true)
+        typedArray.recycle()
+        init()
+    }
+
+    fun setColorScale(scale: ColorScale?) {
+        mColorScale = scale
+    }
+
+    interface ColorScale {
+        /*需要绘制的颜色数量*/
+        val size: Int
+
+        /*开始时间*/
+        fun getStart(index: Int): Long
+
+        /*结束时间*/
+        fun getEnd(index: Int): Long
+
+        /*绘制的颜色*/
+        @ColorInt
+        fun getColor(index: Int): Int
+    }
+}

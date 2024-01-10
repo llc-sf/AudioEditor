@@ -45,7 +45,7 @@ class TimeRulerActivity : AppCompatActivity() {
         //一个手机宽度显示多长时间
 //        binding.timeBar.setScreenSpanValue(TimeRulerBar.VALUE_1000_MS * 8)
         //
-        binding.timeBar.setMode(TimeRulerBar.MODE_UINT_1000_MS)
+        binding.timeBar.setMode(BaseScaleBar.MODE_UINT_1000_MS)
         binding.timeBar.setRange(startTime, endTime)
         binding.timeBar.cursorValue = System.currentTimeMillis()
 
@@ -106,27 +106,27 @@ class TimeRulerActivity : AppCompatActivity() {
         binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.rb1 -> {
-                    binding.timeBar.setMode(TimeRulerBar.MODE_UINT_100_MS)
+                    binding.timeBar.setMode(BaseScaleBar.MODE_UINT_100_MS)
                 }
 
                 R.id.rb2 -> {
-                    binding.timeBar.setMode(TimeRulerBar.MODE_UINT_500_MS)
+                    binding.timeBar.setMode(BaseScaleBar.MODE_UINT_500_MS)
                 }
 
                 R.id.rb3 -> {
-                    binding.timeBar.setMode(TimeRulerBar.MODE_UINT_1000_MS)
+                    binding.timeBar.setMode(BaseScaleBar.MODE_UINT_1000_MS)
                 }
 
                 R.id.rb4 -> {
-                    binding.timeBar.setMode(TimeRulerBar.MODE_UINT_2000_MS)
+                    binding.timeBar.setMode(BaseScaleBar.MODE_UINT_2000_MS)
                 }
 
                 R.id.rb5 -> {
-                    binding.timeBar.setMode(TimeRulerBar.MODE_UINT_3000_MS)
+                    binding.timeBar.setMode(BaseScaleBar.MODE_UINT_3000_MS)
                 }
 
                 R.id.rb6 -> {
-                    binding.timeBar.setMode(TimeRulerBar.MODE_UINT_6000_MS)
+                    binding.timeBar.setMode(BaseScaleBar.MODE_UINT_6000_MS)
                 }
             }
         }
