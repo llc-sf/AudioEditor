@@ -63,14 +63,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.masoudss.lib.WaveformSeekBar
+            <com.masoudss.lib.WaveformSeekBar1
                 android:id="@+id/waveformSeekBar"
                 android:layout_width="300dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="32dp"
                 android:layout_marginBottom="16dp"
-                android:visibility="gone"
                 app:wave_background_color="@color/white"
                 app:wave_corner_radius="2dp"
                 app:wave_gap="2dp"

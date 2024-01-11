@@ -75,6 +75,50 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
         setTickMarkStrategy(this)
     }
 
+
+    data class Waveform(val amplitudes: List<Int>)
+
+    // 添加用于绘制波形的 Paint
+    private val waveformPaint = Paint().apply {
+        color = Color.BLUE // 波形颜色，可以自定义
+        strokeWidth = 2f // 波形线宽，可以自定义
+        style = Paint.Style.STROKE
+    }
+
+    // 波形数据，可以通过某种方式设置
+    private var waveform: Waveform? = null
+
+    // 设置波形数据的方法
+    fun setWaveform(waveform: Waveform) {
+        this.waveform = waveform
+        invalidate() // 触发重新绘制
+    }
+
+    override fun drawWaveformSeekBar(canvas: Canvas) {
+        super.drawWaveformSeekBar(canvas)
+        // 绘制波形
+        waveform?.let { wf ->
+            val path = Path()
+            val maxAmplitude = wf.amplitudes.maxOrNull() ?: 1f
+            val width = width // 控件宽度
+            val height = height // 控件高度
+            val step = width.toFloat() / wf.amplitudes.size // 每个幅度值的水平距离
+
+            wf.amplitudes.forEachIndexed { index, amp ->
+                val normalizedAmp = amp.toFloat() / maxAmplitude.toFloat() // 归一化幅度值
+                val x = index * step
+                val y = height * (1 - normalizedAmp)
+                if (index == 0) {
+                    path.moveTo(x, y)
+                } else {
+                    path.lineTo(x, y)
+                }
+            }
+            canvas.drawPath(path, waveformPaint)
+        }
+    }
+
+
     fun setMode(@Mode mode: String) {
         setMode(mode, true)
     }

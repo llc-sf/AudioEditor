@@ -6,7 +6,7 @@ import linc.com.amplituda.Amplituda
 import linc.com.amplituda.AmplitudaProcessingOutput
 import linc.com.amplituda.exceptions.AmplitudaException
 
-internal object WaveformOptions {
+object WaveformOptions {
 
     @JvmStatic
     fun getSampleFrom(context: Context, pathOrUrl: String, onSuccess: (IntArray) -> Unit) {

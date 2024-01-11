@@ -528,7 +528,10 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         }
         onEndTickDraw(canvas)
         drawCursor(canvas, cursorPosition, mCursorValue)
+        drawWaveformSeekBar(canvas)
     }
+
+    protected open fun drawWaveformSeekBar(canvas: Canvas) {}
 
     protected open fun onEndTickDraw(canvas: Canvas?) {}
 

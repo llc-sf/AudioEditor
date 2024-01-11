@@ -3,8 +3,10 @@ package dev.audio.timeruler.demo
 import android.os.Bundle
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
+import com.masoudss.lib.utils.WaveformOptions
 import dev.audio.timeruler.BaseScaleBar
 import dev.audio.timeruler.R
+import dev.audio.timeruler.TimeRulerBar
 import dev.audio.timeruler.bean.TimeBean
 import dev.audio.timeruler.bean.VideoBean
 import dev.audio.timeruler.databinding.ActivityTimeRulerBinding
@@ -143,5 +145,10 @@ class TimeRulerActivity : AppCompatActivity() {
         }
         val timeBean = TimeBean(videos)
         binding.timeBar.setColorScale(timeBean)
+
+        WaveformOptions.getSampleFrom(this, "/storage/emulated/0/Music/网易云音乐/Kina Grannis,Imaginary Future - I Will Spend My Whole Life Loving You.mp3") {
+            binding.timeBar.setWaveform(TimeRulerBar.Waveform(it.toList()))
+        }
+
     }
 }
