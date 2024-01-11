@@ -42,6 +42,7 @@ open class WaveformSeekBar @JvmOverloads constructor(
         set(value) {
             field = value
             setMaxValue()
+            refreshPosition()
             invalidate()
         }
 
@@ -201,6 +202,10 @@ open class WaveformSeekBar @JvmOverloads constructor(
         ta.recycle()
     }
 
+    open fun refreshPosition() {
+
+    }
+
     private fun setMaxValue() {
         mMaxValue = sample?.maxOrNull() ?: 0
     }
@@ -244,6 +249,12 @@ open class WaveformSeekBar @JvmOverloads constructor(
             Bitmap.createBitmap(getAvailableWidth(), getAvailableHeight(), Bitmap.Config.ARGB_8888)
         progressShader = BitmapShader(progressBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
     }
+
+   private var waveHeightScale: Float = 0.5f
+        set(value) {
+            field = value.coerceIn(0f, 1f) // 确保值在0到1之间
+            invalidate()
+        }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
@@ -290,15 +301,15 @@ open class WaveformSeekBar @JvmOverloads constructor(
                 sampleItemPosition = floor(i * step).roundToInt()
                 var waveHeight =
                     if (sampleItemPosition in waveSample.indices && mMaxValue != 0)
-                        (getAvailableHeight() - wavePaddingTop - wavePaddingBottom) * (waveSample[sampleItemPosition].toFloat() / mMaxValue)
+                        getAvailableHeight() * (waveSample[sampleItemPosition].toFloat() / mMaxValue) * waveHeightScale
                     else 0F
 
                 if (waveHeight < waveMinHeight) waveHeight = waveMinHeight
 
                 val top: Float = when (waveGravity) {
-                    WaveGravity.TOP -> paddingTop.toFloat() + wavePaddingTop
-                    WaveGravity.CENTER -> (paddingTop + wavePaddingTop + getAvailableHeight()) / 2F - waveHeight / 2F
-                    WaveGravity.BOTTOM -> mCanvasHeight - paddingBottom - wavePaddingBottom - waveHeight
+                    WaveGravity.TOP -> paddingTop.toFloat()
+                    WaveGravity.CENTER -> (paddingTop + getAvailableHeight()) / 2F - waveHeight / 2F
+                    WaveGravity.BOTTOM -> mCanvasHeight - paddingBottom - waveHeight
                 }
 
                 mWaveRect.set(
@@ -329,10 +340,12 @@ open class WaveformSeekBar @JvmOverloads constructor(
                         )
                         mWavePaint.shader = progressShader
                     }
+
                     mWaveRect.right <= progressXPosition -> {
                         mWavePaint.color = waveProgressColor
                         mWavePaint.shader = null
                     }
+
                     else -> {
                         mWavePaint.color = waveBackgroundColor
                         mWavePaint.shader = null
@@ -380,12 +393,14 @@ open class WaveformSeekBar @JvmOverloads constructor(
                     mProgress = progress
                     mAlreadyMoved = false
                 }
+
                 MotionEvent.ACTION_MOVE -> {
                     if (abs(event.x - mTouchDownX) > mScaledTouchSlop || mAlreadyMoved) {
                         updateProgress(event)
                         mAlreadyMoved = true
                     }
                 }
+
                 MotionEvent.ACTION_UP -> {
                     performClick()
                 }
@@ -398,9 +413,11 @@ open class WaveformSeekBar @JvmOverloads constructor(
                     else
                         updateProgress(event)
                 }
+
                 MotionEvent.ACTION_MOVE -> {
                     updateProgress(event)
                 }
+
                 MotionEvent.ACTION_UP -> {
                     if (abs(event.x - mTouchDownX) > mScaledTouchSlop)
                         updateProgress(event)

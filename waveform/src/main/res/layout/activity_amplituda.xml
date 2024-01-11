@@ -70,6 +70,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="32dp"
                 android:layout_marginBottom="16dp"
+                android:visibility="gone"
                 app:wave_background_color="@color/white"
                 app:wave_corner_radius="2dp"
                 app:wave_gap="2dp"
@@ -80,10 +81,10 @@
                 app:wave_progress_color="@color/blue"
                 app:wave_width="5dp" />
 
-            <com.masoudss.lib.WaveformSeekBar
+            <com.masoudss.lib.CustomWaveformSeekBar
                 android:id="@+id/waveformSeekBar1"
                 android:layout_width="300dp"
-                android:layout_height="50dp"
+                android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="32dp"
                 android:layout_marginBottom="16dp"
@@ -104,6 +105,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="32dp"
                 android:layout_marginBottom="16dp"
+                android:visibility="gone"
                 app:wave_background_color="@color/white"
                 app:wave_corner_radius="2dp"
                 app:wave_gap="2dp"
@@ -121,6 +123,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="32dp"
                 android:layout_marginBottom="16dp"
+                android:visibility="gone"
                 app:wave_background_color="@color/white"
                 app:wave_corner_radius="2dp"
                 app:wave_gap="2dp"

@@ -90,6 +90,8 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
          * 6个档位
          * 屏幕宽度分成60份
          * 控制刻度尺的密度 一个刻度多少像素 值越大刻度越密集
+         *
+         * 一屏显示多长时间
          */
         const val SCALE: Long = 60
         private const val MODE_UINT_100_MS_VALUE = VALUE_100_MS * SCALE
