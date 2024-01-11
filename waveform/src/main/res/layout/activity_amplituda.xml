@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.masoudss.lib.WaveformSeekBar1
+            <com.masoudss.lib.WaveformSeekBar2
                 android:id="@+id/waveformSeekBar"
                 android:layout_width="300dp"
                 android:layout_height="50dp"
