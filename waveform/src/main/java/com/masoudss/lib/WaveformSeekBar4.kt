@@ -20,13 +20,15 @@ import kotlin.math.roundToInt
 /**
  * 毛刺效果 带阴影
  */
-open class WaveformSeekBar3 @JvmOverloads constructor(
+open class WaveformSeekBar4 @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
     private var mCanvasWidth = 0
     private var mCanvasHeight = 0
-    private val mWavePaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val mWavePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        this.style = Paint.Style.FILL
+    }
     private val mWaveRect = RectF()
     private val mMarkerPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val mMarkerRect = RectF()
@@ -263,32 +265,50 @@ open class WaveformSeekBar3 @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
+        // 假设sample是一个包含振幅值的数组
         val samples = sample ?: return
 
         val centerY = height / 2f
-        val maxAmplitude = (samples.maxOrNull() ?: 1).toFloat()
+        val maxAmplitude = (samples.maxOrNull() ?: 1).toFloat() // 防止除以0
 
+        // 创建路径
         val wavePath = Path()
         wavePath.moveTo(0f, centerY)
 
-        val sampleWidth = width.toFloat() / (samples.size / 120)
+        // 计算每个样本点的宽度
+        val sampleWidth = width.toFloat() / samples.size
 
-        for (i in samples.indices step 120) {
+        // 初始化前一个点
+        var prevX = 0f
+        var prevY = centerY
+
+        for (i in 1 until samples.size) {
             val normalizedSample = samples[i] / maxAmplitude
-            val x = i / 120 * sampleWidth
+            val x = i * sampleWidth
             val y = centerY - normalizedSample * centerY // 上半部分
-            wavePath.lineTo(x, y)
+
+            // 计算当前点和前一个点的中点
+            val midX = (prevX + x) / 2
+            val midY = (prevY + y) / 2
+
+            // 使用中点作为控制点创建二次贝塞尔曲线
+            wavePath.quadTo(prevX, prevY, midX, midY)
+
+            // 更新前一个点的坐标
+            prevX = x
+            prevY = y
         }
 
-        for (i in samples.indices.reversed() step 120) {
-            val normalizedSample = samples[i] / maxAmplitude
-            val x = i / 120 * sampleWidth
-            val y = centerY + normalizedSample * centerY // 下半部分
-            wavePath.lineTo(x, y)
-        }
+        // 连接最后一个点
+        wavePath.lineTo(prevX, prevY)
 
+        // 绘制波形的下半部分，逆向操作类似，可以添加进去
+
+        // 闭合路径
+        wavePath.lineTo(width.toFloat(), centerY)
         wavePath.close()
 
+        // 绘制路径
         canvas.drawPath(wavePath, mWavePaint)
     }
 

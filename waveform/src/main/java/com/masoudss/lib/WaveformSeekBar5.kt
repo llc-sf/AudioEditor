@@ -20,13 +20,15 @@ import kotlin.math.roundToInt
 /**
  * 毛刺效果 带阴影
  */
-open class WaveformSeekBar3 @JvmOverloads constructor(
+open class WaveformSeekBar5 @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
     private var mCanvasWidth = 0
     private var mCanvasHeight = 0
-    private val mWavePaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val mWavePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        this.style = Paint.Style.FILL
+    }
     private val mWaveRect = RectF()
     private val mMarkerPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val mMarkerRect = RectF()
@@ -264,33 +266,55 @@ open class WaveformSeekBar3 @JvmOverloads constructor(
         super.onDraw(canvas)
 
         val samples = sample ?: return
-
         val centerY = height / 2f
         val maxAmplitude = (samples.maxOrNull() ?: 1).toFloat()
+        val sampleStep = 300 // 为简化波形图，每隔100个点取一个点
+        val path = Path()
 
-        val wavePath = Path()
-        wavePath.moveTo(0f, centerY)
+        // 准备上半部分的点
+        val upperPoints = ArrayList<Pair<Float, Float>>() // 存储上半部分的点
 
-        val sampleWidth = width.toFloat() / (samples.size / 120)
-
-        for (i in samples.indices step 120) {
-            val normalizedSample = samples[i] / maxAmplitude
-            val x = i / 120 * sampleWidth
-            val y = centerY - normalizedSample * centerY // 上半部分
-            wavePath.lineTo(x, y)
+        for (i in samples.indices step sampleStep) {
+            val x = width * (i / samples.size.toFloat())
+            val y = centerY - (samples[i] / maxAmplitude) * centerY
+            upperPoints.add(Pair(x, y))
         }
 
-        for (i in samples.indices.reversed() step 120) {
-            val normalizedSample = samples[i] / maxAmplitude
-            val x = i / 120 * sampleWidth
-            val y = centerY + normalizedSample * centerY // 下半部分
-            wavePath.lineTo(x, y)
+        // 绘制上半部分
+        if (upperPoints.isNotEmpty()) {
+            path.moveTo(0f, centerY) // 起始点
+            path.lineTo(upperPoints.first().first, upperPoints.first().second)
+
+            for (i in 0 until upperPoints.size - 1) {
+                val (x1, y1) = upperPoints[i]
+                val (x2, y2) = upperPoints[i + 1]
+                val midX = (x1 + x2) / 2
+                val midY = (y1 + y2) / 2
+                path.quadTo(x1, y1, midX, midY)
+            }
+
+            val (lastX, lastY) = upperPoints.last()
+            path.lineTo(lastX, lastY) // 绘制到最后一个点
         }
 
-        wavePath.close()
+        // 绘制下半部分
+        val lowerPoints = upperPoints.asReversed().map { (x, y) -> Pair(x, 2 * centerY - y) }
 
-        canvas.drawPath(wavePath, mWavePaint)
+        for (i in 0 until lowerPoints.size - 1) {
+            val (x1, y1) = lowerPoints[i]
+            val (x2, y2) = lowerPoints[i + 1]
+            val midX = (x1 + x2) / 2
+            val midY = (y1 + y2) / 2
+            path.quadTo(x1, y1, midX, midY)
+        }
+
+        // 闭合路径
+        path.lineTo(0f, centerY)
+
+        // 绘制路径
+        canvas.drawPath(path, mWavePaint)
     }
+
 
 
 

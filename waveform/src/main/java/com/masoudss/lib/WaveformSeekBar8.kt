@@ -20,13 +20,15 @@ import kotlin.math.roundToInt
 /**
  * 毛刺效果 带阴影
  */
-open class WaveformSeekBar3 @JvmOverloads constructor(
+open class WaveformSeekBar8 @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
     private var mCanvasWidth = 0
     private var mCanvasHeight = 0
-    private val mWavePaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val mWavePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        this.style = Paint.Style.FILL
+    }
     private val mWaveRect = RectF()
     private val mMarkerPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val mMarkerRect = RectF()
@@ -260,37 +262,76 @@ open class WaveformSeekBar3 @JvmOverloads constructor(
     // 新增：控制波形平滑度的属性
     private var smoothFactor = 100
 
+    // 添加一个成员变量来控制贝塞尔曲线的平滑度
+    var smoothness = 0.5f  // 取值范围通常是0（直线）到0.5（最大平滑度）
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
         val samples = sample ?: return
-
         val centerY = height / 2f
         val maxAmplitude = (samples.maxOrNull() ?: 1).toFloat()
+        val amplitudeScale = 1.5f // 调整这个值以增加波形高度
+        val sampleStep = 400 // 每隔100个样本点取一个点
+        val smoothness = 0.2f // 控制曲线平滑度的因子
 
-        val wavePath = Path()
-        wavePath.moveTo(0f, centerY)
+        val path = Path()
+        val upperPoints = ArrayList<Pair<Float, Float>>() // 存储上半部分的点
 
-        val sampleWidth = width.toFloat() / (samples.size / 120)
-
-        for (i in samples.indices step 120) {
-            val normalizedSample = samples[i] / maxAmplitude
-            val x = i / 120 * sampleWidth
-            val y = centerY - normalizedSample * centerY // 上半部分
-            wavePath.lineTo(x, y)
+        // 计算并存储上半部分的点
+        for (i in samples.indices step sampleStep) {
+            val x = width * (i / samples.size.toFloat())
+            val y = centerY - ((samples[i] / maxAmplitude) * centerY * amplitudeScale)
+            upperPoints.add(Pair(x, y))
         }
 
-        for (i in samples.indices.reversed() step 120) {
-            val normalizedSample = samples[i] / maxAmplitude
-            val x = i / 120 * sampleWidth
-            val y = centerY + normalizedSample * centerY // 下半部分
-            wavePath.lineTo(x, y)
+        // 开始绘制上半部分
+        if (upperPoints.isNotEmpty()) {
+            path.moveTo(0f, centerY) // 起始点
+            path.lineTo(upperPoints.first().first, upperPoints.first().second)
+
+            var prevX = upperPoints.first().first
+            var prevY = upperPoints.first().second
+
+            // 使用贝塞尔曲线连接上半部分的点
+            for (i in 1 until upperPoints.size) {
+                val (x, y) = upperPoints[i]
+                val midX = (prevX + x) / 2
+                val midY = (prevY + y) / 2
+                path.quadTo(prevX, prevY, midX, midY)
+                prevX = x
+                prevY = y
+            }
+
+            // 绘制到上半部分的最后一个点
+            path.lineTo(prevX, prevY)
         }
 
-        wavePath.close()
+        // 绘制下半部分
+        if (upperPoints.size > 1) {
+            // 从上半部分的最后一个点开始，确保对称性
+            var (prevX, prevY) = upperPoints.last()
 
-        canvas.drawPath(wavePath, mWavePaint)
+            // 绘制下半部分的第一个点
+            path.lineTo(prevX, 2 * centerY - prevY)
+
+            for (i in upperPoints.size - 2 downTo 0) {
+                val (x, y) = upperPoints[i]
+                val midX = (prevX + x) / 2
+                val midY = (prevY + (2 * centerY - y)) / 2
+                path.quadTo(prevX, prevY, midX, midY)
+                prevX = x
+                prevY = 2 * centerY - y // 反转y坐标以实现镜像
+            }
+
+            // 闭合路径回到起点
+            path.lineTo(0f, centerY)
+        }
+
+        // 绘制路径
+        canvas.drawPath(path, mWavePaint)
     }
+
 
 
 
