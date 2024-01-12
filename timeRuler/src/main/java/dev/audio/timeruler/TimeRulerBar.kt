@@ -100,14 +100,18 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
     }
 
     private fun getWaveWith(): Int {
-        return width
+        return (getAudioDuration() * unitPixel).toInt()
+    }
+
+    private fun getAudioDuration(): Long {
+        return 1000 * 60 * 2
     }
 
     override fun drawWaveformSeekBar(canvas: Canvas) {
         super.drawWaveformSeekBar(canvas)
         // 绘制波形
         var startTime = System.currentTimeMillis()
-        for (i in 0 until 10) {
+        for (i in 0 until 1) {
             waveform?.let { wf ->
                 val samples = wf.amplitudes ?: return
                 val centerY = height / 6f / 2f + i * (0) + videoAreaOffset
