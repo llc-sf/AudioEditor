@@ -1,7 +1,6 @@
 package dev.audio.timeruler
 
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -188,6 +187,9 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
 
     /*时间戳*/
     protected var mCursorValue: Long = 0
+        set(value) {
+            field = value
+        }
     private var mGestureDetectorCompat: GestureDetectorCompat? = null
     private var scrollHappened = false
     protected var cursorPosition = 0f
@@ -240,6 +242,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         mScaleInfo!!.endValue = calendar.timeInMillis
 
         mCursorValue = mScaleInfo!!.startValue
+        mCursorValue1 = mScaleInfo!!.startValue
     }
 
     protected fun setScaleRatio(
@@ -622,7 +625,43 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
                 }
             }
         }
+
+        if (onLongPress) {
+            when (event.action) {
+                MotionEvent.ACTION_MOVE -> {
+                    // 计算偏移量
+                    val deltaX = event.x - initialTouchX
+                    initialTouchX = event.x
+                    // 使用偏移量进行你的操作
+                    handleHorizontalMovement(deltaX)
+                }
+
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL ->{
+                    onLongPress = false
+                    offsetCurrentValue = mCursorValue1 - mCursorValue
+                }                 // 结束长按状态
+
+            }
+        }
+
         return true
+    }
+
+    /**
+     * 长按移动后，与起始位置的偏移量
+     */
+    var offsetCurrentValue = 0L
+    private fun handleHorizontalMovement(deltaX: Float) {
+        Log.i("llc_touch", "unitPixel=$unitPixel")
+        try {
+            if (unitPixel != 0f) {
+                mCursorValue1 -= (deltaX / unitPixel).toLong()
+                Log.i("llc_touch", "unitPixel=$unitPixel,mCursorValue1=$mCursorValue1")
+                invalidate()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     override fun onScale(detector: ScaleGestureDetector): Boolean {
@@ -686,6 +725,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
 
     override fun onScaleEnd(detector: ScaleGestureDetector) {}
     override fun onDown(e: MotionEvent): Boolean {
+        Log.i("llc_touch", "onDown")
         if (status == STATUS_SCROLL_FLING) {
             scroller.forceFinished(true)
         } else {
@@ -711,6 +751,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         distanceX: Float,
         distanceY: Float
     ): Boolean {
+        Log.i("llc_touch", "onScroll")
         if (e2.pointerCount > 1) {
             return false
         }
@@ -730,6 +771,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         val courseIncrement = (distanceX / unitPixel).toLong()
         Log.i(TAG, "unitPixel: $unitPixel")
         mCursorValue += courseIncrement
+        mCursorValue1 += courseIncrement
         var result = true
         if (mCursorValue < mScaleInfo!!.startValue) {
             mCursorValue = mScaleInfo!!.startValue
@@ -745,14 +787,28 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         return result
     }
 
+    var mCursorValue1 = 0L
+    var onLongPress = false
+
+    // 在类中添加变量
+    private var initialTouchX = 0f
+    private var currentTouchX = 0f
     override fun onLongPress(e: MotionEvent) {
         // do nothing
+        Log.i("llc_touch", "onLongPress")
+        if (true) {
+            onLongPress = true
+        }
+        // 记录长按的初始位置
+        initialTouchX = e.x
     }
 
     override fun computeScroll() {
+        Log.i("llc_touch", "computeScroll")
         if (scroller.computeScrollOffset()) {
             val currX = scroller.currX
             mCursorValue = mScaleInfo!!.startValue + (currX / unitPixel).toLong()
+            mCursorValue1 = mScaleInfo!!.startValue + offsetCurrentValue + (currX / unitPixel).toLong()
             if (mCursorValue < mScaleInfo!!.startValue) {
                 mCursorValue = mScaleInfo!!.startValue
             } else if (mCursorValue > mScaleInfo!!.endValue) {
@@ -775,6 +831,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         velocityX: Float,
         velocityY: Float
     ): Boolean {
+        Log.i("llc_touch", "onFling")
         status = STATUS_SCROLL_FLING
         val startX = ((mCursorValue - mScaleInfo!!.startValue) * unitPixel).toInt()
         val maX = ((mScaleInfo!!.endValue - mScaleInfo!!.startValue) * unitPixel).toInt()

@@ -107,6 +107,12 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
         return 1000 * 60 * 2
     }
 
+    private fun getTrack1StartTime():Long{
+       return mCursorValue1.apply {
+           Log.i("llc_touch", "mCursorValue1=$mCursorValue1")
+       }
+    }
+
     override fun drawWaveformSeekBar(canvas: Canvas) {
         super.drawWaveformSeekBar(canvas)
         // 绘制波形
@@ -124,7 +130,7 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
                 val upperPoints = mutableListOf<Pair<Float, Float>>() // 存储上半部分的点
 
                 var offsetX =
-                    -((mCursorValue - (mScaleInfo?.startValue ?: 0)) * unitPixel - cursorPosition)
+                    -((getTrack1StartTime() - (mScaleInfo?.startValue ?: 0)) * unitPixel - cursorPosition)
 
                 // 准备上半部分的点
                 for (i in samples.indices step sampleStep) {
