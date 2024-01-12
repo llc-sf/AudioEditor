@@ -15,21 +15,16 @@ import com.masoudss.lib.utils.WaveformOptions
 import java.io.File
 import kotlin.math.abs
 import kotlin.math.floor
+import kotlin.math.max
 import kotlin.math.roundToInt
 
-/**
- * 毛刺效果 带阴影
- */
-open class WaveformSeekBar9 @JvmOverloads constructor(
+open class WaveformSeekBar10 @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
     private var mCanvasWidth = 0
     private var mCanvasHeight = 0
-    private val mWavePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        this.color = Color.RED
-        this.style = Paint.Style.FILL
-    }
+    private val mWavePaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val mWaveRect = RectF()
     private val mMarkerPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val mMarkerRect = RectF()
@@ -46,9 +41,7 @@ open class WaveformSeekBar9 @JvmOverloads constructor(
 
     var sample: IntArray? = null
         set(value) {
-            val downSampleFactor = 400
-            val downSampledSamples = downSample(value!!, downSampleFactor)
-            field = downSampledSamples
+            field = value
             setMaxValue()
             refreshPosition()
             invalidate()
@@ -66,7 +59,11 @@ open class WaveformSeekBar9 @JvmOverloads constructor(
             invalidate()
         }
 
-    var waveBackgroundColor: Int = Color.RED
+    var waveBackgroundColor: Int = Color.LTGRAY
+        set(value) {
+            field = value
+            invalidate()
+        }
 
     var waveProgressColor: Int = Color.WHITE
         set(value) {
@@ -259,110 +256,67 @@ open class WaveformSeekBar9 @JvmOverloads constructor(
             invalidate()
         }
 
-    // 新增：用于绘制平滑波形的Path
-    private val wavePath = Path()
-
-    // 新增：控制波形平滑度的属性
-    private var smoothFactor = 100
-
-    // 添加一个成员变量来控制贝塞尔曲线的平滑度
-    var smoothness = 0.5f  // 取值范围通常是0（直线）到0.5（最大平滑度）
-    fun smooth(samples: IntArray, windowSize: Int): IntArray {
-        val smoothed = IntArray(samples.size)
-        for (i in samples.indices) {
-            var sum = 0
-            var count = 0
-            for (j in i - windowSize..i + windowSize) {
-                if (j >= 0 && j < samples.size) {
-                    sum += samples[j]
-                    count++
-                }
-            }
-            smoothed[i] = sum / count
-        }
-        return smoothed
-    }
-
-    // 在onDraw之前调用这个方法来平滑数据
-    val windowSize = 5 // 窗口大小可以根据你的需求进行调整
-//    val smoothedSamples = smooth(samples, windowSize)
-
-
-    fun downSample(samples: IntArray, factor: Int): IntArray {
-        return samples.filterIndexed { index, _ ->
-            index % factor == 0
-        }.toIntArray()
-    }
-
-
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
         val path = Path()
-        sample?.let { samples ->
-            if (samples.isNotEmpty()) {
-                val widthScale = width.toFloat() / (samples.size - 1)
-                val heightScale = height.toFloat() / mMaxValue
+        // 起始点在视图的中心线上
+        path.moveTo(paddingLeft.toFloat(), (height / 2).toFloat())
 
-                // 初始点设置在第一个样本的位置
-                path.moveTo(0f, height / 2f - (samples[0] * heightScale / 2))
+        sample?.let { waveSample ->
+            if (waveSample.isEmpty()) return
 
-                // 使用二次贝塞尔曲线绘制平滑波形
-                for (i in 1 until samples.size) {
-                    val x1 = (i - 1) * widthScale
-                    val y1 = height / 2f - (samples[i - 1] * heightScale / 2)
-                    val x2 = i * widthScale
-                    val y2 = height / 2f - (samples[i] * heightScale / 2)
+            // 为了避免绘制过多的点，计算下采样间隔
+            val sampleStep = max(1, (waveSample.size / getAvailableWidth()).toInt())
+            var lastX = paddingLeft.toFloat()
+            var lastY = (height / 2).toFloat()
 
-                    // 控制点为前一个点和当前点的中点
-                    val controlX = (x1 + x2) / 2
-                    val controlY = (y1 + y2) / 2
+            // 初始化path
+            path.moveTo(lastX, lastY)
 
-                    // 二次贝塞尔曲线
-                    path.quadTo(controlX, controlY, x2, y2)
-                }
+            // 使用贝塞尔曲线绘制平滑波形
+            for (i in waveSample.indices step sampleStep) {
+                val x = paddingLeft + i * waveWidth
+                val y = (height / 2) + ((waveSample[i] / mMaxValue.toFloat()) * (height / 2))
 
-                // 绘制路径
-                canvas.drawPath(path, mWavePaint)
+                // 使用二次贝塞尔曲线平滑连接点
+                val controlX = (lastX + x) / 2
+                path.quadTo(controlX, lastY, x, y)
+
+                lastX = x
+                lastY = y
             }
+
+            // 连接到视图右侧
+            path.lineTo(width.toFloat(), (height / 2).toFloat())
         }
+
+        // 完成路径回到起始点，形成一个封闭的形状
+        path.lineTo(width.toFloat(), height.toFloat())
+        path.lineTo(paddingLeft.toFloat(), height.toFloat())
+        path.close()
+
+        // 绘制波形背景
+        mWavePaint.color = waveBackgroundColor
+        mWavePaint.shader = null // 重置Shader
+        canvas.drawPath(path, mWavePaint)
+
+        // 创建进度Shader
+        val shader = LinearGradient(
+            0f, 0f, progressXPosition, 0f,
+            waveProgressColor, waveBackgroundColor,
+            Shader.TileMode.CLAMP
+        )
+        // 绘制波形进度
+        mWavePaint.color = waveProgressColor
+        mWavePaint.shader = shader
+        canvas.drawPath(path, mWavePaint)
     }
 
+    // 根据进度计算波形进度条的X位置
+    val progressXPosition = paddingLeft + (progress / maxProgress) * getAvailableWidth()
 
 
-
-
-    // 辅助方法：获取波形中心Y坐标
-    private fun getWaveCenterY(): Float {
-        return paddingTop + (height - paddingTop - paddingBottom) / 2f
-    }
-
-
-    // 辅助方法：根据样本值计算波形高度
-    private fun getWaveHeight(sampleValue: Int): Float {
-        return if (mMaxValue != 0)
-            getAvailableHeight() * (sampleValue.toFloat() / mMaxValue) * waveHeightScale
-        else 0F
-    }
-
-    // 辅助方法：根据波形高度和重力设置获取顶部位置
-    private fun getWaveTopPosition(waveHeight: Float): Float {
-        return when (waveGravity) {
-            WaveGravity.TOP -> paddingTop.toFloat()
-            WaveGravity.CENTER -> (paddingTop + getAvailableHeight()) / 2F - waveHeight / 2F
-            WaveGravity.BOTTOM -> mCanvasHeight - paddingBottom - waveHeight
-        }
-    }
-
-    // 辅助方法：获取可用的宽度
-    private fun getAvailableWidth(): Int {
-        return mCanvasWidth - paddingLeft - paddingRight
-    }
-
-    // 辅助方法：获取可用的高度
-    private fun getAvailableHeight(): Int {
-        return mCanvasHeight - paddingTop - paddingBottom
-    }
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         if (!isEnabled)
             return false
@@ -444,4 +398,15 @@ open class WaveformSeekBar9 @JvmOverloads constructor(
         return true
     }
 
+    private fun getAvailableWidth(): Int {
+        var width = mCanvasWidth - paddingLeft - paddingRight
+        if (width <= 0) width = 1
+        return width
+    }
+
+    private fun getAvailableHeight(): Int {
+        var height = mCanvasHeight - paddingTop - paddingBottom
+        if (height <= 0) height = 1
+        return height
+    }
 }

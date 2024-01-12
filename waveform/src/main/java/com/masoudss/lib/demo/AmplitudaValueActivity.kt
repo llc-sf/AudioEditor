@@ -30,7 +30,7 @@ class AmplitudaValueActivity : AppCompatActivity() {
         val amplituda = Amplituda(this)
         amplituda.setLogConfig(Log.ERROR, true)
         amplituda.processAudio(
-            "/data/hw_init/product/media/Pre-loaded/Music/Last_Stop.mp3",
+            "/storage/emulated/0/Music/网易云音乐/Kina Grannis,Imaginary Future - I Will Spend My Whole Life Loving You.mp3",
             Compress.withParams(Compress.AVERAGE, 1),
             Cache.withParams(Cache.REUSE),
             object : AmplitudaProgressListener() {
