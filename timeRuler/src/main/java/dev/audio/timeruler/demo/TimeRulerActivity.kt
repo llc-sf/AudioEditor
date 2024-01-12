@@ -150,5 +150,11 @@ class TimeRulerActivity : AppCompatActivity() {
             binding.timeBar.setWaveform(TimeRulerBar.Waveform(it.toList()))
         }
 
+//        WaveformOptions.getSampleFrom(this, "/data/hw_init/product/media/Pre-loaded/Music/Dream_It_Possible.flac") {
+//            binding.timeBar.setWaveform(TimeRulerBar.Waveform(it.toList()))
+//        }
+
+
+
     }
 }
