@@ -630,15 +630,15 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
             when (event.action) {
                 MotionEvent.ACTION_MOVE -> {
                     // 计算偏移量
-                    val deltaX = event.x - initialTouchX
-                    initialTouchX = event.x
+                    val deltaX = event.x - lastTouchX1
+                    lastTouchX1 = event.x
                     // 使用偏移量进行你的操作
                     handleHorizontalMovement(deltaX)
                 }
 
-                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL ->{
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                     onLongPress = false
-                    offsetCurrentValue = mCursorValue1 - mCursorValue
+                    offsetOriCurrentValue1 = mCursorValue1 - mCursorValue
                 }                 // 结束长按状态
 
             }
@@ -647,10 +647,6 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         return true
     }
 
-    /**
-     * 长按移动后，与起始位置的偏移量
-     */
-    var offsetCurrentValue = 0L
     private fun handleHorizontalMovement(deltaX: Float) {
         Log.i("llc_touch", "unitPixel=$unitPixel")
         try {
@@ -787,12 +783,23 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         return result
     }
 
-    var mCursorValue1 = 0L
+
+    //**************************** 长按处理 ****************************
+    //是否是长按
     var onLongPress = false
 
-    // 在类中添加变量
-    private var initialTouchX = 0f
-    private var currentTouchX = 0f
+    //轨道1 当前指针的时间戳
+    var mCursorValue1 = 0L
+
+    // 长按水平方向上的初始位置
+    private var lastTouchX1 = 0f
+
+    /**
+     * 长按移动后，与起始位置的偏移量
+     */
+    var offsetOriCurrentValue1 = 0L
+
+    //**************************** 长按处理 ****************************
     override fun onLongPress(e: MotionEvent) {
         // do nothing
         Log.i("llc_touch", "onLongPress")
@@ -800,7 +807,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
             onLongPress = true
         }
         // 记录长按的初始位置
-        initialTouchX = e.x
+        lastTouchX1 = e.x
     }
 
     override fun computeScroll() {
@@ -808,7 +815,8 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         if (scroller.computeScrollOffset()) {
             val currX = scroller.currX
             mCursorValue = mScaleInfo!!.startValue + (currX / unitPixel).toLong()
-            mCursorValue1 = mScaleInfo!!.startValue + offsetCurrentValue + (currX / unitPixel).toLong()
+            mCursorValue1 =
+                mScaleInfo!!.startValue + offsetOriCurrentValue1 + (currX / unitPixel).toLong()
             if (mCursorValue < mScaleInfo!!.startValue) {
                 mCursorValue = mScaleInfo!!.startValue
             } else if (mCursorValue > mScaleInfo!!.endValue) {
