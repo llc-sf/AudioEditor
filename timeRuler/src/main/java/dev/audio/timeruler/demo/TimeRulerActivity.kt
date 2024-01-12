@@ -147,7 +147,9 @@ class TimeRulerActivity : AppCompatActivity() {
         binding.timeBar.setColorScale(timeBean)
 
         WaveformOptions.getSampleFrom(this, "/storage/emulated/0/Music/网易云音乐/Kina Grannis,Imaginary Future - I Will Spend My Whole Life Loving You.mp3") {
+//            binding.waveformSeekBar.sample = it
             binding.timeBar.setWaveform(TimeRulerBar.Waveform(it.toList()))
+
         }
 
 //        WaveformOptions.getSampleFrom(this, "/data/hw_init/product/media/Pre-loaded/Music/Dream_It_Possible.flac") {

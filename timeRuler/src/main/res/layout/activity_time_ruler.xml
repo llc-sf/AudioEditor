@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -30,6 +30,26 @@
             app:tickValueSize="10dp"
             app:videoAreaHeight="20dp"
             app:videoAreaOffset="30dp" />
+
+        <com.masoudss.lib.WaveformSeekBar9
+            android:id="@+id/waveformSeekBar"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:wave_background_color="@color/white"
+            app:wave_corner_radius="2dp"
+            app:wave_gap="2dp"
+            app:wave_gravity="center"
+            app:wave_max_progress="100"
+            app:wave_min_height="5dp"
+            app:wave_progress="33"
+            app:wave_progress_color="@color/blue"
+            app:wave_width="5dp" />
 
         <TextView
             android:id="@+id/tvData"
@@ -166,4 +186,4 @@
             app:layout_constraintTop_toBottomOf="@+id/btnShowCursor" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+</LinearLayout>

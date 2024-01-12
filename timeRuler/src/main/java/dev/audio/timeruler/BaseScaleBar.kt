@@ -167,7 +167,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
     private var mTickSpacing = 0f
     private var mScaleGestureDetector: ScaleGestureDetector? = null
     private var mScalePaint: Paint? = null
-    private var mScaleInfo: ScaleMode? = null
+    protected var mScaleInfo: ScaleMode? = null
 
     /*每毫秒多少像素*/
     @JvmField
@@ -187,7 +187,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
     private var minUnitPixel = 0f
 
     /*时间戳*/
-    private var mCursorValue: Long = 0
+    protected var mCursorValue: Long = 0
     private var mGestureDetectorCompat: GestureDetectorCompat? = null
     private var scrollHappened = false
     protected var cursorPosition = 0f
@@ -526,9 +526,10 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
                 }
             }
         }
-        onEndTickDraw(canvas)
-        drawCursor(canvas, cursorPosition, mCursorValue)
         drawWaveformSeekBar(canvas)
+//        onEndTickDraw(canvas)
+        drawCursor(canvas, cursorPosition, mCursorValue)
+
     }
 
     protected open fun drawWaveformSeekBar(canvas: Canvas) {}

@@ -27,6 +27,7 @@ open class WaveformSeekBar9 @JvmOverloads constructor(
     private var mCanvasWidth = 0
     private var mCanvasHeight = 0
     private val mWavePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        this.color = Color.RED
         this.style = Paint.Style.FILL
     }
     private val mWaveRect = RectF()
