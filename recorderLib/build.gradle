@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 android {
     compileSdk 33
-    namespace 'tech.oom.idealrecorder'
+    namespace 'dev.audio.recorder'
     defaultConfig {
         minSdkVersion 15
         minSdk 21

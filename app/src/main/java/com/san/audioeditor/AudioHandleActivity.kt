@@ -30,7 +30,7 @@ import dev.audio.ffmpeglib.tool.FFmpegUtil.fadeInOutAudio
 import dev.audio.ffmpeglib.tool.FileUtil
 import dev.audio.ffmpeglib.tool.StoragePermissionManager
 import dev.audio.timeruler.demo.TimeRulerActivity
-import tech.oom.idealrecorder.demo.RecorderActivity
+import dev.audio.recorder.demo.RecorderActivity
 import java.io.File
 import java.util.Locale
 
