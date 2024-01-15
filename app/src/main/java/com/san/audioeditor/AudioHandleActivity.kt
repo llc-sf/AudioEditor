@@ -30,6 +30,7 @@ import dev.audio.ffmpeglib.tool.FFmpegUtil.fadeInOutAudio
 import dev.audio.ffmpeglib.tool.FileUtil
 import dev.audio.ffmpeglib.tool.StoragePermissionManager
 import dev.audio.timeruler.demo.TimeRulerActivity
+import tech.oom.idealrecorder.demo.RecorderActivity
 import java.io.File
 import java.util.Locale
 
@@ -146,7 +147,9 @@ class AudioHandleActivity : BaseActivity() {
             getString(R.string.audio_concat),
             getString(R.string.audio_waveform),
             "音频振幅解析",
-            "淡入淡出", "多轨道"
+            "淡入淡出",
+            "多轨道",
+            "录音"
         )
 
         layoutAudioHandle = findViewById(R.id.list_audio_item)
@@ -190,6 +193,14 @@ class AudioHandleActivity : BaseActivity() {
                             Intent(
                                 this@AudioHandleActivity,
                                 TimeRulerActivity::class.java
+                            )
+                        )
+                    }
+                    6-> {
+                        startActivity(
+                            Intent(
+                                this@AudioHandleActivity,
+                                RecorderActivity::class.java
                             )
                         )
                     }
