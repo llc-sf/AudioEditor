@@ -113,72 +113,70 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
         }
     }
 
+    // 添加成员变量
+    private var maxWaveHeight: Float = 50f // 控制波形最大高度的变量
+    private var waveVerticalPosition: Float = 200f // 控制波形垂直位置的变量
+
     override fun drawWaveformSeekBar(canvas: Canvas) {
         super.drawWaveformSeekBar(canvas)
-        // 绘制波形
-        var startTime = System.currentTimeMillis()
-        for (i in 0 until 1) {
-            waveform?.let { wf ->
-                val samples = wf.amplitudes ?: return
-                val centerY = height / 6f / 2f + i * (0) + videoAreaOffset
-                val maxAmplitude = (samples.maxOrNull() ?: 1).toFloat()
-                val amplitudeScale = 1f // 控制波形高度
-                val sampleStep = 400 // 每隔100个样本点取一个点
 
-                val path = Path()
-                val upperPoints = mutableListOf<Pair<Float, Float>>() // 存储上半部分的点
+        waveform?.let { wf ->
+            val samples = wf.amplitudes ?: return
+            val centerY = waveVerticalPosition // 使用新变量设置垂直位置
+            val maxAmplitude = (samples.maxOrNull() ?: 1).toFloat()
 
-                var offsetX = -((getTrack1StartTime() - (mScaleInfo?.startValue ?: 0)) * unitPixel - cursorPosition)
+            // 使用 maxWaveHeight 变量来控制波形高度
+            val amplitudeScale = maxWaveHeight
 
-                // 准备上半部分的点
-                for (i in samples.indices step sampleStep) {
-                    val x = getWaveWith() * (i / samples.size.toFloat()) + offsetX
-                    val sampleValue = samples[i] / maxAmplitude * centerY * amplitudeScale
-                    val y = centerY - sampleValue
-                    Log.i("llc_wave", "x = $x , y = $y")
-                    upperPoints.add(Pair(x, y))
-                }
+            val path = Path()
+            val upperPoints = mutableListOf<Pair<Float, Float>>()
 
-                // 添加上半部分最后一个点回到中心线
-                upperPoints.add(Pair(getWaveWith().toFloat() + offsetX, centerY))
+            var offsetX = -((getTrack1StartTime() - (mScaleInfo?.startValue
+                ?: 0)) * unitPixel - cursorPosition)
 
-                // 绘制上半部分
-                path.moveTo(0f + offsetX, centerY) // 起始点
-                for (i in 0 until upperPoints.size - 1) {
-                    val (x1, y1) = upperPoints[i]
-                    val (x2, y2) = upperPoints[i + 1]
-                    val midX = (x1 + x2) / 2
-                    val midY = (y1 + y2) / 2
-                    path.quadTo(x1, y1, midX, midY) // 使用二次贝塞尔曲线
-                }
-
-                // 从上半部分的最后一个点连接到下半部分的第一个点
-                val (lastUpperX, lastUpperY) = upperPoints.last()
-                path.lineTo(lastUpperX, lastUpperY)
-
-                // 绘制下半部分，使用上半部分的镜像点
-                for (i in upperPoints.size - 2 downTo 0) {
-                    val (x1, y1) = upperPoints[i]
-                    val y = 2 * centerY - y1 // 镜像Y坐标
-                    if (i > 0) {
-                        val (x2, y2) = upperPoints[i - 1]
-                        val midX = (x1 + x2) / 2
-                        val midY = 2 * centerY - (y1 + y2) / 2
-                        path.quadTo(x1, y, midX, midY)
-                    } else {
-                        // 最后连接回到起始点的中心线
-                        path.lineTo(x1, y)
-                    }
-                }
-
-                // 闭合路径
-                path.lineTo(0f + offsetX, centerY)
-
-                // 绘制路径
-                canvas.drawPath(path, mWavePaint)
+            for (i in samples.indices step 400) { // 步长设置为400，可根据需要调整
+                val x = (getWaveWith() * (i / samples.size.toFloat())) + offsetX
+                val sampleValue = (samples[i] / maxAmplitude) * amplitudeScale
+                val y = centerY - sampleValue
+                upperPoints.add(Pair(x, y))
             }
+
+            upperPoints.add(Pair(getWaveWith().toFloat() + offsetX, centerY))
+
+            path.moveTo(0f + offsetX, centerY)
+            for (i in 0 until upperPoints.size - 1) {
+                val (x1, y1) = upperPoints[i]
+                val (x2, y2) = upperPoints[i + 1]
+                val midX = (x1 + x2) / 2
+                val midY = (y1 + y2) / 2
+                path.quadTo(x1, y1, midX, midY)
+            }
+
+            val (lastUpperX, lastUpperY) = upperPoints.last()
+            path.lineTo(lastUpperX, lastUpperY)
+
+            for (i in upperPoints.size - 2 downTo 0) {
+                val (x1, y1) = upperPoints[i]
+                val y = 2 * centerY - y1
+                if (i > 0) {
+                    val (x2, y2) = upperPoints[i - 1]
+                    val midX = (x1 + x2) / 2
+                    val midY = 2 * centerY - (y1 + y2) / 2
+                    path.quadTo(x1, y, midX, midY)
+                } else {
+                    path
+
+                    // 最后连接回到起始点的中心线
+                    path.lineTo(x1, y)
+                }
+            }
+
+            // 闭合路径
+            path.lineTo(0f + offsetX, centerY)
+
+            // 绘制路径
+            canvas.drawPath(path, mWavePaint)
         }
-        Log.i("TAG", "cost time : " + (System.currentTimeMillis() - startTime))
     }
 
 
