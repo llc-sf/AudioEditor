@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.RadioButton
 import android.widget.SeekBar
@@ -255,7 +256,7 @@ class AmplitudaActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (data != null && requestCode == REQ_CODE_PICK_SOUND_FILE && resultCode == Activity.RESULT_OK) {
             val path = data.getStringExtra("path")
-
+            Log.i("llc_path","path=$path")
             val progressDialog = ProgressDialog(this@AmplitudaActivity)
             progressDialog.setMessage(getString(R.string.message_waiting))
             progressDialog.show()

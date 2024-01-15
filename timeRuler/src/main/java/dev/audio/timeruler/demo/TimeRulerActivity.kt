@@ -146,7 +146,7 @@ class TimeRulerActivity : AppCompatActivity() {
         val timeBean = TimeBean(videos)
         binding.timeBar.setColorScale(timeBean)
 
-        WaveformOptions.getSampleFrom(this, "/storage/emulated/0/Music/网易云音乐/Kina Grannis,Imaginary Future - I Will Spend My Whole Life Loving You.mp3") {
+        WaveformOptions.getSampleFrom(this, "/storage/emulated/0/Music/QQ音乐/G.E.M. 邓紫棋,潘玮柏-死了都要爱 (Live).mp3") {
 //            binding.waveformSeekBar.sample = it
             binding.timeBar.setWaveform(TimeRulerBar.Waveform(it.toList()))
 
