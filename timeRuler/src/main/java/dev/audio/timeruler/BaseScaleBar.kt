@@ -632,6 +632,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
                     // 计算偏移量
                     val deltaX = event.x - lastTouchX1
                     lastTouchX1 = event.x
+                    currentY1 = event.y.toInt()
                     // 使用偏移量进行你的操作
                     handleHorizontalMovement(deltaX)
                 }
@@ -791,8 +792,14 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
     //轨道1 当前指针的时间戳
     var mCursorValue1 = 0L
 
+    //当前手指的Y坐标
+    var currentY1 = 0
+
     // 长按水平方向上的初始位置
     private var lastTouchX1 = 0f
+
+    //长按时 Y的坐标
+    var startY1 = 0f
 
     /**
      * 长按移动后，与起始位置的偏移量
@@ -808,6 +815,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         }
         // 记录长按的初始位置
         lastTouchX1 = e.x
+        startY1 = e.y
     }
 
     override fun computeScroll() {

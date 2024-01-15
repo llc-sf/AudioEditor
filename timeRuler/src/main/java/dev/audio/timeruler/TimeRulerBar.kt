@@ -12,7 +12,9 @@ import android.util.Log
 import androidx.annotation.ColorInt
 import dev.audio.timeruler.BaseScaleBar.TickMarkStrategy
 import dev.audio.timeruler.utils.SizeUtils
+import java.lang.Math.round
 import java.text.SimpleDateFormat
+import kotlin.math.roundToInt
 
 open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
     BaseScaleBar(context, attrs), TickMarkStrategy {
@@ -113,6 +115,10 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
         }
     }
 
+    private fun getTrack1YPosition(): Float {
+        return waveVerticalPosition+ ((((currentY1.toDouble()-startY1) / waveVerticalPosition).roundToInt() * waveVerticalPosition).toInt())
+    }
+
     // 添加成员变量
     private var maxWaveHeight: Float = 50f // 控制波形最大高度的变量
     private var waveVerticalPosition: Float = 200f // 控制波形垂直位置的变量
@@ -122,7 +128,8 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
 
         waveform?.let { wf ->
             val samples = wf.amplitudes ?: return
-            val centerY = waveVerticalPosition // 使用新变量设置垂直位置
+            val centerY = getTrack1YPosition() // 使用新变量设置垂直位置
+//            val centerY = waveVerticalPosition // 使用新变量设置垂直位置
             val maxAmplitude = (samples.maxOrNull() ?: 1).toFloat()
 
             // 使用 maxWaveHeight 变量来控制波形高度
