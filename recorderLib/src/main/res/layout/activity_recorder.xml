@@ -24,11 +24,25 @@
         app:wlvMoveSpeed="290"
         app:wlvSensibility="9" />
 
+
+    <tech.oom.idealrecorder.widget.san.CustomWaveView
+        android:id="@+id/custom_wave_view"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/waveLineView"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginRight="40dp"
+        app:baselineColor="#0000"
+        app:space="10dp"
+        app:waveColor="#d0021b"
+        app:waveStokeWidth="4dp" />
+
     <TextView
         android:id="@+id/tips"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/waveLineView"
+        android:layout_below="@id/custom_wave_view"
         android:gravity="center"
         android:textColor="@color/green"
         android:textSize="30sp" />

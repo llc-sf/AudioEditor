@@ -22,12 +22,14 @@ import tech.oom.idealrecorder.R;
 import tech.oom.idealrecorder.StatusListener;
 import tech.oom.idealrecorder.utils.Log;
 import tech.oom.idealrecorder.widget.WaveView;
+import tech.oom.idealrecorder.widget.san.CustomWaveView;
 import tech.oom.idealrecorder.widget.wlv.WaveLineView;
 
 public class RecorderActivity extends AppCompatActivity {
 
     private Button recordBtn;
     private WaveView waveView;
+    private CustomWaveView customWaveView;
     private WaveLineView waveLineView;
     private TextView tips;
 
@@ -48,7 +50,9 @@ public class RecorderActivity extends AppCompatActivity {
 
             for (int i = 0; i < length; i += 60) {
                 waveView.addData(data[i]);
+                customWaveView.addData(data[i]);
             }
+
             Log.d("MainActivity", "current buffer size is " + length);
         }
 
@@ -89,6 +93,7 @@ public class RecorderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recorder);
         recordBtn = (Button) findViewById(R.id.register_record_btn);
         waveView = (WaveView) findViewById(R.id.wave_view);
+        customWaveView = findViewById(R.id.custom_wave_view);
         waveLineView = (WaveLineView) findViewById(R.id.waveLineView);
         tips = (TextView) findViewById(R.id.tips);
         idealRecorder = IdealRecorder.getInstance();
