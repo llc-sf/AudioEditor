@@ -9,6 +9,7 @@ import dev.audio.timeruler.R
 import dev.audio.timeruler.TimeRulerBar
 import dev.audio.timeruler.bean.TimeBean
 import dev.audio.timeruler.bean.VideoBean
+import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.databinding.ActivityTimeRulerBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -148,7 +149,7 @@ class TimeRulerActivity : AppCompatActivity() {
 
         WaveformOptions.getSampleFrom(this, "/storage/emulated/0/Music/QQ音乐/G.E.M. 邓紫棋,潘玮柏-死了都要爱 (Live).mp3") {
 //            binding.waveformSeekBar.sample = it
-            binding.timeBar.setWaveform(TimeRulerBar.Waveform(it.toList()))
+            binding.timeBar.setWaveform(Waveform(it.toList()))
 
         }
 

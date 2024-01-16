@@ -20,6 +20,7 @@ import dev.audio.timeruler.utils.SizeUtils
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
+import kotlin.reflect.KProperty
 
 open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
     View(context, attrs), ScaleGestureDetector.OnScaleGestureListener,
@@ -169,8 +170,19 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
     protected var mScaleInfo: ScaleMode? = null
 
     /*每毫秒多少像素*/
-    @JvmField
-    protected var unitPixel = 0f
+    protected var unitPixel: Float by ObservableProperty(0f) { prop, old, new ->
+        println("${prop.name} changed from $old to $new")
+        unitPixelChange(prop, old, new)
+        // 这里可以添加更多的变化监听逻辑
+    }
+
+
+    open fun unitPixelChange(prop: KProperty<*>, old: Float, new: Float) {
+
+    }
+    open fun cursorPositionPixelChange(prop: KProperty<*>, old: Float, new: Float) {
+
+    }
 
     /*一个屏幕宽度最少显示多少毫秒  8s*/
     @JvmField
@@ -192,8 +204,16 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         }
     private var mGestureDetectorCompat: GestureDetectorCompat? = null
     private var scrollHappened = false
-    protected var cursorPosition = 0f
-        private set
+//    protected var mCursorPosition = 0f
+//        set(value) {
+//            field = value
+//        }
+    /*每毫秒多少像素*/
+    protected var mCursorPosition: Float by ObservableProperty(0f) { prop, old, new ->
+        println("${prop.name} changed from $old to $new")
+    cursorPositionPixelChange(prop, old, new)
+        // 这里可以添加更多的变化监听逻辑
+    }
     private var mCursorPositionProportion = 0.5f
 
     // 刻度尺横线位置
@@ -242,7 +262,20 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         mScaleInfo!!.endValue = calendar.timeInMillis
 
         mCursorValue = mScaleInfo!!.startValue
-        mCursorValue1 = mScaleInfo!!.startValue
+    }
+
+
+    class ObservableProperty<T>(
+        var value: T,
+        val onChange: (property: KProperty<*>, oldValue: T, newValue: T) -> Unit
+    ) {
+        operator fun getValue(thisRef: Any?, property: KProperty<*>): T = value
+
+        operator fun setValue(thisRef: Any?, property: KProperty<*>, newValue: T) {
+            val oldValue = value
+            value = newValue
+            onChange(property, oldValue, newValue)
+        }
     }
 
     protected fun setScaleRatio(
@@ -278,7 +311,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         mTickHeight = keyTickHeight * mNormalTickAndKeyTickRatio
-        cursorPosition = w * mCursorPositionProportion
+        mCursorPosition = w * mCursorPositionProportion
         mBaselinePosition = h * mBaselinePositionProportion
         maxUnitPixel = w * 1.0f / minScreenSpanValue
         minUnitPixel = w * 1.0f / maxScreenSpanValue
@@ -374,8 +407,8 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         val leftRange = mCursorValue - mScaleInfo!!.startValue
         val leftNeighborOffest = leftRange % mScaleInfo!!.unitValue
         val leftNeighborTickValue = mCursorValue - leftNeighborOffest
-        val leftNeighborPosition = cursorPosition - leftNeighborOffest * unitPixel
-        val leftCount = (cursorPosition / mTickSpacing + 0.5f).toInt()
+        val leftNeighborPosition = mCursorPosition - leftNeighborOffest * unitPixel
+        val leftCount = (mCursorPosition / mTickSpacing + 0.5f).toInt()
         var onDrawTickPosition: Float
         var onDrawTickValue: Long
         for (i in 0 until leftCount) {
@@ -454,7 +487,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         }
         val rightNeighborTickValue = leftNeighborTickValue + mScaleInfo!!.unitValue
         val rightNeighborPosition = leftNeighborPosition + mTickSpacing
-        val rightCount = ((width - cursorPosition) / mTickSpacing + 0.5f).toInt()
+        val rightCount = ((width - mCursorPosition) / mTickSpacing + 0.5f).toInt()
         for (i in 0 until rightCount) {
             onDrawTickValue = rightNeighborTickValue + mScaleInfo!!.unitValue * i
             if (onDrawTickValue > mScaleInfo!!.endValue) {
@@ -531,7 +564,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         }
         drawWaveformSeekBar(canvas)
 //        onEndTickDraw(canvas)
-        drawCursor(canvas, cursorPosition, mCursorValue)
+        drawCursor(canvas, mCursorPosition, mCursorValue)
 
     }
 
@@ -632,14 +665,16 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
                     // 计算偏移量
                     val deltaX = event.x - lastTouchX1
                     lastTouchX1 = event.x
-                    currentY1 = event.y.toInt()
+//                    currentY1 = event.y.toInt()
+                    refreshCurrentTouchY(event.y.toInt())
                     // 使用偏移量进行你的操作
                     handleHorizontalMovement(deltaX)
                 }
 
                 MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                     onLongPress = false
-                    offsetOriCurrentValue1 = mCursorValue1 - mCursorValue
+//                    offsetOriCurrentValue1 = mCursorValue1 - mCursorValue
+                    refreshOffsetUpTouchX(mCursorValue)
                 }                 // 结束长按状态
 
             }
@@ -652,8 +687,8 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         Log.i("llc_touch", "unitPixel=$unitPixel")
         try {
             if (unitPixel != 0f) {
-                mCursorValue1 -= (deltaX / unitPixel).toLong()
-                Log.i("llc_touch", "unitPixel=$unitPixel,mCursorValue1=$mCursorValue1")
+//                mCursorValue1 -= (deltaX / unitPixel).toLong()
+                refreshCursorValueByHandleHorizontalMove(deltaX)
                 invalidate()
             }
         } catch (e: Exception) {
@@ -768,7 +803,8 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         val courseIncrement = (distanceX / unitPixel).toLong()
         Log.i(TAG, "unitPixel: $unitPixel")
         mCursorValue += courseIncrement
-        mCursorValue1 += courseIncrement
+//        mCursorValue1 += courseIncrement
+        refreshCursorValueByOnScroll(courseIncrement)
         var result = true
         if (mCursorValue < mScaleInfo!!.startValue) {
             mCursorValue = mScaleInfo!!.startValue
@@ -789,22 +825,8 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
     //是否是长按
     var onLongPress = false
 
-    //轨道1 当前指针的时间戳
-    var mCursorValue1 = 0L
-
-    //当前手指的Y坐标
-    var currentY1 = 0
-
     // 长按水平方向上的初始位置
     private var lastTouchX1 = 0f
-
-    //长按时 Y的坐标
-    var startY1 = 0f
-
-    /**
-     * 长按移动后，与起始位置的偏移量
-     */
-    var offsetOriCurrentValue1 = 0L
 
     //**************************** 长按处理 ****************************
     override fun onLongPress(e: MotionEvent) {
@@ -815,7 +837,32 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         }
         // 记录长按的初始位置
         lastTouchX1 = e.x
-        startY1 = e.y
+        refreshStartY(e.y)
+    }
+
+
+    open fun refreshStartY(startY: Float) {
+
+    }
+
+    open fun refreshCursorValueByComputeScroll(currX: Int) {
+
+    }
+
+    open fun refreshCursorValueByHandleHorizontalMove(deltaX: Float) {
+
+    }
+
+    open fun refreshCursorValueByOnScroll(courseIncrement: Long) {
+
+    }
+
+    open fun refreshOffsetUpTouchX(oriCursorValue: Long) {
+
+    }
+
+    open fun refreshCurrentTouchY(currentY: Int) {
+
     }
 
     override fun computeScroll() {
@@ -823,8 +870,9 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         if (scroller.computeScrollOffset()) {
             val currX = scroller.currX
             mCursorValue = mScaleInfo!!.startValue + (currX / unitPixel).toLong()
-            mCursorValue1 =
-                mScaleInfo!!.startValue + offsetOriCurrentValue1 + (currX / unitPixel).toLong()
+//            mCursorValue1 =
+//                mScaleInfo!!.startValue + offsetOriCurrentValue1 + (currX / unitPixel).toLong()
+            refreshCursorValueByComputeScroll(currX)
             if (mCursorValue < mScaleInfo!!.startValue) {
                 mCursorValue = mScaleInfo!!.startValue
             } else if (mCursorValue > mScaleInfo!!.endValue) {

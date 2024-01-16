@@ -11,10 +11,11 @@ import android.util.AttributeSet
 import android.util.Log
 import androidx.annotation.ColorInt
 import dev.audio.timeruler.BaseScaleBar.TickMarkStrategy
+import dev.audio.timeruler.bean.AudioFragment
+import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.utils.SizeUtils
-import java.lang.Math.round
 import java.text.SimpleDateFormat
-import kotlin.math.roundToInt
+import kotlin.reflect.KProperty
 
 open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
     BaseScaleBar(context, attrs), TickMarkStrategy {
@@ -78,112 +79,37 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
     }
 
 
-    data class Waveform(val amplitudes: List<Int>)
-
-    // 添加用于绘制波形的 Paint
-    private val waveformPaint = Paint().apply {
-        color = Color.BLUE // 波形颜色，可以自定义
-        strokeWidth = 2f // 波形线宽，可以自定义
-        style = Paint.Style.STROKE
-    }
-
-    // 波形数据，可以通过某种方式设置
-    private var waveform: Waveform? = null
-
     // 设置波形数据的方法
     fun setWaveform(waveform: Waveform) {
-        this.waveform = waveform
+        audioFragments.add(AudioFragment().apply {
+            duration = 1000 * 60 * 2
+            maxWaveHeight = 50f
+            waveVerticalPosition = 200f
+            color = Color.RED
+            cursorPosition = mCursorPosition
+            startValue = mScaleInfo?.startValue ?: 0
+            this.unitMsPixel = unitPixel
+            this.waveform = waveform
+            cursorValue = mCursorValue
+        })
         invalidate() // 触发重新绘制
     }
 
-    private val mWavePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        this.color = Color.RED
-        this.style = Paint.Style.FILL
-    }
 
-    private fun getWaveWith(): Int {
-        return (getAudioDuration() * unitPixel).toInt()
-    }
-
-    private fun getAudioDuration(): Long {
-        return 1000 * 60 * 2
-    }
-
-    private fun getTrack1StartTime(): Long {
-        return mCursorValue1.apply {
-            Log.i("llc_touch", "mCursorValue1=$mCursorValue1")
-        }
-    }
-
-    private fun getTrack1YPosition(): Float {
-        return waveVerticalPosition+ ((((currentY1.toDouble()-startY1) / waveVerticalPosition).roundToInt() * waveVerticalPosition).toInt())
-    }
-
-    // 添加成员变量
-    private var maxWaveHeight: Float = 50f // 控制波形最大高度的变量
-    private var waveVerticalPosition: Float = 200f // 控制波形垂直位置的变量
+    private var audioFragments = mutableListOf<AudioFragment>()
 
     override fun drawWaveformSeekBar(canvas: Canvas) {
         super.drawWaveformSeekBar(canvas)
-
-        waveform?.let { wf ->
-            val samples = wf.amplitudes ?: return
-            val centerY = getTrack1YPosition() // 使用新变量设置垂直位置
-//            val centerY = waveVerticalPosition // 使用新变量设置垂直位置
-            val maxAmplitude = (samples.maxOrNull() ?: 1).toFloat()
-
-            // 使用 maxWaveHeight 变量来控制波形高度
-            val amplitudeScale = maxWaveHeight
-
-            val path = Path()
-            val upperPoints = mutableListOf<Pair<Float, Float>>()
-
-            var offsetX = -((getTrack1StartTime() - (mScaleInfo?.startValue
-                ?: 0)) * unitPixel - cursorPosition)
-
-            for (i in samples.indices step 400) { // 步长设置为400，可根据需要调整
-                val x = (getWaveWith() * (i / samples.size.toFloat())) + offsetX
-                val sampleValue = (samples[i] / maxAmplitude) * amplitudeScale
-                val y = centerY - sampleValue
-                upperPoints.add(Pair(x, y))
-            }
-
-            upperPoints.add(Pair(getWaveWith().toFloat() + offsetX, centerY))
-
-            path.moveTo(0f + offsetX, centerY)
-            for (i in 0 until upperPoints.size - 1) {
-                val (x1, y1) = upperPoints[i]
-                val (x2, y2) = upperPoints[i + 1]
-                val midX = (x1 + x2) / 2
-                val midY = (y1 + y2) / 2
-                path.quadTo(x1, y1, midX, midY)
-            }
-
-            val (lastUpperX, lastUpperY) = upperPoints.last()
-            path.lineTo(lastUpperX, lastUpperY)
-
-            for (i in upperPoints.size - 2 downTo 0) {
-                val (x1, y1) = upperPoints[i]
-                val y = 2 * centerY - y1
-                if (i > 0) {
-                    val (x2, y2) = upperPoints[i - 1]
-                    val midX = (x1 + x2) / 2
-                    val midY = 2 * centerY - (y1 + y2) / 2
-                    path.quadTo(x1, y, midX, midY)
-                } else {
-                    path
-
-                    // 最后连接回到起始点的中心线
-                    path.lineTo(x1, y)
-                }
-            }
-
-            // 闭合路径
-            path.lineTo(0f + offsetX, centerY)
-
-            // 绘制路径
-            canvas.drawPath(path, mWavePaint)
+        audioFragments.forEach { audioFragment ->
+            if (draw(audioFragment, canvas)) return
         }
+    }
+
+    private fun draw(
+        audioFragment: AudioFragment,
+        canvas: Canvas
+    ): Boolean {
+        return audioFragment.draw(canvas)
     }
 
 
@@ -259,13 +185,28 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
             else -> throw RuntimeException("not support mode: $m")
         }
         if (isRefreshUnitPixel) {
-            unitPixel = width * 1f / spanValue
+            unitPixel = (width * 1f / spanValue)
         }
-        Log.e("TAG", "unitPixel: $unitPixel")
+        Log.e("TAG", "unitPixel: ${unitPixel}")
         if (setScaleRatio) {
             setScaleRatio(minScreenSpanValue * 1.0f / spanValue)
         }
         invalidate()
+    }
+
+    override fun unitPixelChange(prop: KProperty<*>, old: Float, new: Float) {
+        super.unitPixelChange(prop, old, new)
+        audioFragments.forEach {
+            it.unitMsPixel = new
+        }
+    }
+
+    override fun cursorPositionPixelChange(prop: KProperty<*>, old: Float, new: Float) {
+        super.cursorPositionPixelChange(prop, old, new)
+        audioFragments.forEach {
+            it.cursorPosition = new
+            invalidate()
+        }
     }
 
     override fun disPlay(scaleValue: Long, keyScale: Boolean): Boolean {
@@ -307,9 +248,6 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
         )
         //  绘制颜色刻度尺
         if (null != mColorScale) {
-            val cursorPosition = cursorPosition
-            val cursorValue = cursorValue
-            val unitPixel = unitPixel
             val size = mColorScale!!.size
             val rect = RectF()
             rect.top = startY
@@ -322,8 +260,8 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
             for (i in 0 until size) {
                 startValue = mColorScale!!.getStart(i)
                 endValue = mColorScale!!.getEnd(i)
-                startPiexl = cursorPosition + (startValue - cursorValue) * unitPixel
-                endPiexl = cursorPosition + (endValue - cursorValue) * unitPixel
+                startPiexl = mCursorPosition + (startValue - cursorValue) * unitPixel
+                endPiexl = mCursorPosition + (endValue - cursorValue) * unitPixel
                 if (endPiexl < startLimit) {
                     continue
                 }
@@ -449,5 +387,42 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
         /*绘制的颜色*/
         @ColorInt
         fun getColor(index: Int): Int
+    }
+
+
+    override fun refreshStartY(startY: Float) {
+        audioFragments.forEach {
+            it.refreshStartY(startY)
+        }
+    }
+
+    override fun refreshCursorValueByComputeScroll(currX: Int) {
+        audioFragments.forEach {
+            it.refreshCursorValueByComputeScroll(currX)
+        }
+    }
+
+    override fun refreshCursorValueByHandleHorizontalMove(deltaX: Float) {
+        audioFragments.forEach {
+            it.refreshCursorValueByHandleHorizontalMove(deltaX)
+        }
+    }
+
+    override fun refreshCursorValueByOnScroll(courseIncrement: Long) {
+        audioFragments.forEach {
+            it.refreshCursorValueByOnScroll(courseIncrement)
+        }
+    }
+
+    override fun refreshOffsetUpTouchX(oriCursorValue: Long) {
+        audioFragments.forEach {
+            it.refreshOffsetUpTouchX(oriCursorValue)
+        }
+    }
+
+    override fun refreshCurrentTouchY(currentY: Int) {
+        audioFragments.forEach {
+            it.refreshCurrentTouchY(currentY)
+        }
     }
 }
