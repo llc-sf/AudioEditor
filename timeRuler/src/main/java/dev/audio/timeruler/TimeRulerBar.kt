@@ -92,6 +92,28 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
             this.waveform = waveform
             cursorValue = mCursorValue
         })
+        audioFragments.add(AudioFragment().apply {
+            duration = 1000 * 60 * 2
+            maxWaveHeight = 50f
+            waveVerticalPosition = 400f
+            color = Color.RED
+            cursorPosition = mCursorPosition
+            startValue = mScaleInfo?.startValue ?: 0
+            this.unitMsPixel = unitPixel
+            this.waveform = waveform
+            cursorValue = mCursorValue
+        })
+        audioFragments.add(AudioFragment().apply {
+            duration = 1000 * 60 * 2
+            maxWaveHeight = 50f
+            waveVerticalPosition = 600f
+            color = Color.RED
+            cursorPosition = mCursorPosition
+            startValue = mScaleInfo?.startValue ?: 0
+            this.unitMsPixel = unitPixel
+            this.waveform = waveform
+            cursorValue = mCursorValue
+        })
         invalidate() // 触发重新绘制
     }
 
@@ -393,6 +415,20 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
     override fun refreshStartY(startY: Float) {
         audioFragments.forEach {
             it.refreshStartY(startY)
+        }
+    }
+
+    override fun onLongPressTrikIndex(y: Int): Int {
+        //view 在屏幕上的y坐标
+        audioFragments.forEachIndexed { index, audioFragment ->
+            if (y > audioFragment.rect?.top ?: 0 && y < audioFragment.rect?.bottom ?: 0) {
+                return index.apply {
+                    Log.i(long_press_tag, "touchy=$y,index=$this,rect=${audioFragment.rect}")
+                }
+            }
+        }
+        return 0.apply {
+            Log.i(long_press_tag, "touchy=$y,index=$this")
         }
     }
 

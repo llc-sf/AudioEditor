@@ -4,6 +4,9 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
+import android.graphics.Rect
+import android.util.Log
+import dev.audio.timeruler.BaseScaleBar.Companion.long_press_tag
 import kotlin.math.roundToInt
 
 /**
@@ -41,6 +44,9 @@ class AudioFragment {
 
     //当前指示标的位置（元素）
     var cursorPosition: Float = 0f
+
+    //波形绘制的坐标区域(相对于TimeRulerBar)
+    var rect: Rect? = null
 
 //    var offsetX: Float = 0f
 //        get() = ((cursorValue - (startValue ?: 0)) * unitMsPixel - cursorPosition)
@@ -137,6 +143,17 @@ class AudioFragment {
 
         // 绘制路径
         canvas.drawPath(path, mWavePaint)
+        rect = Rect((0f + offsetX).toInt(), (centerY-maxWaveHeight).toInt(), ((0f + offsetX)+waveViewWidth).toInt(), (maxWaveHeight+centerY).toInt()).apply {
+                        Log.i(long_press_tag, "draw: $this")
+        }
+        //画空心rect
+        val rectPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            this.color = Color.RED
+            this.style = Paint.Style.STROKE
+            this.strokeWidth = 2f
+        }
+        canvas.drawRect(rect!!, rectPaint)
+
         return false
     }
 

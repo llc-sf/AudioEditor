@@ -29,6 +29,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
     companion object {
 
         private const val TAG = "BaseScaleBar"
+        const val long_press_tag = "long_press_tag"
 
         /**
          * updateScaleInfo(500ms, 100ms);
@@ -180,6 +181,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
     open fun unitPixelChange(prop: KProperty<*>, old: Float, new: Float) {
 
     }
+
     open fun cursorPositionPixelChange(prop: KProperty<*>, old: Float, new: Float) {
 
     }
@@ -204,14 +206,15 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         }
     private var mGestureDetectorCompat: GestureDetectorCompat? = null
     private var scrollHappened = false
-//    protected var mCursorPosition = 0f
+
+    //    protected var mCursorPosition = 0f
 //        set(value) {
 //            field = value
 //        }
     /*每毫秒多少像素*/
     protected var mCursorPosition: Float by ObservableProperty(0f) { prop, old, new ->
         println("${prop.name} changed from $old to $new")
-    cursorPositionPixelChange(prop, old, new)
+        cursorPositionPixelChange(prop, old, new)
         // 这里可以添加更多的变化监听逻辑
     }
     private var mCursorPositionProportion = 0.5f
@@ -838,6 +841,11 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         // 记录长按的初始位置
         lastTouchX1 = e.x
         refreshStartY(e.y)
+        onLongPressTrikIndex(e.y.toInt())
+    }
+
+    open fun onLongPressTrikIndex(y: Int): Int {
+        return 1
     }
 
 
