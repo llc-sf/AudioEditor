@@ -186,11 +186,10 @@ class AudioFragment {
     }
 
     fun refreshCursorValueByComputeScroll(currX: Int) {
-        cursorValue =
-            startValue + offsetUpTouchX + (currX / unitMsPixel).toLong()
+        cursorValue = startValue + offsetUpTouchX + (currX / unitMsPixel).toLong()
     }
 
-    fun refreshCursorValueByHandleHorizontalMove(deltaX: Float) {
+    fun refreshCursorValueByLongPressHandleHorizontalMove(deltaX: Float) {
         cursorValue -= (deltaX / unitMsPixel).toLong()
         //时间戳转换成时间
         Log.i(long_press_tag, "index:${index}  refreshCursorValueByHandleHorizontalMove cursorValue: ${TimeUtil.getDetailTime(cursorValue)}")

@@ -864,30 +864,6 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
     }
 
 
-    open fun refreshLongPressStartY(startY: Float) {
-
-    }
-
-    open fun refreshCursorValueByComputeScroll(currX: Int) {
-
-    }
-
-    open fun refreshCursorValueByLongPressHandleHorizontalMove(deltaX: Float) {
-
-    }
-
-    open fun refreshCursorValueByOnScroll(courseIncrement: Long) {
-
-    }
-
-    open fun refreshOffsetUpTouchX(oriCursorValue: Long) {
-
-    }
-
-    open fun refreshLongPressCurrentTouchY(currentY: Int) {
-
-    }
-
     override fun computeScroll() {
         Log.i(touch_tag, "computeScroll")
         if (scroller.computeScrollOffset()) {
@@ -1005,6 +981,30 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
 
     fun setTickMarkStrategy(tickMarkStrategy: TickMarkStrategy?) {
         mTickMarkStrategy = tickMarkStrategy
+    }
+
+    open fun refreshLongPressStartY(startY: Float) {
+
+    }
+
+    open fun refreshCursorValueByComputeScroll(currX: Int) {
+
+    }
+
+    open fun refreshCursorValueByLongPressHandleHorizontalMove(deltaX: Float) {
+
+    }
+
+    open fun refreshCursorValueByOnScroll(courseIncrement: Long) {
+
+    }
+
+    open fun refreshOffsetUpTouchX(oriCursorValue: Long) {
+
+    }
+
+    open fun refreshLongPressCurrentTouchY(currentY: Int) {
+
     }
 
     interface TickMarkStrategy {

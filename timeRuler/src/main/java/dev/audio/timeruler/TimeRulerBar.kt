@@ -463,7 +463,7 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
     override fun refreshCursorValueByLongPressHandleHorizontalMove(deltaX: Float) {
         Log.i(long_press_tag, "TimeRulerBar refreshCursorValueByLongPressHandleHorizontalMove: $deltaX")
         audioFragments[longTouchIndex]?.let {
-            it.refreshCursorValueByHandleHorizontalMove(deltaX)
+            it.refreshCursorValueByLongPressHandleHorizontalMove(deltaX)
         }
     }
 
