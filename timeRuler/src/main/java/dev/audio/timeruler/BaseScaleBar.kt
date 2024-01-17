@@ -661,9 +661,11 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
                 }
             }
         }
-        when(event.action){
-            MotionEvent.ACTION_UP,MotionEvent.ACTION_CANCEL->{
-                onTouchUpEvent()
+        when (event.action) {
+            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                if (onLongPress) {
+                    onLongPressTouchUpEvent()
+                }
             }
         }
 
@@ -691,7 +693,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         return true
     }
 
-    open fun onTouchUpEvent() {
+    open fun onLongPressTouchUpEvent() {
     }
 
     private fun handleLongPressHorizontalMovement(deltaX: Float) {
@@ -845,14 +847,15 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
     //**************************** 长按处理 ****************************
     override fun onLongPress(e: MotionEvent) {
         // do nothing
-        Log.i("llc_touch", "onLongPress")
-        if (true) {
-            onLongPress = true
-        }
-        // 记录长按的初始位置
-        lastTouchX1 = e.x
-        refreshLongPressStartY(e.y)
+        Log.i(long_press_tag, "onLongPress")
+        onLongPress = true
+        //确定长按命中的轨道
         longTouchIndex = onLongPressTrikIndex(e.y.toInt())
+        // 记录长按横坐标的初始位置
+        lastTouchX1 = e.x
+        // 记录长按竖坐标的初始位置
+        refreshLongPressStartY(e.y)
+
     }
 
     open fun onLongPressTrikIndex(y: Int): Int {

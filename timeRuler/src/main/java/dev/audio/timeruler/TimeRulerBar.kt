@@ -82,6 +82,7 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
     // 设置波形数据的方法
     fun setWaveform(waveform: Waveform) {
         audioFragments.add(AudioFragment().apply {
+            index = 0
             duration = 1000 * 60 * 2
             maxWaveHeight = 50f
             waveVerticalPosition = 200f
@@ -93,6 +94,7 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
             cursorValue = mCursorValue
         })
         audioFragments.add(AudioFragment().apply {
+            index = 1
             duration = 1000 * 60 * 2
             maxWaveHeight = 50f
             waveVerticalPosition = 400f
@@ -104,6 +106,7 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
             cursorValue = mCursorValue
         })
         audioFragments.add(AudioFragment().apply {
+            index = 2
             duration = 1000 * 60 * 2
             maxWaveHeight = 50f
             waveVerticalPosition = 600f
@@ -417,16 +420,17 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
         audioFragments.forEachIndexed { index, audioFragment ->
             if (y > audioFragment.rect?.top ?: 0 && y < audioFragment.rect?.bottom ?: 0) {
                 return index.apply {
-                    Log.i(long_press_tag, "touchy=$y,index=$this,rect=${audioFragment.rect}")
+                    Log.i(long_press_tag, "onLongPressTrikIndex touchy=$y,index=$this,rect=${audioFragment.rect}")
                 }
             }
         }
         return 0.apply {
-            Log.i(long_press_tag, "touchy=$y,index=$this")
+            Log.i(long_press_tag, "onLongPressTrikIndex touchy=$y,index=$this")
         }
     }
 
     override fun refreshLongPressStartY(startY: Float) {
+        Log.i(long_press_tag, "TimeRulerBar refreshLongPressStartY startY=$startY,longTouchIndex=$longTouchIndex")
         audioFragments[longTouchIndex]?.let {
             it.refreshLongPressStartY(startY)
         }
@@ -445,6 +449,7 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
     }
 
     override fun refreshCursorValueByLongPressHandleHorizontalMove(deltaX: Float) {
+        Log.i(long_press_tag, "refreshCursorValueByLongPressHandleHorizontalMove: $deltaX")
         audioFragments[longTouchIndex]?.let {
             it.refreshCursorValueByHandleHorizontalMove(deltaX)
         }
@@ -462,10 +467,10 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
         }
     }
 
-    override fun onTouchUpEvent() {
-        super.onTouchUpEvent()
+    override fun onLongPressTouchUpEvent() {
+        super.onLongPressTouchUpEvent()
         audioFragments[longTouchIndex]?.let {
-            it.onTouchUpEvent()
+            it.onLongPressTouchUpEvent()
         }
     }
 
