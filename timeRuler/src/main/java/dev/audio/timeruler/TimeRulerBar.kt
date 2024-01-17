@@ -415,6 +415,9 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
     }
 
 
+    /**
+     * 长按命中的轨道 index
+     */
     override fun onLongPressTrackIndex(y: Int): Int {
         //view 在屏幕上的y坐标
         audioFragments.forEachIndexed { index, audioFragment ->
@@ -429,6 +432,9 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
         }
     }
 
+    /**
+     * 长按起始的Y坐标
+     */
     override fun refreshLongPressStartY(startY: Float) {
         Log.i(long_press_tag, "TimeRulerBar refreshLongPressStartY startY=$startY,longTouchIndex=$longTouchIndex")
         audioFragments[longTouchIndex]?.let {
@@ -436,12 +442,18 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
         }
     }
 
+    /**
+     * 长按移动的Y坐标
+     */
     override fun refreshLongPressCurrentTouchY(currentY: Int) {
         audioFragments[longTouchIndex]?.let {
             it.refreshLongPressCurrentTouchY(currentY)
         }
     }
 
+    /**
+     * 移动时间轴轨道 tag时间戳更新
+     */
     override fun refreshCursorValueByComputeScroll(currX: Int) {
         audioFragments.forEach {
             it.refreshCursorValueByComputeScroll(currX)

@@ -30,6 +30,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
 
         private const val TAG = "BaseScaleBar"
         const val long_press_tag = "long_press_tag"
+        const val touch_tag = "touch_tag"
 
         /**
          * updateScaleInfo(500ms, 100ms);
@@ -673,8 +674,8 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
             when (event.action) {
                 MotionEvent.ACTION_MOVE -> {
                     // 计算偏移量
-                    val deltaX = event.x - lastTouchX1
-                    lastTouchX1 = event.x
+                    val deltaX = event.x - longPressStartTouchX
+                    longPressStartTouchX = event.x
 //                    currentY1 = event.y.toInt()
                     refreshLongPressCurrentTouchY(event.y.toInt())
                     // 使用偏移量进行你的操作
@@ -697,7 +698,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
     }
 
     private fun handleLongPressHorizontalMovement(deltaX: Float) {
-        Log.i("llc_touch", "unitPixel=$unitPixel")
+        Log.i(touch_tag, "unitPixel=$unitPixel")
         try {
             if (unitPixel != 0f) {
 //                mCursorValue1 -= (deltaX / unitPixel).toLong()
@@ -770,7 +771,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
 
     override fun onScaleEnd(detector: ScaleGestureDetector) {}
     override fun onDown(e: MotionEvent): Boolean {
-        Log.i("llc_touch", "onDown")
+        Log.i(touch_tag, "onDown")
         if (status == STATUS_SCROLL_FLING) {
             scroller.forceFinished(true)
         } else {
@@ -796,7 +797,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         distanceX: Float,
         distanceY: Float
     ): Boolean {
-        Log.i("llc_touch", "onScroll")
+        Log.i(touch_tag, "onScroll")
         if (e2.pointerCount > 1) {
             return false
         }
@@ -839,7 +840,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
     var onLongPress = false
 
     // 长按水平方向上的初始位置
-    private var lastTouchX1 = 0f
+    private var longPressStartTouchX = 0f
 
     //长按命中的是哪一个轨道
     var longTouchIndex = 0
@@ -852,7 +853,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         //确定长按命中的轨道
         longTouchIndex = onLongPressTrackIndex(e.y.toInt())
         // 记录长按横坐标的初始位置
-        lastTouchX1 = e.x
+        longPressStartTouchX = e.x
         // 记录长按竖坐标的初始位置
         refreshLongPressStartY(e.y)
 
@@ -888,7 +889,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
     }
 
     override fun computeScroll() {
-        Log.i("llc_touch", "computeScroll")
+        Log.i(touch_tag, "computeScroll")
         if (scroller.computeScrollOffset()) {
             val currX = scroller.currX
             mCursorValue = mScaleInfo!!.startValue + (currX / unitPixel).toLong()
@@ -917,7 +918,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         velocityX: Float,
         velocityY: Float
     ): Boolean {
-        Log.i("llc_touch", "onFling")
+        Log.i(touch_tag, "onFling")
         status = STATUS_SCROLL_FLING
         val startX = ((mCursorValue - mScaleInfo!!.startValue) * unitPixel).toInt()
         val maX = ((mScaleInfo!!.endValue - mScaleInfo!!.startValue) * unitPixel).toInt()
