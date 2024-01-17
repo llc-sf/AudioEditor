@@ -412,12 +412,6 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
     }
 
 
-    override fun refreshStartY(startY: Float) {
-        audioFragments.forEach {
-            it.refreshStartY(startY)
-        }
-    }
-
     override fun onLongPressTrikIndex(y: Int): Int {
         //view 在屏幕上的y坐标
         audioFragments.forEachIndexed { index, audioFragment ->
@@ -432,14 +426,26 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
         }
     }
 
+    override fun refreshLongPressStartY(startY: Float) {
+        audioFragments[longTouchIndex]?.let {
+            it.refreshLongPressStartY(startY)
+        }
+    }
+
+    override fun refreshLongPressCurrentTouchY(currentY: Int) {
+        audioFragments[longTouchIndex]?.let {
+            it.refreshLongPressCurrentTouchY(currentY)
+        }
+    }
+
     override fun refreshCursorValueByComputeScroll(currX: Int) {
         audioFragments.forEach {
             it.refreshCursorValueByComputeScroll(currX)
         }
     }
 
-    override fun refreshCursorValueByHandleHorizontalMove(deltaX: Float) {
-        audioFragments.forEach {
+    override fun refreshCursorValueByLongPressHandleHorizontalMove(deltaX: Float) {
+        audioFragments[longTouchIndex]?.let {
             it.refreshCursorValueByHandleHorizontalMove(deltaX)
         }
     }
@@ -451,14 +457,16 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
     }
 
     override fun refreshOffsetUpTouchX(oriCursorValue: Long) {
-        audioFragments.forEach {
+        audioFragments[longTouchIndex]?.let {
             it.refreshOffsetUpTouchX(oriCursorValue)
         }
     }
 
-    override fun refreshCurrentTouchY(currentY: Int) {
-        audioFragments.forEach {
-            it.refreshCurrentTouchY(currentY)
+    override fun onTouchUpEvent() {
+        super.onTouchUpEvent()
+        audioFragments[longTouchIndex]?.let {
+            it.onTouchUpEvent()
         }
     }
+
 }

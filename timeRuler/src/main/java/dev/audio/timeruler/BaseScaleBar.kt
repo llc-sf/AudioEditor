@@ -661,6 +661,11 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
                 }
             }
         }
+        when(event.action){
+            MotionEvent.ACTION_UP,MotionEvent.ACTION_CANCEL->{
+                onTouchUpEvent()
+            }
+        }
 
         if (onLongPress) {
             when (event.action) {
@@ -669,9 +674,9 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
                     val deltaX = event.x - lastTouchX1
                     lastTouchX1 = event.x
 //                    currentY1 = event.y.toInt()
-                    refreshCurrentTouchY(event.y.toInt())
+                    refreshLongPressCurrentTouchY(event.y.toInt())
                     // 使用偏移量进行你的操作
-                    handleHorizontalMovement(deltaX)
+                    handleLongPressHorizontalMovement(deltaX)
                 }
 
                 MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
@@ -686,12 +691,15 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         return true
     }
 
-    private fun handleHorizontalMovement(deltaX: Float) {
+    open fun onTouchUpEvent() {
+    }
+
+    private fun handleLongPressHorizontalMovement(deltaX: Float) {
         Log.i("llc_touch", "unitPixel=$unitPixel")
         try {
             if (unitPixel != 0f) {
 //                mCursorValue1 -= (deltaX / unitPixel).toLong()
-                refreshCursorValueByHandleHorizontalMove(deltaX)
+                refreshCursorValueByLongPressHandleHorizontalMove(deltaX)
                 invalidate()
             }
         } catch (e: Exception) {
@@ -831,6 +839,9 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
     // 长按水平方向上的初始位置
     private var lastTouchX1 = 0f
 
+    //长按命中的是哪一个轨道
+    var longTouchIndex = 0
+
     //**************************** 长按处理 ****************************
     override fun onLongPress(e: MotionEvent) {
         // do nothing
@@ -840,16 +851,16 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         }
         // 记录长按的初始位置
         lastTouchX1 = e.x
-        refreshStartY(e.y)
-        onLongPressTrikIndex(e.y.toInt())
+        refreshLongPressStartY(e.y)
+        longTouchIndex = onLongPressTrikIndex(e.y.toInt())
     }
 
     open fun onLongPressTrikIndex(y: Int): Int {
-        return 1
+        return 0
     }
 
 
-    open fun refreshStartY(startY: Float) {
+    open fun refreshLongPressStartY(startY: Float) {
 
     }
 
@@ -857,7 +868,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
 
     }
 
-    open fun refreshCursorValueByHandleHorizontalMove(deltaX: Float) {
+    open fun refreshCursorValueByLongPressHandleHorizontalMove(deltaX: Float) {
 
     }
 
@@ -869,7 +880,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
 
     }
 
-    open fun refreshCurrentTouchY(currentY: Int) {
+    open fun refreshLongPressCurrentTouchY(currentY: Int) {
 
     }
 

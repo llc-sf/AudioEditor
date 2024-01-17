@@ -35,6 +35,22 @@ class AudioFragment {
 
     //波形垂直位置
     var waveVerticalPosition: Float = DEFAULT_WAVE_VERTICAL_POSITION
+        set(value) {
+            field = value
+            waveVerticalLongPressTempPosition = value
+        }
+
+    /**
+     * 长按波形图 临时的垂直位置
+     */
+    private var waveVerticalLongPressTempPosition = waveVerticalPosition
+        set(value) {
+            field = value
+            Log.i(long_press_tag, "setValue waveVerticalLongPressTempPosition: $value")
+        }
+
+    //波形垂直间隔
+    private var waveVerticalInterval: Float = DEFAULT_WAVE_VERTICAL_POSITION
 
     //起始时间
     var startValue: Long = 0
@@ -81,7 +97,11 @@ class AudioFragment {
 
 
     private fun getTrackYPosition(): Float {
-        return waveVerticalPosition + ((((currentTouchY.toDouble() - startY) / waveVerticalPosition).roundToInt() * waveVerticalPosition).toInt())
+//        return waveVerticalPosition + ((((currentTouchY.toDouble() - startY) / waveVerticalPosition).roundToInt() * waveVerticalPosition).toInt())
+        return waveVerticalLongPressTempPosition.apply {
+            Log.i(long_press_tag, "ondraw waveVerticalPositionLongPress: $this")
+        }
+
     }
 
     fun draw(
@@ -143,8 +163,13 @@ class AudioFragment {
 
         // 绘制路径
         canvas.drawPath(path, mWavePaint)
-        rect = Rect((0f + offsetX).toInt(), (centerY-maxWaveHeight).toInt(), ((0f + offsetX)+waveViewWidth).toInt(), (maxWaveHeight+centerY).toInt()).apply {
-                        Log.i(long_press_tag, "draw: $this")
+        rect = Rect(
+            (0f + offsetX).toInt(),
+            (centerY - maxWaveHeight).toInt(),
+            ((0f + offsetX) + waveViewWidth).toInt(),
+            (maxWaveHeight + centerY).toInt()
+        ).apply {
+            Log.i(long_press_tag, "draw: $this")
         }
         //画空心rect
         val rectPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -174,11 +199,22 @@ class AudioFragment {
         offsetUpTouchX = cursorValue - oriCursorValue
     }
 
-    fun refreshCurrentTouchY(currentY: Int) {
+    fun refreshLongPressCurrentTouchY(currentY: Int) {
         currentTouchY = currentY
+        waveVerticalLongPressTempPosition =
+            waveVerticalPosition + ((((currentTouchY.toDouble() - startY) / waveVerticalInterval).roundToInt() * waveVerticalInterval).toInt())
+
+
     }
 
-    fun refreshStartY(startY: Float){
+    fun refreshLongPressStartY(startY: Float) {
+        waveVerticalLongPressTempPosition = waveVerticalPosition
         this.startY = startY
+    }
+
+    fun onTouchUpEvent() {
+        waveVerticalPosition = waveVerticalLongPressTempPosition
+        startY = 0f
+        currentTouchY = 0
     }
 }
