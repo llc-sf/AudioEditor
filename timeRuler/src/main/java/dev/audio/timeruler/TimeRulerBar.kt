@@ -134,7 +134,7 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
         audioFragment: AudioFragment,
         canvas: Canvas
     ): Boolean {
-        return audioFragment.draw(canvas)
+        return audioFragment.drawWave(canvas)
     }
 
 
@@ -230,6 +230,14 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
         super.cursorPositionPixelChange(prop, old, new)
         audioFragments.forEach {
             it.cursorPosition = new
+            invalidate()
+        }
+    }
+
+    override fun cursorValueChange(prop: KProperty<*>, old: Long, new: Long) {
+        super.cursorValueChange(prop, old, new)
+        audioFragments?.forEach {
+            it.cursorValueTotal = new
             invalidate()
         }
     }

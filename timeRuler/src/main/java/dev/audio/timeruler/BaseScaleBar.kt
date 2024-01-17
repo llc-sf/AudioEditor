@@ -16,6 +16,7 @@ import androidx.annotation.Dimension
 import androidx.annotation.FloatRange
 import androidx.annotation.StringDef
 import androidx.core.view.GestureDetectorCompat
+import dev.audio.ffmpeglib.tool.TimeUtil
 import dev.audio.timeruler.utils.SizeUtils
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -31,6 +32,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         private const val TAG = "BaseScaleBar"
         const val long_press_tag = "long_press_tag"
         const val touch_tag = "touch_tag"
+        const val time_line_tag = "time_line_tag"
 
         /**
          * updateScaleInfo(500ms, 100ms);
@@ -187,6 +189,11 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
 
     }
 
+
+    open fun cursorValueChange(prop: KProperty<*>, old: Long, new: Long) {
+
+    }
+
     /*一个屏幕宽度最少显示多少毫秒  8s*/
     @JvmField
     protected var minScreenSpanValue: Long = 0
@@ -201,10 +208,11 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
     private var minUnitPixel = 0f
 
     /*时间戳*/
-    protected var mCursorValue: Long = 0
-        set(value) {
-            field = value
-        }
+    protected var mCursorValue: Long by ObservableProperty(0L) { prop, old, new ->
+        println("${prop.name} changed from $old to $new")
+        cursorValueChange(prop, old, new)
+        // 这里可以添加更多的变化监听逻辑
+    }
     private var mGestureDetectorCompat: GestureDetectorCompat? = null
     private var scrollHappened = false
 
@@ -397,6 +405,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
     }
 
     override fun onDraw(canvas: Canvas) {
+        Log.i(long_press_tag, "onDraw cursorValue=${TimeUtil.getDetailTime(cursorValue)}")
         val baselinePosition = baselinePosition
         mScalePaint!!.color = tickColor
         if (showTickLine) {

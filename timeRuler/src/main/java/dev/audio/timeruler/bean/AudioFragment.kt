@@ -8,6 +8,7 @@ import android.graphics.Rect
 import android.util.Log
 import dev.audio.ffmpeglib.tool.TimeUtil
 import dev.audio.timeruler.BaseScaleBar.Companion.long_press_tag
+import dev.audio.timeruler.BaseScaleBar.Companion.time_line_tag
 import kotlin.math.roundToInt
 
 /**
@@ -47,7 +48,10 @@ class AudioFragment {
     private var waveVerticalLongPressTempPosition = waveVerticalPosition
         set(value) {
             field = value
-            Log.i(long_press_tag, "index:${index} setValue waveVerticalLongPressTempPosition: $value")
+            Log.i(
+                long_press_tag,
+                "index:${index} setValue waveVerticalLongPressTempPosition: $value"
+            )
         }
 
     //波形垂直间隔
@@ -56,8 +60,17 @@ class AudioFragment {
     //起始时间
     var startValue: Long = 0
 
+
     //当前指示的时间
     var cursorValue: Long = 0
+        set(value) {
+            if (cursorValueTotal == 0L) {
+                cursorValueTotal = value
+            }
+            field = value
+        }
+
+    var cursorValueTotal: Long = 0
 
     //当前指示标的位置（元素）
     var cursorPosition: Float = 0f
@@ -67,8 +80,8 @@ class AudioFragment {
 
     var index = 0
 
-//    var offsetX: Float = 0f
-//        get() = ((cursorValue - (startValue ?: 0)) * unitMsPixel - cursorPosition)
+    //距离View起始点的偏移量 像素（屏幕最左边）
+    var offsetX: Float = 0f
 
     //总时长
     var duration: Long = 0
@@ -107,7 +120,7 @@ class AudioFragment {
 
     }
 
-    fun draw(
+    fun drawWave(
         canvas: Canvas
     ): Boolean {
         var wf = waveform
@@ -122,7 +135,11 @@ class AudioFragment {
         val path = Path()
         val upperPoints = mutableListOf<Pair<Float, Float>>()
 
-        var offsetX = -((cursorValue - (startValue)) * unitMsPixel - cursorPosition)
+        offsetX = -((cursorValue - (startValue)) * unitMsPixel - cursorPosition)
+        Log.i(
+            time_line_tag,
+            "drawWave index=$index offsetCursorValue = ${cursorValueTotal - cursorValue}"
+        )
 
         for (i in samples.indices step 400) { // 步长设置为400，可根据需要调整
             val x = (waveViewWidth * (i / samples.size.toFloat())) + offsetX
@@ -181,18 +198,40 @@ class AudioFragment {
             this.strokeWidth = 2f
         }
         canvas.drawRect(rect!!, rectPaint)
-
+        Log.i(
+            time_line_tag,
+            "timeline drawWave index=$index [${offsetCursorValue()},${offsetCursorValue() + duration}]"
+        )
         return false
+    }
+
+    fun offsetCursorValue(): Long {
+        Log.i(
+            time_line_tag,
+            "timeline offsetCursorValue cursorValueTotal=$cursorValueTotal,cursorValue=$cursorValue"
+        )
+        return cursorValueTotal - cursorValue
     }
 
     fun refreshCursorValueByComputeScroll(currX: Int) {
         cursorValue = startValue + offsetUpTouchX + (currX / unitMsPixel).toLong()
+        Log.i(
+            long_press_tag,
+            "index:${index}  refreshCursorValueByComputeScroll cursorValue: ${
+                TimeUtil.getDetailTime(cursorValue)
+            }"
+        )
     }
 
     fun refreshCursorValueByLongPressHandleHorizontalMove(deltaX: Float) {
         cursorValue -= (deltaX / unitMsPixel).toLong()
         //时间戳转换成时间
-        Log.i(long_press_tag, "index:${index}  refreshCursorValueByHandleHorizontalMove cursorValue: ${TimeUtil.getDetailTime(cursorValue)}")
+        Log.i(
+            long_press_tag,
+            "index:${index}  refreshCursorValueByLongPressHandleHorizontalMove cursorValue: ${
+                TimeUtil.getDetailTime(cursorValue)
+            }"
+        )
     }
 
     fun refreshCursorValueByOnScroll(courseIncrement: Long) {
@@ -207,17 +246,26 @@ class AudioFragment {
         currentTouchY = currentY
         waveVerticalLongPressTempPosition =
             waveVerticalPosition + ((((currentTouchY.toDouble() - startY) / waveVerticalInterval).roundToInt() * waveVerticalInterval).toInt())
-        Log.i(long_press_tag, "index:${index} refreshLongPressCurrentTouchY waveVerticalLongPressTempPosition: $waveVerticalLongPressTempPosition,startY=$startY")
+        Log.i(
+            long_press_tag,
+            "index:${index} refreshLongPressCurrentTouchY waveVerticalLongPressTempPosition: $waveVerticalLongPressTempPosition,startY=$startY"
+        )
     }
 
     fun refreshLongPressStartY(startY: Float) {
-        Log.i(long_press_tag, "index:${index} refreshLongPressStartY waveVerticalPosition: $waveVerticalPosition,startY=$startY")
+        Log.i(
+            long_press_tag,
+            "index:${index} refreshLongPressStartY waveVerticalPosition: $waveVerticalPosition,startY=$startY"
+        )
         waveVerticalLongPressTempPosition = waveVerticalPosition
         this.startY = startY
     }
 
     fun onLongPressTouchUpEvent() {
-        Log.i(long_press_tag, "index:${index} onLongPressTouchUpEvent waveVerticalPosition: $waveVerticalPosition,waveVerticalLongPressTempPosition=$waveVerticalLongPressTempPosition")
+        Log.i(
+            long_press_tag,
+            "index:${index} onLongPressTouchUpEvent waveVerticalPosition: $waveVerticalPosition,waveVerticalLongPressTempPosition=$waveVerticalLongPressTempPosition"
+        )
         waveVerticalPosition = waveVerticalLongPressTempPosition
         startY = 0f
         currentTouchY = 0
