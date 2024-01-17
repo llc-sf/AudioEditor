@@ -200,7 +200,7 @@ class AudioFragment {
         canvas.drawRect(rect!!, rectPaint)
         Log.i(
             time_line_tag,
-            "timeline drawWave index=$index [${offsetCursorValue()},${offsetCursorValue() + duration}]"
+            "timeline drawWave index=$index currentTime:${cursorValueTotal-startValue} [${offsetCursorValue()},${offsetCursorValue() + duration}]"
         )
         return false
     }
