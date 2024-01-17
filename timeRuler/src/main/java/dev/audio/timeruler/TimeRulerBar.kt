@@ -415,17 +415,17 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
     }
 
 
-    override fun onLongPressTrakIndex(y: Int): Int {
+    override fun onLongPressTrackIndex(y: Int): Int {
         //view 在屏幕上的y坐标
         audioFragments.forEachIndexed { index, audioFragment ->
             if (y > audioFragment.rect?.top ?: 0 && y < audioFragment.rect?.bottom ?: 0) {
                 return index.apply {
-                    Log.i(long_press_tag, "onLongPressTrakIndex touchy=$y,index=$this,rect=${audioFragment.rect}")
+                    Log.i(long_press_tag, "TimeRulerBar onLongPressTrackIndex touchy=$y,index=$this,rect=${audioFragment.rect}")
                 }
             }
         }
         return 0.apply {
-            Log.i(long_press_tag, "onLongPressTrakIndex touchy=$y,index=$this")
+            Log.i(long_press_tag, "TimeRulerBar onLongPressTrackIndex touchy=$y,index=$this")
         }
     }
 
@@ -449,7 +449,7 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
     }
 
     override fun refreshCursorValueByLongPressHandleHorizontalMove(deltaX: Float) {
-        Log.i(long_press_tag, "refreshCursorValueByLongPressHandleHorizontalMove: $deltaX")
+        Log.i(long_press_tag, "TimeRulerBar refreshCursorValueByLongPressHandleHorizontalMove: $deltaX")
         audioFragments[longTouchIndex]?.let {
             it.refreshCursorValueByHandleHorizontalMove(deltaX)
         }
