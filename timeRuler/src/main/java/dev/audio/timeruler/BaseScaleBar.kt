@@ -850,7 +850,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
         Log.i(long_press_tag, "onLongPress")
         onLongPress = true
         //确定长按命中的轨道
-        longTouchIndex = onLongPressTrikIndex(e.y.toInt())
+        longTouchIndex = onLongPressTrakIndex(e.y.toInt())
         // 记录长按横坐标的初始位置
         lastTouchX1 = e.x
         // 记录长按竖坐标的初始位置
@@ -858,7 +858,7 @@ open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: Attri
 
     }
 
-    open fun onLongPressTrikIndex(y: Int): Int {
+    open fun onLongPressTrakIndex(y: Int): Int {
         return 0
     }
 

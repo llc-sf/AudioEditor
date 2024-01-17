@@ -415,17 +415,17 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
     }
 
 
-    override fun onLongPressTrikIndex(y: Int): Int {
+    override fun onLongPressTrakIndex(y: Int): Int {
         //view 在屏幕上的y坐标
         audioFragments.forEachIndexed { index, audioFragment ->
             if (y > audioFragment.rect?.top ?: 0 && y < audioFragment.rect?.bottom ?: 0) {
                 return index.apply {
-                    Log.i(long_press_tag, "onLongPressTrikIndex touchy=$y,index=$this,rect=${audioFragment.rect}")
+                    Log.i(long_press_tag, "onLongPressTrakIndex touchy=$y,index=$this,rect=${audioFragment.rect}")
                 }
             }
         }
         return 0.apply {
-            Log.i(long_press_tag, "onLongPressTrikIndex touchy=$y,index=$this")
+            Log.i(long_press_tag, "onLongPressTrakIndex touchy=$y,index=$this")
         }
     }
 
