@@ -423,7 +423,10 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
         audioFragments.forEachIndexed { index, audioFragment ->
             if (y > audioFragment.rect?.top ?: 0 && y < audioFragment.rect?.bottom ?: 0) {
                 return index.apply {
-                    Log.i(long_press_tag, "TimeRulerBar onLongPressTrackIndex touchy=$y,index=$this,rect=${audioFragment.rect}")
+                    Log.i(
+                        long_press_tag,
+                        "TimeRulerBar onLongPressTrackIndex touchy=$y,index=$this,rect=${audioFragment.rect}"
+                    )
                 }
             }
         }
@@ -436,7 +439,10 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
      * 长按起始的Y坐标
      */
     override fun refreshLongPressStartY(startY: Float) {
-        Log.i(long_press_tag, "TimeRulerBar refreshLongPressStartY startY=$startY,longTouchIndex=$longTouchIndex")
+        Log.i(
+            long_press_tag,
+            "TimeRulerBar refreshLongPressStartY startY=$startY,longTouchIndex=$longTouchIndex"
+        )
         audioFragments[longTouchIndex]?.let {
             it.refreshLongPressStartY(startY)
         }
@@ -452,7 +458,7 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
     }
 
     /**
-     * 移动时间轴轨道 tag时间戳更新
+     * 惯性滑动 tag时间戳更新
      */
     override fun refreshCursorValueByComputeScroll(currX: Int) {
         audioFragments.forEach {
@@ -460,25 +466,44 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
         }
     }
 
+    /**
+     * 长按波形图 水平方向移动
+     */
     override fun refreshCursorValueByLongPressHandleHorizontalMove(deltaX: Float) {
-        Log.i(long_press_tag, "TimeRulerBar refreshCursorValueByLongPressHandleHorizontalMove: $deltaX")
+        Log.i(
+            long_press_tag,
+            "TimeRulerBar refreshCursorValueByLongPressHandleHorizontalMove: $deltaX"
+        )
         audioFragments[longTouchIndex]?.let {
             it.refreshCursorValueByLongPressHandleHorizontalMove(deltaX)
         }
     }
 
+    /**
+     * 滑动时间轴，tag时间戳更新
+     */
     override fun refreshCursorValueByOnScroll(courseIncrement: Long) {
         audioFragments.forEach {
             it.refreshCursorValueByOnScroll(courseIncrement)
         }
     }
 
+    /**
+     * 长按结束 抬起手指 手指x轴的坐标
+     *
+     * 长按移动，手指抬起时  与原来起点的cursorValue差值，惯性滑动用
+     */
     override fun refreshOffsetUpTouchX(oriCursorValue: Long) {
         audioFragments[longTouchIndex]?.let {
             it.refreshOffsetUpTouchX(oriCursorValue)
         }
     }
 
+
+    /**
+     * 手指拿起
+     * y轴上的坐标清除(上下拖拽波形图功能)
+     */
     override fun onLongPressTouchUpEvent() {
         super.onLongPressTouchUpEvent()
         audioFragments[longTouchIndex]?.let {
