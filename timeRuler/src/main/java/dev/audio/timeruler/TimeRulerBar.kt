@@ -9,6 +9,7 @@ import android.graphics.Rect
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.util.Log
+import android.view.MotionEvent
 import androidx.annotation.ColorInt
 import dev.audio.timeruler.BaseScaleBar.TickMarkStrategy
 import dev.audio.timeruler.bean.AudioFragment
@@ -426,10 +427,14 @@ open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: Attri
     /**
      * 长按命中的轨道 index
      */
-    override fun onLongPressTrackIndex(y: Int): Int {
+    override fun onLongPressTrackIndex(e: MotionEvent): Int {
         //view 在屏幕上的y坐标
         audioFragments.forEachIndexed { index, audioFragment ->
-            if (y > audioFragment.rect?.top ?: 0 && y < audioFragment.rect?.bottom ?: 0) {
+            if (e.y > (audioFragment.rect?.top ?: 0)
+                && e.y < (audioFragment.rect?.bottom ?: 0)
+                && e.x > (audioFragment.rect?.left ?: 0)
+                && e.x < (audioFragment.rect?.right ?: 0)
+                ) {
                 return index.apply {
                     Log.i(
                         long_press_tag,
