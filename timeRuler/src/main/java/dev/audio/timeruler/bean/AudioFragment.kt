@@ -22,6 +22,12 @@ class AudioFragment {
         const val DEFAULT_WAVE_COLOR = Color.RED
     }
 
+    //波形图在时间坐标轴上的起始时间戳
+    var startTimestamp: Long = 0
+
+    //波形图在时间坐标轴上的结束时间戳
+    var endTimestamp: Long = 0
+
     //波形数据
     var waveform: Waveform? = null
 
@@ -72,6 +78,8 @@ class AudioFragment {
                 return
             }
             field = value
+            startTimestamp = cursorValueTotal - cursorValue
+            endTimestamp = startTimestamp + duration
         }
 
     var cursorValueTotal: Long = 0
@@ -203,11 +211,8 @@ class AudioFragment {
         }
         canvas.drawRect(rect!!, rectPaint)
         Log.i(
-            time_line_tag,
-            "timeline drawWave index=$index cursorValueTotal:${
-                TimeUtil.getDetailTime(
-                    cursorValueTotal
-                )
+            time_line_tag, "timeline drawWave index=$index cursorValueTotal:${
+                TimeUtil.getDetailTime(cursorValueTotal)
             },cursorValue:${TimeUtil.getDetailTime(cursorValue)},startValue:${
                 TimeUtil.getDetailTime(
                     startValue
@@ -216,18 +221,18 @@ class AudioFragment {
         )
         Log.i(
             time_line_tag,
-            "timeline drawWave index=$index currentTime:${cursorValueTotal - startValue} [${offsetCursorValue()},${offsetCursorValue() + duration}]"
+            "timeline drawWave index=$index currentTime:${cursorValueTotal - startValue} [${startTimestamp},${endTimestamp}]"
         )
         return false
     }
 
-    fun offsetCursorValue(): Long {
-        Log.i(
-            time_line_tag,
-            "timeline offsetCursorValue cursorValueTotal=$cursorValueTotal,cursorValue=$cursorValue"
-        )
-        return cursorValueTotal - cursorValue
-    }
+//    fun offsetCursorValue(): Long {
+//        Log.i(
+//            time_line_tag,
+//            "timeline offsetCursorValue cursorValueTotal=$cursorValueTotal,cursorValue=$cursorValue"
+//        )
+//        return cursorValueTotal - cursorValue
+//    }
 
     fun refreshCursorValueByComputeScroll(currX: Int) {
         cursorValue = startValue + offsetUpTouchX + (currX / unitMsPixel).toLong()
