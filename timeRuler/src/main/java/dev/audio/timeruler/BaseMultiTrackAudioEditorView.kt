@@ -23,7 +23,10 @@ import java.util.Calendar
 import java.util.Date
 import kotlin.reflect.KProperty
 
-open class BaseScaleBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
+abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null
+) :
     View(context, attrs), ScaleGestureDetector.OnScaleGestureListener,
     GestureDetector.OnGestureListener {
 

@@ -7,8 +7,8 @@ import android.graphics.Path
 import android.graphics.Rect
 import android.util.Log
 import dev.audio.ffmpeglib.tool.TimeUtil
-import dev.audio.timeruler.BaseScaleBar.Companion.long_press_tag
-import dev.audio.timeruler.BaseScaleBar.Companion.time_line_tag
+import dev.audio.timeruler.BaseMultiTrackAudioEditorView.Companion.long_press_tag
+import dev.audio.timeruler.BaseMultiTrackAudioEditorView.Companion.time_line_tag
 import kotlin.math.roundToInt
 
 /**

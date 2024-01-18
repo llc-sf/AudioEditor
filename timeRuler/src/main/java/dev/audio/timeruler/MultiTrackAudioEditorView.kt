@@ -11,15 +11,15 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import androidx.annotation.ColorInt
-import dev.audio.timeruler.BaseScaleBar.TickMarkStrategy
+import dev.audio.timeruler.BaseMultiTrackAudioEditorView.TickMarkStrategy
 import dev.audio.timeruler.bean.AudioFragment
 import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.utils.SizeUtils
 import java.text.SimpleDateFormat
 import kotlin.reflect.KProperty
 
-open class TimeRulerBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
-    BaseScaleBar(context, attrs), TickMarkStrategy {
+open class MultiTrackAudioEditorView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
+    BaseMultiTrackAudioEditorView(context, attrs), TickMarkStrategy {
     private var mTickPaint: Paint? = null
     private var mColorCursorPaint: Paint? = null
     private val mTriangleHeight = 10f
