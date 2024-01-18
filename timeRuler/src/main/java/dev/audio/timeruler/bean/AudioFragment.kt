@@ -67,6 +67,10 @@ class AudioFragment {
             if (cursorValueTotal == 0L) {
                 cursorValueTotal = value
             }
+            if (value > cursorValueTotal) {
+                field = cursorValueTotal
+                return
+            }
             field = value
         }
 
@@ -200,11 +204,19 @@ class AudioFragment {
         canvas.drawRect(rect!!, rectPaint)
         Log.i(
             time_line_tag,
-            "timeline drawWave index=$index cursorValueTotal:${TimeUtil.getDetailTime(cursorValueTotal)},cursorValueTotal:${TimeUtil.getDetailTime(cursorValueTotal)},startValue:${TimeUtil.getDetailTime(startValue)}"
+            "timeline drawWave index=$index cursorValueTotal:${
+                TimeUtil.getDetailTime(
+                    cursorValueTotal
+                )
+            },cursorValue:${TimeUtil.getDetailTime(cursorValue)},startValue:${
+                TimeUtil.getDetailTime(
+                    startValue
+                )
+            }"
         )
         Log.i(
             time_line_tag,
-            "timeline drawWave index=$index currentTime:${cursorValueTotal-startValue} [${offsetCursorValue()},${offsetCursorValue() + duration}]"
+            "timeline drawWave index=$index currentTime:${cursorValueTotal - startValue} [${offsetCursorValue()},${offsetCursorValue() + duration}]"
         )
         return false
     }
