@@ -32,7 +32,7 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
 
     companion object {
 
-        private const val TAG = "BaseScaleBar"
+        private const val TAG = "BaseMultiTrackAudioEditorView"
         const val long_press_tag = "long_press_tag"
         const val touch_tag = "touch_tag"
         const val time_line_tag = "time_line_tag"
