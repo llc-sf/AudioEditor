@@ -146,15 +146,17 @@ class TimeRulerActivity : AppCompatActivity() {
         val timeBean = TimeBean(videos)
         binding.timeBar.setColorScale(timeBean)
 
-        WaveformOptions.getSampleFrom(this, "/storage/emulated/0/Music/QQ音乐/G.E.M. 邓紫棋,潘玮柏-死了都要爱 (Live).mp3") {
-//            binding.waveformSeekBar.sample = it
-            binding.timeBar.setWaveform(Waveform(it.toList()))
-
-        }
-
-//        WaveformOptions.getSampleFrom(this, "/data/hw_init/product/media/Pre-loaded/Music/Dream_It_Possible.flac") {
-//            binding.timeBar.setWaveform(TimeRulerBar.Waveform(it.toList()))
+        //小米
+//        WaveformOptions.getSampleFrom(this, "/storage/emulated/0/Music/QQ音乐/G.E.M. 邓紫棋,潘玮柏-死了都要爱 (Live).mp3") {
+////            binding.waveformSeekBar.sample = it
+//            binding.timeBar.setWaveform(Waveform(it.toList()))
+//
 //        }
+
+        //华为
+        WaveformOptions.getSampleFrom(this, "/storage/emulated/0/Music/music/MushrooM（蘑菇兄弟） - Katie Sky-Monsters（MushrooM remix）.mp3") {
+            binding.timeBar.setWaveform(Waveform(it.toList()))
+        }
 
 
 
