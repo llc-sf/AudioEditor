@@ -22,3 +22,24 @@ include ':waveform'
 include ':ffmpegLib'
 include ':timeRuler'
 include ':recorderLib'
+
+
+//if (file('/Users/chenlu/work/music/Music-lib').exists()) {
+//    includeBuild("/Users/chenlu/work/music/Music-lib") {
+//        dependencySubstitution {
+//            substitute module('ltd.inston.player:Core') using project(':Player-Core')
+//            substitute module('ltd.inston.player:Queue') using project(':Player-Queue')
+//            substitute module('ltd.inston.player:Manager') using project(':Player-Manager')
+//            substitute module('ltd.inston.player:Commons') using project(':Player-Commons')
+//            substitute module('ltd.inston.player:Service') using project(':Player-Service')
+//            substitute module('ltd.inston.player:Session') using project(':Player-Session')
+//            substitute module('ltd.inston.player:Notifications') using project(':Player-Notifications')
+//            substitute module('ltd.inston.player:ijkplayer-arm64') using project(':ijkplayer-arm64')
+//            substitute module('ltd.inston.player:ijkplayer-armv5') using project(':ijkplayer-armv5')
+//            substitute module('ltd.inston.player:ijkplayer-armv7a') using project(':ijkplayer-armv7a')
+//            substitute module('ltd.inston.player:ijkplayer-java') using project(':ijkplayer-java')
+//            substitute module('ltd.inston.player:ijkplayer-x86') using project(':ijkplayer-x86')
+//            substitute module('ltd.inston.player:ijkplayer-x86_64') using project(':ijkplayer-x86_64')
+//        }
+//    }
+//}
