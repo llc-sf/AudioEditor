@@ -7,7 +7,6 @@ import android.provider.MediaStore
 import android.util.Log
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
 import com.google.android.exoplayer2.DefaultLoadControl
 import com.google.android.exoplayer2.DefaultRenderersFactory
 import com.google.android.exoplayer2.LoadControl
@@ -17,10 +16,15 @@ import com.google.android.exoplayer2.RenderersFactory
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.analytics.AnalyticsCollector
 import com.google.android.exoplayer2.source.ClippingMediaSource
+import com.google.android.exoplayer2.source.ConcatenatingMediaSource
+import com.google.android.exoplayer2.source.ExtractorMediaSource
+import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.source.MergingMediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
+import com.google.android.exoplayer2.source.SilenceMediaSource
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.trackselection.TrackSelector
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Clock
 import com.google.android.exoplayer2.util.Util
@@ -193,19 +197,6 @@ class TimeRulerActivity : AppCompatActivity() {
     }
 
     private fun initExoPlayer(mAppContext: Context): SimpleExoPlayer {
-        val renderersFactory: RenderersFactory = DefaultRenderersFactory(mAppContext)
-        val trackSelector: TrackSelector = DefaultTrackSelector(mAppContext)
-        val loadControl: LoadControl = DefaultLoadControl()
-        val bandwidthMeter = DefaultBandwidthMeter.Builder(mAppContext).build()
-        val analyticsCollector = AnalyticsCollector(Clock.DEFAULT)
-//        val player = SimpleExoPlayer.Builder(
-//            mAppContext,
-//            renderersFactory,
-//            trackSelector,
-//            loadControl,
-//            bandwidthMeter,
-//            analyticsCollector
-//        ).build()
         val player = SimpleExoPlayer.Builder(
             mAppContext,
             MultiTrackRenderersFactory(
@@ -221,18 +212,12 @@ class TimeRulerActivity : AppCompatActivity() {
 
 
     private fun play(context: Context) {
+
+
         // 创建 ExoPlayer 实例
         val player: SimpleExoPlayer = initExoPlayer(context)
 
         var dataSourceFactory = DefaultDataSourceFactory(
-            context,
-            Util.getUserAgent(context, context.packageName)
-        )
-        var dataSourceFactory1 = DefaultDataSourceFactory(
-            context,
-            Util.getUserAgent(context, context.packageName)
-        )
-        var dataSourceFactory2 = DefaultDataSourceFactory(
             context,
             Util.getUserAgent(context, context.packageName)
         )
@@ -244,38 +229,49 @@ class TimeRulerActivity : AppCompatActivity() {
         )
         val audioSource2 = ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(
             MediaItem.fromUri(
-                "content://media/external/audio/media/520"
+                "content://media/external/audio/media/517"
             )
         )
-//        val audioSource3 = ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(
-//            MediaItem.fromUri(
-//                "content://media/external/audio/media/518"
-//            )
-//        )
 
         // 使用 ClippingMediaSource 来设置播放的时间段
-        val clippedSource1 = ClippingMediaSource(
-            audioSource1,
-            10*1000000, 35*1000000,
-        ) // 播放音频1的10-15秒
 
-        val clippedSource2 = ClippingMediaSource(
-            audioSource2,
-            0, 35*1000000,
-        ) // 播放音频2的5-10秒
+        val silenceSource = SilenceMediaSource(10 * 1000000)
 
-        // 使用 MergingMediaSource 合并需要同时播放的音频片段
-        val mergedSourceForFirst5Sec = MergingMediaSource(clippedSource1,clippedSource2)
-//        player.prepare(mergedSourceForFirst5Sec)
-//        var uri = getAudioUriFromPath(context, "/storage/emulated/0/Music/暗杠,寅子 - 说书人.mp3")
-//        player.prepare(ExoMediaSourceHelper.getInstance(context).getMediaSource(uri.toString()))
+        val s1 = MergingMediaSource(
+            ClippingMediaSource(
+                audioSource1,
+                0 * 1000000, 10 * 1000000,
+            ),
+            silenceSource
+        )
+
+        val s2 = MergingMediaSource(
+            ClippingMediaSource(
+                audioSource1,
+                10 * 1000000, 20 * 1000000,
+            ),
+            ClippingMediaSource(
+                audioSource2,
+                10 * 1000000, 20 * 1000000,
+            )
+        )
+
+        val s3 = MergingMediaSource(
+            ClippingMediaSource(
+                audioSource1,
+                20 * 1000000, 30 * 1000000,
+            ), ClippingMediaSource(
+                SilenceMediaSource(60 * 1000000),
+                20 * 1000000, 30 * 1000000,
+            )
+        )
+
+        var connect = ConcatenatingMediaSource(s1,s2,s3)
         player.playWhenReady = true
-        player.setMediaSource(mergedSourceForFirst5Sec);
+        player.setMediaSource(connect)
         player.prepare()
-//        player.play()
 
 
-//        player.prepare(mergedSourceForFirst5Sec)
     }
 
 
