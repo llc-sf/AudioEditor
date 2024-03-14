@@ -7,9 +7,11 @@ import android.graphics.Path
 import android.graphics.Rect
 import android.util.Log
 import dev.audio.ffmpeglib.tool.TimeUtil
+import dev.audio.timeruler.BaseMultiTrackAudioEditorView
 import dev.audio.timeruler.BaseMultiTrackAudioEditorView.Companion.long_press_tag
 import dev.audio.timeruler.BaseMultiTrackAudioEditorView.Companion.time_line_tag
 import kotlin.math.roundToInt
+import kotlin.reflect.KProperty
 
 /**
  * 波形片段
@@ -67,22 +69,48 @@ class AudioFragment {
     var startValue: Long = 0
 
 
-    //当前指示的时间
+    /**
+     * 当前游标指示的时间
+     *
+     * 相对于这个片段来说的
+     *
+     * 三个设置的点：
+     * 1、初始化
+     * 2、坐标轴轴的游标变化
+     * 3、长按移动片段位置
+     *
+     */
     var cursorValue: Long = 0
         set(value) {
-            if (cursorValueTotal == 0L) {
-                cursorValueTotal = value
+            if (cursorValueTimeLine == 0L) {
+                cursorValueTimeLine = value
             }
-            if (value > cursorValueTotal) {
-                field = cursorValueTotal
+            if (value > cursorValueTimeLine) {
+                field = cursorValueTimeLine
                 return
             }
             field = value
-            startTimestamp = cursorValueTotal - cursorValue
+            startTimestamp = cursorValueTimeLine - cursorValue
             endTimestamp = startTimestamp + duration
         }
 
-    var cursorValueTotal: Long = 0
+    /**
+     * 当前游标指示的时间
+     *
+     * 相对于整个时间轴来说的
+     *
+     * 当坐标轴游标变化时，会影响当前片段的游标值，进而导致片段移动
+     *
+     */
+    var cursorValueTimeLine: Long by BaseMultiTrackAudioEditorView.ObservableProperty(0L) { prop, old, new ->
+        println("${prop.name} changed from $old to $new")
+        cursorValueTimeLineChange(prop, old, new)
+    }
+
+    private fun cursorValueTimeLineChange(prop: KProperty<*>, old: Long, new: Long) {
+        cursorValue += new - old
+    }
+
 
     //当前指示标的位置（元素）
     var cursorPosition: Float = 0f
@@ -150,7 +178,7 @@ class AudioFragment {
         offsetX = -((cursorValue - (startValue)) * unitMsPixel - cursorPosition)
         Log.i(
             time_line_tag,
-            "drawWave index=$index offsetCursorValue = ${cursorValueTotal - cursorValue}"
+            "drawWave index=$index offsetCursorValue = ${cursorValueTimeLine - cursorValue}"
         )
 
         for (i in samples.indices step 400) { // 步长设置为400，可根据需要调整
@@ -212,7 +240,7 @@ class AudioFragment {
         canvas.drawRect(rect!!, rectPaint)
         Log.i(
             time_line_tag, "timeline drawWave index=$index cursorValueTotal:${
-                TimeUtil.getDetailTime(cursorValueTotal)
+                TimeUtil.getDetailTime(cursorValueTimeLine)
             },cursorValue:${TimeUtil.getDetailTime(cursorValue)},startValue:${
                 TimeUtil.getDetailTime(
                     startValue
@@ -221,7 +249,7 @@ class AudioFragment {
         )
         Log.i(
             time_line_tag,
-            "timeline drawWave index=$index currentTime:${cursorValueTotal - startValue} [${startTimestamp},${endTimestamp}]"
+            "timeline drawWave index=$index currentTime:${cursorValueTimeLine - startValue} [${startTimestamp},${endTimestamp}]"
         )
         return false
     }
@@ -235,7 +263,7 @@ class AudioFragment {
 //    }
 
     fun refreshCursorValueByComputeScroll(currX: Int) {
-        cursorValue = startValue + offsetUpTouchX + (currX / unitMsPixel).toLong()
+//        cursorValue = startValue + offsetUpTouchX + (currX / unitMsPixel).toLong()
         Log.i(
             long_press_tag,
             "index:${index}  refreshCursorValueByComputeScroll cursorValue: ${
@@ -244,6 +272,13 @@ class AudioFragment {
         )
     }
 
+    fun refreshCursorValueByOnScroll(courseIncrement: Long) {
+//        cursorValue += courseIncrement
+    }
+
+    /**
+     * 长按移动时，水平方向的移动
+     */
     fun refreshCursorValueByLongPressHandleHorizontalMove(deltaX: Float) {
         cursorValue -= (deltaX / unitMsPixel).toLong()
         //时间戳转换成时间
@@ -255,9 +290,6 @@ class AudioFragment {
         )
     }
 
-    fun refreshCursorValueByOnScroll(courseIncrement: Long) {
-        cursorValue += courseIncrement
-    }
 
     fun refreshOffsetUpTouchX(oriCursorValue: Long) {
         offsetUpTouchX = cursorValue - oriCursorValue

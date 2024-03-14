@@ -35,7 +35,7 @@ import java.util.Date
 
 
 class TimeRulerActivity : AppCompatActivity() {
-    val cursorDateFormat = SimpleDateFormat("MM月dd日 HH:mm:ss")
+    val cursorDateFormat = SimpleDateFormat("MM月dd日 HH:mm:ss:SSS")
     var nowTime = 1
     private lateinit var binding: ActivityTimeRulerBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -122,8 +122,7 @@ class TimeRulerActivity : AppCompatActivity() {
         }
 
         binding.btnPlay.setOnClickListener {
-            nowTime++
-            binding.timeBar.cursorValue = System.currentTimeMillis() + 1000 * nowTime * 60
+            binding.timeBar.cursorValue = binding.timeBar.cursorValue + 1000
         }
         binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {

@@ -95,7 +95,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
             startValue = mScaleInfo?.startValue ?: 0
             this.unitMsPixel = unitPixel
             this.waveform = waveform
-            cursorValue = mCursorValue
+            cursorValue = mCursorTimeValue
         })
         audioFragments.add(AudioFragment().apply {
             index = 1
@@ -107,7 +107,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
             startValue = mScaleInfo?.startValue ?: 0
             this.unitMsPixel = unitPixel
             this.waveform = waveform
-            cursorValue = mCursorValue
+            cursorValue = mCursorTimeValue
         })
         audioFragments.add(AudioFragment().apply {
             index = 2
@@ -119,7 +119,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
             startValue = mScaleInfo?.startValue ?: 0
             this.unitMsPixel = unitPixel
             this.waveform = waveform
-            cursorValue = mCursorValue
+            cursorValue = mCursorTimeValue
         })
         invalidate() // 触发重新绘制
     }
@@ -239,7 +239,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
     override fun cursorValueChange(prop: KProperty<*>, old: Long, new: Long) {
         super.cursorValueChange(prop, old, new)
         audioFragments?.forEach {
-            it.cursorValueTotal = new
+            it.cursorValueTimeLine = new
             invalidate()
         }
     }

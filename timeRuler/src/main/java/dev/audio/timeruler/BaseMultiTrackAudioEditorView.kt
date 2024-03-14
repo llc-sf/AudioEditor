@@ -214,12 +214,31 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
     private var minUnitPixel = 0f
 
     /*时间戳*/
-    protected var mCursorValue: Long by ObservableProperty(0L) { prop, old, new ->
+    protected var mCursorTimeValue: Long by ObservableProperty(0L) { prop, old, new ->
         println("${prop.name} changed from $old to $new")
         cursorValueChange(prop, old, new)
     }
-    private var mGestureDetectorCompat: GestureDetectorCompat? = null
-    private var scrollHappened = false
+
+    /**
+     * 毫秒
+     */
+    var cursorValue: Long
+        get() = mCursorTimeValue
+        set(cursorValue) {
+            if (status != STATUS_NONE) {
+                return
+            }
+            if (cursorValue < mScaleInfo!!.startValue || cursorValue > mScaleInfo!!.endValue) {
+                //mScaleInfo.startValue 转 年月日 时分秒
+                return
+            }
+            mCursorTimeValue = cursorValue
+            if (mOnCursorListener != null) mOnCursorListener!!.onProgressChanged(
+                mCursorTimeValue,
+                false
+            )
+            invalidate()
+        }
 
 
     /**
@@ -259,6 +278,9 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
 
     /*文字偏移量*/
     private val tickValueOffset: Float
+
+    private var mGestureDetectorCompat: GestureDetectorCompat? = null
+    private var scrollHappened = false
     private fun init() {
         mScalePaint = Paint()
         mScalePaint!!.isAntiAlias = true
@@ -282,7 +304,7 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
         calendar[Calendar.SECOND] = 59
         mScaleInfo!!.endValue = calendar.timeInMillis
 
-        mCursorValue = mScaleInfo!!.startValue
+        mCursorTimeValue = mScaleInfo!!.startValue
     }
 
 
@@ -309,26 +331,6 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
         mScaleRatio = scaleRatio
     }
 
-    var cursorValue: Long
-        get() = mCursorValue
-        set(cursorValue) {
-//        print(cursorValue);
-//        print(mScaleInfo.startValue);
-//        print(mScaleInfo.endValue);
-            if (status != STATUS_NONE) {
-                return
-            }
-            if (cursorValue < mScaleInfo!!.startValue || cursorValue > mScaleInfo!!.endValue) {
-                //mScaleInfo.startValue 转 年月日 时分秒
-                return
-            }
-            mCursorValue = cursorValue
-            if (mOnCursorListener != null) mOnCursorListener!!.onProgressChanged(
-                mCursorValue,
-                false
-            )
-            invalidate()
-        }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         mTickHeight = keyTickHeight * mNormalTickAndKeyTickRatio
@@ -346,7 +348,7 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
         }
         mScaleInfo!!.startValue = start
         mScaleInfo!!.endValue = end
-        mCursorValue = start
+        mCursorTimeValue = start
         invalidate()
     }
 
@@ -426,9 +428,9 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
                 mScalePaint!!
             )
         }
-        val leftRange = mCursorValue - mScaleInfo!!.startValue
+        val leftRange = mCursorTimeValue - mScaleInfo!!.startValue
         val leftNeighborOffset = leftRange % mScaleInfo!!.unitValue
-        val leftNeighborTickValue = mCursorValue - leftNeighborOffset
+        val leftNeighborTickValue = mCursorTimeValue - leftNeighborOffset
         val leftNeighborPosition = mCursorPosition - leftNeighborOffset * unitPixel
         val leftCount = (mCursorPosition / mTickSpacing + 0.5f).toInt()
         var onDrawTickPosition: Float
@@ -586,7 +588,7 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
         }
         drawWaveformSeekBar(canvas)
 //        onEndTickDraw(canvas)
-        drawCursor(canvas, mCursorPosition, mCursorValue)
+        drawCursor(canvas, mCursorPosition, mCursorTimeValue)
 
     }
 
@@ -671,7 +673,7 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
             MotionEvent.ACTION_UP -> {
                 if (scrollHappened && status != STATUS_SCROLL_FLING) {
                     if (null != mOnCursorListener) {
-                        mOnCursorListener!!.onStopTrackingTouch(mCursorValue)
+                        mOnCursorListener!!.onStopTrackingTouch(mCursorTimeValue)
                     }
                 }
                 scrollHappened = false
@@ -703,7 +705,7 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
                 MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                     onLongPress = false
 //                    offsetOriCurrentValue1 = mCursorValue1 - mCursorValue
-                    refreshOffsetUpTouchX(mCursorValue)
+                    refreshOffsetUpTouchX(mCursorTimeValue)
                 }                 // 结束长按状态
 
             }
@@ -826,7 +828,7 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
         if (!scrollHappened) {
             scrollHappened = true
             if (null != mOnCursorListener) {
-                mOnCursorListener!!.onStartTrackingTouch(mCursorValue)
+                mOnCursorListener!!.onStartTrackingTouch(mCursorTimeValue)
             }
             return true
         }
@@ -834,19 +836,19 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
         // 游标刻度值增量
         val courseIncrement = (distanceX / unitPixel).toLong()
         Log.i(TAG, "unitPixel: $unitPixel")
-        mCursorValue += courseIncrement
+        mCursorTimeValue += courseIncrement
 //        mCursorValue1 += courseIncrement
         refreshCursorValueByOnScroll(courseIncrement)
         var result = true
-        if (mCursorValue < mScaleInfo!!.startValue) {
-            mCursorValue = mScaleInfo!!.startValue
+        if (mCursorTimeValue < mScaleInfo!!.startValue) {
+            mCursorTimeValue = mScaleInfo!!.startValue
             result = false
-        } else if (mCursorValue > mScaleInfo!!.endValue) {
-            mCursorValue = mScaleInfo!!.endValue
+        } else if (mCursorTimeValue > mScaleInfo!!.endValue) {
+            mCursorTimeValue = mScaleInfo!!.endValue
             result = false
         }
         if (null != mOnCursorListener) {
-            mOnCursorListener!!.onProgressChanged(mCursorValue, true)
+            mOnCursorListener!!.onProgressChanged(mCursorTimeValue, true)
         }
         invalidate()
         return result
@@ -886,21 +888,21 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
         Log.i(touch_tag, "computeScroll")
         if (scroller.computeScrollOffset()) {
             val currX = scroller.currX
-            mCursorValue = mScaleInfo!!.startValue + (currX / unitPixel).toLong()
+            mCursorTimeValue = mScaleInfo!!.startValue + (currX / unitPixel).toLong()
 //            mCursorValue1 =
 //                mScaleInfo!!.startValue + offsetOriCurrentValue1 + (currX / unitPixel).toLong()
             refreshCursorValueByComputeScroll(currX)
-            if (mCursorValue < mScaleInfo!!.startValue) {
-                mCursorValue = mScaleInfo!!.startValue
-            } else if (mCursorValue > mScaleInfo!!.endValue) {
-                mCursorValue = mScaleInfo!!.endValue
+            if (mCursorTimeValue < mScaleInfo!!.startValue) {
+                mCursorTimeValue = mScaleInfo!!.startValue
+            } else if (mCursorTimeValue > mScaleInfo!!.endValue) {
+                mCursorTimeValue = mScaleInfo!!.endValue
             }
             invalidate()
         } else {
             if (status == STATUS_SCROLL_FLING) {
                 status = STATUS_NONE
                 if (null != mOnCursorListener) {
-                    mOnCursorListener!!.onStopTrackingTouch(mCursorValue)
+                    mOnCursorListener!!.onStopTrackingTouch(mCursorTimeValue)
                 }
             }
         }
@@ -914,7 +916,7 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
     ): Boolean {
         Log.i(touch_tag, "onFling")
         status = STATUS_SCROLL_FLING
-        val startX = ((mCursorValue - mScaleInfo!!.startValue) * unitPixel).toInt()
+        val startX = ((mCursorTimeValue - mScaleInfo!!.startValue) * unitPixel).toInt()
         val maX = ((mScaleInfo!!.endValue - mScaleInfo!!.startValue) * unitPixel).toInt()
         scroller.fling(
             startX,
