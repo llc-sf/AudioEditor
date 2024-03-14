@@ -24,6 +24,12 @@ import java.util.Calendar
 import java.util.Date
 import kotlin.reflect.KProperty
 
+/**
+ * 概念解释
+ * 坐标轴：
+ * 坐标轴游标：中间的一个竖线
+ *
+ */
 abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
@@ -220,28 +226,6 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
     }
 
     /**
-     * 毫秒
-     */
-    var cursorValue: Long
-        get() = mCursorTimeValue
-        set(cursorValue) {
-            if (status != STATUS_NONE) {
-                return
-            }
-            if (cursorValue < mScaleInfo!!.startValue || cursorValue > mScaleInfo!!.endValue) {
-                //mScaleInfo.startValue 转 年月日 时分秒
-                return
-            }
-            mCursorTimeValue = cursorValue
-            if (mOnCursorListener != null) mOnCursorListener!!.onProgressChanged(
-                mCursorTimeValue,
-                false
-            )
-            invalidate()
-        }
-
-
-    /**
      *
      * 游标的绝对位置 x坐标
      */
@@ -332,6 +316,21 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
     }
 
 
+    /**
+     * 设置 坐标轴 游标的时间值
+     */
+    fun setCursorTimeValue(cursorValue: Long) {
+        mCursorTimeValue = cursorValue
+    }
+
+    /**
+     * 获取 坐标轴 游标的时间值
+     */
+    fun getCursorTimeValue(): Long {
+        return mCursorTimeValue
+    }
+
+
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         mTickHeight = keyTickHeight * mNormalTickAndKeyTickRatio
         mCursorPosition = w * mCursorPositionProportion
@@ -416,7 +415,7 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas) {
-        Log.i(long_press_tag, "onDraw cursorValue=${TimeUtil.getDetailTime(cursorValue)}")
+        Log.i(long_press_tag, "onDraw cursorValue=${TimeUtil.getDetailTime(mCursorTimeValue)}")
         val baselinePosition = baselinePosition
         mScalePaint!!.color = tickColor
         if (showTickLine) {

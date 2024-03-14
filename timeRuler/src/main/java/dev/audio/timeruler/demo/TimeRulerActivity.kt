@@ -10,7 +10,6 @@ import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.source.ClippingMediaSource
 import com.google.android.exoplayer2.source.MergingMediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
-import com.google.android.exoplayer2.source.SilenceMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import com.masoudss.lib.utils.WaveformOptions
@@ -68,7 +67,6 @@ class TimeRulerActivity : AppCompatActivity() {
         //
         binding.timeBar.setMode(BaseMultiTrackAudioEditorView.MODE_ARRAY[2])
         binding.timeBar.setRange(startTime, endTime)
-        binding.timeBar.cursorValue = System.currentTimeMillis()
 
         binding.timeBar.setOnCursorListener(object :
             BaseMultiTrackAudioEditorView.OnCursorListener {
@@ -122,7 +120,7 @@ class TimeRulerActivity : AppCompatActivity() {
         }
 
         binding.btnPlay.setOnClickListener {
-            binding.timeBar.cursorValue = binding.timeBar.cursorValue + 1000
+            binding.timeBar.setCursorTimeValue(binding.timeBar.getCursorTimeValue() + 1000)
         }
         binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {

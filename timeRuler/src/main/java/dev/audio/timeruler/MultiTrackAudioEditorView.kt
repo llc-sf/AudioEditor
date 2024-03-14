@@ -295,8 +295,8 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
             for (i in 0 until size) {
                 startValue = mColorScale!!.getStart(i)
                 endValue = mColorScale!!.getEnd(i)
-                startPiexl = mCursorPosition + (startValue - cursorValue) * unitPixel
-                endPiexl = mCursorPosition + (endValue - cursorValue) * unitPixel
+                startPiexl = mCursorPosition + (startValue - mCursorTimeValue) * unitPixel
+                endPiexl = mCursorPosition + (endValue - mCursorTimeValue) * unitPixel
                 if (endPiexl < startLimit) {
                     continue
                 }
