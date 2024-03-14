@@ -257,6 +257,7 @@ class AmplitudaActivity : AppCompatActivity() {
         if (data != null && requestCode == REQ_CODE_PICK_SOUND_FILE && resultCode == Activity.RESULT_OK) {
             val path = data.getStringExtra("path")
             Log.i("llc_path","path=$path")
+            Log.i("llc_path","path uri =${Utils.getAudioUriFromPath(this,path!!)}")
             val progressDialog = ProgressDialog(this@AmplitudaActivity)
             progressDialog.setMessage(getString(R.string.message_waiting))
             progressDialog.show()

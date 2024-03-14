@@ -1,32 +1,17 @@
 package dev.audio.timeruler.demo
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Log
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.exoplayer2.DefaultLoadControl
-import com.google.android.exoplayer2.DefaultRenderersFactory
-import com.google.android.exoplayer2.LoadControl
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.PlaybackParameters
-import com.google.android.exoplayer2.RenderersFactory
 import com.google.android.exoplayer2.SimpleExoPlayer
-import com.google.android.exoplayer2.analytics.AnalyticsCollector
 import com.google.android.exoplayer2.source.ClippingMediaSource
-import com.google.android.exoplayer2.source.ConcatenatingMediaSource
-import com.google.android.exoplayer2.source.ExtractorMediaSource
-import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.source.MergingMediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.source.SilenceMediaSource
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
-import com.google.android.exoplayer2.trackselection.TrackSelector
-import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
-import com.google.android.exoplayer2.util.Clock
 import com.google.android.exoplayer2.util.Util
 import com.masoudss.lib.utils.WaveformOptions
 import dev.audio.timeruler.BaseMultiTrackAudioEditorView
@@ -175,15 +160,6 @@ class TimeRulerActivity : AppCompatActivity() {
         val timeBean = TimeBean(videos)
         binding.timeBar.setColorScale(timeBean)
 
-        //小米
-//        WaveformOptions.getSampleFrom(this, "/storage/emulated/0/Music/QQ音乐/G.E.M. 邓紫棋,潘玮柏-死了都要爱 (Live).mp3") {
-////            binding.waveformSeekBar.sample = it
-//            binding.timeBar.setWaveform(Waveform(it.toList()))
-//
-//        }
-        //mate9 /storage/emulated/0/Music/暗杠 - 童话镇.mp3
-        //mate9 /storage/emulated/0/Music/暗杠,寅子 - 说书人.mp3
-
         //华为
         WaveformOptions.getSampleFrom(
             this,
@@ -213,7 +189,6 @@ class TimeRulerActivity : AppCompatActivity() {
 
     private fun play(context: Context) {
 
-
         // 创建 ExoPlayer 实例
         val player: SimpleExoPlayer = initExoPlayer(context)
 
@@ -224,76 +199,39 @@ class TimeRulerActivity : AppCompatActivity() {
         // 创建多个 MediaSource，分别对应不同的音频文件
         val audioSource1 = ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(
             MediaItem.fromUri(
-                "content://media/external/audio/media/519"
+                "content://media/external/audio/media/5184"
             )
         )
         val audioSource2 = ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(
             MediaItem.fromUri(
-                "content://media/external/audio/media/517"
+                "content://media/external/audio/media/3123"
             )
         )
-
-        // 使用 ClippingMediaSource 来设置播放的时间段
-
-        val silenceSource = SilenceMediaSource(10 * 1000000)
-
-        val s1 = MergingMediaSource(
-            ClippingMediaSource(
-                audioSource1,
-                0 * 1000000, 10 * 1000000,
-            ),
-            silenceSource
-        )
-
-        val s2 = MergingMediaSource(
-            ClippingMediaSource(
-                audioSource1,
-                10 * 1000000, 20 * 1000000,
-            ),
-            ClippingMediaSource(
-                audioSource2,
-                10 * 1000000, 20 * 1000000,
-            )
-        )
-
-        val s3 = MergingMediaSource(
-            ClippingMediaSource(
-                audioSource1,
-                20 * 1000000, 30 * 1000000,
-            ), ClippingMediaSource(
-                SilenceMediaSource(60 * 1000000),
-                20 * 1000000, 30 * 1000000,
-            )
-        )
-
-        var connect = ConcatenatingMediaSource(s1,s2,s3)
         player.playWhenReady = true
-        player.setMediaSource(connect)
+        player.setMediaSource(
+
+            MergingMediaSource(
+                true,
+//                SilenceMediaSource(30 * 1000000),
+                ClippingMediaSource(
+                    audioSource1,
+                    20 * 1000000, 30 * 1000000,
+                ),
+                ClippingMediaSource(
+                    audioSource2,
+                    0 * 1000000, 10 * 1000000,
+                )
+            )
+        )
         player.prepare()
 
-
-    }
-
-
-    fun getAudioUriFromPath(context: Context, filePath: String): Uri? {
-        val mediaUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
-        val cursor = context.contentResolver.query(
-            mediaUri, arrayOf(MediaStore.Audio.Media._ID),
-            MediaStore.Audio.Media.DATA + "=? ", arrayOf(filePath),
-            null
-        )
-        var uri: Uri? = null
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                val id = cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media._ID))
-                uri = Uri.withAppendedPath(mediaUri, id.toString())
-            }
-            cursor.close()
-        }
-        return uri.apply {
-            Log.i("llc_uri", this.toString())
-        }
     }
 
 
 }
+
+//k30 content://media/external/audio/media/5184    /storage/emulated/0/Music/网易云音乐/8先生 - 汪苏泷-万有引力（抖音枪声版）（8先生 remix）.mp3
+//k30 /storage/emulated/0/Music/网易云音乐/王力宏 - Can You Feel My World.mp3 content://media/external/audio/media/5142
+//k30 content://media/external/audio/media/3123 /storage/emulated/0/Music/QQ音乐/Blow Fever,Vinida万妮达-No Day Off (Live).mp3
+//mac pro content://media/external/audio/media/1000000035
+//mac pro content://media/external/audio/media/1000000031
