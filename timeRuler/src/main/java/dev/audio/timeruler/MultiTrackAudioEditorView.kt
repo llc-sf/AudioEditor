@@ -18,7 +18,10 @@ import dev.audio.timeruler.utils.SizeUtils
 import java.text.SimpleDateFormat
 import kotlin.reflect.KProperty
 
-open class MultiTrackAudioEditorView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
+open class MultiTrackAudioEditorView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null
+) :
     BaseMultiTrackAudioEditorView(context, attrs), TickMarkStrategy {
     private var mTickPaint: Paint? = null
     private var mColorCursorPaint: Paint? = null
@@ -159,56 +162,50 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(context: Context,
      * @param setScaleRatio
      */
     private fun setMode(
-        @Mode m: String,
+        @Mode mode: String,
         setScaleRatio: Boolean,
         isRefreshUnitPixel: Boolean = true
     ) {
         val screeWithDuration: Long
         var index = 0
-        when (m) {
+        when (mode) {
             MODE_ARRAY[0] -> {
                 index = 0
-                mMode = m
                 updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
                 screeWithDuration = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
             }
 
             MODE_ARRAY[1] -> {
-                mMode = m
                 index = 1
                 updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
                 screeWithDuration = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
             }
 
             MODE_ARRAY[2] -> {
-                mMode = m
                 index = 2
                 updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
                 screeWithDuration = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
             }
 
             MODE_ARRAY[3] -> {
-                mMode = m
                 index = 3
                 updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
                 screeWithDuration = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
             }
 
             MODE_ARRAY[4] -> {
-                mMode = m
                 index = 4
                 updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
                 screeWithDuration = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
             }
 
             MODE_ARRAY[5] -> {
-                mMode = m
                 index = 5
                 updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
                 screeWithDuration = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
             }
 
-            else -> throw RuntimeException("not support mode: $m")
+            else -> throw RuntimeException("not support mode: $mode")
         }
         if (isRefreshUnitPixel) {
             unitPixel = (width * 1f / screeWithDuration)
@@ -216,6 +213,10 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(context: Context,
         Log.e("TAG", "unitPixel: $unitPixel")
         if (setScaleRatio) {
             setScaleRatio(minScreenSpanValue * 1.0f / screeWithDuration)
+        }
+        if (mode != mMode) {
+            mMode = mode
+            scaleChangeListener?.onScaleChange(mMode)
         }
         invalidate()
     }
@@ -434,7 +435,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(context: Context,
                 && e.y < (audioFragment.rect?.bottom ?: 0)
                 && e.x > (audioFragment.rect?.left ?: 0)
                 && e.x < (audioFragment.rect?.right ?: 0)
-                ) {
+            ) {
                 return index.apply {
                     Log.i(
                         long_press_tag,

@@ -15,11 +15,18 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import com.masoudss.lib.utils.WaveformOptions
 import dev.audio.timeruler.BaseMultiTrackAudioEditorView
+import dev.audio.timeruler.BaseMultiTrackAudioEditorView.Companion.MODE_UINT_1000_MS
+import dev.audio.timeruler.BaseMultiTrackAudioEditorView.Companion.MODE_UINT_100_MS
+import dev.audio.timeruler.BaseMultiTrackAudioEditorView.Companion.MODE_UINT_2000_MS
+import dev.audio.timeruler.BaseMultiTrackAudioEditorView.Companion.MODE_UINT_3000_MS
+import dev.audio.timeruler.BaseMultiTrackAudioEditorView.Companion.MODE_UINT_500_MS
+import dev.audio.timeruler.BaseMultiTrackAudioEditorView.Companion.MODE_UINT_6000_MS
 import dev.audio.timeruler.R
 import dev.audio.timeruler.bean.TimeBean
 import dev.audio.timeruler.bean.VideoBean
 import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.databinding.ActivityTimeRulerBinding
+import dev.audio.timeruler.listener.OnScaleChangeListener
 import dev.audio.timeruler.multitrack.MultiTrackRenderersFactory
 import dev.audio.timeruler.multitrack.MultiTrackSelector
 import java.text.SimpleDateFormat
@@ -166,6 +173,37 @@ class TimeRulerActivity : AppCompatActivity() {
         ) {
             binding.timeBar.setWaveform(Waveform(it.toList()))
         }
+
+        binding.timeBar.setOnScaleChangeListener(object : OnScaleChangeListener {
+            override fun onScaleChange(mode: String) {
+                when (mode) {
+                    MODE_UINT_100_MS -> {
+                        binding.radioGroup.check(R.id.rb1)
+                    }
+
+                    MODE_UINT_500_MS -> {
+                        binding.radioGroup.check(R.id.rb2)
+                    }
+
+                    MODE_UINT_1000_MS -> {
+                        binding.radioGroup.check(R.id.rb3)
+                    }
+
+                    MODE_UINT_2000_MS -> {
+                        binding.radioGroup.check(R.id.rb4)
+                    }
+
+                    MODE_UINT_3000_MS -> {
+                        binding.radioGroup.check(R.id.rb5)
+                    }
+
+                    MODE_UINT_6000_MS -> {
+                        binding.radioGroup.check(R.id.rb6)
+                    }
+
+                }
+            }
+        })
 
 
         play(this)

@@ -17,6 +17,7 @@ import androidx.annotation.FloatRange
 import androidx.annotation.StringDef
 import androidx.core.view.GestureDetectorCompat
 import dev.audio.ffmpeglib.tool.TimeUtil
+import dev.audio.timeruler.listener.OnScaleChangeListener
 import dev.audio.timeruler.utils.SizeUtils
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -40,32 +41,32 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
         /**
          * updateScaleInfo(500ms, 100ms);
          */
-        private const val MODE_UINT_100_MS = "unit 100 ms"
+        const val MODE_UINT_100_MS = "unit 100 ms"
 
         /**
          * updateScaleInfo(2.5s, 500ms);
          */
-        private const val MODE_UINT_500_MS = "unit 500 ms"
+        const val MODE_UINT_500_MS = "unit 500 ms"
 
         /**
          * updateScaleInfo(5s, 1s);
          */
-        private const val MODE_UINT_1000_MS = "unit 1000 ms"
+        const val MODE_UINT_1000_MS = "unit 1000 ms"
 
         /**
          * updateScaleInfo(10s, 2s);
          */
-        private const val MODE_UINT_2000_MS = "unit 2000 ms"
+        const val MODE_UINT_2000_MS = "unit 2000 ms"
 
         /**
          * updateScaleInfo(15s, 3s);
          */
-        private const val MODE_UINT_3000_MS = "unit 3000 ms"
+        const val MODE_UINT_3000_MS = "unit 3000 ms"
 
         /**
          * updateScaleInfo(30s, 6s);
          */
-        private const val MODE_UINT_6000_MS = "unit 6000 ms"
+        const val MODE_UINT_6000_MS = "unit 6000 ms"
 
         //数组管理
         val MODE_ARRAY = arrayOf(
@@ -955,6 +956,12 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
         fun onStartTrackingTouch(cursorValue: Long)
         fun onProgressChanged(cursorValue: Long, isFromUser: Boolean)
         fun onStopTrackingTouch(cursorValue: Long)
+    }
+
+    protected var scaleChangeListener: OnScaleChangeListener? = null
+
+    fun setOnScaleChangeListener(onScaleChangeListenerListener: OnScaleChangeListener?) {
+        this.scaleChangeListener = onScaleChangeListenerListener
     }
 
     private var mTickMarkStrategy: TickMarkStrategy? = null
