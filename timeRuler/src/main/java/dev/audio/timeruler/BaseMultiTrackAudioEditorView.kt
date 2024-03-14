@@ -421,9 +421,9 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
             )
         }
         val leftRange = mCursorValue - mScaleInfo!!.startValue
-        val leftNeighborOffest = leftRange % mScaleInfo!!.unitValue
-        val leftNeighborTickValue = mCursorValue - leftNeighborOffest
-        val leftNeighborPosition = mCursorPosition - leftNeighborOffest * unitPixel
+        val leftNeighborOffset = leftRange % mScaleInfo!!.unitValue
+        val leftNeighborTickValue = mCursorValue - leftNeighborOffset
+        val leftNeighborPosition = mCursorPosition - leftNeighborOffset * unitPixel
         val leftCount = (mCursorPosition / mTickSpacing + 0.5f).toInt()
         var onDrawTickPosition: Float
         var onDrawTickValue: Long
