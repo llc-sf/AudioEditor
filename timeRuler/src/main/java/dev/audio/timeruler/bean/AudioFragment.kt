@@ -75,7 +75,7 @@ open class AudioFragment {
     /**
      * 当前游标指示的时间
      *
-     * 相对于这个片段来说的
+     *
      *
      * 三个设置的点：
      * 1、初始化
@@ -96,6 +96,13 @@ open class AudioFragment {
             startTimestamp = cursorValueTimeLine - cursorValue
             endTimestamp = startTimestamp + duration
         }
+
+    /**
+     * 偏移量
+     *
+     * start 位置距离  时间坐标轴0 的偏移量（时间）
+     */
+    var cursorOffsetTime: Long = 0
 
     /**
      * 当前游标指示的时间
@@ -163,7 +170,7 @@ open class AudioFragment {
 
     }
 
-    open  fun drawWave(
+    open fun drawWave(
         canvas: Canvas
     ): Boolean {
         var wf = waveform
@@ -178,7 +185,8 @@ open class AudioFragment {
         val path = Path()
         val upperPoints = mutableListOf<Pair<Float, Float>>()
 
-        offsetX = -((cursorValue - (startValue)) * unitMsPixel - cursorPosition)
+        offsetX =
+            -((cursorValue - (startValue)) * unitMsPixel - cursorPosition - cursorOffsetTime * unitMsPixel)
         Log.i(
             time_line_tag,
             "drawWave index=$index offsetCursorValue = ${cursorValueTimeLine - cursorValue}"
@@ -295,7 +303,7 @@ open class AudioFragment {
      * 长按移动时，水平方向的移动
      */
     fun refreshCursorValueByLongPressHandleHorizontalMove(deltaX: Float) {
-        cursorValue -= (deltaX / unitMsPixel).toLong()
+        cursorOffsetTime += (deltaX / unitMsPixel).toLong()
         //时间戳转换成时间
         Log.i(
             long_press_tag,
