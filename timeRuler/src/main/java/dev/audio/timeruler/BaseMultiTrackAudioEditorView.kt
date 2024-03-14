@@ -217,21 +217,24 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
     protected var mCursorValue: Long by ObservableProperty(0L) { prop, old, new ->
         println("${prop.name} changed from $old to $new")
         cursorValueChange(prop, old, new)
-        // 这里可以添加更多的变化监听逻辑
     }
     private var mGestureDetectorCompat: GestureDetectorCompat? = null
     private var scrollHappened = false
 
-    //    protected var mCursorPosition = 0f
-//        set(value) {
-//            field = value
-//        }
-    /*每毫秒多少像素*/
+
+    /**
+     *
+     * 游标的绝对位置 x坐标
+     */
     protected var mCursorPosition: Float by ObservableProperty(0f) { prop, old, new ->
         println("${prop.name} changed from $old to $new")
         cursorPositionPixelChange(prop, old, new)
-        // 这里可以添加更多的变化监听逻辑
     }
+
+    /**
+     *
+     * 游标相对view width的位置  0～ 1
+     */
     private var mCursorPositionProportion = 0.5f
 
     // 刻度尺横线位置
@@ -990,9 +993,7 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
             SizeUtils.sp2px(getContext(), 15f).toFloat()
         )
         var position = typedArray.getFloat(R.styleable.BaseScaleBar_cursorPosition, 0.5f)
-        if (position != 0f) {
-            mCursorPositionProportion = position
-        }
+        mCursorPositionProportion = position
         position = typedArray.getFloat(R.styleable.BaseScaleBar_baselinePosition, 0.67f)
         mBaselinePositionProportion = position
         // 释放

@@ -16,6 +16,7 @@
             android:layout_height="382dp"
             android:background="#141414"
             app:baselinePosition="0.0"
+            app:cursorPosition="0.5"
             app:colorScaleBackground="#141414"
             app:cursorBackgroundColor="@android:color/holo_red_dark"
             app:drawCursorContent="false"
