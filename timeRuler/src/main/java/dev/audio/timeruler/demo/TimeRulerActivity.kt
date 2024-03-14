@@ -51,7 +51,7 @@ class TimeRulerActivity : AppCompatActivity() {
 
         // 23:59:59 999
         calendar[Calendar.HOUR_OF_DAY] = 0
-        calendar[Calendar.MINUTE] = 5
+        calendar[Calendar.MINUTE] = 10
         calendar[Calendar.SECOND] = 0
         calendar[Calendar.MILLISECOND] = 0
         var endTime = calendar.timeInMillis
@@ -160,10 +160,9 @@ class TimeRulerActivity : AppCompatActivity() {
         val timeBean = TimeBean(videos)
         binding.timeBar.setColorScale(timeBean)
 
-        //华为
         WaveformOptions.getSampleFrom(
             this,
-            "/storage/emulated/0/Music/music/MushrooM（蘑菇兄弟） - Katie Sky-Monsters（MushrooM remix）.mp3"
+            "/storage/emulated/0/Music/QQ音乐/Blow Fever,Vinida万妮达-No Day Off (Live).mp3"
         ) {
             binding.timeBar.setWaveform(Waveform(it.toList()))
         }
@@ -223,7 +222,7 @@ class TimeRulerActivity : AppCompatActivity() {
                 )
             )
         )
-        player.prepare()
+//        player.prepare()
 
     }
 

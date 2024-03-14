@@ -100,13 +100,13 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
          *
          * 一屏显示多长时间
          */
-        const val SCALE: Long = 60
-        private const val MODE_UINT_100_MS_VALUE = VALUE_100_MS * SCALE
-        private const val MODE_UINT_500_MS_VALUE = VALUE_500_MS * SCALE
-        private const val MODE_UINT_1000_MS_VALUE = VALUE_1000_MS * SCALE
-        private const val MODE_UINT_2000_MS_VALUE = VALUE_2000_MS * SCALE
-        private const val MODE_UINT_3000_MS_VALUE = VALUE_3000_MS * SCALE
-        private const val MODE_UINT_6000_MS_VALUE = VALUE_6000_MS * SCALE
+        private const val SCREEN_SECTIONS: Long = 60
+        private const val MODE_UINT_100_MS_VALUE = VALUE_100_MS * SCREEN_SECTIONS
+        private const val MODE_UINT_500_MS_VALUE = VALUE_500_MS * SCREEN_SECTIONS
+        private const val MODE_UINT_1000_MS_VALUE = VALUE_1000_MS * SCREEN_SECTIONS
+        private const val MODE_UINT_2000_MS_VALUE = VALUE_2000_MS * SCREEN_SECTIONS
+        private const val MODE_UINT_3000_MS_VALUE = VALUE_3000_MS * SCREEN_SECTIONS
+        private const val MODE_UINT_6000_MS_VALUE = VALUE_6000_MS * SCREEN_SECTIONS
         val MODE_UINT_VALUE_ARRAY = arrayOf(
             MODE_UINT_100_MS_VALUE,
             MODE_UINT_500_MS_VALUE,
