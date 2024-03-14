@@ -837,7 +837,7 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
         Log.i(TAG, "unitPixel: $unitPixel")
         mCursorTimeValue += courseIncrement
 //        mCursorValue1 += courseIncrement
-        refreshCursorValueByOnScroll(courseIncrement)
+        refreshCursorValueByOnScroll(distanceX,courseIncrement)
         var result = true
         if (mCursorTimeValue < mScaleInfo!!.startValue) {
             mCursorTimeValue = mScaleInfo!!.startValue
@@ -1018,7 +1018,7 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
 
     }
 
-    open fun refreshCursorValueByOnScroll(courseIncrement: Long) {
+    open fun refreshCursorValueByOnScroll(distanceX: Float,courseIncrement: Long) {
 
     }
 

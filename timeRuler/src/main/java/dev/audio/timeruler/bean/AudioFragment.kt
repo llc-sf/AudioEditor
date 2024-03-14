@@ -254,16 +254,13 @@ class AudioFragment {
         return false
     }
 
-//    fun offsetCursorValue(): Long {
-//        Log.i(
-//            time_line_tag,
-//            "timeline offsetCursorValue cursorValueTotal=$cursorValueTotal,cursorValue=$cursorValue"
-//        )
-//        return cursorValueTotal - cursorValue
-//    }
 
+    /**
+     * 触摸滑动时间轴时
+     * currX  当前的手指触摸的X坐标
+     */
     fun refreshCursorValueByComputeScroll(currX: Int) {
-//        cursorValue = startValue + offsetUpTouchX + (currX / unitMsPixel).toLong()
+        //cursorValue = startValue + offsetUpTouchX + (currX / unitMsPixel).toLong()
         Log.i(
             long_press_tag,
             "index:${index}  refreshCursorValueByComputeScroll cursorValue: ${
@@ -272,8 +269,15 @@ class AudioFragment {
         )
     }
 
-    fun refreshCursorValueByOnScroll(courseIncrement: Long) {
-//        cursorValue += courseIncrement
+    /**
+     * 触摸滑动时间轴松手惯性滑动
+     *
+     * distanceX 惯性滑动的距离
+     * courseIncrement 惯性滑动的时间
+     */
+    fun refreshCursorValueByOnScroll(distanceX: Float, courseIncrement: Long) {
+        //cursorValue += courseIncrement
+
     }
 
     /**

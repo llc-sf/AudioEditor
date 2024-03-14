@@ -496,9 +496,9 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
     /**
      * 滑动时间轴，tag时间戳更新
      */
-    override fun refreshCursorValueByOnScroll(courseIncrement: Long) {
+    override fun refreshCursorValueByOnScroll(distanceX:Float,courseIncrement: Long) {
         audioFragments.forEach {
-            it.refreshCursorValueByOnScroll(courseIncrement)
+            it.refreshCursorValueByOnScroll(distanceX,courseIncrement)
         }
     }
 
