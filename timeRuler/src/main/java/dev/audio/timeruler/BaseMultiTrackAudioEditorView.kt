@@ -94,26 +94,28 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
         )
 
         /**
-         * 6个档位
-         * 屏幕宽度分成60份
-         * 控制刻度尺的密度 一个刻度多少像素 值越大刻度越密集
          *
          * 一屏显示多长时间
+         *
+         * 6个档位
+         * 屏幕宽度分成60份
+         *
+         * 一屏显示的时间 = 一份的时间 * 60
          */
         private const val SCREEN_SECTIONS: Long = 60
-        private const val MODE_UINT_100_MS_VALUE = VALUE_100_MS * SCREEN_SECTIONS
-        private const val MODE_UINT_500_MS_VALUE = VALUE_500_MS * SCREEN_SECTIONS
-        private const val MODE_UINT_1000_MS_VALUE = VALUE_1000_MS * SCREEN_SECTIONS
-        private const val MODE_UINT_2000_MS_VALUE = VALUE_2000_MS * SCREEN_SECTIONS
-        private const val MODE_UINT_3000_MS_VALUE = VALUE_3000_MS * SCREEN_SECTIONS
-        private const val MODE_UINT_6000_MS_VALUE = VALUE_6000_MS * SCREEN_SECTIONS
-        val MODE_UINT_VALUE_ARRAY = arrayOf(
-            MODE_UINT_100_MS_VALUE,
-            MODE_UINT_500_MS_VALUE,
-            MODE_UINT_1000_MS_VALUE,
-            MODE_UINT_2000_MS_VALUE,
-            MODE_UINT_3000_MS_VALUE,
-            MODE_UINT_6000_MS_VALUE
+        private const val SCREEN_WIDTH_TIME_100_MS_VALUE = VALUE_100_MS * SCREEN_SECTIONS
+        private const val SCREEN_WIDTH_TIME_500_MS_VALUE = VALUE_500_MS * SCREEN_SECTIONS
+        private const val SCREEN_WIDTH_TIME_1000_MS_VALUE = VALUE_1000_MS * SCREEN_SECTIONS
+        private const val SCREEN_WIDTH_TIME_2000_MS_VALUE = VALUE_2000_MS * SCREEN_SECTIONS
+        private const val SCREEN_WIDTH_TIME_3000_MS_VALUE = VALUE_3000_MS * SCREEN_SECTIONS
+        private const val SCREEN_WIDTH_TIME_6000_MS_VALUE = VALUE_6000_MS * SCREEN_SECTIONS
+        val SCREEN_WIDTH_TIME_VALUE_ARRAY = arrayOf(
+            SCREEN_WIDTH_TIME_100_MS_VALUE,
+            SCREEN_WIDTH_TIME_500_MS_VALUE,
+            SCREEN_WIDTH_TIME_1000_MS_VALUE,
+            SCREEN_WIDTH_TIME_2000_MS_VALUE,
+            SCREEN_WIDTH_TIME_3000_MS_VALUE,
+            SCREEN_WIDTH_TIME_6000_MS_VALUE
         )
 
         /**
@@ -259,8 +261,8 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
         mScalePaint!!.strokeWidth = 1.0f
         mScalePaint!!.isDither = true
         mScalePaint!!.style = Paint.Style.FILL_AND_STROKE
-        minScreenSpanValue = MODE_UINT_VALUE_ARRAY[0]
-        maxScreenSpanValue = MODE_UINT_VALUE_ARRAY[MODE_UINT_VALUE_ARRAY.size - 1]
+        minScreenSpanValue = SCREEN_WIDTH_TIME_VALUE_ARRAY[0]
+        maxScreenSpanValue = SCREEN_WIDTH_TIME_VALUE_ARRAY[SCREEN_WIDTH_TIME_VALUE_ARRAY.size - 1]
 
         mScaleInfo = ScaleMode()
         mScaleInfo!!.unitValue = 60000
