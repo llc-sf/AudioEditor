@@ -16,7 +16,7 @@ import kotlin.reflect.KProperty
 /**
  * 波形片段
  */
-class AudioFragment {
+open class AudioFragment {
     companion object {
 
         const val DEFAULT_WAVE_HEIGHT = 50f
@@ -42,6 +42,9 @@ class AudioFragment {
 
     //每毫秒对应的像素
     var unitMsPixel: Float = 0f
+
+    //选中的一圈矩形宽度
+    var strokeWidth = 2f
 
     //波形垂直位置
     var waveVerticalPosition: Float = DEFAULT_WAVE_VERTICAL_POSITION
@@ -160,7 +163,7 @@ class AudioFragment {
 
     }
 
-    fun drawWave(
+    open  fun drawWave(
         canvas: Canvas
     ): Boolean {
         var wf = waveform
@@ -235,7 +238,7 @@ class AudioFragment {
         val rectPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             this.color = Color.RED
             this.style = Paint.Style.STROKE
-            this.strokeWidth = 2f
+            this.strokeWidth = strokeWidth
         }
         canvas.drawRect(rect!!, rectPaint)
         Log.i(
@@ -251,6 +254,14 @@ class AudioFragment {
             time_line_tag,
             "timeline drawWave index=$index currentTime:${cursorValueTimeLine - startValue} [${startTimestamp},${endTimestamp}]"
         )
+        return false
+    }
+
+
+    /**
+     * 是否是选中状态
+     */
+    open fun isSelected(x: Float): Boolean {
         return false
     }
 

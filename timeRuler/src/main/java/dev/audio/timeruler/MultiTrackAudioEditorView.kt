@@ -13,6 +13,7 @@ import android.view.MotionEvent
 import androidx.annotation.ColorInt
 import dev.audio.timeruler.BaseMultiTrackAudioEditorView.TickMarkStrategy
 import dev.audio.timeruler.bean.AudioFragment
+import dev.audio.timeruler.bean.CutAudioFragment
 import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.utils.SizeUtils
 import java.text.SimpleDateFormat
@@ -85,7 +86,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
 
     // 设置波形数据的方法
     fun setWaveform(waveform: Waveform) {
-        audioFragments.add(AudioFragment().apply {
+        audioFragments.add(CutAudioFragment().apply {
             index = 0
             duration = 1000 * 60 * 2
             maxWaveHeight = 50f
@@ -97,35 +98,47 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
             this.waveform = waveform
             cursorValue = mCursorTimeValue
         })
-        audioFragments.add(AudioFragment().apply {
-            index = 1
-            duration = 1000 * 60 * 2
-            maxWaveHeight = 50f
-            waveVerticalPosition = 400f
-            color = Color.RED
-            cursorPosition = mCursorPosition
-            startValue = mScaleInfo?.startValue ?: 0
-            this.unitMsPixel = unitPixel
-            this.waveform = waveform
-            cursorValue = mCursorTimeValue
-        })
-        audioFragments.add(AudioFragment().apply {
-            index = 2
-            duration = 1000 * 60 * 2
-            maxWaveHeight = 50f
-            waveVerticalPosition = 600f
-            color = Color.RED
-            cursorPosition = mCursorPosition
-            startValue = mScaleInfo?.startValue ?: 0
-            this.unitMsPixel = unitPixel
-            this.waveform = waveform
-            cursorValue = mCursorTimeValue
-        })
+//        audioFragments.add(CutAudioFragment().apply {
+//            index = 1
+//            duration = 1000 * 60 * 2
+//            maxWaveHeight = 50f
+//            waveVerticalPosition = 400f
+//            color = Color.RED
+//            cursorPosition = mCursorPosition
+//            startValue = mScaleInfo?.startValue ?: 0
+//            this.unitMsPixel = unitPixel
+//            this.waveform = waveform
+//            cursorValue = mCursorTimeValue
+//        })
+//        audioFragments.add(CutAudioFragment().apply {
+//            index = 2
+//            duration = 1000 * 60 * 2
+//            maxWaveHeight = 50f
+//            waveVerticalPosition = 600f
+//            color = Color.RED
+//            cursorPosition = mCursorPosition
+//            startValue = mScaleInfo?.startValue ?: 0
+//            this.unitMsPixel = unitPixel
+//            this.waveform = waveform
+//            cursorValue = mCursorTimeValue
+//        })
         invalidate() // 触发重新绘制
     }
 
 
-    private var audioFragments = mutableListOf<AudioFragment>()
+    private var audioFragments = mutableListOf<CutAudioFragment>()
+
+    /**
+     * 裁剪拨片的触摸事件
+     */
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        audioFragments?.forEachIndexed { index, audioFragment ->
+            if(audioFragment.onTouchEvent(context,this@MultiTrackAudioEditorView,event)){
+                return true
+            }
+        }
+        return super.onTouchEvent(event)
+    }
 
     override fun drawWaveformSeekBar(canvas: Canvas) {
         super.drawWaveformSeekBar(canvas)
