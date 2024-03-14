@@ -163,59 +163,59 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(context: Context,
         setScaleRatio: Boolean,
         isRefreshUnitPixel: Boolean = true
     ) {
-        val spanValue: Long
+        val screeWithDuration: Long
         var index = 0
         when (m) {
             MODE_ARRAY[0] -> {
                 index = 0
                 mMode = m
                 updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
-                spanValue = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
+                screeWithDuration = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
             }
 
             MODE_ARRAY[1] -> {
                 mMode = m
                 index = 1
                 updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
-                spanValue = SCREEN_WIDTH_TIME_VALUE_ARRAY[1]
+                screeWithDuration = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
             }
 
             MODE_ARRAY[2] -> {
                 mMode = m
                 index = 2
                 updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
-                spanValue = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
+                screeWithDuration = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
             }
 
             MODE_ARRAY[3] -> {
                 mMode = m
                 index = 3
                 updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
-                spanValue = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
+                screeWithDuration = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
             }
 
             MODE_ARRAY[4] -> {
                 mMode = m
                 index = 4
                 updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
-                spanValue = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
+                screeWithDuration = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
             }
 
             MODE_ARRAY[5] -> {
                 mMode = m
                 index = 5
                 updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
-                spanValue = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
+                screeWithDuration = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
             }
 
             else -> throw RuntimeException("not support mode: $m")
         }
         if (isRefreshUnitPixel) {
-            unitPixel = (width * 1f / spanValue)
+            unitPixel = (width * 1f / screeWithDuration)
         }
-        Log.e("TAG", "unitPixel: ${unitPixel}")
+        Log.e("TAG", "unitPixel: $unitPixel")
         if (setScaleRatio) {
-            setScaleRatio(minScreenSpanValue * 1.0f / spanValue)
+            setScaleRatio(minScreenSpanValue * 1.0f / screeWithDuration)
         }
         invalidate()
     }
