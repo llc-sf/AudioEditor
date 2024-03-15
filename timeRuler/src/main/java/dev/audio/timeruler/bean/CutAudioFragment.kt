@@ -61,7 +61,7 @@ class CutAudioFragment(multiTrackAudioEditorView: MultiTrackAudioEditorView) :
     /**
      * 裁剪片段开始位置 屏幕上的x坐标
      *
-     * 根据时间戳转换为屏幕上的位置，所以无需设置值
+     * 根据时间戳转换为屏幕上的位置，所以无需设置值 关注TimeInSelf
      */
     private var startTimestampPosition: Float = 0f
         get() {
@@ -177,8 +177,8 @@ class CutAudioFragment(multiTrackAudioEditorView: MultiTrackAudioEditorView) :
         val x = event.x
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                isMovingStart = Math.abs(x - startTimestampPosition) <= timestampHandlerRadius
-                isMovingEnd = Math.abs(x - endTimestampPosition) <= timestampHandlerRadius
+                isMovingStart = Math.abs(x - startTimestampPosition) <= strokeWidth_cut
+                isMovingEnd = Math.abs(x - endTimestampPosition) <= strokeWidth_cut
                 lastTouchXProcess = x
             }
 
@@ -189,27 +189,29 @@ class CutAudioFragment(multiTrackAudioEditorView: MultiTrackAudioEditorView) :
                     val dx = x - lastTouchXProcess
                     if (isMovingStart) {
                         startTimestampPosition += dx
-                        if (startTimestampPosition < (rect?.left?:0)){
+                        if (startTimestampPosition <= (rect?.left ?: 0)) {
                             //开始小于本身了
                             startTimestampTimeInSelf = 0
-                        }
-                        if (startTimestampPosition > endTimestampPosition - strokeWidth_cut) {
+                        } else if (startTimestampPosition >= endTimestampPosition - strokeWidth_cut) {
                             //开始大于结束了
-                            startTimestampTimeInSelf = endTimestamp - (strokeWidth_cut).pixel2Time()
+                            startTimestampTimeInSelf =
+                                endTimestampTimeInSelf - (strokeWidth_cut).pixel2Time()
+                        } else {
+                            startTimestampTimeInSelf += dx.pixel2Time()
                         }
-                        startTimestampTimeInSelf += dx.pixel2Time()
+
                     } else if (isMovingEnd) {
                         endTimestampPosition += dx
-                        if (endTimestampPosition > (rect?.right?:0)){
+                        if (endTimestampPosition >= (rect?.right ?: 0)) {
                             //结束大于本身了
                             endTimestampTimeInSelf = duration
-                        }
-                        if (endTimestampPosition < startTimestampPosition + strokeWidth_cut) {
+                        } else if (endTimestampPosition <= startTimestampPosition + strokeWidth_cut) {
                             //结束小于开始了
                             endTimestampTimeInSelf =
                                 startTimestampTimeInSelf + (strokeWidth_cut).pixel2Time()
+                        } else {
+                            endTimestampTimeInSelf += dx.pixel2Time()
                         }
-                        endTimestampTimeInSelf += dx.pixel2Time()
                     }
                     lastTouchXProcess = x
                     startTimestampPosition.apply {
