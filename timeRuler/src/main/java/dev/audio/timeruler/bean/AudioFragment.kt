@@ -7,11 +7,9 @@ import android.graphics.Path
 import android.graphics.Rect
 import android.util.Log
 import dev.audio.ffmpeglib.tool.TimeUtil
-import dev.audio.timeruler.BaseMultiTrackAudioEditorView
 import dev.audio.timeruler.BaseMultiTrackAudioEditorView.Companion.long_press_tag
 import dev.audio.timeruler.BaseMultiTrackAudioEditorView.Companion.time_line_tag
 import kotlin.math.roundToInt
-import kotlin.reflect.KProperty
 
 /**
  * 波形片段
@@ -102,7 +100,7 @@ open class AudioFragment {
     var cursorPosition: Float = 0f
 
     //距离View起始点的偏移量 像素（屏幕最左边）
-    var offsetX: Float = 0f
+    private var x: Float = 0f
         get() {
             return -((cursorValue - (startValue)) * unitMsPixel - cursorPosition - cursorOffsetTime * unitMsPixel)
         }
@@ -171,15 +169,15 @@ open class AudioFragment {
         )
 
         for (i in samples.indices step 400) { // 步长设置为400，可根据需要调整
-            val x = (waveViewWidth * (i / samples.size.toFloat())) + offsetX
+            val x = (waveViewWidth * (i / samples.size.toFloat())) + x
             val sampleValue = (samples[i] / maxAmplitude) * amplitudeScale
             val y = centerY - sampleValue
             upperPoints.add(Pair(x, y))
         }
 
-        upperPoints.add(Pair(waveViewWidth + offsetX, centerY))
+        upperPoints.add(Pair(waveViewWidth + x, centerY))
 
-        path.moveTo(0f + offsetX, centerY)
+        path.moveTo(0f + x, centerY)
         for (i in 0 until upperPoints.size - 1) {
             val (x1, y1) = upperPoints[i]
             val (x2, y2) = upperPoints[i + 1]
@@ -208,14 +206,14 @@ open class AudioFragment {
         }
 
         // 闭合路径
-        path.lineTo(0f + offsetX, centerY)
+        path.lineTo(0f + x, centerY)
 
         // 绘制路径
         canvas.drawPath(path, mWavePaint)
         rect = Rect(
-            (0f + offsetX).toInt(),
+            (0f + x).toInt(),
             (centerY - maxWaveHeight).toInt(),
-            ((0f + offsetX) + waveViewWidth).toInt(),
+            ((0f + x) + waveViewWidth).toInt(),
             (maxWaveHeight + centerY).toInt()
         ).apply {
             Log.i(long_press_tag, "index:${index} draw: $this")
