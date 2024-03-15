@@ -7,9 +7,12 @@ import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.graphics.Rect
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import dev.audio.ffmpeglib.tool.ScreenUtil
+import dev.audio.timeruler.MultiTrackAudioEditorView
+import dev.audio.timeruler.utils.formatToCursorDateString
 
 
 /**
@@ -17,15 +20,41 @@ import dev.audio.ffmpeglib.tool.ScreenUtil
  *
  * 带裁剪模式
  */
-class CutAudioFragment : AudioFragment() {
+class CutAudioFragment(multiTrackAudioEditorView: MultiTrackAudioEditorView) :
+    AudioFragment(multiTrackAudioEditorView) {
 
     companion object {
         //裁剪竖线的狂赌
         const val strokeWidth_cut = 5f
     }
 
-    private var startTimestampPosition: Float = 20f
-    private var endTimestampPosition: Float = 100f
+
+    private var startTimestampTimeInSelf = 0L
+    private var endTimestampTimeInSelf = 0L
+    private var startTimestampTimeInTimeline = 0L
+        get() {
+            return startTimestampTimeInSelf + cursorOffsetTime + startTimestamp
+        }
+    private var endTimestampTimeInTimeline = 0L
+        get() {
+            return endTimestampTimeInSelf + cursorOffsetTime + startTimestamp
+        }
+
+    /**
+     * 裁剪片段开始位置 屏幕上的x坐标
+     */
+    private var startTimestampPosition: Float = 0f
+        get() {
+            return multiTrackAudioEditorView.time2PositionInTimeline(startTimestampTimeInTimeline)
+        }
+
+    /**
+     * 裁剪片段的结束位置 屏幕上的x坐标
+     */
+    private var endTimestampPosition: Float = 0f
+        get() {
+            return multiTrackAudioEditorView.time2PositionInTimeline(endTimestampTimeInTimeline)
+        }
 
 
     private val timestampHandlerRadius = 20f
@@ -37,6 +66,12 @@ class CutAudioFragment : AudioFragment() {
     private val timestampLinePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.RED
         strokeWidth = strokeWidth_cut
+    }
+
+    override fun initCutFragment() {
+        super.initCutFragment()
+        startTimestampTimeInSelf = duration / 3
+        endTimestampTimeInSelf = duration / 3 * 2
     }
 
 

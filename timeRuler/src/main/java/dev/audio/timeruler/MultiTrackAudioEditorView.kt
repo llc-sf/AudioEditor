@@ -11,11 +11,13 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import androidx.annotation.ColorInt
+import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.timeruler.BaseMultiTrackAudioEditorView.TickMarkStrategy
 import dev.audio.timeruler.bean.AudioFragment
 import dev.audio.timeruler.bean.CutAudioFragment
 import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.utils.SizeUtils
+import dev.audio.timeruler.utils.formatToCursorDateString
 import java.text.SimpleDateFormat
 import kotlin.reflect.KProperty
 
@@ -83,17 +85,32 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
         setTickMarkStrategy(this)
     }
 
+    /**
+     * 时间轴上的时间戳对应屏幕上的位置
+     *
+     * timeStamp时间与当前游标timeStamp的差值 * 单位像素 = 当前时间戳应该位置x-游标位置x
+     *
+     */
+    fun time2PositionInTimeline(timeStamp: Long): Float {
+        return (mCursorPosition + (timeStamp - mCursorTimeValue) * unitPixel).apply {
+            Log.i(
+                TAG,
+                "unitPixel=${unitPixel},dx=${(timeStamp - mCursorTimeValue) * unitPixel};mScaleInfo!!.startValue=${mScaleInfo!!.startValue.formatToCursorDateString()},x=$this,time=${timeStamp.formatToCursorDateString()}"
+            )
+        }
+    }
+
 
     // 设置波形数据的方法
     fun setWaveform(waveform: Waveform) {
-        audioFragments.add(CutAudioFragment().apply {
+        audioFragments.add(CutAudioFragment(this).apply {
             index = 0
             duration = 1000 * 60 * 2
             maxWaveHeight = 50f
             waveVerticalPosition = 200f
             color = Color.RED
             cursorPosition = mCursorPosition
-            startValue = mScaleInfo?.startValue ?: 0
+            startTimestamp = mScaleInfo?.startValue ?: 0
             this.unitMsPixel = unitPixel
             this.waveform = waveform
             cursorValue = mCursorTimeValue
@@ -133,7 +150,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
      */
     override fun onTouchEvent(event: MotionEvent): Boolean {
         audioFragments?.forEachIndexed { index, audioFragment ->
-            if(audioFragment.onTouchEvent(context,this@MultiTrackAudioEditorView,event)){
+            if (audioFragment.onTouchEvent(context, this@MultiTrackAudioEditorView, event)) {
                 return true
             }
         }
@@ -221,9 +238,10 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
             else -> throw RuntimeException("not support mode: $mode")
         }
         if (isRefreshUnitPixel) {
-            unitPixel = (width * 1f / screeWithDuration)
+            //todo  不一定是屏幕宽度
+            unitPixel = (ScreenUtil.getScreenWidth(context) * 1f / screeWithDuration)
         }
-        Log.e("TAG", "unitPixel: $unitPixel")
+        Log.e(TAG, "unitPixel: $unitPixel")
         if (setScaleRatio) {
             setScaleRatio(minScreenSpanValue * 1.0f / screeWithDuration)
         }
@@ -509,9 +527,9 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
     /**
      * 滑动时间轴，tag时间戳更新
      */
-    override fun refreshCursorValueByOnScroll(distanceX:Float,courseIncrement: Long) {
+    override fun refreshCursorValueByOnScroll(distanceX: Float, courseIncrement: Long) {
         audioFragments.forEach {
-            it.refreshCursorValueByOnScroll(distanceX,courseIncrement)
+            it.refreshCursorValueByOnScroll(distanceX, courseIncrement)
         }
     }
 

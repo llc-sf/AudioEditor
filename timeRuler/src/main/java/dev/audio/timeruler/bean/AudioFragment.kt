@@ -9,12 +9,13 @@ import android.util.Log
 import dev.audio.ffmpeglib.tool.TimeUtil
 import dev.audio.timeruler.BaseMultiTrackAudioEditorView.Companion.long_press_tag
 import dev.audio.timeruler.BaseMultiTrackAudioEditorView.Companion.time_line_tag
+import dev.audio.timeruler.MultiTrackAudioEditorView
 import kotlin.math.roundToInt
 
 /**
  * 波形片段
  */
-open class AudioFragment {
+open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorView) {
     companion object {
 
         const val DEFAULT_WAVE_HEIGHT = 50f
@@ -22,17 +23,18 @@ open class AudioFragment {
         const val DEFAULT_WAVE_COLOR = Color.RED
     }
 
-    //波形图在时间坐标轴上的起始时间戳
+    /**
+     * 起始时间
+     *
+     * 波形图在时间坐标轴上的起始时间戳
+     */
     var startTimestamp: Long = 0
-        set(value) {
-            field = value
-        }
 
-    //波形图在时间坐标轴上的结束时间戳
+    /**
+     * 结束时间
+     * 波形图在时间坐标轴上的结束时间戳
+     */
     var endTimestamp: Long = 0
-        set(value) {
-            field = value
-        }
 
     //波形数据
     var waveform: Waveform? = null
@@ -72,20 +74,15 @@ open class AudioFragment {
     //波形垂直间隔
     private var waveVerticalInterval: Float = DEFAULT_WAVE_VERTICAL_POSITION
 
-    //起始时间
-    var startValue: Long = 0
-
 
     /**
-     * 当前游标指示的时间
      *
-     * 与坐标轴的时间游标同步
+     * 当前坐标轴的时间游标同步
      *
      */
     var cursorValue: Long = 0
         set(value) {
             field = value
-            startTimestamp = cursorValue + cursorOffsetTime
             endTimestamp = startTimestamp + duration
         }
 
@@ -94,7 +91,7 @@ open class AudioFragment {
      *
      * start 位置距离  时间坐标轴0 的偏移量（时间）
      */
-    private var cursorOffsetTime: Long = 0
+    protected var cursorOffsetTime: Long = 0
 
     //当前指示标的位置（元素）
     var cursorPosition: Float = 0f
@@ -102,7 +99,7 @@ open class AudioFragment {
     //距离View起始点的偏移量 像素（屏幕最左边）
     private var x: Float = 0f
         get() {
-            return -((cursorValue - (startValue)) * unitMsPixel - cursorPosition - cursorOffsetTime * unitMsPixel)
+            return -((cursorValue - (startTimestamp)) * unitMsPixel - cursorPosition - cursorOffsetTime * unitMsPixel)
         }
 
     //波形绘制的坐标区域(相对于TimeRulerBar)
@@ -113,6 +110,13 @@ open class AudioFragment {
 
     //总时长
     var duration: Long = 0
+        set(value) {
+            field = value
+            initCutFragment()
+        }
+
+    open fun initCutFragment() {
+    }
 
     //颜色
     var color: Int = DEFAULT_WAVE_COLOR
@@ -230,13 +234,13 @@ open class AudioFragment {
                 TimeUtil.getDetailTime(cursorValue)
             },cursorValue:${TimeUtil.getDetailTime(cursorValue)},startValue:${
                 TimeUtil.getDetailTime(
-                    startValue
+                    startTimestamp
                 )
             }"
         )
         Log.i(
             time_line_tag,
-            "timeline drawWave index=$index currentTime:${cursorValue - startValue} [${startTimestamp},${endTimestamp}]"
+            "timeline drawWave index=$index currentTime:${cursorValue - startTimestamp} [${startTimestamp},${endTimestamp}]"
         )
         return false
     }
