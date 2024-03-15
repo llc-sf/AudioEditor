@@ -28,16 +28,34 @@ class CutAudioFragment(multiTrackAudioEditorView: MultiTrackAudioEditorView) :
         const val strokeWidth_cut = 5f
     }
 
-
+    /**
+     * 裁剪选中的起始时间  ms
+     * 相对于自己来说
+     * 例：歌曲200*1000ms   起始时间80*1000ms
+     */
     private var startTimestampTimeInSelf = 0L
+
+    /**
+     * 裁剪选中的结束时间点  ms
+     * 相对于自己来说
+     * 例：歌曲200*1000ms   起始时间120*1000ms
+     */
     private var endTimestampTimeInSelf = 0L
+
+    /**
+     * 裁剪选中的起始时间点  日历时间  ms时间戳
+     */
     private var startTimestampTimeInTimeline = 0L
         get() {
-            return startTimestampTimeInSelf + cursorOffsetTime + startTimestamp
+            return startTimestamp + cursorOffsetTime + startTimestampTimeInSelf
         }
+
+    /**
+     * 裁剪选中的结束时间  日历时间  ms时间戳
+     */
     private var endTimestampTimeInTimeline = 0L
         get() {
-            return endTimestampTimeInSelf + cursorOffsetTime + startTimestamp
+            return startTimestamp + cursorOffsetTime + endTimestampTimeInSelf
         }
 
     /**
