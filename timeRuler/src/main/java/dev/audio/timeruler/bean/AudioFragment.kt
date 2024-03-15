@@ -26,9 +26,15 @@ open class AudioFragment {
 
     //波形图在时间坐标轴上的起始时间戳
     var startTimestamp: Long = 0
+        set(value) {
+            field = value
+        }
 
     //波形图在时间坐标轴上的结束时间戳
     var endTimestamp: Long = 0
+        set(value) {
+            field = value
+        }
 
     //波形数据
     var waveform: Waveform? = null
@@ -92,34 +98,20 @@ open class AudioFragment {
      */
     private var cursorOffsetTime: Long = 0
 
-//    /**
-//     * 当前游标指示的时间
-//     *
-//     * 相对于整个时间轴来说的
-//     *
-//     * 当坐标轴游标变化时，会影响当前片段的游标值，进而导致片段移动
-//     *
-//     */
-//    var cursorValueTimeLine: Long by BaseMultiTrackAudioEditorView.ObservableProperty(0L) { prop, old, new ->
-//        println("${prop.name} changed from $old to $new")
-//        cursorValueTimeLineChange(prop, old, new)
-//    }
-//
-//    private fun cursorValueTimeLineChange(prop: KProperty<*>, old: Long, new: Long) {
-//        cursorValue += new - old
-//    }
-
-
     //当前指示标的位置（元素）
     var cursorPosition: Float = 0f
+
+    //距离View起始点的偏移量 像素（屏幕最左边）
+    var offsetX: Float = 0f
+        get() {
+            return -((cursorValue - (startValue)) * unitMsPixel - cursorPosition - cursorOffsetTime * unitMsPixel)
+        }
 
     //波形绘制的坐标区域(相对于TimeRulerBar)
     var rect: Rect? = null
 
     var index = 0
 
-    //距离View起始点的偏移量 像素（屏幕最左边）
-    var offsetX: Float = 0f
 
     //总时长
     var duration: Long = 0
@@ -173,8 +165,6 @@ open class AudioFragment {
         val path = Path()
         val upperPoints = mutableListOf<Pair<Float, Float>>()
 
-        offsetX =
-            -((cursorValue - (startValue)) * unitMsPixel - cursorPosition - cursorOffsetTime * unitMsPixel)
         Log.i(
             time_line_tag,
             "drawWave index=$index offsetCursorValue = ${cursorValue - cursorValue}"
