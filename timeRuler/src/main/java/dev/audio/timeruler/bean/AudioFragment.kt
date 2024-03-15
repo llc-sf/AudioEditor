@@ -75,25 +75,13 @@ open class AudioFragment {
     /**
      * 当前游标指示的时间
      *
-     *
-     *
-     * 三个设置的点：
-     * 1、初始化
-     * 2、坐标轴轴的游标变化
-     * 3、长按移动片段位置
+     * 与坐标轴的时间游标同步
      *
      */
     var cursorValue: Long = 0
         set(value) {
-            if (cursorValueTimeLine == 0L) {
-                cursorValueTimeLine = value
-            }
-            if (value > cursorValueTimeLine) {
-                field = cursorValueTimeLine
-                return
-            }
             field = value
-            startTimestamp = cursorValueTimeLine - cursorValue
+            startTimestamp = cursorValue + cursorOffsetTime
             endTimestamp = startTimestamp + duration
         }
 
@@ -102,24 +90,24 @@ open class AudioFragment {
      *
      * start 位置距离  时间坐标轴0 的偏移量（时间）
      */
-    var cursorOffsetTime: Long = 0
+    private var cursorOffsetTime: Long = 0
 
-    /**
-     * 当前游标指示的时间
-     *
-     * 相对于整个时间轴来说的
-     *
-     * 当坐标轴游标变化时，会影响当前片段的游标值，进而导致片段移动
-     *
-     */
-    var cursorValueTimeLine: Long by BaseMultiTrackAudioEditorView.ObservableProperty(0L) { prop, old, new ->
-        println("${prop.name} changed from $old to $new")
-        cursorValueTimeLineChange(prop, old, new)
-    }
-
-    private fun cursorValueTimeLineChange(prop: KProperty<*>, old: Long, new: Long) {
-        cursorValue += new - old
-    }
+//    /**
+//     * 当前游标指示的时间
+//     *
+//     * 相对于整个时间轴来说的
+//     *
+//     * 当坐标轴游标变化时，会影响当前片段的游标值，进而导致片段移动
+//     *
+//     */
+//    var cursorValueTimeLine: Long by BaseMultiTrackAudioEditorView.ObservableProperty(0L) { prop, old, new ->
+//        println("${prop.name} changed from $old to $new")
+//        cursorValueTimeLineChange(prop, old, new)
+//    }
+//
+//    private fun cursorValueTimeLineChange(prop: KProperty<*>, old: Long, new: Long) {
+//        cursorValue += new - old
+//    }
 
 
     //当前指示标的位置（元素）
@@ -189,7 +177,7 @@ open class AudioFragment {
             -((cursorValue - (startValue)) * unitMsPixel - cursorPosition - cursorOffsetTime * unitMsPixel)
         Log.i(
             time_line_tag,
-            "drawWave index=$index offsetCursorValue = ${cursorValueTimeLine - cursorValue}"
+            "drawWave index=$index offsetCursorValue = ${cursorValue - cursorValue}"
         )
 
         for (i in samples.indices step 400) { // 步长设置为400，可根据需要调整
@@ -251,7 +239,7 @@ open class AudioFragment {
         canvas.drawRect(rect!!, rectPaint)
         Log.i(
             time_line_tag, "timeline drawWave index=$index cursorValueTotal:${
-                TimeUtil.getDetailTime(cursorValueTimeLine)
+                TimeUtil.getDetailTime(cursorValue)
             },cursorValue:${TimeUtil.getDetailTime(cursorValue)},startValue:${
                 TimeUtil.getDetailTime(
                     startValue
@@ -260,7 +248,7 @@ open class AudioFragment {
         )
         Log.i(
             time_line_tag,
-            "timeline drawWave index=$index currentTime:${cursorValueTimeLine - startValue} [${startTimestamp},${endTimestamp}]"
+            "timeline drawWave index=$index currentTime:${cursorValue - startValue} [${startTimestamp},${endTimestamp}]"
         )
         return false
     }

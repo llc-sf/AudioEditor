@@ -252,7 +252,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
     override fun cursorValueChange(prop: KProperty<*>, old: Long, new: Long) {
         super.cursorValueChange(prop, old, new)
         audioFragments?.forEach {
-            it.cursorValueTimeLine = new
+            it.cursorValue = new
             invalidate()
         }
     }

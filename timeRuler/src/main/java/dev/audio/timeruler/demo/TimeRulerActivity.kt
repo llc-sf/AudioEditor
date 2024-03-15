@@ -166,7 +166,7 @@ class TimeRulerActivity : AppCompatActivity() {
 
         WaveformOptions.getSampleFrom(
             this,
-            "/storage/emulated/0/Music/QQ音乐/Blow Fever,Vinida万妮达-No Day Off (Live).mp3"
+            "/storage/emulated/0/Music/网易云音乐/暗杠,寅子 - 说书人.mp3"
         ) {
             binding.timeBar.setWaveform(Waveform(it.toList()))
         }
