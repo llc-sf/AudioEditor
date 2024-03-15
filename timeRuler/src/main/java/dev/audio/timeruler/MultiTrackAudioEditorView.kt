@@ -100,6 +100,9 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
         }
     }
 
+    fun Float.pixel2Time(): Long {
+        return (this * unitPixel).toLong()
+    }
 
     // 设置波形数据的方法
     fun setWaveform(waveform: Waveform) {
@@ -145,13 +148,62 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
 
     private var audioFragments = mutableListOf<CutAudioFragment>()
 
+
+    private var touchCutLine = false
+    private fun isTouchCutLine(event: MotionEvent): Boolean {
+        audioFragments?.forEachIndexed { index, audioFragment ->
+            if (audioFragment.isTarget(event)) {
+                touchCutLine = true
+                return touchCutLine
+            }
+        }
+        return touchCutLine
+    }
+
+
     /**
      * 裁剪拨片的触摸事件
      */
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        audioFragments?.forEachIndexed { index, audioFragment ->
-            if (audioFragment.onTouchEvent(context, this@MultiTrackAudioEditorView, event)) {
-                return true
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                Log.i(
+                    BaseMultiTrackAudioEditorView.cut_tag,
+                    "onTouchEvent: ACTION_DOWN touchCutLine=$touchCutLine"
+                )
+                var isTargetCut = isTouchCutLine(event)
+                if (isTargetCut) {
+                    audioFragments?.forEachIndexed { index, audioFragment ->
+                        audioFragment.onTouchEvent(context, this@MultiTrackAudioEditorView, event)
+                    }
+                    return true
+                }
+            }
+
+            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                Log.i(
+                    BaseMultiTrackAudioEditorView.cut_tag,
+                    "onTouchEvent: ACTION_UP touchCutLine=$touchCutLine"
+                )
+                if (touchCutLine) {
+                    audioFragments?.forEachIndexed { index, audioFragment ->
+                        audioFragment.onTouchEvent(context, this@MultiTrackAudioEditorView, event)
+                    }
+                }
+                touchCutLine = false
+            }
+
+            MotionEvent.ACTION_MOVE -> {
+                Log.i(
+                    BaseMultiTrackAudioEditorView.cut_tag,
+                    "onTouchEvent: ACTION_MOVE touchCutLine=$touchCutLine"
+                )
+                if (touchCutLine) {
+                    audioFragments?.forEachIndexed { index, audioFragment ->
+                        audioFragment.onTouchEvent(context, this@MultiTrackAudioEditorView, event)
+                    }
+                    return true
+                }
             }
         }
         return super.onTouchEvent(event)

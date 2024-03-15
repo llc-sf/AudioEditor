@@ -43,6 +43,7 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
         const val long_press_tag = "long_press_tag"
         const val touch_tag = "touch_tag"
         const val time_line_tag = "time_line_tag"
+        const val cut_tag = "cut_tag"
 
         /**
          * updateScaleInfo(500ms, 100ms);

@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import dev.audio.ffmpeglib.tool.ScreenUtil
+import dev.audio.timeruler.BaseMultiTrackAudioEditorView
 import dev.audio.timeruler.MultiTrackAudioEditorView
 import dev.audio.timeruler.utils.formatToCursorDateString
 
@@ -167,10 +168,8 @@ class CutAudioFragment(multiTrackAudioEditorView: MultiTrackAudioEditorView) :
     private var isMovingEnd: Boolean = false
     private var lastTouchXProcess: Float = 0f
     fun onTouchEvent(context: Context, view: View, event: MotionEvent?): Boolean {
+        Log.i(BaseMultiTrackAudioEditorView.cut_tag, "onTouchEvent: ")
         if (event == null) return false
-        if (!isTarget(event)) {
-            return false
-        }
         var width = ScreenUtil.getScreenWidth(context)
         val x = event.x
         when (event.action) {
@@ -178,10 +177,10 @@ class CutAudioFragment(multiTrackAudioEditorView: MultiTrackAudioEditorView) :
                 isMovingStart = Math.abs(x - startTimestampPosition) <= timestampHandlerRadius
                 isMovingEnd = Math.abs(x - endTimestampPosition) <= timestampHandlerRadius
                 lastTouchXProcess = x
-                return true
             }
 
             MotionEvent.ACTION_MOVE -> {
+                Log.i(BaseMultiTrackAudioEditorView.cut_tag, "cut onTouchEvent: ACTION_DOWN")
                 // 检查控件是否已经初始化宽度
                 if (width > 0) {
                     val dx = x - lastTouchXProcess
@@ -192,6 +191,7 @@ class CutAudioFragment(multiTrackAudioEditorView: MultiTrackAudioEditorView) :
                             startTimestampPosition =
                                 endTimestampPosition - timestampHandlerRadius * 2
                         }
+                        startTimestampTimeInSelf += dx.pixel2Time()
                     } else if (isMovingEnd) {
                         endTimestampPosition += dx
                         if (endTimestampPosition > width.toFloat()) endTimestampPosition =
@@ -200,23 +200,40 @@ class CutAudioFragment(multiTrackAudioEditorView: MultiTrackAudioEditorView) :
                             endTimestampPosition =
                                 startTimestampPosition + timestampHandlerRadius * 2
                         }
+                        endTimestampTimeInSelf += dx.pixel2Time().apply {
+                            Log.i(BaseMultiTrackAudioEditorView.cut_tag, "dx.pixel2Time() =  $this")
+                        }
+                        endTimestampTimeInSelf.apply {
+                            Log.i(
+                                BaseMultiTrackAudioEditorView.cut_tag,
+                                "endTimestampTimeInSelf: $this"
+                            )
+                        }
                     }
                     lastTouchXProcess = x
+                    startTimestampPosition.apply {
+                        Log.i(
+                            BaseMultiTrackAudioEditorView.cut_tag,
+                            "startTimestampPosition: $this"
+                        )
+                    }
+                    endTimestampPosition.apply {
+                        Log.i(BaseMultiTrackAudioEditorView.cut_tag, "endTimestampPosition: $this")
+                    }
                     view.invalidate()
                 }
-                return true
             }
 
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                 isMovingStart = false
                 isMovingEnd = false
-                return true
+
             }
         }
-        return view.onTouchEvent(event)
+        return true
     }
 
-    private fun isTarget(event: MotionEvent): Boolean {
+    fun isTarget(event: MotionEvent): Boolean {
         // 为开始时间戳的圆球创建一个矩形
         val startRect = Rect(
             startTimestampPosition.toInt(),
@@ -237,10 +254,19 @@ class CutAudioFragment(multiTrackAudioEditorView: MultiTrackAudioEditorView) :
         if (startRect.contains(event.x.toInt(), event.y.toInt()) ||
             endRect.contains(event.x.toInt(), event.y.toInt())
         ) {
-            return true
+            return true.apply {
+                Log.i(BaseMultiTrackAudioEditorView.cut_tag, "isTarget: true")
+            }
         }
 
-        return false
+        return false.apply {
+            Log.i(BaseMultiTrackAudioEditorView.cut_tag, "isTarget: false")
+        }
     }
+
+    private fun Float.pixel2Time(): Long {
+        return (this / unitMsPixel).toLong()
+    }
+
 
 }
