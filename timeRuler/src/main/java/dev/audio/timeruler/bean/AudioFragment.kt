@@ -27,14 +27,23 @@ open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorVie
      * 起始时间
      *
      * 波形图在时间坐标轴上的起始时间戳
+     * （范围：时间角度）
      */
     var startTimestamp: Long = 0
 
     /**
      * 结束时间
      * 波形图在时间坐标轴上的结束时间戳
+     * （范围：时间角度）
      */
     var endTimestamp: Long = 0
+
+
+    /**
+     * 波形绘制的坐标区域 屏幕坐标
+     * （范围：位置角度）
+     */
+    var rect: Rect? = null
 
     //波形数据
     var waveform: Waveform? = null
@@ -46,7 +55,7 @@ open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorVie
     var waveViewWidth = 0
         get() = (duration * unitMsPixel).toInt()
 
-    //每毫秒对应的像素
+    //每毫秒对应的像素 todo  属性重合
     var unitMsPixel: Float = 0f
 
     //选中的一圈矩形宽度
@@ -102,8 +111,6 @@ open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorVie
             return -((cursorValue - (startTimestamp)) * unitMsPixel - cursorPosition - cursorOffsetTime * unitMsPixel)
         }
 
-    //波形绘制的坐标区域(相对于TimeRulerBar)
-    var rect: Rect? = null
 
     var index = 0
 

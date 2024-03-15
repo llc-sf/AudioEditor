@@ -100,8 +100,18 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
         }
     }
 
+    /**
+     * 屏幕像素转化成时间段
+     */
     fun Float.pixel2Time(): Long {
-        return (this * unitPixel).toLong()
+        return (this / unitPixel).toLong()
+    }
+
+    /**
+     * 时间段转化成屏幕像素
+     */
+    fun Long.time2Pixel(): Float {
+        return (this * unitPixel)
     }
 
     // 设置波形数据的方法

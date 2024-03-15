@@ -13,7 +13,6 @@ import android.view.View
 import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.timeruler.BaseMultiTrackAudioEditorView
 import dev.audio.timeruler.MultiTrackAudioEditorView
-import dev.audio.timeruler.utils.formatToCursorDateString
 
 
 /**
@@ -61,6 +60,8 @@ class CutAudioFragment(multiTrackAudioEditorView: MultiTrackAudioEditorView) :
 
     /**
      * 裁剪片段开始位置 屏幕上的x坐标
+     *
+     * 根据时间戳转换为屏幕上的位置，所以无需设置值
      */
     private var startTimestampPosition: Float = 0f
         get() {
@@ -69,6 +70,8 @@ class CutAudioFragment(multiTrackAudioEditorView: MultiTrackAudioEditorView) :
 
     /**
      * 裁剪片段的结束位置 屏幕上的x坐标
+     *
+     * 根据时间戳转换为屏幕上的位置，所以无需设置值
      */
     private var endTimestampPosition: Float = 0f
         get() {
@@ -186,29 +189,27 @@ class CutAudioFragment(multiTrackAudioEditorView: MultiTrackAudioEditorView) :
                     val dx = x - lastTouchXProcess
                     if (isMovingStart) {
                         startTimestampPosition += dx
-                        if (startTimestampPosition < 0) startTimestampPosition = 0f
-                        if (startTimestampPosition > endTimestampPosition - timestampHandlerRadius * 2) {
-                            startTimestampPosition =
-                                endTimestampPosition - timestampHandlerRadius * 2
+                        if (startTimestampPosition < (rect?.left?:0)){
+                            //开始小于本身了
+                            startTimestampTimeInSelf = 0
+                        }
+                        if (startTimestampPosition > endTimestampPosition - strokeWidth_cut) {
+                            //开始大于结束了
+                            startTimestampTimeInSelf = endTimestamp - (strokeWidth_cut).pixel2Time()
                         }
                         startTimestampTimeInSelf += dx.pixel2Time()
                     } else if (isMovingEnd) {
                         endTimestampPosition += dx
-                        if (endTimestampPosition > width.toFloat()) endTimestampPosition =
-                            width.toFloat()
-                        if (endTimestampPosition < startTimestampPosition + timestampHandlerRadius * 2) {
-                            endTimestampPosition =
-                                startTimestampPosition + timestampHandlerRadius * 2
+                        if (endTimestampPosition > (rect?.right?:0)){
+                            //结束大于本身了
+                            endTimestampTimeInSelf = duration
                         }
-                        endTimestampTimeInSelf += dx.pixel2Time().apply {
-                            Log.i(BaseMultiTrackAudioEditorView.cut_tag, "dx.pixel2Time() =  $this")
+                        if (endTimestampPosition < startTimestampPosition + strokeWidth_cut) {
+                            //结束小于开始了
+                            endTimestampTimeInSelf =
+                                startTimestampTimeInSelf + (strokeWidth_cut).pixel2Time()
                         }
-                        endTimestampTimeInSelf.apply {
-                            Log.i(
-                                BaseMultiTrackAudioEditorView.cut_tag,
-                                "endTimestampTimeInSelf: $this"
-                            )
-                        }
+                        endTimestampTimeInSelf += dx.pixel2Time()
                     }
                     lastTouchXProcess = x
                     startTimestampPosition.apply {
@@ -264,9 +265,14 @@ class CutAudioFragment(multiTrackAudioEditorView: MultiTrackAudioEditorView) :
         }
     }
 
+    //*************************** 有重复的方法，后续优化
     private fun Float.pixel2Time(): Long {
         return (this / unitMsPixel).toLong()
     }
 
+    private fun Long.time2Pixel(): Float {
+        return (this * unitMsPixel).toFloat()
+    }
+    //*************************** 有重复的方法，后续优化
 
 }
