@@ -122,7 +122,6 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
             maxWaveHeight = 50f
             waveVerticalPosition = 200f
             color = Color.RED
-            cursorPosition = mCursorPosition
             startTimestamp = mScaleInfo?.startValue ?: 0
             this.waveform = waveform
             cursorValue = mCursorTimeValue
@@ -315,8 +314,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
 
     override fun cursorPositionPixelChange(prop: KProperty<*>, old: Float, new: Float) {
         super.cursorPositionPixelChange(prop, old, new)
-        audioFragments.forEach {
-            it.cursorPosition = new
+        audioFragments?.forEach {
             invalidate()
         }
     }

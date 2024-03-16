@@ -57,8 +57,12 @@ open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorVie
     private val waveViewWidth
         get() = (duration * unitMsPixel).toInt()
 
-    //每毫秒对应的像素 todo  属性重合
+    //每毫秒对应的像素
     val unitMsPixel by Ref { multiTrackAudioEditorView.unitPixel }
+
+
+    //当前指示标的位置（元素）todo 与父类属性有重合
+    val cursorPosition by Ref { multiTrackAudioEditorView.mCursorPosition }
 
     //选中的一圈矩形宽度
     var strokeWidth = 2f
@@ -104,8 +108,7 @@ open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorVie
      */
     var cursorOffsetTime: Long = 0
 
-    //当前指示标的位置（元素）todo 与父类属性有重合
-    var cursorPosition: Float = 0f
+
 
     //距离View起始点的偏移量 像素（屏幕最左边）
     private val x: Float

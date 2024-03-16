@@ -222,7 +222,7 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
      *
      * 游标的绝对位置 x坐标
      */
-    protected var mCursorPosition: Float by ObservableProperty(0f) { prop, old, new ->
+    var mCursorPosition: Float by ObservableProperty(0f) { prop, old, new ->
         println("${prop.name} changed from $old to $new")
         cursorPositionPixelChange(prop, old, new)
     }
