@@ -6,11 +6,13 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.Rect
 import android.util.Log
+import android.view.MotionEvent
 import dev.audio.ffmpeglib.tool.TimeUtil
 import dev.audio.timeruler.BaseMultiTrackAudioEditorView.Companion.long_press_tag
 import dev.audio.timeruler.BaseMultiTrackAudioEditorView.Companion.time_line_tag
 import dev.audio.timeruler.MultiTrackAudioEditorView
 import kotlin.math.roundToInt
+import kotlin.reflect.KProperty
 
 /**
  * 波形片段
@@ -100,7 +102,7 @@ open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorVie
      *
      * start 位置距离  时间坐标轴0 的偏移量（时间）
      */
-    protected var cursorOffsetTime: Long = 0
+    var cursorOffsetTime: Long = 0
 
     //当前指示标的位置（元素）todo 与父类属性有重合
     var cursorPosition: Float = 0f
@@ -332,4 +334,12 @@ open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorVie
         startY = 0f
         currentTouchY = 0
     }
+
+    fun time2PositionInTimeline(time: Long): Float {
+        return multiTrackAudioEditorView.time2PositionInTimeline(time)
+    }
+
+
+
+
 }
