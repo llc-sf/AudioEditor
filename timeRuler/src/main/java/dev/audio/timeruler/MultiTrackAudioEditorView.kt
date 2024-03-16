@@ -92,12 +92,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
      *
      */
     fun time2PositionInTimeline(timeStamp: Long): Float {
-        return (cursorPosition + (timeStamp - cursorValue) * unitMsPixel).apply {
-            Log.i(
-                TAG,
-                "unitPixel=${unitMsPixel},dx=${(timeStamp - cursorValue) * unitMsPixel};mScaleInfo!!.startValue=${mScaleInfo!!.startValue.formatToCursorDateString()},x=$this,time=${timeStamp.formatToCursorDateString()}"
-            )
-        }
+        return (cursorPosition + (timeStamp - cursorValue) * unitMsPixel)
     }
 
     /**
