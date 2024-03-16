@@ -14,7 +14,7 @@ import dev.audio.timeruler.MultiTrackAudioEditorView
  *
  * 带裁剪模式
  */
-class CutAudioFragment(multiTrackAudioEditorView: MultiTrackAudioEditorView) :
+class AudioFragmentWithCut(multiTrackAudioEditorView: MultiTrackAudioEditorView) :
     AudioFragment(multiTrackAudioEditorView) {
 
 

@@ -17,7 +17,7 @@ import dev.audio.timeruler.BaseMultiTrackAudioEditorView
 /**
  * 音波上的裁剪片段
  */
-class CutPieceFragment(var audio: CutAudioFragment) {
+class CutPieceFragment(var audio: AudioFragmentWithCut) {
 
     companion object {
         //裁剪竖线的宽度

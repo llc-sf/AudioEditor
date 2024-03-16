@@ -14,7 +14,7 @@ import androidx.annotation.ColorInt
 import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.timeruler.BaseMultiTrackAudioEditorView.TickMarkStrategy
 import dev.audio.timeruler.bean.AudioFragment
-import dev.audio.timeruler.bean.CutAudioFragment
+import dev.audio.timeruler.bean.AudioFragmentWithCut
 import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.utils.SizeUtils
 import dev.audio.timeruler.utils.formatToCursorDateString
@@ -116,7 +116,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
 
     // 设置波形数据的方法
     fun setWaveform(waveform: Waveform) {
-        audioFragments.add(CutAudioFragment(this).apply {
+        audioFragments.add(AudioFragmentWithCut(this).apply {
             index = 0
             duration = 1000 * 60 * 2
             maxWaveHeight = 50f
@@ -156,7 +156,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
     }
 
 
-    private var audioFragments = mutableListOf<CutAudioFragment>()
+    private var audioFragments = mutableListOf<AudioFragmentWithCut>()
 
 
     private var touchCutLine = false
