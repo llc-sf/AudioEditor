@@ -187,16 +187,8 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
     protected var mScaleInfo: ScaleMode? = null
 
     /*每毫秒多少像素*/
-    protected var unitPixel: Float by ObservableProperty(0f) { prop, old, new ->
-        println("${prop.name} changed from $old to $new")
-        unitPixelChange(prop, old, new)
-        // 这里可以添加更多的变化监听逻辑
-    }
+    var unitPixel: Float = 0f
 
-
-    open fun unitPixelChange(prop: KProperty<*>, old: Float, new: Float) {
-
-    }
 
     open fun cursorPositionPixelChange(prop: KProperty<*>, old: Float, new: Float) {
 
@@ -838,7 +830,7 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
         Log.i(TAG, "unitPixel: $unitPixel")
         mCursorTimeValue += courseIncrement
 //        mCursorValue1 += courseIncrement
-        refreshCursorValueByOnScroll(distanceX,courseIncrement)
+        refreshCursorValueByOnScroll(distanceX, courseIncrement)
         var result = true
         if (mCursorTimeValue < mScaleInfo!!.startValue) {
             mCursorTimeValue = mScaleInfo!!.startValue
@@ -1019,7 +1011,7 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
 
     }
 
-    open fun refreshCursorValueByOnScroll(distanceX: Float,courseIncrement: Long) {
+    open fun refreshCursorValueByOnScroll(distanceX: Float, courseIncrement: Long) {
 
     }
 

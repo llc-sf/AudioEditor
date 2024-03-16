@@ -124,7 +124,6 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
             color = Color.RED
             cursorPosition = mCursorPosition
             startTimestamp = mScaleInfo?.startValue ?: 0
-            this.unitMsPixel = unitPixel
             this.waveform = waveform
             cursorValue = mCursorTimeValue
         })
@@ -312,13 +311,6 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
             scaleChangeListener?.onScaleChange(mMode)
         }
         invalidate()
-    }
-
-    override fun unitPixelChange(prop: KProperty<*>, old: Float, new: Float) {
-        super.unitPixelChange(prop, old, new)
-        audioFragments.forEach {
-            it.unitMsPixel = new
-        }
     }
 
     override fun cursorPositionPixelChange(prop: KProperty<*>, old: Float, new: Float) {

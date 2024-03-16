@@ -58,7 +58,7 @@ open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorVie
         get() = (duration * unitMsPixel).toInt()
 
     //每毫秒对应的像素 todo  属性重合
-    var unitMsPixel: Float = 0f
+    val unitMsPixel by Ref { multiTrackAudioEditorView.unitPixel }
 
     //选中的一圈矩形宽度
     var strokeWidth = 2f
