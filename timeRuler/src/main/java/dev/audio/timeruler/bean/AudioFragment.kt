@@ -52,7 +52,7 @@ open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorVie
     var maxWaveHeight: Float = DEFAULT_WAVE_HEIGHT
 
     //波形宽度
-    var waveViewWidth = 0
+    private val waveViewWidth
         get() = (duration * unitMsPixel).toInt()
 
     //每毫秒对应的像素 todo  属性重合
@@ -102,11 +102,11 @@ open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorVie
      */
     protected var cursorOffsetTime: Long = 0
 
-    //当前指示标的位置（元素）
+    //当前指示标的位置（元素）todo 与父类属性有重合
     var cursorPosition: Float = 0f
 
     //距离View起始点的偏移量 像素（屏幕最左边）
-    private var x: Float = 0f
+    private val x: Float
         get() {
             return -((cursorValue - (startTimestamp)) * unitMsPixel - cursorPosition - cursorOffsetTime * unitMsPixel)
         }
@@ -114,8 +114,7 @@ open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorVie
 
     var index = 0
 
-
-    //总时长
+    //波形时长
     var duration: Long = 0
         set(value) {
             field = value
@@ -133,16 +132,16 @@ open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorVie
         }
 
     //当前手指的Y坐标 长按移动用
-    var currentTouchY: Int = 0
+    private var currentTouchY: Int = 0
 
     //长按时 Y的坐标
-    var startY = 0f
+    private var startY = 0f
 
     //前一次水平方向上的坐标
     var lastTouchX: Int = 0
 
     //长按移动，手指抬起时  与原来起点的cursorValue差值，惯性滑动用
-    var offsetUpTouchX: Long = 0
+    private var offsetUpTouchX: Long = 0
 
 
     private val mWavePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
