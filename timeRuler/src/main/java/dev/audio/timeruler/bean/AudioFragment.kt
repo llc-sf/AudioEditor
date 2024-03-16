@@ -71,7 +71,7 @@ open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorVie
      * 当前坐标轴的时间游标同步
      *
      */
-    val cursorValue by Ref { multiTrackAudioEditorView.mCursorTimeValue }
+    val cursorValue by Ref { multiTrackAudioEditorView.cursorValue }
 
 
     //选中的一圈矩形宽度
