@@ -222,7 +222,7 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
      *
      * 游标的绝对位置 x坐标
      */
-    var mCursorPosition: Float by ObservableProperty(0f) { prop, old, new ->
+    var cursorPosition: Float by ObservableProperty(0f) { prop, old, new ->
         println("${prop.name} changed from $old to $new")
         cursorPositionPixelChange(prop, old, new)
     }
@@ -326,7 +326,7 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         mTickHeight = keyTickHeight * mNormalTickAndKeyTickRatio
-        mCursorPosition = w * mCursorPositionProportion
+        cursorPosition = w * mCursorPositionProportion
         mBaselinePosition = h * mBaselinePositionProportion
         maxUnitPixel = w * 1.0f / minScreenSpanValue
         minUnitPixel = w * 1.0f / maxScreenSpanValue
@@ -423,8 +423,8 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
         val leftRange = mCursorTimeValue - mScaleInfo!!.startValue
         val leftNeighborOffset = leftRange % mScaleInfo!!.unitValue
         val leftNeighborTickValue = mCursorTimeValue - leftNeighborOffset
-        val leftNeighborPosition = mCursorPosition - leftNeighborOffset * unitMsPixel
-        val leftCount = (mCursorPosition / mTickSpacing + 0.5f).toInt()
+        val leftNeighborPosition = cursorPosition - leftNeighborOffset * unitMsPixel
+        val leftCount = (cursorPosition / mTickSpacing + 0.5f).toInt()
         var onDrawTickPosition: Float
         var onDrawTickValue: Long
         for (i in 0 until leftCount) {
@@ -503,7 +503,7 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
         }
         val rightNeighborTickValue = leftNeighborTickValue + mScaleInfo!!.unitValue
         val rightNeighborPosition = leftNeighborPosition + mTickSpacing
-        val rightCount = ((width - mCursorPosition) / mTickSpacing + 0.5f).toInt()
+        val rightCount = ((width - cursorPosition) / mTickSpacing + 0.5f).toInt()
         for (i in 0 until rightCount) {
             onDrawTickValue = rightNeighborTickValue + mScaleInfo!!.unitValue * i
             if (onDrawTickValue > mScaleInfo!!.endValue) {
@@ -580,7 +580,7 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
         }
         drawWaveformSeekBar(canvas)
 //        onEndTickDraw(canvas)
-        drawCursor(canvas, mCursorPosition, mCursorTimeValue)
+        drawCursor(canvas, cursorPosition, mCursorTimeValue)
 
     }
 

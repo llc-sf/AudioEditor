@@ -63,7 +63,7 @@ open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorVie
 
 
     //当前指示标的位置（元素）
-    val cursorPosition by Ref { multiTrackAudioEditorView.mCursorPosition }
+    val cursorPosition by Ref { multiTrackAudioEditorView.cursorPosition }
 
 
     /**
