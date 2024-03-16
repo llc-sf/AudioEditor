@@ -39,6 +39,9 @@ open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorVie
      * （范围：时间角度）
      */
     var endTimestamp: Long = 0
+        get() {
+            return startTimestamp + duration
+        }
 
 
     /**
@@ -61,8 +64,17 @@ open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorVie
     val unitMsPixel by Ref { multiTrackAudioEditorView.unitPixel }
 
 
-    //当前指示标的位置（元素）todo 与父类属性有重合
+    //当前指示标的位置（元素）
     val cursorPosition by Ref { multiTrackAudioEditorView.mCursorPosition }
+
+
+    /**
+     *
+     * 当前坐标轴的时间游标同步
+     *
+     */
+    val cursorValue by Ref { multiTrackAudioEditorView.mCursorTimeValue }
+
 
     //选中的一圈矩形宽度
     var strokeWidth = 2f
@@ -91,23 +103,11 @@ open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorVie
 
 
     /**
-     *
-     * 当前坐标轴的时间游标同步
-     *
-     */
-    var cursorValue: Long = 0
-        set(value) {
-            field = value
-            endTimestamp = startTimestamp + duration
-        }
-
-    /**
      * 偏移量
      *
      * start 位置距离  时间坐标轴0 的偏移量（时间）
      */
     var cursorOffsetTime: Long = 0
-
 
 
     //距离View起始点的偏移量 像素（屏幕最左边）
@@ -341,8 +341,6 @@ open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorVie
     fun time2PositionInTimeline(time: Long): Float {
         return multiTrackAudioEditorView.time2PositionInTimeline(time)
     }
-
-
 
 
 }

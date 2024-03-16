@@ -213,7 +213,7 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
     private var minUnitPixel = 0f
 
     /*时间戳*/
-    protected var mCursorTimeValue: Long by ObservableProperty(0L) { prop, old, new ->
+    var mCursorTimeValue: Long by ObservableProperty(0L) { prop, old, new ->
         println("${prop.name} changed from $old to $new")
         cursorValueChange(prop, old, new)
     }

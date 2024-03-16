@@ -124,7 +124,6 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
             color = Color.RED
             startTimestamp = mScaleInfo?.startValue ?: 0
             this.waveform = waveform
-            cursorValue = mCursorTimeValue
         })
 //        audioFragments.add(CutAudioFragment().apply {
 //            index = 1
@@ -322,7 +321,6 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
     override fun cursorValueChange(prop: KProperty<*>, old: Long, new: Long) {
         super.cursorValueChange(prop, old, new)
         audioFragments?.forEach {
-            it.cursorValue = new
             invalidate()
         }
     }
