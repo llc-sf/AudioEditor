@@ -6,13 +6,11 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.Rect
 import android.util.Log
-import android.view.MotionEvent
 import dev.audio.ffmpeglib.tool.TimeUtil
 import dev.audio.timeruler.BaseMultiTrackAudioEditorView.Companion.long_press_tag
 import dev.audio.timeruler.BaseMultiTrackAudioEditorView.Companion.time_line_tag
 import dev.audio.timeruler.MultiTrackAudioEditorView
 import kotlin.math.roundToInt
-import kotlin.reflect.KProperty
 
 /**
  * 波形片段
@@ -61,7 +59,7 @@ open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorVie
         get() = (duration * unitMsPixel).toInt()
 
     //每毫秒对应的像素
-    val unitMsPixel by Ref { multiTrackAudioEditorView.unitPixel }
+    val unitMsPixel by Ref { multiTrackAudioEditorView.unitMsPixel }
 
 
     //当前指示标的位置（元素）

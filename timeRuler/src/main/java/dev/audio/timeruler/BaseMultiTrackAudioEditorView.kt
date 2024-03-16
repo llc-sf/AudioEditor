@@ -187,7 +187,7 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
     protected var mScaleInfo: ScaleMode? = null
 
     /*每毫秒多少像素*/
-    var unitPixel: Float = 0f
+    var unitMsPixel: Float = 0f
 
 
     open fun cursorPositionPixelChange(prop: KProperty<*>, old: Float, new: Float) {
@@ -330,8 +330,8 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
         mBaselinePosition = h * mBaselinePositionProportion
         maxUnitPixel = w * 1.0f / minScreenSpanValue
         minUnitPixel = w * 1.0f / maxScreenSpanValue
-        unitPixel = maxUnitPixel * mScaleRatio
-        mTickSpacing = mScaleInfo!!.unitValue * unitPixel
+        unitMsPixel = maxUnitPixel * mScaleRatio
+        mTickSpacing = mScaleInfo!!.unitValue * unitMsPixel
     }
 
     open fun setRange(start: Long, end: Long) {
@@ -423,7 +423,7 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
         val leftRange = mCursorTimeValue - mScaleInfo!!.startValue
         val leftNeighborOffset = leftRange % mScaleInfo!!.unitValue
         val leftNeighborTickValue = mCursorTimeValue - leftNeighborOffset
-        val leftNeighborPosition = mCursorPosition - leftNeighborOffset * unitPixel
+        val leftNeighborPosition = mCursorPosition - leftNeighborOffset * unitMsPixel
         val leftCount = (mCursorPosition / mTickSpacing + 0.5f).toInt()
         var onDrawTickPosition: Float
         var onDrawTickValue: Long
@@ -710,9 +710,9 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
     }
 
     private fun handleLongPressHorizontalMovement(deltaX: Float) {
-        Log.i(touch_tag, "unitPixel=$unitPixel")
+        Log.i(touch_tag, "unitPixel=$unitMsPixel")
         try {
-            if (unitPixel != 0f) {
+            if (unitMsPixel != 0f) {
 //                mCursorValue1 -= (deltaX / unitPixel).toLong()
                 refreshCursorValueByLongPressHandleHorizontalMove(deltaX)
                 invalidate()
@@ -726,20 +726,20 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
         var scaleFactor = detector.scaleFactor
         Log.d(TAG, "onScalescaleFactor: $scaleFactor")
         status = STATUS_ZOOM
-        unitPixel *= scaleFactor
-        if (unitPixel > maxUnitPixel) {
-            unitPixel = maxUnitPixel
+        unitMsPixel *= scaleFactor
+        if (unitMsPixel > maxUnitPixel) {
+            unitMsPixel = maxUnitPixel
             scaleFactor = 1.0f
-        } else if (unitPixel < minUnitPixel) {
-            unitPixel = minUnitPixel
+        } else if (unitMsPixel < minUnitPixel) {
+            unitMsPixel = minUnitPixel
             scaleFactor = 1.0f
         }
-        onScale(mScaleInfo, unitPixel)
+        onScale(mScaleInfo, unitMsPixel)
         mScaleRatio *= scaleFactor
-        mTickSpacing = mScaleInfo!!.unitValue * unitPixel
+        mTickSpacing = mScaleInfo!!.unitValue * unitMsPixel
         Log.d(TAG, mScaleRatio.toString() + "onScale:mTickSpacing " + mTickSpacing)
         invalidate()
-        return unitPixel < maxUnitPixel || unitPixel > minUnitPixel
+        return unitMsPixel < maxUnitPixel || unitMsPixel > minUnitPixel
     }
 
     private var lastScale = 0f
@@ -751,26 +751,26 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
             scaleFactor = 1 + scale / 10000
         }
         status = STATUS_ZOOM
-        unitPixel *= scaleFactor
-        if (unitPixel > maxUnitPixel) {
-            unitPixel = maxUnitPixel
+        unitMsPixel *= scaleFactor
+        if (unitMsPixel > maxUnitPixel) {
+            unitMsPixel = maxUnitPixel
             scaleFactor = 1.0f
-        } else if (unitPixel < minUnitPixel) {
-            unitPixel = minUnitPixel
+        } else if (unitMsPixel < minUnitPixel) {
+            unitMsPixel = minUnitPixel
             scaleFactor = 1.0f
         }
-        Log.d(TAG, unitPixel.toString() + "onScalescaleFactor: " + scaleFactor)
+        Log.d(TAG, unitMsPixel.toString() + "onScalescaleFactor: " + scaleFactor)
         if (scale == 1000f) {
             scaleFactor = 1f
-            unitPixel = (6.0f * Math.pow(10.0, -4.0)).toFloat()
+            unitMsPixel = (6.0f * Math.pow(10.0, -4.0)).toFloat()
         }
         if (scale == 0f) {
             scaleFactor = 1f
-            unitPixel = (1.25f * Math.pow(10.0, -5.0)).toFloat()
+            unitMsPixel = (1.25f * Math.pow(10.0, -5.0)).toFloat()
         }
-        onScale(mScaleInfo, unitPixel)
+        onScale(mScaleInfo, unitMsPixel)
         mScaleRatio *= scaleFactor
-        mTickSpacing = mScaleInfo!!.unitValue * unitPixel
+        mTickSpacing = mScaleInfo!!.unitValue * unitMsPixel
         Log.d(TAG, mScaleRatio.toString() + "onScale:mTickSpacing " + mTickSpacing)
         invalidate()
         lastScale = scale
@@ -826,8 +826,8 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
         }
         status = STATUS_SCROLL
         // 游标刻度值增量
-        val courseIncrement = (distanceX / unitPixel).toLong()
-        Log.i(TAG, "unitPixel: $unitPixel")
+        val courseIncrement = (distanceX / unitMsPixel).toLong()
+        Log.i(TAG, "unitPixel: $unitMsPixel")
         mCursorTimeValue += courseIncrement
 //        mCursorValue1 += courseIncrement
         refreshCursorValueByOnScroll(distanceX, courseIncrement)
@@ -880,7 +880,7 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
         Log.i(touch_tag, "computeScroll")
         if (scroller.computeScrollOffset()) {
             val currX = scroller.currX
-            mCursorTimeValue = mScaleInfo!!.startValue + (currX / unitPixel).toLong()
+            mCursorTimeValue = mScaleInfo!!.startValue + (currX / unitMsPixel).toLong()
 //            mCursorValue1 =
 //                mScaleInfo!!.startValue + offsetOriCurrentValue1 + (currX / unitPixel).toLong()
             refreshCursorValueByComputeScroll(currX)
@@ -908,8 +908,8 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
     ): Boolean {
         Log.i(touch_tag, "onFling")
         status = STATUS_SCROLL_FLING
-        val startX = ((mCursorTimeValue - mScaleInfo!!.startValue) * unitPixel).toInt()
-        val maX = ((mScaleInfo!!.endValue - mScaleInfo!!.startValue) * unitPixel).toInt()
+        val startX = ((mCursorTimeValue - mScaleInfo!!.startValue) * unitMsPixel).toInt()
+        val maX = ((mScaleInfo!!.endValue - mScaleInfo!!.startValue) * unitMsPixel).toInt()
         scroller.fling(
             startX,
             0,

@@ -92,10 +92,10 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
      *
      */
     fun time2PositionInTimeline(timeStamp: Long): Float {
-        return (mCursorPosition + (timeStamp - mCursorTimeValue) * unitPixel).apply {
+        return (mCursorPosition + (timeStamp - mCursorTimeValue) * unitMsPixel).apply {
             Log.i(
                 TAG,
-                "unitPixel=${unitPixel},dx=${(timeStamp - mCursorTimeValue) * unitPixel};mScaleInfo!!.startValue=${mScaleInfo!!.startValue.formatToCursorDateString()},x=$this,time=${timeStamp.formatToCursorDateString()}"
+                "unitPixel=${unitMsPixel},dx=${(timeStamp - mCursorTimeValue) * unitMsPixel};mScaleInfo!!.startValue=${mScaleInfo!!.startValue.formatToCursorDateString()},x=$this,time=${timeStamp.formatToCursorDateString()}"
             )
         }
     }
@@ -104,14 +104,14 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
      * 屏幕像素转化成时间段
      */
     fun Float.pixel2Time(): Long {
-        return (this / unitPixel).toLong()
+        return (this / unitMsPixel).toLong()
     }
 
     /**
      * 时间段转化成屏幕像素
      */
     fun Long.time2Pixel(): Float {
-        return (this * unitPixel)
+        return (this * unitMsPixel)
     }
 
     // 设置波形数据的方法
@@ -298,9 +298,9 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
         }
         if (isRefreshUnitPixel) {
             //todo  不一定是屏幕宽度
-            unitPixel = (ScreenUtil.getScreenWidth(context) * 1f / screeWithDuration)
+            unitMsPixel = (ScreenUtil.getScreenWidth(context) * 1f / screeWithDuration)
         }
-        Log.e(TAG, "unitPixel: $unitPixel")
+        Log.e(TAG, "unitPixel: $unitMsPixel")
         if (setScaleRatio) {
             setScaleRatio(minScreenSpanValue * 1.0f / screeWithDuration)
         }
@@ -376,8 +376,8 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
             for (i in 0 until size) {
                 startValue = mColorScale!!.getStart(i)
                 endValue = mColorScale!!.getEnd(i)
-                startPiexl = mCursorPosition + (startValue - mCursorTimeValue) * unitPixel
-                endPiexl = mCursorPosition + (endValue - mCursorTimeValue) * unitPixel
+                startPiexl = mCursorPosition + (startValue - mCursorTimeValue) * unitMsPixel
+                endPiexl = mCursorPosition + (endValue - mCursorTimeValue) * unitMsPixel
                 if (endPiexl < startLimit) {
                     continue
                 }
