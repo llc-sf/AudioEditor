@@ -173,11 +173,11 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
     private var isMovingEnd: Boolean = false
     private var lastTouchXProcess: Float = 0f
 
-    private val moveHandler = MoveHandler(audio = WeakReference(audio), this)
+    private val moveHandler = MoveHandler(audio = WeakReference(audio), cutPiece =  WeakReference(this))
 
     class MoveHandler(
-        var audio: WeakReference<AudioFragmentWithCut>? = null,
-        var cut: CutPieceFragment
+        private var audio: WeakReference<AudioFragmentWithCut>? = null,
+        private var cutPiece: WeakReference<CutPieceFragment>? = null
     ) :
         Handler(Looper.getMainLooper()) {
 
@@ -202,7 +202,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
                         //波形移动
                         this.moveRightByPixel(MOVE_INTERVAL_SPACE)
                         //剪切范围也扩大
-                        cut.expendRightByPixel(MOVE_INTERVAL_SPACE)
+                        cutPiece?.get()?.expendRightByPixel(MOVE_INTERVAL_SPACE)
                         sendMessageDelayed(obtainMessage(MSG_MOVE), MOVE_INTERVAL_TIME)
                     }
                 }
