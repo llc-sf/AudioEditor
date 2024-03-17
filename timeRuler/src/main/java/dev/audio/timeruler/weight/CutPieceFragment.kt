@@ -7,11 +7,15 @@ import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.graphics.Rect
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.timeruler.bean.Ref
+import java.lang.ref.WeakReference
 
 
 /**
@@ -168,6 +172,43 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
     private var isMovingStart: Boolean = false
     private var isMovingEnd: Boolean = false
     private var lastTouchXProcess: Float = 0f
+
+    private val moveHandler = MoveHandler(audio = WeakReference(audio), this)
+
+    class MoveHandler(
+        var audio: WeakReference<AudioFragmentWithCut>? = null,
+        var cut: CutPieceFragment
+    ) :
+        Handler(Looper.getMainLooper()) {
+
+        companion object {
+            const val MSG_MOVE = 1
+
+            //移动波形图的时间间隔
+            const val MOVE_INTERVAL_TIME = 10L
+
+            //移动波形图的像素间隔
+            const val MOVE_INTERVAL_SPACE = 5f
+        }
+
+        override fun handleMessage(msg: Message) {
+            super.handleMessage(msg)
+            when (msg.what) {
+                MSG_MOVE -> {
+                    // 实现移动波形图的逻辑
+                    audio?.get()?.apply {
+                        //波形移动
+                        this.moveRight()
+                        //剪切范围也扩大
+                        cut.endTimestampTimeInSelf += (MOVE_INTERVAL_SPACE.pixel2Time(unitMsPixel))
+                        sendMessageDelayed(obtainMessage(MSG_MOVE), MOVE_INTERVAL_TIME)
+                    }
+                }
+            }
+        }
+    }
+
+
     fun onTouchEvent(context: Context, view: View, event: MotionEvent?): Boolean {
         Log.i(BaseMultiTrackAudioEditorView.cut_tag, "onTouchEvent: ")
         if (event == null) return false
@@ -194,12 +235,15 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
                         } else if (startTimestampPosition >= endTimestampPosition - strokeWidth_cut) {
                             //开始大于结束了
                             startTimestampTimeInSelf =
-                                endTimestampTimeInSelf - (strokeWidth_cut).pixel2Time()
+                                endTimestampTimeInSelf - (strokeWidth_cut).pixel2Time(unitMsPixel)
                         } else {
-                            startTimestampTimeInSelf += dx.pixel2Time()
+                            startTimestampTimeInSelf += dx.pixel2Time(unitMsPixel)
                         }
 
                     } else if (isMovingEnd) {
+                        if (dx < -10 || event.x <= ScreenUtil.getScreenWidth(context) - 50) {
+                            stopMoveRight()
+                        }
                         endTimestampPosition += dx
                         if (endTimestampPosition >= (rect?.right ?: 0)) {
                             //结束大于本身了
@@ -207,9 +251,29 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
                         } else if (endTimestampPosition <= startTimestampPosition + strokeWidth_cut) {
                             //结束小于开始了
                             endTimestampTimeInSelf =
-                                startTimestampTimeInSelf + (strokeWidth_cut).pixel2Time()
+                                startTimestampTimeInSelf + (strokeWidth_cut).pixel2Time(unitMsPixel)
                         } else {
-                            endTimestampTimeInSelf += dx.pixel2Time()
+                            val newEndTimestampPosition = endTimestampPosition + dx
+                            val screenWidth = ScreenUtil.getScreenWidth(context)
+                            val maxEndPosition = screenWidth - strokeWidth_cut
+                            // 检查是否到达屏幕边界
+                            if (newEndTimestampPosition >= maxEndPosition) {
+                                // 检查是否有更多波形数据可以加载
+                                if (canLoadMoreWaveData(context)) {
+                                    moveRight()
+                                    // 加载更多波形数据
+                                    loadMoreWaveData(newEndTimestampPosition)
+                                    // 更新duration和unitMsPixel
+                                    updateDurationAndUnitPixel()
+                                } else {
+                                    // 到达最大范围，不再移动
+                                    endTimestampPosition = maxEndPosition
+                                }
+                            } else {
+                                endTimestampPosition = newEndTimestampPosition
+                            }
+
+                            endTimestampTimeInSelf += dx.pixel2Time(unitMsPixel)
                         }
                     }
                     lastTouchXProcess = x
@@ -229,10 +293,35 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                 isMovingStart = false
                 isMovingEnd = false
+                stopMoveRight()
 
             }
         }
         return true
+    }
+
+    private fun moveRight() {
+        moveHandler.sendMessage(moveHandler.obtainMessage(MoveHandler.MSG_MOVE))
+    }
+
+    private fun stopMoveRight() {
+        moveHandler.removeMessages(MoveHandler.MSG_MOVE)
+    }
+
+    private fun canLoadMoreWaveData(context: Context): Boolean {
+        // 实现检查是否有更多波形数据可以加载的逻辑
+        // 返回true表示可以加载，返回false表示没有更多数据
+        return rect?.right ?: 0 > ScreenUtil.getScreenWidth(context)
+    }
+
+    private fun loadMoreWaveData(newEndTimestampPosition: Float) {
+        // 实现加载更多波形数据的逻辑
+        // 这可能涉及到异步操作，需要确保数据加载完成后再更新UI
+    }
+
+    private fun updateDurationAndUnitPixel() {
+        // 更新duration和unitMsPixel的值
+        // 这将影响波形图的显示和时间戳的计算
     }
 
 
@@ -268,14 +357,6 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
     }
 
 
-    //*************************** 有重复的方法，后续优化
-    private fun Float.pixel2Time(): Long {
-        return (this / unitMsPixel).toLong()
-    }
 
-    private fun Long.time2Pixel(): Float {
-        return (this * unitMsPixel).toFloat()
-    }
-    //*************************** 有重复的方法，后续优化
 
 }

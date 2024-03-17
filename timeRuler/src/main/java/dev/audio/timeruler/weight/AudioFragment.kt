@@ -340,5 +340,9 @@ open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorVie
         return (cursorPosition + (timeStamp - cursorValue) * unitMsPixel)
     }
 
+    fun moveRight() {
+        multiTrackAudioEditorView.moveRight()
+    }
+
 
 }

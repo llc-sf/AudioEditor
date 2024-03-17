@@ -93,19 +93,6 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
         return (cursorPosition + (timeStamp - cursorValue) * unitMsPixel)
     }
 
-    /**
-     * 屏幕像素转化成时间段
-     */
-    fun Float.pixel2Time(): Long {
-        return (this / unitMsPixel).toLong()
-    }
-
-    /**
-     * 时间段转化成屏幕像素
-     */
-    fun Long.time2Pixel(): Float {
-        return (this * unitMsPixel)
-    }
 
     // 设置波形数据的方法
     fun setWaveform(waveform: Waveform) {

@@ -1024,6 +1024,11 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
 
     }
 
+    fun moveRight() {
+        cursorValue += CutPieceFragment.MoveHandler.MOVE_INTERVAL_SPACE.pixel2Time(unitMsPixel)
+        invalidate()
+    }
+
     interface TickMarkStrategy {
         /**
          * 是否显示刻度值
