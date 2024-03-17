@@ -216,7 +216,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
      * 扩展的变量为像素
      */
     private fun expendRightByPixel(moveIntervalSpace: Float) {
-        endTimestampTimeInSelf += (MoveHandler.MOVE_INTERVAL_SPACE.pixel2Time(unitMsPixel))
+        endTimestampTimeInSelf += (moveIntervalSpace.pixel2Time(unitMsPixel))
     }
 
     /**
