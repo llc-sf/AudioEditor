@@ -184,8 +184,10 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
         companion object {
             const val MSG_MOVE = 1
 
+
+            //靠边缘的移动速度有以下两个变量控制
             //移动波形图的时间间隔
-            const val MOVE_INTERVAL_TIME = 10L
+            const val MOVE_INTERVAL_TIME = 30L
 
             //移动波形图的像素间隔
             const val MOVE_INTERVAL_SPACE = 5f
@@ -198,14 +200,32 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
                     // 实现移动波形图的逻辑
                     audio?.get()?.apply {
                         //波形移动
-                        this.moveRight()
+                        this.moveRightByPixel(MOVE_INTERVAL_SPACE)
                         //剪切范围也扩大
-                        cut.endTimestampTimeInSelf += (MOVE_INTERVAL_SPACE.pixel2Time(unitMsPixel))
+                        cut.expendRightByPixel(MOVE_INTERVAL_SPACE)
                         sendMessageDelayed(obtainMessage(MSG_MOVE), MOVE_INTERVAL_TIME)
                     }
                 }
             }
         }
+    }
+
+    /**
+     * 裁剪范围向右扩展
+     *
+     * 扩展的变量为像素
+     */
+    private fun expendRightByPixel(moveIntervalSpace: Float) {
+        endTimestampTimeInSelf += (MoveHandler.MOVE_INTERVAL_SPACE.pixel2Time(unitMsPixel))
+    }
+
+    /**
+     * 裁剪范围向右扩展
+     *
+     * 扩展的变量为时间
+     */
+    private fun expendRightByTime(time: Long) {
+        endTimestampTimeInSelf += time
     }
 
 
@@ -355,8 +375,6 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
             Log.i(BaseMultiTrackAudioEditorView.cut_tag, "isTarget: false")
         }
     }
-
-
 
 
 }

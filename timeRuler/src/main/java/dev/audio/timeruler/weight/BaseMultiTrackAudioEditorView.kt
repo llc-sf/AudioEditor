@@ -1024,8 +1024,25 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
 
     }
 
-    fun moveRight() {
-        cursorValue += CutPieceFragment.MoveHandler.MOVE_INTERVAL_SPACE.pixel2Time(unitMsPixel)
+
+    /**
+     * 裁剪范围向右移动
+     *
+     * 移动的变量为像素
+     */
+    fun moveRightByPixel(distance: Float) {
+        cursorValue += distance.pixel2Time(unitMsPixel)
+        invalidate()
+    }
+
+
+    /**
+     * 裁剪范围向右移动
+     *
+     * 移动的变量为时间
+     */
+    fun moveRightByTime(time: Long) {
+        cursorValue += time
         invalidate()
     }
 
