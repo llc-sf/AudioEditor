@@ -19,7 +19,7 @@ import kotlin.math.roundToInt
 open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorView) {
     companion object {
 
-        const val DEFAULT_WAVE_HEIGHT = 50f
+        const val DEFAULT_WAVE_HEIGHT = 150f
         const val DEFAULT_WAVE_VERTICAL_POSITION = 200f
         const val DEFAULT_WAVE_COLOR = Color.RED
     }
@@ -164,9 +164,9 @@ open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorVie
 
     open fun drawWave(
         canvas: Canvas
-    ): Boolean {
+    ) {
         var wf = waveform
-        val samples = wf?.amplitudes ?: return true
+        val samples = wf?.amplitudes ?: return
         val centerY = getTrackYPosition() // 使用新变量设置垂直位置
         //            val centerY = waveVerticalPosition // 使用新变量设置垂直位置
         val maxAmplitude = (samples.maxOrNull() ?: 1).toFloat()
@@ -252,7 +252,6 @@ open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorVie
             time_line_tag,
             "timeline drawWave index=$index currentTime:${cursorValue - startTimestamp} [${startTimestamp},${endTimestamp}]"
         )
-        return false
     }
 
 
@@ -337,8 +336,8 @@ open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorVie
         currentTouchY = 0
     }
 
-    fun time2PositionInTimeline(time: Long): Float {
-        return multiTrackAudioEditorView.time2PositionInTimeline(time)
+    fun time2PositionInTimeline(timeStamp: Long): Float {
+        return (cursorPosition + (timeStamp - cursorValue) * unitMsPixel)
     }
 
 

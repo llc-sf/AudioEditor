@@ -32,15 +32,15 @@ class AudioFragmentWithCut(multiTrackAudioEditorView: MultiTrackAudioEditorView)
         return cutPieceFragment?.isSelected(x) ?: false
     }
 
-    override fun drawWave(canvas: Canvas): Boolean {
+    override fun drawWave(canvas: Canvas) {
         // 开启图层
         val saved = canvas.saveLayer(null, null, Canvas.ALL_SAVE_FLAG)
+        //绘制完整音波
         super.drawWave(canvas)
+        //绘制选中片段
         cutPieceFragment?.drawCutFragment(canvas)
         //恢复图层
         canvas.restoreToCount(saved)
-        return true
-
     }
 
 

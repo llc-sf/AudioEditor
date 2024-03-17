@@ -212,15 +212,15 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
     override fun drawWaveformSeekBar(canvas: Canvas) {
         super.drawWaveformSeekBar(canvas)
         audioFragments.forEach { audioFragment ->
-            if (draw(audioFragment, canvas)) return
+            draw(audioFragment, canvas)
         }
     }
 
     private fun draw(
         audioFragment: AudioFragment,
         canvas: Canvas
-    ): Boolean {
-        return audioFragment.drawWave(canvas)
+    ) {
+        audioFragment.drawWave(canvas)
     }
 
 
