@@ -1,4 +1,4 @@
-package dev.audio.timeruler.bean
+package dev.audio.timeruler.weight
 
 import android.content.Context
 import android.graphics.Canvas
@@ -11,7 +11,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import dev.audio.ffmpeglib.tool.ScreenUtil
-import dev.audio.timeruler.BaseMultiTrackAudioEditorView
+import dev.audio.timeruler.bean.Ref
 
 
 /**

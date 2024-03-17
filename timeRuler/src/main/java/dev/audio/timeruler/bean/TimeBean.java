@@ -5,7 +5,7 @@ import android.graphics.Color;
 
 import java.util.List;
 
-import dev.audio.timeruler.MultiTrackAudioEditorView;
+import dev.audio.timeruler.weight.MultiTrackAudioEditorView;
 
 public class TimeBean implements MultiTrackAudioEditorView.ColorScale {
     List<VideoBean> videoBeans;

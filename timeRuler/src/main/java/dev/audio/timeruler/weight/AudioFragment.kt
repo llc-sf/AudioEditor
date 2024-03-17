@@ -1,4 +1,4 @@
-package dev.audio.timeruler.bean
+package dev.audio.timeruler.weight
 
 import android.graphics.Canvas
 import android.graphics.Color
@@ -7,9 +7,10 @@ import android.graphics.Path
 import android.graphics.Rect
 import android.util.Log
 import dev.audio.ffmpeglib.tool.TimeUtil
-import dev.audio.timeruler.BaseMultiTrackAudioEditorView.Companion.long_press_tag
-import dev.audio.timeruler.BaseMultiTrackAudioEditorView.Companion.time_line_tag
-import dev.audio.timeruler.MultiTrackAudioEditorView
+import dev.audio.timeruler.weight.BaseMultiTrackAudioEditorView.Companion.long_press_tag
+import dev.audio.timeruler.weight.BaseMultiTrackAudioEditorView.Companion.time_line_tag
+import dev.audio.timeruler.bean.Ref
+import dev.audio.timeruler.bean.Waveform
 import kotlin.math.roundToInt
 
 /**

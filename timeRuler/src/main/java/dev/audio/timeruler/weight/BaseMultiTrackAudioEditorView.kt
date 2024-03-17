@@ -1,4 +1,4 @@
-package dev.audio.timeruler
+package dev.audio.timeruler.weight
 
 import android.content.Context
 import android.graphics.Canvas
@@ -17,6 +17,7 @@ import androidx.annotation.FloatRange
 import androidx.annotation.StringDef
 import androidx.core.view.GestureDetectorCompat
 import dev.audio.ffmpeglib.tool.TimeUtil
+import dev.audio.timeruler.R
 import dev.audio.timeruler.listener.OnScaleChangeListener
 import dev.audio.timeruler.utils.SizeUtils
 import java.text.SimpleDateFormat

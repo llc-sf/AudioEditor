@@ -1,4 +1,4 @@
-package dev.audio.timeruler
+package dev.audio.timeruler.weight
 
 import android.content.Context
 import android.graphics.Canvas
@@ -12,12 +12,10 @@ import android.util.Log
 import android.view.MotionEvent
 import androidx.annotation.ColorInt
 import dev.audio.ffmpeglib.tool.ScreenUtil
-import dev.audio.timeruler.BaseMultiTrackAudioEditorView.TickMarkStrategy
-import dev.audio.timeruler.bean.AudioFragment
-import dev.audio.timeruler.bean.AudioFragmentWithCut
+import dev.audio.timeruler.R
+import dev.audio.timeruler.weight.BaseMultiTrackAudioEditorView.TickMarkStrategy
 import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.utils.SizeUtils
-import dev.audio.timeruler.utils.formatToCursorDateString
 import java.text.SimpleDateFormat
 import kotlin.reflect.KProperty
 
