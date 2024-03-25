@@ -825,7 +825,7 @@ class AudioCutHandleActivity : BaseActivity() {
     companion object {
 
         private val PATH =
-            FFmpegApplication.context.getExternalFilesDir(Environment.DIRECTORY_MUSIC)?.absolutePath
+            FFmpegApplication.instance?.getExternalFilesDir(Environment.DIRECTORY_MUSIC)?.absolutePath
                 ?: ""
 //        private val PATH = Environment.getExternalStorageDirectory().path
 

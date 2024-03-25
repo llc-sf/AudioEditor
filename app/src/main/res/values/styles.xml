@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <style name="TabLayoutTabText" parent="TextAppearance.AppCompat">
+        <item name="android:textStyle">bold</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <!--TabLayout主题设置-->
+    <style name="TabLayoutTabText.SP18">
+        <item name="android:textSize">@dimen/sp_18</item>
+    </style>
+
+    <style name="TabLayoutTabText.SP16">
+        <item name="android:textSize">@dimen/sp_16</item>
+    </style>
+
+    <style name="TabLayoutTabText.SP14">
+        <item name="android:textSize">@dimen/sp_14</item>
+    </style>
+
+
+    <style name="MusicBottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="itemTextAppearanceActive">@style/MusicBottomNavigationView.TextActive</item>
+        <item name="itemTextAppearanceInactive">@style/MusicBottomNavigationView.TextInactive</item>
+        <item name="elevation">0dp</item>
+        <item name="itemActiveIndicatorStyle">@color/transparent</item>
+        <item name="itemIconTint">@color/bottom_nav_colors</item>
+        <item name="labelVisibilityMode">selected</item>
+        <item name="itemIconSize">@dimen/dp_24</item>
+        <item name="itemPaddingTop">@dimen/dp_8</item>
+        <item name="itemPaddingBottom">@dimen/dp_10</item>
+    </style>
+
+    <style name="MusicBottomNavigationView.TextActive">
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorAccent</item>
+    </style>
+
+    <style name="MusicBottomNavigationView.TextInactive">
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black.a1</item>
+    </style>
+
+
+</resources>

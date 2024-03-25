@@ -88,7 +88,6 @@
     <string name="delete_playlist_message">Are you sure you want to delete playlist %1$s?</string>
     <string name="delete">Delete</string>
     <string name="playlist_edit_hint">Enter playlist name</string>
-    <string name="create">Create</string>
     <string name="next_song">Next Song</string>
     <string name="delete_song">Delete song?</string><!-- 删除该字段，只保留新翻译字段中的Delete %1$s? -->
     <string name="delete_song_message">Are you sure you want to delete %1$s?</string>
@@ -640,4 +639,9 @@
     <string name="video_player_moved_gpt">Video player moved here</string>
     <string name="lyrics_source_gpt">Lyrics source: anonymous user</string>
     <string name="upgrade">Upgrade</string>
+
+
+    <!--todo 有老的值 -->
+    <string name="create">create</string>
+    <string name="output">output</string>
 </resources>

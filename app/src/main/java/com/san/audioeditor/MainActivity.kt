@@ -1,8 +1,11 @@
 package com.san.audioeditor
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
 import com.san.audioeditor.databinding.ActivityMainBinding
+import com.san.audioeditor.fragment.IndexFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,8 +17,41 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Example of a call to a native method
-        binding.sampleText.text = stringFromJNI()
+        showFragment()
+    }
+
+    private fun showFragment() {
+        try {
+            clearPopBackStack()
+            val manager = supportFragmentManager
+            val transaction = manager.beginTransaction()
+            //获取旧的Fragment 保持Fragment堆栈干净
+            val oldFragment = manager.findFragmentById(R.id.fragment_container)
+            if (oldFragment != null) {
+                transaction.remove(oldFragment)
+            }
+            val f = manager.findFragmentByTag(IndexFragment::class.java.simpleName)
+            if (f != null) {
+                transaction.remove(f)
+            }
+            Log.d("MainFragment", "showLocalSongs() called")
+            transaction.replace(R.id.fragment_container, IndexFragment(), IndexFragment::class.java.simpleName)
+                .commitNowAllowingStateLoss()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun clearPopBackStack() {
+        try {
+            val manager = supportFragmentManager
+            if (manager.backStackEntryCount > 0) {
+                val entry = manager.getBackStackEntryAt(0)
+                manager.popBackStack(entry.id, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     /**
