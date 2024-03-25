@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="abbre_minute">мин</string>
+
+    <string name="access_all_features">Бесплатный доступ ко всем новым функциям в последующих версиях</string>
+    <string name="access_files">Разрешить доступ к мультимедийным файлам на устройстве.</string>
+
+    <string name="action_continue">Продолжить</string>
+    <string name="action_ok">Ok</string>
+    <string name="action_reset">Сброс</string>
+
+    <string name="add_playlist_unknow_error">Не удалось создать плейлист.</string>
+    <string name="add_to_playlist">Добавить в плейлист</string>
+    <string name="add_to_queue">Добавить в очередь</string>
+    <string name="add_tracks">Добавить песни</string>
+
+    <string name="added_to_favourite">Добавлено в Избранное.</string>
+
+    <string name="agree_continue">Принять и продолжить</string>
+
+    <string name="album_title">Альбом</string>
+
+    <string name="albums">Альбомы</string>
+
+    <string name="all_songs">Все песни</string>
+
+    <string name="allow">Позволять</string>
+    <string name="allow_access">Предоставить доступ</string>
+    <string name="allow_access_storage">Разрешить доступ к хранилищу данных</string>
+    <string name="allow_all_time">Разрешать всегда</string>
+
+    <string name="already_exists">Уже существует</string>
+
+    <string name="app_name_compat_mp3">Бесплатная музыка</string>
+    <string name="app_name_compat_music">Аудиоплеер</string>
+
+    <string name="apply_more_permission_killed_dialog_title">Приложение \"%s\" было принудительно остановлено</string>
+
+    <string name="artist_name">Имя артиста</string>
+    <string name="artist_title">Артист</string>
+
+    <string name="artists">Артисты</string>
+
+    <string name="ask_like_app">Устраивает ли вас приложение \"%s\"?</string>
+
+    <string name="auto_backups">Плейлист, сохраненный  автоматически</string>
+
+    <string name="backup">Резервная копия</string>
+    <string name="backup_fail">Ошибка сохранения</string>
+    <string name="backup_playlist">Сохранить плейлист</string>
+    <string name="backup_success">Сохранение выполнено</string>
+    <string name="backup_summary_playlist">%d плейлист</string>
+    <string name="backup_summary_playlists">%d плейлистов</string>
+    <string name="backup_title">Сохранить резервную копию?</string>
+
+    <string name="bass_boost">Подъем басов</string>
+
+    <string name="battery_opt_content">Для предотвращения внезапной остановки воспроизведения музыки предоставьте %s требуемое разрешение</string>
+    <string name="battery_opt_title_first">Предотвращение ненормальной остановки</string>
+
+    <string name="blur">Размытие</string>
+
+    <string name="cancel">Отмена</string>
+    <string name="cancel_favorite_success">Удалено из Избранного.</string>
+
+    <string name="change_album_art">Изменить обложку альбома</string>
+    <string name="change_cover">Сменить обложку</string>
+    <string name="change_cover_failed">Изменение обложки не выполнено</string>
+    <string name="change_language_title">Выберите язык</string>
+    <string name="change_picture">Изменить изображение</string>
+
+    <string name="choose_allow">Выберите «Разрешить»</string>
+
+    <string name="clear">Очистить</string>
+    <string name="clear_playlist">Очистить %s</string>
+    <string name="clear_queue_info">Действительно очистить очередь воспроизведения?</string>
+
+    <string name="color">Цвет</string>
+
+    <string name="confirm_and_fix">Мы проверим неполадки и как можно быстрее устраним их в следующей версии!</string>
+    <string name="confirm_information">Подтвердить сведения</string>
+
+    <string name="continue_to_work_hard">Мы продолжим усердно работать.</string>
+
+    <string name="count_album">%d альбом</string>
+    <string name="count_albums">%d альбомы</string>
+    <string name="count_artist">%s артист</string>
+    <string name="count_artists">%s артиста(ов)</string>
+    <string name="count_folder">%s папка</string>
+    <string name="count_folders">%s пап.</string>
+    <string name="count_genre">%s жанр</string>
+    <string name="count_genres">%s жанр.</string>
+    <string name="count_media_file">%d медиафайл</string>
+    <string name="count_media_files">Медиафайлы: %d</string>
+    <string name="count_song">%d песня</string>
+    <string name="count_songs">%d песни</string>
+    <string name="count_sub_folder">%d подпапка</string>
+    <string name="count_sub_folders">Подпапки: %d</string>
+
+    <string name="create">Создать</string>
+    <string name="create_new_playlist">Создать новый плейлист</string>
+
+    <string name="created_playlist">Список воспроизведения %s создан</string>
+
+    <string name="delete">Удалить</string>
+    <string name="delete_failed">Удаление не выполнено</string>
+    <string name="delete_from_device">Удалить с устройства</string>
+    <string name="delete_permission_access">При авторизации убедитесь, что вы &lt;b&gt;выделили нужную папку&lt;/b&gt;.</string>
+    <string name="delete_playlist_message">Вы действительно хотите удалить плейлист %1$s?</string>
+    <string name="delete_playlist_title">Удалить плейлист</string>
+    <string name="delete_some_no_premission">Остальные не удалось удалить из-за отсутствия разрешения.</string>
+    <string name="delete_song">Удалить песню?</string>
+    <string name="delete_song_message">Вы действительно хотите удалить %1$s?</string>
+
+    <string name="deleted_success">Успешно удалено</string>
+
+    <string name="details">Сведения</string>
+
+    <string name="dialog_message_set_ringtone">Для установки рингтона приложению Music Player требуется разрешение записать настройки системы.\n\nПредоставьте это разрешение и попробуйте установить рингтон еще раз.</string>
+    <string name="dialog_title_set_ringtone">Установка рингтона</string>
+
+    <string name="diet_for_you">Для вас</string>
+
+    <string name="directories">Каталоги</string>
+
+    <string name="directory_empty">Каталог пуст</string>
+
+    <string name="disagree_exit">Отказаться и выйти</string>
+
+    <string name="discard">Отклонить</string>
+
+    <string name="done">Готово</string>
+
+    <string name="duration">Длительности</string>
+
+    <string name="edit">Редактировать</string>
+    <string name="edit_photo">Редактирование</string>
+    <string name="edit_tag">Переименовать</string>
+    <string name="edit_tags">Редактирование тегов</string>
+
+    <string name="enable_lock_screen_tip">Для его включения выберите \"Настройки - Воспроизведение на экране блокировки\".</string>
+
+    <string name="end_period">Закончить</string>
+
+    <string name="enhancer_best_rating">Лучшая оценка для нас</string>
+    <string name="enhancer_thanks_rate_us">Благодарим за использование %s!\nМы будем очень благодарны, если вы оцените приложение.</string>
+
+    <string name="entered_same_name">Данное имя уже используется, введите другое имя.</string>
+
+    <string name="equ_custom">Свой</string>
+
+    <string name="equalizer">Эквалайзер</string>
+
+    <string name="error_playing_file_error">Не удалось воспроизвести, файл не существует</string>
+    <string name="error_playing_normal">Не удалось воспроизвести, произошла неизвестная ошибка</string>
+    <string name="error_playing_path_error">Не удалось воспроизвести, ошибка пути.</string>
+    <string name="error_playing_track">Ошибка воспроизведения трека %1$s</string>
+
+    <string name="exe_all">Все</string>
+
+    <string name="exit">Выйти</string>
+    <string name="exit_1">Выйти</string>
+    <string name="exit_scan">Выйти из сканирования?</string>
+
+    <string name="featured">Рекомендуемое</string>
+
+    <string name="feedback">Отзыв</string>
+    <string name="feedback_mail_text">Системная информация</string>
+
+    <string name="file_not_exist">Файл не существует</string>
+
+    <string name="folder_select_title">Выбор папок</string>
+
+    <string name="folders">Папки</string>
+
+    <string name="free_7_days_trial_1">БЕСПЛАТНЫЙ ПЕРИОД 7 ДНЕЙ</string>
+    <string name="free_space_needed">Нужно места: %s (рекомендуется)</string>
+    <string name="free_space_to_ensure">Освободите место для правильной работы приложения.</string>
+    <string name="free_up_space">Освободить место</string>
+
+    <string name="from_new_to_old">От старых к новым</string>
+    <string name="from_old_to_new">От новых к старым</string>
+
+    <string name="general">Общие</string>
+
+    <string name="genre_title">Жанр</string>
+
+    <string name="genres">Жанры</string>
+
+    <string name="go_premium">ПЕРЕХОДИТЕ НА «ПРЕМИУМ»</string>
+    <string name="go_to_album">Перейти к альбому</string>
+    <string name="go_to_artist">Перейти к исполнителю</string>
+
+    <string name="good">Хорошо</string>
+
+    <string name="guide_allow_description">Чтобы играть музыку,\nMusic Player нужен доступ к медиафайлам на вашем устройстве.</string>
+    <string name="guide_enable_description_1">Чтобы послушать музыку:</string>
+
+    <string name="help">Помощь</string>
+
+    <!--    <string name="hidden_directory">Скрытые папки</string>-->
+    <string name="hidden_directory">Скрытые\nпапки</string>
+
+    <string name="hide">Скрыть</string>
+
+    <string name="history">История</string>
+
+    <string name="ignore_less_duration">Игнорировать длительность менее</string>
+    <string name="ignore_less_size">Игнорировать размер менее</string>
+    <string name="ignore_short_files">Игнорировать файлы весом менее 50 К.</string>
+    <string name="ignore_short_song">Игнорировать песни длительностью менее 60 сек.</string>
+
+    <string name="import_clip_tips">Выберите текст песни и скопируйте его</string>
+    <string name="import_clip_tips_html">&lt;b&gt;Выберите&lt;/b&gt; текст песни и &lt;b&gt;скопируйте&lt;/b&gt; его</string>
+    <string name="import_clip_tips_save_title">Импортировать текст</string>
+    <string name="import_clip_tips_title">Как импортировать текст</string>
+    <string name="import_tel">Импорт</string>
+
+    <string name="insufficient_space">Не хватает места</string>
+
+    <string name="internal_sd">Внутренняя память</string>
+
+    <string name="language_title">Язык</string>
+
+    <string name="last_backup">Последнее сохранение: %s</string>
+
+    <string name="library">Библиотека</string>
+
+    <string name="local">Загруженное</string>
+    <string name="local_songs">Загруженные песни</string>
+
+    <string name="location">Расположение</string>
+
+    <string name="lock_screen_disable_confirm">Выключить Воспроизведение на экране блокировки?</string>
+
+    <string name="lucky_desc">Сейчас не нужно смотреть рекламу.</string>
+    <string name="lucky_title">Поздравляем, вам повезло!</string>
+
+    <string name="lyrics_add_local">Добавить с устройства</string>
+    <string name="lyrics_edit_song_info">Попробуйте изменить сведения о композиции, чтобы получить точный текст.</string>
+    <string name="lyrics_import_failed_no_format">Не удалось импортировать текст, файловый формат не поддерживается.</string>
+    <string name="lyrics_imported">Текст песни импортирован</string>
+    <string name="lyrics_load_failed">Не удалось загрузить текст</string>
+    <string name="lyrics_loading">Загружаем текст...</string>
+    <string name="lyrics_net_error">Ой, проверьте подключение к сети.</string>
+    <string name="lyrics_no_found">Ой, текст не найден.</string>
+    <string name="lyrics_no_matches">Не та песня или исполнитель</string>
+    <string name="lyrics_no_scroll">Текст не прокручивается</string>
+    <string name="lyrics_reset_msg">В этом случае будет удален добавленный текст песни.</string>
+    <string name="lyrics_reset_title">Действительно сбросить текст песни?</string>
+    <string name="lyrics_search_online">Искать в Сети</string>
+    <string name="lyrics_show_title">Текст</string>
+    <string name="lyrics_thanks_fb">Спасибо за отзыв! Мы постараемся всё исправить.</string>
+    <string name="lyrics_tx_error">В тексте ошибка</string>
+
+    <string name="manage_playlist">управлять</string>
+
+    <string name="manual_backups">Плейлист, сохраненный вручную</string>
+
+    <string name="more">Больше</string>
+    <string name="more_setting">Другие настройки</string>
+
+    <string name="music">Музыка</string>
+
+    <string name="music3_apply_more_permission_killed_dialog_title">Приложение %s принудительно остановлено</string>
+    <string name="music3_battery_opt_content">Предоставьте %s необходимые разрешения, чтобы воспроизведение в фоне не останавливалось принудительно.</string>
+    <string name="music3_battery_opt_title_first">Для непрерывного воспроизведения в фоне</string>
+    <string name="music3_clear_queue_info">Список воспроизведения будет очищен. Вы уверены, что хотите продолжить?</string>
+    <string name="music3_delete_playlist_message">Удалить список воспроизведения «%1$s»?</string>
+    <string name="music3_delete_song_message">Удалить «%1$s»?</string>
+    <string name="music3_exit_scan">Прекратить сканирование?</string>
+    <string name="music3_free_space_to_ensure">Чтобы приложение работало надлежащим образом, освободите место.</string>
+    <string name="music3_guide_allow_description">Предоставьте %s доступ к медиафайлам, чтобы воспроизводить музыку.</string>
+    <string name="music3_guide_enable_description_1">Чтобы воспроизводить музыку:</string>
+    <string name="music3_import_clip_tips_html">&lt;b&gt;Выберите&lt;/b&gt; текст и нажмите &lt;b&gt;Копировать&lt;/b&gt;.</string>
+    <string name="music3_import_clip_tips_title">Как импортировать текст?</string>
+    <string name="music3_lyrics_edit_song_info">Проверьте правильность информации о песне ниже и повторите попытку.</string>
+    <string name="music3_lyrics_load_failed">Текст не загрузился</string>
+    <string name="music3_lyrics_no_found">К сожалению, не удалось найти текст.</string>
+    <string name="music3_lyrics_no_matches">Несовпадение песни или исполнителя</string>
+    <string name="music3_lyrics_no_scroll">Текст не может прокручиваться</string>
+    <string name="music3_lyrics_reset_msg">При этом добавленный текст будет удален.</string>
+    <string name="music3_lyrics_reset_title">Сбросить текст?</string>
+    <string name="music3_lyrics_tx_error">Текст неправильный</string>
+    <string name="music3_resume_playback_content">Мы определили, что воспроизведение музыки прервано другим приложением.</string>
+    <string name="music3_resume_playback_title">Возобновить воспроизведение?</string>
+    <string name="music3_summary_pause_detach">Включать паузу, когда наушники отсоединяются</string>
+    <string name="music3_tag_edit_discard_change">Выйти и удалить изменения?</string>
+    <string name="music3_terms_of_service_should_agree">Примите наши %1$s и %2$s и начните слушать музыку!</string>
+    <string name="music3_thanks_for_your_feedback">Спасибо за ваш ценный отзыв.</string>
+
+    <string name="music_guide_allow_description">Чтобы играть музыку, %s нужен доступ к медиафайлам на вашем устройстве.</string>
+    <string name="music_player_share_text">Вот, держи песню из %1$s.</string>
+
+    <string name="my_favourite">Избранное</string>
+
+    <string name="network_error">Ошибка сети</string>
+    <string name="network_error_pls_try">Ошибка сети, попробуйте позже</string>
+
+    <string name="new_playlist">Новый плейлист</string>
+    <string name="new_share_email_text">Я пользуюсь Music Player.\\n\\nПопробуйте сами. Скачать можно здесь:\\n</string>
+
+    <string name="next_song">Следующая песня</string>
+
+    <string name="no_backup">Резервные копии не найдены</string>
+    <string name="no_document_provider">Провайдер документов недоступен, чтобы предоставить разрешение на запрос</string>
+    <string name="no_songs_found">Песни не найдены</string>
+
+    <string name="not_good">Не совсем</string>
+
+    <string name="nothing_found">Ничего не найдено</string>
+
+    <string name="now_playing">Тема плеера</string>
+
+    <string name="number_song_add_playlist">%d песня добавлена в плейлист.</string>
+    <string name="number_song_add_queue">%d песня добавлена в очередь.</string>
+    <string name="number_song_selected">%d песня выбрана</string>
+    <string name="number_songs_add_playlist">Песен добавлено в плейлист: %d.</string>
+    <string name="number_songs_add_queue">Песен добавлено в очередь: %d.</string>
+    <string name="number_songs_selected">Песен выбрано: %d.</string>
+
+    <string name="off">Выкл</string>
+
+    <string name="open_settings">Открыть Настройки</string>
+
+    <string name="options_ads">Слишком много рекламы</string>
+    <string name="options_bugs">Ошибки</string>
+    <string name="options_music_stop">Останавливается воспроизведение музыки</string>
+    <string name="options_others">Другое</string>
+    <string name="options_songs_not_found">Некоторые песни не отображаются</string>
+    <string name="options_suggestions">Предложения</string>
+
+    <string name="pause_detach">Пауза при отключении</string>
+
+    <string name="pg_permission_dialog_title">Требуется разрешение</string>
+
+    <string name="play">Воспроизвести</string>
+    <string name="play_after_song">Воспроизвести после текущей песнни</string>
+    <string name="play_next">Воспроизвести след.</string>
+
+    <string name="playing_queue">Играет в очереди</string>
+
+    <string name="playlist">Плейлисты</string>
+    <string name="playlist_already_exist">%1$s уже существует.</string>
+    <string name="playlist_edit_hint">Введите название плейлиста</string>
+    <string name="playlist_last_added">Новые</string>
+    <string name="playlist_most_played">Лучшие треки</string><!--原翻译比较长 Чаще всего прослушиваемые -->
+    <string name="playlist_recently_played">Недавно играли</string>
+    <string name="playlist_top_tracks">Лучшие треки</string>
+
+    <string-array name="preset_reverb">
+        <item>Нет</item>
+        <item>Маленькая комната</item>
+        <item>Средняя комната</item>
+        <item>Большая комната</item>
+        <item>Средний зал</item>
+        <item>Большой зал</item>
+        <item>Тарелка</item>
+    </string-array>
+
+    <string name="price_lifetime">%s/разовая покупка</string>
+
+    <string name="privacy_policy">Политика конфиденциальности</string>
+
+    <string name="queue">Очередь</string>
+
+    <string name="rate_us">Оцените нас</string>
+
+    <string name="rating_we_like_you">Вы нам тоже нравитесь!</string>
+
+    <string name="reader_exit_ads">Действительно выйти?</string>
+
+    <string name="remaining_x">Осталось: %s</string>
+
+    <string name="remind_me_anymore">Больше не напоминать</string>
+
+    <string name="remove">Удалить</string>
+    <string name="remove_ad">Убрать рекламу</string>
+    <string name="remove_from_playlist">Удалить из плейлиста</string>
+    <string name="remove_from_queue">Удалить из очередь</string>
+    <string name="remove_song_message">Действительно удалить %s?</string>
+
+    <string name="rename">Переименовать</string>
+    <string name="rename_failed">Переименование не выполнено.</string>
+    <string name="rename_success">Переименование выполнено.</string>
+
+    <string name="repeat_loop">Повторять все</string>
+    <string name="repeat_off">Повтор выключен</string>
+    <string name="repeat_order">Порядок</string>
+    <string name="repeat_repeat">Повторять</string>
+    <string name="repeat_shuffle">В случайном порядке</string>
+
+    <string name="restore_failed">Ошибка восстановления</string>
+    <string name="restore_playlist">Восстановить плейлист</string>
+    <string name="restore_success">Восстановление выполнено</string>
+
+    <string name="result">Результат</string>
+
+    <string name="resume">Пpoдoлжить</string>
+    <string name="resume_playback_content">Мы обнаружили, что воспроизведение музыки было прервано другими приложениями.</string>
+    <string name="resume_playback_title">Хотите возобновить воспроизведение?</string>
+
+    <string name="retry">Повторить</string>
+
+    <string name="reverb">Реверберация</string>
+
+    <string name="ringtone_set">Установка выполнена</string>
+    <string name="ringtone_set_failed">Установка не выполнена</string>
+
+    <string name="save">Сохранить</string>
+
+    <string name="saving_tags">Сохранение тегов...</string>
+
+    <string name="scan">Сканировать</string>
+<!--    <string name="scan_library">Сканировать музыку</string>-->
+    <string name="scan_library">Скан. музыка</string><!-- Google改短，原译文：Сканировать музыку -->
+    <string name="scan_result">%1$s пес. добавлено в %2$s</string>
+
+    <string name="scanner_lib_rate_leave_feedback">Будем рады услышать ваши отзывы.</string>
+    <string name="scanner_lib_rate_like_you">Благодарим!</string>
+    <string name="scanner_share_dialog_title_2">Спасибо вам за поддержку!</string>
+
+    <string name="scanning">Сканирование</string>
+
+    <string name="screen_lock_play">Воспроизв. на экране блокировки</string>
+
+    <string name="sd_card_access_step_1_format">
+        <![CDATA[Нажмите на кнопку в левом верхнем углу и <font color=\"#F44831\"><b>выберите SD-карту</b></font>.]]>
+    </string>
+    <string name="sd_card_access_step_2_format">
+        <![CDATA[<font color=\"#F44831\"><b>Нажмите ВЫБРАТЬ</b></font> в низу следующего экрана, чтобы дать разрешение на запись.]]>
+    </string>
+    <string name="sd_tips">Выберите &lt;b&gt;корневую папку&lt;/b&gt; внешней SD-карты &lt;br/&gt;&lt;b&gt;(%s)&lt;/b&gt;, чтобы  предоставить разрешение для работы приложения.</string>
+
+    <string name="sdcard_permission_required">Для удаления песен с SD-карты требуется разрешение.</string>
+
+    <string name="search">Поиск</string>
+    <string name="search_albums">Поиск альбомов</string>
+    <string name="search_artists">Поиск артистов</string>
+    <string name="search_folders">Поиск папок</string>
+    <string name="search_genres">Поиск жанров</string>
+    <string name="search_history">История поиска</string>
+    <string name="search_library">Искать в библиотеке</string>
+    <string name="search_music_on_youtube">Поиск песен на YouTube</string>
+    <string name="search_on_youtube">Искать в YouTube</string>
+    <string name="search_songs">Поиск песен</string>
+
+    <string name="select_all">Выбрать все</string>
+    <string name="select_backup">Выберите рез. копию для восстановления</string>
+    <string name="select_folder">Выбрать папки</string>
+
+    <string name="set">Установить</string>
+    <string name="set_as_ringtone">Установить как рингтон</string>
+    <string name="set_ringtone">Установить %s в качестве сигнала вызова?</string>
+    <string name="set_ringtone_message">Чтобы установить сигнал вызова, предоставьте необходимые разрешения.</string>
+
+    <string name="settings">Настройки</string>
+
+    <string name="share">Поделиться</string>
+    <string name="share_email_title">Поделиться Music Player</string>
+
+    <string name="show">Показать</string>
+
+    <string name="shuffle">Перемешать</string>
+    <string name="shuffle_off">Перемешивание выключено</string>
+    <string name="shuffle_on">Перемешивание включено</string>
+
+    <string name="size">Размер</string>
+
+    <string name="sleep_timer">Таймер сна</string>
+
+    <string name="slide_to_unlock">Проведите, чтобы разблок.</string>
+
+    <string name="song">Песня</string>
+    <string name="song_added_plural">Добавлено %s нов. песни(-ен).</string>
+    <string name="song_added_singular">Добавлена %s новая песня.</string>
+    <string name="song_deleted">%d песня удалена</string>
+    <string name="song_name">Название песни</string>
+    <string name="song_scanned_plural">Отсканировано %s песни(-ен).</string>
+    <string name="song_scanned_singular">Отсканирована %s песня.</string>
+    <string name="song_title">Название</string>
+
+    <string name="songs">Песни</string>
+    <string name="songs_deleted">%d песен удалено</string>
+
+    <string name="sort_by">Сортировать по</string>
+    <string name="sort_by_name">Имя</string>
+    <string name="sort_key_add_playlist">Время добавления в список воспроизведения</string>
+    <string name="sort_key_album_name">Название альбома</string>
+    <string name="sort_key_number_of_albums">Количество альбомов</string>
+    <string name="sort_key_time_added">Время добавления</string>
+    <string name="sort_key_track">Порядок в альбоме</string>
+    <string name="sort_order_a_z">От А до Я</string>
+    <string name="sort_order_big_small">По убыванию размера</string>
+    <string name="sort_order_entry_number_of_songs">Количеству песен</string>
+    <string name="sort_order_long_short">По убыванию длительности</string>
+    <string name="sort_order_short_long">По увеличению длительности</string>
+    <string name="sort_order_small_big">По увеличению размера</string>
+    <string name="sort_order_z_a">От Я до А</string>
+
+    <string name="start">Начало</string>
+
+    <string name="storage">Память</string>
+
+    <string name="subscription_des_music">Подписка открывает неограниченный доступ к библиотеке материалов приложения. Если не отменить подписку до конца пробного периода, с вас до отмены будет ежемесячно сниматься %s.</string>
+    <string name="subscription_detail">Условия подписки</string>
+    <string name="subscription_price">после этого %s в месяц</string>
+
+    <string name="summary_feedback">Сообщить об ошибке или дать совет</string>
+    <string name="summary_pause_detach">Музыка становится на паузу при отключении наушников</string>
+    <string name="summary_rateUs">Вам нравится приложение? Тогда поставьте отзыв!</string>
+    <string name="summary_screen_lock_play">Показывать, что играет, на экране блокировки</string>
+
+    <string name="system">Система</string>
+    <string name="system_default">система по умолчанию</string>
+
+    <string name="tag_edit_discard_change">Вы уверены, что хотите отклонить изменения?</string>
+    <string name="tag_edit_error">Редактирование не выполнено.</string>
+    <string name="tag_edit_success">Редактирование выполнено.</string>
+
+    <string name="tap_permission">Нажмите «Разрешения»</string>
+    <string name="tap_to_start">Нажмите, чтобы запустить Music Player</string>
+
+    <string name="terms_of_service">Условия использования</string>
+    <string name="terms_of_service_guide">Коснувшись «%1$s», вы указываете, что вы прочитали и принимаете «%2$s» и «%3$s».</string>
+    <string name="terms_of_service_should_agree">Для использования %1$s вы должны принять «%2$s» и «%3$s».</string>
+
+    <string name="thanks_for_loving_x">Мы рады, что вам нравится %s.</string>
+    <string name="thanks_for_your_feedback">Спасибо за отзыв!</string>
+
+    <string name="theme">Графическая тема</string>
+
+    <string name="thx_feedback_tip">Мы исправим проблему в будущей версии. Извините за неудобство.</string>
+
+    <string name="timer_after_this">До конца текущей песни</string>
+    <string name="timer_stop_after">Остановить музыку через</string>
+    <string name="timer_turn_off">Таймер сна выключен</string>
+    <string name="timer_turn_off_latter">Выключится через %s</string>
+
+    <string name="title_is_null">Название не может быть пустым.</string>
+
+    <string name="transparency">Прозрачность</string>
+
+    <string name="turn_off">Выключить</string>
+    <string name="turn_off_after">Выключится через %1$d мин.</string>
+    <string name="turn_off_ends">Выключится после текущей песни</string>
+    <string name="turn_storage">Откройте доступ к памяти</string>
+
+    <string name="unit_secs">сек</string>
+
+    <string name="unknow_error">Произошла неизвестная ошибка</string>
+
+    <string name="unlock_for_free">Разблокировать БЕСПЛАТНО</string>
+    <string name="unlock_premium_themes">Разблокировка всех тем</string>
+
+    <string name="version">Версия</string>
+
+    <string name="view">Просмотреть</string>
+    <string name="view_all">Смотреть все</string>
+
+    <string name="virtualizer">Виртуалайзер</string>
+
+    <string name="vivo_deny">Запретить (19 c)</string>
+
+    <string name="what_a_pity">Очень жаль!</string>
+
+    <string name="x_hours">%s ч.</string>
+    <string name="x_minutes">%s мин.</string>
+    <string name="x_seconds">%s с</string>
+    <string name="x_selected">Выбрано %s</string>
+    <string name="x_song_hide_single">%1$s песня скрыта, перейдите в %2$s, чтобы показать ее.</string>
+    <string name="x_songs_hide_1">Некоторые песни (%1$s) скрыты, перейдите в %2$s, чтобы показать их.</string>
+
+    <string name="xbooster_notification_access">Доступ к Уведомлениям</string>
+
+    <string name="yes">ДА</string>
+    <string name="music3_remove_successfully">Успешно удалено</string>
+    <string name="camera_preparing">Подготовка…</string>
+
+    <string name="widget_tap_start">Нажмите для запуска Аудиоплеер</string>
+    <string name="music3_notification_access_desc">Предоставьте %s доступ к уведомлениям, чтобы оперативно управлять воспроизведением музыки из центра уведомлений.</string>
+    <string name="music3_app_name">Аудиоплеер</string>
+
+    <string name="go_file_manager">Перейти</string>
+    <string name="music3_click_to_authorize">Нажмите здесь для разрешения</string>
+    <string name="music3_language_guide">Выберите язык, отличающийся от пункта «Система», и нажмите здесь для подтверждения.</string>
+    <string name="pdf_reader2_enter_homepage_guide">Нажмите, чтобы войти на главную страницу</string>
+
+    <string name="mp3_current_speed">Скорость сейчас: %s</string>
+    <string name="mp3_edit_lyrics">Правка текста</string>
+    <string name="mp3_enter_lyrics">Ввести текст</string>
+    <string name="mp3_enter_lyrics_here">Введите текст здесь…</string>
+    <string name="music3_playback_speed">Скорость воспроизведения</string>
+    <string name="music3_playback_speed_changed">Скорость воспроизведения изменена на %sX</string>
+    <string name="music3_playback_speed_num">Скорость воспроизведения: %s</string>
+    <string name="normal">Норма</string>
+    <string name="paste">Вставить</string>
+    <string name="music3_playback_speed_changed_failed">Не удалось изменить на %sX, сброшено до 1.0X</string>
+
+    <string name="music3_app_title_1">Аудиоплеер - DDMusic</string>
+    <string name="music3_delete_permission_access">&#60;b&#62;Выполняйте шаги на следующей странице&#60;/b&#62;, чтобы предоставить доступ.</string>
+    <string name="music3_delete_some_no_premission">Но для остальных это сделать не удалось из-за &#60;b&#62;проблем с разрешениями&#60;/b&#62;.</string>
+    <string name="music3_delete_videos_gpt">Удалить %s видео?</string>
+    <string name="music3_error_playing_video_gpt">Ошибка воспроизведения видео \&#34;%s\&#34;</string>
+    <string name="music3_grant_media_files_access_gpt">Пожалуйста, предоставьте доступ к медиафайлам %s для воспроизведения видео.</string>
+    <string name="music3_next">Следующее</string>
+    <string name="music3_resume_auto">Продолжить воспроизведение с того места, где вы остановились</string>
+    <string name="music3_scan_local_videos_gpt">Для сканирования локальных видео, пожалуйста:</string>
+    <string name="music3_scan_video_gpt">Сканировать видео</string>
+    <string name="music3_sd_card_access_step_2_format">Затем &#60;b&#62;нажмите «Выбрать»&#60;/b&#62;, чтобы предоставить разрешение на запись.</string>
+    <string name="music3_sd_write_access_required_gpt">Удаление видео с карты памяти требует доступа на запись</string>
+    <string name="music3_search_videos">Поиск видео</string>
+    <string name="music3_select_albums_gpt">Выбрать альбомы</string>
+    <string name="music3_select_artists_gpt">Выбрать исполнителей</string>
+    <string name="music3_select_genres_gpt">Выбрать жанры</string>
+    <string name="music3_select_playlists_gpt">Выбрать плейлисты</string>
+    <string name="music3_select_songs_gpt">Выбрать песни</string>
+    <string name="music3_select_videos_gpt">Выбрать видео</string>
+    <string name="music3_videos_added_gpt">&#60;b&#62;%1$s&#60;/b&#62; видео добавлены в %2$s</string>
+    <string name="music3_video_info_gpt">Информация о видео</string>
+    <string name="music3_video_name_gpt">Название видео</string>
+    <string name="music3_video_not_found_gpt">Видео не найдено?</string>
+    <string name="music3_x_new_videos_added_gpt">%s новых видео добавлено</string>
+    <string name="music3_x_videos_deleted_gpt">%s видео удалено</string>
+
+    <string name="allplayer_fast_forward">Быстрая перемотка вперед</string>
+    <string name="allplayer_mute_play_gpt">Беззвучное воспроизведение</string>
+    <string name="allplayer_recently_watched_gpt">Недавно просмотренные</string>
+    <string name="brightness">Яркость</string>
+    <string name="btn_allow">Разрешить</string>
+    <string name="enter_name">Введите имя</string>
+    <string name="got_it_1">ОК</string>
+    <string name="music3_1_new_video_added_gpt">%s новое видео добавлено</string>
+    <string name="music4_allow_photo_video">Предоставьте доступ к фотографиям и видео</string>
+    <string name="music4_photo_permission_step3">Находите фото и видео и касайтесь их</string>
+    <string name="music_3_video_share">Видео для вас от %1$s %2$s</string>
+    <string name="no_videos_found">Видеофайлов не найдено</string>
+    <string name="n_videos">%s видео</string>
+    <string name="n_videos_1">%s видео</string>
+    <string name="one_video">1 видео</string>
+    <string name="pause_play">Пауза/Воспроизведение</string>
+    <string name="rewind">Перемотка</string>
+    <string name="rp_next">Следующее</string>
+    <string name="sd_card_access_step_1">Нажмите на кнопку в левом верхнем углу и &#60;b&#62;выберите SD-карту&#60;/b&#62;.</string>
+    <string name="sound_boost_tips">Продолжайте, чтобы увеличить громкость до 200%</string>
+    <string name="start_over">Повторить сначала й</string>
+    <string name="tab_videos">Видео</string>
+    <string name="tap_again_to_exit">Нажмите еще раз, чтобы выйти</string>
+    <string name="video">Видео</string>
+    <string name="volume">Громкость</string>
+    <string name="xgallery_no_next_video">Уже на последнем видео</string>
+    <string name="xgallery_no_previous_video">Уже на первом видео</string>
+    <string name="xgallery_playing_lock_screen">Экран заблокирован</string>
+    <string name="xgallery_playing_unlock_screen">Экран разблокирован</string>
+    <string name="xgallery_sound_off">Звук выключен</string><!-- ChatGPT翻译 -->
+    <string name="xgallery_sound_on">Звук включен</string><!-- ChatGPT翻译 -->
+    <string name="zoom_in_out">Ближе/дальше</string><!-- 173540 -->
+    <string name="music3_1_video_deleted_gpt">%s видео удалено</string>
+    <string name="music4_choose_allow">Выберите Разрешить</string>
+    <string name="open_settings_1">Откройте настройки</string>
+    <string name="music4_error_playing_file_error">Не удалось воспроизвести, недействительный файл.</string>
+    <string name="music4_error_playing_path_error">Не удалось воспроизвести, недействительный путь к файлу.</string>
+    <string name="music3_1_song_added_gpt">&#60;b&#62;1&#60;/b&#62; песня добавлена в %s</string>
+    <string name="music3_1_video_added_gpt">&#60;b&#62;1&#60;/b&#62; видео добавлено в %s</string>
+
+    <string name="all_reader2_major_update_gpt">Крупное обновление</string>
+    <string name="all_reader2_new_version_en_desc_5_gpt">Улучшенный опыт использования</string>
+    <string name="all_reader2_new_version_gpt">Новая версия</string>
+    <string name="all_reader2_new_version_ready_gpt">Новая версия готова!</string>
+    <string name="all_reader2_new_version_title_plan1_gpt">Наша последняя версия получила 5-звездочные отзывы от %s пользователей!</string>
+    <string name="booster2_new_version_des2_gpt">Присоединяйтесь к %s довольным пользователям и обновитесь для пятизвездочного опыта!</string>
+    <string name="booster2_new_version_des3_gpt">Наша последняя версия может похвастаться впечатляющим %s уровнем удовлетворенности пользователей на данный момент.</string>
+    <string name="booster2_version_update">Обновление версии</string>
+    <string name="docx_new_version_benefits3_gpt">Исправлены небольшие ошибки</string>
+    <string name="install">Установить</string>
+    <string name="lyrics_source_gpt">Источник текстов: анонимный пользователь</string>
+    <string name="pdf_reader3_update_from_gp_gpt">Не удалось, пожалуйста, обновитесь из Google Play</string>
+    <string name="recommended">Рекомендуется</string>
+    <string name="step4_update_reason_1_gpt">В этом обновлении мы исправили несколько проблем и улучшили общую производительность приложения.</string>
+    <string name="update">Обновить</string>
+    <string name="update_failed_network_wg_gpt">Обновление не удалось, проверьте вашу сеть и попробуйте еще раз</string>
+    <string name="update_now_for_better_1">Вы можете &#60;b&#62;обновиться сейчас&#60;/b&#62; для лучшего опыта.</string>
+    <string name="updating">Обновление...</string>
+    <string name="upgrade">Обновить</string>
+    <string name="upgrade_to_new_version">Почувствуйте улучшенную производительность и повышенную стабильность с нашей последней версией. \n\n&#60;b&#62;Коснитесь, чтобы обновить сейчас.&#60;/b&#62;</string>
+    <string name="upload_lyrics_statement_gpt">Когда вы загружаете тексты песен в наше приложение, пожалуйста, убедитесь, что у вас есть право на это и что ваша загрузка не нарушает никаких прав интеллектуальной собственности. Загружая, вы разрешаете нам использовать ваш контент бесплатно, и мы укажем его источник как \&#34;анонимного пользователя\&#34;.</string>
+    <string name="video_player_in_music_gpt">Видеоплеер</string>
+    <string name="video_player_moved_gpt">Видеоплеер перемещен сюда</string>
+</resources>

@@ -1,0 +1,687 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+    <string name="abbre_minute">دقیقه</string>
+
+    <string name="access_all_features">دسترسی رایگان به همه ویژگی‌های جدید نسخه‌های آینده</string>
+    <string name="access_files">اجازه دسترسی به فایل‌های رسانه‌ای روی دستگاه را بدهید.</string>
+
+    <string name="action_continue">ادامه</string>
+    <string name="action_ok">تأیید</string>
+    <string name="action_reset">بازنشانی</string>
+
+    <string name="add_playlist_unknow_error">ایجاد لیست پخش امکان‌پذیر نیست</string>
+    <string name="add_to_playlist">افزودن به لیست پخش</string>
+    <string name="add_to_queue">افزودن به صف</string>
+    <string name="add_tracks">افزودن آهنگ</string>
+
+    <string name="added_to_favourite">به علاقمندی‌ها اضافه شد</string>
+
+    <string name="agree_continue">اعلام موافقت و ادامه</string>
+
+    <string name="album_title">آلبوم</string>
+
+    <string name="albums">آلبوم‌ها</string>
+
+    <string name="all_songs">همه آهنگ‌ها</string>
+
+    <string name="allow">اجازه دادن</string>
+    <string name="allow_access">اجازه دسترسی</string>
+    <string name="allow_access_storage">دادنِ اجازه دسترسی به حافظه</string>
+    <string name="allow_all_time">دادنِ اجازه برای همیشه</string>
+
+    <string name="already_exists">از قبل وجود دارد</string>
+
+    <string name="app_name_compat_mp3">موسیقی رایگان</string>
+    <string name="app_name_compat_music">پخش‌کننده موسیقی</string>
+
+    <string name="apply_more_permission_killed_dialog_title">%s به اجبار متوقف شد</string>
+
+    <string name="artist_name">نام هنرمند</string>
+    <string name="artist_title">هنرمند</string>
+
+    <string name="artists">هنرمندان</string>
+
+    <string name="ask_like_app">آیا از %s راضی هستید؟</string>
+
+    <string name="auto_backups">پشتیبان‌گیری خودکار از لیست</string>
+
+    <string name="backup">پشتیبانی</string>
+    <string name="backup_fail">پشتیبان‌گیری ناموفق بود</string>
+    <string name="backup_playlist">پشتیبان‌گیری از لیست پخش</string>
+    <string name="backup_success">پشتیبان‌گیری موفقیت‌آمیز بود</string>
+    <string name="backup_summary_playlist">%d لیست پخش</string>
+    <string name="backup_summary_playlists">%d لیست پخش</string>
+    <string name="backup_title">پشتیبان‌گیری؟</string>
+
+    <string name="bass_boost">تقویت باس</string>
+
+    <string name="battery_opt_content">برای اجتناب از توقف غیرعادی پخش موسیقی، لطفاً اجازه لازم را به %s بدهید</string>
+    <string name="battery_opt_title_first">اجتناب از توقف غیرعادی</string>
+
+    <string name="blur">تاری</string>
+
+    <string name="cancel">لغو</string>
+    <string name="cancel_favorite_success">از موردعلاقه‌ها حذف شد</string>
+
+    <string name="change_album_art">تغییر جلد آلبوم</string>
+    <string name="change_cover">تغییر کاور</string>
+    <string name="change_cover_failed">تغییر جلد آلبوم ناموفق بود</string>
+    <string name="change_language_title">انتخاب زبان</string>
+    <string name="change_picture">تغییر عکس</string>
+
+    <string name="choose_allow">انتخاب \"مجاز\"</string>
+
+    <string name="clear">پاک کن</string>
+    <string name="clear_playlist">پاکسازی %s</string>
+    <string name="clear_queue_info">مطمئنید که می‌خواهید صف پخش را پاک کنید؟</string>
+
+    <string name="color">رنگ</string>
+
+    <string name="confirm_and_fix">مشکل را در اسرع وقت تایید و در نسخه بعدی حل خواهیم کرد!</string>
+    <string name="confirm_information">تایید اطلاعات</string>
+
+    <string name="continue_to_work_hard">همچنان سخت تلاش خواهیم کرد.</string>
+
+    <string name="count_album">%d آلبوم</string>
+    <string name="count_albums">%d آلبوم</string>
+    <string name="count_artist">%s هنرمند</string>
+    <string name="count_artists">%s هنرمند</string>
+    <string name="count_folder">%s پوشه</string>
+    <string name="count_folders">%s پوشه</string>
+    <string name="count_genre">%s ژانر</string>
+    <string name="count_genres">%s ژانر</string>
+    <string name="count_media_file">%d فایل رسانه‌ای</string>
+    <string name="count_media_files">%d فایل رسانه‌ای</string>
+    <string name="count_song">%d آهنگ</string>
+    <string name="count_songs">%d آهنگ</string>
+    <string name="count_sub_folder">%d زیرپوشه</string>
+    <string name="count_sub_folders">%d زیرپوشه</string>
+
+    <string name="create">ایجاد</string>
+    <string name="create_new_playlist">ایجاد لیست پخش جدید</string>
+
+    <string name="created_playlist">لیست پخش %s ایجاد شد</string>
+
+    <string name="delete">حذف</string>
+    <string name="delete_failed">حذف نشد</string>
+    <string name="delete_from_device">حذف از دستگاه</string>
+    <string name="delete_permission_access">موقع اعطای مجوز، لطفاً دقت کنید که &lt;b&gt;پوشه درست را انتخاب نمایید&lt;/b&gt;.</string>
+    <string name="delete_playlist_message">مطمئنید که می‌خواهید لیست پخش %1$s را حذف کنید؟</string>
+    <string name="delete_playlist_title">حذف لیست پخش</string>
+    <string name="delete_some_no_premission">بقیه به‌خاطر عدم وجود مجوز انجام نشد.</string>
+    <string name="delete_song">آهنگ حذف شود؟</string>
+    <string name="delete_song_message">مطمئنید که می‌خواهید %1$s را حذف کنید؟</string>
+
+    <string name="deleted_success">با موفقیت حذف شد</string>
+
+    <string name="details">جزئیات</string>
+
+    <string name="dialog_message_set_ringtone">برای تنظیم آهنگ زنگ، %s نیاز دارد مجوز دسترسی به تنظیمات سیستم را داشته باشد.\n\nبعد از اعطاء مجوز، سعی کنید دوباره آهنگ زنگ خود را تنظیم کنید.</string>
+    <string name="dialog_title_set_ringtone">تنظیم آهنگ زنگ</string>
+
+    <string name="diet_for_you">برای شما</string>
+
+    <string name="directories">دایرکتوری‌ها</string>
+
+    <string name="directory_empty">دایرکتوری خالی است</string>
+
+    <string name="disagree_exit">اعلام مخالفت و خروج</string>
+
+    <string name="discard">دور ریختن</string>
+
+    <string name="done">تمام</string>
+
+    <string name="duration">مدت زمان</string>
+
+    <string name="edit">ویرایش</string>
+    <string name="edit_photo">ویرایش عکس</string>
+    <string name="edit_tag">ویرایش برچسب</string>
+    <string name="edit_tags">ویرایش برچسب‌ها</string>
+
+    <string name="enable_lock_screen_tip">می‌توانید از طریق \"%1$s - %2$s\" آن را فعال کنید.</string>
+
+    <string name="end_period">پایان</string>
+
+    <string name="enhancer_best_rating">بهترین امتیاز برای ما</string>
+    <string name="enhancer_thanks_rate_us">بابت استفاده از %s متشکریم!\nاگر به ما امتیاز دهید بسیار قدردان خواهیم بود.</string>
+
+    <string name="entered_same_name">این نام قبلاً وجود دارد. لطفاً نام دیگری را امتحان کنید.</string>
+
+    <string name="equ_custom">به صورت دلخواه</string>
+
+    <string name="equalizer">اکولایزر</string>
+
+    <string name="error_playing_file_error">پخش انجام نشد؛ فایل وجود ندارد</string>
+    <string name="error_playing_normal">پخش انجام نشد؛ یک خطای ناشناخته رخ داد</string>
+    <string name="error_playing_path_error">پخش انجام نشد؛ خطای مسیر.</string>
+    <string name="error_playing_track">خطا در پخش آهنگ %1$s</string>
+
+    <string name="exe_all">همه</string>
+
+    <string name="exit">خروج</string>
+    <string name="exit_1">خروج</string>
+    <string name="exit_scan">از حالت جستجو خارج می‌شوید؟</string>
+
+    <string name="featured">برجسته</string>
+
+    <string name="feedback">بازخوردی</string>
+    <string name="feedback_mail_text">اطلاعات سیستم</string>
+
+    <string name="file_not_exist">فایل وجود ندارد</string>
+
+    <string name="folder_select_title">انتخاب پوشه‌ها</string>
+
+    <string name="folders">پوشه‌ها</string>
+
+    <string name="free_7_days_trial_1">نسخه آزمایشی ۷ روزه رایگان</string>
+    <string name="free_space_needed">فضای موردنیاز: %s (توصیه می‌شود)</string>
+    <string name="free_space_to_ensure">لطفاً برای اطمینان از عملکرد درست برنامه، مقداری فضا خالی کنید.</string>
+    <string name="free_up_space">خالی کردن فضا</string>
+
+    <string name="from_new_to_old">از قدیمی به جدید</string>
+    <string name="from_old_to_new">از جدید به قدیمی</string>
+
+    <string name="general">عمومی</string>
+
+    <string name="genre_title">ژانر</string>
+
+    <string name="genres">ژانرها</string>
+
+    <string name="go_premium">دریافت نسخه پرمیوم</string>
+    <string name="go_to_album">برو به آلبوم</string>
+    <string name="go_to_artist">برو به هنرمند</string>
+
+    <string name="good">خوب</string>
+
+    <string name="guide_allow_description">برای گوش دادن به موسیقی،\nXMusic باید به فایلهای رسانه در دستگاه‌تان دسترسی پیدا کند.</string>
+    <string name="guide_enable_description_1">برای گوش دادن به موسیقی، کارهای زیر را باید انجام دهید:</string>
+
+    <string name="help">کمک</string>
+
+    <string name="hidden_directory">پوشه‌های مخفی</string>
+
+    <string name="hide">پنهان شدن</string>
+
+    <string name="history">سابقه</string>
+
+    <string name="ignore_less_duration">نادیده گرفتن مدت زمان کمتر از</string>
+    <string name="ignore_less_size">نادیده گرفتن حجم کمتر از</string>
+    <string name="ignore_short_files">نادیده گرفتن فایل‌های کم‌حجم‌تر از 50 کیلوبایت</string>
+    <string name="ignore_short_song">نادیده گرفتن آهنگ‌های کوتاه‌تر از 60 ثانیه</string>
+
+    <string name="import_clip_tips">لطفاً متن آهنگ را انتخاب و آن را کپی کنید</string>
+    <string name="import_clip_tips_html">للطفاً متن آهنگ &lt;b&gt;را انتخاب&lt;/b&gt; و آن &lt;b&gt;را کپی کنید&lt;/b&gt;</string>
+    <string name="import_clip_tips_save_title">وارد کردن متن آهنگ</string>
+    <string name="import_clip_tips_title">نحوه وارد کردن متن آهنگ</string>
+    <string name="import_tel">وارد کردن</string>
+
+    <string name="insufficient_space">فضای ناکافی</string>
+
+    <string name="internal_sd">حافظه داخلی</string>
+
+    <string name="language_title">زبان</string>
+
+    <string name="last_backup">آخرین پشتیبان‌گیری: %s</string>
+
+    <string name="library">کتابخانه</string>
+
+    <string name="local">محلی</string>
+    <string name="local_songs">آهنگ‌های داخلی</string>
+
+    <string name="location">محل</string>
+
+    <string name="lock_screen_disable_confirm">پخش در صفحه نمایش قفل غیرفعال شود؟</string>
+
+    <string name="lucky_desc">نیازی نیست این دفعه، ویدئو تماشا کنید.</string>
+    <string name="lucky_title">خوش‌شانس هستید، تبریک می‌گوییم!</string>
+
+    <string name="lyrics_add_local">افزودن متن آهنگ موجود در دستگاه</string>
+    <string name="lyrics_edit_song_info">می‌توانید برای دریافت متن دقیق آهنگ، اطلاعات آهنگ را ویرایش کنید.</string>
+    <string name="lyrics_import_failed_no_format">متن آهنگ وارد نشد، از این فرمت فایل پشتیبانی نمی‌شود.</string>
+    <string name="lyrics_imported">متن آهنگ وارد شد</string>
+    <string name="lyrics_load_failed">متن آهنگ بارگذاری نشد</string>
+    <string name="lyrics_loading">در حال بارگذاری متن آهنگ...</string>
+    <string name="lyrics_net_error">ای وای، لطفاً اتصال اینترنت خود را بررسی کنید.</string>
+    <string name="lyrics_no_found">ای وای، متن آهنگ پیدا نشد.</string>
+    <string name="lyrics_no_matches">نام آهنگ یا هنرمند تطابق ندارد</string>
+    <string name="lyrics_no_scroll">متن آهنگ قابل پیمایش نیست</string>
+    <string name="lyrics_reset_msg">در این صورت، متن آهنگی که اضافه کردید، پاک خواهد شد.</string>
+    <string name="lyrics_reset_title">مطمئنید که می‌خواهید متن آهنگ را از نو تعیین کنید؟</string>
+    <string name="lyrics_search_online">جستجوی آنلاین</string>
+    <string name="lyrics_show_title">متن آهنگ</string>
+    <string name="lyrics_thanks_fb">بابت بازخورد متشکریم! نهایت تلاش خود را به کار خواهیم بست تا پیشرفت کنیم.</string>
+    <string name="lyrics_tx_error">خطای متن آهنگ</string>
+
+    <string name="manage_playlist">مدیریت کردن</string>
+
+    <string name="manual_backups">پشتیبان‌گیری دستی از لیست</string>
+
+    <string name="more">بیشتر</string>
+    <string name="more_setting">تنظیمات بیشتر</string>
+
+    <string name="music">موسیقی</string>
+
+    <string name="music3_apply_more_permission_killed_dialog_title">%s مجبور به توقف شد</string>
+    <string name="music3_battery_opt_content">لطفاً برای این که پخش در پس‌زمینه به اجبار متوقف نشود، به %s مجوز لازم را بدهید.</string>
+    <string name="music3_battery_opt_title_first">برای پخش مداوم در پس‌زمینه</string>
+    <string name="music3_clear_queue_info">صف پخش پاک خواهد شد. مطمئنید که می‌خواهید ادامه دهید؟</string>
+    <string name="music3_delete_playlist_message">لیست پخش %1$s حذف شود؟</string>
+    <string name="music3_delete_song_message">%1$s حذف شود؟</string>
+    <string name="music3_exit_scan">اسکن کردن قطع شود؟</string>
+    <string name="music3_free_space_to_ensure">برای اطمینان از این که برنامه درست کار می‌کند، لطفاً کمی از فضای حافظه را خالی کنید.</string>
+    <string name="music3_guide_allow_description">لطفاً مجوز دسترسی به فایل‌های رسانه‌ای را به %s اعطا کنید تا موسیقی پخش شود.</string>
+    <string name="music3_guide_enable_description_1">برای پخش موسیقی، لطفا:</string>
+    <string name="music3_import_clip_tips_html">متن آهنگ را &lt;b&gt;انتخاب&lt;/b&gt; کنید، سپس &lt;b&gt;کپی کنید&lt;/b&gt;.</string>
+    <string name="music3_import_clip_tips_title">منن آهنگ را چگونه وارد کنم؟</string>
+    <string name="music3_lyrics_edit_song_info">لطفاً دقت کنید که اطلاعات آهنگ در ذیل درست باشد و سپس دوباره تلاش کنید.</string>
+    <string name="music3_lyrics_load_failed">بارگذاری متن آهنگ انجام نشد</string>
+    <string name="music3_lyrics_no_found">متاسفانه نتوانستیم متن آهنگ را پیدا کنیم.</string>
+    <string name="music3_lyrics_no_matches">آهنگ یا هنرمند با هم تطابق ندارد</string>
+    <string name="music3_lyrics_no_scroll">متن آهنگ پیمایش نمی‌شود</string>
+    <string name="music3_lyrics_reset_msg">در این صورت، متن آهنگی که اضافه کردید پاک خواهد شد.</string>
+    <string name="music3_lyrics_reset_title">متن آهنگ از نو تعیین شود؟</string>
+    <string name="music3_lyrics_tx_error">متن آهنگ اشتباه</string>
+    <string name="music3_resume_playback_content">تشخیص داده شد که پخش موسیقی توسط یک برنامه دیگر متوقف شده است.</string>
+    <string name="music3_resume_playback_title">پخش از سر گرفته شود؟</string>
+    <string name="music3_summary_pause_detach">توقف در پخش در صورت جدا شدن هدفون</string>
+    <string name="music3_tag_edit_discard_change">خارج می‌شوید و تغییرات را از بین می‌برید؟</string>
+    <string name="music3_terms_of_service_should_agree">با %1$s و %2$s موافقت کنید و سفر موسیقی خود را آغاز کنید!</string>
+    <string name="music3_thanks_for_your_feedback">بابت بازخورد ارزشمندتان متشکریم.</string>
+
+    <string name="music_guide_allow_description">برای گوش دادن به موسیقی، %s باید به فایلهای رسانه در دستگاه‌تان دسترسی پیدا کند.</string>
+    <string name="music_player_share_text">این هم یک آهنگ از %1$s برای شما.</string>
+
+    <string name="my_favourite">مورد علاقه من</string>
+
+    <string name="network_error">خطای شبکه</string>
+    <string name="network_error_pls_try">خطای شبکه، لطفاً دوباره تلاش کنید</string>
+
+    <string name="new_playlist">لیست پخش جدید</string>
+    <string name="new_share_email_text">من از %s استفاده می‌کنم.\\n\\nخودتان امتحان کنید. برنامه را اینجا دانلود کنید:\\n</string>
+
+    <string name="next_song">آهنگ بعدی</string>
+
+    <string name="no_backup">هیچ پشتیبان‌گیری‌ای پیدا نشد</string>
+    <string name="no_document_provider">هیچ ارائه‌دهنده سندی برای بررسی درخواست مجوز موجود نیست</string>
+    <string name="no_songs_found">هیچ آهنگی پیدا نشد</string>
+
+    <string name="not_good">نه واقعاً</string>
+
+    <string name="nothing_found">چیزی پیدا نشد</string>
+
+    <string name="now_playing">تم پخش‌کننده</string>
+
+    <string name="number_song_add_playlist">%d آهنگ به لیست پخش افزوده شد.</string>
+    <string name="number_song_add_queue">%d آهنگ به صف افزوده شد.</string>
+    <string name="number_song_selected">%d آهنگ انتخاب شد</string>
+    <string name="number_songs_add_playlist">%d آهنگ به لیست پخش افزوده شد.</string>
+    <string name="number_songs_add_queue">%d آهنگ به صف افزوده شد.</string>
+    <string name="number_songs_selected">%d آهنگ انتخاب شدند</string>
+
+    <string name="off">خاموش</string>
+
+    <string name="open_settings">برو به تنظیمات</string>
+
+    <string name="options_ads">تبلیغات زیاد است</string>
+    <string name="options_bugs">اشکالات</string>
+    <string name="options_music_stop">موسیقی در حین پخش متوقف می‌شود</string>
+    <string name="options_others">سایر</string>
+    <string name="options_songs_not_found">بعضی از آهنگ‌ها نمایش داده نمی‌شوند</string>
+    <string name="options_suggestions">پیشنهادات</string>
+
+    <string name="pause_detach">مکث هنگام جدا شدن هدفون</string>
+
+    <string name="pg_permission_dialog_title">نیاز به مجوز</string>
+
+    <string name="play">پخش</string>
+    <string name="play_after_song">پخش کردن بعد از آهنگ فعلی</string>
+    <string name="play_next">پخش به عنوان آهنگ بعدی</string>
+
+    <string name="playing_queue">صف پخش آهنگ</string>
+
+    <string name="playlist">لیست پخش</string>
+    <string name="playlist_already_exist">%1$s از قبل وجود دارد</string>
+    <string name="playlist_edit_hint">لطفاً نام لیست پخش را وارد کنید</string>
+    <string name="playlist_last_added">اخیراً افزوده شده</string>
+    <string name="playlist_most_played">بیشترین پخش</string>
+    <string name="playlist_recently_played">اخیراً پخش شده</string>
+    <string name="playlist_top_tracks">آهنگ‌های برتر من</string>
+
+    <string-array name="preset_reverb">
+        <item>هیچ کدام</item>
+        <item>اتاق کوچک</item>
+        <item>اتاق متوسط</item>
+        <item>اتاق بزرگ</item>
+        <item>سالن متوسط</item>
+        <item>سالن بزرگ</item>
+        <item>صفحه</item>
+    </string-array>
+
+    <string name="price_lifetime">%s/خرید یک باره</string>
+
+    <string name="privacy_policy">سیاست حفظ حریم خصوصی</string>
+
+    <string name="queue">صف</string>
+
+    <string name="rate_us">به ما امتیاز دهید</string>
+
+    <string name="rating_we_like_you">ما هم شما را  دوست داریم!</string>
+
+    <string name="reader_exit_ads">مطمئنید که می‌خواهید خارج شوید؟</string>
+
+    <string name="remaining_x">باقیمانده: %s</string>
+
+    <string name="remind_me_anymore">دیگر به من یادآوری نکن</string>
+
+    <string name="remove">برداشتن</string>
+    <string name="remove_ad">حذف تبلیغات</string>
+    <string name="remove_from_playlist">حذف از لیست پخش</string>
+    <string name="remove_from_queue">حذف از صف</string>
+    <string name="remove_song_message">مطمئن هستید که می‌خواهید %s را حذف کنید؟</string>
+
+    <string name="rename">تغییر نام</string>
+    <string name="rename_failed">نام تغییر نیافت</string>
+    <string name="rename_success">نام با موفقیت تغییر یافت.</string>
+
+    <string name="repeat_loop">تکرار همه آهنگ‌ها</string>
+    <string name="repeat_off">تکرار غیرفعال است</string>
+    <string name="repeat_order">ترتیب</string>
+    <string name="repeat_repeat">تکرار آهنگ فعلی</string>
+    <string name="repeat_shuffle">پخش درهم همه آهنگ‌ها</string>
+
+    <string name="restore_failed">بازیابی انجام نشد</string>
+    <string name="restore_playlist">بازیابی لیست پخش</string>
+    <string name="restore_success">بازیابی موفقیت</string>
+
+    <string name="result">نتیجه</string>
+
+    <string name="resume">ازسرگیری</string>
+    <string name="resume_playback_content">متوجه شدیم که پخش موسیقی توسط برنامه‌های دیگر مختل شد.</string>
+    <string name="resume_playback_title">آیا می‌خواهید پخش آهنگ ادامه پیدا کند؟</string>
+
+    <string name="retry">سعی مجدد</string>
+
+    <string name="reverb">ریوِرب</string>
+
+    <string name="ringtone_set">با موفقیت تنظیم شد</string>
+    <string name="ringtone_set_failed">تنظیم نشد</string>
+
+    <string name="save">ذخیره</string>
+
+    <string name="saving_tags">در حال ذخیره تگ‌ها...</string>
+
+    <string name="scan">اسکن</string>
+    <string name="scan_library">چستجوی موسیقی</string>
+    <string name="scan_result">%1$s آهنگ به %2$s اضافه شد</string>
+
+    <string name="scanner_lib_rate_leave_feedback">از بازخورد شما متشکریم.</string>
+    <string name="scanner_lib_rate_like_you">بسیار متشکریم!</string>
+    <string name="scanner_share_dialog_title_2">بابت حمایت‌تان متشکریم!</string>
+
+    <string name="scanning">در حال جستجو...</string>
+
+    <string name="screen_lock_play">پخش در صفحه نمایش قفل</string>
+
+    <string name="sd_card_access_step_1_format">
+        <![CDATA[روی دکمه واقع در گوشه بالا سمت راست ضربه بزنید و <font color=\"#F44831\"><b>کارت SD را انتخاب کنید</b></font>.]]>
+    </string>
+    <string name="sd_card_access_step_2_format">
+        <![CDATA[<font color=\"#F44831\"><b>روی «انتخاب»</b></font> واقع در پایین صفحه بعد ضربه بزنید تا دسترسی به نوشتن را بدهید.]]>
+    </string>
+    <string name="sd_tips">لطفاً برای اعطا مجوز اجرا، &lt;b&gt;دایرکتوری اصلی&lt;/b&gt; کارت SD خارجی &lt;br/&gt;&lt;b&gt;(%s)&lt;/b&gt; را انتخاب کنید.</string>
+
+    <string name="sdcard_permission_required">برای حذف آهنگ‌ها از روی کارت SD، نیاز مجوز است.</string>
+
+    <string name="search">جستجو</string>
+    <string name="search_albums">جستجوی آلبوم‌ها</string>
+    <string name="search_artists">جستجوی هنرمندان</string>
+    <string name="search_folders">جستجوی پوشه‌ها</string>
+    <string name="search_genres">جستجوی ژانرها</string>
+    <string name="search_history">سابقه جستجوی</string>
+    <string name="search_library">جستجوی کتابخانه</string>
+    <string name="search_music_on_youtube">جستجوی آهنگ‌ها از YouTube</string>
+    <string name="search_on_youtube">جستجو در YouTube</string>
+    <string name="search_songs">جستجوی آهنگ‌ها</string>
+
+    <string name="select_all">انتخاب همه</string>
+    <string name="select_backup">برای بازیابی، یک مورد پشتیبان‌گیری را انتخاب کنید</string>
+    <string name="select_folder">پوشه‌ها را انتخاب کنید</string>
+
+    <string name="set">تنظیم</string>
+    <string name="set_as_ringtone">تنظیم به عنوان آهنگ زنگ</string>
+    <string name="set_ringtone">%s به‌عنوان آهنگ زنگ گذاشته شود؟</string>
+    <string name="set_ringtone_message">برای تعیین آهنگ زنگ، لطفاً مجوز لازم را بدهید.</string>
+
+    <string name="settings">تنظیمات</string>
+
+    <string name="share">اشتراک</string>
+    <string name="share_email_title">اشتراک گذاری %s با شما</string>
+
+    <string name="show">نمایش</string>
+
+    <string name="shuffle">پخش درهم</string>
+    <string name="shuffle_off">پخش درهم غیرفعال است</string>
+    <string name="shuffle_on">پخش درهم فعال است</string>
+
+    <string name="size">اندازه</string>
+
+    <string name="sleep_timer">زمان‌سنج خواب</string>
+
+    <string name="slide_to_unlock">برای قفل‌گشایی، صفحه را بکشید</string>
+
+    <string name="song">آهنگ</string>
+    <string name="song_added_plural">%s آهنگ جدید اضافه شد.</string>
+    <string name="song_added_singular">%s آهنگ جدید اضافه شد.</string>
+    <string name="song_deleted">%d آهنگ حذف شد</string>
+    <string name="song_name">نام ترانه</string>
+    <string name="song_scanned_plural">%s آهنگ اسکن شدند.</string>
+    <string name="song_scanned_singular">%s آهنگ اسکن شد.</string>
+    <string name="song_title">عنوان</string>
+
+    <string name="songs">آهنگ‌ها</string>
+    <string name="songs_deleted">%d آهنگ حذف شد</string>
+
+    <string name="sort_by">مرتب‌سازی بر اساس</string>
+    <string name="sort_by_name">نام</string>
+    <string name="sort_key_add_playlist">زمانِ افزوده‌شده لیست پخش</string>
+    <string name="sort_key_album_name">نام آلبوم</string>
+    <string name="sort_key_number_of_albums">تعداد آلبوم‌ها</string>
+    <string name="sort_key_time_added">زمان افزوده شد</string>
+    <string name="sort_key_track">ترتیب داخل آلبوم</string>
+    <string name="sort_order_a_z">از A تا Z</string>
+    <string name="sort_order_big_small">از بزرگ به کوچک</string>
+    <string name="sort_order_entry_number_of_songs">تعداد آهنگ‌ها</string>
+    <string name="sort_order_long_short">از طولانی به کوتاه</string>
+    <string name="sort_order_short_long">از کوتاه به طولانی</string>
+    <string name="sort_order_small_big">از کوچک به بزرگ</string>
+    <string name="sort_order_z_a">از Z تا A</string>
+
+    <string name="start">شروع</string>
+
+    <string name="storage">فضای حافظه</string>
+
+    <string name="subscription_des_music">این اشتراک به شما امکان دسترسی نامحدود به کتابخانه محتوای برنامه ما را می‌دهد. اگر تا قبل از پایان یافتن دوره آزمایشی لغو نکنید، تا زمانی که لغو کنید، به طور خودکار هر ماه %s هزینه برای شما منظور می‌شود.</string>
+    <string name="subscription_detail">جزئیات اشتراک</string>
+    <string name="subscription_price">و سپس %s در ماه</string>
+
+    <string name="summary_feedback">اشکالات را گزارش دهید و به ما بگویید چه چیزی را بهبود ببخشیم</string>
+    <string name="summary_pause_detach">به منظور مکث در پخش آهنگ در صورت جدا شدن هدفون، اینجا را علامت بزنید</string>
+    <string name="summary_rateUs">از این برنامه خوشتان آمد؟ لطفاً به ما امتیاز دهید!</string>
+    <string name="summary_screen_lock_play">وقتی صفحه قفل است، پخش آهنگ نمایش داده شود</string>
+
+    <string name="system">سیستم</string>
+    <string name="system_default">به طور پیش فرض نظام</string>
+
+    <string name="tag_edit_discard_change">مطمئنید که می‌خواهید تغییرات را از بین ببرید؟</string>
+    <string name="tag_edit_error">ویرایش انجام نشد</string>
+    <string name="tag_edit_success">ویرایش موفقیت‌آمیز بود</string>
+
+    <string name="tap_permission">روی مجوزها ضربه بزنید</string>
+    <string name="tap_to_start">برای شروع %s، ضربه بزنید</string>
+
+    <string name="terms_of_service">شرایط استفاده</string>
+    <string name="terms_of_service_guide">با ضربه زدن روی «%1$s»، نشان می‌دهید که %2$s و %3$s را خوانده‌اید و با آن موافق هستید.</string>
+    <string name="terms_of_service_should_agree">برای استفاده از %1$s، باید با %2$s و %3$s موافقت کنید.</string>
+
+    <string name="thanks_for_loving_x">متشکریم که %s را دوست داشتید.</string>
+    <string name="thanks_for_your_feedback">به خاطر نظر از شما سپاسگزاریم.</string>
+
+    <string name="theme">تم‌های جلد</string>
+
+    <string name="thx_feedback_tip">این مشکل را در نسخه بعدی رفع می‌کنیم. به خاطر این مشکل متأسفیم.</string>
+
+    <string name="timer_after_this">با پایان یافتن آهنگ کنونی، متوقف شود</string>
+    <string name="timer_stop_after">توقف موسیقی بعد از</string>
+    <string name="timer_turn_off">زمان‌سنج خواب خاموش شد</string>
+    <string name="timer_turn_off_latter">%s بعد خاموش شود</string>
+
+    <string name="title_is_null">عنوان را نمی‌توان خالی گذاشت.</string>
+
+    <string name="transparency">شفافیت</string>
+
+    <string name="turn_off">غیرفعال کردن</string>
+    <string name="turn_off_after">%1$d دقیقه بعد خاموش شود</string>
+    <string name="turn_off_ends">با پایان یافتن آهنگ فعلی، خاموش شود</string>
+    <string name="turn_storage">حافظه را روشن کنید</string>
+
+    <string name="unit_secs">ثانیه</string>
+
+    <string name="unknow_error">یک خطای ناشناخته رخ داد</string>
+
+    <string name="unlock_for_free">باز کردن قفل به صورت رایگان</string>
+    <string name="unlock_premium_themes">قفل‌گشایی همه تم‌ها</string>
+
+    <string name="version">نسخه</string>
+
+    <string name="view">مشاهده</string>
+    <string name="view_all">مشاهده همه</string>
+
+    <string name="virtualizer">مجازی‌ساز</string>
+
+    <string name="vivo_deny">انکار</string>
+
+    <string name="what_a_pity">چه حیف!</string>
+
+    <string name="x_hours">%s ساعت</string>
+    <string name="x_minutes">%s دقیقه</string>
+    <string name="x_seconds">%s ثانیه</string>
+    <string name="x_selected">%s مورد انتخاب شد</string>
+    <string name="x_song_hide_single">%1$s آهنگ مخفی است. برای نشان دادن آن می‌توانید به %2$s بروید.</string>
+    <string name="x_songs_hide_1">%1$s آهنگ مخفی است، برای نمایش آنها می‌توانید به %2$s بروید.</string>
+
+    <string name="xbooster_notification_access">دسترسی به اعلان</string>
+
+    <string name="yes">بله</string>
+    <string name="music3_remove_successfully">با موفقیت حذف شد</string>
+    <string name="camera_preparing">در حال آماده‌سازی…</string>
+
+    <string name="widget_tap_start">ضربه بزنید تا پخش‌کننده موسیقی شروع شود</string>
+    <string name="music3_notification_access_desc">لطفاً اجازه دسترسی به اعلان‌های %s را بدهید تا بتوانید کنترل سریع بر پخش موسیقی از مرکز اعلان‌ها داشته باشید.</string>
+    <string name="music3_app_name">پخش‌کننده موسیقی</string>
+
+    <string name="go_file_manager">برو</string>
+    <string name="music3_click_to_authorize">برای اجازه دادن کلیک کنید</string>
+    <string name="music3_language_guide">لطفاً زبانی غیر از \&#34;سیستم\&#34; را انتخاب و برای تایید اینجا را کلیک کنید.</string>
+    <string name="pdf_reader2_enter_homepage_guide">برای ورود به صفحه اصلی، ضربه بزنید</string>
+
+    <string name="mp3_current_speed">سرعت فعلی: %s</string>
+    <string name="mp3_edit_lyrics">متن آهنگ را ویرایش کن</string>
+    <string name="mp3_enter_lyrics">متن آهنگ را وارد کن</string>
+    <string name="mp3_enter_lyrics_here">متن آهنگ خود را اینجا وارد کنید…</string>
+    <string name="music3_playback_speed">سرعت پخش</string>
+    <string name="music3_playback_speed_changed">سرعت پخش به %sبرابر تغییر یافت</string>
+    <string name="music3_playback_speed_num">سرعت پخش: %s</string>
+    <string name="normal">نرمال</string>
+    <string name="paste">چسباندن</string>
+    <string name="music3_playback_speed_changed_failed">تغییر به %sبرابر انجام نشد، مجدداً در 1.0برابر تنظیم شد</string>
+
+    <string name="music3_app_title_1">پخش‌کننده موسیقی - DDMusic</string>
+    <string name="music3_delete_permission_access">لطفاً برای اجازه دسترسی، &#60;b&#62;مراحل صفحه بعد را دنبال کنید&#60;/b&#62;.</string>
+    <string name="music3_delete_some_no_premission">اما بقیه موارد به دلیل &#60;b&#62;مشکلات مجوز&#60;/b&#62; انجام نشد.</string>
+    <string name="music3_delete_videos_gpt">حذف %s ویدیوها؟</string>
+    <string name="music3_error_playing_video_gpt">خطا در پخش ویدیو \&#34;%s\&#34;</string>
+    <string name="music3_grant_media_files_access_gpt">لطفاً به %s دسترسی به فایل‌های رسانه‌ای را برای پخش ویدیوها اعطا کنید.</string>
+    <string name="music3_next">بعدی</string>
+    <string name="music3_resume_auto">ادامه پخش از جایی که متوقف شده‌اید</string>
+    <string name="music3_scan_local_videos_gpt">برای اسکن ویدیوهای محلی، لطفاً انجام دهید:</string>
+    <string name="music3_scan_video_gpt">اسکن ویدیو</string>
+    <string name="music3_sd_card_access_step_2_format">سپس &#60;b&#62;روی انتخاب ضربه بزنید&#60;/b&#62; تا اجازه دسترسی به رونویسی بدهید.</string>
+    <string name="music3_sd_write_access_required_gpt">حذف ویدیوها از کارت SD نیاز به دسترسی نوشتن دارد</string>
+    <string name="music3_search_videos">جستجوی ویدیو</string>
+    <string name="music3_select_albums_gpt">انتخاب آلبوم‌ها</string>
+    <string name="music3_select_artists_gpt">انتخاب هنرمندان</string>
+    <string name="music3_select_genres_gpt">انتخاب ژانرها</string>
+    <string name="music3_select_playlists_gpt">انتخاب لیست‌های پخش</string>
+    <string name="music3_select_songs_gpt">انتخاب آهنگ‌ها</string>
+    <string name="music3_select_videos_gpt">انتخاب ویدیوها</string>
+    <string name="music3_videos_added_gpt">&#60;b&#62;%1$s&#60;/b&#62; ویدیوها به %2$s اضافه شدند</string>
+    <string name="music3_video_info_gpt">اطلاعات ویدیو</string>
+    <string name="music3_video_name_gpt">نام ویدیو</string>
+    <string name="music3_video_not_found_gpt">ویدیو پیدا نشد؟</string>
+    <string name="music3_x_new_videos_added_gpt">%s ویدیو جدید اضافه شدند</string>
+    <string name="music3_x_videos_deleted_gpt">%s ویدیو حذف شد</string>
+
+    <string name="allplayer_fast_forward">سریع به جلو</string>
+    <string name="allplayer_mute_play_gpt">پخش بی‌صدا</string>
+    <string name="allplayer_recently_watched_gpt">اخیراً تماشا شده</string>
+    <string name="brightness">روشنایی</string>
+    <string name="btn_allow">اجازه دادن</string>
+    <string name="enter_name">لطفاً یک نام وارد کنید</string>
+    <string name="got_it_1">متوجه شدم</string>
+    <string name="music3_1_new_video_added_gpt">%s ویدیو جدید اضافه شد</string>
+    <string name="music4_allow_photo_video">اجازه دسترسی به عکس‌ها و ویدئوها</string>
+    <string name="music4_photo_permission_step3">عکس‌ها و ویدئوها را پیدا کنید و روی آن ضربه بزنید</string>
+    <string name="music_3_video_share">ویدیویی برای شما از %1$s %2$s</string>
+    <string name="no_videos_found">هیچ ویدئویی پیدا نشد</string>
+    <string name="n_videos">%s ویدئو</string>
+    <string name="n_videos_1">%s ویدئو</string>
+    <string name="one_video">1 ویدئو</string>
+    <string name="pause_play">مکث/پخش</string>
+    <string name="rewind">عقب</string>
+    <string name="rp_next">بعدی</string>
+    <string name="sd_card_access_step_1">روی دکمه موجود در گوشه سمت چپ بالا ضربه بزنید و &#60;b&#62;کارت SD را انتخاب کنید&#60;/b&#62;.</string>
+    <string name="sound_boost_tips">به تنظیم صدا ادامه دهید و تا 200% بالا ببرید.</string>
+    <string name="start_over">شروع دوباره</string><!-- 用ChatGPT翻译 -->
+    <string name="tab_videos">ویدئوها</string>
+    <string name="tap_again_to_exit">برای خروج، دوباره ضربه بزنید</string>
+    <string name="video">ویدئو</string>
+    <string name="volume">بلندی صدا</string>
+    <string name="xgallery_no_next_video">آخرین ویدئو همین الان در حال پخش است</string>
+    <string name="xgallery_no_previous_video">اولین ویدئو همین الان در حال پخش است</string>
+    <string name="xgallery_playing_lock_screen">صفحه نمایش قفل شد</string>
+    <string name="xgallery_playing_unlock_screen">قفل صفحه نمایش باز شد</string>
+    <string name="xgallery_sound_off">صدا قطع</string>
+    <string name="xgallery_sound_on">صدا روشن</string>
+    <string name="zoom_in_out">بزرگنمایی/کوچک‌نمایی</string>
+    <string name="music3_1_video_deleted_gpt">%s ویدیو حذف شد</string>
+    <string name="music4_choose_allow">انتخاب مجاز</string>
+    <string name="open_settings_1">تنظیمات را باز کنید</string>
+    <string name="music4_error_playing_file_error">پخش انجام نشد؛ فایل نامعتبر.</string>
+    <string name="music4_error_playing_path_error">پخش انجام نشد؛ مسیر فایل نامعتبر.</string>
+    <string name="music3_1_song_added_gpt">&#60;b&#62;1&#60;/b&#62; آهنگ به %s اضافه شد</string>
+    <string name="music3_1_video_added_gpt">&#60;b&#62;1&#60;/b&#62; ویدئو به %s اضافه شد</string>
+
+    <string name="all_reader2_major_update_gpt">به‌روزرسانی اصلی</string>
+    <string name="all_reader2_new_version_en_desc_5_gpt">تجربه کاربری بهبود یافته</string>
+    <string name="all_reader2_new_version_gpt">نسخه جدید</string>
+    <string name="all_reader2_new_version_ready_gpt">نسخه جدید آماده است!</string>
+    <string name="all_reader2_new_version_title_plan1_gpt">آخرین نسخه ما از %s کاربر نظرات 5 ستاره دریافت کرده است!</string>
+    <string name="booster2_new_version_des2_gpt">به %s کاربر راضی بپیوندید و برای تجربه 5 ستاره ارتقاء دهید!</string>
+    <string name="booster2_new_version_des3_gpt">آخرین نسخه‌ی ما تاکنون با نرخ رضایت %s قابل توجهی رو به رو شده است.</string>
+    <string name="booster2_version_update">به‌روز رسانی نسخه</string>
+    <string name="docx_new_version_benefits3_gpt">رفع اشکالات کوچک</string>
+    <string name="install">نصب</string>
+    <string name="lyrics_source_gpt">منبع متن آهنگ‌ها: کاربر ناشناس</string>
+    <string name="pdf_reader3_update_from_gp_gpt">ناموفق، لطفا از Google Play به‌روز‌رسانی کنید</string>
+    <string name="recommended">توصیه کردن</string>
+    <string name="step4_update_reason_1_gpt">در این به‌روزرسانی، چندین مشکل را رفع کرده و عملکرد کلی اپلیکیشن را بهبود داده‌ایم.</string>
+    <string name="update">بروز رسانی</string>
+    <string name="update_failed_network_wg_gpt">بروزرسانی ناموفق بود، لطفاً شبکه خود را بررسی کنید و دوباره تلاش کنید</string>
+    <string name="update_now_for_better_1">برای تجربه بهتر می‌توانید &#60;b&#62;اکنون به‌روزرسانی کنید&#60;/b&#62;.</string>
+    <string name="updating">به‌روزرسانی...</string>
+    <string name="upgrade">ارتقا</string>
+    <string name="upgrade_to_new_version">تجربه بهبود عملکرد و پایداری افزایش یافته با آخرین نسخه ما. \n\n&#60;b&#62;برای ارتقا کنید اکنون ضربه بزنید.&#60;/b&#62;</string>
+    <string name="upload_lyrics_statement_gpt">زمانی که شما متن آهنگ‌ها را به برنامه‌مان وارد می‌کنید، لطفا اطمینان حاصل فرمایید که حق انجام این کار را داشته و بارگذاری شما هیچ یک از حقوق مالکیت فکری را نقض نمی‌کند. با بارگذاری، شما ما را مجاز می‌کنید که از محتوای شما به صورت رایگان استفاده کنیم، و ما منبع آن را به عنوان \&#34;کاربر ناشناس\&#34; ذکر خواهیم کرد.</string>
+    <string name="video_player_in_music_gpt">پخش‌کننده ویدیو</string>
+    <string name="video_player_moved_gpt">پخش‌کننده ویدیو به اینجا منتقل شده است</string>
+</resources>

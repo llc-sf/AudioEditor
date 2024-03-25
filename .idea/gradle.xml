@@ -4,20 +4,35 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="testRunner" value="GRADLE" />
-        <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleJvm" value="11" />
+        <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/ffmpegLib" />
+            <option value="$PROJECT_DIR$/framework-appprovider" />
+            <option value="$PROJECT_DIR$/framework-base" />
+            <option value="$PROJECT_DIR$/framework-data" />
+            <option value="$PROJECT_DIR$/framework-dimens-375" />
+            <option value="$PROJECT_DIR$/framework-language" />
+            <option value="$PROJECT_DIR$/framework-rx" />
+            <option value="$PROJECT_DIR$/framework-simplecache" />
+            <option value="$PROJECT_DIR$/framework-themes-deps" />
+            <option value="$PROJECT_DIR$/framework-utils" />
             <option value="$PROJECT_DIR$/recorderLib" />
+            <option value="$PROJECT_DIR$/third-part" />
+            <option value="$PROJECT_DIR$/third-part/StackBlur" />
             <option value="$PROJECT_DIR$/timeRuler" />
             <option value="$PROJECT_DIR$/waveform" />
+            <option value="$PROJECT_DIR$/widget-image" />
+            <option value="$PROJECT_DIR$/widget-link" />
+            <option value="$PROJECT_DIR$/widget-recyclerview" />
+            <option value="$PROJECT_DIR$/widget-text" />
+            <option value="$PROJECT_DIR$/widget-toast" />
           </set>
         </option>
+        <option name="resolveExternalAnnotations" value="false" />
       </GradleProjectSettings>
     </option>
   </component>

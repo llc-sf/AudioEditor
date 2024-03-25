@@ -4,3 +4,80 @@ plugins {
     id 'com.android.library' version '8.0.2' apply false
     id 'org.jetbrains.kotlin.android' version '1.8.20' apply false
 }
+
+
+ext {
+
+    MIN_SDK_VERSION = 21
+
+    COMPILE_SDK_VERSION = 33
+
+    BUILD_TOOLS_VERSION = "30.0.3"
+
+    TARGET_SDK_VERSION = 33
+
+    VERSION_NAME = "1.2.0"
+
+    VERSION_CODE = 4
+
+    APPLICATION_ID = "musicplayer.musicapp.playmusic.mp3player"
+
+    CLIENT_GIT_SHA_VERSION = getGitSha()//当前提交的Git 版本号，用于追溯提交的版本
+
+
+    //Base
+    AndroidX = [
+            core      : 'androidx.core:core-ktx:1.7.0',
+            annotation: 'androidx.annotation:annotation:1.3.0',
+            appcompat : 'androidx.appcompat:appcompat:1.4.1',
+    ]
+
+    UI = [
+            material  : 'com.google.android.material:material:1.5.0',
+            reycler   : 'androidx.recyclerview:recyclerview:1.2.1',
+            constraint: 'androidx.constraintlayout:constraintlayout:2.1.3',
+    ]
+
+    //Glide 依赖
+    GLIDE_VERSION = "4.11.0"
+    Image = [
+            glide   : "com.github.bumptech.glide:glide:$GLIDE_VERSION",
+            compiler: "com.github.bumptech.glide:compiler:$GLIDE_VERSION",
+    ]
+
+    KTX_VERSION = "1.5.0"
+    Kotlin = [
+            coroutines  : 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2',
+            fragment_ktx: "androidx.fragment:fragment-ktx:$KTX_VERSION",
+            activity_ktx: "androidx.activity:activity-ktx:$KTX_VERSION",
+    ]
+
+    Rx = [
+            rxandroid: 'io.reactivex.rxjava3:rxandroid:3.0.0',
+            rxjava   : 'io.reactivex.rxjava3:rxjava:3.1.3',
+            rxrelay  : 'com.jakewharton.rxrelay3:rxrelay:3.0.1'
+    ]
+
+    LIFECYCLE_VERSION = "2.4.0"
+    Lifecycle = [
+            viewmodel: "androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE_VERSION",
+            process  : "androidx.lifecycle:lifecycle-process:$LIFECYCLE_VERSION",
+    ]
+
+    DATASTORE_VERSION = "1.0.0"
+    DataStore = [
+            // optional - RxJava3 support
+            dataStore: "androidx.datastore:datastore-preferences-rxjava3:$DATASTORE_VERSION"
+    ]
+}
+
+private def getGitSha() {
+    String gitRev = 'git rev-parse --short HEAD'.execute().text.trim()
+    println("git rev-parse --short HEAD executed!")
+    println System.getProperty("user.dir")
+    if (gitRev.isEmpty()) {
+        println("can't get git rev, you should add git to system path or just input test value, such as 'drojian'")
+    }
+    println("gitRev:" + gitRev)
+    return gitRev
+}

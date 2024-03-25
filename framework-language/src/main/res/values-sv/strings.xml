@@ -1,0 +1,686 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+    <string name="abbre_minute">m</string>
+
+    <string name="access_all_features">Gratis åtkomst till alla nya funktioner i framtida versioner</string>
+    <string name="access_files">Ge åtkomst till mediafiler på enheten.</string>
+
+    <string name="action_continue">Fortsätt</string>
+    <string name="action_ok">OK</string>
+    <string name="action_reset">Återställ</string>
+
+    <string name="add_playlist_unknow_error">Det gick inte att skapa spellistan</string>
+    <string name="add_to_playlist">Lägg till i spellista</string>
+    <string name="add_to_queue">Lägg till i kö</string>
+    <string name="add_tracks">Lägg till låtar</string>
+
+    <string name="added_to_favourite">Tillagd som favorit</string>
+
+    <string name="agree_continue">Godkänn och fortsätt</string>
+
+    <string name="album_title">Album</string>
+
+    <string name="albums">Album</string>
+
+    <string name="all_songs">Alla låtar</string>
+
+    <string name="allow">Tillåt</string>
+    <string name="allow_access">Ge åtkomst</string>
+    <string name="allow_access_storage">Ge åtkomst till minnet</string>
+    <string name="allow_all_time">Tillåt hela tiden</string>
+
+    <string name="already_exists">Finns redan</string>
+
+    <string name="app_name_compat_mp3">Gratis musik</string>
+    <string name="app_name_compat_music">Musikspelare</string>
+
+    <string name="apply_more_permission_killed_dialog_title">%s avbröts med tvång</string>
+
+    <string name="artist_name">Artistens namn</string>
+    <string name="artist_title">Artist</string>
+
+    <string name="artists">Artister</string>
+
+    <string name="ask_like_app">Är du nöjd med %s?</string>
+
+    <string name="auto_backups">Säkerhetskopiera lista automatiskt</string>
+
+    <string name="backup">Säkerhetskopiera</string>
+    <string name="backup_fail">Säkerhetskopiering misslyckades</string>
+    <string name="backup_playlist">Säkerhetskopiera spellista</string>
+    <string name="backup_success">Säkerhetskopiering klar</string>
+    <string name="backup_summary_playlist">%d spellista</string>
+    <string name="backup_summary_playlists">%d spellistor</string>
+    <string name="backup_title">Säkerhetskopiera?</string>
+
+    <string name="bass_boost">Basförstärkning</string>
+
+    <string name="battery_opt_content">För att undvika att musiken stoppas i onödan behöver du ge %s den behörighet som krävs</string>
+    <string name="battery_opt_title_first">Undvik onödiga avbrott</string>
+
+    <string name="blur">Suddighet</string>
+
+    <string name="cancel">Avbryt</string>
+    <string name="cancel_favorite_success">Borttaget från favoriter</string>
+
+    <string name="change_album_art">Byt albumomslag</string>
+    <string name="change_cover">Byt omslag</string>
+    <string name="change_cover_failed">Omslaget kunde inte bytas</string>
+    <string name="change_language_title">Välj språk</string>
+    <string name="change_picture">Byt bild</string>
+
+    <string name="choose_allow">Välj \"Tillåt\"</string>
+
+    <string name="clear">Rensa</string>
+    <string name="clear_playlist">Rensa %s</string>
+    <string name="clear_queue_info">Är det säkert att du vill rensa uppspelningskön?</string>
+
+    <string name="color">Färg</string>
+
+    <string name="confirm_and_fix">Vi kommer att kontrollera problemet och åtgärda det i nästa version så snart vi kan!</string>
+    <string name="confirm_information">Bekräfta informationen</string>
+
+    <string name="continue_to_work_hard">Vi fortsätter att jobba hårt.</string>
+
+    <string name="count_album">%d album</string>
+    <string name="count_albums">%d albums</string>
+    <string name="count_artist">%s artist</string>
+    <string name="count_artists">%s artister</string>
+    <string name="count_folder">%s mapp</string>
+    <string name="count_folders">%s mappar</string>
+    <string name="count_genre">%s genre</string>
+    <string name="count_genres">%s genrer</string>
+    <string name="count_media_file">%d mediafil</string>
+    <string name="count_media_files">%d mediafiler</string>
+    <string name="count_song">%d låt</string>
+    <string name="count_songs">%d låtar</string>
+    <string name="count_sub_folder">%d undermapp</string>
+    <string name="count_sub_folders">%d undermappar</string>
+
+    <string name="create">Skapa</string>
+    <string name="create_new_playlist">Skapa ny spellista</string>
+
+    <string name="created_playlist">Spellistan %s har skapats</string>
+
+    <string name="delete">Radera</string>
+    <string name="delete_failed">Kunde inte ta bort</string>
+    <string name="delete_from_device">Radera från enheten</string>
+    <string name="delete_permission_access">Var noga med att &lt;b&gt;välja rätt mapp&lt;/b&gt; när du ger behörighet.</string>
+    <string name="delete_playlist_message">Är det säkert att du vill ta bort spellistan %1$s?</string>
+    <string name="delete_playlist_title">Ta bort spellista</string>
+    <string name="delete_some_no_premission">Medan andra misslyckades på grund av brist på behörighet.</string>
+    <string name="delete_song">Ta bort låt?</string>
+    <string name="delete_song_message">Är det säkert att du vill ta bort %1$s?</string>
+
+    <string name="deleted_success">Borttagen</string>
+
+    <string name="details">Detaljinformation</string>
+
+    <string name="dialog_message_set_ringtone">För att kunna ställa in din ringsignal behöver %s behörighet att ändra systeminställningarna.\n\nGe behörigheten och gör sedan ett nytt försök att ställa in ringsignalen.</string>
+    <string name="dialog_title_set_ringtone">Ange ringsignal</string>
+
+    <string name="diet_for_you">För dig</string>
+
+    <string name="directories">Kataloger</string>
+
+    <string name="directory_empty">Katalogen är tom</string>
+
+    <string name="disagree_exit">Godkänn inte och lämna</string>
+
+    <string name="discard">Avfärda</string>
+
+    <string name="done">Klar</string>
+
+    <string name="duration">Längd</string>
+
+    <string name="edit">Redigera</string>
+    <string name="edit_photo">Redigera foto</string>
+    <string name="edit_tag">Redigera tagg</string>
+    <string name="edit_tags">Redigera taggar</string>
+
+    <string name="enable_lock_screen_tip">Du kan aktivera det genom att välja “%1$s - %2$s”.</string>
+
+    <string name="end_period">Avsluta</string>
+
+    <string name="enhancer_best_rating">Bästa betyget för oss</string>
+    <string name="enhancer_thanks_rate_us">Tack för att du använder %s!\nVi skulle verkligen uppskatta om du ville betygsätta oss.</string>
+
+    <string name="entered_same_name">Namnet finns redan, välj ett annat namn.</string>
+
+    <string name="equ_custom">Anpassa</string>
+
+    <string name="equalizer">EQ</string>
+
+    <string name="error_playing_file_error">Kunde inte spela upp, filen finns inte</string>
+    <string name="error_playing_normal">Kunde inte spela upp, ett okänt fel har uppstått</string>
+    <string name="error_playing_path_error">Kunde inte spela upp, fel sökväg.</string>
+    <string name="error_playing_track">Fel vid uppspelning av %1$s</string>
+
+    <string name="exe_all">Alla</string>
+
+    <string name="exit">Avsluta</string>
+    <string name="exit_1">Avsluta</string>
+    <string name="exit_scan">Lämna skanning?</string>
+
+    <string name="featured">Utvalda</string>
+
+    <string name="feedback">Feedback</string>
+    <string name="feedback_mail_text">System info</string>
+
+    <string name="file_not_exist">Filen finns inte</string>
+
+    <string name="folder_select_title">Mappval</string>
+
+    <string name="folders">Mappar</string>
+
+    <string name="free_7_days_trial_1">Kostnadsfri provperiod på 7 dagar</string>
+    <string name="free_space_needed">Utrymme som behövs: %s (rekommenderas)</string>
+    <string name="free_space_to_ensure">Frigör lite utrymme så att appen kan fungera som den ska.</string>
+    <string name="free_up_space">Frigör lagringsutrymme</string>
+
+    <string name="from_new_to_old">Från gammal till ny</string>
+    <string name="from_old_to_new">Från ny till gammal</string>
+
+    <string name="general">Allmän</string>
+
+    <string name="genre_title">Genre</string>
+
+    <string name="genres">Genrer</string>
+
+    <string name="go_premium">Skaffa Premium</string>
+    <string name="go_to_album">Gå till album</string>
+    <string name="go_to_artist">Gå till artist</string>
+
+    <string name="good">Bra</string>
+
+    <string name="guide_allow_description">För att du ska kunna lyssna på musik,\nbehöver XMusic åtkomst till mediafiler på din enhet.</string>
+    <string name="guide_enable_description_1">För att kunna lyssna på musik behöver du:</string>
+
+    <string name="help">Hjälp</string>
+
+    <string name="hidden_directory">Dolda mappar</string>
+
+    <string name="hide">Göm</string>
+
+    <string name="history">Historik</string>
+
+    <string name="ignore_less_duration">Ignorera längd under</string>
+    <string name="ignore_less_size">Ignorera storlek under</string>
+    <string name="ignore_short_files">Ignorera filer mindre än 50 k</string>
+    <string name="ignore_short_song">Ignorera låtar kortare än 60 sekunder</string>
+
+    <string name="import_clip_tips">Markera låttexten och kopiera</string>
+    <string name="import_clip_tips_html">&lt;b&gt;Markera&lt;/b&gt; låttexten och &lt;b&gt;kopiera&lt;/b&gt;</string>
+    <string name="import_clip_tips_save_title">Importera låttexter</string>
+    <string name="import_clip_tips_title">Så här importerar du låttexter</string>
+    <string name="import_tel">Importera</string>
+
+    <string name="insufficient_space">Otillräckligt utrymme</string>
+
+    <string name="internal_sd">Internt minne</string>
+
+    <string name="language_title">Språk</string>
+
+    <string name="last_backup">Senaste säkerhetskopieringen: %s</string>
+
+    <string name="library">Bibliotek</string>
+
+    <string name="local">Lokal</string>
+    <string name="local_songs">Lokala låtar</string>
+
+    <string name="location">Plats</string>
+
+    <string name="lock_screen_disable_confirm">Vill du inaktivera uppspelning på låsskärm?</string>
+
+    <string name="lucky_desc">Du behöver inte titta på en video den här gången.</string>
+    <string name="lucky_title">Du har tur, grattis!</string>
+
+    <string name="lyrics_add_local">Lägg till lokala låttexter</string>
+    <string name="lyrics_edit_song_info">Ändra låtinformationen för att hämta låttexten.</string>
+    <string name="lyrics_import_failed_no_format">Låttexten kunde inte importeras, filformatet stöds inte.</string>
+    <string name="lyrics_imported">Låttext har importerats</string>
+    <string name="lyrics_load_failed">Kunde inte hämta låttext</string>
+    <string name="lyrics_loading">Hämtar låttext ...</string>
+    <string name="lyrics_net_error">Hoppsan, kontrollera din nätverksanslutning</string>
+    <string name="lyrics_no_found">Hoppsan, inga låttexter hittades</string>
+    <string name="lyrics_no_matches">Låten eller artistnamnet stämmer inte</string>
+    <string name="lyrics_no_scroll">Det går inte att bläddra i låttexter</string>
+    <string name="lyrics_reset_msg">Om du gör detta kommer de låttexter du har lagt till att tas bort.</string>
+    <string name="lyrics_reset_title">Är det säkert att du vill återställa låttexterna?</string>
+    <string name="lyrics_search_online">Sök på nätet</string>
+    <string name="lyrics_show_title">Låttexter</string>
+    <string name="lyrics_thanks_fb">Tack för din feedback! Vi kommer att göra vårt bästa för att förbättra detta.</string>
+    <string name="lyrics_tx_error">Fel i låttext</string>
+
+    <string name="manage_playlist">Hantera</string>
+
+    <string name="manual_backups">Säkerhetskopiera lista manuellt</string>
+
+    <string name="more">Mer</string>
+    <string name="more_setting">Fler inställningar</string>
+
+    <string name="music">Musik</string>
+
+    <string name="music3_apply_more_permission_killed_dialog_title">%s tvingades till avbrott</string>
+    <string name="music3_battery_opt_content">Ge %s den behörighet som krävs för att uppspelningen inte ska avbrytas med tvång.</string>
+    <string name="music3_battery_opt_title_first">För kontinuerlig uppspelning i bakgrunden</string>
+    <string name="music3_clear_queue_info">Uppspelningskön kommer att tömmas. Är det säkert att du vill fortsätta?</string>
+    <string name="music3_delete_playlist_message">Ta bort spellistan %1$s?</string>
+    <string name="music3_delete_song_message">Ta bort %1$s?</string>
+    <string name="music3_exit_scan">Avsluta skanning?</string>
+    <string name="music3_free_space_to_ensure">Frigör lite utrymme för att se till att appen fungerar korrekt.</string>
+    <string name="music3_guide_allow_description">Ge %s åtkomst till mediafiler för att spela upp musik.</string>
+    <string name="music3_guide_enable_description_1">För att spela upp musik behöver du:</string>
+    <string name="music3_import_clip_tips_html">&lt;b&gt;Markera&lt;/b&gt; låttexten och tryck sedan på &lt;b&gt;kopiera&lt;/b&gt;.</string>
+    <string name="music3_import_clip_tips_title">Hur importerar jag låttexter?</string>
+    <string name="music3_lyrics_edit_song_info">Kontrollera att låtinformationen nedan är korrekt och försök igen.</string>
+    <string name="music3_lyrics_load_failed">Låttexten kunde inte hämtas</string>
+    <string name="music3_lyrics_no_found">Låttexten hittades inte.</string>
+    <string name="music3_lyrics_no_matches">Låten och artistnamnet stämmer inte överens</string>
+    <string name="music3_lyrics_no_scroll">Det går inte att bläddra i låttexter</string>
+    <string name="music3_lyrics_reset_msg">Låttexter som du har lagts till kommer att raderas.</string>
+    <string name="music3_lyrics_reset_title">Vill du återställa låttexterna?</string>
+    <string name="music3_lyrics_tx_error">Fel låttext</string>
+    <string name="music3_resume_playback_content">Vi har upptäckt att musikuppspelningen avbröts av en annan app.</string>
+    <string name="music3_resume_playback_title">Vill du återuppta uppspelningen?</string>
+    <string name="music3_summary_pause_detach">Pausa uppspelningen när hörlurarna kopplas ur</string>
+    <string name="music3_tag_edit_discard_change">Avsluta och avfärda ändringarna?</string>
+    <string name="music3_terms_of_service_should_agree">Godkänn våra %1$s och vår %2$s för att inleda din musikresa!</string>
+    <string name="music3_thanks_for_your_feedback">Tack för din värdefulla feedback.</string>
+
+    <string name="music_guide_allow_description">För att du ska kunna lyssna på musik, behöver %s åtkomst till mediafiler på din enhet.</string>
+    <string name="music_player_share_text">Här är en låt för dig från %1$s.</string>
+
+    <string name="my_favourite">Min favorit</string>
+
+    <string name="network_error">Nätverksfel</string>
+    <string name="network_error_pls_try">Nätverksfel, försök igen</string>
+
+    <string name="new_playlist">Ny spellista</string>
+    <string name="new_share_email_text">Jag använder %s.\\n\\nProva den själv. Du kan ladda ner appen här:\\n</string>
+
+    <string name="next_song">Nästa låt</string>
+
+    <string name="no_backup">Ingen säkerhetskopia hittades</string>
+    <string name="no_document_provider">Det finns ingen dokumentutgivare som kan hantera åtkomstbegäranden</string>
+    <string name="no_songs_found">Inga låtar hittades</string>
+
+    <string name="not_good">Inte direkt</string>
+
+    <string name="nothing_found">Ingenting hittades</string>
+
+    <string name="now_playing">Spelartema</string>
+
+    <string name="number_song_add_playlist">%d låt har lagts till i spellistan.</string>
+    <string name="number_song_add_queue">%d låt har lagts till i kön.</string>
+    <string name="number_song_selected">%d låt vald</string>
+    <string name="number_songs_add_playlist">%d låtar har lagts till i spellistan.</string>
+    <string name="number_songs_add_queue">%d låtar har lagts till i kön.</string>
+    <string name="number_songs_selected">%d låtar valda</string>
+
+    <string name="off">Av</string>
+
+    <string name="open_settings">Öppna inställningarna</string>
+
+    <string name="options_ads">För många annonser</string>
+    <string name="options_bugs">Fel</string>
+    <string name="options_music_stop">Musiken stoppar</string>
+    <string name="options_others">Annan</string>
+    <string name="options_songs_not_found">Vissa låtar visas inte</string>
+    <string name="options_suggestions">Förslag</string>
+
+    <string name="pause_detach">Pausa vid urkoppling</string>
+
+    <string name="pg_permission_dialog_title">Behörighet krävs</string>
+
+    <string name="play">Spela upp</string>
+    <string name="play_after_song">Spela efter den aktuella låten</string>
+    <string name="play_next">Spela upp nästa</string>
+
+    <string name="playing_queue">Uppspelningskö</string>
+
+    <string name="playlist">Spellista</string>
+    <string name="playlist_already_exist">%1$s finns redan</string>
+    <string name="playlist_edit_hint">Ange spellistans namn</string>
+    <string name="playlist_last_added">Nyligen tillagda</string>
+    <string name="playlist_most_played">Mest spelade</string>
+    <string name="playlist_recently_played">Nyligen spelade</string>
+    <string name="playlist_top_tracks">Mina favoritlåtar</string>
+
+    <string-array name="preset_reverb">
+        <item>Ingen</item>
+        <item>Litet rum</item>
+        <item>Medelstort rum</item>
+        <item>Stort rum</item>
+        <item>Medelstor sal</item>
+        <item>Stor sal</item>
+        <item>Platta</item>
+    </string-array>
+
+    <string name="price_lifetime">%s/Engångsköp</string>
+
+    <string name="privacy_policy">Integritetspolicy</string>
+
+    <string name="queue">Kö</string>
+
+    <string name="rate_us">Betygsätt oss</string>
+
+    <string name="rating_we_like_you">Vi gillar dig också!</string>
+
+    <string name="reader_exit_ads">Är det säkert att du vill lämna?</string>
+
+    <string name="remaining_x">Kvar: %s</string>
+
+    <string name="remind_me_anymore">Påminn mig inte igen</string>
+
+    <string name="remove">Ta bort</string>
+    <string name="remove_ad">Ta bort reklam</string>
+    <string name="remove_from_playlist">Ta bort från spellista</string>
+    <string name="remove_from_queue">Ta bort från kön</string>
+    <string name="remove_song_message">Är det säkert att du vill ta bort %s?</string>
+
+    <string name="rename">Byt namn</string>
+    <string name="rename_failed">Kunde inte byta namn</string>
+    <string name="rename_success">Namnet har bytts</string>
+
+    <string name="repeat_loop">Spela alla i loop</string>
+    <string name="repeat_off">Upprepning av</string>
+    <string name="repeat_order">Ordning</string>
+    <string name="repeat_repeat">Upprepa nuvarande</string>
+    <string name="repeat_shuffle">Blanda alla</string>
+
+    <string name="restore_failed">Återställning misslyckades</string>
+    <string name="restore_playlist">Återställ spellista</string>
+    <string name="restore_success">Återställa framgångsrikt</string>
+
+    <string name="result">Resultat</string>
+
+    <string name="resume">Återuppta</string>
+    <string name="resume_playback_content">Vi noterade att musikuppspelningen avbröts av andra applikationer.</string>
+    <string name="resume_playback_title">Vill du starta uppspelningen igen?</string>
+
+    <string name="retry">Försök igen</string>
+
+    <string name="reverb">Reverb</string>
+
+    <string name="ringtone_set">Sparad</string>
+    <string name="ringtone_set_failed">Kunde inte utföras</string>
+
+    <string name="save">Spara</string>
+
+    <string name="saving_tags">Sparar taggar...</string>
+
+    <string name="scan">Skanna</string>
+    <string name="scan_library">Skanna musik</string>
+    <string name="scan_result">%1$s låtar har lagts till i %2$s</string>
+
+    <string name="scanner_lib_rate_leave_feedback">Vi uppskattar din feedback.</string>
+    <string name="scanner_lib_rate_like_you">Väldigt uppskattat!</string>
+    <string name="scanner_share_dialog_title_2">Tack för ditt stöd!</string>
+
+    <string name="scanning">Skannar ...</string>
+
+    <string name="screen_lock_play">Uppspelning på låsskärmen</string>
+
+    <string name="sd_card_access_step_1_format">
+        <![CDATA[Tryck på knappen högst upp till vänster och <font color=\"#F44831\"><b>välj SD-kort</b></font>.]]>
+    </string>
+    <string name="sd_card_access_step_2_format">
+        <![CDATA[<font color=\"#F44831\"><b>Tryck på VÄLJ</b></font> längst ner på nästa skärm för att ge skrivbehörighet.]]>
+    </string>
+    <string name="sd_tips">Välj &lt;b&gt;rotkatalogen&lt;/b&gt; på det externa SD-kortet &lt;br/&gt;&lt;b&gt;(%s)&lt;/b&gt; för att ge åtkomst.</string>
+
+    <string name="sdcard_permission_required">Behörighet krävs för att kunna radera låtar från SD-kort.</string>
+
+    <string name="search">Sök</string>
+    <string name="search_albums">Sök album</string>
+    <string name="search_artists">Sök artister</string>
+    <string name="search_folders">Sök mappar</string>
+    <string name="search_genres">Sök genrer</string>
+    <string name="search_history">Sökhistorik</string>
+    <string name="search_library">Sök bibliotek</string>
+    <string name="search_music_on_youtube">Sök efter låtar på YouTube</string>
+    <string name="search_on_youtube">Sök på YouTube</string>
+    <string name="search_songs">Sök låtar</string>
+
+    <string name="select_all">Välj alla</string>
+    <string name="select_backup">Välj en säkerhetskopia att återställa</string>
+    <string name="select_folder">Välj mappar</string>
+
+    <string name="set">ANGE</string>
+    <string name="set_as_ringtone">Använd som ringsignal</string>
+    <string name="set_ringtone">Vill du använda %s som ringsignal?</string>
+    <string name="set_ringtone_message">För att kunna ställa in en ringsignal behöver du ge följande behörighet.</string>
+
+    <string name="settings">Inställning</string>
+
+    <string name="share">Dela</string>
+    <string name="share_email_title">Dela %s med dig</string>
+
+    <string name="show">Visa</string>
+
+    <string name="shuffle">Blanda</string>
+    <string name="shuffle_off">Blandning av</string>
+    <string name="shuffle_on">Blandning på</string>
+
+    <string name="size">Storlek</string>
+
+    <string name="sleep_timer">Insomningstimer</string>
+
+    <string name="slide_to_unlock">Dra för att låsa upp</string>
+
+    <string name="song">Låt</string>
+    <string name="song_added_plural">%s nya låtar tillagda.</string>
+    <string name="song_added_singular">%s ny låt tillagd.</string>
+    <string name="song_deleted">%d låt har tagits bort</string>
+    <string name="song_name">Låtnamn</string>
+    <string name="song_scanned_plural">%s låtar skannade.</string>
+    <string name="song_scanned_singular">%s låt skannad.</string>
+    <string name="song_title">Titel</string>
+
+    <string name="songs">Låtar</string>
+    <string name="songs_deleted">%d låtar har tagits bort</string>
+
+    <string name="sort_by">Sortera efter</string>
+    <string name="sort_by_name">namn</string>
+    <string name="sort_key_add_playlist">Tid för tillägg i spellista</string>
+    <string name="sort_key_album_name">Albumnamn</string>
+    <string name="sort_key_number_of_albums">Antal album</string>
+    <string name="sort_key_time_added">Tilläggstid</string>
+    <string name="sort_key_track">Plats i album</string>
+    <string name="sort_order_a_z">Från A till Ö</string>
+    <string name="sort_order_big_small">Från stor till liten</string>
+    <string name="sort_order_entry_number_of_songs">Antal låtar</string>
+    <string name="sort_order_long_short">Från lång till kort</string>
+    <string name="sort_order_short_long">Från kort till lång</string>
+    <string name="sort_order_small_big">Från liten till stor</string>
+    <string name="sort_order_z_a">Från Ö till A</string>
+
+    <string name="start">Start</string>
+
+    <string name="storage">Lagring</string>
+
+    <string name="subscription_des_music">Det här abonnemanget ger dig obegränsad åtkomst till appens innehållsbibliotek. Om du inte avslutar abonnemanget före provperiodens slut kommer du automatiskt att debiteras %s varje månad tills abonnemanget avslutas.</string>
+    <string name="subscription_detail">Abonnemangsinformation</string>
+    <string name="subscription_price">Därefter %s/månad</string>
+
+    <string name="summary_feedback">Rapportera fel och ge förslag på vad vi kan förbättra</string>
+    <string name="summary_pause_detach">Aktivera för att pausa uppspelningen när hörlurarna är urkopplade</string>
+    <string name="summary_rateUs">Gillar du den här appen? Betygsätt oss!</string>
+    <string name="summary_screen_lock_play">Visa vad som spelas på låsskärmen</string>
+
+    <string name="system">System</string>
+    <string name="system_default">Standardinställning</string>
+
+    <string name="tag_edit_discard_change">Är det säkert att du vill avfärda ändringarna?</string>
+    <string name="tag_edit_error">Redigering misslyckades</string>
+    <string name="tag_edit_success">Redigering klar</string>
+
+    <string name="tap_permission">Tryck på Behörigheter</string>
+    <string name="tap_to_start">Tryck för att starta %s</string>
+
+    <string name="terms_of_service">Användarvillkor</string>
+    <string name="terms_of_service_guide">Genom att trycka på \"%1$s\" bekräftar du att du har läst och godkänner vår %2$s och våra %3$s.</string>
+    <string name="terms_of_service_should_agree">För att kunna använda %1$s måste du godkänna våra %2$s och vår %3$s.</string>
+
+    <string name="thanks_for_loving_x">Tack för att du gillar %s.</string>
+    <string name="thanks_for_your_feedback">Tack för din feedback.</string>
+
+    <string name="theme">Färgteman</string>
+
+    <string name="thx_feedback_tip">Vi kommer att åtgärda detta i en kommande version. Vi ber om ursäkt för olägenheten.</string>
+
+    <string name="timer_after_this">Stoppa när låten som spelas är slut</string>
+    <string name="timer_stop_after">Stäng av musiken efter</string>
+    <string name="timer_turn_off">Sovtimer avstängd</string>
+    <string name="timer_turn_off_latter">Stäng av om %s</string>
+
+    <string name="title_is_null">Titeln får inte vara tom</string>
+
+    <string name="transparency">Transparens</string>
+
+    <string name="turn_off">Stäng av</string>
+    <string name="turn_off_after">Stäng av efter %1$d minuter</string>
+    <string name="turn_off_ends">Stäng av när låten som spelas är slut</string>
+    <string name="turn_storage">Aktivera Lagring</string>
+
+    <string name="unit_secs">sek</string>
+
+    <string name="unknow_error">Ett okänt fel har uppstått</string>
+
+    <string name="unlock_for_free">Lås upp GRATIS</string>
+    <string name="unlock_premium_themes">Få tillgång till alla teman</string>
+
+    <string name="version">Version</string>
+
+    <string name="view">Visa</string>
+    <string name="view_all">Visa alla</string>
+
+    <string name="virtualizer">Virtualisering</string>
+
+    <string name="vivo_deny">Neka</string>
+
+    <string name="what_a_pity">Tråkigt att höra!</string>
+
+    <string name="x_hours">%s timmar</string>
+    <string name="x_minutes">%s minuter</string>
+    <string name="x_seconds">%s sekunder</string>
+    <string name="x_selected">%s har valts</string>
+    <string name="x_song_hide_single">%1$s låt är dold, öppna %2$s för att visa den.</string>
+    <string name="x_songs_hide_1">%1$s låtar är dolda. Öppna %2$s för att visa dem.</string>
+
+    <string name="xbooster_notification_access">Åtkomst till aviseringar</string>
+
+    <string name="yes">JA</string>
+    <string name="music3_remove_successfully">Borttagen</string>
+
+    <string name="camera_preparing">Förbereder …</string>
+
+    <string name="widget_tap_start">Tryck för att starta Musikspelare</string>
+    <string name="music3_notification_access_desc">Ge %s behörighet att visa aviseringar för att snabbt styra musikuppspelningen från aviseringscentret.</string>
+    <string name="music3_app_name">Musikspelare</string>
+
+    <string name="go_file_manager">Fortsätt</string>
+    <string name="music3_click_to_authorize">Klicka här för att bevilja behörighet</string>
+    <string name="music3_language_guide">Välj ett annat språk än System och klicka här för att bekräfta.</string>
+    <string name="pdf_reader2_enter_homepage_guide">Tryck för att öppna startsidan</string>
+
+    <string name="mp3_current_speed">Nuvarande hastighet: %s</string>
+    <string name="mp3_edit_lyrics">Redigera låttext</string>
+    <string name="mp3_enter_lyrics">Ange låttext</string>
+    <string name="mp3_enter_lyrics_here">Ange låttexten här …</string>
+    <string name="music3_playback_speed">Uppspelningshastighet</string>
+    <string name="music3_playback_speed_changed">Uppspelningshastigheten har ändrats till %sX</string>
+    <string name="music3_playback_speed_num">Uppspelningshastighet: %s</string>
+    <string name="normal">Normalt</string>
+    <string name="paste">Klistra in</string>
+    <string name="music3_playback_speed_changed_failed">Kunde inte ändra till %sX, återställt till 1,0X</string>
+
+    <string name="music3_app_title_1">Musikspelare - DDMusic</string>
+    <string name="music3_delete_permission_access">&#60;b&#62;Följ anvisningarna på nästa skärm&#60;/b&#62; för att bevilja åtkomst.</string>
+    <string name="music3_delete_some_no_premission">Resten kunde inte utföras på grund av &#60;b&#62;problem med behörigheter&#60;/b&#62;.</string>
+    <string name="music3_delete_videos_gpt">Ta bort %s videor?</string>
+    <string name="music3_error_playing_video_gpt">Fel vid uppspelning av video \&#34;%s\&#34;</string>
+    <string name="music3_grant_media_files_access_gpt">Vänligen bevilja åtkomst till %s mediefiler för att spela upp videor.</string>
+    <string name="music3_next">Nästa</string>
+    <string name="music3_resume_auto">Fortsätt spela från där du slutade</string>
+    <string name="music3_scan_local_videos_gpt">För att skanna lokala videor, vänligen:</string>
+    <string name="music3_scan_video_gpt">Skanna video</string>
+    <string name="music3_sd_card_access_step_2_format">&#60;b&#62;Tryck sedan på VÄLJ&#60;/b&#62; för att ge skrivbehörighet.</string>
+    <string name="music3_sd_write_access_required_gpt">Att ta bort videor från SD-kort kräver skrivåtkomst</string>
+    <string name="music3_search_videos">Sök videor</string>
+    <string name="music3_select_albums_gpt">Välj album</string>
+    <string name="music3_select_artists_gpt">Välj artister</string>
+    <string name="music3_select_genres_gpt">Välj genrer</string>
+    <string name="music3_select_playlists_gpt">Välj spellistor</string>
+    <string name="music3_select_songs_gpt">Välj låtar</string>
+    <string name="music3_select_videos_gpt">Välj videor</string>
+    <string name="music3_videos_added_gpt">&#60;b&#62;%1$s&#60;/b&#62; videor tillagda i %2$s</string>
+    <string name="music3_video_info_gpt">Videoinformation</string>
+    <string name="music3_video_name_gpt">Videonamn</string>
+    <string name="music3_video_not_found_gpt">Hittade inte videon?</string>
+    <string name="music3_x_new_videos_added_gpt">%s nya videor tillagda</string>
+    <string name="music3_x_videos_deleted_gpt">%s videor borttagna</string>
+
+    <string name="allplayer_fast_forward">Snabb framåt</string>
+    <string name="allplayer_mute_play_gpt">Ljudlöst spela</string>
+    <string name="allplayer_recently_watched_gpt">Nyligen sedda</string>
+    <string name="brightness">Ljusstyrka</string><!-- 用ChatGPT翻译 -->
+    <string name="btn_allow">Tillåt</string>
+    <string name="enter_name">Ange ett namn</string>
+    <string name="got_it_1">OK</string><!-- 由got_it整理 -->
+    <string name="music3_1_new_video_added_gpt">%s ny video tillagd</string>
+    <string name="music4_allow_photo_video">Ge åtkomst till foton och videor</string>
+    <string name="music4_photo_permission_step3">Leta upp och tryck på Foton och videor</string>
+    <string name="music_3_video_share">En video för dig från %1$s %2$s</string>
+    <string name="no_videos_found">Inga videor hittade</string><!-- 用ChatGPT翻译 -->
+    <string name="n_videos">%s videor</string><!-- 用ChatGPT翻译 -->
+    <string name="n_videos_1">%s video</string>
+    <string name="one_video">1 video</string><!-- 用ChatGPT翻译 -->
+    <string name="pause_play">Paus/Spela</string>
+    <string name="rewind">Spola tillbaka</string>
+    <string name="rp_next">Nästa</string>
+    <string name="sd_card_access_step_1">Tryck på knappen i det övre vänstra hörnet och &#60;b&#62;välj SD-kortet&#60;/b&#62;.</string><!-- 用ChatGPT翻译 -->
+    <string name="sound_boost_tips">Fortsätt att justera för att öka volymen upp till 200 %.</string>
+    <string name="start_over">Börja om</string><!-- 用ChatGPT翻译 -->
+    <string name="tab_videos">Videor</string><!-- 用ChatGPT翻译 -->
+    <string name="tap_again_to_exit">Klicka igen för att avsluta</string>
+    <string name="video">Video</string>
+    <string name="volume">Volym</string>
+    <string name="xgallery_no_next_video">Redan vid sista videon</string><!-- 用ChatGPT翻译 -->
+    <string name="xgallery_no_previous_video">Redan vid första videon</string><!-- 用ChatGPT翻译 -->
+    <string name="xgallery_playing_lock_screen">Skärmen är låst</string><!-- 用ChatGPT翻译 -->
+    <string name="xgallery_playing_unlock_screen">Skärmen är olåst</string><!-- 用ChatGPT翻译 -->
+    <string name="xgallery_sound_off">Ljud av</string><!-- 用ChatGPT翻译 -->
+    <string name="xgallery_sound_on">Ljud på</string><!-- 用ChatGPT翻译 -->
+    <string name="zoom_in_out">Zooma in/ut</string><!-- 用ChatGPT翻译 -->
+    <string name="music3_1_video_deleted_gpt">%s video borttagen</string>
+    <string name="music4_choose_allow">Välj Tillåt</string>
+    <string name="open_settings_1">Öppna inställningarna</string>
+    <string name="music4_error_playing_file_error">Kunde inte spela upp, ogiltig fil.</string>
+    <string name="music4_error_playing_path_error">Kunde inte spela upp, ogiltig filsökväg.</string>
+    <string name="music3_1_song_added_gpt">&#60;b&#62;1&#60;/b&#62; låt tillagd %s</string>
+    <string name="music3_1_video_added_gpt">&#60;b&#62;1&#60;/b&#62; video tillagt %s</string>
+
+    <string name="all_reader2_major_update_gpt">Stor uppdatering</string>
+    <string name="all_reader2_new_version_gpt">Ny version</string>
+    <string name="all_reader2_new_version_ready_gpt">Ny version är redo!</string>
+    <string name="all_reader2_new_version_title_plan1_gpt">Vår senaste version har fått 5-stjärniga recensioner från %s användare!</string>
+    <string name="booster2_new_version_des2_gpt">Gå med i %s nöjda användare och uppgradera för en 5-stjärnig upplevelse!</string>
+    <string name="booster2_new_version_des3_gpt">Vår senaste version stoltserar med en imponerande %s tillfredsställelsegrad hittills.</string>
+    <string name="booster2_version_update">Versionsuppdatering</string><!-- gpt翻译 -->
+    <string name="install">Installera</string>
+    <string name="lyrics_source_gpt">Textkälla: anonym användare</string>
+    <string name="pdf_reader3_update_from_gp_gpt">Misslyckades, vänligen uppdatera från Google Play</string>
+    <string name="recommended">Rekommenderas</string>
+    <string name="step4_update_reason_1_gpt">I denna uppdatering har vi fixat flera problem och förbättrat den övergripande prestandan i applikationen.</string>
+    <string name="update">Uppdatera</string>
+    <string name="update_failed_network_wg_gpt">Uppdateringen misslyckades, vänligen kontrollera ditt nätverk och försök igen</string>
+    <string name="update_now_for_better_1">Du kan &#60;b&#62;uppdatera nu&#60;/b&#62; för en bättre upplevelse.</string>
+    <string name="updating">Uppdaterar ...</string>
+    <string name="upgrade">Uppgradera</string>
+    <string name="upgrade_to_new_version">Upplev förbättrad prestanda och ökad stabilitet med vår senaste version. \n\n&#60;b&#62;Tryck för att uppgradera nu.&#60;/b&#62;</string>
+    <string name="upload_lyrics_statement_gpt">När du laddar upp texter till vår app, var vänlig och försäkra dig om att du har rätt att göra så och att din uppladdning inte bryter mot några intellektuella egendomsrättigheter. Genom att ladda upp, ger du oss tillstånd att använda ditt innehåll gratis, och vi kommer att kreditera källan som \&#34;anonym användare\&#34;.</string>
+    <string name="video_player_in_music_gpt">Videospelare</string>
+    <string name="video_player_moved_gpt">Videospelaren har flyttats hit</string>
+</resources>

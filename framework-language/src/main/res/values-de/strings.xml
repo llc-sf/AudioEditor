@@ -1,0 +1,697 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="abbre_minute">m</string>
+
+    <string name="access_all_features">Gratis-Zugriff auf alle neuen Funktionen in zukünftigen Versionen</string>
+    <string name="access_files">Zugriff auf Mediendateien auf dem Gerät zulassen.</string>
+
+    <string name="action_continue">Weiter</string>
+    <string name="action_ok">OK</string>
+    <string name="action_reset">Zurücksetzen</string>
+
+    <string name="add_playlist_unknow_error">Erstellen der Playliste nicht möglich</string>
+    <string name="add_to_playlist">Zur Playliste hinzufügen</string>
+    <string name="add_to_queue">Zur Warteschlange hinzufügen</string>
+    <string name="add_tracks">Songs hinzufügen</string>
+
+    <string name="added_to_favourite">Zu Favoriten hinzufügen</string>
+
+    <string name="agree_continue">Zustimmen und fortfahren</string>
+
+    <string name="album_title">Album</string>
+
+    <string name="albums">Alben</string>
+
+    <string name="all_songs">Alle Songs</string>
+
+    <string name="allow">Zulassen</string>
+    <string name="allow_access">Zulassen</string>
+    <string name="allow_access_storage">Zugriff auf Speicher zulassen</string>
+    <string name="allow_all_time">Jederzeit erlauben</string>
+
+    <string name="already_exists">Bereits vorhanden</string>
+
+    <string name="app_name_compat_mp3">Gratis Musik</string>
+    <string name="app_name_compat_music">Musikplayer</string>
+
+    <string name="apply_more_permission_killed_dialog_title">%s wurde zwangsweise gestoppt</string>
+
+    <string name="artist_name">Künstlername</string>
+    <string name="artist_title">Künstler</string>
+
+    <string name="artists">Künstler</string>
+
+    <string name="ask_like_app">Sind Sie zufrieden mit %s?</string>
+
+    <string name="auto_backups">Automatische Sicherungen</string>
+
+    <string name="backup">Sicherung</string>
+    <string name="backup_fail">Sicherung fehlgeschlagen</string>
+    <string name="backup_playlist">Playliste sichern</string>
+    <string name="backup_success">Sicherung erfolgreich</string>
+    <string name="backup_summary_playlist">%d Playliste</string>
+    <string name="backup_summary_playlists">%d Playlisten</string>
+    <string name="backup_title">Sichern?</string>
+
+    <string name="bass_boost">Bass Boost</string>
+
+    <string name="battery_opt_content">Um ein ungewöhnliches Stoppen beim Abspielen der Musik zu vermeiden, muss %s die notwendige Berechtigung erhalten</string>
+    <string name="battery_opt_title_first">Ungewöhnliches Stoppen vermeiden</string>
+
+    <string name="blur">Verwischen</string>
+
+    <string name="cancel">Abbruch</string>
+    <string name="cancel_favorite_success">Zu Favoriten hinzugefügt</string>
+
+    <string name="change_album_art">Albumcover ändern</string>
+    <string name="change_cover">Titelbild ändern</string>
+    <string name="change_cover_failed">Änderung des Covers fehlgeschlagen</string>
+    <string name="change_language_title">Sprache auswählen</string>
+    <string name="change_picture">Bild ändern</string>
+
+    <string name="choose_allow">„Zulassen“ wählen</string>
+
+    <string name="clear">Löschen</string>
+    <string name="clear_playlist">%s löschen</string>
+    <string name="clear_queue_info">Möchten Sie die Spielwarteschlange wirklich löschen?</string>
+
+    <string name="color">Colorear</string>
+
+    <string name="confirm_and_fix">Wir werden das Problem bestätigen und in der nächsten Version so rasch wie möglich beheben!</string>
+    <string name="confirm_information">Angaben bestätigen</string>
+
+    <string name="continue_to_work_hard">Wir werden weiter hart arbeiten.</string>
+
+    <string name="count_album">%d album</string>
+    <string name="count_albums">%d alben</string>
+    <string name="count_artist">%s Künstler</string>
+    <string name="count_artists">%s Künstler</string>
+    <string name="count_folder">%s Ordner</string>
+    <string name="count_folders">%s Ordner</string>
+    <string name="count_genre">%s Genre</string>
+    <string name="count_genres">%s Genres</string>
+    <string name="count_media_file">%d Mediendatei</string>
+    <string name="count_media_files">%d Mediendateien</string>
+    <string name="count_song">%d song</string>
+    <string name="count_songs">%d songs</string>
+    <string name="count_sub_folder">%d Unterordner</string>
+    <string name="count_sub_folders">%d Unterordner</string>
+
+    <string name="create">Erstellen</string>
+    <string name="create_new_playlist">Neue Playliste erstellen</string>
+
+    <string name="created_playlist">Playlist %s erstellt</string>
+
+    <string name="delete">Löschen</string>
+    <string name="delete_failed">Löschen fehlgeschlagen</string>
+    <string name="delete_from_device">Von Gerät löschen</string>
+    <string name="delete_permission_access">Bitte sicherstellen, dass bei der Autorisierung &lt;b&gt;der richtige Ordner gewählt wird&lt;/b&gt;.</string>
+    <string name="delete_playlist_message">Möchten Sie wirklich die Playliste %1$s löschen?</string>
+    <string name="delete_playlist_title">Playliste löschen</string>
+    <string name="delete_some_no_premission">Während andere wegen fehlender Berechtigung scheiterten.</string>
+    <string name="delete_song">Song löschen?</string>
+    <string name="delete_song_message">Möchten Sie wirklich %1$s löschen?</string>
+
+    <string name="deleted_success">Erfolgreich gelöscht</string>
+
+    <string name="details">Details</string>
+
+    <string name="dialog_message_set_ringtone">Um Ihren Klingelton einzurichten, benötigt Musikspieler die Berechtigung, in die Systemeinstellungen zu schreiben.\n\nNach dem Gewähren der Berechtigung, versuchen Sie erneut, den Klingelton einzurichten.</string>
+    <string name="dialog_title_set_ringtone">Klingelton einrichten</string>
+
+    <string name="diet_for_you">Für Sie</string>
+
+    <string name="directories">Verzeichnisse</string>
+
+    <string name="directory_empty">Verzeichnis leer</string>
+
+    <string name="disagree_exit">Ablehnen und schließen</string>
+
+    <string name="discard">Verwerfen</string>
+
+    <string name="done">Fertig</string>
+
+    <string name="duration">Dauer</string>
+
+    <string name="edit">Bearbeiten</string>
+    <string name="edit_photo">Foto bearbeiten</string>
+    <string name="edit_tag">Tag bearbeiten</string>
+    <string name="edit_tags">Tags bearbeiten</string>
+
+    <string name="enable_lock_screen_tip">Sie können Sie unter \"Einstellungen - Wiedergabe bei Sperrbildschirm\" einschalten.</string>
+
+    <string name="end_period">Beenden</string>
+
+    <string name="enhancer_best_rating">Die beste Bewertung für uns</string>
+    <string name="enhancer_thanks_rate_us">Danke, dass Sie %s nutzen!\nWir wären Ihnen sehr dankbar, wenn Sie uns bewerten könnten.</string>
+
+    <string name="entered_same_name">Der Name existiert bereits, bitte versuchen Sie es mit einem anderen.</string>
+
+    <string name="equ_custom">Benutzerdefiniert</string>
+
+    <string name="equalizer">Equalizer</string>
+
+    <string name="error_playing_file_error">Wiedergabe fehlgeschlagen, Datei existiert nicht</string>
+    <string name="error_playing_normal">Wiedergabe fehlgeschlagen, ein unbekannter Fehler ist aufgetreten</string>
+    <string name="error_playing_path_error">Wiedergabe fehlgeschlagen, Pfadfehler.</string>
+    <string name="error_playing_track">Fehler beim Abspielen von %1$s</string>
+
+    <string name="exe_all">Alle</string>
+
+    <string name="exit">Verlassen</string>
+    <string name="exit_1">Beenden</string>
+    <string name="exit_scan">Scannen verlassen?</string>
+
+    <string name="featured">Vorgestellt</string>
+
+    <string name="feedback">Feedback</string>
+    <string name="feedback_mail_text">System-Informationen</string>
+
+    <string name="file_not_exist">Datei existiert nicht</string>
+
+    <string name="folder_select_title">Ordnerauswahl</string>
+
+    <string name="folders">Ordner</string>
+
+    <string name="free_7_days_trial_1">7 Tage gratis Probeversion</string>
+    <string name="free_space_needed">Benötigter Speicherplatz: %s (empfohlen)</string>
+    <string name="free_space_to_ensure">Bitte Speicherplatz freimachen, damit die App ordnungsgemäß funktioniert.</string>
+    <string name="free_up_space">Speicherplatz freigeben</string>
+
+    <string name="from_new_to_old">Älteste zuerst</string>
+    <string name="from_old_to_new">Neueste zuerst</string>
+
+    <string name="general">Allgemein</string>
+
+    <string name="genre_title">Genre</string>
+
+    <string name="genres">Genres</string>
+
+    <string name="go_premium">PREMIUM-UPGRADE</string>
+    <string name="go_to_album">Zu Album wechseln</string>
+    <string name="go_to_artist">Zum Künstler wechseln</string>
+
+    <string name="good">Gut</string>
+
+    <string name="guide_allow_description">Um Musik zu hören,\nbenötigt Musikspieler den Zugriff auf Mediendateien auf Ihrem Gerät.</string>
+    <string name="guide_enable_description_1">Um Musik zu hören, müssen Sie:</string>
+
+    <string name="help">Hilfe</string>
+
+    <!--<string name="hidden_directory">Versteckte Ordner</string>-->
+    <string name="hidden_directory">Versteckte\nOrdner</string><!---->
+
+    <string name="hide">Verstecken</string>
+
+    <string name="history">Verlauf</string>
+
+    <string name="ignore_less_duration">Dateien ignorieren mit Dauer unter:</string>
+    <string name="ignore_less_size">Dateien ignorieren mit Größe unter:</string>
+    <string name="ignore_short_files">Dateien unter 50 K ignorieren.</string>
+    <string name="ignore_short_song">Lieder unter 60 Sek. ignorieren.</string>
+
+    <string name="import_clip_tips">Bitte wählen Sie einen Songtext aus und kopieren Sie ihn.</string>
+    <string name="import_clip_tips_html">Bitte &lt;b&gt;wählen&lt;/b&gt; Sie einen Songtext aus und &lt;b&gt;kopieren&lt;/b&gt; Sie ihn.</string>
+    <string name="import_clip_tips_save_title">Songtext importieren</string>
+    <string name="import_clip_tips_title">Songtexte importieren</string>
+    <string name="import_tel">Importieren</string>
+
+    <string name="insufficient_space">Zu wenig Platz</string>
+
+    <string name="internal_sd">Interner Speicher</string>
+
+    <string name="language_title">Sprache</string>
+
+    <string name="last_backup">Letzte Sicherung: %s</string>
+
+    <string name="library">Bibliothek</string>
+
+    <string name="local">Lokal</string>
+    <string name="local_songs">Lokale Songs</string>
+
+    <string name="location">Ort</string>
+
+    <string name="lock_screen_disable_confirm">Wiedergabe bei Sperrbildschirm ausschalten?</string>
+
+    <string name="lucky_desc">Diesmal brauchen Sie keine Werbung sehen.</string>
+    <string name="lucky_title">Glückwunsch, Sie Glückspilz!</string>
+
+    <string name="lyrics_add_local">Lokale Songtexte hinzufügen</string>
+    <string name="lyrics_edit_song_info">Sie können die Song-Informationen bearbeiten, um präzise Songtexte zu erhalten.</string>
+    <string name="lyrics_import_failed_no_format">Importieren der Songtexte fehlgeschlagen. Dateiformat wird nicht unterstützt.</string>
+    <string name="lyrics_imported">Songtext importiert</string>
+    <string name="lyrics_load_failed">Laden der Songtexte fehlgeschlagen</string>
+    <string name="lyrics_loading">Songtext wird geladen...</string>
+    <string name="lyrics_net_error">Oh! Bitte überprüfen Sie Ihre Internetverbindung.</string>
+    <string name="lyrics_no_found">Oh! Kein Songtext gefunden.</string>
+    <string name="lyrics_no_matches">Songtitel oder Interpret stimmt nicht</string>
+    <string name="lyrics_no_scroll">Songtext lässt sich nicht scrollen</string>
+    <string name="lyrics_reset_msg">Wenn Sie dies tun, wird der hinzugefügte Songtext gelöscht.</string>
+    <string name="lyrics_reset_title">Möchten Sie diesen Songtext wirklich zurücksetzen?</string>
+    <string name="lyrics_search_online">Online suchen</string>
+    <string name="lyrics_show_title">Songtexte</string>
+    <string name="lyrics_thanks_fb">Vielen Dank für Ihr Feedback! Wir werden uns große Mühe geben, den Fehler zu beheben.</string>
+    <string name="lyrics_tx_error">Fehler im Songtext</string>
+
+    <string name="manage_playlist">Verwalten</string>
+
+    <string name="manual_backups">Manuelle Sicherungen</string>
+
+    <string name="more">Mehr</string>
+    <string name="more_setting">Weitere Einstellungen</string>
+
+    <string name="music">Musik</string>
+
+    <string name="music3_apply_more_permission_killed_dialog_title">%s wurde zwangsgestoppt</string>
+    <string name="music3_battery_opt_content">Bitte erteilen Sie %s die notwendige Berechtigung, um zu verhindern, dass die Hintergrundwiedergabe gestoppt wird.</string>
+    <string name="music3_battery_opt_title_first">Für ununterbrochene Wiedergabe im Hintergrund</string>
+    <string name="music3_clear_queue_info">Die Abspielwarteschlange wird gelöscht. Möchten Sie wirklich fortfahren?</string>
+    <string name="music3_delete_playlist_message">Playlist %1$s löschen?</string>
+    <string name="music3_delete_song_message">%1$s löschen?</string>
+    <string name="music3_exit_scan">Scannen beenden?</string>
+    <string name="music3_free_space_to_ensure">Bitte geben Sie etwas Speicherplatz frei, damit die App korrekt funktioniert.</string>
+    <string name="music3_guide_allow_description">Bitte gewähren Sie %s den Mediendaten Zugriff, um Musik abzuspielen.</string>
+    <string name="music3_guide_enable_description_1">Um Musik abzuspielen, bitte:</string>
+    <string name="music3_import_clip_tips_html">&lt;b&gt;Wählen&lt;/b&gt; Sie den Songtext aus und &lt;b&gt;kopieren&lt;/b&gt; Sie ihn dann.</string>
+    <string name="music3_import_clip_tips_title">Wie soll ich Songtexte importieren?</string>
+    <string name="music3_lyrics_edit_song_info">Bitte stellen Sie sicher, dass die Song-Informationen unten korrekt sind und versuchen Sie es erneut.</string>
+    <string name="music3_lyrics_load_failed">Songtext konnte nicht geladen werden</string>
+    <string name="music3_lyrics_no_found">Leider wurde kein Songtext gefunden.</string>
+    <string name="music3_lyrics_no_matches">Song oder Künstler falsch zugeordnet</string>
+    <string name="music3_lyrics_no_scroll">Songtext nicht scrollbar</string>
+    <string name="music3_lyrics_reset_msg">Der von Ihnen hinzugefügte Songtext wird gelöscht, wenn Sie das tun.</string>
+    <string name="music3_lyrics_reset_title">Den Songtext zurücksetzen?</string>
+    <string name="music3_lyrics_tx_error">Falscher Songtext</string>
+    <string name="music3_resume_playback_content">Es wurde festgestellt, dass die Musikwiedergabe wurde von einer anderen App unterbrochen wurde.</string>
+    <string name="music3_resume_playback_title">Wiedergabe fortsetzen?</string>
+    <string name="music3_summary_pause_detach">Wiedergabe anhalten, wenn der Kopfhörer nicht angeschlossen ist</string>
+    <string name="music3_tag_edit_discard_change">Verlassen und die Änderungen verwerfen?</string>
+    <string name="music3_terms_of_service_should_agree">Stimmen Sie unserer %1$s &amp; %2$s zu und starten Sie Ihr Musikabenteuer!</string>
+    <string name="music3_thanks_for_your_feedback">Vielen Dank für Ihr wertvolles Feedback.</string>
+
+    <string name="music_guide_allow_description">Um Musik zu hören, benötigt %s den Zugriff auf Mediendateien auf Ihrem Gerät.</string>
+    <string name="music_player_share_text">Hier ist ein Song für Sie von %1$s.</string>
+
+    <string name="my_favourite">Meine Favoriten</string>
+
+    <string name="network_error">Netzwerkfehler</string>
+    <string name="network_error_pls_try">Netzwerk-Fehler. Bitte versuche es erneut</string>
+
+    <string name="new_playlist">Neue Playliste</string>
+    <string name="new_share_email_text">Ich benutze Musikspieler.\\n\\nProbier es selbst aus. Lade die App hier herunter:\\n</string>
+
+    <string name="next_song">Nächster Song</string>
+
+    <string name="no_backup">Keine Sicherung gefunden</string>
+    <string name="no_document_provider">Kein Dokumenten-Provider verfügbar um diese Erlaubnisanfrage zu bearbeiten.</string>
+    <string name="no_songs_found">Keine Songs gefunden</string>
+
+    <string name="not_good">Nicht wirklich</string>
+
+    <string name="nothing_found">Nichts gefunden</string>
+
+    <string name="now_playing">Player-Theme</string>
+
+    <string name="number_song_add_playlist">%d Song zur Playliste hinzugefügt</string>
+    <string name="number_song_add_queue">%d Song zur Warteschlange hinzugefügt</string>
+    <string name="number_song_selected">%d Song ausgewählt</string>
+    <string name="number_songs_add_playlist">%d Songs zur Playliste hinzugefügt</string>
+    <string name="number_songs_add_queue">%d Songs zur Warteschlange hinzugefügt</string>
+    <string name="number_songs_selected">%d Songs ausgewählt</string>
+
+    <string name="off">Aus</string>
+
+    <string name="open_settings">Einstellungen öffnen</string>
+
+    <string name="options_ads">Zu viel Werbung</string>
+    <string name="options_bugs">Fehler</string>
+    <string name="options_music_stop">Abspielen der Musik stoppt</string>
+    <string name="options_others">Anderes</string>
+    <string name="options_songs_not_found">Einige Lieder werde nicht angezeigt</string>
+    <string name="options_suggestions">Vorschläge</string>
+
+    <string name="pause_detach">Bei Trennung pausieren</string>
+
+    <string name="pg_permission_dialog_title">Genehmigung erforderlich</string>
+
+    <string name="play">Abspielen</string>
+    <string name="play_after_song">Nach dem aktuellen Song abspielen</string>
+    <string name="play_next">Nächsten abspielen</string>
+
+    <string name="playing_queue">Warteschlange</string>
+
+    <string name="playlist">Playliste</string>
+    <string name="playlist_already_exist">%1$s besteht bereits</string>
+    <string name="playlist_edit_hint">Name für Playliste eingeben</string>
+    <string name="playlist_last_added">Zuletzt hinzugefügt</string>
+    <string name="playlist_most_played">Meistgespielt</string>
+    <string name="playlist_recently_played">Zuletzt gespielt</string>
+    <string name="playlist_top_tracks">Meine Top-Tracks</string>
+
+    <string-array name="preset_reverb">
+        <!--It refes to no reverb effect.-->
+        <item>Keinen</item>
+        <!--It is one of reverb types. You will enjoy the music just like in a small room.-->
+        <item>Kleines Zimmer</item>
+        <!--It is one of reverb types. You will enjoy the music just like in a medium room.-->
+        <item>Mittleres Zimmer</item>
+        <!--It is one of reverb types. You will enjoy the music just like in a large room.-->
+        <item>Großes Zimmer</item>
+        <!--It is one of reverb types. You will enjoy the music just like in a large hall.-->
+        <item>Mittlere Halle</item>
+        <!--It is one of reverb types. You will enjoy the music just like in large hall.-->
+        <item>Große Halle</item>
+        <!--It is one of reverb types. You will enjoy the music just like from a plate. Plate here you can understand it as a metal plate.-->
+        <item>Platte</item>
+    </string-array>
+
+    <string name="price_lifetime">%s/Einmalkauf</string>
+
+    <string name="privacy_policy">Datenschutzbestimmungen</string>
+
+    <string name="queue">Warteschlange</string>
+
+    <string name="rate_us">Bewerten Sie uns</string>
+
+    <string name="rating_we_like_you">Wir mögen Sie auch!</string>
+
+    <string name="reader_exit_ads">Wirklich beenden?</string>
+
+    <string name="remaining_x">Noch: %s</string>
+
+    <string name="remind_me_anymore">Nicht mehr erinnern</string>
+
+    <string name="remove">Entfernen</string>
+    <string name="remove_ad">Enferne Werbung</string>
+    <string name="remove_from_playlist">Aus Playliste entfernen</string>
+    <string name="remove_from_queue">Aus Warteschlange entfernen</string>
+    <string name="remove_song_message">Soll „%s“ wirklich entfernt werden?</string>
+
+    <string name="rename">Umbenennen</string>
+    <string name="rename_failed">Umbenennen fehlgeschlagen</string>
+    <string name="rename_success">Erfolgreich entfernt</string>
+
+    <string name="repeat_loop">Alle wiederholen</string>
+    <string name="repeat_off">Wiederholung aus</string>
+    <string name="repeat_order">Sortieren</string>
+    <string name="repeat_repeat">Aktuelles wiederholen</string>
+    <string name="repeat_shuffle">Alle mischen</string>
+
+    <string name="restore_failed">Wiederherstellung fehlgeschlagen</string>
+    <string name="restore_playlist">Playliste wiederherstellen</string>
+    <string name="restore_success">Wiederherstellung erfolgreich</string>
+
+    <string name="result">Ergebnis</string>
+
+    <string name="resume">Fortsetzen</string>
+    <string name="resume_playback_content">Wir haben ermittelt, dass die Wiedergabe der Musik durch andere Anwendungen unterbrochen wurde.</string>
+    <string name="resume_playback_title">Möchtest du das Abspielen fortsetzen?</string>
+
+    <string name="retry">Nochmal</string>
+
+    <string name="reverb">Hall</string>
+
+    <string name="ringtone_set">Erfolgreich eingerichtet</string>
+    <string name="ringtone_set_failed">Einrichtung fehlgeschlagen</string>
+
+    <string name="save">Speichern</string>
+
+    <string name="saving_tags">Tags werden gespeichert ...</string>
+
+    <string name="scan">Scannen</string>
+    <string name="scan_library">Musik scannen</string>
+    <string name="scan_result">%1$s Songs zu %2$s hinzugefügt</string>
+
+    <string name="scanner_lib_rate_leave_feedback">Wir würden uns über Ihr Feedback freuen!</string>
+    <string name="scanner_lib_rate_like_you">Ganz herzlichen Dank!</string>
+    <string name="scanner_share_dialog_title_2">Vielen Dank für Ihre Unterstützung!</string>
+
+    <string name="scanning">Wird gescannt</string>
+
+    <string name="screen_lock_play">Sperrbildschirm-Anzeige</string>
+
+    <string name="sd_card_access_step_1_format">
+        <![CDATA[Tippen Sie oben links auf den Button und <font color=\"#F44831\"><b>wählen Sie die SD-Karte aus</b></font>.]]>
+    </string>
+    <string name="sd_card_access_step_2_format">
+        <![CDATA[Tippen Sie im nächsten Bildschirm unten auf <font color=\"#F44831\"><b>AUSWÄHLEN</b></font>, um den Schreibzugriff zu gewähren.]]>
+    </string>
+    <string name="sd_tips">Bitte wählen Sie das &lt;b&gt;Hauptverzeichnis&lt;/b&gt; der externen SD-Karte &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt; aus, um die Zugriffsrechte zu gewähren.</string>
+
+    <string name="sdcard_permission_required">Zum Löschen von Songs von der SD-Karte ist eine Berechtigung erforderlich.</string>
+
+    <string name="search">Suchen</string>
+    <string name="search_albums">Alben suchen</string>
+    <string name="search_artists">Künstler suchen</string>
+    <string name="search_folders">Ordner suchen</string>
+    <string name="search_genres">Genres suchen</string>
+    <string name="search_history">Suchverlauf</string>
+    <string name="search_library">Bibliothek durchsuchen</string>
+    <string name="search_music_on_youtube">Songs in YouTube suchen</string>
+    <string name="search_on_youtube">Auf YouTube suchen</string>
+    <string name="search_songs">Song suchen</string>
+
+    <string name="select_all">Alle auswählen</string>
+    <string name="select_backup">Wählen Sie eine Sicherungskopie zum Wiederherstellen</string>
+    <string name="select_folder">Ordner auswählen</string>
+
+    <string name="set">Speichern</string>
+    <string name="set_as_ringtone">Als Klingelton einrichten</string>
+    <string name="set_ringtone">%s als Klingelton einrichten?</string>
+    <string name="set_ringtone_message">Um den Klingelton einzurichten, bitte die erforderliche Genehmigung erteilen.</string>
+
+    <string name="settings">Einstellungen</string>
+
+    <string name="share">Teilen</string>
+    <string name="share_email_title">Teile Musikspieler mit dir</string>
+
+    <string name="show">Anzeigen</string>
+
+    <string name="shuffle">Zufall</string>
+    <string name="shuffle_off">Zufallswiedergabe aus</string>
+    <string name="shuffle_on">Zufallswiedergabe ein</string>
+
+    <string name="size">Dateigröße</string>
+
+    <string name="sleep_timer">Sleep-Timer</string>
+
+    <string name="slide_to_unlock">Zur Freischaltung wischen</string>
+
+    <string name="song">Song</string>
+    <string name="song_added_plural">%s neue Songs hinzugefügt.</string>
+    <string name="song_added_singular">%s neuen Song hinzugefügt.</string>
+    <string name="song_deleted">%d Lied wurde gelöscht</string>
+    <string name="song_name">Songname</string>
+    <string name="song_scanned_plural">%s Songs gescannt.</string>
+    <string name="song_scanned_singular">%s Song gescannt.</string>
+    <string name="song_title">Titel</string>
+
+    <string name="songs">Songs</string>
+    <string name="songs_deleted">%d Lieder wurden gelöscht</string>
+
+    <string name="sort_by">Sortiere nach</string>
+    <string name="sort_by_name">Name</string>
+    <string name="sort_key_add_playlist">Zeit des Hinzufügens zur Playlist</string>
+    <string name="sort_key_album_name">Albumtitel</string>
+    <string name="sort_key_number_of_albums">Anzahl der Alben</string>
+    <string name="sort_key_time_added">Zeit hinzugefügt</string>
+    <string name="sort_key_track">Reihenfolge im Album</string>
+    <string name="sort_order_a_z">Von A bis Z</string>
+    <string name="sort_order_big_small">Von groß nach klein</string>
+    <string name="sort_order_entry_number_of_songs">Anzahl der Songs</string>
+    <string name="sort_order_long_short">Von lang nach kurz</string>
+    <string name="sort_order_short_long">Von kurz nach lang</string>
+    <string name="sort_order_small_big">Von klein nach groß</string>
+    <string name="sort_order_z_a">Von Z bis A</string>
+
+    <string name="start">Start</string>
+
+    <string name="storage">Speicher</string>
+
+    <string name="subscription_des_music">Dieses Abonnement verschafft Ihnen unbegrenzten Zugang zu unserer App-Inhaltsbibliothek. Wenn du nicht vor dem Ende der Testphase kündigst, werden dir automatisch jeden Monat %s berechnet, bis du kündigst.</string>
+    <string name="subscription_detail">Abonnement-Details</string>
+    <string name="subscription_price">Danach %s/Monat</string>
+
+    <string name="summary_feedback">Melden Sie Fehler und sagen Sie uns, was wir verbessern sollen.</string>
+    <string name="summary_pause_detach">Schalter zum Anhalten der Wiedergabe, wenn der Kopfhörer getrennt wird.</string>
+    <string name="summary_rateUs">Gefällt Ihnen diese App? Bewerten Sie uns!</string>
+    <string name="summary_screen_lock_play">Aktuellen Song auf Sperrbildschirm anzeigen</string>
+
+    <string name="system">System</string>
+    <string name="system_default">Systemstandard</string>
+
+    <string name="tag_edit_discard_change">Möchten Sie wirklich die Änderungen verwerfen?</string>
+    <string name="tag_edit_error">Bearbeitung fehlgeschlagen</string>
+    <string name="tag_edit_success">Erfolgreich bearbeitet</string>
+
+    <string name="tap_permission">Berechtigungen antippe</string>
+    <string name="tap_to_start">Tippen, um Musikspieler zu starten.</string>
+
+    <string name="terms_of_service">Nutzungsbedingungen</string>
+    <string name="terms_of_service_guide">Wenn Sie auf „%1$s“ tippen, bestätigen Sie, dass Sie unsere %2$s und %3$s gelesen haben und ihnen zustimmen.</string>
+    <string name="terms_of_service_should_agree">Um %1$s verwenden zu können, müssen Sie den %2$s und %3$s zustimmen.</string>
+
+    <string name="thanks_for_loving_x">Danke! Wir freuen uns, dass Ihnen %s gefällt.</string>
+    <string name="thanks_for_your_feedback">Vielen Dank für Ihr Feedback.</string>
+
+    <string name="theme">Skin-Theme</string>
+
+    <string name="thx_feedback_tip">Das tut uns leid. Dieses Problem wird in zukünftigen Versionen repariert sein.</string>
+
+    <string name="timer_after_this">Stoppen, wenn der aktuelle Song endet</string>
+    <string name="timer_stop_after">Musik anhalten nach</string>
+    <string name="timer_turn_off">Einschlaftimer ausgeschaltet</string>
+    <string name="timer_turn_off_latter">%s später abschalten</string>
+
+    <string name="title_is_null">Der Titel darf nicht leer sein.</string>
+
+    <string name="transparency">Transparenz</string>
+
+    <string name="turn_off">Abschalten</string>
+    <string name="turn_off_after">%1$d Minuten später abschalten</string>
+    <string name="turn_off_ends">Nach Ende des aktuellen Songs abschalten</string>
+    <string name="turn_storage">Speicher einschalten</string>
+
+    <string name="unit_secs">sek.</string>
+
+    <string name="unknow_error">Ein unbekannter Fehler ist aufgetreten</string>
+
+    <string name="unlock_for_free">KOSTENLOS freischalten</string>
+    <string name="unlock_premium_themes">Freischalten aller Themes</string>
+
+    <string name="version">Version</string>
+
+    <string name="view">Ansehen</string>
+    <string name="view_all">Alle zeigen</string>
+
+    <string name="virtualizer">Virtualizer</string>
+
+    <string name="vivo_deny">Verbieten</string>
+
+    <string name="what_a_pity">Wie schade!</string>
+
+    <string name="x_hours">%s Stunden</string>
+    <string name="x_minutes">%s Minuten</string>
+    <string name="x_seconds">%s Sekunden</string>
+    <string name="x_selected">%s ausgewählt</string>
+    <string name="x_song_hide_single">%1$s Song ist ausgeblendet. Du kannst zum %2$s gehen, um sie anzuzeigen.</string>
+    <string name="x_songs_hide_1">%1$s Songs sind ausgeblendet. Du kannst zum %2$s gehen, um sie anzuzeigen.</string>
+
+    <string name="xbooster_notification_access">Benachrichtigungszugriff</string>
+
+    <string name="yes">JA</string>
+    <string name="music3_remove_successfully">Erfolgreich entfernt</string>
+
+    <string name="camera_preparing">Wird vorbereitet …</string>
+
+    <string name="widget_tap_start">Tippen, um Musikplayer zu starten</string>
+    <string name="music3_notification_access_desc">Bitte %s Benachrichtigungszugriff gewähren, um die Musikwiedergabe schnell über die Mitteilungszentrale zu steuern.</string>
+    <string name="music3_app_name">Musikplayer</string>
+
+    <string name="go_file_manager">Los</string>
+    <string name="music3_click_to_authorize">Zum Autorisieren hier klicken</string>
+    <string name="music3_language_guide">Bitte wählen Sie eine andere Sprache als „System“ und klicken Sie zur Bestätigung hier.</string>
+    <string name="pdf_reader2_enter_homepage_guide">Tippen, um die Startseite zu öffnen</string>
+
+    <string name="mp3_current_speed">Aktuelles Geschwindigkeit: %s</string>
+    <string name="mp3_edit_lyrics">Bearbeiten</string>
+    <string name="mp3_enter_lyrics">Eingeben</string>
+    <string name="mp3_enter_lyrics_here">Hier Songtext eingeben…</string>
+    <string name="music3_playback_speed">Wiedergabegeschwindigkeit</string>
+    <string name="music3_playback_speed_changed">Wiedergabegeschwindigkeit auf %sX geändert</string>
+    <string name="music3_playback_speed_num">Wiedergabegeschwindigkeit: %s</string>
+    <string name="normal">Normal</string>
+    <string name="paste">Einfügen</string>
+    <string name="music3_playback_speed_changed_failed">Ändern auf %sx fehlgeschlagen. Wurde auf 1,0x zurückgesetzt.</string>
+
+    <string name="music3_app_title_1">Musikplayer - DDMusic</string>
+    <string name="music3_delete_permission_access">Bitte &#60;b&#62;Schritte auf der nächsten Seite befolgen&#60;/b&#62;, um Zugriff zu ermöglichen.</string>
+    <string name="music3_delete_some_no_premission">Aber der Rest ist auf Grund von &#60;b&#62;Problemen mit der Berechtigung&#60;/b&#62; fehlgeschlagen.</string>
+    <string name="music3_delete_videos_gpt">%s Videos löschen?</string>
+    <string name="music3_error_playing_video_gpt">Fehler beim Abspielen des Videos \&#34;%s\&#34;</string>
+    <string name="music3_grant_media_files_access_gpt">Bitte gewähren Sie %s Zugriff auf Mediendateien, um Videos abzuspielen.</string>
+    <string name="music3_next">Nächste</string>
+    <string name="music3_resume_auto">Dort weiter abspielen, wo sie aufgehört haben</string>
+    <string name="music3_scan_local_videos_gpt">Um lokale Videos zu scannen, bitte:</string>
+    <string name="music3_scan_video_gpt">Video scannen</string>
+    <string name="music3_sd_card_access_step_2_format">Anschließend auf &#60;b&#62;AUSWÄHLEN tippen&#60;/b&#62;, um Schreibzugriff zu gewähren.</string>
+    <string name="music3_sd_write_access_required_gpt">Das Löschen von Videos von der SD-Karte erfordert Schreibzugriff</string>
+    <string name="music3_search_videos">Videos suchen</string>
+    <string name="music3_select_albums_gpt">Alben auswählen</string>
+    <string name="music3_select_artists_gpt">Künstler auswählen</string>
+    <string name="music3_select_genres_gpt">Genres auswählen</string>
+    <string name="music3_select_playlists_gpt">Playlists auswählen</string>
+    <string name="music3_select_songs_gpt">Lieder auswählen</string>
+    <string name="music3_select_videos_gpt">Videos auswählen</string>
+    <string name="music3_videos_added_gpt">&#60;b&#62;%1$s&#60;/b&#62; Videos zu %2$s hinzugefügt</string>
+    <string name="music3_video_info_gpt">Video-Informationen</string>
+    <string name="music3_video_name_gpt">Videoname</string>
+    <string name="music3_video_not_found_gpt">Video nicht gefunden?</string>
+    <string name="music3_x_new_videos_added_gpt">%s neue Videos hinzugefügt</string>
+    <string name="music3_x_videos_deleted_gpt">%s Videos gelöscht</string>
+
+    <string name="allplayer_fast_forward">Schneller Vorlauf</string>
+    <string name="allplayer_mute_play_gpt">Stumm abspielen</string>
+    <string name="allplayer_recently_watched_gpt">Kürzlich angesehen</string>
+    <string name="brightness">Helligkeit</string>
+    <string name="btn_allow">Zulassen</string>
+    <string name="enter_name">Bitte einen Namen eingeben</string>
+    <string name="got_it_1">Verstanden</string>
+    <string name="music3_1_new_video_added_gpt">%s neues Video hinzugefügt</string>
+    <string name="music4_allow_photo_video">Zugriff auf Fotos und Videos erlauben</string>
+    <string name="music4_photo_permission_step3">Finde und tippe auf Fotos und Videos</string>
+    <string name="music_3_video_share">Ein Video für dich von %1$s %2$s</string>
+    <string name="no_videos_found">Keine Videos gefunden</string>
+    <string name="n_videos">%s Videos</string>
+    <string name="n_videos_1">%s Video</string>
+    <string name="one_video">1 Video</string>
+    <string name="pause_play">Pause/Wiedergabe</string>
+    <string name="rewind">Zurückspulen</string>
+    <string name="rp_next">Nächste</string>
+    <string name="sd_card_access_step_1">Tippen Sie oben links auf den Button und &#60;b&#62;wählen Sie die SD-Karte aus&#60;/b&#62;.</string>
+    <string name="sound_boost_tips">Weiter anpassen, um das Volumen auf bis zu 200 % zu boosten.</string>
+    <string name="start_over">Neu starten</string>
+    <string name="tab_videos">Videos</string>
+    <string name="tap_again_to_exit">Erneut tippen zum Verlassen</string>
+    <string name="video">Video</string>
+    <string name="volume">Lautstärke</string>
+    <string name="xgallery_no_next_video">Bereits beim letzten Video</string>
+    <string name="xgallery_no_previous_video">Bereits beim ersten Video</string>
+    <string name="xgallery_playing_lock_screen">Bildschirm gesperrt</string>
+    <string name="xgallery_playing_unlock_screen">Bildschirm freigeschaltet</string>
+    <string name="xgallery_sound_off">Ton aus</string>
+    <string name="xgallery_sound_on">Ton an</string>
+    <string name="zoom_in_out">Heran-/herauszoomen</string>
+    <string name="music3_1_video_deleted_gpt">%s Video gelöscht</string>
+    <string name="music4_choose_allow">Zulassen wählen</string>
+    <string name="open_settings_1">Einstellungen öffnen</string>
+    <string name="music4_error_playing_file_error">Wiedergabe fehlgeschlagen, ungültige Datei.</string>
+    <string name="music4_error_playing_path_error">Wiedergabe fehlgeschlagen, ungültiger Dateipfad.</string>
+    <string name="music3_1_song_added_gpt">&#60;b&#62;1&#60;/b&#62; Lied zu %s hinzugefügt</string>
+    <string name="music3_1_video_added_gpt">&#60;b&#62;1&#60;/b&#62; Video zu %s hinzugefügt</string>
+
+    <string name="all_reader2_major_update_gpt">Großes Update</string>
+    <string name="all_reader2_new_version_en_desc_5_gpt">Verbesserte Benutzererfahrung</string>
+    <string name="all_reader2_new_version_gpt">Neue Version</string>
+    <string name="all_reader2_new_version_ready_gpt">Die neue Version ist bereit!</string>
+    <string name="all_reader2_new_version_title_plan1_gpt">Unsere neueste Version hat 5-Sterne-Bewertungen von %s Benutzern erhalten!</string>
+    <string name="booster2_new_version_des2_gpt">Schließen Sie sich den zufriedenen %s Benutzern an und aktualisieren Sie für eine 5-Sterne-Erfahrung!</string>
+    <string name="booster2_new_version_des3_gpt">Unsere neueste Version kann bisher eine beeindruckende Zufriedenheitsrate von %s vorweisen.</string>
+    <string name="booster2_new_version_en_desc3_gpt">Optimiertes UI-Design</string>
+    <string name="booster2_version_update">Versionsupdate</string>
+    <string name="docx_new_version_benefits3_gpt">Behobene kleinere Fehler</string>
+    <string name="install">Installieren</string>
+    <string name="lyrics_source_gpt">Quelle der Liedtexte: anonymer Benutzer</string>
+    <string name="pdf_reader3_update_from_gp_gpt">Fehler, bitte aktualisieren Sie aus dem Google Play</string>
+    <string name="recommended">Empfohlen</string>
+    <string name="step4_update_reason_1_gpt">In diesem Update haben wir mehrere Probleme behoben und die Gesamtleistung der Anwendung verbessert.</string>
+    <string name="update">Aktualisierung</string>
+    <string name="update_failed_network_wg_gpt">Update fehlgeschlagen, bitte überprüfen Sie Ihr Netzwerk und versuchen Sie es erneut</string>
+    <string name="update_now_for_better_1">Sie können &#60;b&#62;jetzt aktualisieren&#60;/b&#62;, um eine bessere Erfahrung zu machen.</string>
+    <string name="updating">Update...</string><!--德语的是："Aktualisieren...";但是目前的英语也常用。187893-->
+    <string name="upgrade">Aktualisieren</string>
+    <string name="upgrade_to_new_version">Erleben Sie eine verbesserte Leistung und erhöhte Stabilität mit unserer neuesten Version. \n\n&#60;b&#62;Klicken Sie jetzt, um zu aktualisieren.&#60;/b&#62;</string>
+    <string name="upload_lyrics_statement_gpt">Bitte stellen Sie sicher, dass Sie das Recht haben, Liedtexte in unserer App hochzuladen, und dass Ihr Upload keine Urheberrechte verletzt. Mit Ihrem Upload ermächtigen Sie uns, Ihren Inhalt kostenlos zu nutzen, und wir werden die Quelle als \&#34;anonymer Benutzer\&#34; angeben.</string>
+    <string name="video_player_in_music_gpt">Videoplayer</string>
+    <string name="video_player_moved_gpt">Videoplayer wurde hierher verschoben</string>
+</resources>

@@ -1,0 +1,696 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="abbre_minute">分</string>
+
+    <string name="access_all_features">今後のバージョンの全フィーチャーに無料でアクセス</string>
+    <string name="access_files">デバイス上のメディアファイルへのアクセスを許可してください。</string>
+
+    <string name="action_continue">続行</string>
+    <string name="action_ok">OK</string>
+    <string name="action_reset">リセット</string>
+
+    <string name="add_playlist_unknow_error">プレイリストを作成できません</string>
+    <string name="add_to_playlist">プレイリストに追加</string>
+    <string name="add_to_queue">キューに追加</string>
+    <string name="add_tracks">曲を追加</string>
+
+    <string name="added_to_favourite">お気に入りに追加しました</string>
+
+    <string name="agree_continue">同意して続行</string>
+
+    <string name="album_title">アルバム</string>
+
+    <string name="albums">アルバム</string>
+
+    <string name="all_songs">すべての曲</string>
+
+    <string name="allow">許可する</string>
+    <string name="allow_access">アクセスを許可する</string>
+    <string name="allow_access_storage">ストレージへのアクセスを許可する</string>
+    <string name="allow_all_time">常に許可</string>
+
+    <string name="already_exists">既にあります</string>
+
+    <string name="app_name_compat_mp3">無料の音楽</string>
+    <string name="app_name_compat_music">音楽プレーヤー</string>
+
+    <string name="apply_more_permission_killed_dialog_title">%sは強制的に停止されました。</string>
+
+    <string name="artist_name">アーティスト名</string>
+    <string name="artist_title">アーティスト</string>
+
+    <string name="artists">アーティスト</string>
+
+    <string name="ask_like_app">%sに満足されていますか？</string>
+
+    <string name="auto_backups">自動バックアップリスト</string>
+
+    <string name="backup">バックアップ</string>
+    <string name="backup_fail">バックアップできませんでした</string>
+    <string name="backup_playlist">プレイリストをバックアップ</string>
+    <string name="backup_success">バックアップしました</string>
+    <string name="backup_summary_playlist">%dのプレイリスト</string>
+    <string name="backup_summary_playlists">%dのプレイリスト</string>
+    <string name="backup_title">バックアップしますか？</string>
+
+    <string name="bass_boost">ベースブースト</string>
+
+    <string name="battery_opt_content">音楽再生の異常停止を避けるために、%sに必要な許可を与えてください。</string>
+    <string name="battery_opt_title_first">異常停止を回避</string>
+
+    <string name="blur">ぼかし</string>
+
+    <string name="cancel">キャンセル</string>
+    <string name="cancel_favorite_success">お気に入りから削除しました</string>
+
+    <string name="change_album_art">アルバムカバーを変更</string>
+    <string name="change_cover">カバー変更</string>
+    <string name="change_cover_failed">カバーの変更に失敗しました</string>
+    <string name="change_language_title">言語を選択</string>
+    <string name="change_picture">写真を変更する</string>
+
+    <string name="choose_allow">「許可」を選択</string>
+
+    <string name="clear">消去</string>
+    <string name="clear_playlist">%sを削除</string>
+    <string name="clear_queue_info">本当に再生キューを消去しますか？</string>
+
+    <string name="color">色</string>
+
+    <string name="confirm_and_fix">問題を確認し、次回のバージョンで修正できるよう、可及的速やかに対応させていただきます！</string>
+    <string name="confirm_information">情報を確認</string>
+
+    <string name="continue_to_work_hard">これからも努力してまいります。</string>
+
+    <string name="count_album">%d アルバム</string>
+    <string name="count_albums">%d アルバム</string>
+    <string name="count_artist">%s人のアーティスト</string>
+    <string name="count_artists">%s人のアーティスト</string>
+    <string name="count_folder">%s個のフォルダ</string>
+    <string name="count_folders">%s個のフォルダ</string>
+    <string name="count_genre">%sジャンル</string>
+    <string name="count_genres">%sジャンル</string>
+    <string name="count_media_file">%d メディアファイル</string>
+    <string name="count_media_files">%d メディアファイル</string>
+    <string name="count_song">%d 曲</string>
+    <string name="count_songs">%d 曲</string>
+    <string name="count_sub_folder">%d サブフォルダ</string>
+    <string name="count_sub_folders">%d サブフォルダ</string>
+
+    <string name="create">作成</string>
+    <string name="create_new_playlist">プレイリストを新規作成</string>
+
+    <string name="created_playlist">プレイリスト「%s」を作成しました</string>
+
+    <string name="delete">削除</string>
+    <string name="delete_failed">削除できませんでした</string>
+    <string name="delete_from_device">デバイスから削除</string>
+    <string name="delete_permission_access">認証の際には、必ず&lt;b&gt;正しいフォルダ&lt;/b&gt;を選択してください。</string>
+    <string name="delete_playlist_message">プレイリスト%1$sを削除して本当によろしいですか？</string>
+    <string name="delete_playlist_title">プレイリストを削除</string>
+    <string name="delete_some_no_premission">他の曲は権限がないため失敗しました。</string>
+    <string name="delete_song">曲を削除しますか？</string>
+    <string name="delete_song_message">%1$sを削除して本当によろしいですか？</string>
+
+    <string name="deleted_success">削除しました</string>
+
+    <string name="details">詳細</string>
+
+    <string name="dialog_message_set_ringtone">呼び出し音を設定するため、音楽プレーヤーはシステム設定への書き込みの許可を求めています。\n\nアクセスを許可してから、もう一度呼び出し音の設定を行ってください。</string>
+    <string name="dialog_title_set_ringtone">呼び出し音の設定</string>
+
+    <string name="diet_for_you">あなた専用</string>
+
+    <string name="directories">ディレクトリ</string>
+
+    <string name="directory_empty">ディレクトリが空です</string>
+
+    <string name="disagree_exit">同意せず終了</string>
+
+    <string name="discard">破棄</string>
+
+    <string name="done">終了</string>
+
+    <string name="duration">再生時間</string>
+
+    <string name="edit">エディット</string>
+    <string name="edit_photo">写真を編集</string>
+    <string name="edit_tag">タグを編集</string>
+    <string name="edit_tags">タグを編集</string>
+
+    <string name="enable_lock_screen_tip">[設定] &gt; [ロック画面再生]よりオンに設定できます。</string>
+
+    <string name="end_period">終了</string>
+
+    <string name="enhancer_best_rating">最高の評価</string>
+    <string name="enhancer_thanks_rate_us">%sをご利用いただきありがとうございます！\n評価をいただけると大変助かります。</string>
+
+    <string name="entered_same_name">既に存在する名前です。別の名前をお試しください。</string>
+
+    <string name="equ_custom">カスタム</string>
+
+    <string name="equalizer">イコライザー</string>
+
+    <string name="error_playing_file_error">再生失敗、ファイルが存在しません</string>
+    <string name="error_playing_normal">再生失敗、不明なエラーが発生しました</string>
+    <string name="error_playing_path_error">再生失敗、パスエラー。</string>
+    <string name="error_playing_track">%1$sのトラック再生エラー</string>
+
+    <string name="exe_all">すべて</string>
+
+    <string name="exit">終了</string>
+    <string name="exit_1">終了</string>
+    <string name="exit_scan">スキャンを終了しますか？</string>
+
+    <string name="featured">注目</string>
+
+    <string name="feedback">フィードバック</string>
+    <string name="feedback_mail_text">システム情報</string>
+
+    <string name="file_not_exist">ファイルが存在しません</string>
+
+    <string name="folder_select_title">フォルダの選択</string>
+
+    <string name="folders">フォルダ</string>
+
+    <string name="free_7_days_trial_1">7日間の無料トライアル</string>
+    <string name="free_space_needed">必要な空き容量:%s (推奨)</string>
+    <string name="free_space_to_ensure">アプリが正常に機能するよう、空き容量を増やしてください。</string>
+    <string name="free_up_space">空き容量を増やす</string>
+
+    <string name="from_new_to_old">古い順</string>
+    <string name="from_old_to_new">新しい順</string>
+
+    <string name="general">全般</string>
+
+    <string name="genre_title">ジャンル</string>
+
+    <string name="genres">ジャンル</string>
+
+    <string name="go_premium">プレミアムへ</string>
+    <string name="go_to_album">アルバム移動</string>
+    <string name="go_to_artist">アーティストに移動</string>
+
+    <string name="good">良い</string>
+
+    <string name="guide_allow_description">音楽を聴けるようにするため、\n音楽プレーヤーはお使いのデバイスのメディアファイルにアクセスする必要があります。</string>
+    <string name="guide_enable_description_1">音楽を聴くためには次が必要です:</string>
+
+    <string name="help">ヘルプ</string>
+
+    <string name="hidden_directory">非表示ホルダー</string>
+
+    <string name="hide">隠す</string>
+
+    <string name="history">履歴</string>
+
+    <string name="ignore_less_duration">以下の長さ未満は無視する</string>
+    <string name="ignore_less_size">以下のサイズ未満は無視する</string>
+    <string name="ignore_short_files">50K未満のファイルを無視</string>
+    <string name="ignore_short_song">60秒未満の曲を無視</string>
+
+    <string name="import_clip_tips">歌詞を選択してコピーしてください</string>
+    <string name="import_clip_tips_html">歌詞を&lt;b&gt;選択&lt;/b&gt;して&lt;b&gt;コピー&lt;/b&gt;してください</string>
+    <string name="import_clip_tips_save_title">歌詞をインポート</string>
+    <string name="import_clip_tips_title">歌詞のインポート方法</string>
+    <string name="import_tel">インポート</string>
+
+    <string name="insufficient_space">容量不足</string>
+
+    <string name="internal_sd">内部ストレージ</string>
+
+    <string name="language_title">言語</string>
+
+    <string name="last_backup">前回のバックアップ：%s</string>
+
+    <string name="library">ライブラリ</string>
+
+    <string name="local">ローカル</string>
+    <string name="local_songs">ローカルの曲</string>
+
+    <string name="location">パス</string>
+
+    <string name="lock_screen_disable_confirm">ロック画面再生をオフにしますか？</string>
+
+    <string name="lucky_desc">今回広告を視聴する必要はありません。</string>
+    <string name="lucky_title">おめでとう！ついてますね。</string>
+
+    <string name="lyrics_add_local">ローカルの歌詞を追加</string>
+    <string name="lyrics_edit_song_info">曲の情報を編集して、正確に歌詞を得ることができます。</string>
+    <string name="lyrics_import_failed_no_format">歌詞のインポートに失敗しました。ファイル形式に対応していません。</string>
+    <string name="lyrics_imported">歌詞をインポートしました</string>
+    <string name="lyrics_load_failed">歌詞のインポートに失敗しました</string>
+    <string name="lyrics_loading">歌詞を読み込んでいます...</string>
+    <string name="lyrics_net_error">おっと、ネットワーク接続を確認してください。</string>
+    <string name="lyrics_no_found">おっと、歌詞が見つかりません。</string>
+    <string name="lyrics_no_matches">曲またはアーティスト名が一致しません</string>
+    <string name="lyrics_no_scroll">歌詞がスクロールしません</string>
+    <string name="lyrics_reset_msg">リセットすると、追加した歌詞が削除されます。</string>
+    <string name="lyrics_reset_title">本当に歌詞をリセットしますか？</string>
+    <string name="lyrics_search_online">オンラインで検索</string>
+    <string name="lyrics_show_title">歌詞</string>
+    <string name="lyrics_thanks_fb">フィードバックをありがとうございます。改善するよう努力いたします。</string>
+    <string name="lyrics_tx_error">歌詞テキストエラー</string>
+
+    <string name="manage_playlist">管理</string>
+
+    <string name="manual_backups">手動バックアップリスト</string>
+
+    <string name="more">さらに表示</string>
+    <string name="more_setting">その他の設定</string>
+
+    <string name="music">音楽</string>
+
+    <string name="music3_apply_more_permission_killed_dialog_title">%sが強制停止されました</string>
+    <string name="music3_battery_opt_content">バックグラウンド再生が強制的に停止されないように、%sに必要な許可を与えてください。</string>
+    <string name="music3_battery_opt_title_first">バックグラウンドで連続再生するために</string>
+    <string name="music3_clear_queue_info">再生キューが消去されます。継続しますか？</string>
+    <string name="music3_delete_playlist_message">プレイリスト%1$sを削除しますか？</string>
+    <string name="music3_delete_song_message">%1$sを削除しますか？</string>
+    <string name="music3_exit_scan">スキャンをやめますか？</string>
+    <string name="music3_free_space_to_ensure">アプリを正常に動作させるために、空き容量を確保してください。</string>
+    <string name="music3_guide_allow_description">音楽を再生するには、%sにメディアファイルのアクセス権を付与してください。</string>
+    <string name="music3_guide_enable_description_1">音楽を再生するために、次のことをお願いします。</string>
+    <string name="music3_import_clip_tips_html">歌詞を&lt;b&gt;選択&lt;/b&gt;してから、&lt;b&gt;コピー&lt;/b&gt;してください。</string>
+    <string name="music3_import_clip_tips_title">歌詞をインポートするには？</string>
+    <string name="music3_lyrics_edit_song_info">下記の楽曲情報が正しいかどうか確認し、再度お試しください。</string>
+    <string name="music3_lyrics_load_failed">歌詞の読み込みに失敗しました</string>
+    <string name="music3_lyrics_no_found">すみません、歌詞が見つかりませんでした。</string>
+    <string name="music3_lyrics_no_matches">曲またはアーティストが一致していません</string>
+    <string name="music3_lyrics_no_scroll">歌詞はスクロールできません</string>
+    <string name="music3_lyrics_reset_msg">その場合、追加した歌詞は削除されます。</string>
+    <string name="music3_lyrics_reset_title">歌詞をリセットしますか？</string>
+    <string name="music3_lyrics_tx_error">歌詞が間違っています</string>
+    <string name="music3_resume_playback_content">他のアプリによって音楽再生が中断されたことが検出されました。</string>
+    <string name="music3_resume_playback_title">再生を再開しますか？</string>
+    <string name="music3_summary_pause_detach">ヘッドホンが外れたら再生を一時停止します</string>
+    <string name="music3_tag_edit_discard_change">終了して変更を破棄しますか？</string>
+    <string name="music3_terms_of_service_should_agree">%1$sと%2$sに同意して、音楽の旅を始めましょう！</string>
+    <string name="music3_thanks_for_your_feedback">貴重なご意見をありがとうございました。</string>
+
+    <string name="music_guide_allow_description">音楽を聴けるようにするため、%sはお使いのデバイスのメディアファイルにアクセスする必要があります。</string>
+    <string name="music_player_share_text">こちらは%1$sからあなたにおすすめの曲です。</string>
+
+    <string name="my_favourite">お気に入り</string>
+
+    <string name="network_error">ネットワークエラー</string>
+    <string name="network_error_pls_try">ネットワークエラー。またお試しください</string>
+
+    <string name="new_playlist">新規プレイリスト</string>
+    <string name="new_share_email_text">私は音楽プレーヤーを使用しています。\\n\\nあなたも試してみてください。こちらからアプリをダウンロードできます: \\n</string>
+
+    <string name="next_song">次の曲</string>
+
+    <string name="no_backup">バックアップはありません</string>
+    <string name="no_document_provider">許可リクエストを処理するDocumentProviderはありません</string>
+    <string name="no_songs_found">曲はありません</string>
+
+    <string name="not_good">あんまり</string>
+
+    <string name="nothing_found">何も見つかりませんでした</string>
+
+    <string name="now_playing">プレイヤーのテーマ</string>
+
+    <string name="number_song_add_playlist">%d曲がプレイリストに追加されました</string>
+    <string name="number_song_add_queue">%d曲がキューに追加されました</string>
+    <string name="number_song_selected">%d曲を選択中</string>
+    <string name="number_songs_add_playlist">%d曲がプレイリストに追加されました</string>
+    <string name="number_songs_add_queue">%d曲がキューに追加されました</string>
+    <string name="number_songs_selected">%d曲を選択中</string>
+
+    <string name="off">オフ</string>
+
+    <string name="open_settings">設定を開く</string>
+
+    <string name="options_ads">広告が多すぎる</string>
+    <string name="options_bugs">バグ</string>
+    <string name="options_music_stop">音楽再生が停止します</string>
+    <string name="options_others">その他</string>
+    <string name="options_songs_not_found">一部の曲は表示されません。</string>
+    <string name="options_suggestions">提案</string>
+
+    <string name="pause_detach">取り外し時に一時停止</string>
+
+    <string name="pg_permission_dialog_title">許可が必要です</string>
+
+    <string name="play">再生</string>
+    <string name="play_after_song">現在再生中の曲の次に再生</string>
+    <string name="play_next">次を再生</string>
+
+    <string name="playing_queue">再生キュー</string>
+
+    <string name="playlist">プレイリスト</string>
+    <string name="playlist_already_exist">%1$sは既に存在しています</string>
+    <string name="playlist_edit_hint">プレイリスト名を入力</string>
+    <string name="playlist_last_added">前回追加済み</string>
+    <string name="playlist_most_played">再生回数が最も多い曲</string>
+    <string name="playlist_recently_played">最近再生済み</string>
+    <string name="playlist_top_tracks">人気のトラック</string>
+
+    <string-array name="preset_reverb">
+        <!--It refes to no reverb effect.-->
+        <item>なし</item>
+        <!--It is one of reverb types. You will enjoy the music just like in a small room.-->
+        <item>小部屋</item>
+        <!--It is one of reverb types. You will enjoy the music just like in a medium room.-->
+        <item>中部屋</item>
+        <!--It is one of reverb types. You will enjoy the music just like in a large room.-->
+        <item>大部屋</item>
+        <!--It is one of reverb types. You will enjoy the music just like in a large hall.-->
+        <item>中ホール</item>
+        <!--It is one of reverb types. You will enjoy the music just like in large hall.-->
+        <item>大ホール</item>
+        <!--It is one of reverb types. You will enjoy the music just like from a plate. Plate here you can understand it as a metal plate.-->
+        <item>プレート</item>
+    </string-array>
+
+    <string name="price_lifetime">%s/1度の購入</string>
+
+    <string name="privacy_policy">プライバシーポリシー</string>
+
+    <string name="queue">キュー</string>
+
+    <string name="rate_us">評価</string>
+
+    <string name="rating_we_like_you">私たちもあなたのことが好き！</string>
+
+    <string name="reader_exit_ads">終了してもよろしいですか？</string>
+
+    <string name="remaining_x">残り: %s</string>
+
+    <string name="remind_me_anymore">今後はこのメッセージを表示しない</string>
+
+    <string name="remove">削除</string>
+    <string name="remove_ad">広告を削除する</string>
+    <string name="remove_from_playlist">プレイリストから削除する</string>
+    <string name="remove_from_queue">キューから削除する</string>
+    <string name="remove_song_message">%sを削除してもよろしいですか？</string>
+
+    <string name="rename">名前を変更</string>
+    <string name="rename_failed">名前の変更に失敗しました</string>
+    <string name="rename_success">名前の変更が完了しました</string>
+
+    <string name="repeat_loop">ループ</string>
+    <string name="repeat_off">リピートオフ</string>
+    <string name="repeat_order">オーダー</string>
+    <string name="repeat_repeat">をリピート</string>
+    <string name="repeat_shuffle">シャッフル</string>
+
+    <string name="restore_failed">復元できませんでした</string>
+    <string name="restore_playlist">プレイリストを復元</string>
+    <string name="restore_success">復元しました</string>
+
+    <string name="result">結果</string>
+
+    <string name="resume">再開</string>
+    <string name="resume_playback_content">他のアプリケーションによって音楽再生が中断されたことを検出しました。</string>
+    <string name="resume_playback_title">再生を再開しますか？</string>
+
+    <string name="retry">再度試す</string>
+
+    <string name="reverb">リバーブ</string>
+
+    <string name="ringtone_set">設定が完了しました</string>
+    <string name="ringtone_set_failed">設定に失敗しました</string>
+
+    <string name="save">保存</string>
+
+    <string name="saving_tags">タグを保存中...</string>
+
+    <string name="scan">スキャン</string>
+    <string name="scan_library">音楽をスキャン</string>
+    <string name="scan_result">%2$sに%1$s曲追加されました</string>
+
+    <string name="scanner_lib_rate_leave_feedback">フィードバックを歓迎します。</string>
+    <string name="scanner_lib_rate_like_you">大変感謝しております！</string>
+    <string name="scanner_share_dialog_title_2">ご支援いただきありがとうございます！</string>
+
+    <string name="scanning">スキャン中</string>
+
+    <string name="screen_lock_play">ロック画面再生</string>
+
+    <string name="sd_card_access_step_1_format">
+        <![CDATA[左上のボタンをタップし、<font color=\"#F44831\"><b>SDカードを選択します</b></font>。]]>
+    </string>
+    <string name="sd_card_access_step_2_format">
+        <![CDATA[次の画面の下部にある<font color=\"#F44831\"><b>［選択］をタップ</b></font>して書き込みアクセスを許可します。]]>
+    </string>
+    <string name="sd_tips">外付けSDカードの&lt;b&gt;ルートディレクトリ&lt;/b&gt;を選択し、&lt;br/&gt;&lt;b&gt;(%s)&lt;/b&gt;に操作許可を付与します。</string>
+
+    <string name="sdcard_permission_required">SDカードから曲を削除する権限が必要です。</string>
+
+    <string name="search">検索</string>
+    <string name="search_albums">アルバムの検索</string>
+    <string name="search_artists">アーティストの検索</string>
+    <string name="search_folders">フォルダの検索</string>
+    <string name="search_genres">ジャンルの検索</string>
+    <string name="search_history">検索履歴</string>
+    <string name="search_library">ライブラリを検索</string>
+    <string name="search_music_on_youtube">YouTubeから曲を検索する</string>
+    <string name="search_on_youtube">YouTubeで検索する</string>
+    <string name="search_songs">曲の検索</string>
+
+    <string name="select_all">すべて選択</string>
+    <string name="select_backup">復元するバックアップの記録を選択してください</string>
+    <string name="select_folder">フォルダを選択</string>
+
+    <string name="set">設定する</string>
+    <string name="set_as_ringtone">呼び出し音に設定する</string>
+    <string name="set_ringtone">「%s」を呼び出し音に設定しますか？</string>
+    <string name="set_ringtone_message">呼び出し音を設定するには、必要な権限を許可してください。</string>
+
+    <string name="settings">設定</string>
+
+    <string name="share">シェア</string>
+    <string name="share_email_title">音楽プレーヤーをシェア</string>
+
+    <string name="show">表示する</string>
+
+    <string name="shuffle">シャッフル</string>
+    <string name="shuffle_off">シャッフルオフ</string>
+    <string name="shuffle_on">シャッフルオン</string>
+
+    <string name="size">ファイルサイズ</string>
+
+    <string name="sleep_timer">スリープタイマー</string>
+
+    <string name="slide_to_unlock">スライドしてロック解除</string>
+
+    <string name="song">曲</string>
+    <string name="song_added_plural">新たに%s曲が追加されました。</string>
+    <string name="song_added_singular">新たに%s曲が追加されました。</string>
+    <string name="song_deleted">%d曲が削除されました</string>
+    <string name="song_name">曲名</string>
+    <string name="song_scanned_plural">%s曲をスキャンしました。</string>
+    <string name="song_scanned_singular">%s曲をスキャンしました。</string>
+    <string name="song_title">タイトル</string>
+
+    <string name="songs">曲</string>
+    <string name="songs_deleted">%d曲が削除されました</string>
+
+    <string name="sort_by">並び替え</string>
+    <string name="sort_by_name">名</string>
+    <string name="sort_key_add_playlist">プレイリストに追加した時間</string>
+    <string name="sort_key_album_name">アルバム名</string>
+    <string name="sort_key_number_of_albums">アルバム数</string>
+    <string name="sort_key_time_added">追加した時間</string>
+    <string name="sort_key_track">アルバムの曲順</string>
+    <string name="sort_order_a_z">AからZ</string>
+    <string name="sort_order_big_small">大きい順</string>
+    <string name="sort_order_entry_number_of_songs">曲数</string>
+    <string name="sort_order_long_short">長い順</string>
+    <string name="sort_order_short_long">短い順</string>
+    <string name="sort_order_small_big">小さい順</string>
+    <string name="sort_order_z_a">ZからA</string>
+
+    <string name="start">スタート</string>
+
+    <string name="storage">ストレージ</string>
+
+    <string name="subscription_des_music">このサブスクリプションでは、本アプリのコンテンツライブラリに無制限アクセスできます。トライアル終了前にキャンセルされない限り、キャンセルされるまで毎月%sが自動的に請求されます。</string>
+    <string name="subscription_detail">サブスクリプションの詳細</string>
+    <string name="subscription_price">その後月々%s</string>
+
+    <string name="summary_feedback">バグの報告やアプリ改善のご意見をお聞かせください</string>
+    <string name="summary_pause_detach">ヘッドフォン取り外し時に再生を一時中止するよう切り替えます</string>
+    <string name="summary_rateUs">このアプリをお好きですか？評価をお願いします！</string>
+    <string name="summary_screen_lock_play">画面ロック時に現在再生中を表示</string>
+
+    <string name="system">システム</string>
+    <string name="system_default">システムデフォルト</string>
+
+    <string name="tag_edit_discard_change">変更内容を破棄して本当によろしいですか？</string>
+    <string name="tag_edit_error">編集に失敗しました</string>
+    <string name="tag_edit_success">編集が完了しました</string>
+
+    <string name="tap_permission">権限をタップする</string>
+    <string name="tap_to_start">タップして音楽プレーヤーを開始</string>
+
+    <string name="terms_of_service">利用規約</string>
+    <string name="terms_of_service_guide">%1$sをタップすると、当社の%2$sと%3$sを読んで同意したことになります。</string>
+    <string name="terms_of_service_should_agree">%1$sを使用するには、%2$sと%3$sに同意する必要があります。</string>
+
+    <string name="thanks_for_loving_x">%sを気に入ってくれてありがとうございます。</string>
+    <string name="thanks_for_your_feedback">フィードバックありがとうございます。</string>
+
+    <string name="theme">スキンテーマ</string>
+
+    <string name="thx_feedback_tip">今後のバージョンで修正いたします。ご不便おかけして申し訳ございません。</string>
+
+    <string name="timer_after_this">現在の曲が終わったら停止</string>
+    <string name="timer_stop_after">音楽停止までの時間</string>
+    <string name="timer_turn_off">睡眠タイマーがオフです</string>
+    <string name="timer_turn_off_latter">%s後にオフ</string>
+
+    <string name="title_is_null">タイトルは空にできません。</string>
+
+    <string name="transparency">透明度</string>
+
+    <string name="turn_off">オフにする</string>
+    <string name="turn_off_after">%1$d分後にオフ</string>
+    <string name="turn_off_ends">現在の曲の終了時にオフ</string>
+    <string name="turn_storage">ストレージを有効にする</string>
+
+    <string name="unit_secs">秒</string>
+
+    <string name="unknow_error">不明なエラーが発生しました</string>
+
+    <string name="unlock_for_free">無料でアンロック</string>
+    <string name="unlock_premium_themes">すべてのテーマをアンロック</string>
+
+    <string name="version">バージョン</string>
+
+    <string name="view">表示</string>
+    <string name="view_all">すべて表示</string>
+
+    <string name="virtualizer">バーチャライザー</string>
+
+    <string name="vivo_deny">許可しない</string>
+
+    <string name="what_a_pity">残念です！</string>
+
+    <string name="x_hours">%s時間</string>
+    <string name="x_minutes">%s分間</string>
+    <string name="x_seconds">%s秒</string>
+    <string name="x_selected">%s件選択済み</string>
+    <string name="x_song_hide_single">%1$s曲が非表示です。%2$sに移動すると表示できます。</string>
+    <string name="x_songs_hide_1">%1$s曲が非表示です。%2$sに移動して表示することができます。</string>
+
+    <string name="xbooster_notification_access">通知へのアクセス</string>
+
+    <string name="yes">はい</string>
+    <string name="music3_remove_successfully">正常に削除しました</string>
+
+    <string name="camera_preparing">準備しています…</string>
+
+    <string name="widget_tap_start">タップして音楽プレーヤーをスタート</string>
+    <string name="music3_notification_access_desc">通知センターから音楽再生をすばやくコントロールするには、%sに通知アクセスを許可してください。</string>
+    <string name="music3_app_name">音楽プレーヤー</string>
+
+    <string name="go_file_manager">アクセス</string>
+    <string name="music3_click_to_authorize">ここをクリックして許可</string>
+    <string name="music3_language_guide">「システム」以外の言語を選択し、こちらをクリックして確定してください。</string>
+    <string name="pdf_reader2_enter_homepage_guide">タップしてホームページに入ります</string>
+
+    <string name="mp3_current_speed">現在の速度: %s</string>
+    <string name="mp3_edit_lyrics">歌詞を編集</string>
+    <string name="mp3_enter_lyrics">歌詞を入力</string>
+    <string name="mp3_enter_lyrics_here">ここに歌詞を入力してください…</string>
+    <string name="music3_playback_speed">再生速度</string>
+    <string name="music3_playback_speed_changed">再生速度が%s倍に変更されました</string>
+    <string name="music3_playback_speed_num">再生速度：%s</string>
+    <string name="normal">正常</string>
+    <string name="paste">ペースト</string>
+    <string name="music3_playback_speed_changed_failed">%s倍への変更に失敗しました。1.0倍にリセットしました。</string>
+
+    <string name="music3_app_title_1">音楽プレーヤー - DDMusic</string>
+    <string name="music3_delete_permission_access">&#60;b&#62;次ページの手順に従って&#60;/b&#62;、アクセスを許可してください。</string>
+    <string name="music3_delete_some_no_premission">しかし、残りは&#60;b&#62;許可の問題&#60;/b&#62;により、失敗しました。</string>
+    <string name="music3_delete_videos_gpt">%s本のビデオを削除しますか？</string>
+    <string name="music3_error_playing_video_gpt">ビデオの再生中にエラーが発生しました \&#34;%s\&#34;</string>
+    <string name="music3_grant_media_files_access_gpt">ビデオを再生するには、%sのメディアファイルにアクセスを許可してください。</string>
+    <string name="music3_next">次へ</string>
+    <string name="music3_resume_auto">停止した場所から再生を続ける</string>
+    <string name="music3_scan_local_videos_gpt">ローカルのビデオをスキャンするには、次の手順を実行してください：</string>
+    <string name="music3_scan_video_gpt">ビデオをスキャン</string>
+    <string name="music3_sd_card_access_step_2_format">次に、&#60;b&#62;選択をタップ&#60;/b&#62;して、書き込みアクセスを許可します。</string>
+    <string name="music3_sd_write_access_required_gpt">SDカードからビデオを削除するには書き込みアクセスが必要です</string>
+    <string name="music3_search_videos">動画を検索</string>
+    <string name="music3_select_albums_gpt">アルバムを選択</string>
+    <string name="music3_select_artists_gpt">アーティストを選択</string>
+    <string name="music3_select_genres_gpt">ジャンルを選択</string>
+    <string name="music3_select_playlists_gpt">プレイリストを選択</string>
+    <string name="music3_select_songs_gpt">曲を選択</string>
+    <string name="music3_select_videos_gpt">ビデオを選択</string>
+    <string name="music3_videos_added_gpt">&#60;b&#62;%1$s&#60;/b&#62;本のビデオが%2$sに追加されました</string>
+    <string name="music3_video_info_gpt">ビデオ情報</string>
+    <string name="music3_video_name_gpt">ビデオの名前</string>
+    <string name="music3_video_not_found_gpt">ビデオが見つかりませんか？</string>
+    <string name="music3_x_new_videos_added_gpt">%s本の新しいビデオが追加されました</string>
+    <string name="music3_x_videos_deleted_gpt">%s本のビデオが削除されました</string>
+
+    <string name="allplayer_fast_forward">早送り</string>
+    <string name="allplayer_mute_play_gpt">ミュート再生</string>
+    <string name="allplayer_recently_watched_gpt">最近見た</string>
+    <string name="brightness">明るさ</string>
+    <string name="btn_allow">許可</string>
+    <string name="enter_name">名前を入力してください</string>
+    <string name="got_it_1">了解</string>
+    <string name="music3_1_new_video_added_gpt">%sつの新しいビデオが追加されました</string>
+    <string name="music4_allow_photo_video">写真とビデオへのアクセスを許可する</string>
+    <string name="music4_photo_permission_step3">写真とビデオを見つけてタップします</string>
+    <string name="music_3_video_share">%1$sからのビデオ：%2$s</string>
+    <string name="no_videos_found">ビデオが見つかりません</string><!-- 用ChatGPT翻译 -->
+    <string name="n_videos">%s個の動画</string>
+    <string name="n_videos_1">%s個の動画</string>
+    <string name="one_video">1個の動画</string>
+    <string name="pause_play">一時停止/再生</string>
+    <string name="rewind">巻き戻し</string>
+    <string name="rp_next">次へ</string>
+    <string name="sd_card_access_step_1">左上のボタンをタップし、&#60;b&#62;SDカードを選択します&#60;/b&#62;。</string>
+    <string name="sound_boost_tips">調節を続けてボリュームを最大で200%まで上げられます。</string>
+    <string name="start_over">最初から始める</string><!-- gpt的 -->
+    <string name="tab_videos">動画</string>
+    <string name="tap_again_to_exit">もう一度タップして終了</string>
+    <string name="video">動画</string>
+    <string name="volume">音量</string>
+    <string name="xgallery_no_next_video">すでに最後の動画です</string>
+    <string name="xgallery_no_previous_video">すでに最初の動画です</string>
+    <string name="xgallery_playing_lock_screen">画面ロック済み</string>
+    <string name="xgallery_playing_unlock_screen">画面ロック解除済み</string>
+    <string name="xgallery_sound_off">サウンドオフ</string>
+    <string name="xgallery_sound_on">サウンドオン</string>
+    <string name="zoom_in_out">ズームイン／アウト</string>
+    <string name="music3_1_video_deleted_gpt">%sつのビデオが削除されました</string>
+    <string name="music4_choose_allow">許可を選択</string>
+    <string name="open_settings_1">設定を開</string>
+    <string name="music4_error_playing_file_error">再生失敗、無効なファイル。</string>
+    <string name="music4_error_playing_path_error">再生失敗、無効なファイルパス。</string>
+    <string name="music3_1_song_added_gpt">&#60;b&#62;1&#60;/b&#62; 曲が%sに追加されました</string>
+    <string name="music3_1_video_added_gpt">&#60;b&#62;1&#60;/b&#62; 動画が%sに追加されました</string>
+
+    <string name="all_reader2_major_update_gpt">メジャーアップデート</string>
+    <string name="all_reader2_new_version_en_desc_5_gpt">ユーザーエクスペリエンスの向上</string>
+    <string name="all_reader2_new_version_gpt">新しいバージョン</string>
+    <string name="all_reader2_new_version_ready_gpt">新しいバージョンが準備完了しました！</string>
+    <string name="all_reader2_new_version_title_plan1_gpt">私たちの最新バージョンは、%s人のユーザーから5つ星の評価を受けました！</string>
+    <string name="booster2_new_version_des2_gpt">%sの満足しているユーザーに加わり、5つ星の体験へアップグレードしましょう！</string>
+    <string name="booster2_new_version_des3_gpt">最新バージョンは、これまでに%sの満足度を誇っています。</string>
+    <string name="booster2_new_version_en_desc3_gpt">最適化されたUIデザイン</string>
+    <string name="booster2_version_update">バージョンアップデート</string>
+    <string name="docx_new_version_benefits3_gpt">軽微なバグ修正</string>
+    <string name="install">インストール</string>
+    <string name="lyrics_source_gpt">歌詞の出典: 匿名ユーザー</string>
+    <string name="pdf_reader3_update_from_gp_gpt">失敗しました、Google Play からアップデートしてください</string>
+    <string name="recommended">推奨</string>
+    <string name="step4_update_reason_1_gpt">この更新では、いくつかの問題を修正し、アプリ全体のパフォーマンスを向上させました。</string>
+    <string name="update">更新</string>
+    <string name="update_failed_network_wg_gpt">アップデートに失敗しました。ネットワークを確認してもう一度試してください</string>
+    <string name="update_now_for_better_1">&#60;b&#62;今すぐ更新&#60;/b&#62;してより良い体験を。</string>
+    <string name="updating">更新中...</string>
+    <string name="upgrade">アップグレード</string>
+    <string name="upgrade_to_new_version">最新バージョンで高性能と高い安定性を体験しましょう。\n\n&#60;b&#62;クリックしてすぐにアップグレードします。&#60;/b&#62;</string>
+    <string name="upload_lyrics_statement_gpt">アプリに歌詞をアップロードする際は、その権利を有していること、およびアップロードが知的財産権を侵害しないことを確認してください。アップロードにより、あなたは私たちにあなたのコンテンツを無料で使用する許可を与え、出典を「匿名ユーザー」としてクレジットします。</string>
+    <string name="video_player_in_music_gpt">ビデオプレーヤー</string>
+    <string name="video_player_moved_gpt">ビデオプレーヤーはこちらに移動しました</string>
+</resources>

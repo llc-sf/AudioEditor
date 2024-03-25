@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!--Nothing to be translated here-->
+
+    <plurals name="genres" translatable="false">
+        <item quantity="one">@string/count_genre</item>
+        <item quantity="few">@string/count_genres_1</item>
+        <item quantity="other">@string/count_genres</item>
+    </plurals>
+
+
+    <plurals name="artists" translatable="false">
+        <item quantity="one">@string/count_artist</item>
+        <item quantity="few">@string/count_artists_1</item>
+        <item quantity="other">@string/count_artists</item>
+    </plurals>
+
+    <plurals name="folders" translatable="false">
+        <item quantity="one">@string/count_folder</item>
+        <item quantity="few">@string/count_folders_1</item>
+        <item quantity="other">@string/count_folders</item>
+    </plurals>
+
+    <plurals name="albums" translatable="false">
+        <item quantity="one">@string/count_album</item>
+        <item quantity="other">@string/count_albums</item>
+    </plurals>
+
+    <plurals name="songs" translatable="false">
+        <item quantity="zero">@string/count_songs</item>
+        <item quantity="one">@string/count_song</item>
+        <item quantity="other">@string/count_songs</item>
+    </plurals>
+
+    <plurals name="videos" translatable="false">
+        <item quantity="zero">@string/n_videos</item>
+        <item quantity="one">@string/n_videos_1</item>
+        <item quantity="other">@string/n_videos</item>
+    </plurals>
+
+    <plurals name="NNNtrackstoqueue" translatable="false">
+        <item quantity="one">@string/number_song_add_queue</item>
+        <item quantity="other">@string/number_songs_add_queue</item>
+    </plurals>
+
+    <plurals name="NNNtrackstoplaylist" translatable="false">
+        <item quantity="one">@string/number_song_add_playlist</item>
+        <item quantity="other">@string/number_songs_add_playlist</item>
+    </plurals>
+
+    <plurals name="askDeleteVideo" translatable="false">
+        <item quantity="other">@string/music3_delete_videos_gpt</item>
+    </plurals>
+
+    <plurals name="NNNtracksdeleted" translatable="false">
+        <item quantity="one">@string/song_deleted</item>
+        <item quantity="other">@string/songs_deleted</item>
+    </plurals>
+    <plurals name="NNNtracksdeletedVideo" translatable="false">
+        <item quantity="one">@string/music3_1_video_deleted_gpt</item>
+        <item quantity="other">@string/music3_x_videos_deleted_gpt</item>
+    </plurals>
+
+    <plurals name="addVideo" translatable="false">
+        <item quantity="one">@string/music3_1_new_video_added_gpt</item>
+        <item quantity="other">@string/music3_x_new_videos_added_gpt</item>
+    </plurals>
+
+    <plurals name="NPlaylist" translatable="false">
+        <item quantity="one">@string/backup_summary_playlist</item>
+        <item quantity="other">@string/backup_summary_playlists</item>
+    </plurals>
+
+    <plurals name="SongAdded" translatable="false">
+        <item quantity="one">@string/song_added_singular</item>
+        <item quantity="other">@string/song_added_plural</item>
+    </plurals>
+
+    <plurals name="SongScanned" translatable="false">
+        <item quantity="one">@string/song_scanned_singular</item>
+        <item quantity="other">@string/song_scanned_plural</item>
+    </plurals>
+
+
+    <!--几个文件夹-->
+    <plurals name="sub_dirs" translatable="false">
+        <item quantity="one">@string/count_sub_folder</item>
+        <item quantity="other">@string/count_sub_folders</item>
+    </plurals>
+
+    <!--几个媒体文件-->
+    <plurals name="media_files" translatable="false">
+        <item quantity="one">@string/count_media_file</item>
+        <item quantity="other">@string/count_media_files</item>
+    </plurals>
+
+    <plurals name="NSelected" translatable="false">
+        <item quantity="one">@string/x_selected</item>
+        <item quantity="other">@string/x_selected</item>
+    </plurals>
+
+
+    <!---->
+    <plurals name="hide_songs" translatable="false">
+        <item quantity="one">@string/x_song_hide_single</item> <!-- 1 -->
+        <item quantity="other">@string/x_songs_hide_2</item>   <!-- >=5 -->
+        <item quantity="few">@string/x_songs_hide_1</item>  <!-- 2、3、4 -->
+    </plurals>
+
+</resources>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--背景颜色-->
+    <item
+        android:id="@android:id/background"
+        android:height="@dimen/dp_4"
+        android:gravity="center_vertical">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/black.d8.alpha20" />
+            <corners android:radius="@dimen/dp_2" />
+        </shape>
+    </item>
+
+    <!--进度颜色-->
+    <item
+        android:id="@android:id/progress"
+        android:height="@dimen/dp_4"
+        android:gravity="center_vertical">
+        <clip android:clipOrientation="horizontal">
+            <shape android:shape="rectangle">
+                <gradient
+                    android:angle="0"
+                    android:endColor="@color/color_EA2200"
+                    android:startColor="@color/color_E9541D" />
+                <corners android:radius="@dimen/dp_2" />
+            </shape>
+        </clip>
+    </item>
+</layer-list>

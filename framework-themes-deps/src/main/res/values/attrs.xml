@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--window 背景色-->
+    <attr name="window.bg" format="reference|color" />
+
+    <!--自定义属性，标识文本颜色-->
+    <attr name="textColorPrimary" format="color" />
+    <attr name="textColorSecondary" format="color" />
+    <!--弹窗Button 高度-->
+    <attr name="ConnerBtnHeight" format="dimension" />
+    <!--按钮Padding设置-->
+    <attr name="IconButtonPadding" format="dimension" />
+    <!--按钮均边界设置-->
+    <attr name="IconEndMargin" format="dimension" />
+
+    <!--默认编辑框的染色处理颜色-->
+    <attr name="EditTextTintColor" format="color" />
+
+    <!--广告相关颜色-->
+    <attr name="ad.title.color" format="color" /><!--标题颜色-->
+    <attr name="ad.summary.color" format="color" /><!--描述颜色-->
+    <attr name="ad.stroke.color" format="color" /><!--边框颜色-->
+
+    <!--分割线颜色-->
+    <attr name="divider.color" format="color" />
+
+    <!--应用内弹窗的背景颜色-->
+    <attr name="bottom.dialog.bg.color" format="color" />
+    <attr name="bottom.dialog.title.color" format="color" />
+    <attr name="bottom.dialog.summary.color" format="color" />
+
+
+    <!--播放器首页的Seekbar-->
+    <declare-styleable name="PlayerSeekbar">
+        <!--进度条的样式-->
+        <attr name="seekBarDrawable" format="reference" />
+        <!--thumb背景色-->
+        <attr name="thumbBgColor" format="reference|color" />
+        <!--thumb按下时的边框颜色-->
+        <attr name="thumbFrameColor" format="reference|color" />
+        <!--thumb字体颜色-->
+        <attr name="thumbTextColor" format="reference|color" />
+    </declare-styleable>
+</resources>

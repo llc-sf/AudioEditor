@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="ads" translatable="false">Ads</string>
+    <string name="dashArtistName" translatable="false">-%1$s</string>
+    <string name="combine_two_strings" translatable="false">%1$s · %2$s</string>
+    <string name="durationformatshort" translatable="false">%2$d:%3$02d</string>
+    <string name="durationformatlong" translatable="false">%1$d:%2$02d:%3$02d</string>
+    <string name="my_favourite_title" translatable="false">My Favourite</string>
+    <string name="my_favourite_online_title" translatable="false">My Favourite Online</string>
+    <string name="feedback_email_title_for_mp3" translatable="false">MP3 Player Feedback</string>
+    <string name="feedback_email_title_for_music" translatable="false">Music Player Feedback</string>
+    <string name="feedback_email_title_for_music3" translatable="false">Music Player Feedback</string>
+    <string name="image_description" translatable="false" />
+    <string name="music_download_link" translatable="false">https://musicplayer.page.link/download</string>
+    <!--<string name="music3_download_link" translatable="false">https://amusic.page.link/download</string>-->
+    <string name="music3_download_link" translatable="false">https://st.inston.ltd/uY7NJj</string>
+
+
+    <!--均衡器相关-->
+    <string name="freq_seek_max" translatable="false">15</string>
+    <string name="freq_seek_mid" translatable="false">0</string>
+    <string name="freq_seek_min" translatable="false">-15</string>
+    <string name="freq_1" translatable="false">60Hz</string>
+    <string name="freq_2" translatable="false">230Hz</string>
+    <string name="freq_3" translatable="false">910Hz</string>
+    <string name="freq_4" translatable="false">3.6kHz</string>
+    <string name="freq_5" translatable="false">14kHz</string>
+
+    <string name="billboard" translatable="false">Billboard 100</string>
+
+    <string name="uk_chart" translatable="false">UK</string>
+    <string name="spotify" translatable="false">Spotify</string>
+
+    <!--排序相关引用的字段。便于管理-->
+    <string name="sort_key_artist_name" translatable="false">@string/artist_name</string><!--使用album_title-->
+    <string name="sort_key_duration" translatable="false">@string/duration</string><!--duration-->
+    <string name="sort_key_size" translatable="false">@string/size</string><!--size-->
+    <!--别问我为啥文案与字段不符，后台就是这么命名的:)-->
+    <string name="sort_order_old_new" translatable="false">@string/from_new_to_old</string><!--使用from_new_to_old-->
+    <string name="sort_order_new_old" translatable="false">@string/from_old_to_new</string><!--使用from_old_to_new-->
+
+    <string name="app_name">@string/music3_app_title_1</string>
+
+    <string name="app_name_place_holder" translatable="false">DDMusic</string>
+
+    <string name="youtube" translatable="false">YouTube</string>
+
+    <string name="next_5s" translatable="false">+5s</string>
+    <string name="pre_5s" translatable="false">-5s</string>
+
+    <string name="new_version_title_gpt">Tap \&#34;%s\&#34; to get the new version</string><!-- 根据pdf_reader3_new_version_title_gpt整理 -->
+    <string name="booster2_new_version_en_desc3_gpt" translatable="false">Optimized UI design</string>
+    <string name="booster2_new_version_en_desc1_gpt" translatable="false">Improved app performance</string>
+    <string name="docx_new_version_benefits3_gpt" translatable="false">Fixed minor bugs</string>
+    <string name="all_reader2_new_version_en_desc_5_gpt" translatable="false">Improved user experience</string>
+</resources>

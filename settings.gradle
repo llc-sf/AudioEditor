@@ -22,7 +22,27 @@ include ':waveform'
 include ':ffmpegLib'
 include ':timeRuler'
 include ':recorderLib'
+include ':framework-base'
+include ':framework-utils'
+include ':framework-language'
+include ':framework-themes-deps'
+include ':framework-dimens-375'
+include ':framework-appprovider'
+include ':framework-simplecache'
+include ':framework-rx' //todo 是否需要
+include ':framework-data' //todo 是否需要
 
+
+//Widget控件扩展
+include ':widget-toast'
+include ':widget-recyclerview'
+include ':widget-image'
+include ':widget-text'
+include ':widget-link' //todo 是否需要
+
+//第三方扩展工具
+include ':third-part' //todo 是否需要
+include ':third-part:StackBlur'//一个模糊图片的工具 //todo 是否需要
 
 //if (file('/Users/chenlu/work/music/Music-lib').exists()) {
 //    includeBuild("/Users/chenlu/work/music/Music-lib") {

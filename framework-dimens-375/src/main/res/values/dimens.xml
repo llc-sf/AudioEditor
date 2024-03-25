@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <dimen name="dp_negative_1">-0.8000dp</dimen>
+    <dimen name="dp_negative_2">-1.6000dp</dimen>
+    <dimen name="dp_negative_3">-2.4000dp</dimen>
+    <dimen name="dp_negative_4">-3.2000dp</dimen>
+    <dimen name="dp_negative_5">-4.0000dp</dimen>
+    <dimen name="dp_negative_6">-4.8000dp</dimen>
+    <dimen name="dp_negative_7">-5.6000dp</dimen>
+    <dimen name="dp_negative_8">-6.4000dp</dimen>
+    <dimen name="dp_negative_9">-7.2000dp</dimen>
+    <dimen name="dp_negative_10">-8.0000dp</dimen>
+    <dimen name="dp_negative_11">-8.8000dp</dimen>
+    <dimen name="dp_negative_12">-9.6000dp</dimen>
+    <dimen name="dp_negative_13">-10.4000dp</dimen>
+    <dimen name="dp_negative_14">-11.2000dp</dimen>
+    <dimen name="dp_negative_15">-12.0000dp</dimen>
+    <dimen name="dp_negative_16">-12.8000dp</dimen>
+    <dimen name="dp_negative_17">-13.6000dp</dimen>
+    <dimen name="dp_negative_18">-14.4000dp</dimen>
+    <dimen name="dp_negative_19">-15.2000dp</dimen>
+    <dimen name="dp_negative_20">-16.0000dp</dimen>
+    <dimen name="dp_negative_21">-16.8000dp</dimen>
+    <dimen name="dp_negative_22">-17.6000dp</dimen>
+    <dimen name="dp_negative_23">-18.4000dp</dimen>
+    <dimen name="dp_negative_24">-19.2000dp</dimen>
+    <dimen name="dp_negative_25">-20.0000dp</dimen>
+    <dimen name="dp_negative_26">-20.8000dp</dimen>
+    <dimen name="dp_negative_27">-21.6000dp</dimen>
+    <dimen name="dp_negative_28">-22.4000dp</dimen>
+    <dimen name="dp_negative_29">-23.2000dp</dimen>
+    <dimen name="dp_negative_30">-24.0000dp</dimen>
+
+    <dimen name="dp.05">0.40000dp</dimen>
+
+
+    <dimen name="sp_1">1.0000sp</dimen>
+    <dimen name="sp_2">2.0000sp</dimen>
+    <dimen name="sp_3">3.0000sp</dimen>
+    <dimen name="sp_4">4.0000sp</dimen>
+    <dimen name="sp_5">5.0000sp</dimen>
+    <dimen name="sp_6">6.0000sp</dimen>
+    <dimen name="sp_7">7.0000sp</dimen>
+    <dimen name="sp_8">8.0000sp</dimen>
+    <dimen name="sp_9">9.0000sp</dimen>
+
+
+</resources>

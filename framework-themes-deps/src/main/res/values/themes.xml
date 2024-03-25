@@ -1,0 +1,92 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+
+    <!--基础主题设置-->
+    <style name="BasicMusicThemeDayNight" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="colorPrimaryVariant">@color/colorAccent</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/colorAccent</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/colorSecondary</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <!--Toolbar More 图标颜色，EditText 按钮条颜色-->
+        <item name="colorControlNormal">@color/white</item>
+
+        <!--Window的背景，可以是颜色，也可以是其他Drawable-->
+        <item name="window.bg">@color/window.bg.color</item>
+        <!--广告的文字颜色-->
+        <item name="ad.title.color">@color/ad.title.color</item>
+        <item name="ad.summary.color">@color/ad.summary.color</item>
+        <item name="ad.stroke.color">@color/ad.stroke.color</item>
+        <!--分割线颜色-->
+        <item name="divider.color">@color/divider.color</item>
+
+        <!--底部弹窗的背景颜色-->
+        <item name="bottom.dialog.bg.color">@color/bottom.dialog.bg.color</item>
+        <item name="bottom.dialog.title.color">@color/bottom.dialog.title.color</item>
+        <item name="bottom.dialog.summary.color">@color/bottom.dialog.summary.color</item>
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <!-- Customize your theme here. -->
+
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+
+        <item name="android:windowBackground">?attr/window.bg</item>
+        <item name="android:windowAnimationStyle">@style/MusicActivityAnimStyle</item>
+
+        <item name="textColorPrimary">@color/txt.color.primary</item>
+        <item name="textColorSecondary">@color/txt.color.secondary</item>
+        <item name="android:textColorPrimary">?attr/textColorPrimary</item>
+        <item name="android:textColorSecondary">?attr/textColorSecondary</item>
+        <!--文字链接颜色-->
+        <item name="android:textColorLink">@color/colorAccent</item>
+
+        <!--配置LinkBuilderStyle-->
+        <item name="linkBuilderStyle">@style/DefaultLinkBuilder</item>
+        <!--配置ToastStyle-->
+        <item name="CustomToastCompatStyle">@style/DefaultToastStyle</item>
+
+        <!--PopupWindow弹窗窗口背景-->
+        <item name="popupTheme">@style/MusicTheme.PopupMenu</item>
+        <item name="popupMenuStyle">@style/MusicTheme.PopupMenu</item>
+        <item name="popupMenuBackground">@drawable/default_popup_background</item>
+        <!--弹窗Button高度-->
+        <item name="ConnerBtnHeight">@dimen/dp_50</item>
+        <!--按钮Padding设置-->
+        <item name="IconButtonPadding">@dimen/dp_4</item>
+        <!--按钮均边界设置-->
+        <!--Icon已经有了4dp 加16dp 正好20-->
+        <item name="IconEndMargin">@dimen/dp_16</item>
+        <!--默认编辑框的染色处理颜色-->
+        <item name="EditTextTintColor">@color/black.a1.alpha30</item>
+
+        <!--Action Bar Height-->
+        <item name="actionBarSize">@dimen/dp_56</item>
+        <item name="android:actionBarSize">@dimen/dp_56</item>
+
+        <item name="android:actionButtonStyle">@style/MusicActionButtonStyle</item>
+        <item name="android:actionOverflowButtonStyle">@style/MusicOverActionButtonStyle</item>
+
+
+
+    </style>
+
+    <!--状态栏不透明-->
+    <style name="MusicTheme.WindowNoTranslucent">
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowTranslucentStatus">false</item>
+    </style>
+
+</resources>

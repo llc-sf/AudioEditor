@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+    <string name="abbre_minute">m</string>
+
+    <string name="access_all_features">Quyền truy cập miễn phí tất cả các tính năng mới trong các phiên bản trong tương lai</string>
+    <string name="access_files">Cho phép truy cập vào các tệp phương tiện trên thiết bị.</string>
+
+    <string name="action_continue">Tiếp tục</string>
+    <string name="action_ok">OK</string>
+    <string name="action_reset">Đặt lại</string>
+
+    <string name="add_playlist_unknow_error">Không thể tạo danh sách phát</string>
+    <string name="add_to_playlist">Thêm vào danh sách phát</string>
+    <string name="add_to_queue">Thêm vào hàng đợi</string>
+    <string name="add_tracks">Thêm bài hát</string>
+
+    <string name="added_to_favourite">Đã thêm vào mục yêu thích</string>
+
+    <string name="agree_continue">Đồng ý và tiếp tục</string>
+
+    <string name="album_title">Album</string>
+
+    <string name="albums">Album</string>
+
+    <string name="all_songs">Tất Cả Các Bài Hát</string>
+
+    <string name="allow">Cho phép</string>
+    <string name="allow_access">Cho phép truy cập</string>
+    <string name="allow_access_storage">Cho phép truy cập vào bộ nhớ</string>
+    <string name="allow_all_time">Cho phép mọi lúc</string>
+
+    <string name="already_exists">Đã tồn tại</string>
+
+    <string name="app_name_compat_mp3">Âm Nhạc Miễn Phí</string>
+    <string name="app_name_compat_music">Trình phát nhạc</string>
+
+    <string name="apply_more_permission_killed_dialog_title">%s đã bị buộc dừng</string>
+
+    <string name="artist_name">Tên nghệ sĩ</string>
+    <string name="artist_title">Nghệ sĩ</string>
+
+    <string name="artists">Nghệ Sĩ</string>
+
+    <string name="ask_like_app">Bạn có hài lòng với %s không?</string>
+
+    <string name="auto_backups">Danh sách sao lưu tự động</string>
+
+    <string name="backup">Sao lưu</string>
+    <string name="backup_fail">Sao lưu không thành công</string>
+    <string name="backup_playlist">Sao lưu danh sách phát</string>
+    <string name="backup_success">Sao lưu thành công</string>
+    <string name="backup_summary_playlist">%d danh sách phát</string>
+    <string name="backup_summary_playlists">%d danh sách phát</string>
+    <string name="backup_title">Sao lưu?</string>
+
+    <string name="bass_boost">Tăng âm trầm</string>
+
+    <string name="battery_opt_content">Để tránh dừng phát nhạc một cách bất thường, hãy cấp quyền cần thiết cho %s</string>
+    <string name="battery_opt_title_first">Tránh dừng bất thường</string>
+
+    <string name="blur">Mờ</string>
+
+    <string name="cancel">Hủy bỏ</string>
+    <string name="cancel_favorite_success">Đã xóa khỏi mục Yêu Thích</string>
+
+    <string name="change_album_art">Thay đổi bìa album</string>
+    <string name="change_cover">Thay đổi Bìa</string>
+    <string name="change_cover_failed">Thay đổi bìa không thành công</string>
+    <string name="change_language_title">Chọn Ngôn Ngữ</string>
+    <string name="change_picture">Thay ảnh</string>
+
+    <string name="choose_allow">Chọn \"Cho phép\"</string>
+
+    <string name="clear">Rõ ràng</string>
+    <string name="clear_playlist">Xóa %s</string>
+    <string name="clear_queue_info">Bạn có chắc bạn muốn xóa hàng chờ phát không?</string>
+
+    <string name="color">Màu sắc</string>
+
+    <string name="confirm_and_fix">Chúng tôi sẽ xác nhận vấn đề và khắc phục nó trong phiên bản tiếp theo trong thời gian sớm nhất có thể!</string>
+    <string name="confirm_information">Xác nhận thông tin</string>
+
+    <string name="continue_to_work_hard">Chúng tôi sẽ tiếp tục làm việc chăm chỉ.</string>
+
+    <string name="count_album">%d album</string>
+    <string name="count_albums">%d album</string>
+    <string name="count_artist">%s nghệ sĩ</string>
+    <string name="count_artists">%s nghệ sĩ</string>
+    <string name="count_folder">%s thư mục</string>
+    <string name="count_folders">%s thư mục</string>
+    <string name="count_genre">%s thể loại</string>
+    <string name="count_genres">%s thể loại</string>
+    <string name="count_media_file">%d tệp phương tiện</string>
+    <string name="count_media_files">%d tệp phương tiện</string>
+    <string name="count_song">%d bài hát</string>
+    <string name="count_songs">%d bài hát</string>
+    <string name="count_sub_folder">%d thư mục con</string>
+    <string name="count_sub_folders">%d thư mục con</string>
+
+    <string name="create">Tạo</string>
+    <string name="create_new_playlist">Tạo danh sách phát mới</string>
+
+    <string name="created_playlist">Danh sách phát %s đã được tạo</string>
+
+    <string name="delete">Xóa</string>
+    <string name="delete_failed">Không thể xóa</string>
+    <string name="delete_from_device">Xóa khỏi thiết bị</string>
+    <string name="delete_permission_access">Hãy chắc chắn &lt;b&gt;chọn đúng thư mục&lt;/b&gt; khi cấp quyền.</string>
+    <string name="delete_playlist_message">Bạn có chắc bạn muốn xóa danh sách phát %1$s không?</string>
+    <string name="delete_playlist_title">Xóa danh sách phát</string>
+    <string name="delete_some_no_premission">Những mục khác không thành công do không được cấp quyền.</string>
+    <string name="delete_song">Xóa bài hát?</string>
+    <string name="delete_song_message">Bạn có chắc bạn muốn xóa %1$s không?</string>
+
+    <string name="deleted_success">Xóa thành công</string>
+
+    <string name="details">Chi tiết</string>
+
+    <string name="dialog_message_set_ringtone">Để đặt nhạc chuông của bạn, %s yêu cầu quyền ghi cài đặt hệ thống\n\nSau khi cấp quyền, hãy thử đặt lại nhạc chuông của bạn.</string>
+    <string name="dialog_title_set_ringtone">Đặt Nhạc Chuông</string>
+
+    <string name="diet_for_you">Cho bạn</string>
+
+    <string name="directories">Các Thư Mục</string>
+
+    <string name="directory_empty">Thư mục trống</string>
+
+    <string name="disagree_exit">Không đồng ý và thoát</string>
+
+    <string name="discard">Hủy bỏ</string>
+
+    <string name="done">Xong</string>
+
+    <string name="duration">Thời lượng</string>
+
+    <string name="edit">Chỉnh sửa</string>
+    <string name="edit_photo">Chỉnh sửa ảnh</string>
+    <string name="edit_tag">Chỉnh sửa thẻ</string>
+    <string name="edit_tags">Chỉnh sửa thẻ</string>
+
+    <string name="enable_lock_screen_tip">Bạn có thể bật lên bằng cách "%1$s - %2$s".</string>
+
+    <string name="end_period">Kết thúc</string>
+
+    <string name="enhancer_best_rating">Đánh giá tốt nhất cho chúng tôi</string>
+    <string name="enhancer_thanks_rate_us">Cám ơn vì đã sử dụng %s!\nChúng tôi rất biết ơn nếu bạn có thể xếp hạng cho chúng tôi.</string>
+
+    <string name="entered_same_name">Tên đã tồn tại, vui lòng thử một tên khác.</string>
+
+    <string name="equ_custom">Tùy chỉnh</string>
+
+    <string name="equalizer">Bộ Chỉnh Âm</string>
+
+    <string name="error_playing_file_error">Phát không thành công, tệp không tồn tại</string>
+    <string name="error_playing_normal">Phát không thành công, đã xảy ra lỗi không xác định</string>
+    <string name="error_playing_path_error">Phát không thành công, lỗi đường dẫn.</string>
+    <string name="error_playing_track">Lỗi khi phát bản nhạc %1$s</string>
+
+    <string name="exe_all">Tất cả</string>
+
+    <string name="exit">Thoát</string>
+    <string name="exit_1">Thoát</string>
+    <string name="exit_scan">Thoát quét?</string>
+
+    <string name="featured">Nổi bật</string>
+
+    <string name="feedback">Phản hồi</string>
+    <string name="feedback_mail_text">Thông tin hệ thống</string>
+
+    <string name="file_not_exist">Tệp không tồn tại</string>
+
+    <string name="folder_select_title">Lựa Chọn Các Thư Mục</string>
+
+    <string name="folders">Thư mục</string>
+
+    <string name="free_7_days_trial_1">Dùng thử 7 ngày miễn phí</string>
+    <string name="free_space_needed">Bộ nhớ cần thiết: %s (được khuyến nghị)</string>
+    <string name="free_space_to_ensure">Vui lòng giải phóng một chút dung lượng để đảm bảo ứng dụng hoạt động đúng cách.</string>
+    <string name="free_up_space">Giải phóng không gian</string>
+
+    <string name="from_new_to_old">Từ cũ tới mới</string>
+    <string name="from_old_to_new">Từ mới tới cũ</string>
+
+    <string name="general">Chung</string>
+
+    <string name="genre_title">Thể loại</string>
+
+    <string name="genres">Thể loại</string>
+
+    <string name="go_premium">Chuyển sang Premium</string>
+    <string name="go_to_album">Đi tới album</string>
+    <string name="go_to_artist">Đi tới nghệ sĩ</string>
+
+    <string name="good">Tốt</string>
+
+    <string name="guide_allow_description">Để nghe nhạc,\nXMusic cần truy cập các tệp phương tiện trên thiết bị của bạn.</string>
+    <string name="guide_enable_description_1">Để nghe nhạc, bạn cần:</string>
+
+    <string name="help">Trợ giúp</string>
+
+    <string name="hidden_directory">Thư Mục Ẩn</string>
+
+    <string name="hide">Ẩn</string>
+
+    <string name="history">Lịch sử</string>
+
+    <string name="ignore_less_duration">Bỏ qua thời lượng nhỏ hơn</string>
+    <string name="ignore_less_size">Bỏ qua kích thước nhỏ hơn</string>
+    <string name="ignore_short_files">Bỏ qua các tệp nhỏ hơn 50K.</string>
+    <string name="ignore_short_song">Bỏ qua các bài hát dưới 60 giây.</string>
+
+    <string name="import_clip_tips">Vui lòng chọn lời bài hát và sao chép</string>
+    <string name="import_clip_tips_html">Vui lòng &lt;b&gt;chọn&lt;/b&gt; lời bài hát và &lt;b&gt;sao chép&lt;/b&gt;</string>
+    <string name="import_clip_tips_save_title">Nhập lời bài hát</string>
+    <string name="import_clip_tips_title">Cách nhập lời bài hát</string>
+    <string name="import_tel">Nhập</string>
+
+    <string name="insufficient_space">Không đủ dung lượng</string>
+
+    <string name="internal_sd">Bộ Nhớ Trong</string>
+
+    <string name="language_title">Ngôn ngữ</string>
+
+    <string name="last_backup">Sao Lưu Lần Cuối: %s</string>
+
+    <string name="library">Thư viện</string>
+
+    <string name="local">Tại chỗ</string>
+    <string name="local_songs">Bài hát cục bộ</string>
+
+    <string name="location">Vị trí</string>
+
+    <string name="lock_screen_disable_confirm">Tắt tính năng Phát Trên Màn Hình Khóa?</string>
+
+    <string name="lucky_desc">Không cần xem video lần này.</string>
+    <string name="lucky_title">Anh chàng may mắn, xin chúc mừng!</string>
+
+    <string name="lyrics_add_local">Thêm lời bài hát cục bộ</string>
+    <string name="lyrics_edit_song_info">Bạn có thể chỉnh sửa thông tin bài hát để có lời bài hát chính xác.</string>
+    <string name="lyrics_import_failed_no_format">Nhập lời bài hát không thành công, định dạng tệp không được hỗ trợ.</string>
+    <string name="lyrics_imported">Đã nhập lời bài hát</string>
+    <string name="lyrics_load_failed">Không tải được lời bài hát</string>
+    <string name="lyrics_loading">Đang tải lời bài hát...</string>
+    <string name="lyrics_net_error">Rất tiếc, vui lòng kiểm tra kết nối mạng của bạn.</string>
+    <string name="lyrics_no_found">Rất tiếc, không tìm thấy lời bài hát.</string>
+    <string name="lyrics_no_matches">Tên bài hát hoặc nghệ sĩ không khớp</string>
+    <string name="lyrics_no_scroll">Lời bài hát không cuộn</string>
+    <string name="lyrics_reset_msg">Nếu bạn làm vậy, lời bài hát bạn đã thêm sẽ bị xóa.</string>
+    <string name="lyrics_reset_title">Bạn có chắc chắn muốn đặt lại lời bài hát không?</string>
+    <string name="lyrics_search_online">Tìm kiếm trực tuyến</string>
+    <string name="lyrics_show_title">Lời bài hát</string>
+    <string name="lyrics_thanks_fb">Cảm ơn phản hồi của bạn! Chúng tôi sẽ nỗ lực hết sức để cải thiện nó.</string>
+    <string name="lyrics_tx_error">Lỗi văn bản lời bài hát</string>
+
+    <string name="manage_playlist">Quản lý</string>
+
+    <string name="manual_backups">Danh sách sao lưu thủ công</string>
+
+    <string name="more">Thêm</string>
+    <string name="more_setting">Nhiều cài đặt hơn</string>
+
+    <string name="music">Âm nhạc</string>
+
+    <string name="music3_apply_more_permission_killed_dialog_title">%s đã bị buộc dừng lại</string>
+    <string name="music3_battery_opt_content">Vui lòng cấp cho %s quyền cần thiết để ngăn chặn việc phát ở nền bị buộc dừng.</string>
+    <string name="music3_battery_opt_title_first">Để phát liên tục ở nền</string>
+    <string name="music3_clear_queue_info">Hàng đợi phát sẽ bị xóa. Bạn có chắc là muốn tiếp tục không?</string>
+    <string name="music3_delete_playlist_message">Xóa danh sách phát %1$s?</string>
+    <string name="music3_delete_song_message">Xóa %1$s?</string>
+    <string name="music3_exit_scan">Thoát khỏi quét?</string>
+    <string name="music3_free_space_to_ensure">Để đảm bảo ứng dụng hoạt động bình thường, vui lòng giải phóng dung lượng.</string>
+    <string name="music3_guide_allow_description">Vui lòng cấp cho %s quyền truy cập tệp phương tiện để phát nhạc.</string>
+    <string name="music3_guide_enable_description_1">Để phát nhạc, vui lòng:</string>
+    <string name="music3_import_clip_tips_html">&lt;b&gt;Chọn&lt;/b&gt; lời bài hát, rồi &lt;b&gt;Sao chép&lt;/b&gt;.</string>
+    <string name="music3_import_clip_tips_title">Tôi nên nhập lời bài hát như thế nào?</string>
+    <string name="music3_lyrics_edit_song_info">Vui lòng đảm bảo thông tin bài hát dưới đây là chính xác và thử lại.</string>
+    <string name="music3_lyrics_load_failed">Tải lời bài hát không thành công</string>
+    <string name="music3_lyrics_no_found">Rất tiếc, không tìm thấy lời bài hát.</string>
+    <string name="music3_lyrics_no_matches">Bài hát hoặc nghệ sĩ không khớp</string>
+    <string name="music3_lyrics_no_scroll">Lời bài hát không cuộn được</string>
+    <string name="music3_lyrics_reset_msg">Lời bài hát bạn đã thêm sẽ bị xóa nếu bạn làm như vậy.</string>
+    <string name="music3_lyrics_reset_title">Đặt lại lời bài hát?</string>
+    <string name="music3_lyrics_tx_error">Lời bài hát sai</string>
+    <string name="music3_resume_playback_content">Đã phát hiện việc phát nhạc bị gián đoạn bởi một ứng dụng khác.</string>
+    <string name="music3_resume_playback_title">Tiếp tục phát?</string>
+    <string name="music3_summary_pause_detach">Tạm dừng phát khi tai nghe bị ngắt kết nối</string>
+    <string name="music3_tag_edit_discard_change">Thoát và hủy các thay đổi?</string>
+    <string name="music3_terms_of_service_should_agree">Đồng ý với %1$s &amp; %2$s của chúng tôi, và bắt đầu hành trình âm nhạc của bạn!</string>
+    <string name="music3_thanks_for_your_feedback">Cám ơn bạn về những phản hồi có giá trị.</string>
+
+    <string name="music_guide_allow_description">Để nghe nhạc, %s cần truy cập các tệp phương tiện trên thiết bị của bạn.</string>
+    <string name="music_player_share_text">Đây là một bài hát cho bạn từ %1$s.</string>
+
+    <string name="my_favourite">Yêu thích của tôi</string>
+
+    <string name="network_error">Lỗi mạng</string>
+    <string name="network_error_pls_try">Lỗi mạng, vui lòng thử lại</string>
+
+    <string name="new_playlist">Danh sách phát mới</string>
+    <string name="new_share_email_text">Tôi đang sử dụng %s.\\n\\nHãy tự mình dùng thử. Tải ứng dụng tại đây:\\n</string>
+
+    <string name="next_song">Bài hát tiếp theo</string>
+
+    <string name="no_backup">Không tìm thấy sao lưu</string>
+    <string name="no_document_provider">Không có DocumentProvider nào khả dụng để xử lý yêu cầu cấp phép</string>
+    <string name="no_songs_found">Không tìm thấy bài hát nào</string>
+
+    <string name="not_good">Không thực sự hài lòng</string>
+
+    <string name="nothing_found">Không có kết quả</string>
+
+    <string name="now_playing">Chủ đề Trình phát</string>
+
+    <string name="number_song_add_playlist">%d bài hát đã được thêm vào danh sách phát.</string>
+    <string name="number_song_add_queue">%d bài hát đã được thêm vào hàng đợi.</string>
+    <string name="number_song_selected">%d bài hát đã được chọn</string>
+    <string name="number_songs_add_playlist">%d bài hát đã được thêm vào danh sách phát.</string>
+    <string name="number_songs_add_queue">%d bài hát đã được thêm vào hàng đợi.</string>
+    <string name="number_songs_selected">%d bài hát đã được chọn</string>
+
+    <string name="off">Tắt</string>
+
+    <string name="open_settings">Vào Cài đặt</string>
+
+    <string name="options_ads">Quá nhiều quảng cáo</string>
+    <string name="options_bugs">Lỗi</string>
+    <string name="options_music_stop">Nhạc dừng phát</string>
+    <string name="options_others">Khác</string>
+    <string name="options_songs_not_found">Một số bài hát không được hiển thị</string>
+    <string name="options_suggestions">Đề xuất</string>
+
+    <string name="pause_detach">Tạm dừng khi tháo</string>
+
+    <string name="pg_permission_dialog_title">Yêu cầu quyền truy cập</string>
+
+    <string name="play">Phát</string>
+    <string name="play_after_song">Phát sau bài hát hiện tại</string>
+    <string name="play_next">Phát bài tiếp theo</string>
+
+    <string name="playing_queue">Hàng Chờ Phát</string>
+
+    <string name="playlist">Danh sách phát</string>
+    <string name="playlist_already_exist">%1$s đã tồn tại</string>
+    <string name="playlist_edit_hint">Vui lòng nhập tên danh sách phát</string>
+    <string name="playlist_last_added">Đã Thêm Gần Đây</string>
+    <string name="playlist_most_played">Được phát nhiều nhất</string>
+    <string name="playlist_recently_played">Đã Phát Gần Đây</string>
+    <string name="playlist_top_tracks">Bản nhạc hàng đầu của tôi</string>
+
+    <string-array name="preset_reverb">
+        <item>Không</item>
+        <item>Phòng Cỡ Nhỏ</item>
+        <item>Phòng Cỡ Trung</item>
+        <item>Phòng Cỡ Lớn</item>
+        <item>Hội Trường Cỡ Trung</item>
+        <item>Hội Trường Cỡ Lớn</item>
+        <item>Đĩa kim loại</item>
+    </string-array>
+
+    <string name="price_lifetime">%s/Mua một lần</string>
+
+    <string name="privacy_policy">Chính sách bảo mật</string>
+
+    <string name="queue">Hàng đợi</string>
+
+    <string name="rate_us">Đánh giá</string>
+
+    <string name="rating_we_like_you">Chúng tôi cũng thích bạn!</string>
+
+    <string name="reader_exit_ads">Bạn có chắc là muốn thoát không?</string>
+
+    <string name="remaining_x">Còn lại: %s</string>
+
+    <string name="remind_me_anymore">Không nhắc tôi nữa</string>
+
+    <string name="remove">Xóa</string>
+    <string name="remove_ad">Xóa quảng cáo</string>
+    <string name="remove_from_playlist">Xóa khỏi danh sách phát</string>
+    <string name="remove_from_queue">Xóa khỏi hàng chờ</string>
+    <string name="remove_song_message">Bạn có chắc chắn muốn xóa %s không?</string>
+
+    <string name="rename">Đổi tên</string>
+    <string name="rename_failed">Không thể đặt lại tên</string>
+    <string name="rename_success">Đặt tên lại thành công</string>
+
+    <string name="repeat_loop">Vòng Lặp Tất Cả</string>
+    <string name="repeat_off">Tắt Lặp Lại</string>
+    <string name="repeat_order">Thứ tự</string>
+    <string name="repeat_repeat">Lặp Lại Bài Hiện Tại</string>
+    <string name="repeat_shuffle">Trộn tất cả</string>
+
+    <string name="restore_failed">Khôi phục không thành công</string>
+    <string name="restore_playlist">Phục hồi danh sách phát</string>
+    <string name="restore_success">Khôi phục thành công</string>
+
+    <string name="result">Kết quả</string>
+
+    <string name="resume">Bắt đầu lại</string>
+    <string name="resume_playback_content">Chúng tôi phát hiện thấy rằng quá trình phát nhạc đã bị gián đoạn bởi các ứng dụng khác.</string>
+    <string name="resume_playback_title">Bạn có muốn tiếp tục phát không?</string>
+
+    <string name="retry">Thử lại</string>
+
+    <string name="reverb">Hiệu ứng vọng</string>
+
+    <string name="ringtone_set">Đặt thành công</string>
+    <string name="ringtone_set_failed">Đặt không thành công</string>
+
+    <string name="save">Lưu</string>
+
+    <string name="saving_tags">Đang lưu thẻ...</string>
+
+    <string name="scan">Quét</string>
+    <string name="scan_library">Quét Nhạc</string>
+    <string name="scan_result">%1$s bài hát đã được thêm vào %2$s</string>
+
+    <string name="scanner_lib_rate_leave_feedback">Chúng tôi rất chào đón phản hồi của bạn.</string>
+    <string name="scanner_lib_rate_like_you">Xin cảm ơn rất nhiều!</string>
+    <string name="scanner_share_dialog_title_2">Cảm ơn sự hỗ trợ của bạn!</string>
+
+    <string name="scanning">Đang quét...</string>
+
+    <string name="screen_lock_play">Phát khi màn hình khóa</string>
+
+    <string name="sd_card_access_step_1_format">
+        <![CDATA[Nhấn vào nút ở góc trên cùng bên trái và<font color=\"#F44831\"><b>chọn thẻ SD</b></font>.]]>
+    </string>
+    <string name="sd_card_access_step_2_format">
+        <![CDATA[<font color=\"#F44831\"><b>Nhấn CHỌN</b></font> ở dưới cùng trên màn hình tiếp theo để cấp quyền ghi.]]>
+    </string>
+    <string name="sd_tips">Vui lòng chọn &lt;b&gt;thư mục gốc&lt;/b&gt; của thẻ SD bên ngoài &lt;br/&gt;&lt;b&gt;(%s)&lt;/b&gt; để cấp phép hoạt động.</string>
+
+    <string name="sdcard_permission_required">Cần được cấp quyền để xóa bài hát khỏi thẻ SD.</string>
+
+    <string name="search">Tìm kiếm</string>
+    <string name="search_albums">Tìm kiếm album</string>
+    <string name="search_artists">Tìm kiếm nghệ sĩ</string>
+    <string name="search_folders">Tìm kiếm thư mục</string>
+    <string name="search_genres">Tìm kiếm thể loại</string>
+    <string name="search_history">Lịch sử tìm kiếm</string>
+    <string name="search_library">Tìm Kiếm Thư Viện</string>
+    <string name="search_music_on_youtube">Tìm kiếm bài hát từ YouTube</string>
+    <string name="search_on_youtube">Tìm kiếm trên YouTube</string>
+    <string name="search_songs">Tìm kiếm bài hát</string>
+
+    <string name="select_all">Chọn tất cả</string>
+    <string name="select_backup">Chọn một bản ghi sao lưu để khôi phục</string>
+    <string name="select_folder">Lựa Chọn Các Thư Mục</string>
+
+    <string name="set">ĐẶT</string>
+    <string name="set_as_ringtone">Đặt làm nhạc chuông</string>
+    <string name="set_ringtone">Đặt %s làm nhạc chuông?</string>
+    <string name="set_ringtone_message">Để đặt nhạc chuông, vui lòng cấp quyền cần thiết.</string>
+
+    <string name="settings">Cài đặt</string>
+
+    <string name="share">Chia sẻ</string>
+    <string name="share_email_title">Chia sẻ %s với bạn</string>
+
+    <string name="show">Hiển thị</string>
+
+    <string name="shuffle">Trộn</string>
+    <string name="shuffle_off">Tắt Trộn</string>
+    <string name="shuffle_on">Bật Trộn</string>
+
+    <string name="size">Kích thước</string>
+
+    <string name="sleep_timer">Hẹn giờ ngủ</string>
+
+    <string name="slide_to_unlock">Trượt để mở khóa</string>
+
+    <string name="song">Bài hát</string>
+    <string name="song_added_plural">%s bài hát mới đã được thêm.</string>
+    <string name="song_added_singular">%s bài hát mới đã được thêm.</string>
+    <string name="song_deleted">%d bài hát đã bị xóa</string>
+    <string name="song_name">Tên bài hát</string>
+    <string name="song_scanned_plural">%s bài hát đã được quét.</string>
+    <string name="song_scanned_singular">%s bài hát đã được quét.</string>
+    <string name="song_title">Tiêu đề</string>
+
+    <string name="songs">Bài Hát</string>
+    <string name="songs_deleted">%d bài hát đã bị xóa</string>
+
+    <string name="sort_by">Sắp xếp theo</string>
+    <string name="sort_by_name">Tên</string>
+    <string name="sort_key_add_playlist">Thời điểm thêm vào danh sách phát</string>
+    <string name="sort_key_album_name">Tên album</string>
+    <string name="sort_key_number_of_albums">Số lượng album</string>
+    <string name="sort_key_time_added">Thời gian được thêm vào</string>
+    <string name="sort_key_track">Thứ tự trong album</string>
+    <string name="sort_order_a_z">Từ A tới Z</string>
+    <string name="sort_order_big_small">Từ to đến nhỏ</string>
+    <string name="sort_order_entry_number_of_songs">Số lượng bài hát</string>
+    <string name="sort_order_long_short">Từ dài tới ngắn</string>
+    <string name="sort_order_short_long">Từ ngắn tới dài</string>
+    <string name="sort_order_small_big">Từ nhỏ đến to</string>
+    <string name="sort_order_z_a">Từ Z tới A</string>
+
+    <string name="start">Khởi đầu</string>
+
+    <string name="storage">Lưu trữ</string>
+
+    <string name="subscription_des_music">Đăng ký này cung cấp cho bạn quyền truy cập không giới hạn vào thư viện nội dung ứng dụng của chúng tôi. Nếu bạn không hủy trước khi thời gian dùng thử kết thúc, bạn sẽ tự động bị tính phí %s mỗi tháng cho đến khi bạn hủy.</string>
+    <string name="subscription_detail">Chi tiết đăng ký</string>
+    <string name="subscription_price">%s/tháng sau đó</string>
+
+    <string name="summary_feedback">Báo cáo lỗi và cho chúng tôi biết những gì cần cải thiện</string>
+    <string name="summary_pause_detach">Chuyển đổi để tạm dừng phát khi tai nghe được tháo ra</string>
+    <string name="summary_rateUs">Thích ứng dụng này? Hãy đánh giá chúng tôi!</string>
+    <string name="summary_screen_lock_play">Hiển thị mục đang phát khi màn hình khóa</string>
+
+    <string name="system">Hệ thống</string>
+    <string name="system_default">Mặc định hệ thống</string>
+
+    <string name="tag_edit_discard_change">Bạn có chắc bạn muốn hủy các thay đổi không?</string>
+    <string name="tag_edit_error">Chỉnh sửa không thành công</string>
+    <string name="tag_edit_success">Chỉnh sửa thành công</string>
+
+    <string name="tap_permission">Nhấn Quyền</string>
+    <string name="tap_to_start">Nhấn để bắt đầu %s</string>
+
+    <string name="terms_of_service">Điều khoản sử dụng</string>
+    <string name="terms_of_service_guide">Bằng cách chạm vào \"%1$s\", bạn cho biết là bạn đã đọc và đồng ý với %2$s và %3$s của chúng tôi.</string>
+    <string name="terms_of_service_should_agree">Để sử dụng %1$s, bạn cần đồng ý với %2$s và %3$s.</string>
+
+    <string name="thanks_for_loving_x">Cảm ơn bạn đã yêu thích %s.</string>
+    <string name="thanks_for_your_feedback">Cám ơn về phản hồi của bạn</string>
+
+    <string name="theme">Chủ Đề Bên Ngoài</string>
+
+    <string name="thx_feedback_tip">Chúng tôi sẽ khắc phục vấn đề này trong phiên bản tương lai. Xin lỗi về sự bất tiện này.</string>
+
+    <string name="timer_after_this">Dừng khi bài hát hiện tại kết thúc</string>
+    <string name="timer_stop_after">Dừng nhạc sau</string>
+    <string name="timer_turn_off">Đã tắt hẹn giờ ngủ</string>
+    <string name="timer_turn_off_latter">Tắt sau %s</string>
+
+    <string name="title_is_null">Không được để trống tiêu đề</string>
+
+    <string name="transparency">Trong suốt</string>
+
+    <string name="turn_off">Tắt</string>
+    <string name="turn_off_after">Tắt sau %1$d phút</string>
+    <string name="turn_off_ends">Tắt khi bài hát hiện tại kết thúc</string>
+    <string name="turn_storage">Bật Bộ Nhớ</string>
+
+    <string name="unit_secs">giây</string>
+
+    <string name="unknow_error">Đã xảy ra lỗi không xác định</string>
+
+    <string name="unlock_for_free">Mở khóa MIỄN PHÍ</string>
+    <string name="unlock_premium_themes">Mở khóa tất cả các chủ đề</string>
+
+    <string name="version">Phiên bản</string>
+
+    <string name="view">Xem</string>
+    <string name="view_all">Xem tất cả</string>
+
+    <string name="virtualizer">Bộ ảo hóa</string>
+
+    <string name="vivo_deny">Từ chối</string>
+
+    <string name="what_a_pity">Thật tiếc!</string>
+
+    <string name="x_hours">%s giờ</string>
+    <string name="x_minutes">%s phút</string>
+    <string name="x_seconds">%s giây</string>
+    <string name="x_selected">Đã Chọn %s</string>
+    <string name="x_song_hide_single">%1$s bài hát bị ẩn, bạn có thể vào %2$s để hiển thị bài hát đó.</string>
+    <string name="x_songs_hide_1">%1$s bài hát bị ẩn, bạn có thể vào %2$s để hiển thị chúng.</string>
+
+    <string name="xbooster_notification_access">Quyền quy cập thông báo</string>
+
+    <string name="yes">Có</string>
+    <string name="music3_remove_successfully">Đã gỡ bỏ thành công</string>
+
+    <string name="camera_preparing">Đang chuẩn bị…</string>
+
+    <string name="widget_tap_start">Nhấn để bắt đầu Trình phát nhạc</string>
+    <string name="music3_notification_access_desc">Vui lòng cấp quyền truy cập thông báo cho %s để nhanh chóng điều khiển việc phát nhạc từ trung tâm thông báo.</string>
+    <string name="music3_app_name">Trình phát nhạc</string>
+
+    <string name="go_file_manager">Đi</string>
+    <string name="music3_click_to_authorize">Kích vào đây để cấp quyền</string><!-- 189440 待确认 -->
+    <string name="music3_language_guide">Vui lòng lựa chọn một ngôn ngữ khác với Hệ thống và kích vào đây để xác nhận.</string>
+    <string name="pdf_reader2_enter_homepage_guide">Chạm để truy cập trang chủ</string>
+
+    <string name="mp3_current_speed">Tốc độ hiện tại: %s</string>
+    <string name="mp3_edit_lyrics">Sửa lời bài hát</string>
+    <string name="mp3_enter_lyrics">Nhập lời bài hát</string>
+    <string name="mp3_enter_lyrics_here">Nhập lời bài hát của bạn ở đây…</string>
+    <string name="music3_playback_speed">Tốc độ phát lại</string>
+    <string name="music3_playback_speed_changed">Tốc độ phát lại được thay đổi thành %sX</string>
+    <string name="music3_playback_speed_num">Tốc độ phát lại: %s</string>
+    <string name="normal">Bình thường</string>
+    <string name="paste">Dán</string>
+    <string name="music3_playback_speed_changed_failed">Thay đổi sang %sX không thành công, đặt lại về 1.0X</string>
+
+    <string name="music3_app_title_1">Trình phát nhạc - DDMusic</string>
+    <string name="music3_delete_permission_access">Vui lòng &#60;b&#62;theo các bước trong trang tiếp theo&#60;/b&#62; để cho phép truy cập.</string>
+    <string name="music3_delete_some_no_premission">Nhưng phần còn lại thất bại do &#60;b&#62;vấn đề về quyền&#60;/b&#62;.</string>
+    <string name="music3_delete_videos_gpt">Xóa %s video?</string>
+    <string name="music3_error_playing_video_gpt">Lỗi khi phát video \&#34;%s\&#34;</string>
+    <string name="music3_grant_media_files_access_gpt">Vui lòng cấp quyền truy cập tệp phương tiện cho %s để phát video.</string>
+    <string name="music3_next">Tiếp theo</string>
+    <string name="music3_resume_auto">Tiếp tục chơi từ vị trí bạn đã dừng lại</string>
+    <string name="music3_scan_local_videos_gpt">Để quét video địa phương, vui lòng:</string>
+    <string name="music3_scan_video_gpt">Quét video</string>
+    <string name="music3_sd_card_access_step_2_format">Sau đó &#60;b&#62;gõ LỰA CHỌN&#60;/b&#62; để cho phép truy cập ghi.</string>
+    <string name="music3_sd_write_access_required_gpt">Xóa video từ thẻ SD cần quyền ghi</string>
+    <string name="music3_search_videos">Tìm kiếm video</string>
+    <string name="music3_select_albums_gpt">Chọn album</string>
+    <string name="music3_select_artists_gpt">Chọn nghệ sĩ</string>
+    <string name="music3_select_genres_gpt">Chọn thể loại</string>
+    <string name="music3_select_playlists_gpt">Chọn danh sách phát</string>
+    <string name="music3_select_songs_gpt">Chọn bài hát</string>
+    <string name="music3_select_videos_gpt">Chọn video</string>
+    <string name="music3_videos_added_gpt">&#60;b&#62;%1$s&#60;/b&#62; video đã thêm vào %2$s</string>
+    <string name="music3_video_info_gpt">Thông tin video</string>
+    <string name="music3_video_name_gpt">Tên video</string>
+    <string name="music3_video_not_found_gpt">Không tìm thấy video?</string>
+    <string name="music3_x_new_videos_added_gpt">%s video mới đã thêm</string>
+    <string name="music3_x_videos_deleted_gpt">%s video đã xóa</string>
+
+    <string name="allplayer_fast_forward">Chuyển tiếp nhanh</string>
+    <string name="allplayer_mute_play_gpt">Tắt tiếng khi phát</string>
+    <string name="allplayer_recently_watched_gpt">Gần đây đã xem</string>
+    <string name="brightness">Độ nhẹ</string>
+    <string name="btn_allow">Cho phép</string>
+    <string name="enter_name">Hãy đặt tên cho chương trình của bạn</string>
+    <string name="got_it_1">Đã hiểu</string>
+    <string name="music3_1_new_video_added_gpt">%s video mới đã thêm</string>
+    <string name="music4_allow_photo_video">Cho phép truy cập vào ảnh và video</string>
+    <string name="music4_photo_permission_step3">Tìm và chạm vào Ảnh và Video</string>
+    <string name="music_3_video_share">Một video dành cho bạn từ %1$s %2$s</string>
+    <string name="no_videos_found">Không tìm thấy video nào</string>
+    <string name="n_videos">%s video</string>
+    <string name="n_videos_1">%s video</string>
+    <string name="one_video">1 video</string><!-- 用ChatGPT翻译 -->
+    <string name="pause_play">Tạm dừng/Phát</string>
+    <string name="rewind">Tua lại</string>
+    <string name="rp_next">Tiếp theo</string>
+    <string name="sd_card_access_step_1">Chạm vào nút ở góc trên bên trái và &#60;b&#62;chọn thẻ SD&#60;/b&#62;.</string><!-- 用ChatGPT翻译 -->
+    <string name="sound_boost_tips">Tiếp tục điều chỉnh để tăng âm lượng lên tối đa 200%.</string>
+    <string name="start_over">Bắt đầu lại</string>
+    <string name="tab_videos">Video</string>
+    <string name="tap_again_to_exit">Nhấp một lần nữa để thoát</string>
+    <string name="video">Video</string>
+    <string name="volume">Âm lượng</string>
+    <string name="xgallery_no_next_video">Đã ở video cuối cùng</string>
+    <string name="xgallery_no_previous_video">Đã ở video đầu tiên</string>
+    <string name="xgallery_playing_lock_screen">Màn hình đã khóa</string>
+    <string name="xgallery_playing_unlock_screen">Màn hình đã mở khóa</string>
+    <string name="xgallery_sound_off">Tắt âm thanh</string>
+    <string name="xgallery_sound_on">Bật âm thanh</string>
+    <string name="zoom_in_out">Phóng to/thu nhỏ</string>
+    <string name="music3_1_video_deleted_gpt">%s video đã xóa</string>
+    <string name="music4_choose_allow">Chọn Cho phép</string>
+    <string name="open_settings_1">Mở Cài đặt</string>
+    <string name="music4_error_playing_file_error">Phát không thành công, tệp không hợp lệ.</string>
+    <string name="music4_error_playing_path_error">Phát không thành công, đường dẫn tệp không hợp lệ.</string>
+    <string name="music3_1_song_added_gpt">&#60;b&#62;1&#60;/b&#62; bài hát đã thêm vào %s</string>
+    <string name="music3_1_video_added_gpt">&#60;b&#62;1&#60;/b&#62; video đã thêm vào %s</string>
+
+    <string name="all_reader2_major_update_gpt">Cập nhật lớn</string>
+    <string name="all_reader2_new_version_en_desc_5_gpt">Trải nghiệm người dùng cải thiện</string>
+    <string name="all_reader2_new_version_gpt">Phiên bản mới</string>
+    <string name="all_reader2_new_version_ready_gpt">Phiên bản mới đã sẵn sàng!</string>
+    <string name="all_reader2_new_version_title_plan1_gpt">Phiên bản mới nhất của chúng tôi đã nhận được đánh giá 5 sao từ %s người dùng!</string>
+    <string name="booster2_new_version_des2_gpt">Tham gia cùng %s người dùng hài lòng và nâng cấp để có trải nghiệm 5 sao!</string>
+    <string name="booster2_new_version_des3_gpt">Phiên bản mới nhất của chúng tôi tự hào với tỷ lệ hài lòng ấn tượng %s cho đến nay.</string>
+    <string name="booster2_new_version_en_desc3_gpt">Thiết kế Giao diện được tối ưu hoá</string>
+    <string name="booster2_version_update">Cập nhật phiên bản</string>
+    <string name="docx_new_version_benefits3_gpt">Sửa lỗi nhỏ</string>
+    <string name="install">Cài đặt</string>
+    <string name="lyrics_source_gpt">Nguồn lời bài hát: người dùng ẩn danh</string>
+    <string name="pdf_reader3_update_from_gp_gpt">Thất bại, vui lòng cập nhật từ Google Play</string>
+    <string name="recommended">Giới thiệu</string>
+    <string name="step4_update_reason_1_gpt">Trong bản cập nhật này, chúng tôi đã sửa một số vấn đề và nâng cao hiệu suất tổng thể của ứng dụng.</string>
+    <string name="update">Cập nhật</string>
+    <string name="update_failed_network_wg_gpt">Cập nhật thất bại, vui lòng kiểm tra mạng của bạn và thử lại</string>
+    <string name="update_now_for_better_1">Bạn có thể &#60;b&#62;cập nhật ngay&#60;/b&#62; để trải nghiệm tốt hơn.</string>
+    <string name="updating">Đang cập nhật...</string>
+    <string name="upgrade">Nâng cấp</string>
+    <string name="upgrade_to_new_version">Trải nghiệm hiệu suất tăng cường và tính ổn định gia tăng với phiên bản mới nhất của chúng tôi. \n\n&#60;b&#62;Nhấn để nâng cấp ngay.&#60;/b&#62;</string>
+    <string name="upload_lyrics_statement_gpt">Khi bạn tải lời bài hát lên ứng dụng của chúng tôi, vui lòng đảm bảo rằng bạn có quyền làm như vậy và việc tải lên của bạn không vi phạm bất kỳ quyền sở hữu trí tuệ nào. Bằng cách tải lên, bạn ủy quyền cho chúng tôi sử dụng nội dung của bạn miễn phí, và chúng tôi sẽ ghi công nguồn là \&#34;người dùng ẩn danh\&#34;.</string>
+    <string name="video_player_in_music_gpt">Trình phát video</string>
+    <string name="video_player_moved_gpt">Trình phát video đã được chuyển đến đây</string>
+</resources>

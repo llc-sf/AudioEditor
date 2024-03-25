@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Nothing to be translated here-->
+    <string-array name="feedback_reason_options">
+        <item>@string/options_songs_not_found</item>
+        <item>@string/options_ads</item>
+        <item>@string/options_bugs</item>
+        <item>@string/options_music_stop</item>
+        <item>@string/options_suggestions</item>
+        <item>@string/options_others</item>
+    </string-array>
+
+</resources>

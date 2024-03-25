@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="abbre_minute">dk</string>
+
+    <string name="access_all_features">Gelecekteki sürümlerin yeni özelliklerinin tümüne ücretsiz erişim</string>
+    <string name="access_files">Cihazdaki medya dosyalarına erişime izin ver.</string>
+
+    <string name="action_continue">Devam Et</string>
+    <string name="action_ok">TAMAM</string>
+    <string name="action_reset">Sıfırla</string>
+
+    <string name="add_playlist_unknow_error">Çalma listesi oluşturulamıyor.</string>
+    <string name="add_to_playlist">Çalma listesine ekle</string>
+    <string name="add_to_queue">Sıraya ekle</string>
+    <string name="add_tracks">Şarkı ekle</string>
+
+    <string name="added_to_favourite">Sık Kullanılanlara Eklendi.</string>
+
+    <string name="agree_continue">Kabul et ve devam et</string>
+
+    <string name="album_title">Albüm</string>
+
+    <string name="albums">Albümler</string>
+
+    <string name="all_songs">Tüm şarkılar</string>
+
+    <string name="allow">İzin vermek</string>
+    <string name="allow_access">Erişime İzin Ver</string>
+    <string name="allow_access_storage">Depolama alanına erişime izin ver</string>
+    <string name="allow_all_time">Her zaman izin ver</string>
+
+    <string name="already_exists">Zaten mevcut</string>
+
+    <string name="app_name_compat_mp3">Bedava müzik</string>
+    <string name="app_name_compat_music">Müzik Çalar</string>
+
+    <string name="apply_more_permission_killed_dialog_title">%s durmaya zorlandı</string>
+
+    <string name="artist_name">Sanatçı Adı</string>
+    <string name="artist_title">Sanatçı</string>
+
+    <string name="artists">Sanatçılar</string>
+
+    <string name="ask_like_app">%s\'tan memnun musunuz?</string>
+
+    <string name="auto_backups">Listeyi otomatik yedekleyin</string>
+
+    <string name="backup">Yedekle</string>
+    <string name="backup_fail">Yedekleme başarısız</string>
+    <string name="backup_playlist">Çalma listesini yedekleyin</string>
+    <string name="backup_success">Yedekleme başarılı</string>
+    <string name="backup_summary_playlist">%d Çalma listesini</string>
+    <string name="backup_summary_playlists">%d Çalma listesi</string>
+    <string name="backup_title">Yedeklensin mi?</string>
+
+    <string name="bass_boost">Bas Güçlendirme</string>
+
+    <string name="battery_opt_content">Müzik çalarken anormal durmalardan kaçınmak için lütfen %s uygulamasına gerekli izni verin</string>
+    <string name="battery_opt_title_first">Anormal durmalardan kaçının</string>
+
+    <string name="blur">Bulanık</string>
+
+    <string name="cancel">İptal</string>
+    <string name="cancel_favorite_success">Sık Kullanılanlardan kaldırıldı.</string>
+
+    <string name="change_album_art">Albüm kapağını değiştirin</string>
+    <string name="change_cover">Kapağı Değiştir</string>
+    <string name="change_cover_failed">Kapağın değiştirilmesi başarısız</string>
+    <string name="change_language_title">Dil Seçin</string>
+    <string name="change_picture">Resmi değiştirin</string>
+
+    <string name="choose_allow">\"İzin\" ver Seçin</string>
+
+    <string name="clear">Temizle</string>
+    <string name="clear_playlist">%s listesini temizle</string>
+    <string name="clear_queue_info">Oynatma sırasını  silmek istediğinizden emin misiniz?</string>
+
+    <string name="color">Renk</string>
+
+    <string name="confirm_and_fix">Sorunu doğrulayıp gelecek sürümde en kısa zamanda düzelteceğiz!</string>
+    <string name="confirm_information">Bilgileri doğrula</string>
+
+    <string name="continue_to_work_hard">Çok çalışmaya devam edeceğiz.</string>
+
+    <string name="count_album">%d albüm</string>
+    <string name="count_albums">%d albümler</string>
+    <string name="count_artist">%s sanatçı</string>
+    <string name="count_artists">%s sanatçı</string>
+    <string name="count_folder">%s klasör</string>
+    <string name="count_folders">%s klasör</string>
+    <string name="count_genre">%s tür</string>
+    <string name="count_genres">%s tür</string>
+    <string name="count_media_file">%d medya dosyası</string>
+    <string name="count_media_files">%d medya dosyası</string>
+    <string name="count_song">%d şarkı</string>
+    <string name="count_songs">%d şarkılar</string>
+    <string name="count_sub_folder">%d alt klasör</string>
+    <string name="count_sub_folders">%d alt klasörler</string>
+
+    <string name="create">Oluştur</string>
+    <string name="create_new_playlist">Yeni çalma listesi oluştur</string>
+
+    <string name="created_playlist">%s adlı oynatma listesi oluşturuldu</string>
+
+    <string name="delete">Sil</string>
+    <string name="delete_failed">Silme başarısız</string>
+    <string name="delete_from_device">Cihazdan sil</string>
+    <string name="delete_permission_access">Lütfen izin verirken &lt;b&gt;doğru klasörü seçtiğinizden&lt;/b&gt; emin olun.</string>
+    <string name="delete_playlist_message">%1$s çalma listesini silmek istediğinizden emin misiniz?</string>
+    <string name="delete_playlist_title">Çalma listesini silin</string>
+    <string name="delete_some_no_premission">Diğerleri ise izin verilmediğinden başarısız oldu.</string>
+    <string name="delete_song">Şarkı silinsin mi?</string>
+    <string name="delete_song_message">%1$s silmek istediğinizden emin misiniz?</string>
+
+    <string name="deleted_success">Başarıyla silindi</string>
+
+    <string name="details">Ayrıntılar</string>
+
+    <string name="dialog_message_set_ringtone">Müzik Çalar, zil sesinizi ayarlamak için sistem ayarlarına yazma iznine ihtiyaç duymaktadır.\n\nİzni verdikten sonra zil sesinizi ayarlamayı tekrar deneyin.</string>
+    <string name="dialog_title_set_ringtone">Zil sesi ayarlayın</string>
+
+    <string name="diet_for_you">Senin için</string>
+
+    <string name="directories">Dizinler</string>
+
+    <string name="directory_empty">Dizin boş</string>
+
+    <string name="disagree_exit">Reddet ve çık</string>
+
+    <string name="discard">Vazgeç</string>
+
+    <string name="done">Bitti</string>
+
+    <string name="duration">Süre</string>
+
+    <string name="edit">Düzenle</string>
+    <string name="edit_photo">Fotoğrafı düzenle</string>
+    <string name="edit_tag">Tekrar Adlandır</string>
+    <string name="edit_tags">Etiketleri düzenleyin</string>
+
+    <string name="enable_lock_screen_tip">Onu \"Ayarlar - Kilit Ekranı Çaldırma\" dan açabilirsiniz.</string>
+
+    <string name="end_period">Bitir</string>
+
+    <string name="enhancer_best_rating">Bizim için en iyi puan</string>
+    <string name="enhancer_thanks_rate_us">%s kullandığınız için teşekkürler!\nBize puan verirseniz gerçekten çok mutlu oluruz.</string>
+
+    <string name="entered_same_name">Ad zaten var, lütfen başka bir ad deneyin.</string>
+
+    <string name="equ_custom">Özel</string>
+
+    <string name="equalizer">Ekolayzer</string>
+
+    <string name="error_playing_file_error">Oynatma başarısız, dosya mevcut değil</string>
+    <string name="error_playing_normal">Oynatma başarısız, bilinmeyen bir hata oluştu</string>
+    <string name="error_playing_path_error">Oynatma başarısız, yol hatası.</string>
+    <string name="error_playing_track">Parça oynatılırken hata oluştu %1$s</string>
+
+    <string name="exe_all">Tümü</string>
+
+    <string name="exit">Çık</string>
+    <string name="exit_1">Çık</string>
+    <string name="exit_scan">Taramadan çıkılsın mı?</string>
+
+    <string name="featured">Öne çıkanlar</string>
+
+    <string name="feedback">Geri bildirim</string>
+    <string name="feedback_mail_text">Sistem bilgisi</string>
+
+    <string name="file_not_exist">Dosya mevcut değil</string>
+
+    <string name="folder_select_title">Klasör Seçimi</string>
+
+    <string name="folders">Klasörler</string>
+
+    <string name="free_7_days_trial_1">7 GÜNLÜK ÜCRETSİZ DENEME</string>
+    <string name="free_space_needed">Gereken alan: %s (önerilen)</string>
+    <string name="free_space_to_ensure">Uygulamanın düzgün biçimde çalışmasını sağlamak için lütfen biraz alan açın.</string>
+    <string name="free_up_space">Alan aç</string>
+
+    <string name="from_new_to_old">Eskiden yeniye</string>
+    <string name="from_old_to_new">Yeniden eskiye</string>
+
+    <string name="general">Genel</string>
+
+    <string name="genre_title">Tür</string>
+
+    <string name="genres">Türler</string>
+
+    <string name="go_premium">PREMİUM\'A GEÇİN</string>
+    <string name="go_to_album">Albüme git</string>
+    <string name="go_to_artist">Sanatçıya git</string>
+
+    <string name="good">İyi</string>
+
+    <string name="guide_allow_description">Müzik dinlemek için Müzik Çalar\'in cihazınızdaki medya dosyalarına erişmesi gerekiyor.</string>
+    <string name="guide_enable_description_1">Müzik dinlemek için şunları yapmanız gerekir:</string>
+
+    <string name="help">Yardım</string>
+
+    <string name="hidden_directory">Gizli Klasörler</string>
+
+    <string name="hide">Gizle</string>
+
+    <string name="history">Geçmiş</string>
+
+    <string name="ignore_less_duration">Şundan daha kısa süreleri yoksay:</string>
+    <string name="ignore_less_size">Şundan daha küçük boyutları yoksay:</string>
+    <string name="ignore_short_files">50 K\'dan küçük dosyaları göz ardı et.</string>
+    <string name="ignore_short_song">60 saniyeden kısa şarkıları göz ardı et.</string>
+
+    <string name="import_clip_tips">Lütfen şarkı sözü seçin ve kopyalayın</string>
+    <string name="import_clip_tips_html">Lütfen şarkı sözü &lt;b&gt;seçin&lt;/b&gt; ve &lt;b&gt;kopyalayın&lt;/b&gt;</string>
+    <string name="import_clip_tips_save_title">Şarkı sözü aktar</string>
+    <string name="import_clip_tips_title">Şarkı sözü nasıl aktarılır</string>
+    <string name="import_tel">Aktar</string>
+
+    <string name="insufficient_space">Yetersiz alan</string>
+
+    <string name="internal_sd">Dahili depolama</string>
+
+    <string name="language_title">Dil</string>
+
+    <string name="last_backup">Son Yedekleme: %s</string>
+
+    <string name="library">Kütüphane</string>
+
+    <string name="local">Yerel</string>
+    <string name="local_songs">Yerel şarkılar</string>
+
+    <string name="location">Konum</string>
+
+    <string name="lock_screen_disable_confirm">Kilit Ekranı Çaldırma kapatılsın mı?</string>
+
+    <string name="lucky_desc">Bu sefer reklam izlemeye gerek yok</string>
+    <string name="lucky_title">Tebrikler! Şanslı çocuk</string>
+
+    <string name="lyrics_add_local">Cihazdan şarkı sözü ekle</string>
+    <string name="lyrics_edit_song_info">Şarkı sözlerini düzgün bir biçimde almak için şarkı bilgisini düzenleyebilirsiniz.</string>
+    <string name="lyrics_import_failed_no_format">Şarkı sözü aktarma başarısız, dosya biçimi desteklenmiyor.</string>
+    <string name="lyrics_imported">Şarkı sözleri içe aktarıldı</string>
+    <string name="lyrics_load_failed">Şarkı sözleri yüklenemedi</string>
+    <string name="lyrics_loading">Şarkı sözleri yükleniyor...</string>
+    <string name="lyrics_net_error">Olamaz, lütfen ağ bağlantınızı kontrol edin.</string>
+    <string name="lyrics_no_found">Olamaz, şarkı sözü bulunamadı.</string>
+    <string name="lyrics_no_matches">Şarkı veya sanatçı adı hatalı eşleşiyor</string>
+    <string name="lyrics_no_scroll">Şarkı sözleri kaymıyor</string>
+    <string name="lyrics_reset_msg">Bunu yaparsanız bu işlem eklediğiniz şarkı sözlerini silecek</string>
+    <string name="lyrics_reset_title">Şarkı sözlerini sıfırlamak istediğinizden emin misiniz?</string>
+    <string name="lyrics_search_online">Çevrimiçi ara</string>
+    <string name="lyrics_show_title">Şarkı Sözü</string>
+    <string name="lyrics_thanks_fb">Geri bildiriminiz için teşekkürler! Bu noktayı geliştirmek için elimizden geleni yapacağız.</string>
+    <string name="lyrics_tx_error">Şarkı sözü metni hatası</string>
+
+    <string name="manage_playlist">Yönetme</string>
+
+    <string name="manual_backups">Listeyi elle yedekleyin</string>
+
+    <string name="more">Daha fazla</string>
+    <string name="more_setting">Daha fazla ayar</string>
+
+    <string name="music">Müzik</string>
+
+    <string name="music3_apply_more_permission_killed_dialog_title">%s zorla durduruldu</string>
+    <string name="music3_battery_opt_content">Lütfen %s uygulamasına arka planda oynatmanın zorla durdurulmasını önlemek için gerekli izni verin.</string>
+    <string name="music3_battery_opt_title_first">Arka planda sürekli oynatma için</string>
+    <string name="music3_clear_queue_info">Oynatma kuyruğu temizlenecek. Devam etmek istediğinizden emin misiniz?</string>
+    <string name="music3_delete_playlist_message">Oynatma listesi %1$s silinsin mi?</string>
+    <string name="music3_delete_song_message">%1$s silinsin mi?</string>
+    <string name="music3_exit_scan">Tarama İşleminden Çıkılsın mı?</string>
+    <string name="music3_free_space_to_ensure">Uygulamanın düzgün çalışmasını sağlamak için, lütfen biraz boş yer açın.</string>
+    <string name="music3_guide_allow_description">Lütfen %s uygulaması ortam dosyalarına müzik oynatma izni verin.</string>
+    <string name="music3_guide_enable_description_1">Müzik oynatmak için, lütfen:</string>
+    <string name="music3_import_clip_tips_html">Şarkı sözlerini &lt;b&gt;Seçin&lt;/b&gt; ve ardından &lt;b&gt;Kopyalayın&lt;/b&gt;.</string>
+    <string name="music3_import_clip_tips_title">Şarkı sözlerini nasıl içe aktarmalıyım?</string>
+    <string name="music3_lyrics_edit_song_info">Lütfen aşağıdaki şarkı bilgilerinin doğru olduğundan emin olun ve tekrar deneyin.</string>
+    <string name="music3_lyrics_load_failed">Şarkı sözleri yükleme başarısız</string>
+    <string name="music3_lyrics_no_found">Üzgünüm, şarkı sözlerini bulamadım.</string>
+    <string name="music3_lyrics_no_matches">Şarkı veya sanatçı birbiriyle eşleşmiyor</string>
+    <string name="music3_lyrics_no_scroll">Şarkı sözleri kaydırılamıyor</string>
+    <string name="music3_lyrics_reset_msg">Bunu yaparsanız eklediğiniz şarkı sözleri silinir.</string>
+    <string name="music3_lyrics_reset_title">Şarkı sözleri sıfırlansın mı?</string>
+    <string name="music3_lyrics_tx_error">Yanlış şarkı sözleri</string>
+    <string name="music3_resume_playback_content">Çalan müziğin başka bir uygulama tarafından kesildiği tespit edildi.</string>
+    <string name="music3_resume_playback_title">Oynatma devam etsin mi?</string>
+    <string name="music3_summary_pause_detach">Kulaklık bağlantısı kesildiğinde çalmayı duraklat</string>
+    <string name="music3_tag_edit_discard_change">Çıkılsın ve değişiklikler atılsın mı?</string>
+    <string name="music3_terms_of_service_should_agree">%1$s ve %2$s’mızı kabul edin ve müzik yolculuğunuza başlayın!</string>
+    <string name="music3_thanks_for_your_feedback">Çok değerli geri bildiriminiz için teşekkürler.</string>
+
+    <string name="music_guide_allow_description">Müzik dinlemek için %s\'in cihazınızdaki medya dosyalarına erişmesi gerekiyor.</string>
+    <string name="music_player_share_text">İşte %1$s uygulamasından senin için bir şarkı.</string>
+
+    <string name="my_favourite">Sık Kullanılanlarım</string>
+
+    <string name="network_error">Ağ Hatası</string>
+    <string name="network_error_pls_try">Ağ hatası, lütfen daha tekrar deneyin</string>
+
+    <string name="new_playlist">Yeni çalma listesi</string>
+    <string name="new_share_email_text">Müzik Çalar kullanıyorum.\\n\\nSiz de deneyin. Uygulamayı buradan indirin:\\n</string>
+
+    <string name="next_song">Sonraki şarkı</string>
+
+    <string name="no_backup">Yedekleme bulunamadı</string>
+    <string name="no_document_provider">İzin isteği için kullanılabilir bir Döküman Sağlayıcı mevcut değil</string>
+    <string name="no_songs_found">Şarkı bulunamadı</string>
+
+    <string name="not_good">Pek değil</string>
+
+    <string name="nothing_found">Bir şey bulunamadı</string>
+
+    <string name="now_playing">Oynatıcı Teması</string>
+
+    <string name="number_song_add_playlist">%d şarkı çalma listesine eklendi.</string>
+    <string name="number_song_add_queue">%d şarkı sıraya eklendi.</string>
+    <string name="number_song_selected">%d şarkı seçildi</string>
+    <string name="number_songs_add_playlist">%d şarkı çalma listesine eklendi.</string>
+    <string name="number_songs_add_queue">%d şarkı sıraya eklendi.</string>
+    <string name="number_songs_selected">%d şarkı seçildi</string>
+
+    <string name="off">Kapalı</string>
+
+    <string name="open_settings">Ayarları Aç</string>
+
+    <string name="options_ads">Çok fazla reklam</string>
+    <string name="options_bugs">Hatalar</string>
+    <string name="options_music_stop">Müzik çalmayı durduruyor</string>
+    <string name="options_others">Diğerleri</string>
+    <string name="options_songs_not_found">Bazı şarkılar gösterilmiyor</string>
+    <string name="options_suggestions">Öneriler</string>
+
+    <string name="pause_detach">Çıkarıldığında Duraksat</string>
+
+    <string name="pg_permission_dialog_title">İzinler Gerekli</string>
+
+    <string name="play">Oynat</string>
+    <string name="play_after_song">Geçerli şarkıdan sonra oynat</string>
+    <string name="play_next">Sonrakini oynat</string>
+
+    <string name="playing_queue">Oynatma sırası</string>
+
+    <string name="playlist">Oynatma listeleri</string>
+    <string name="playlist_already_exist">%1$s zaten mevcut.</string>
+    <string name="playlist_edit_hint">Çalma listesi ismini girin</string>
+    <string name="playlist_last_added">Listeye eklendi</string>
+    <string name="playlist_most_played">En fazla oynatılan</string>
+    <string name="playlist_recently_played">En son oynatılanlar</string>
+    <string name="playlist_top_tracks">En çok dinlediklerim</string>
+
+    <string-array name="preset_reverb">
+        <item>Yok</item>
+        <item>Küçük Oda</item>
+        <item>Orta Oda</item>
+        <item>Büyük Oda</item>
+        <item>Orta Salon</item>
+        <item>Büyük Salon</item>
+        <item>Plaka</item>
+    </string-array>
+
+    <string name="price_lifetime">%s/Tek Seferlik Satın Alma</string>
+
+    <string name="privacy_policy">Gizlilik Politikası</string>
+
+    <string name="queue">Kuyruk</string>
+
+    <string name="rate_us">Bize oy ver</string>
+
+    <string name="rating_we_like_you">Biz de sizi beğeniyoruz!</string>
+
+    <string name="reader_exit_ads">Çıkmak istediğinizden emin misiniz?</string>
+
+    <string name="remaining_x">Kaldı: %s</string>
+
+    <string name="remind_me_anymore">Bana artık anımsatma</string>
+
+    <string name="remove">Kaldır</string>
+    <string name="remove_ad">Reklamları Kaldırın</string>
+    <string name="remove_from_playlist">Çalma listesinden kaldır</string>
+    <string name="remove_from_queue">Sıradan kaldır</string>
+    <string name="remove_song_message">%s adlı şarkıyı çıkarmak istediğinizden emin misiniz?</string>
+
+    <string name="rename">Tekrar Adlandır</string>
+    <string name="rename_failed">Tekrar adlandırma başarısız.</string>
+    <string name="rename_success">Tekrar adlandırma başarılı.</string>
+
+    <string name="repeat_loop">Tümünü Döngüye Al</string>
+    <string name="repeat_off">Tekrar Kapalı</string>
+    <string name="repeat_order">Sıralama</string>
+    <string name="repeat_repeat">Oynatılanı Tekrarla</string>
+    <string name="repeat_shuffle">Tümünü Karıştır</string>
+
+    <string name="restore_failed">Geri yükleme başarısız</string>
+    <string name="restore_playlist">Çalma listesini geri yükleyin</string>
+    <string name="restore_success">Geri yükleme başarılı</string>
+
+    <string name="result">Sonuç</string>
+
+    <string name="resume">Sürdür</string>
+    <string name="resume_playback_content">Müzik oynatma işleminin diğer uygulamalar tarafından kesildiğini tespit ettik.</string>
+    <string name="resume_playback_title">Oynatmaya devam etmek istiyor musunuz?</string>
+
+    <string name="retry">Tekrar dene</string>
+
+    <string name="reverb">Yankı</string>
+
+    <string name="ringtone_set">Başarılı bir şekilde ayarlandı</string>
+    <string name="ringtone_set_failed">Ayarlama başarısız</string>
+
+    <string name="save">Kaydet</string>
+
+    <string name="saving_tags">Etiketler kaydediliyor...</string>
+
+    <string name="scan">Tara</string>
+    <string name="scan_library">Müzik tara</string>
+    <string name="scan_result">%2$s listesine %1$s şarkı eklendi</string>
+
+    <string name="scanner_lib_rate_leave_feedback">Görüşünüz bizim için değerli.</string>
+    <string name="scanner_lib_rate_like_you">Çok teşekkür ederiz!</string>
+    <string name="scanner_share_dialog_title_2">Desteğiniz için teşekkür ederiz!</string>
+
+    <string name="scanning">Taranıyor</string>
+
+    <string name="screen_lock_play">Kilit Ekranında Oynatma</string>
+
+    <string name="sd_card_access_step_1_format">
+        <![CDATA[Sol üst köşedeki düğmeye dokunun ve <font color=\"#F44831\"><b>SD kartı seçin</b></font>.]]>
+    </string>
+    <string name="sd_card_access_step_2_format">
+        <![CDATA[Yazma erişimi vermek için bir sonraki ekranın altında bulunan <font color=\"#F44831\"><b>SEÇ\'e dokunun</b></font>.]]>
+    </string>
+    <string name="sd_tips">Çalışma izni vermek için lütfen &lt;br/&gt;&lt;b&gt;(%s)&lt;/b&gt; haricî SD kartının &lt;b&gt;kök dizinini&lt;/b&gt; seçin.</string>
+
+    <string name="sdcard_permission_required">SD karttan şarkı silmek için izin gerekli.</string>
+
+    <string name="search">Ayarlar</string>
+    <string name="search_albums">Albüm ara</string>
+    <string name="search_artists">Sanatçı ara</string>
+    <string name="search_folders">Klasör ara</string>
+    <string name="search_genres">Tür ara</string>
+    <string name="search_history">Arama geçmişi</string>
+    <string name="search_library">Kütüphanede Ara</string>
+    <string name="search_music_on_youtube">YouTube\'da şarkılar ara</string>
+    <string name="search_on_youtube">YouTube\'da ara</string>
+    <string name="search_songs">Şarkı ara</string>
+
+    <string name="select_all">Tümünü seç</string>
+    <string name="select_backup">Geri yüklenecek yedekleme kaydını seçin</string>
+    <string name="select_folder">Klasörleri seç</string>
+
+    <string name="set">AYARLA</string>
+    <string name="set_as_ringtone">Zil sesi olarak ayarlayın</string>
+    <string name="set_ringtone">%s adlı şarkı zil sesi olarak ayarlansın mı?</string>
+    <string name="set_ringtone_message">Zil sesinizi ayarlamak için lütfen gerekli izinleri verin.</string>
+
+    <string name="settings">Ayarlar</string>
+
+    <string name="share">Paylaş</string>
+    <string name="share_email_title">Müzik Çalar\'i sizinle paylaştı</string>
+
+    <string name="show">Göster</string>
+
+    <string name="shuffle">Karıştır</string>
+    <string name="shuffle_off">Karıştırma Kapalı</string>
+    <string name="shuffle_on">Karıştırma Açık</string>
+
+    <string name="size">Boyut</string>
+
+    <string name="sleep_timer">Uyku Zamanlayıcısı</string>
+
+    <string name="slide_to_unlock">Kilidini açmak için kaydır</string>
+
+    <string name="song">Şarkı</string>
+    <string name="song_added_plural">%s yeni şarkı eklendi.</string>
+    <string name="song_added_singular">%s yeni şarkı eklendi.</string>
+    <string name="song_deleted">%d şarkı silindi</string>
+    <string name="song_name">Şarkı Adı</string>
+    <string name="song_scanned_plural">%s şarkı tarandı.</string>
+    <string name="song_scanned_singular">%s şarkı tarandı.</string>
+    <string name="song_title">İsim</string>
+
+    <string name="songs">Şarkılar</string>
+    <string name="songs_deleted">%d şarkı silindi</string>
+
+    <string name="sort_by">Sırala:</string>
+    <string name="sort_by_name">Isim</string>
+    <string name="sort_key_add_playlist">Oynatma listesine eklenme zamanı</string>
+    <string name="sort_key_album_name">Albüm adı</string>
+    <string name="sort_key_number_of_albums">Albüm sayısı</string>
+    <string name="sort_key_time_added">Eklenme zamanı</string>
+    <string name="sort_key_track">Albümdeki sırası</string>
+    <string name="sort_order_a_z">A\'dan Z\'ye</string>
+    <string name="sort_order_big_small">Büyükten küçüğe</string>
+    <string name="sort_order_entry_number_of_songs">Müziklerin sayısı</string>
+    <string name="sort_order_long_short">Uzundan kısaya</string>
+    <string name="sort_order_short_long">Kısadan uzuna</string>
+    <string name="sort_order_small_big">Küçükten büyüğe</string>
+    <string name="sort_order_z_a">Z\'den A\'ya</string>
+
+    <string name="start">Başlangıç</string>
+
+    <string name="storage">Depolama</string>
+
+    <string name="subscription_des_music">Bu abonelik size uygulama içerik kitaplığımıza sınırsız erişim sunar. İptal etmeseniz, deneme süresi bitmeden önce iptal edene kadar sizden her ay %s ücret otomatik olarak tahsil edilecektir.</string>
+    <string name="subscription_detail">Abonelik ayrıntıları</string>
+    <string name="subscription_price">Ücretsi̇z deneme süresi sonrasında %s/ay.</string>
+
+    <string name="summary_feedback">Hataları bildirin ve bize nelerin iyileştirilmesi gerektiğini söyleyin</string>
+    <string name="summary_pause_detach">Kulaklık çıkarıldığında kayıttan yürütmeyi duraksatmak için açın</string>
+    <string name="summary_rateUs">Bu uygulamayı beğendiniz mi? Lütfen bize puan verin!</string>
+    <string name="summary_screen_lock_play">Kilit ekranındayken şimdi çalanı göster</string>
+
+    <string name="system">Sistem</string>
+    <string name="system_default">sistem varsayılan</string>
+
+    <string name="tag_edit_discard_change">Değişikliklerden vazgeçmek istediğinizden emin misiniz?</string>
+    <string name="tag_edit_error">Düzenleme başarısız.</string>
+    <string name="tag_edit_success">Düzenleme başarılı.</string>
+
+    <string name="tap_permission">Izinlere dokunun</string>
+    <string name="tap_to_start">Müzik Çalar\'i başlatmak için dokunun</string>
+
+    <string name="terms_of_service">Kullanım Koşulları</string>
+    <string name="terms_of_service_guide">\"%1$s\" seçeneğine dokunarak, %2$s ve %3$s\'mızı okuduğunuzu ve kabul ettiğinizi onaylamış olursunuz.</string>
+    <string name="terms_of_service_should_agree">%1$s kullanabilmek için %2$s ve %3$s\'nı kabul etmeniz gerekiyor.</string>
+
+    <string name="thanks_for_loving_x">%s uygulamasına bayıldığınız için teşekkürler.</string>
+    <string name="thanks_for_your_feedback">Geri bildiriminiz için teşekkürler.</string>
+
+    <string name="theme">Dış Görünüm Teması</string>
+
+    <string name="thx_feedback_tip">Gelecekteki sürümde bunu düzelteceğiz. Uygunsuz durum için özür dileriz.</string>
+
+    <string name="timer_after_this">Şu andaki şarkı bitince dur</string>
+    <string name="timer_stop_after">Müziği durdurma zamanı:</string>
+    <string name="timer_turn_off">Zaman ayarlı kapanma kapatıldı</string>
+    <string name="timer_turn_off_latter">%s sonra kapat</string>
+
+    <string name="title_is_null">İsim boş olamaz.</string>
+
+    <string name="transparency">Şeffaflık</string>
+
+    <string name="turn_off">Kapat</string>
+    <string name="turn_off_after">%1$d dakika sonra kapat</string>
+    <string name="turn_off_ends">Şu andaki şarkı bitince kapat</string>
+    <string name="turn_storage">Depolama açın</string>
+
+    <string name="unit_secs">sn</string>
+
+    <string name="unknow_error">Bilinmeyen bir hata oluştu</string>
+
+    <string name="unlock_for_free">ÜCRETSİZ olarak kilidini açın</string>
+    <string name="unlock_premium_themes">Tüm temaların kilidini açın</string>
+
+    <string name="version">Versiyon</string>
+
+    <string name="view">Görüntüle</string>
+    <string name="view_all">Tümünü göster</string>
+
+    <string name="virtualizer">Sanallaştırıcı</string>
+
+    <string name="vivo_deny">Reddetmek</string>
+
+    <string name="what_a_pity">Ne yazık!</string>
+
+    <string name="x_hours">%s saat</string>
+    <string name="x_minutes">%s dakika</string>
+    <string name="x_seconds">%s saniye</string>
+    <string name="x_selected">%s Seçildi</string>
+    <string name="x_song_hide_single">%1$s şarkı gizll, bunları göstermek için %2$s bölümüne gidebilirsiniz.</string>
+    <string name="x_songs_hide_1">%1$s şarkı gizli, bunları göstermek için %2$s bölümüne gidebilirsiniz.</string>
+
+    <string name="xbooster_notification_access">Bildirim Erişimi</string>
+
+    <string name="yes">EVET</string>
+    <string name="music3_remove_successfully">Başarıyla kaldırıldı</string>
+
+    <string name="camera_preparing">Hazırlanıyor…</string>
+
+    <string name="widget_tap_start">Müzik Çalar uygulamasını başlatmak için dokunun</string>
+    <string name="music3_notification_access_desc">Bildirim merkezinden müzik oynatmayı hızlı kontrol etmek için lütfen %s uygulamasına bildirim erişimi verin.</string>
+    <string name="music3_app_name">Müzik Çalar</string>
+
+    <string name="go_file_manager">Git</string>
+    <string name="music3_click_to_authorize">Yetkilendirmek için buraya tıklayın</string>
+    <string name="music3_language_guide">Lütfen Sistem harici bir dil seçin ve onaylamak için buraya tıklayın.</string>
+    <string name="pdf_reader2_enter_homepage_guide">Ana sayfaya girmek için dokunun</string>
+
+    <string name="mp3_current_speed">Mevcut hız: %s</string>
+    <string name="mp3_edit_lyrics">Şarkı sözü düzenle</string>
+    <string name="mp3_enter_lyrics">Şarkı sözü gir</string>
+    <string name="mp3_enter_lyrics_here">Şarkı sözlerinizi buraya girin…</string>
+    <string name="music3_playback_speed">Oynatma hızı</string>
+    <string name="music3_playback_speed_changed">Oynatma hızı %sX olarak değiştirildi</string>
+    <string name="music3_playback_speed_num">Oynatma hızı: %s</string>
+    <string name="normal">Normal</string>
+    <string name="paste">Yapiştir</string>
+    <string name="music3_playback_speed_changed_failed">%sX\'e değiştirme başarısız, 1.0X\'e sıfırlandı</string>
+
+    <string name="music3_app_title_1">Müzik Çalar - DDMusic</string>
+    <string name="music3_delete_permission_access">Lütfen erişime izin vermek için &#60;b&#62;sonraki sayfadaki adımları izleyin&#60;/b&#62;.</string>
+    <string name="music3_delete_some_no_premission">Ancak kalanlar &#60;b&#62;izin sorunları&#60;/b&#62; nedeniyle başarısız oldu.</string>
+    <string name="music3_delete_videos_gpt">%s videoyu sil?</string>
+    <string name="music3_error_playing_video_gpt">Video oynatma hatası \&#34;%s\&#34;</string>
+    <string name="music3_grant_media_files_access_gpt">Lütfen video oynatmak için %s medya dosyalarına erişim izni verin.</string>
+    <string name="music3_next">Sonraki</string>
+    <string name="music3_resume_auto">Kaldığınız yerden oynamaya devam edin</string>
+    <string name="music3_scan_local_videos_gpt">Yerel videoları taramak için lütfen:</string>
+    <string name="music3_scan_video_gpt">Video tarama</string>
+    <string name="music3_sd_card_access_step_2_format">Ardından yazma erişimine izin vermek için &#60;b&#62;SEÇ’e dokunun&#60;/b&#62;.</string>
+    <string name="music3_sd_write_access_required_gpt">SD Karttan video silmek yazma erişimi gerektirir</string>
+    <string name="music3_search_videos">Videoları ara</string>
+    <string name="music3_select_albums_gpt">Albümleri seç</string>
+    <string name="music3_select_artists_gpt">Sanatçıları seç</string>
+    <string name="music3_select_genres_gpt">Türleri seç</string>
+    <string name="music3_select_playlists_gpt">Çalma listelerini seç</string>
+    <string name="music3_select_songs_gpt">Şarkıları seç</string>
+    <string name="music3_select_videos_gpt">Videoları seç</string>
+    <string name="music3_videos_added_gpt">&#60;b&#62;%1$s&#60;/b&#62; video %2$s\'e eklendi</string>
+    <string name="music3_video_info_gpt">Video bilgisi</string>
+    <string name="music3_video_name_gpt">Video adı</string>
+    <string name="music3_video_not_found_gpt">Video bulunamadı?</string>
+    <string name="music3_x_new_videos_added_gpt">%s yeni video eklendi</string>
+    <string name="music3_x_videos_deleted_gpt">%s video silindi</string>
+
+    <string name="allplayer_fast_forward">Hızlı ileri</string>
+    <string name="allplayer_mute_play_gpt">Sessiz oynatma</string>
+    <string name="allplayer_recently_watched_gpt">Son İzlenenler</string>
+    <string name="brightness">Parlaklık</string>
+    <string name="btn_allow">İzin Ver</string>
+    <string name="enter_name">Lütfen bir ad girin</string>
+    <string name="got_it_1">Anladim</string>
+    <string name="music3_1_new_video_added_gpt">%s yeni video eklendi</string>
+    <string name="music4_allow_photo_video">Fotoğraflar ve videolara erişime izin ver</string>
+    <string name="music4_photo_permission_step3">Fotoğraflar ve Videolar iznini bulun ve dokunun</string>
+    <string name="music_3_video_share">%1$s\'dan sana bir video: %2$s</string>
+    <string name="no_videos_found">Hiç video bulunamadı</string>
+    <string name="n_videos">%s video</string>
+    <string name="n_videos_1">%s video</string>
+    <string name="one_video">1 video</string>
+    <string name="pause_play">Duraklat/Oynat</string>
+    <string name="rewind">Geri sarma</string>
+    <string name="rp_next">Sonraki</string>
+    <string name="sd_card_access_step_1">Sol üst köşedeki düğmeye dokunun ve &#60;b&#62;SD kartı seçin&#60;/b&#62;.</string>
+    <string name="sound_boost_tips">Sesi %200\'e kadar artırmak için takviyeyi ayarlamaya devam edin.</string>
+    <string name="start_over">Yeniden Başla</string>
+    <string name="tab_videos">Videolar</string>
+    <string name="tap_again_to_exit">Çıkmak için tekrar dokunun</string>
+    <string name="video">Video</string>
+    <string name="volume">Ses Düzeyi</string>
+    <string name="xgallery_no_next_video">Zaten sonuncu videoda</string>
+    <string name="xgallery_no_previous_video">Zaten birinci videoda</string>
+    <string name="xgallery_playing_lock_screen">Ekran kilitlendi</string>
+    <string name="xgallery_playing_unlock_screen">Ekran açıldı</string><!-- 190344  -->
+    <string name="xgallery_sound_off">Ses kapalı</string>
+    <string name="xgallery_sound_on">Ses açık</string>
+    <string name="zoom_in_out">Yakınlaştır/Uzaklaştır</string>
+    <string name="music3_1_video_deleted_gpt">%s video silindi</string>
+    <string name="music4_choose_allow">İzin ver Seçin</string>
+    <string name="open_settings_1">Açık ayarları</string>
+    <string name="music4_error_playing_file_error">Oynatma başarısız, geçersiz dosya.</string>
+    <string name="music4_error_playing_path_error">Oynatma başarısız, geçersiz dosya yolu.</string>
+    <string name="music3_1_song_added_gpt">%s\'e &#60;b&#62;1&#60;/b&#62; şarkı eklendi</string>
+    <string name="music3_1_video_added_gpt">%s\'e &#60;b&#62;1&#60;/b&#62; video eklendi</string>
+
+    <string name="all_reader2_major_update_gpt">Büyük Güncelleme</string>
+    <string name="all_reader2_new_version_en_desc_5_gpt">Geliştirilmiş kullanıcı deneyimi</string>
+    <string name="all_reader2_new_version_gpt">Yeni Sürüm</string>
+    <string name="all_reader2_new_version_ready_gpt">Yeni sürüm hazır!</string>
+    <string name="all_reader2_new_version_title_plan1_gpt">En son sürümümüz %s kullanıcıdan 5 yıldızlı incelemeler aldı!</string>
+    <string name="booster2_new_version_des2_gpt">%s memnun kullanıcıya katılın ve 5 yıldızlı bir deneyim için güncelleyin!</string>
+    <string name="booster2_new_version_des3_gpt">En son sürümümüz şu ana kadar etkileyici bir %s memnuniyet oranına sahip.</string>
+    <string name="booster2_new_version_en_desc3_gpt">Optimize edilmiş kullanıcı arayüzü tasarımı</string>
+    <string name="booster2_version_update">Sürüm güncellemesi</string>
+    <string name="docx_new_version_benefits3_gpt">Düzeltilen küçük hatalar</string>
+    <string name="install">Yükle</string>
+    <string name="lyrics_source_gpt">Şarkı sözlerinin kaynağı: anonim kullanıcı</string>
+    <string name="pdf_reader3_update_from_gp_gpt">Başarısız, lütfen Google Play\'den güncelleyin</string>
+    <string name="recommended">Önerilir</string>
+    <string name="step4_update_reason_1_gpt">Bu güncellemede birkaç sorunu düzelttik ve uygulamanın genel performansını artırdık.</string>
+    <string name="update">Güncelle</string>
+    <string name="update_failed_network_wg_gpt">Güncelleme başarısız, lütfen ağınızı kontrol edip tekrar deneyin</string>
+    <string name="update_now_for_better_1">Daha iyi bir deneyim için &#60;b&#62;şimdi güncelleyebilirsiniz&#60;/b&#62;.</string>
+    <string name="updating">Güncelleniyor...</string>
+    <string name="upgrade">Yükselt</string>
+    <string name="upgrade_to_new_version">En son sürümümüzle artırılmış performansı ve artan stabiliteyi deneyimleyin. \n\n&#60;b&#62;Hemen yükseltmek için dokunun.&#60;/b&#62;</string>
+    <string name="upload_lyrics_statement_gpt">Uygulamamıza şarkı sözleri yüklediğinizde, lütfen bunu yapma hakkına sahip olduğunuzu ve yüklemenizin herhangi bir fikri mülkiyet hakkını ihlal etmediğini doğrulayın. Yükleyerek, içeriğinizi ücretsiz olarak kullanmamıza izin vermiş oluyorsunuz ve kaynağını \&#34;anonim kullanıcı\&#34; olarak belirteceğiz.</string>
+    <string name="video_player_in_music_gpt">Video oynatıcı</string>
+    <string name="video_player_moved_gpt">Video oynatıcı buraya taşındı</string>
+</resources>

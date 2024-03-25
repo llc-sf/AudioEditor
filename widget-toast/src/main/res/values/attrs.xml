@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!--Toast据屏幕的位置 0.1f为屏幕底部部1/10处,0,5f为屏幕中间，1f为屏幕底部-->
+    <attr name="toast_screen_position" format="float" />
+
+    <declare-styleable name="ToastView">
+        <!--Toast圆角-->
+        <attr name="toast_radius" format="reference|dimension" />
+        <!--Toast填充颜色-->
+        <attr name="toast_solid_color" format="reference|color" />
+        <!--Toast 文字大小-->
+        <attr name="toast_text_size" format="reference|dimension" />
+        <!--Toast 文字颜色-->
+        <attr name="toast_text_color" format="reference|color" />
+        <!--Toast文字的各种设置-->
+        <attr name="toast_text_appearance" format="reference" />
+        <!--Toast错误的图标设置-->
+        <attr name="toast_error_drawable" format="reference|color" />
+        <!--Toast正确的图标-->
+        <attr name="toast_success_drawable" format="reference|color" />
+        <!--距离屏幕边距-->
+        <attr name="toast_margin" format="dimension" />
+
+
+    </declare-styleable>
+
+</resources>

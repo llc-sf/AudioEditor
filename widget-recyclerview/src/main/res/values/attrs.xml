@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!--导航索引Style-->
+    <declare-styleable name="IndexFastScrollRecyclerView">
+        <!--索引文字大小 默认sp-->
+        <attr name="setIndexTextSize" format="integer" />
+        <!--导航条宽度-->
+        <attr name="setIndexBarWidth" format="float" />
+
+        <attr name="setIndexBarMargin" format="float" />
+
+        <attr name="setIndexBarColor" format="color" />
+
+        <attr name="setIndexBarTextColor" format="color" />
+        <!--选中状态下TextColor-->
+        <attr name="setIndexBarSelectedTextColor" format="color" />
+
+        <attr name="setIndexBarCornerRadius" format="integer" />
+
+        <attr name="setIndexBarTransparentValue" format="float" />
+
+        <!--预览框背景颜色-->
+        <attr name="setPreviewColor" format="color" />
+        <!--预览背景框的alpha-->
+        <attr name="setPreviewTransparentValue" format="float" />
+        <!--预览框圆角大小-->
+        <attr name="setPreviewRadius" format="integer" />
+        <!--预览框文字边距-->
+        <attr name="setPreviewPadding" format="integer" />
+        <!--设置预览状态文字颜色-->
+        <attr name="setPreviewTextColor" format="color" />
+        <!--设置预览状态下文字大小-->
+        <attr name="setPreviewTextSize" format="integer" />
+
+        <!--预览框的位置-->
+        <attr name="setPreviewPosition" format="enum">
+            <!--屏幕中间-->
+            <enum name="Center" value="1" />
+            <!---->
+            <enum name="End" value="2" />
+        </attr>
+        <!--设置Preview外边距-->
+        <attr name="setPreviewMargin" format="integer" />
+
+    </declare-styleable>
+
+
+    <declare-styleable name="SupportMaxHeightRecyclerview">
+        <!--设置Recyclerview的最大高度-->
+        <attr name="SMR_MaxHeight" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="SupportMaxHeightNestedScrollView">
+        <!--设置NestedScrollView的最大高度-->
+        <attr name="SMN_MaxHeight" format="dimension" />
+    </declare-styleable>
+
+</resources>

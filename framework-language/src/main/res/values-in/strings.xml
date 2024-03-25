@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="abbre_minute">m</string>
+
+    <string name="access_all_features">Akses gratis ke semua fitur baru di versi akan datang</string>
+    <string name="access_files">Izinkan akses ke file media di perangkat.</string>
+
+    <string name="action_continue">Lanjutkan</string>
+    <string name="action_ok">Ok</string>
+    <string name="action_reset">Setel Ulang</string>
+
+    <string name="add_playlist_unknow_error">Tidak bisa membuat daftar putar.</string>
+    <string name="add_to_playlist">Tambahkan ke daftar putar</string>
+    <string name="add_to_queue">Tambahkan ke antrean</string>
+    <string name="add_tracks">Tambahkan lagu</string>
+
+    <string name="added_to_favourite">Ditambahkan ke Favorit.</string>
+
+    <string name="agree_continue">Setuju dan lanjutkan</string>
+
+    <string name="album_title">Album</string>
+
+    <string name="albums">Album</string>
+
+    <string name="all_songs">Semua lagu</string>
+
+    <string name="allow">Mengizinkan</string>
+    <string name="allow_access">Izinkan Akses</string>
+    <string name="allow_access_storage">Izinkan akses ke penyimpanan</string>
+    <string name="allow_all_time">Izinkan setiap saat</string>
+
+    <string name="already_exists">Sudah ada</string>
+
+    <string name="app_name_compat_mp3">Musik Gratis</string>
+    <string name="app_name_compat_music">Pemutar Musik</string>
+
+    <string name="apply_more_permission_killed_dialog_title">%s dihentikan dengan paksa</string>
+
+    <string name="artist_name">Nama Penyanyi</string>
+    <string name="artist_title">Artis</string>
+
+    <string name="artists">Artis</string>
+
+    <string name="ask_like_app">Anda puas dengan %s?</string>
+
+    <string name="auto_backups">Daftar pencadangan otomatis</string>
+
+    <string name="backup">Cadangan</string>
+    <string name="backup_fail">Pencadangan gagal</string>
+    <string name="backup_playlist">Cadangkan daftar putar</string>
+    <string name="backup_success">Pencadangan berhasil</string>
+    <string name="backup_summary_playlist">%d daftar putar</string>
+    <string name="backup_summary_playlists">%d daftar putar</string>
+    <string name="backup_title">Cadangkan?</string>
+
+    <string name="bass_boost">Penguat Bas</string>
+
+    <string name="battery_opt_content">Untuk menghindari berhentinya pemutaran musik yang tidak normal, berikan %s izin yang diperlukan</string>
+    <string name="battery_opt_title_first">Hindari penghentian yang tidak normal</string>
+
+    <string name="blur">Kabur</string>
+
+    <string name="cancel">Batal</string>
+    <string name="cancel_favorite_success">Dihapus dari Favorit.</string>
+
+    <string name="change_album_art">Ganti sampul album</string>
+    <string name="change_cover">Ganti Kover</string>
+    <string name="change_cover_failed">Gagal mengganti sampul</string>
+    <string name="change_language_title">Pilih Bahasa</string>
+    <string name="change_picture">Ganti Gambar</string>
+
+    <string name="choose_allow">Pilih \"Izinkan\"</string>
+
+    <string name="clear">Kosongkan</string>
+    <string name="clear_playlist">Hapus %s</string>
+    <string name="clear_queue_info">Apakah Anda yakin ingin mengosongkan antrean pemutaran?</string>
+
+    <string name="color">Warna</string>
+
+    <string name="confirm_and_fix">Kami akan mengonfirmasi masalah dan memperbaikinya dalam versi berikutnya sesegera mungkin!</string>
+    <string name="confirm_information">Konfirmasikan informasi</string>
+
+    <string name="continue_to_work_hard">Kami akan terus bekerja keras.</string>
+
+    <string name="count_album">%d album</string>
+    <string name="count_albums">%d albums</string>
+    <string name="count_artist">%s artis</string>
+    <string name="count_artists">%s artis</string>
+    <string name="count_folder">%s folder</string>
+    <string name="count_folders">%s folder</string>
+    <string name="count_genre">%s genre</string>
+    <string name="count_genres">%s genre</string>
+    <string name="count_media_file">%d file media</string>
+    <string name="count_media_files">%d file media</string>
+    <string name="count_song">%d song</string>
+    <string name="count_songs">%d songs</string>
+    <string name="count_sub_folder">%d subfolder</string>
+    <string name="count_sub_folders">%d subfolder</string>
+
+    <string name="create">Buat</string>
+    <string name="create_new_playlist">Buat daftar putar baru</string>
+
+    <string name="created_playlist">Daftar putar %s telah dibuat</string>
+
+    <string name="delete">Hapus</string>
+    <string name="delete_failed">Gagal menghapus</string>
+    <string name="delete_from_device">Hapus dari perangkat</string>
+    <string name="delete_permission_access">Pastikan &lt;b&gt;memilih folder yang tepat&lt;/b&gt; ketika mengesahkan.</string>
+    <string name="delete_playlist_message">Anda yakin ingin menghapus daftar putar %1$s?</string>
+    <string name="delete_playlist_title">Hapus daftar putar</string>
+    <string name="delete_some_no_premission">Sementara yang lain gagal karena tidak adanya izin.</string>
+    <string name="delete_song">Hapus lagu?</string>
+    <string name="delete_song_message">Anda yakin ingin menghapus %1$s?</string>
+
+    <string name="deleted_success">Berhasil dihapus</string>
+
+    <string name="details">Rincian</string>
+
+    <string name="dialog_message_set_ringtone">Untuk menetapkan nada dering, Pemutar Musik memerlukan izin untuk menulis pengaturan sistem.\n\nSetelah memberikan izin, coba tetapkan nada dering Anda lagi.</string>
+    <string name="dialog_title_set_ringtone">Tetapkan Nada Dering</string>
+
+    <string name="diet_for_you">Untuk Anda</string>
+
+    <string name="directories">Direktori</string>
+
+    <string name="directory_empty">Direktori kosong</string>
+
+    <string name="disagree_exit">Tidak setuju dan keluar</string>
+
+    <string name="discard">Buang</string>
+
+    <string name="done">Selesai</string>
+
+    <string name="duration">Durasi</string>
+
+    <string name="edit">Edit</string>
+    <string name="edit_photo">Edit foto</string>
+    <string name="edit_tag">Ganti nama</string>
+    <string name="edit_tags">Edit tag</string>
+
+    <string name="enable_lock_screen_tip">Anda dapat mengaktifkannya di \"Pengaturan - Pemutaran di Layar Kunci\".</string>
+
+    <string name="end_period">Akhiri</string>
+
+    <string name="enhancer_best_rating">Nilai terbaik untuk kami</string>
+    <string name="enhancer_thanks_rate_us">Terima kasih telah menggunakan %s!\nKami akan sangat berterima kasih jika Anda bersedia memberi kami nilai.</string>
+
+    <string name="entered_same_name">Nama sudah ada, silakan coba nama lain.</string>
+
+    <string name="equ_custom">Tersuai</string>
+
+    <string name="equalizer">Ekualiser</string>
+
+    <string name="error_playing_file_error">Gagal memutar, file tidak ada</string>
+    <string name="error_playing_normal">Gagal memutar, terjadi error yang tidak diketahui</string>
+    <string name="error_playing_path_error">Gagal memutar, kesalahan path.</string>
+    <string name="error_playing_track">Kesalahan Saat Memutar lagu %1$s</string>
+
+    <string name="exe_all">Semua</string>
+
+    <string name="exit">Keluar</string>
+    <string name="exit_1">Tinggalkan</string>
+    <string name="exit_scan">Keluar dari pemindaian?</string>
+
+    <string name="featured">Unggulan</string>
+
+    <string name="feedback">Masukan</string>
+    <string name="feedback_mail_text">Informasi Sistem</string>
+
+    <string name="file_not_exist">File tidak ada</string>
+
+    <string name="folder_select_title">Pemilihan Folder</string>
+
+    <string name="folders">Folder</string>
+
+    <string name="free_7_days_trial_1">PERCOBAAN GRATIS 7 HARI</string>
+    <string name="free_space_needed">Diperlukan ruang: %s (disarankan)</string>
+    <string name="free_space_to_ensure">Silakan kosongkan sedikit ruang guna memastikan aplikasi berfungsi dengan baik.</string>
+    <string name="free_up_space">Kosongkan ruang</string>
+
+    <string name="from_new_to_old">Dari lama ke baru</string>
+    <string name="from_old_to_new">Dari baru ke lama</string>
+
+    <string name="general">Umum</string>
+
+    <string name="genre_title">Genre</string>
+
+    <string name="genres">Genre</string>
+
+    <string name="go_premium">GABUNG PREMIUM</string>
+    <string name="go_to_album">Ke album</string>
+    <string name="go_to_artist">Ke artis</string>
+
+    <string name="good">Bagus</string>
+
+    <string name="guide_allow_description">Untuk mendengarkan musik,\nPemutar Musik perlu mengakses berkas media di perangkat Anda.</string>
+    <string name="guide_enable_description_1">Untuk mendengarkan musik, Anda harus:</string>
+
+    <string name="help">Bantuan</string>
+
+    <!--    <string name="hidden_directory">Folder Tersembunyi</string>-->
+    <string name="hidden_directory">Folder\nTersembunyi</string>
+
+    <string name="hide">Sembunyikan</string>
+
+    <string name="history">Riwayat</string>
+
+    <string name="ignore_less_duration">Abaikan durasi kurang dari</string>
+    <string name="ignore_less_size">Abaikan ukuran kurang dari</string>
+    <string name="ignore_short_files">Abaikan file kurang dari 50 KB.</string>
+    <string name="ignore_short_song">Abaikan lagu kurang dari 60 detik.</string>
+
+    <string name="import_clip_tips">Pilih lirik dan salin</string>
+    <string name="import_clip_tips_html">&lt;b&gt;Pilih&lt;/b&gt; lirik dan &lt;b&gt;salin&lt;/b&gt;</string>
+    <string name="import_clip_tips_save_title">Impor lirik</string>
+    <string name="import_clip_tips_title">Cara mengimpor lirik</string>
+    <string name="import_tel">Impor</string>
+
+    <string name="insufficient_space">Ruang tidak mencukupi</string>
+
+    <string name="internal_sd">Penyimpanan Internal</string>
+
+    <string name="language_title">Bahasa</string>
+
+    <string name="last_backup">Pencadangan Terakhir: %s</string>
+
+    <string name="library">Pustaka</string>
+
+    <string name="local">Lokal</string>
+    <string name="local_songs">Lagu lokal</string>
+
+    <string name="location">Lokasi</string>
+
+    <string name="lock_screen_disable_confirm">Nonaktifkan Pemutaran di Layar Kunci?</string>
+
+    <string name="lucky_desc">Tak perlu menonton iklan kali ini.</string>
+    <string name="lucky_title">Selamat! Anda beruntung.</string>
+
+    <string name="lyrics_add_local">Tambahkan lirik lokal</string>
+    <string name="lyrics_edit_song_info">Anda dapat mengedit informasi lagu untuk mendapatkan lirik dengan akurat.</string>
+    <string name="lyrics_import_failed_no_format">Impor lirik gagal, format file tidak didukung.</string>
+    <string name="lyrics_imported">Lirik diimpor</string>
+    <string name="lyrics_load_failed">Gagal memuat lirik</string>
+    <string name="lyrics_loading">Memuat lirik...</string>
+    <string name="lyrics_net_error">Ups, periksa koneksi jaringan Anda.</string>
+    <string name="lyrics_no_found">Ups, lirik tidak ditemukan.</string>
+    <string name="lyrics_no_matches">Lagu atau nama artis tidak sesuai</string>
+    <string name="lyrics_no_scroll">Lirik tidak dapat digulir</string>
+    <string name="lyrics_reset_msg">Jika Anda melakukannya, ini akan menghapus lirik yang Anda tambahkan.</string>
+    <string name="lyrics_reset_title">Apakah Anda yakin ingin mereset lirik?</string>
+    <string name="lyrics_search_online">Cari online</string>
+    <string name="lyrics_show_title">Lirik</string>
+    <string name="lyrics_thanks_fb">Terima kasih atas umpan balik Anda! Kami akan berusaha sebaik mungkin untuk memperbaikinya.</string>
+    <string name="lyrics_tx_error">Teks lirik error</string>
+
+    <string name="manage_playlist">Mengelola</string>
+
+    <string name="manual_backups">Daftar pencadangan manual</string>
+
+    <string name="more">Selengkapnya</string>
+    <string name="more_setting">Pengaturan lainnya</string>
+
+    <string name="music">Musik</string>
+
+    <string name="music3_apply_more_permission_killed_dialog_title">%s dipaksa berhenti</string>
+    <string name="music3_battery_opt_content">Beri izin yang diperlukan pada %s untuk mencegah pemutaran latar belakang dihentikan secara paksa.</string>
+    <string name="music3_battery_opt_title_first">Untuk pemutaran di latar belakang yang berlanjut</string>
+    <string name="music3_clear_queue_info">Antrean pemutaran akan dikosongkan. Apakah Anda yakin untuk melanjutkan?</string>
+    <string name="music3_delete_playlist_message">Hapus daftar putar %1$s?</string>
+    <string name="music3_delete_song_message">Hapus %1$s?</string>
+    <string name="music3_exit_scan">Hentikan Pemindaian?</string>
+    <string name="music3_free_space_to_ensure">Untuk memastikan agar aplikasi bekerja dengan baik, kosongkan sejumlah ruang.</string>
+    <string name="music3_guide_allow_description">Beri akses file media kepada %s untuk memutar musik.</string>
+    <string name="music3_guide_enable_description_1">Untuk memutar musik, harap:</string>
+    <string name="music3_import_clip_tips_html">&lt;b&gt;Pilih&lt;/b&gt; lirik, lalu &lt;b&gt;Salin&lt;/b&gt;.</string>
+    <string name="music3_import_clip_tips_title">Bagaimana cara mengimpor lirik?</string>
+    <string name="music3_lyrics_edit_song_info">Harap pastikan info lagu di bawah sudah benar, lalu coba lagi.</string>
+    <string name="music3_lyrics_load_failed">Pemuatan lirik gagal</string>
+    <string name="music3_lyrics_no_found">Maaf, tidak bisa menemukan lirik.</string>
+    <string name="music3_lyrics_no_matches">Lagu atau artis tidak sesuai</string>
+    <string name="music3_lyrics_no_scroll">Lirik tidak bisa bergulir</string>
+    <string name="music3_lyrics_reset_msg">Lirik yang Anda tambahkan akan dihapus jika Anda melakukannya.</string>
+    <string name="music3_lyrics_reset_title">Reset lirik?</string>
+    <string name="music3_lyrics_tx_error">Lirik salah</string>
+    <string name="music3_resume_playback_content">Terdeteksi bahwa pemutaran musik telah terganggu oleh aplikasi lain.</string>
+    <string name="music3_resume_playback_title">Lanjutkan pemutaran?</string>
+    <string name="music3_summary_pause_detach">Jeda pemutaran ketika sambungan headphone dilepas</string>
+    <string name="music3_tag_edit_discard_change">Keluar dan buang perubahan?</string>
+    <string name="music3_terms_of_service_should_agree">Setujui %1$s &amp; %2$s kami, lalu mulailah perjalanan musik Anda!</string>
+    <string name="music3_thanks_for_your_feedback">Terima kasih atas masukan Anda yang berharga.</string>
+
+    <string name="music_guide_allow_description">Untuk mendengarkan musik, %s perlu mengakses berkas media di perangkat Anda.</string>
+    <string name="music_player_share_text">Berikut ini sebuah lagu untuk Anda dari %1$s.</string>
+
+    <string name="my_favourite">Favorit Saya</string>
+
+    <string name="network_error">Kesalahan Jaringan</string>
+    <string name="network_error_pls_try">Galat jaringan, coba lagi nanti</string>
+
+    <string name="new_playlist">Daftar putar baru</string>
+    <string name="new_share_email_text">Saya menggunakan Pemutar Musik.\\n\\nCobalah sendiri. Unduh aplikasinya di sini:\\n</string>
+
+    <string name="next_song">Lagu Berikutnya</string>
+
+    <string name="no_backup">Tidak ditemukan cadangan</string>
+    <string name="no_document_provider">DocumentProvider tidak tersedia untuk menangani permintaan izin</string>
+    <string name="no_songs_found">Tidak ditemukan lagu</string>
+
+    <string name="not_good">Tidak juga</string>
+
+    <string name="nothing_found">Tidak ditemukan</string>
+
+    <string name="now_playing">Tema Pemutar</string>
+
+    <string name="number_song_add_playlist">%d lagu ditambahkan ke daftar putar.</string>
+    <string name="number_song_add_queue">%d lagu ditambahkan ke antrean.</string>
+    <string name="number_song_selected">%d lagu dipilih</string>
+    <string name="number_songs_add_playlist">%d lagu ditambahkan ke daftar putar.</string>
+    <string name="number_songs_add_queue">%d lagu ditambahkan ke antrean.</string>
+    <string name="number_songs_selected">%d lagu dipilih</string>
+
+    <string name="off">Mati</string>
+
+    <string name="open_settings">Buka Pengaturan</string>
+
+    <string name="options_ads">Terlalu banyak iklan</string>
+    <string name="options_bugs">Bugs</string>
+    <string name="options_music_stop">Musik berhenti diputar</string>
+    <string name="options_others">Lainnya</string>
+    <string name="options_songs_not_found">Beberapa lagu tidak ditampilkan</string>
+    <string name="options_suggestions">Saran</string>
+
+    <string name="pause_detach">Jeda Saat Dilepas</string>
+
+    <string name="pg_permission_dialog_title">Izin Diperlukan</string>
+
+    <string name="play">Putar</string>
+    <string name="play_after_song">Putar setelah lagu saat ini</string>
+    <string name="play_next">Putar lagu berikutnya</string>
+
+    <string name="playing_queue">Antrian Main</string>
+
+    <string name="playlist">Daftar Putar</string>
+    <string name="playlist_already_exist">%1$s sudah ada.</string>
+    <string name="playlist_edit_hint">Masukkan nama daftar putar</string>
+    <string name="playlist_last_added">Terakhir Ditambahkan</string>
+    <string name="playlist_most_played">Paling sering diputar</string>
+    <string name="playlist_recently_played">Baru Diputar</string>
+    <string name="playlist_top_tracks">Lagu Teratas Saya</string>
+
+    <string-array name="preset_reverb">
+        <item>Tidak ada</item>
+        <item>Ruangan Kecil</item>
+        <item>Ruangan Sedang</item>
+        <item>Ruangan Besar</item>
+        <item>Aula Sedang</item>
+        <item>Aula Besar</item>
+        <item>Pelat</item>
+    </string-array>
+
+    <string name="price_lifetime">%s/Satu kali pembelian</string>
+
+    <string name="privacy_policy">Kebijakan privasi</string>
+
+    <string name="queue">Antrean</string>
+
+    <string name="rate_us">Beri kami nilai</string>
+
+    <string name="rating_we_like_you">Kami juga suka Anda!</string>
+
+    <string name="reader_exit_ads">Apakah Anda yakin ingin keluar?</string>
+
+    <string name="remaining_x">Tersisa: %s</string>
+
+    <string name="remind_me_anymore">Jangan ingatkan saya lagi</string>
+
+    <string name="remove">Hapus</string>
+    <string name="remove_ad">Hapus Iklan</string>
+    <string name="remove_from_playlist">Hapus dari daftar putar</string>
+    <string name="remove_from_queue">Hapus dari antrean</string>
+    <string name="remove_song_message">Anda yakin ingin mengeluarkan %s?</string>
+
+    <string name="rename">Ganti nama</string>
+    <string name="rename_failed">Gagal mengganti nama.</string>
+    <string name="rename_success">Berhasil mengganti nama.</string>
+
+    <string name="repeat_loop">Ulangi Semua</string>
+    <string name="repeat_off">Ulang Nonaktif</string>
+    <string name="repeat_order">Urutan</string>
+    <string name="repeat_repeat">Ulangi</string>
+    <string name="repeat_shuffle">Acak</string>
+
+    <string name="restore_failed">Pemulihan gagal</string>
+    <string name="restore_playlist">Pulihkan daftar putar</string>
+    <string name="restore_success">Pemulihan berhasil</string>
+
+    <string name="result">Hasil</string>
+
+    <string name="resume">Lanjutkan</string>
+    <string name="resume_playback_content">Kami mendeteksi pemutaran musik terganggu oleh aplikasi lain.</string>
+    <string name="resume_playback_title">Apakah Anda ingin melanjutkan pemutaran?</string>
+
+    <string name="retry">Coba lagi</string>
+
+    <string name="reverb">Gaung</string>
+
+    <string name="ringtone_set">Berhasil ditetapkan</string>
+    <string name="ringtone_set_failed">Gagal ditetapkan</string>
+
+    <string name="save">Simpan</string>
+
+    <string name="saving_tags">Menyimpan tag...</string>
+
+    <string name="scan">Pindai</string>
+    <string name="scan_library">Pindai musik</string>
+    <string name="scan_result">%1$s lagu ditambahkan ke %2$s</string>
+
+    <string name="scanner_lib_rate_leave_feedback">Kami menantikan masukan dari Anda.</string>
+    <string name="scanner_lib_rate_like_you">Terima kasih banyak!</string>
+    <string name="scanner_share_dialog_title_2">Terima kasih atas dukungan Anda!</string>
+
+    <string name="scanning">Memindai</string>
+
+    <string name="screen_lock_play">Pemutaran di Layar Kunci</string>
+
+    <string name="sd_card_access_step_1_format">
+        <![CDATA[Ketuk tombol di sudut kiri atas, lalu <font color=\"#F44831\"><b>pilih kartu SD</b></font>.]]>
+    </string>
+    <string name="sd_card_access_step_2_format">
+        <![CDATA[<font color=\"#F44831\"><b>Ketuk PILIH</b></font> di bagian bawah layar berikutnya untuk mengizinkan akses tulis.]]>
+    </string>
+    <string name="sd_tips">Harap pilih &lt;b&gt;direktori akar&lt;/b&gt; dari kartu SD eksternal &lt;br/&gt;&lt;b&gt;(%s)&lt;/b&gt; untuk memberikan izin operasi.</string>
+
+    <string name="sdcard_permission_required">Izin diperlukan untuk menghapus lagu dari kartu SD.</string>
+
+    <string name="search">Cari</string>
+    <string name="search_albums">Cari album</string>
+    <string name="search_artists">Cari artis</string>
+    <string name="search_folders">Cari folder</string>
+    <string name="search_genres">Cari genre</string>
+    <string name="search_history">Riwayat pencarian</string>
+    <string name="search_library">Cari Pustaka</string>
+    <string name="search_music_on_youtube">Cari lagu dari YouTube</string>
+    <string name="search_on_youtube">Cari di YouTube</string>
+    <string name="search_songs">Cari lagu</string>
+
+    <string name="select_all">Pilih semua</string>
+    <string name="select_backup">Pilih cara pencadangan untuk memulihkan</string>
+    <string name="select_folder">Pilih Folder</string>
+
+    <string name="set">SETEL</string>
+    <string name="set_as_ringtone">Tetapkan sebagai nada dering</string>
+    <string name="set_ringtone">Atur %s sebagai nada dering?</string>
+    <string name="set_ringtone_message">Untuk mengatur nada dering, berikan izin yang diperlukan.</string>
+
+    <string name="settings">Pengaturan</string>
+
+    <string name="share">Bagikan</string>
+    <string name="share_email_title">Berbagi Pemutar Musik dengan Anda</string>
+
+    <string name="show">Tampilkan</string>
+
+    <string name="shuffle">Acak</string>
+    <string name="shuffle_off">Acak Nonaktif</string>
+    <string name="shuffle_on">Acak Aktif</string>
+
+    <string name="size">Ukuran</string>
+
+    <string name="sleep_timer">Pewaktu Tidur</string>
+
+    <string name="slide_to_unlock">Geser untuk membuka</string>
+
+    <string name="song">Lagu</string>
+    <string name="song_added_plural">%s lagu baru ditambahkan.</string>
+    <string name="song_added_singular">%s lagu baru ditambahkan.</string>
+    <string name="song_deleted">%d lagu dihapus</string>
+    <string name="song_name">Judul Lagu</string>
+    <string name="song_scanned_plural">%s lagu dipindai.</string>
+    <string name="song_scanned_singular">%s lagu dipindai.</string>
+    <string name="song_title">Judul</string>
+
+    <string name="songs">Lagu</string>
+    <string name="songs_deleted">%d lagu dihapus</string>
+
+    <string name="sort_by">Sortir dengan</string>
+    <string name="sort_by_name">Nama</string>
+    <string name="sort_key_add_playlist">Waktu ditambahkan ke daftar putar</string>
+    <string name="sort_key_album_name">Nama album</string>
+    <string name="sort_key_number_of_albums">Jumlah album</string>
+    <string name="sort_key_time_added">Waktu ditambahkan</string>
+    <string name="sort_key_track">Susunan dalam album</string>
+    <string name="sort_order_a_z">Dari A ke Z</string>
+    <string name="sort_order_big_small">Dari besar ke kecil</string>
+    <string name="sort_order_entry_number_of_songs">Jumlah Lagu</string>
+    <string name="sort_order_long_short">Dari panjang ke pendek</string>
+    <string name="sort_order_short_long">Dari pendek ke panjang</string>
+    <string name="sort_order_small_big">Dari kecil ke besar</string>
+    <string name="sort_order_z_a">Dari Z ke A</string>
+
+    <string name="start">Mulai</string>
+
+    <string name="storage">Penyimpanan</string>
+
+    <string name="subscription_des_music">Langganan ini memberikan akses tak terbatas ke pustaka konten aplikasi kami. Jika Anda tidak membatalkan sebelum uji coba berakhir, Anda akan secara otomatis dikenai biaya %s setiap bulan sampai Anda membatalkannya.</string>
+    <string name="subscription_detail">Rincian langganan</string>
+    <string name="subscription_price">%s/bulan setelah</string>
+
+    <string name="summary_feedback">Laporkan kekutu dan beri tahu kami apa yang harus diperbaiki</string>
+    <string name="summary_pause_detach">Jeda pemutaran saat pelantang telinga dilepas</string>
+    <string name="summary_rateUs">Suka aplikasi ini? Beri kami peringkat!</string>
+    <string name="summary_screen_lock_play">Tampilkan yang diputar di layar kunci</string>
+
+    <string name="system">Sistem</string>
+    <string name="system_default">default sistem</string>
+
+    <string name="tag_edit_discard_change">Anda yakin ingin membuang perubahan?</string>
+    <string name="tag_edit_error">Edit gagal.</string>
+    <string name="tag_edit_success">Berhasil mengedit.</string>
+
+    <string name="tap_permission">Ketuk Izin</string>
+    <string name="tap_to_start">Ketuk untuk memulai Pemutar Musik</string>
+
+    <string name="terms_of_service">Ketentuan Layanan</string>
+    <string name="terms_of_service_guide">Dengan mengetuk \"%1$s\", artinya Anda telah membaca dan menyetujui %2$s dan %3$s kami.</string>
+    <string name="terms_of_service_should_agree">Untuk menggunakan %1$s, Anda perlu menyetujui %2$s dan %3$s.</string>
+
+    <string name="thanks_for_loving_x">Terima kasih sudah menyukai %s.</string>
+    <string name="thanks_for_your_feedback">Terima kasih atas masukan Anda.</string>
+
+    <string name="theme">Tema Kulit</string>
+
+    <string name="thx_feedback_tip">Kami akan memperbaikinya dalam versi selanjutnya. Maaf atas ketidaknyamannya.</string>
+
+    <string name="timer_after_this">Hentikan saat lagunya habis</string>
+    <string name="timer_stop_after">Hentikan musik setelah</string>
+    <string name="timer_turn_off">Pewaktu tidur dinonaktifkan</string>
+    <string name="timer_turn_off_latter">Matikan %s lagi</string>
+
+    <string name="title_is_null">Judul tidak boleh kosong.</string>
+
+    <string name="transparency">Transparansi</string>
+
+    <string name="turn_off">Matikan</string>
+    <string name="turn_off_after">Matikan %1$d menit lagi</string>
+    <string name="turn_off_ends">Matikan saat lagunya habis</string>
+    <string name="turn_storage">Aktifkan Penyimpanan</string>
+
+    <string name="unit_secs">detik</string>
+
+    <string name="unknow_error">Terjadi error yang tidak diketahui</string>
+
+    <string name="unlock_for_free">Buka Kunci GRATIS</string>
+    <string name="unlock_premium_themes">Buka semua tema</string>
+
+    <string name="version">Versi</string>
+
+    <string name="view">Lihat</string>
+    <string name="view_all">Lihat semua</string>
+
+    <string name="virtualizer">Virtualizer</string>
+
+    <string name="vivo_deny">Dilarang</string>
+
+    <string name="what_a_pity">Sayang sekali!</string>
+
+    <string name="x_hours">%s jam</string>
+    <string name="x_minutes">%s menit</string>
+    <string name="x_seconds">%s detik</string>
+    <string name="x_selected">%s Dipilih</string>
+    <string name="x_song_hide_single">%1$s lagu tersembunyi, Anda bisa membuka %2$s untuk menampilkannya.</string>
+    <string name="x_songs_hide_1">%1$s lagu tersembunyi, Anda bisa membuka %2$s untuk menampilkannya.</string>
+
+    <string name="xbooster_notification_access">Akses Notifikasi</string>
+
+    <string name="yes">YA</string>
+    <string name="music3_remove_successfully">Berhasil disingkirkan</string>
+
+    <string name="camera_preparing">Menyiapkan…</string>
+
+    <string name="widget_tap_start">Ketuk untuk memulai Pemutar Musik</string>
+    <string name="music3_notification_access_desc">Beri %s akses notifikasi untuk mengontrol pemutaran musik dengan cepat dari pusat notifikasi.</string>
+    <string name="music3_app_name">Pemutar Musik</string>
+
+    <string name="go_file_manager">Mulai</string>
+    <string name="music3_click_to_authorize">Klik di sini untuk mengotorisasi</string>
+    <string name="music3_language_guide">Pilih bahasa selain dari Sistem dan klik di sini untuk mengonfirmasi.</string>
+    <string name="pdf_reader2_enter_homepage_guide">Ketuk untuk masuk ke beranda</string>
+
+    <string name="mp3_current_speed">Kecepatan saat ini: %s</string>
+    <string name="mp3_edit_lyrics">Edit lirik</string>
+    <string name="mp3_enter_lyrics">Masukkan lirik</string>
+    <string name="mp3_enter_lyrics_here">Masukkan lirik Anda di sini…</string>
+    <string name="music3_playback_speed">Laju pemutaran</string>
+    <string name="music3_playback_speed_changed">Laju pemutaran diubah ke %sX</string>
+    <string name="music3_playback_speed_num">Laju pemutaran: %s</string>
+    <string name="normal">Normal</string>
+    <string name="paste">Rekatkan</string>
+    <string name="music3_playback_speed_changed_failed">Gagal mengubah ke %sX, direset ke 1,0X</string>
+
+    <string name="music3_app_title_1">Pemutar Musik - DDMusic</string>
+    <string name="music3_delete_permission_access">Harap &#60;b&#62;ikuti langkah-langkah di halaman berikutnya&#60;/b&#62; untuk mengizinkan akses.</string>
+    <string name="music3_delete_some_no_premission">Tetapi yang lain gagal karena &#60;b&#62;masalah izin&#60;/b&#62;.</string>
+    <string name="music3_delete_videos_gpt">Hapus %s video?</string>
+    <string name="music3_error_playing_video_gpt">Kesalahan Memutar Video \&#34;%s\&#34;</string>
+    <string name="music3_grant_media_files_access_gpt">Harap berikan akses file media %s untuk memutar video.</string>
+    <string name="music3_next">Lanjut</string>
+    <string name="music3_resume_auto">Lanjutkan pemutaran dari tempat Anda berhenti</string>
+    <string name="music3_scan_local_videos_gpt">Untuk memindai video lokal, harap:</string>
+    <string name="music3_scan_video_gpt">Pindai video</string>
+    <string name="music3_sd_card_access_step_2_format">Lalu &#60;b&#62;ketuk PILIH&#60;/b&#62; untuk mengizinkan akses tulis.</string>
+    <string name="music3_sd_write_access_required_gpt">Menghapus video dari Kartu SD memerlukan akses tulis</string>
+    <string name="music3_search_videos">Cari video</string>
+    <string name="music3_select_albums_gpt">Pilih album</string>
+    <string name="music3_select_artists_gpt">Pilih artis</string>
+    <string name="music3_select_genres_gpt">Pilih genre</string>
+    <string name="music3_select_playlists_gpt">Pilih daftar putar</string>
+    <string name="music3_select_songs_gpt">Pilih lagu</string>
+    <string name="music3_select_videos_gpt">Pilih video</string>
+    <string name="music3_videos_added_gpt">&#60;b&#62;%1$s&#60;/b&#62; video ditambahkan ke %2$s</string>
+    <string name="music3_video_info_gpt">Informasi video</string>
+    <string name="music3_video_name_gpt">Nama Video</string>
+    <string name="music3_video_not_found_gpt">Video tidak ditemukan?</string>
+    <string name="music3_x_new_videos_added_gpt">%s video baru ditambahkan</string>
+    <string name="music3_x_videos_deleted_gpt">%s video dihapus</string>
+
+    <string name="allplayer_fast_forward">Maju cepat</string>
+    <string name="allplayer_mute_play_gpt">Pemutaran bisu</string>
+    <string name="allplayer_recently_watched_gpt">Baru-baru ini ditonton</string>
+    <string name="brightness">Kecerahan</string>
+    <string name="btn_allow">Izinkan</string>
+    <string name="enter_name">Masukkan nama</string>
+    <string name="got_it_1">Paham</string>
+    <string name="music3_1_new_video_added_gpt">%s video baru ditambahkan</string>
+    <string name="music4_allow_photo_video">Izinkan akses ke foto dan video</string>
+    <string name="music4_photo_permission_step3">Temukan dan ketuk Foto dan Video</string>
+    <string name="music_3_video_share">Sebuah video untuk Anda dari %1$s %2$s</string>
+    <string name="no_videos_found">Tidak ada video yang ditemukan</string>
+    <string name="n_videos">%s video</string>
+    <string name="n_videos_1">%s video</string>
+    <string name="one_video">1 video</string>
+    <string name="pause_play">Jeda/Mainkan</string>
+    <string name="rewind">Rewind</string>
+    <string name="rp_next">Lanjut</string>
+    <string name="sd_card_access_step_1">Ketuk tombol di sudut kiri atas, lalu &#60;b&#62;pilih kartu SD&#60;/b&#62;.</string>
+    <string name="sound_boost_tips">Lanjutkan kustomisasi untuk memperbesar volume hingga 200%.</string>
+    <string name="start_over">Mulai Ulang</string>
+    <string name="tab_videos">Video</string>
+    <string name="tap_again_to_exit">Ketuk lagi untuk keluar</string>
+    <string name="video">Video</string>
+    <string name="volume">Volume</string>
+    <string name="xgallery_no_next_video">Sudah di video terakhir</string>
+    <string name="xgallery_no_previous_video">Sudah di video pertama</string>
+    <string name="xgallery_playing_lock_screen">Layar terkunci</string>
+    <string name="xgallery_playing_unlock_screen">Kunci layar dibuka</string>
+    <string name="xgallery_sound_off">Suara mati</string>
+    <string name="xgallery_sound_on">Suara hidup</string>
+    <string name="zoom_in_out">Perbesar/perkecil</string>
+    <string name="music3_1_video_deleted_gpt">%s video dihapus</string>
+    <string name="music4_choose_allow">Pilih Izinkan</string>
+    <string name="open_settings_1">Buka Pengaturan</string>
+    <string name="music4_error_playing_file_error">Gagal memutar, file tidak valid.</string>
+    <string name="music4_error_playing_path_error">Gagal memutar, jalur file tidak valid.</string>
+    <string name="music3_1_song_added_gpt">&#60;b&#62;1&#60;/b&#62; lagu ditambahkan ke %s</string>
+    <string name="music3_1_video_added_gpt">&#60;b&#62;1&#60;/b&#62; video ditambahkan ke %s</string>
+
+    <string name="all_reader2_major_update_gpt">Pembaruan Besar</string>
+    <string name="all_reader2_new_version_en_desc_5_gpt">Peningkatan pengalaman pengguna</string>
+    <string name="all_reader2_new_version_gpt">Versi Terbaru</string>
+    <string name="all_reader2_new_version_ready_gpt">Versi terbaru sudah siap!</string>
+    <string name="all_reader2_new_version_title_plan1_gpt">Versi terbaru kami telah menerima ulasan 5 bintang dari %s pengguna!</string>
+    <string name="booster2_new_version_des2_gpt">Gabunglah dengan %s pengguna yang puas dan upgrade untuk pengalaman bintang 5!</string>
+    <string name="booster2_new_version_des3_gpt">Versi terbaru kami memiliki tingkat kepuasan %s yang mengesankan sejauh ini.</string>
+    <string name="booster2_version_update">Pembaruan versi</string>
+    <string name="docx_new_version_benefits3_gpt">Perbaikan bug minor</string>
+    <string name="install">Pasang</string>
+    <string name="lyrics_source_gpt">Sumber lirik: pengguna anonim</string>
+    <string name="pdf_reader3_update_from_gp_gpt">Gagal, harap perbarui dari Google Play</string>
+    <string name="recommended">Direkomendasikan</string>
+    <string name="step4_update_reason_1_gpt">Pada pembaruan ini, kami telah memperbaiki beberapa masalah dan meningkatkan kinerja keseluruhan aplikasi.</string>
+    <string name="update">Memperbarui</string>
+    <string name="update_failed_network_wg_gpt">Update gagal, harap periksa jaringan Anda dan coba lagi</string>
+    <string name="update_now_for_better_1">Anda dapat &#60;b&#62;memperbarui sekarang&#60;/b&#62; untuk pengalaman yang lebih baik.</string>
+    <string name="updating">Memperbarui ...</string>
+    <string name="upgrade">Tingkatkan</string>
+    <string name="upgrade_to_new_version">Rasakan peningkatan kinerja dan stabilitas dengan versi terbaru kami. \n\n&#60;b&#62;Ketuk untuk meng-upgrade sekarang.&#60;/b&#62;</string>
+    <string name="upload_lyrics_statement_gpt">Ketika Anda mengunggah lirik ke aplikasi kami, harap pastikan bahwa Anda memiliki hak untuk melakukannya dan unggahan Anda tidak melanggar hak kekayaan intelektual manapun. Dengan mengunggah, Anda memberi kami izin untuk menggunakan konten Anda secara gratis, dan kami akan mencantumkan sumbernya sebagai \&#34;pengguna anonim\&#34;.</string>
+    <string name="video_player_in_music_gpt">Pemutar video</string>
+    <string name="video_player_moved_gpt">Pemutar video dipindahkan ke sini</string>
+</resources>

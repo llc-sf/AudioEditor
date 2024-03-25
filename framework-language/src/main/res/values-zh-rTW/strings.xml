@@ -1,0 +1,695 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="abbre_minute">分</string>
+
+    <string name="access_all_features">免費使用未來版本的所有新功能</string>
+    <string name="access_files">允許存取裝置上的媒體檔案。</string>
+
+    <string name="action_continue">繼續</string>
+    <string name="action_ok">確定</string>
+    <string name="action_reset">重置</string>
+
+    <string name="add_playlist_unknow_error">創建播放清單失敗</string><!-- 未能建立播放清單 -->
+    <string name="add_to_playlist">添加到播放清單</string><!-- 加到播放清單 -->
+    <string name="add_to_queue">添加到佇列</string><!-- 加到佇列 -->
+    <string name="add_tracks">新增歌曲</string>
+
+    <string name="added_to_favourite">已添加至收藏匣</string><!-- 已加到收藏匣 -->
+
+    <string name="agree_continue">同意並繼續</string>
+
+    <string name="album_title">專輯</string>
+
+    <string name="albums">專輯</string>
+
+    <string name="all_songs">所有歌曲</string>
+
+    <string name="allow">允許</string>
+    <string name="allow_access">允許存取</string>
+    <string name="allow_access_storage">允許存取儲存空間</string>
+    <string name="allow_all_time">一律允許</string>
+
+    <string name="already_exists">已存在</string>
+
+    <string name="app_name_compat_mp3">音樂</string>
+    <string name="app_name_compat_music">音樂播放程式</string>
+
+    <string name="apply_more_permission_killed_dialog_title">%s 已經被強制停止</string>
+
+    <string name="artist_name">演出者名字</string>
+    <string name="artist_title">演出者</string>
+
+    <string name="artists">演出者</string>
+
+    <string name="ask_like_app">喜歡%s嗎？</string><!-- 您對 %s 感到滿意嗎？ -->
+
+    <string name="auto_backups">自動備份播放清單</string>
+
+    <string name="backup">備份</string>
+    <string name="backup_fail">備份失敗</string>
+    <string name="backup_playlist">備份播放清單</string>
+    <string name="backup_success">備份成功</string>
+    <string name="backup_summary_playlist">%d個播放清單</string>
+    <string name="backup_summary_playlists">%d個播放清單</string>
+    <string name="backup_title">是否備份？</string>
+
+    <string name="bass_boost">低音加強</string>
+
+    <string name="battery_opt_content">為了避免異常暫停播放音樂，請給予 %s 必要的權限</string>
+    <string name="battery_opt_title_first">避免異常暫停</string>
+
+    <string name="blur">模糊</string>
+
+    <string name="cancel">取消</string>
+    <string name="cancel_favorite_success">已從收藏匣中移除</string>
+
+    <string name="change_album_art">變更專輯封面</string>
+    <string name="change_cover">變更封面</string>
+    <string name="change_cover_failed">封面變更失敗</string>
+    <string name="change_language_title">選擇語言</string>
+    <string name="change_picture">更改圖片</string>
+
+    <string name="choose_allow">選擇「允許」</string>
+
+    <string name="clear">清除</string>
+    <string name="clear_playlist">刪除%s</string>
+    <string name="clear_queue_info">您確定想要清除播放佇列嗎？</string>
+
+    <string name="color">顏色</string>
+
+    <string name="confirm_and_fix">確認問題後，我們會儘快在下一個版本中修正！</string>
+    <string name="confirm_information">確認資訊</string>
+
+    <string name="continue_to_work_hard">我們會繼續努力。</string>
+
+    <string name="count_album">%d張專輯</string>
+    <string name="count_albums">%d張專輯</string>
+    <string name="count_artist">%s 位演出者</string>
+    <string name="count_artists">%s 位演出者</string>
+    <string name="count_folder">%s 個資料夾</string>
+    <string name="count_folders">%s 個資料夾</string>
+    <string name="count_genre">%s 種曲風</string>
+    <string name="count_genres">%s 種曲風</string>
+    <string name="count_media_file">%d子文件夾</string>
+    <string name="count_media_files">%d媒體文件</string>
+    <string name="count_song">%d首歌曲</string>
+    <string name="count_songs">%d首歌曲</string>
+    <string name="count_sub_folder">%d子文件夾</string>
+    <string name="count_sub_folders">%d子文件夾</string>
+
+    <string name="create">建立</string>
+    <string name="create_new_playlist">建立新播放清單</string>
+
+    <string name="created_playlist">已建立播放清單 %s</string>
+
+    <string name="delete">刪除</string>
+    <string name="delete_failed">刪除失敗</string>
+    <string name="delete_from_device">從本機移除</string>
+    <string name="delete_permission_access">授權時，請務必&lt;b&gt;選取正確的文件夾&lt;/b&gt;。</string>
+    <string name="delete_playlist_message">您確定要刪除播放清單「%1$s」嗎？</string>
+    <string name="delete_playlist_title">刪除播放清單</string>
+    <string name="delete_some_no_premission">其他歌曲因缺少權限而刪除失敗。</string>
+    <string name="delete_song">刪除歌曲？</string>
+    <string name="delete_song_message">您確定要刪除「%1$s」嗎？</string>
+
+    <string name="deleted_success">刪除成功</string>
+
+    <string name="details">詳細資訊</string>
+
+    <string name="dialog_message_set_ringtone">為了設定鈴聲，音樂播放器需要獲得寫入系統設定的權限。\n\n請先授權，然後再嘗試設定鈴聲。</string>
+    <string name="dialog_title_set_ringtone">設定鈴聲</string>
+
+    <string name="diet_for_you">專屬於您</string>
+
+    <string name="directories">目錄</string>
+
+    <string name="directory_empty">無內容</string><!-- 目錄是空的 -->
+
+    <string name="disagree_exit">不同意並離開</string>
+
+    <string name="discard">捨棄</string>
+
+    <string name="done">完成</string>
+
+    <string name="duration">時長</string><!-- 歌曲長度 -->
+
+    <string name="edit">編輯</string>
+    <string name="edit_photo">編輯照片</string>
+    <string name="edit_tag">編輯標籤</string>
+    <string name="edit_tags">編輯標籤</string>
+
+    <string name="enable_lock_screen_tip">您可以透過[設定] - [鎖定畫面播放]啟用它。</string>
+
+    <string name="end_period">結束</string>
+
+    <string name="enhancer_best_rating">最佳評價</string>
+    <string name="enhancer_thanks_rate_us">感謝您使用 %s！\n請為我們評分，感激不盡。</string>
+
+    <string name="entered_same_name">該名稱已存在，請嘗試其他名稱。</string>
+
+    <string name="equ_custom">自訂</string>
+
+    <string name="equalizer">等化器</string>
+
+    <string name="error_playing_file_error">播放失敗，該檔案不存在</string>
+    <string name="error_playing_normal">播放失敗，發生未知的錯誤</string>
+    <string name="error_playing_path_error">播放失敗，路徑錯誤。</string>
+    <string name="error_playing_track">播放《%1$s》時出錯</string>
+
+    <string name="exe_all">全部</string>
+
+    <string name="exit">退出</string>
+    <string name="exit_1">退出</string>
+    <string name="exit_scan">退出掃描？</string>
+
+    <string name="featured">精選</string>
+
+    <string name="feedback">回饋</string>
+    <string name="feedback_mail_text">系統資訊</string>
+
+    <string name="file_not_exist">該檔案不存在</string>
+
+    <string name="folder_select_title">資料夾選擇</string>
+
+    <string name="folders">資料夾</string>
+
+    <string name="free_7_days_trial_1">7天免費試用</string>
+    <string name="free_space_needed">預計需要：%s（建議）</string>
+    <string name="free_space_to_ensure">請釋放空間以確保應用程式可正常運作。</string>
+    <string name="free_up_space">釋放空間</string>
+
+    <string name="from_new_to_old">從舊至新</string>
+    <string name="from_old_to_new">從新至舊</string>
+
+    <string name="general">一般</string>
+
+    <string name="genre_title">曲風</string>
+
+    <string name="genres">曲風</string>
+
+    <string name="go_premium">升級到進階版</string>
+    <string name="go_to_album">前往專輯</string>
+    <string name="go_to_artist">前往演出者</string>
+
+    <string name="good">喜歡</string>
+
+    <string name="guide_allow_description">要聽音樂，\n音樂播放器需要存取您裝置上的媒體檔案。</string>
+    <string name="guide_enable_description_1">要聽音樂，您需要：</string>
+
+    <string name="help">幫助</string>
+
+    <string name="hidden_directory">隱藏資料夾</string>
+
+    <string name="hide">隱藏</string>
+
+    <string name="history">紀錄</string>
+
+    <string name="ignore_less_duration">忽略時間長度小於</string>
+    <string name="ignore_less_size">忽略檔案大小小於</string>
+    <string name="ignore_short_files">過濾掉少於50K的檔案。</string>
+    <string name="ignore_short_song">過濾掉少於60秒的歌曲。</string>
+
+    <string name="import_clip_tips">請選取歌詞並複製</string>
+    <string name="import_clip_tips_html">請&lt;b&gt;選取&lt;/b&gt;歌詞並&lt;b&gt;複製&lt;/b&gt;</string>
+    <string name="import_clip_tips_save_title">匯入歌詞</string>
+    <string name="import_clip_tips_title">如何匯入歌詞</string>
+    <string name="import_tel">導入</string>
+
+    <string name="insufficient_space">空間不足</string>
+
+    <string name="internal_sd">內部存儲</string>
+
+    <string name="language_title">語言</string>
+
+    <string name="last_backup">最後一次備份時間：%s</string>
+
+    <string name="library">音樂庫</string>
+
+    <string name="local">本機</string>
+    <string name="local_songs">本機歌曲</string>
+
+    <string name="location">儲存位置</string>
+
+    <string name="lock_screen_disable_confirm">停用鎖定畫面播放？</string>
+
+    <string name="lucky_desc">本次無需觀看廣告</string>
+    <string name="lucky_title">恭喜你！幸運兒。</string>
+
+    <string name="lyrics_add_local">新增本機歌詞</string>
+    <string name="lyrics_edit_song_info">您可以編輯歌曲資訊以準確取得歌詞。</string>
+    <string name="lyrics_import_failed_no_format">不支援的檔案類型，歌詞匯入失敗。</string>
+    <string name="lyrics_imported">歌詞已匯入</string>
+    <string name="lyrics_load_failed">無法載入歌詞</string>
+    <string name="lyrics_loading">歌詞載入中…</string>
+    <string name="lyrics_net_error">糟糕，請確認您的網路連線。</string>
+    <string name="lyrics_no_found">糟糕，找不到歌詞。</string>
+    <string name="lyrics_no_matches">歌曲或演出者姓名不相符</string>
+    <string name="lyrics_no_scroll">歌詞未捲動</string>
+    <string name="lyrics_reset_msg">若您這麼做，將會刪除您已新增的歌詞。</string>
+    <string name="lyrics_reset_title">您確定要重設此歌詞嗎？</string>
+    <string name="lyrics_search_online">線上搜尋</string>
+    <string name="lyrics_show_title">歌詞</string>
+    <string name="lyrics_thanks_fb">感謝您的回饋意見！我們將盡力改善。</string>
+    <string name="lyrics_tx_error">歌詞文本錯誤</string>
+
+    <string name="manage_playlist">管理</string>
+
+    <string name="manual_backups">手動備份播放清單</string>
+
+    <string name="more">更多</string>
+    <string name="more_setting">更多設定</string>
+
+    <string name="music">音樂</string>
+
+    <string name="music3_apply_more_permission_killed_dialog_title">%s 強制停止</string>
+    <string name="music3_battery_opt_content">請授予 %s 所需權限，以避免背景播放功能強制停止。</string>
+    <string name="music3_battery_opt_title_first">保持連續不斷的背景播放</string>
+    <string name="music3_clear_queue_info">播放佇列將會清除。確定要繼續嗎？</string>
+    <string name="music3_delete_playlist_message">要刪除播放清單「%1$s」嗎？</string>
+    <string name="music3_delete_song_message">要刪除「%1$s」嗎？</string>
+    <string name="music3_exit_scan">要結束掃描嗎？</string>
+    <string name="music3_free_space_to_ensure">若要確認應用程式正常運作，請釋出一些儲存空間。</string>
+    <string name="music3_guide_allow_description">請授予 %s 媒體檔案存取權限以播放音樂。</string>
+    <string name="music3_guide_enable_description_1">若要播放音樂，請：</string>
+    <string name="music3_import_clip_tips_html">&lt;b&gt;選擇&lt;/b&gt;歌詞並&lt;b&gt;複製&lt;/b&gt;。</string>
+    <string name="music3_import_clip_tips_title">如何匯入歌詞？</string>
+    <string name="music3_lyrics_edit_song_info">請確定下方的歌曲資訊正確無誤，然後再試一次。</string>
+    <string name="music3_lyrics_load_failed">歌詞載入失敗</string>
+    <string name="music3_lyrics_no_found">很抱歉，找不到歌詞。</string>
+    <string name="music3_lyrics_no_matches">歌曲或演出者不相符</string>
+    <string name="music3_lyrics_no_scroll">歌詞無法捲動</string>
+    <string name="music3_lyrics_reset_msg">如果要重設，您新增的歌詞將會刪除。</string>
+    <string name="music3_lyrics_reset_title">要重設歌詞嗎？</string>
+    <string name="music3_lyrics_tx_error">歌詞錯誤</string>
+    <string name="music3_resume_playback_content">系統偵測到音樂播放遭其他應用程式中斷。</string>
+    <string name="music3_resume_playback_title">要繼續播放嗎？</string>
+    <string name="music3_summary_pause_detach">耳機中斷連線時暫停播放</string>
+    <string name="music3_tag_edit_discard_change">要退出並捨棄變更嗎？</string>
+    <string name="music3_terms_of_service_should_agree">同意我們的%1$s與%2$s，開始享受您的音樂之旅！</string>
+    <string name="music3_thanks_for_your_feedback">感謝您提供寶貴的回饋意見。</string>
+
+    <string name="music_guide_allow_description">要聽音樂，%s需要存取您裝置上的媒體檔案。</string>
+    <string name="music_player_share_text">分享給您一首來自%1$s的歌曲。</string>
+
+    <string name="my_favourite">我的收藏匣</string>
+
+    <string name="network_error">網路發生錯誤</string>
+    <string name="network_error_pls_try">網絡出錯，請稍後再試</string>
+
+    <string name="new_playlist">新播放清單</string>
+    <string name="new_share_email_text">我正在使用音樂播放器。\\n\\n來自己體驗看看吧！你可以從這裡下載它：\\n</string>
+
+    <string name="next_song">下一首</string>
+
+    <string name="no_backup">無備份記錄</string>
+    <string name="no_document_provider">找不到可處理這項權限請求的文檔提供程序</string>
+    <string name="no_songs_found">沒有發現歌曲</string>
+
+    <string name="not_good">不太喜歡</string>
+
+    <string name="nothing_found">無相符結果</string>
+
+    <string name="now_playing">播放器主題</string>
+
+    <string name="number_song_add_playlist">%d首歌曲已添加至播放清單</string>
+    <string name="number_song_add_queue">%d首歌曲已添加至加到佇列</string>
+    <string name="number_song_selected">已選取%d首歌曲</string>
+    <string name="number_songs_add_playlist">%d首歌曲已添加至播放清單</string>
+    <string name="number_songs_add_queue">%d首歌曲已添加至加到佇列</string>
+    <string name="number_songs_selected">已選取%d首歌曲</string>
+
+    <string name="off">關</string>
+
+    <string name="open_settings">前往 [設定]</string>
+
+    <string name="options_ads">太多廣告</string>
+    <string name="options_bugs">有錯誤</string>
+    <string name="options_music_stop">暫停播放</string>
+    <string name="options_others">其他</string>
+    <string name="options_songs_not_found">有些歌曲未顯示</string>
+    <string name="options_suggestions">建議</string>
+
+    <string name="pause_detach">斷開時暫停</string>
+
+    <string name="pg_permission_dialog_title">需要使用的權限</string>
+
+    <string name="play">播放</string>
+    <string name="play_after_song">在目前歌曲之後播放</string>
+    <string name="play_next">播放下一首</string>
+
+    <string name="playing_queue">播放佇列</string>
+
+    <string name="playlist">播放清單</string>
+    <string name="playlist_already_exist">《%1$s》已存在</string>
+    <string name="playlist_edit_hint">輸入播放清單名稱</string>
+    <string name="playlist_last_added">最近一次新增</string>
+    <string name="playlist_most_played">最常播放</string>
+    <string name="playlist_recently_played">最近播放</string>
+    <string name="playlist_top_tracks">我的熱門歌曲</string>
+
+    <string-array name="preset_reverb">
+        <!--It refes to no reverb effect.-->
+        <item>無</item>
+        <!--It is one of reverb types. You will enjoy the music just like in a small room.-->
+        <item>小型房間</item>
+        <!--It is one of reverb types. You will enjoy the music just like in a medium room.-->
+        <item>中型房間</item>
+        <!--It is one of reverb types. You will enjoy the music just like in a large room.-->
+        <item>大型房間</item>
+        <!--It is one of reverb types. You will enjoy the music just like in a large hall.-->
+        <item>中型大廳</item>
+        <!--It is one of reverb types. You will enjoy the music just like in large hall.-->
+        <item>大型大廳</item>
+        <!--It is one of reverb types. You will enjoy the music just like from a plate. Plate here you can understand it as a metal plate.-->
+        <item>金屬板</item>
+    </string-array>
+
+    <string name="price_lifetime">%s/一次性購買</string>
+
+    <string name="privacy_policy">隱私政策</string>
+
+    <string name="queue">佇列</string>
+
+    <string name="rate_us">給我們評星</string>
+
+    <string name="rating_we_like_you">我們也愛你！</string>
+
+    <string name="reader_exit_ads">您確定要離開嗎？</string>
+
+    <string name="remaining_x">剩餘: %s</string>
+
+    <string name="remind_me_anymore">別再提醒我</string>
+
+    <string name="remove">移除</string>
+    <string name="remove_ad">去除廣告</string>
+    <string name="remove_from_playlist">從播放清單中移除</string>
+    <string name="remove_from_queue">從佇列中移除</string>
+    <string name="remove_song_message">您確定要移除 %s 嗎？</string>
+
+    <string name="rename">重新命名</string>
+    <string name="rename_failed">重新命名失敗</string>
+    <string name="rename_success">重新命名成功</string>
+
+    <string name="repeat_loop">列表循環</string>
+    <string name="repeat_off">關閉循環播放</string>
+    <string name="repeat_order">順序播放</string>
+    <string name="repeat_repeat">單曲循環</string>
+    <string name="repeat_shuffle">隨機播放</string>
+
+    <string name="restore_failed">回復失敗</string>
+    <string name="restore_playlist">回復播放清單</string>
+    <string name="restore_success">回復成功</string>
+
+    <string name="result">結果</string>
+
+    <string name="resume">繼續</string>
+    <string name="resume_playback_content">我們偵測到音樂播放因其他應用程式而中斷。</string>
+    <string name="resume_playback_title">您想要繼續播放嗎？</string>
+
+    <string name="retry">重試</string>
+
+    <string name="reverb">迴響</string>
+
+    <string name="ringtone_set">設定成功</string>
+    <string name="ringtone_set_failed">設定失敗</string>
+
+    <string name="save">保存</string>
+
+    <string name="saving_tags">正在儲存標籤……</string>
+
+    <string name="scan">掃描</string>
+    <string name="scan_library">掃描音樂</string>
+    <string name="scan_result">已將 %1$s 首歌曲加到 %2$s</string>
+
+    <string name="scanner_lib_rate_leave_feedback">欢迎您的回饋意見。</string>
+    <string name="scanner_lib_rate_like_you">非常感謝！</string>
+    <string name="scanner_share_dialog_title_2">非常感謝您的支持！</string>
+
+    <string name="scanning">掃描中</string>
+
+    <string name="screen_lock_play">鎖定畫面播放</string>
+
+    <string name="sd_card_access_step_1_format">
+        <![CDATA[輕觸左上角的按鈕，並<font color=\"#F44831\"><b>選擇 SD 卡</b></font>。]]>
+    </string>
+    <string name="sd_card_access_step_2_format">
+        <![CDATA[在下一個畫面底部<font color=\"#F44831\"><b>輕觸「選取」</b></font>來允許寫入存取。]]>
+    </string>
+    <string name="sd_tips">請選擇外部SD卡的&lt;b&gt;根目錄&lt;/b&gt;&lt;br/&gt;&lt;b&gt;(%s)&lt;/b&gt;授予操作權限。 </string>
+
+    <string name="sdcard_permission_required">需要權限來刪除 SD 卡中的歌曲。</string>
+
+    <string name="search">搜尋</string>
+    <string name="search_albums">搜尋專輯</string>
+    <string name="search_artists">搜尋演出者</string>
+    <string name="search_folders">搜尋資料夾</string>
+    <string name="search_genres">搜尋曲風</string>
+    <string name="search_history">搜尋紀錄</string>
+    <string name="search_library">搜尋音樂庫</string>
+    <string name="search_music_on_youtube">從 YouTube 搜尋歌曲</string>
+    <string name="search_on_youtube">在 YouTube 上搜尋</string>
+    <string name="search_songs">搜尋歌曲</string>
+
+    <string name="select_all">全選</string>
+    <string name="select_backup">選擇備份記錄復原</string>
+    <string name="select_folder">選擇資料夾</string>
+
+    <string name="set">設置</string>
+    <string name="set_as_ringtone">設為鈴聲</string>
+    <string name="set_ringtone">要將「%s」設為鈴聲嗎？</string>
+    <string name="set_ringtone_message">若要設定鈴聲，請允許必要的權限。</string>
+
+    <string name="settings">設定</string>
+
+    <string name="share">分享</string>
+    <string name="share_email_title">跟你分享音樂播放器</string>
+
+    <string name="show">顯示</string>
+
+    <string name="shuffle">隨機播放</string>
+    <string name="shuffle_off">關閉隨機播放</string>
+    <string name="shuffle_on">開啟隨機播放</string>
+
+    <string name="size">檔案大小</string>
+
+    <string name="sleep_timer">睡眠定時器</string>
+
+    <string name="slide_to_unlock">滑動來解鎖</string>
+
+    <string name="song">歌曲</string>
+    <string name="song_added_plural">新增 %s 首歌。</string>
+    <string name="song_added_singular">新增 %s 首歌。</string>
+    <string name="song_deleted">已刪除%d首歌</string>
+    <string name="song_name">歌曲名稱</string>
+    <string name="song_scanned_plural">掃描到 %s 首歌。</string>
+    <string name="song_scanned_singular">掃描到 %s 首歌。</string>
+    <string name="song_title">標題</string>
+
+    <string name="songs">歌曲</string>
+    <string name="songs_deleted">已刪除%d首歌</string>
+
+    <string name="sort_by">排序按照</string>
+    <string name="sort_by_name">名字</string>
+    <string name="sort_key_add_playlist">新增至播放清單的時間</string>
+    <string name="sort_key_album_name">專輯名稱</string>
+    <string name="sort_key_number_of_albums">專輯數量</string>
+    <string name="sort_key_time_added">新增時間</string>
+    <string name="sort_key_track">專輯中的順序</string>
+    <string name="sort_order_a_z">從 A 到 Z</string>
+    <string name="sort_order_big_small">從大到小</string>
+    <string name="sort_order_entry_number_of_songs">歌曲數目</string>
+    <string name="sort_order_long_short">從長到短</string>
+    <string name="sort_order_short_long">從短到長</string>
+    <string name="sort_order_small_big">從小到大</string>
+    <string name="sort_order_z_a">從 Z 到 A</string>
+
+    <string name="start">開始</string>
+
+    <string name="storage">儲存</string>
+
+    <string name="subscription_des_music">訂閱後您無限制存取應用程式的所有內容。如果您沒有在試用結束前取消訂閱，您將會每月自動被扣款 %s，直到您取消訂閱。</string>
+    <string name="subscription_detail">訂閱詳情</string>
+    <string name="subscription_price">%s/月</string>
+
+    <string name="summary_feedback">回報錯誤及告訴我們該如何改進</string>
+    <string name="summary_pause_detach">啟用後，耳機斷開時會暫停播放</string>
+    <string name="summary_rateUs">喜歡音樂播放器嗎？請給我們評價吧！</string>
+    <string name="summary_screen_lock_play">鎖定畫面顯示正在播放的歌曲</string>
+
+    <string name="system">系統</string>
+    <string name="system_default">系統默認</string>
+
+    <string name="tag_edit_discard_change">您確定要捨棄變更嗎？</string>
+    <string name="tag_edit_error">編輯失敗</string>
+    <string name="tag_edit_success">編輯成功</string>
+
+    <string name="tap_permission">點選 [權限]</string>
+    <string name="tap_to_start">點一下以開始使用音樂播放器</string>
+
+    <string name="terms_of_service">使用條款</string>
+    <string name="terms_of_service_guide">點選「%1$s」即表示您已閱讀並同意我們的%2$s和%3$s。</string>
+    <string name="terms_of_service_should_agree">若要使用 %1$s，您必須同意%2$s和%3$s。</string>
+
+    <string name="thanks_for_loving_x">感謝您喜愛 %s。</string>
+    <string name="thanks_for_your_feedback">感謝您的意見回饋。</string>
+
+    <string name="theme">外觀主題</string>
+
+    <string name="thx_feedback_tip">很抱歉給您造成的不便 。我們會在之後的版本中修復此問題。</string>
+
+    <string name="timer_after_this">於目前歌曲結束時停止</string>
+    <string name="timer_stop_after">倒計時結束時停止播放</string>
+    <string name="timer_turn_off">睡眠計時器已關閉</string>
+    <string name="timer_turn_off_latter">於 %s後關閉</string>
+
+    <string name="title_is_null">標題不能為空白</string>
+
+    <string name="transparency">透明度</string>
+
+    <string name="turn_off">關閉</string>
+    <string name="turn_off_after">於%1$d分鐘後關閉</string>
+    <string name="turn_off_ends">於目前歌曲結束時關閉</string>
+    <string name="turn_storage">啟用儲存空間櫂限</string>
+
+    <string name="unit_secs">秒</string>
+
+    <string name="unknow_error">出現未知錯誤</string>
+
+    <string name="unlock_for_free">免費解鎖</string>
+    <string name="unlock_premium_themes">解鎖所有主題</string>
+
+    <string name="version">版本</string>
+
+    <string name="view">檢視</string>
+    <string name="view_all">查看全部</string>
+
+    <string name="virtualizer">虛擬等化</string>
+
+    <string name="vivo_deny">禁止</string>
+
+    <string name="what_a_pity">真遺憾！</string>
+
+    <string name="x_hours">%s小時</string>
+    <string name="x_minutes">%s分鐘</string>
+    <string name="x_seconds">%s秒</string>
+    <string name="x_selected">已選%s項</string>
+    <string name="x_song_hide_single">已隱藏 %1$s 首歌曲，您可前往%2$s將其顯示。</string>
+    <string name="x_songs_hide_1">已隱藏 %1$s 首歌曲，您可以前往%2$s顯示這些歌曲。</string>
+
+    <string name="xbooster_notification_access">通知存取權</string>
+
+    <string name="yes">是</string>
+    <string name="music3_remove_successfully">已成功移除</string>
+
+    <string name="camera_preparing">加載中…</string>
+
+    <string name="widget_tap_start">點一下開始使用 音樂播放程式</string>
+    <string name="music3_notification_access_desc">請授予 %s 通知存取權限，以便從通知中心快速控制音樂播放。</string>
+    <string name="music3_app_name">音樂播放程式 - DDMusic</string>
+
+    <string name="go_file_manager">前往</string>
+    <string name="music3_click_to_authorize">按一下此處即可授權</string>
+    <string name="music3_language_guide">請選取「系統」以外的語言，然後按一下此處確認。</string>
+    <string name="pdf_reader2_enter_homepage_guide">點按即可進入首頁</string>
+
+    <string name="mp3_current_speed">目前速度：%s</string>
+    <string name="mp3_edit_lyrics">編輯歌詞</string>
+    <string name="mp3_enter_lyrics">輸入歌詞</string>
+    <string name="mp3_enter_lyrics_here">請在此輸入歌詞…</string>
+    <string name="music3_playback_speed">倍速播放</string>
+    <string name="music3_playback_speed_changed">播放速度已變更為 %s 倍</string>
+    <string name="music3_playback_speed_num">倍速播放：%s</string>
+    <string name="normal">正常</string>
+    <string name="paste">粘貼</string>
+    <string name="music3_playback_speed_changed_failed">無法變更至 %s 倍、重設為 1.0 倍</string>
+
+    <string name="music3_app_title_1">音樂播放程式 - DDMusic</string>
+    <string name="music3_delete_permission_access">請&#60;b&#62;依照下一頁的步驟&#60;/b&#62;允許存取。</string>
+    <string name="music3_delete_some_no_premission">但其餘均因為&#60;b&#62;權限問題&#60;/b&#62;而失敗。</string>
+    <string name="music3_delete_videos_gpt">刪除 %s 部影片？</string>
+    <string name="music3_error_playing_video_gpt">播放影片 “%s” 時發生錯誤</string>
+    <string name="music3_grant_media_files_access_gpt">請授予 %s 媒體文件訪問權限以播放影片。</string>
+    <string name="music3_next">下一頁</string>
+    <string name="music3_resume_auto">繼續從停止的位置播放</string>
+    <string name="music3_scan_local_videos_gpt">要掃描本地影片，請執行以下操作：</string>
+    <string name="music3_scan_video_gpt">掃描影片</string>
+    <string name="music3_sd_card_access_step_2_format">然後&#60;b&#62;點選「選擇」&#60;/b&#62;允許寫入權限。</string>
+    <string name="music3_sd_write_access_required_gpt">從SD卡刪除影片需要寫入權限</string>
+    <string name="music3_search_videos">搜尋影片</string>
+    <string name="music3_select_albums_gpt">選擇專輯</string>
+    <string name="music3_select_artists_gpt">選擇藝術家</string>
+    <string name="music3_select_genres_gpt">選擇流派</string>
+    <string name="music3_select_playlists_gpt">選擇播放清單</string>
+    <string name="music3_select_songs_gpt">選擇歌曲</string>
+    <string name="music3_select_videos_gpt">選擇影片</string>
+    <string name="music3_videos_added_gpt">&#60;b&#62;%1$s&#60;/b&#62; 部影片已添加到 %2$s</string>
+    <string name="music3_video_info_gpt">影片資訊</string>
+    <string name="music3_video_name_gpt">影片名稱</string>
+    <string name="music3_video_not_found_gpt">找不到影片？</string>
+    <string name="music3_x_new_videos_added_gpt">已添加 %s 部新影片</string>
+    <string name="music3_x_videos_deleted_gpt">已刪除 %s 部影片</string>
+
+    <string name="allplayer_fast_forward">快進</string>
+    <string name="allplayer_mute_play_gpt">靜音播放</string>
+    <string name="allplayer_recently_watched_gpt">最近觀看</string>
+    <string name="brightness">亮度</string>
+    <string name="btn_allow">允許</string>
+    <string name="enter_name">請輸入一個名稱</string>
+    <string name="got_it_1">知道了</string>
+    <string name="music3_1_new_video_added_gpt">已添加 %s 部新影片</string>
+    <string name="music4_allow_photo_video">允許存取相片和影片</string>
+    <string name="music4_photo_permission_step3">尋找並點選相片與影片</string>
+    <string name="music_3_video_share">一個來自 %1$s %2$s 的影片</string>
+    <string name="no_videos_found">找不到影片</string><!-- 用ChatGPT翻译 -->
+    <string name="n_videos">%s 部影片</string>
+    <string name="n_videos_1">%s 部影片</string>
+    <string name="one_video">1 部影片</string>
+    <string name="pause_play">暫停/播放</string>
+    <string name="rewind">快退</string>
+    <string name="rp_next">下一步</string>
+    <string name="sd_card_access_step_1">輕觸左上角的按鈕，並&#60;b&#62;選擇 SD 卡&#60;/b&#62;。</string>
+    <string name="sound_boost_tips">繼續調整將音量調高至 200%。</string>
+    <string name="start_over">重新開始</string>
+    <string name="tab_videos">影片</string>
+    <string name="tap_again_to_exit">再輕觸一次以退出</string>
+    <string name="video">影片</string>
+    <string name="volume">音量</string>
+    <string name="xgallery_no_next_video">已在最後一支影片</string>
+    <string name="xgallery_no_previous_video">已在第一支影片</string>
+    <string name="xgallery_playing_lock_screen">螢幕已鎖定</string>
+    <string name="xgallery_playing_unlock_screen">螢幕已解鎖</string>
+    <string name="xgallery_sound_off">聲音關閉</string>
+    <string name="xgallery_sound_on">聲音打開</string>
+    <string name="zoom_in_out">放大／縮小</string>
+    <string name="music3_1_video_deleted_gpt">已刪除 %s 部影片</string>
+    <string name="music4_choose_allow">選擇允許</string>
+    <string name="open_settings_1">打開設置</string>
+    <string name="music4_error_playing_file_error">播放失敗，無效的檔案。</string>
+    <string name="music4_error_playing_path_error">播放失敗，無效的檔案路徑。</string>
+    <string name="music3_1_song_added_gpt">已將 &#60;b&#62;1&#60;/b&#62; 首歌曲加到 %s</string>
+    <string name="music3_1_video_added_gpt">&#60;b&#62;1&#60;/b&#62; 部影片已添加到 %s</string>
+
+    <string name="all_reader2_major_update_gpt">重大更新</string>
+    <string name="all_reader2_new_version_en_desc_5_gpt">提升使用者體驗</string>
+    <string name="all_reader2_new_version_gpt">新版本</string>
+    <string name="all_reader2_new_version_ready_gpt">新版本已經準備好了！</string>
+    <string name="all_reader2_new_version_title_plan1_gpt">我們的最新版本已獲得來自%s名用戶的5星評價！</string>
+    <string name="booster2_new_version_des2_gpt">加入 %s 位滿意的用戶，升級以獲得五星級體驗！</string>
+    <string name="booster2_new_version_des3_gpt">我們最新的版本迄今為止擁有 %s 的滿意度。</string>
+    <string name="booster2_version_update">版本更新</string>
+    <string name="docx_new_version_benefits3_gpt">修復小問題</string>
+    <string name="install">安裝</string>
+    <string name="lyrics_source_gpt">歌詞來源：匿名用戶</string>
+    <string name="pdf_reader3_update_from_gp_gpt">更新失敗，請前往 Google Play 重試</string>
+    <string name="recommended">推薦</string>
+    <string name="step4_update_reason_1_gpt">在這次更新中，我們修復了幾個問題並增強了應用程式的整體表現。</string>
+    <string name="update">更新</string>
+    <string name="update_failed_network_wg_gpt">更新失敗，請檢查您的網路並重試</string>
+    <string name="update_now_for_better_1">您可以&#60;b&#62;立即更新&#60;/b&#62;以獲得更好的體驗。</string>
+    <string name="updating">正在更新……</string>
+    <string name="upgrade">升級</string>
+    <string name="upgrade_to_new_version">透過我們最新的版本，體驗增強的性能和提高的穩定性。\n\n&#60;b&#62;點擊立即升級。&#60;/b&#62;</string>
+    <string name="upload_lyrics_statement_gpt">當您上傳歌詞時，請確保您有權這樣做，並且您的上傳不會侵犯任何智慧財產權。通過上傳，您授權我們免費使用您的內容，並將其來源註明為「匿名用戶」。</string>
+    <string name="video_player_in_music_gpt">影片播放器</string>
+    <string name="video_player_moved_gpt">影片播放器移到這裡了</string>
+</resources>

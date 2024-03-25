@@ -1,0 +1,5 @@
+<!-- res/drawable/cursor_color.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <size android:width="2dp" />
+    <solid android:color="@color/colorAccent" /> <!-- 设置光标颜色 -->
+</shape>

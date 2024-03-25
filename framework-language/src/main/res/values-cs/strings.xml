@@ -1,0 +1,699 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="abbre_minute">min.</string>
+
+    <string name="access_all_features">Bezplatný přístup ke všem novým funkcím v budoucích verzích</string>
+    <string name="access_files">Povolit přístup k mediálním souborům v zařízení.</string>
+
+    <string name="action_continue">Pokračovat</string>
+    <string name="action_ok">OK</string>
+    <string name="action_reset">Resetovat</string>
+
+    <string name="add_playlist_unknow_error">Nelze vytvořit seznam skladeb</string>
+    <string name="add_to_playlist">Přidat do seznamu skladeb</string>
+    <string name="add_to_queue">Přidat do fronty</string>
+    <string name="add_tracks">Přidejte skladby</string>
+
+    <string name="added_to_favourite">Přidáno k oblíbeným</string>
+
+    <string name="agree_continue">Souhlasit a pokračovat</string>
+
+    <string name="album_title">Album</string>
+
+    <string name="albums">Alba</string>
+
+    <string name="all_songs">Všechny skladby</string>
+
+    <string name="allow">Dovolit</string>
+    <string name="allow_access">Povolit přístup</string>
+    <string name="allow_access_storage">Povolit přístup k úložišti</string>
+    <string name="allow_all_time">Povolit na celou dobu</string>
+
+    <string name="already_exists">Již tam je</string>
+
+    <string name="app_name_compat_mp3">Hudba zdarma</string>
+    <string name="app_name_compat_music">Přehrávač hudby</string>
+
+    <string name="apply_more_permission_killed_dialog_title">Aplikace %s byla násilně zastavena</string>
+
+    <string name="artist_name">Jméno interpreta</string>
+    <string name="artist_title">Interpret</string>
+
+    <string name="artists">Interpreti</string>
+
+    <string name="ask_like_app">Jste spokojeni s %s?</string>
+
+    <string name="auto_backups">Seznam automatických záloh</string>
+
+    <string name="backup">Záloha</string>
+    <string name="backup_fail">Zálohování neúspěšné</string>
+    <string name="backup_playlist">Zálohovat seznam skladeb</string>
+    <string name="backup_success">Úspěšně zálohováno</string>
+    <string name="backup_summary_playlist">Počet seznamů skladeb: %d</string>
+    <string name="backup_summary_playlists">Počet seznamů skladeb: %d</string>
+    <string name="backup_title">Zálohovat?</string>
+
+    <string name="bass_boost">Zesílení basů</string>
+
+    <string name="battery_opt_content">Abyste se vyhnuli neobvyklému přerušení přehrávání hudby, udělejte prosím aplikaci %s potřebná povolení.</string>
+    <string name="battery_opt_title_first">Vyhněte se neobvyklému přerušení</string>
+
+    <string name="blur">Rozmazání</string>
+
+    <string name="cancel">Zrušit</string>
+    <string name="cancel_favorite_success">Odebráno z oblíbených</string>
+
+    <string name="change_album_art">Změnit obálku alba</string>
+    <string name="change_cover">Změnit obálku</string>
+    <string name="change_cover_failed">Změna obálky neúspěšná</string>
+    <string name="change_language_title">Vybrat jazyk</string>
+    <string name="change_picture">Změnit obrázek</string>
+
+    <string name="choose_allow">Zvolit „Povolit“</string>
+
+    <string name="clear">Vymazat</string>
+    <string name="clear_playlist">Vymazat %s</string>
+    <string name="clear_queue_info">Opravdu chcete vymazat pořadí přehrávání?</string>
+
+    <string name="color">Barva</string>
+
+    <string name="confirm_and_fix">Problém potvrdíme a co nejdříve jej opravíme v další verzi!</string>
+    <string name="confirm_information">Potvrďte informace</string>
+
+    <string name="continue_to_work_hard">I nadále se budeme velmi snažit.</string>
+
+    <string name="count_album">%d album</string>
+    <string name="count_albums">%d alba</string>
+    <string name="count_artist">%s interpret</string>
+    <string name="count_artists">%s interpretů</string>
+    <string name="count_artists_1">%s interpreti</string>
+    <string name="count_folder">%s složka</string>
+    <string name="count_folders">%s složek</string>
+    <string name="count_folders_1">%s složky</string>
+    <string name="count_genre">%s žánr</string>
+    <string name="count_genres">%s žánrů</string>
+    <string name="count_genres_1">%s žánry</string>
+    <string name="count_media_file">%d Mediálního souboru</string>
+    <string name="count_media_files">%d Mediálních souborů</string>
+    <string name="count_song">%d skladba</string>
+    <string name="count_songs">Počet skladeb:  %d</string>
+    <string name="count_sub_folder">%d Podsložky</string>
+    <string name="count_sub_folders">%d Podsložky</string>
+
+    <string name="create">Vytvořit</string>
+    <string name="create_new_playlist">Vytvořit nový seznam skladeb</string>
+
+    <string name="created_playlist">Seznam skladeb %s vytvořen</string>
+
+    <string name="delete">Smazat</string>
+    <string name="delete_failed">Smazání neúspěšné</string>
+    <string name="delete_from_device">Odstranit ze zařízení</string>
+    <string name="delete_permission_access">Při autorizaci se ujistěte, že jste &lt;b&gt;vybrali správnou složku&lt;/b&gt;.</string>
+    <string name="delete_playlist_message">Opravdu chcete smazat seznam skladeb %1$s?</string>
+    <string name="delete_playlist_title">Smazat seznam skladeb</string>
+    <string name="delete_some_no_premission">Ostatní skladby selhaly kvůli tomu, že neměly povolení.</string>
+    <string name="delete_song">Smazat skladbu?</string>
+    <string name="delete_song_message">Opravdu chcete smazat %1$s?</string>
+
+    <string name="deleted_success">Úspěšně odstraněno</string>
+
+    <string name="details">Detaily</string>
+
+    <string name="dialog_message_set_ringtone">K nastavení vyzvánění potřebuje Music Player povolení k zápisu do nastavení systému.\n\nJakmile povolení udělíte, zkuste vyzvánění nastavit znovu.</string>
+    <string name="dialog_title_set_ringtone">Nastavit vyzvánění</string>
+
+    <string name="diet_for_you">Pro vás</string>
+
+    <string name="directories">Adresáře</string>
+
+    <string name="directory_empty">Adresář je prázdný</string>
+
+    <string name="disagree_exit">Nesouhlasit a odejít</string>
+
+    <string name="discard">Zahodit</string>
+
+    <string name="done">Hotovo</string>
+
+    <string name="duration">Trvání</string>
+
+    <string name="edit">Upravit</string>
+    <string name="edit_photo">Úprava fotek</string>
+    <string name="edit_tag">Upravit tag</string>
+    <string name="edit_tags">Upravit tagy</string>
+
+    <string name="enable_lock_screen_tip">Můžete to zapnout v „Nastavení - Přehrávání na zamknuté obrazovce“.</string>
+
+    <string name="end_period">Ukončit</string>
+
+    <string name="enhancer_best_rating">Pro nás to nejlepší hodnocení</string>
+    <string name="enhancer_thanks_rate_us">Děkujeme, že používáte %s!\nVelmi bychom ocenili, kdybyste nás ohodnotili.</string>
+
+    <string name="entered_same_name">Toto jméno již existuje, zkuste prosím jiné.</string>
+
+    <string name="equ_custom">Vlastní</string>
+
+    <string name="equalizer">Ekvalizér</string>
+
+    <string name="error_playing_file_error">Přehrávání se nezdařilo, soubor neexistuje</string>
+    <string name="error_playing_normal">Přehrávání se nezdařilo, došlo k neznámé chybě</string>
+    <string name="error_playing_path_error">Přehrávání se nezdařilo, chyba cesty.</string>
+    <string name="error_playing_track">Chyba při přehrávání skladby %1$s</string>
+
+    <string name="exe_all">Vše</string>
+
+    <string name="exit">Konec</string>
+    <string name="exit_1">Odejít</string>
+    <string name="exit_scan">Ukončit skenování?</string>
+
+    <string name="featured">Doporučené</string>
+
+    <string name="feedback">Zpětná vazba</string>
+    <string name="feedback_mail_text">Informace o systému</string>
+
+    <string name="file_not_exist">Soubor neexistuje</string>
+
+    <string name="folder_select_title">Výběr složek</string>
+
+    <string name="folders">Složky</string>
+
+    <string name="free_7_days_trial_1">7 DNÍ ZDARMA ZKUŠEBNÍ VERZE</string>
+    <string name="free_space_needed">Potřebné volné místo: %s (doporučeno)</string>
+    <string name="free_space_to_ensure">Uvolněte místo, čímž zajistíte správnou funkci aplikace.</string>
+    <string name="free_up_space">Uvolnit místo</string>
+
+    <string name="from_new_to_old">Od starších po nové</string>
+    <string name="from_old_to_new">Od nových po starší</string>
+
+    <string name="general">Obecné</string>
+
+    <string name="genre_title">Žánr</string>
+
+    <string name="genres">Žánry</string>
+
+    <string name="go_premium">PRÉMIOVÁ VERZE</string>
+    <string name="go_to_album">Přejít na album</string>
+    <string name="go_to_artist">Přejít k interpretovi</string>
+
+    <string name="good">Dobře</string>
+
+    <string name="guide_allow_description">K poslechu hudby potřebuje \n Music Player přístup k souborům médií ve vašem zařízení.</string>
+    <string name="guide_enable_description_1">K poslechu hudby musíte:</string>
+
+    <string name="help">Nápověda</string>
+
+    <string name="hidden_directory">Skryté složky</string>
+
+    <string name="hide">Skrýt</string>
+
+    <string name="history">Historie</string>
+
+    <string name="ignore_less_duration">Ignorovat kratší trvání než</string>
+    <string name="ignore_less_size">Ignorovat menší velikost než</string>
+    <string name="ignore_short_files">Ignorovat soubory menší než 50 KB.</string>
+    <string name="ignore_short_song">Ignorovat skladby kratší než 60 sekund.</string>
+
+    <string name="import_clip_tips">Vyberte prosím text písně a zkopírujte</string>
+    <string name="import_clip_tips_html">&lt;b&gt;Vyberte&lt;/b&gt; prosím text písně a &lt;b&gt;zkopírujte&lt;/b&gt;</string>
+    <string name="import_clip_tips_save_title">Importovat texty písní</string>
+    <string name="import_clip_tips_title">Jak importovat texty písní</string>
+    <string name="import_tel">Importovat</string>
+
+    <string name="insufficient_space">Nedostatek místa</string>
+
+    <string name="internal_sd">Interní úložiště</string>
+
+    <string name="language_title">Jazyk</string>
+
+    <string name="last_backup">Poslední záloha: %s</string>
+
+    <string name="library">Knihovna</string>
+
+    <string name="local">Lokální</string>
+    <string name="local_songs">Lokální skladby</string>
+
+    <string name="location">Umístění</string>
+
+    <string name="lock_screen_disable_confirm">Vypnout Přehrávání na zamknuté obrazovce?</string>
+
+    <string name="lucky_desc">Tentokrát není třeba sledovat reklamy.</string>
+    <string name="lucky_title">Gratulace! Máš štěstí.</string>
+
+    <string name="lyrics_add_local">Přidat místní texty písní</string>
+    <string name="lyrics_edit_song_info">Upravte informace o písničce, abyste získali přesné texty písní.</string>
+    <string name="lyrics_import_failed_no_format">Import textů písní se nezdařil, formát souboru není podporován.</string>
+    <string name="lyrics_imported">Texty písní byly importovány</string>
+    <string name="lyrics_load_failed">Texty písní se nepodařilo načíst</string>
+    <string name="lyrics_loading">Načítání textů písní ...</string>
+    <string name="lyrics_net_error">Jejda, zkontrolujte prosím své síťové připojení.</string>
+    <string name="lyrics_no_found">Jejda, texty písní nebyly nalezeny.</string>
+    <string name="lyrics_no_matches">Název skladby nebo jméno umělce se neshoduje</string>
+    <string name="lyrics_no_scroll">Texty písní se neposouvají</string>
+    <string name="lyrics_reset_msg">Pokud to uděláte, smažou se texty písně, které jste přidali.</string>
+    <string name="lyrics_reset_title">Opravdu chcete resetovat texty písní?</string>
+    <string name="lyrics_search_online">Hledat online</string>
+    <string name="lyrics_show_title">Texty písní</string>
+    <string name="lyrics_thanks_fb">Děkujeme za váš názor! Budeme se to snažit zlepšit.</string>
+    <string name="lyrics_tx_error">Chyba u textu písně</string>
+
+    <string name="manage_playlist">Spravovat</string>
+
+    <string name="manual_backups">Seznam ručních záloh</string>
+
+    <string name="more">Další</string>
+    <string name="more_setting">Další nastavení</string>
+
+    <string name="music">Hudba</string>
+
+    <string name="music3_apply_more_permission_killed_dialog_title">U %s bylo vynuceno zastavení</string>
+    <string name="music3_battery_opt_content">Udělte %s potřebná oprávnění, zabráníte tak násilnému zastavení přehrávání na pozadí.</string>
+    <string name="music3_battery_opt_title_first">Pro nepřetržité přehrávání na pozadí</string>
+    <string name="music3_clear_queue_info">Fronta pro přehrávání se vymaže. Opravdu chcete pokračovat?</string>
+    <string name="music3_delete_playlist_message">Smazat seznam %1$s?</string>
+    <string name="music3_delete_song_message">Smazat %1$s?</string>
+    <string name="music3_exit_scan">Zastavit skenování?</string>
+    <string name="music3_free_space_to_ensure">Abyste se ujistili, že aplikace funguje správně, uvolněte místo.</string>
+    <string name="music3_guide_allow_description">Pro přehrávání hudby udělte přístup mediálním souborům %s.</string>
+    <string name="music3_guide_enable_description_1">Chcete-li přehrávat hudbu,</string>
+    <string name="music3_import_clip_tips_html">&lt;b&gt;Vyberte&lt;/b&gt; text písně a poté &lt;b&gt;Kopírovat&lt;/b&gt;.</string>
+    <string name="music3_import_clip_tips_title">Jak mám importovat texty?</string>
+    <string name="music3_lyrics_edit_song_info">Zkontrolujte, zda jsou níže uvedené informace o skladbě správné, a zkuste to znovu.</string>
+    <string name="music3_lyrics_load_failed">Načítání textů se nezdařilo</string>
+    <string name="music3_lyrics_no_found">Je nám líto, ale text jsme nenašli.</string>
+    <string name="music3_lyrics_no_matches">Skladba nebo interpret se neshodují</string>
+    <string name="music3_lyrics_no_scroll">Texty se nedají posouvat</string>
+    <string name="music3_lyrics_reset_msg">Pokud tak učiníte, texty, které jste přidali, budou smazány.</string>
+    <string name="music3_lyrics_reset_title">Resetovat texty?</string>
+    <string name="music3_lyrics_tx_error">Chybné texty</string>
+    <string name="music3_resume_playback_content">Bylo zjištěno, že přehrávání hudby přerušila jiná aplikace.</string>
+    <string name="music3_resume_playback_title">Pokračovat v přehrávání?</string>
+    <string name="music3_summary_pause_detach">Pozastavit přehrávání při odpojení sluchátek</string>
+    <string name="music3_tag_edit_discard_change">Ukončit to a zrušit změny?</string>
+    <string name="music3_terms_of_service_should_agree">Přijměte naše %1$s a %2$s a rozjeďte svou hudební cestu!</string>
+    <string name="music3_thanks_for_your_feedback">Děkujeme za vaši cennou zpětnou vazbu.</string>
+
+    <string name="music_guide_allow_description">K poslechu hudby potřebuje, %s přístup k souborům médií ve vašem zařízení.</string>
+    <string name="music_player_share_text">Tady je píseň pro vás od %1$s.</string>
+
+    <string name="my_favourite">Můj oblíbený</string>
+
+    <string name="network_error">Chyba sítě</string>
+    <string name="network_error_pls_try">Chyba sítě, zkuste to znovu</string>
+
+    <string name="new_playlist">Nový seznam skladeb</string>
+    <string name="new_share_email_text">Používám Music Player.\\n\\nZkuste to taky. Stáhněte si aplikaci:\\n</string>
+
+    <string name="next_song">Další skladba</string>
+
+    <string name="no_backup">Nenalezena žádná záloha</string>
+    <string name="no_document_provider">Pro zpracování žádosti o povolení není k dispozici žádný nástroj DocumentProvider</string>
+    <string name="no_songs_found">Nenalezeny žádné skladby</string>
+
+    <string name="not_good">Moc ne</string>
+
+    <string name="nothing_found">Nic nenalezeno</string>
+
+    <string name="now_playing">Motiv přehrávače</string>
+
+    <string name="number_song_add_playlist">Počet skladeb přidaných do seznamu skladeb: %d</string>
+    <string name="number_song_add_queue">Počet skladeb přidaných do fronty: %d</string>
+    <string name="number_song_selected">Vybraných skladeb: %d</string>
+    <string name="number_songs_add_playlist">Počet skladeb přidaných do seznamu skladeb: %d</string>
+    <string name="number_songs_add_queue">Počet skladeb přidaných do fronty: %d</string>
+    <string name="number_songs_selected">Vybraných skladeb: %d</string>
+
+    <string name="off">Vypnuto</string>
+
+    <string name="open_settings">Otevřít nastavení</string>
+
+    <string name="options_ads">Příliš mnoho reklam</string>
+    <string name="options_bugs">Chyby</string>
+    <string name="options_music_stop">Hudba se zastavuje</string>
+    <string name="options_others">Jiné</string>
+    <string name="options_songs_not_found">Některé skladby se nezobrazují</string>
+    <string name="options_suggestions">Návrhy</string>
+
+    <string name="pause_detach">Pauza při odpojení</string>
+
+    <string name="pg_permission_dialog_title">Je zapotřebí oprávnění</string>
+
+    <string name="play">Přehrát</string>
+    <string name="play_after_song">Přehrát po aktuální skladbě</string>
+    <string name="play_next">Přehrát další</string>
+
+    <string name="playing_queue">Přehrávání fronty</string>
+
+    <string name="playlist">Seznam skladeb</string>
+    <string name="playlist_already_exist">%1$s již existuje</string>
+    <string name="playlist_edit_hint">Zadejte název seznamu skladeb</string>
+    <string name="playlist_last_added">Naposledy přidané</string>
+    <string name="playlist_most_played">Nejhranější</string>
+    <string name="playlist_recently_played">Nedávno přehrávané</string>
+    <string name="playlist_top_tracks">Moje nejoblíbenější skladby</string>
+
+    <string-array name="preset_reverb">
+        <!--It refes to no reverb effect.-->
+        <item>Žádný</item>
+        <!--It is one of reverb types. You will enjoy the music just like in a small room.-->
+        <item>Malá místnost</item>
+        <!--It is one of reverb types. You will enjoy the music just like in a medium room.-->
+        <item>Střední místnost</item>
+        <!--It is one of reverb types. You will enjoy the music just like in a large room.-->
+        <item>Velká místnost</item>
+        <!--It is one of reverb types. You will enjoy the music just like in a large hall.-->
+        <item>Střední hala</item>
+        <!--It is one of reverb types. You will enjoy the music just like in large hall.-->
+        <item>Velká hala</item>
+        <!--It is one of reverb types. You will enjoy the music just like from a plate. Plate here you can understand it as a metal plate.-->
+        <item>Plech</item>
+    </string-array>
+
+    <string name="price_lifetime">%s/Jednorázový nákup</string>
+
+    <string name="privacy_policy">Ochrana soukromí</string>
+
+    <string name="queue">Fronta</string>
+
+    <string name="rate_us">Ohodnoťte nás</string>
+
+    <string name="rating_we_like_you">Taky vás máme rádi!</string>
+
+    <string name="reader_exit_ads">Opravdu chcete odejít?</string>
+
+    <string name="remaining_x">Zbývá: %s</string>
+
+    <string name="remind_me_anymore">Už nepřipomínat</string>
+
+    <string name="remove">Odstranit</string>
+    <string name="remove_ad">Odstranit reklamy</string>
+    <string name="remove_from_playlist">Odebrat ze seznamu skladeb</string>
+    <string name="remove_from_queue">Odebrat z fronty</string>
+    <string name="remove_song_message">Opravdu chcete %s odstranit?</string>
+
+    <string name="rename">Přejmenovat</string>
+    <string name="rename_failed">Přejmenování neúspěšné</string>
+    <string name="rename_success">Úspěšně přejmenováno</string>
+
+    <string name="repeat_loop">Smyčka všeho</string>
+    <string name="repeat_off">Opakování vypnuto</string>
+    <string name="repeat_order">Popořadě</string>
+    <string name="repeat_repeat">Opakovat aktuální</string>
+    <string name="repeat_shuffle">Náhodně vše</string>
+
+    <string name="restore_failed">Obnovení neúspěšné</string>
+    <string name="restore_playlist">Obnovit seznam skladeb</string>
+    <string name="restore_success">Úspěšně obnoveno</string>
+
+    <string name="result">Výsledek</string>
+
+    <string name="resume">Obnovit</string>
+    <string name="resume_playback_content">Zjistili jsme, že přehrávání hudby bylo přerušeno jinými aplikacemi.</string>
+    <string name="resume_playback_title">Chcete pokračovat v přehrávání?</string>
+
+    <string name="retry">Znovu</string>
+
+    <string name="reverb">Dozvuk</string>
+
+    <string name="ringtone_set">Úspěšně nastaveno</string>
+    <string name="ringtone_set_failed">Nastavení neúspěšné</string>
+
+    <string name="save">Uložit</string>
+
+    <string name="saving_tags">Ukládání tagů...</string>
+
+    <string name="scan">Skenovat</string>
+    <string name="scan_library">Skenovat hudbu</string>
+    <string name="scan_result">%1$s skladeb přidáno do %2$s</string>
+
+    <string name="scanner_lib_rate_leave_feedback">Vítáme vaši zpětnou vazbu.</string>
+    <string name="scanner_lib_rate_like_you">Velmi to toho ceníme!</string>
+    <string name="scanner_share_dialog_title_2">Děkujeme za vaši podporu!</string>
+
+    <string name="scanning">Skenování</string>
+
+    <string name="screen_lock_play">Přehrávání na zamknuté obrazovce</string>
+
+    <string name="sd_card_access_step_1_format">
+        <![CDATA[Klepněte na tlačítko v levém horním rohu a <font color=\"#F44831\"><b>vyberte kartu SD</b></font>.]]>
+    </string>
+    <string name="sd_card_access_step_2_format">
+        <![CDATA[<font color=\"#F44831\"><b>Klepnutím na VYBRAT</b></font> v dolní části další obrazovky udělte přístup pro zápis.]]>
+    </string>
+    <string name="sd_tips">Vyberte &lt;b&gt;root directory&lt;/b&gt; na externí kartě SD &lt;br/&gt;&lt;b&gt;(%s)&lt;/b&gt; pro udělení oprávnění k funkci..</string>
+
+    <string name="sdcard_permission_required">K odstranění skladeb z SD karty je vyžadováno oprávnění.</string>
+
+    <string name="search">Hledat</string>
+    <string name="search_albums">Vyhledat alba</string>
+    <string name="search_artists">Vyhledat interpreta</string>
+    <string name="search_folders">Vyhledat složky</string>
+    <string name="search_genres">Vyhledat žánry</string>
+    <string name="search_history">Prohledat historii</string>
+    <string name="search_library">Prohledávání knihovny</string>
+    <string name="search_music_on_youtube">Vyhledat skladby z YouTube</string>
+    <string name="search_on_youtube">Vyhledat na YouTube</string>
+    <string name="search_songs">Vyhledat skladby</string>
+
+    <string name="select_all">Vybrat vše</string>
+    <string name="select_backup">Pro obnovení vyberte záložní záznam</string>
+    <string name="select_folder">Vybrat složky</string>
+
+    <string name="set">NASTAVIT</string>
+    <string name="set_as_ringtone">Nastavit jako vyzvánění</string>
+    <string name="set_ringtone">Nastavit %s jako vyzváněcí tón?</string>
+    <string name="set_ringtone_message">Chcete-li nastavit vyzváněcí tón, povolte potřebné oprávnění.</string>
+
+    <string name="settings">Nastavení</string>
+
+    <string name="share">Sdílet</string>
+    <string name="share_email_title">Sdílet Music Player</string>
+
+    <string name="show">Zobrazit</string>
+
+    <string name="shuffle">Náhodné\npřehrávání</string>
+    <string name="shuffle_off">Vypnout náhodné přehrávání</string>
+    <string name="shuffle_on">Zapnout náhodné přehrávání</string>
+
+    <string name="size">Velikost</string>
+
+    <string name="sleep_timer">Časovač vypnutí</string>
+
+    <string name="slide_to_unlock">Posunutím odemknout</string>
+
+    <string name="song">Skladba</string>
+    <string name="song_added_plural">Byly přidány %s nové skladby.</string>
+    <string name="song_added_singular">Byla přidána %s nová skladba.</string>
+    <string name="song_deleted">Počet smazaných skladeb: %d</string>
+    <string name="song_name">Název skladby</string>
+    <string name="song_scanned_plural">Byly naskenovány %s skladby.</string>
+    <string name="song_scanned_singular">Byla naskenována %s skladba.</string>
+    <string name="song_title">Název</string>
+
+    <string name="songs">Skladby</string>
+    <string name="songs_deleted">Počet smazaných skladeb: %d</string>
+
+    <string name="sort_by">Seřazeno podle</string>
+    <string name="sort_by_name">Název</string>
+    <string name="sort_key_add_playlist">Čas byl přidán do seznamu skladeb</string>
+    <string name="sort_key_album_name">Název alba</string>
+    <string name="sort_key_number_of_albums">Počet alb</string>
+    <string name="sort_key_time_added">Přidaný čas</string>
+    <string name="sort_key_track">Pořadí v albu</string>
+    <string name="sort_order_a_z">Od A do Z</string>
+    <string name="sort_order_big_small">Od velkých po malé</string>
+    <string name="sort_order_entry_number_of_songs">Počet skladeb</string>
+    <string name="sort_order_long_short">Od dlouhých po krátké</string>
+    <string name="sort_order_short_long">Od krátkých po delší</string>
+    <string name="sort_order_small_big">Od malých po velké</string>
+    <string name="sort_order_z_a">Od Z po A</string>
+
+    <string name="start">Začátek</string>
+
+    <string name="storage">úložiště</string>
+
+    <string name="subscription_des_music">Toto předplatné vám poskytuje neomezený přístup do obsahu knihovny naší aplikace. Pokud to nezrušíte před ukončením zkušební doby, bude vám automaticky účtováno %s každý měsíc, dokud to nezrušíte.</string>
+    <string name="subscription_detail">Podrobnosti předplatného</string>
+    <string name="subscription_price">následně %s / měsíc</string>
+
+    <string name="summary_feedback">Nahlásit chyby a sdělit nám co zlepšit</string>
+    <string name="summary_pause_detach">Přepíná přerušení přehrávání při odpojení sluchátek</string>
+    <string name="summary_rateUs">Libí se vám tato aplikace? Ohodnoťte nás!</string>
+    <string name="summary_screen_lock_play">Zobrazit přehrávání na zamknuté obrazovce</string>
+
+    <string name="system">Systém</string>
+    <string name="system_default">Výchozí nastavení</string>
+
+    <string name="tag_edit_discard_change">Opravdu chcete zahodit změny?</string>
+    <string name="tag_edit_error">Úprava neúspěšná</string>
+    <string name="tag_edit_success">Úspěšně upraveno</string>
+
+    <string name="tap_permission">Klikněte na Povolení</string>
+    <string name="tap_to_start">Klepnutím spustit Music Player</string>
+
+    <string name="terms_of_service">Podmínky použití</string>
+    <string name="terms_of_service_guide">Klepnutím na „%1$s“ dáváte najevo, že jste si přečetli a souhlasíte s našimi %2$s a %3$s.</string>
+    <string name="terms_of_service_should_agree">Pokud chcete použít %1$s, musíte souhlasit s %2$s a %3$s.</string>
+
+    <string name="thanks_for_loving_x">Děkujeme, že jste si zamilovali %s.</string>
+    <string name="thanks_for_your_feedback">Díky za zpětnou vazbu.</string>
+
+    <string name="theme">Motiv skinu</string>
+
+    <string name="thx_feedback_tip">V následující verzi to opravíme. Omlouváme se za nepříjemnosti.</string>
+
+    <string name="timer_after_this">Zastavit při skončení aktuální skladby</string>
+    <string name="timer_stop_after">Zastavit hudbu za</string>
+    <string name="timer_turn_off">Časovač pro vypínání je vypnutý</string>
+    <string name="timer_turn_off_latter">Vypnout %s později</string>
+
+    <string name="title_is_null">Název nesmí být prázdný.</string>
+
+    <string name="transparency">Průhlednost</string>
+
+    <string name="turn_off">Vypnout</string>
+    <string name="turn_off_after">Vypnout o %1$d minut později</string>
+    <string name="turn_off_ends">Vypnout při skončení aktuální skladby</string>
+    <string name="turn_storage">Povolte ukládání</string>
+
+    <string name="unit_secs">s</string>
+
+    <string name="unknow_error">Došlo k neznámé chybě</string>
+
+    <string name="unlock_for_free">Odemknout zdarma</string>
+    <string name="unlock_premium_themes">Odemknutí všech motivů</string>
+
+    <string name="version">Verze</string>
+
+    <string name="view">Zobrazit</string>
+    <string name="view_all">Zobrazit vše</string>
+
+    <string name="virtualizer">Virtualizér</string>
+
+    <string name="vivo_deny">Odmítnout</string>
+
+    <string name="what_a_pity">To je ale škoda!</string>
+
+    <string name="x_hours">%s hodin</string>
+    <string name="x_minutes">%s minut</string>
+    <string name="x_seconds">%s sekund</string>
+    <string name="x_selected">Vybráno %s</string>
+    <string name="x_song_hide_single">%1$s skladba je skrytá, můžete ji zobrazit v %2$s.</string>
+    <string name="x_songs_hide_1">%1$s skladeb jsou skryté, můžete je zobrazit ve %2$s.</string>
+    <string name="x_songs_hide_2">%1$s skladby jsou skryté, můžete je zobrazit ve %2$s.</string>
+
+    <string name="xbooster_notification_access">Přístup k oznámením</string>
+
+    <string name="yes">ANO</string>
+    <string name="music3_remove_successfully">Úspěšně odstraněno</string>
+
+    <string name="camera_preparing">Připravuje se…</string>
+
+    <string name="widget_tap_start">Klepnutím spustíte Přehrávač hudby</string>
+    <string name="music3_notification_access_desc">Udělte prosím přístup k oznámení pro %s, abyste mohli rychle ovládat přehrávání hudby z oznamovacího centra.</string>
+    <string name="music3_app_name">Přehrávač hudby</string>
+
+
+    <string name="go_file_manager">Přejít</string>
+    <string name="music3_click_to_authorize">Pro autorizaci klikněte zde</string>
+    <string name="music3_language_guide">Vyberte prosím jiný jazyk než Systém a potvrďte kliknutím zde.</string>
+    <string name="pdf_reader2_enter_homepage_guide">Klepnutím vstoupíte na domovskou stránku</string>
+
+    <string name="mp3_current_speed">Aktuální rychlost: %s</string>
+    <string name="mp3_edit_lyrics">Upravit text</string>
+    <string name="mp3_enter_lyrics">Zadat text</string>
+    <string name="mp3_enter_lyrics_here">Sem zadávejte texty…</string>
+    <string name="music3_playback_speed">Rychlost přehrávání</string>
+    <string name="music3_playback_speed_changed">Rychlost přehrávání změněna na %sX</string>
+    <string name="music3_playback_speed_num">Rychlost přehrávání: %s</string>
+    <string name="normal">Obvyklé</string>
+    <string name="paste">Vložit</string>
+    <string name="music3_playback_speed_changed_failed">Nepodařilo se to změnit na %sX, resetujte na 1,0X</string>
+
+    <string name="music3_app_title_1">Přehrávač hudby - DDMusic</string>
+    <string name="music3_delete_permission_access">Pokud chcete povolit přístup, &#60;b&#62;postupujte podle kroků na další stránce&#60;/b&#62;.</string>
+    <string name="music3_delete_some_no_premission">Zbytek se však nezdařil kvůli &#60;b&#62;problémům s oprávněním&#60;/b&#62;.</string>
+    <string name="music3_delete_videos_gpt">Smazat %s videí?</string>
+    <string name="music3_error_playing_video_gpt">Chyba při přehrávání videa \&#34;%s\&#34;</string>
+    <string name="music3_grant_media_files_access_gpt">Prosím, udělte %s přístup k mediálním souborům pro přehrávání videí.</string>
+    <string name="music3_next">Další</string>
+    <string name="music3_resume_auto">Pokračujte v přehrávání od místa, kde jste skončili</string>
+    <string name="music3_scan_local_videos_gpt">Pro skenování místních videí proveďte následující:</string>
+    <string name="music3_scan_video_gpt">Skenovat video</string>
+    <string name="music3_sd_card_access_step_2_format">Poté &#60;b&#62;klepněte na VYBRAT&#60;/b&#62; a povolte přístup pro zápis.</string>
+    <string name="music3_sd_write_access_required_gpt">Pro smazání videí z SD karty je vyžadován přístup k zápisu</string>
+    <string name="music3_search_videos">Hledat videa</string>
+    <string name="music3_select_albums_gpt">Vybrat alba</string>
+    <string name="music3_select_artists_gpt">Vybrat umělce</string>
+    <string name="music3_select_genres_gpt">Vybrat žánry</string>
+    <string name="music3_select_playlists_gpt">Vybrat playlisty</string>
+    <string name="music3_select_songs_gpt">Vybrat písně</string>
+    <string name="music3_select_videos_gpt">Vybrat videa</string>
+    <string name="music3_videos_added_gpt">&#60;b&#62;%1$s&#60;/b&#62; videí přidáno do %2$s</string>
+    <string name="music3_video_info_gpt">Informace o videu</string>
+    <string name="music3_video_name_gpt">Název videa</string>
+    <string name="music3_video_not_found_gpt">Video nenalezeno?</string>
+    <string name="music3_x_new_videos_added_gpt">Přidáno %s nových videí</string>
+    <string name="music3_x_videos_deleted_gpt">%s videí smazáno</string>
+
+    <string name="allplayer_fast_forward">Rychle vpřed</string>
+    <string name="allplayer_mute_play_gpt">Ztlumit přehrávání</string>
+    <string name="allplayer_recently_watched_gpt">Nedávno sledované</string>
+    <string name="brightness">Jas</string>
+    <string name="btn_allow">Povolit</string>
+    <string name="enter_name">Zadejte prosím název</string>
+    <string name="got_it_1">Vím to</string>
+    <string name="music3_1_new_video_added_gpt">Přidáno %s nové video</string>
+    <string name="music4_allow_photo_video">Povolit přístup k fotkám a videím</string>
+    <string name="music4_photo_permission_step3">Najděte Fotky a videa a klikněte zde</string>
+    <string name="music_3_video_share">Video pro vás od %1$s %2$s</string>
+    <string name="no_videos_found">Žádná videa nenalezena</string><!-- 用ChatGPT翻译 -->
+    <string name="n_videos">%s videa</string><!-- 用ChatGPT翻译 -->
+    <string name="n_videos_1">%s video</string>
+    <string name="one_video">1 video</string><!-- 用ChatGPT翻译 -->
+    <string name="pause_play">Pozastavit/Přehrát</string>
+    <string name="rewind">Převinout zpět</string>
+    <string name="rp_next">Další</string>
+    <string name="sd_card_access_step_1">Klepněte na tlačítko v levém horním rohu a &#60;b&#62;vyberte SD kartu&#60;/b&#62;.</string>
+    <string name="sound_boost_tips">Pokračujte v úpravách a zvyšujte hlasitost až na 200 %.</string>
+    <string name="start_over">Začít znovu</string><!-- 用ChatGPT翻译 -->
+    <string name="tab_videos">Videa</string>
+    <string name="tap_again_to_exit">Odejdete opětovným poklepáním</string>
+    <string name="video">Video</string>
+    <string name="volume">Hlasitost</string>
+    <string name="xgallery_no_next_video">Už jste u posledního videa</string>
+    <string name="xgallery_no_previous_video">Už jste u prvního videa</string>
+    <string name="xgallery_playing_lock_screen">Obrazovka uzamčena</string>
+    <string name="xgallery_playing_unlock_screen">Obrazovka odemčena</string>
+    <string name="xgallery_sound_off">Zvuk vypnutý</string>
+    <string name="xgallery_sound_on">Zvuk zapnutý</string>
+    <string name="zoom_in_out">Přiblížit/Oddálit</string>
+    <string name="music3_1_video_deleted_gpt">%s video smazáno</string>
+    <string name="music4_choose_allow">Zvolit Povolit</string>
+    <string name="open_settings_1">Jděte na Nastavení</string>
+    <string name="music4_error_playing_file_error">Přehrávání se nezdařilo, neplatný soubor.</string>
+    <string name="music4_error_playing_path_error">Přehrávání se nezdařilo, neplatná cesta k souboru.</string>
+    <string name="music3_1_song_added_gpt">Přidána &#60;b&#62;1&#60;/b&#62; píseň do %s</string>
+    <string name="music3_1_video_added_gpt">Přidáno &#60;b&#62;1&#60;/b&#62; video do %s</string>
+
+    <string name="all_reader2_major_update_gpt">Hlavní aktualizace</string>
+    <string name="all_reader2_new_version_en_desc_5_gpt">Vylepšený uživatelský zážitek</string>
+    <string name="all_reader2_new_version_gpt">Nová verze</string>
+    <string name="all_reader2_new_version_ready_gpt">Nová verze je připravena!</string>
+    <string name="all_reader2_new_version_title_plan1_gpt">Naše nejnovější verze získala 5 hvězdiček od %s uživatelů!</string>
+    <string name="booster2_new_version_des2_gpt">Přidejte se k %s spokojeným uživatelům a vylepšete si svůj zážitek na 5 hvězdiček!</string>
+    <string name="booster2_new_version_des3_gpt">Naše nejnovější verze se může pochlubit impozantní mírou spokojenosti %s dosud.</string>
+    <string name="booster2_version_update">Aktualizace verze</string><!-- gpt翻译 -->
+    <string name="install">Instalovat</string>
+    <string name="lyrics_source_gpt">Zdroj textů písní: anonymní uživatel</string>
+    <string name="pdf_reader3_update_from_gp_gpt">Neúspěch, prosím aktualizujte z Google Play</string>
+    <string name="recommended">Doporučeno</string>
+    <string name="step4_update_reason_1_gpt">V této aktualizaci jsme opravili několik problémů a zlepšili celkový výkon aplikace.</string>
+    <string name="update">aktualizovat</string>
+    <string name="update_failed_network_wg_gpt">Aktualizace se nezdařila, zkontrolujte svou síť a zkuste to znovu</string>
+    <string name="update_now_for_better_1">Můžete se &#60;b&#62;nyní aktualizovat&#60;/b&#62; pro lepší zážitek.</string>
+    <string name="updating">Probíhá aktualizace...</string>
+    <string name="upgrade">Upgradovat</string>
+    <string name="upgrade_to_new_version">Zažijte vylepšený výkon a zvýšenou stabilitu s naší nejnovější verzí. \n\n&#60;b&#62;Klepněte pro upgrade nyní.&#60;/b&#62;</string>
+    <string name="upload_lyrics_statement_gpt">Při nahrávání textů písní do naší aplikace se prosím ujistěte, že máte k tomu právo a že vaše nahrání neporušuje žádná práva duševního vlastnictví. Nahráním nás opravňujete k bezplatnému použití vašeho obsahu a budeme uvádět jeho zdroj jako \&#34;anonymní uživatel\&#34;.</string>
+    <string name="video_player_in_music_gpt">Přehrávač videa</string>
+    <string name="video_player_moved_gpt">Přehrávač videa byl přesunut sem</string>
+</resources>

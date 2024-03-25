@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!--标题栏-->
+    <style name="MusicTheme.AppBar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:navigationIcon">@drawable/ic_app_back</item>
+        <item name="navigationIcon">@drawable/ic_app_back</item>
+        <item name="android:titleTextAppearance">@style/MusicTheme.AppBar.Title</item>
+        <item name="titleTextAppearance">@style/MusicTheme.AppBar.Title</item>
+        <item name="android:subtitleTextAppearance">@style/MusicTheme.AppBar.SubTitle</item>
+        <item name="subtitleTextAppearance">@style/MusicTheme.AppBar.SubTitle</item>
+        <item name="contentInsetStartWithNavigation">0dp</item>
+        <item name="contentInsetStart">@dimen/dp_10</item>
+        <item name="android:paddingEnd">@dimen/dp_10</item>
+    </style>
+
+    <style name="MusicTheme.AppBarVideo" parent="MusicTheme.AppBar">
+        <item name="android:navigationIcon">@drawable/ic_app_back</item>
+        <item name="navigationIcon">@drawable/ic_app_back</item>
+        <item name="android:titleTextAppearance">@style/MusicTheme.AppBar.Title24</item>
+        <item name="titleTextAppearance">@style/MusicTheme.AppBar.Title24</item>
+        <item name="android:subtitleTextAppearance">@style/MusicTheme.AppBar.SubTitle</item>
+        <item name="subtitleTextAppearance">@style/MusicTheme.AppBar.SubTitle</item>
+        <item name="contentInsetStartWithNavigation">0dp</item>
+        <item name="contentInsetStart">@dimen/dp_10</item>
+        <item name="android:paddingEnd">@dimen/dp_10</item>
+    </style>
+
+    <style name="MusicTheme.AppBar.Title" parent="android:TextAppearance">
+        <item name="android:textSize">@dimen/sp_18</item>
+        <item name="android:textColor">?attr/textColorPrimary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <style name="MusicTheme.AppBar.Title24" parent="android:TextAppearance">
+        <item name="android:textSize">@dimen/sp_24</item>
+        <item name="android:textColor">?attr/textColorPrimary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MusicTheme.AppBar.SubTitle" parent="android:TextAppearance">
+        <item name="android:textSize">@dimen/sp_13</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">?attr/textColorSecondary</item>
+    </style>
+
+
+    <!--PopupMenu-->
+    <style name="MusicTheme.PopupMenu" parent="@android:style/Widget.PopupMenu">
+        <item name="android:popupBackground">@drawable/default_popup_background</item>
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!--Loading弹窗-->
+    <style name="LoadingProgressDialogComponent" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorAccent</item>
+    </style>
+
+    <!--透明弹窗-->
+    <style name="TranslucentBottomSheetDialog" parent="Theme.MaterialComponents.BottomSheetDialog">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="bottomSheetStyle">@style/TranslucentBottomSheetDialogModal</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:navigationBarColor">@color/bottom.dialog.bg.color</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowSoftInputMode">adjustPan</item>
+    </style>
+
+    <style name="TranslucentBottomSheetDialogModal" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+
+    <!--Item 样式-->
+    <style name="Item.ParentContainer" parent="">
+        <item name="android:paddingTop">@dimen/dp_10</item>
+        <item name="android:paddingBottom">@dimen/dp_10</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
+
+    <style name="Item.NormalTitle" parent="android:TextAppearance">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/sp_16</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">?attr/textColorPrimary</item>
+    </style>
+
+    <style name="Item.NormalTitle.MultiLine" parent="Item.NormalTitle">
+        <item name="android:singleLine">false</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+
+    <style name="Item.NormalMore" parent="">
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginEnd">?attr/IconEndMargin</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:clickable">true</item>
+        <item name="android:padding">?attr/IconButtonPadding</item>
+        <item name="android:scaleType">center</item>
+    </style>
+
+    <style name="Item.NormalDesc" parent="android:TextAppearance">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/sp_13</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">?attr/textColorSecondary</item>
+    </style>
+
+    <style name="Item.NormalDesc.MultiLine" parent="Item.NormalDesc">
+        <item name="android:singleLine">false</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <!--底部弹窗主题   Begin-->
+    <style name="BottomDialog" />
+
+    <!--父视图-->
+    <style name="BottomDialog.ParentContainer">
+        <item name="android:paddingTop">@dimen/dp_24</item>
+        <item name="android:paddingBottom">@dimen/dp_24</item>
+        <item name="android:paddingLeft">@dimen/dp_20</item>
+        <item name="android:paddingRight">@dimen/dp_20</item>
+    </style>
+    <!--标题-->
+    <style name="BottomDialog.Title">
+        <item name="android:textSize">@dimen/sp_20</item>
+        <item name="android:textColor">?attr/bottom.dialog.title.color</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <!--二级消息-->
+    <style name="BottomDialog.Message">
+        <item name="android:textSize">@dimen/sp_16</item>
+        <item name="android:textColor">?attr/bottom.dialog.summary.color</item>
+    </style>
+
+    <!--按钮布局-->
+    <style name="BottomDialog.ButtonContainer">
+        <item name="android:minHeight">?attr/ConnerBtnHeight</item>
+    </style>
+
+    <!--弹窗中的按钮-->
+    <style name="BottomDialog.Button">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/sp_16</item>
+    </style>
+
+    <!--弹窗中确认按钮-->
+    <style name="BottomDialog.Button.Confirm">
+        <item name="conner_btn_ripple_color">@color/colorRipple</item>
+        <item name="conner_btn_radius">100dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="conner_btn_solid_color">@color/colorAccent</item>
+    </style>
+
+    <!--弹窗中的取消按钮-->
+    <style name="BottomDialog.Button.Cancel">
+        <item name="conner_btn_ripple_color">@color/colorRipple</item>
+        <item name="conner_btn_radius">100dp</item>
+        <item name="conner_btn_stroke_width">1.5dp</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="conner_btn_stroke_color">@color/colorAccent</item>
+    </style>
+
+    <!--底部弹窗主题  End-->
+
+    <!--对应 ShapeableImageView 圆形设置-->
+    <style name="ShapeableImageView">
+
+    </style>
+
+    <style name="ShapeableImageView.Round">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/dp_8</item>
+    </style>
+
+    <style name="ShapeableImageView.Round.Large">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/dp_16</item>
+    </style>
+
+    <style name="ShapeableImageView.Circle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+
+    <!--圆角Button对应Style-->
+    <style name="CornButton">
+        <item name="conner_btn_ripple_color">@color/colorRipple</item>
+        <item name="conner_btn_radius">100dp</item>
+    </style>
+
+    <style name="CornButton.Solid">
+        <item name="android:textColor">@color/white</item>
+        <item name="conner_btn_solid_color">@color/colorAccent</item>
+    </style>
+
+    <style name="CornButton.Stroke">
+        <item name="android:textColor">?attr/textColorSecondary</item>
+        <item name="conner_btn_stroke_color">@color/colorSecondary</item>
+        <item name="conner_btn_stroke_width">1.5dp</item>
+    </style>
+
+    <style name="CornButton.Stroke.Accent">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="conner_btn_stroke_color">@color/colorAccent</item>
+    </style>
+
+    <!--LinkBuilder 颜色配置-->
+    <style name="DefaultLinkBuilder">
+        <item name="defaultLinkColor">@color/colorAccent</item>
+        <item name="defaultTextColorOfHighlightedLink">?attr/textColorSecondary</item>
+    </style>
+
+    <!--ToastView 配置-->
+    <style name="DefaultToastStyle" parent="ToastCompatStyle">
+
+    </style>
+
+    <!--SeekBar 主题配置-->
+    <style name="DefaultSeekbar" parent="@style/Widget.AppCompat.SeekBar">
+        <item name="android:progressDrawable">@drawable/default_seekbar_progress</item>
+        <item name="android:thumb">@drawable/default_seekbar_thumb</item>
+        <item name="android:splitTrack">false</item>
+    </style>
+
+
+</resources>

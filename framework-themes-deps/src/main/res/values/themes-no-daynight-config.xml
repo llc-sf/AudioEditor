@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 主题，不需要黑色和白色主题切换的设置-->
+    <style name="MusicTheme" parent="BasicMusicThemeDayNight">
+        <item name="android:windowDisablePreview">true</item>
+    </style>
+
+    <style name="MusicActionButtonStyle" parent="@style/Widget.AppCompat.ActionButton">
+        <item name="android:minWidth">@dimen/dp_48</item>
+        <item name="android:minHeight">@dimen/dp_48</item>
+        <item name="android:paddingStart">@dimen/dp_10</item>
+        <item name="android:paddingEnd">@dimen/dp_10</item>
+    </style>
+
+    <style name="MusicOverActionButtonStyle" parent="@style/Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:minWidth">@dimen/dp_48</item>
+        <item name="android:minHeight">@dimen/dp_48</item>
+        <item name="android:paddingStart">@dimen/dp_10</item>
+        <item name="android:paddingEnd">@dimen/dp_10</item>
+    </style>
+
+    <!--全屏通用-->
+    <style name="MusicTheme.FullScreen">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+
+    <style name="MusicTheme.FullScreen.Splash">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    </style>
+
+    <!--NowPlaying 从底部弹出-->
+    <style name="MusicTheme.NowPlaying">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+
+        <item name="android:windowAnimationStyle">@style/MusicActivityAnimStyleBottom</item>
+        <item name="android:windowEnterAnimation">@anim/default_page_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/default_page_bottom_out</item>
+    </style>
+
+
+    <!--Activity 转场动画-->
+    <style name="MusicActivityAnimStyle" parent="@android:style/Animation.Activity">
+        <!-- 新Activity 进入 -->
+        <item name="android:activityOpenEnterAnimation">@anim/default_slide_right_in</item>
+        <!-- 旧Activity退出 -->
+        <item name="android:activityOpenExitAnimation">@anim/default_slide_left_out</item>
+        <!-- 新Activity退出 -->
+        <item name="android:activityCloseExitAnimation">@anim/default_slide_right_out</item>
+        <!-- 旧Activity进入 -->
+        <item name="android:activityCloseEnterAnimation">@anim/default_slide_left_in</item>
+    </style>
+
+
+    <!--Activity 转场动画 底部进入-->
+    <style name="MusicActivityAnimStyleBottom" parent="@android:style/Animation.Activity">
+        <!-- 新Activity 进入 -->
+        <item name="android:activityOpenEnterAnimation">@anim/default_page_bottom_in</item>
+        <!-- 旧Activity退出 -->
+        <item name="android:activityOpenExitAnimation">@anim/default_page_fade_out</item>
+        <!-- 新Activity退出 -->
+        <item name="android:activityCloseExitAnimation">@anim/default_page_bottom_out</item>
+        <!-- 旧Activity进入 -->
+        <item name="android:activityCloseEnterAnimation">@anim/default_page_fade_in</item>
+    </style>
+
+
+    <!--EditText View Theme样式-->
+    <style name="DefaultEditTextTheme" parent="MusicTheme">
+        <item name="colorControlNormal">?attr/EditTextTintColor</item>
+    </style>
+
+    <style name="EditTexTheme_a1" parent="MusicTheme">
+        <item name="colorControlNormal">@color/black.a1.alpha20</item>
+        <item name="colorControlActivated">@color/black.a1.alpha20</item>
+    </style>
+</resources>

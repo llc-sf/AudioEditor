@@ -1,0 +1,695 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="abbre_minute">น</string>
+
+    <string name="access_all_features">เข้าถึงฟีเจอร์ใหม่ทั้งหมดได้ฟรีเมื่อมีการอัปเดตเวอร์ชันในอนาคต</string>
+    <string name="access_files">อนุญาตให้เข้าถึงไฟล์สื่อบนอุปกรณ์</string>
+
+    <string name="action_continue">ดำเนินการต่อ</string>
+    <string name="action_ok">ตกลง</string>
+    <string name="action_reset">รีเซ็ต</string>
+
+    <string name="add_playlist_unknow_error">สร้างเพลย์ลิสต์ไม่ได้</string>
+    <string name="add_to_playlist">เพิ่มไปยังเพลย์ลิสต์</string>
+    <string name="add_to_queue">เพิ่มไปที่คิว</string>
+    <string name="add_tracks">เพิ่มเพลง</string>
+
+    <string name="added_to_favourite">เพิ่มไปที่รายการโปรดแล้ว</string>
+
+    <string name="agree_continue">ยอมรับและดำเนินการต่อ</string>
+
+    <string name="album_title">อัลบั้ม</string>
+
+    <string name="albums">อัลบั้ม</string>
+
+    <string name="all_songs">เพลงทั้งหมด</string>
+
+    <string name="allow">อนุญาต</string>
+    <string name="allow_access">อนุญาตการเข้าถึง</string>
+    <string name="allow_access_storage">อนุญาตให้เข้าถึงพื้นที่เก็บข้อมูล</string>
+    <string name="allow_all_time">อนุญาตตลอดเวลา</string>
+
+    <string name="already_exists">มีอยู่แล้ว</string>
+
+    <string name="app_name_compat_mp3">เพลงฟรี</string>
+    <string name="app_name_compat_music">แอปมิวสิคเ</string>
+
+    <string name="apply_more_permission_killed_dialog_title">%s ถูกบังคับให้หยุด</string>
+
+    <string name="artist_name">ชื่อศิลปิน</string>
+    <string name="artist_title">ศิลปิน</string>
+
+    <string name="artists">ศิลปิน</string>
+
+    <string name="ask_like_app">คุณพอใจกับ %s หรือไม่</string>
+
+    <string name="auto_backups">สำรองข้อมูลอัตโนมัติ</string>
+
+    <string name="backup">การสำรองข้อมูล</string>
+    <string name="backup_fail">สำรองข้อมูลไม่สำเร็จ</string>
+    <string name="backup_playlist">สำรองข้อมูลเพลย์ลิสต์</string>
+    <string name="backup_success">สำรองข้อมูลสำเร็จ</string>
+    <string name="backup_summary_playlist">%d เพลย์ลิสต์</string>
+    <string name="backup_summary_playlists">%d เพลย์ลิสต์</string>
+    <string name="backup_title">สำรองข้อมูลไหม?</string>
+
+    <string name="bass_boost">เบสบูสต์</string>
+
+    <string name="battery_opt_content">เพื่อหลีกเลี่ยงการหยุดเล่นเพลงผิดปกติ โปรดให้สิทธิ์ที่จำเป็นแก่ %s</string>
+    <string name="battery_opt_title_first">หลีกเลี่ยงการหยุดผิดปกติ</string>
+
+    <string name="blur">เบลอ</string>
+
+    <string name="cancel">ยกเลิก</string>
+    <string name="cancel_favorite_success">ลบออกจากรายการโปรดแล้ว</string>
+
+    <string name="change_album_art">เปลี่ยนปกอัลบั้ม</string>
+    <string name="change_cover">เปลี่ยนหน้าปก</string>
+    <string name="change_cover_failed">เปลี่ยนปกอัลบั้มไม่สำเร็จ</string>
+    <string name="change_language_title">เลือกภาษา</string>
+    <string name="change_picture">เปลี่ยนรูปภาพ</string>
+
+    <string name="choose_allow">เลือก \"อนุญาต\"</string>
+
+    <string name="clear">ล้าง</string>
+    <string name="clear_playlist">ล้าง %s</string>
+    <string name="clear_queue_info">คุณแน่ใจหรือว่าต้องการล้างคิวเพลง</string>
+
+    <string name="color">สี</string>
+
+    <string name="confirm_and_fix">เราจะตรวจสอบปัญหาและแก้ไขในเวอร์ชันถัดไปโดยเร็วที่สุด!</string>
+    <string name="confirm_information">ยืนยันข้อมูล</string>
+
+    <string name="continue_to_work_hard">เราจะพยายามอย่างเต็มที่ต่อไป</string>
+
+    <string name="count_album">%d อัลบั้ม</string>
+    <string name="count_albums">%d อัลบั้ม</string>
+    <string name="count_artist">%s ศิลปิน</string>
+    <string name="count_artists">%s ศิลปิน</string>
+    <string name="count_folder">%s โฟลเดอร์</string>
+    <string name="count_folders">%s โฟลเดอร์</string>
+    <string name="count_genre">%s ประเภท</string>
+    <string name="count_genres">%s ประเภท</string>
+    <string name="count_media_file">ไฟล์สื่อ %d ไฟล์</string>
+    <string name="count_media_files">ไฟล์สื่อ %d ไฟล์</string>
+    <string name="count_song">%d เพลง</string>
+    <string name="count_songs">%d เพลง</string>
+    <string name="count_sub_folder">%d โฟลเดอร์ย่อย</string>
+    <string name="count_sub_folders">%d โฟลเดอร์ย่อย</string>
+
+    <string name="create">สร้าง</string>
+    <string name="create_new_playlist">สร้างเพลย์ลิสต์ใหม่</string>
+
+    <string name="created_playlist">สร้างเพลย์ลิสต์ %s แล้ว</string>
+
+    <string name="delete">ลบ</string>
+    <string name="delete_failed">ลบไม่สำเร็จ</string>
+    <string name="delete_from_device">ลบจากอุปกรณ์</string>
+    <string name="delete_permission_access">โปรดตรวจสอบให้แน่ใจว่าได้ &lt;b&gt;เลือกโฟลเดอร์ที่ถูกต้อง&lt;/b&gt; เมื่อให้สิทธิ์</string>
+    <string name="delete_playlist_message">แน่ใจหรือไม่ว่าต้องการลบเพลย์ลิสต์ %1$s?</string>
+    <string name="delete_playlist_title">ลบเพลย์ลิสต์</string>
+    <string name="delete_some_no_premission">ในขณะที่คนอื่นดำเนินการไม่สำเร็จเนื่องจากไม่มีสิทธิ์</string>
+    <string name="delete_song">ลบเพลงไหม?</string>
+    <string name="delete_song_message">แน่ใจหรือไม่ว่าต้องการลบ %1$s?</string>
+
+    <string name="deleted_success">ลบสำเร็จ</string>
+
+    <string name="details">รายละเอียด</string>
+
+    <string name="dialog_message_set_ringtone">หากต้องการตั้งริงโทน จะต้องให้สิทธิ์ แอปมิวสิคเ เข้าถึงการเขียนการตั้งค่าระบบ\n\nหลังจากให้สิทธิ์แล้ว ให้ลองตั้งริงโทนอีกครั้ง</string>
+    <string name="dialog_title_set_ringtone">ตั้งริงโทน</string>
+
+    <string name="diet_for_you">สำหรับคุณ</string>
+
+    <string name="directories">ไดเรกทอรี</string>
+
+    <string name="directory_empty">ไดเรกทอรีว่างเปล่า</string>
+
+    <string name="disagree_exit">ไม่ยอมรับและออก</string>
+
+    <string name="discard">ละทิ้ง</string>
+
+    <string name="done">เสร็จ</string>
+
+    <string name="duration">ระยะเวลา</string>
+
+    <string name="edit">แก้ไข</string>
+    <string name="edit_photo">แก้ไขรูปภาพ</string>
+    <string name="edit_tag">แก้ไขแท็ก</string>
+    <string name="edit_tags">แก้ไขแท็ก</string>
+
+    <string name="enable_lock_screen_tip">เปิดได้โดยไปที่ \"การตั้งค่า - เล่นเพลงในขณะล็อกหน้าจอ\"</string>
+
+    <string name="end_period">สิ้นสุด</string>
+
+    <string name="enhancer_best_rating">คะแนนที่ดีที่สุดสำหรับเรา</string>
+    <string name="enhancer_thanks_rate_us">ขอบคุณที่ใช้ %s!\nเราจะขอบคุณเป็นอย่างยิ่งหากคุณช่วยสละเวลาให้คะแนนเรา</string>
+
+    <string name="entered_same_name">ชื่อนี้มีผู้ใช้แล้ว โปรดลองชื่ออื่น</string>
+
+    <string name="equ_custom">กำหนดเอง</string>
+
+    <string name="equalizer">อีควอไลเซอร์</string>
+
+    <string name="error_playing_file_error">เล่นไม่สำเร็จ ไม่มีไฟล์นี้</string>
+    <string name="error_playing_normal">เล่นไม่สำเร็จ เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ</string>
+    <string name="error_playing_path_error">เล่นไม่สำเร็จ พาธผิดพลาด</string>
+    <string name="error_playing_track">เกิดข้อผิดพลาดในการเล่นเพลง %1$s</string>
+
+    <string name="exe_all">ทั้งหมด</string>
+
+    <string name="exit">ออก</string>
+    <string name="exit_1">ออก</string>
+    <string name="exit_scan">ออกจากการสแกนไหม?</string>
+
+    <string name="featured">แนะนำ</string>
+
+    <string name="feedback">คำติชม</string>
+    <string name="feedback_mail_text">ข้อมูลระบบ</string>
+
+    <string name="file_not_exist">ไม่มีไฟล์นี้</string>
+
+    <string name="folder_select_title">การเลือกโฟลเดอร์</string>
+
+    <string name="folders">โฟลเดอร์</string>
+
+    <string name="free_7_days_trial_1">ทดลองใช้ฟรี 7 วัน</string>
+    <string name="free_space_needed">พื้นที่ที่ต้องการ: %s (แนะนำ)</string>
+    <string name="free_space_to_ensure">กรุณาเพิ่มพื้นที่ว่างเพื่อให้แอปทำงานได้อย่างเหมาะสม</string>
+    <string name="free_up_space">เคลียร์พื้นที่ว่าง</string>
+
+    <string name="from_new_to_old">จากเก่าไปใหม่</string>
+    <string name="from_old_to_new">จากใหม่ไปเก่า</string>
+
+    <string name="general">ทั่วไป</string>
+
+    <string name="genre_title">ประเภท</string>
+
+    <string name="genres">ประเภท</string>
+
+    <string name="go_premium">สมัครบริการพรีเมียม</string>
+    <string name="go_to_album">ไปที่อัลบั้ม</string>
+    <string name="go_to_artist">ไปที่ศิลปิน</string>
+
+    <string name="good">ดี</string>
+
+    <string name="guide_allow_description">หากต้องการฟังเพลง\nจะต้องอนุญาตให้ แอปมิวสิคเ เข้าถึงไฟล์สื่อต่างๆ ในอุปกรณ์</string>
+    <string name="guide_enable_description_1">หากต้องการฟังเพลง คุณจะต้องทำดังนี้</string>
+
+    <string name="help">ช่วยเหลือ</string>
+
+    <string name="hidden_directory">โฟลเดอร์ที่ซ่อน</string>
+
+    <string name="hide">ซ่อน</string>
+
+    <string name="history">ประวัติ</string>
+
+    <string name="ignore_less_duration">ไม่สนใจระยะเวลาที่น้อยกว่า</string>
+    <string name="ignore_less_size">ไม่สนใจขนาดที่เล็กกว่า</string>
+    <string name="ignore_short_files">ไม่สแกนเพลงขนาดน้อยกว่า 50 KB</string>
+    <string name="ignore_short_song">ไม่สแกนเพลงความยาวน้อยกว่า 60 วินาที</string>
+
+    <string name="import_clip_tips">กรุณาเลือกเนื้อเพลงและคัดลอก</string>
+    <string name="import_clip_tips_html">กรุณา&lt;b&gt;เลือก&lt;/b&gt;เนื้อเพลงและ&lt;b&gt;คัดลอก&lt;/b&gt;</string>
+    <string name="import_clip_tips_save_title">นำเข้าเนื้อเพลง</string>
+    <string name="import_clip_tips_title">วิธีนำเข้าเนื้อเพลง</string>
+    <string name="import_tel">นำเข้า</string>
+
+    <string name="insufficient_space">พื้นที่ไม่เพียงพอ</string>
+
+    <string name="internal_sd">พื้นที่เก็บข้อมูลภายใน</string>
+
+    <string name="language_title">ภาษา</string>
+
+    <string name="last_backup">สำรองข้อมูลครั้งล่าสุด: %s</string>
+
+    <string name="library">ไลบรารี</string>
+
+    <string name="local">ในเครื่อง</string>
+    <string name="local_songs">เพลงท้องถิ่น</string>
+
+    <string name="location">ตำแหน่ง</string>
+
+    <string name="lock_screen_disable_confirm">ปิดฟังก์ชันเล่นเพลงในขณะล็อกหน้าจอไหม?</string>
+
+    <string name="lucky_desc">ตอนนี้ไม่ต้องเห็นโฆษณาแล้ว</string>
+    <string name="lucky_title">ยินดีด้วย! คุณโชคดีมาก</string>
+
+    <string name="lyrics_add_local">เพิ่มเนื้อเพลงที่มีในเครื่อง</string>
+    <string name="lyrics_edit_song_info">คุณสามารถแก้ไขข้อมูลเพลงเพื่อให้ได้เนื้อเพลงอย่างถูกต้อง</string>
+    <string name="lyrics_import_failed_no_format">การนำเข้าเนื้อเพลงล้มเหลว ไม่รองรับรูปแบบไฟล์</string>
+    <string name="lyrics_imported">นำเข้าเนื้อเพลงแล้ว</string>
+    <string name="lyrics_load_failed">ไม่สามารถโหลดเนื้อเพลง</string>
+    <string name="lyrics_loading">กำลังโหลดเนื้อเพลง…</string>
+    <string name="lyrics_net_error">อ๊ะะ กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ต</string>
+    <string name="lyrics_no_found">อ๊ะะ ไม่พบเนื้อเพลง</string>
+    <string name="lyrics_no_matches">ชื่อเพลงหรือชื่อศิลปินไม่ตรง</string>
+    <string name="lyrics_no_scroll">เนื้อเพลงไม่เลื่อนตาม</string>
+    <string name="lyrics_reset_msg">หากคุณทำเช่นนั้น ระบบจะลบเนื้อเพลงที่คุณเพิ่ม</string>
+    <string name="lyrics_reset_title">คุณแน่ใจหรือไม่ว่าต้องการรีเซ็ตเนื้อเพลง</string>
+    <string name="lyrics_search_online">ค้นหาออนไลน์</string>
+    <string name="lyrics_show_title">เนื้อเพลง</string>
+    <string name="lyrics_thanks_fb">ขอบคุณสำหรับคำติชม! เราจะพยายามปรับปรุงให้ดีที่สุด</string>
+    <string name="lyrics_tx_error">ข้อผิดพลาดข้อความเนื้อเพลง</string>
+
+    <string name="manage_playlist">จัดการ</string>
+
+    <string name="manual_backups">สำรองข้อมูลด้วยตนเอง</string>
+
+    <string name="more">เพิ่มเติม</string>
+    <string name="more_setting">การตั้งค่าเพิ่มเติม</string>
+
+    <string name="music">เพลง</string>
+
+    <string name="music3_apply_more_permission_killed_dialog_title">%s ถูกบังคับหยุด</string>
+    <string name="music3_battery_opt_content">โปรดให้สิทธิ์ที่จำเป็นแก่ %s เพื่อป้องกันไม่ให้การเล่นในพื้นหลังต้องหยุด</string>
+    <string name="music3_battery_opt_title_first">สำหรับการเล่นต่อเนื่องในพื้นหลัง</string>
+    <string name="music3_clear_queue_info">คิวการเล่นจะถูกล้าง คุณแน่ใจหรือที่จะไม่ว่าต้องการดำเนินการต่อ</string>
+    <string name="music3_delete_playlist_message">ลบเพลย์ลิสต์ %1$s หรือไม่</string>
+    <string name="music3_delete_song_message">ลบ %1$s หรือไม</string>
+    <string name="music3_exit_scan">เลิกสแกนหรือไม่</string>
+    <string name="music3_free_space_to_ensure">เพื่อให้แน่ใจว่าแอปทำงานอย่างถูกต้อง โปรดเพิ่มพื้นที่ว่าง</string>
+    <string name="music3_guide_allow_description">โปรดให้สิทธิ์ %s เข้าถึงไฟล์สื่อเพื่อเล่นเพลง</string>
+    <string name="music3_guide_enable_description_1">หากต้องการเล่นเพลง โปรด:</string>
+    <string name="music3_import_clip_tips_html">&lt;b&gt;เลือก&lt;/b&gt; เนื้อเพลง จากนั้น &lt;b&gt;คัดลอก&lt;/b&gt;</string>
+    <string name="music3_import_clip_tips_title">ฉันจะนำเข้าเนื้อเพลงได้อย่างไร</string>
+    <string name="music3_lyrics_edit_song_info">โปรดตรวจสอบให้แน่ใจว่าข้อมูลเพลงด้านล่างถูกต้องแล้วลองอีกครั้ง</string>
+    <string name="music3_lyrics_load_failed">โหลดเนื้อเพลงไม่สำเร็จ</string>
+    <string name="music3_lyrics_no_found">ขออภัย ไม่พบเนื้อเพลง</string>
+    <string name="music3_lyrics_no_matches">เพลงหรือศิลปินไม่ตรงกัน</string>
+    <string name="music3_lyrics_no_scroll">เนื้อเพลงไม่เลื่อน</string>
+    <string name="music3_lyrics_reset_msg">เนื้อเพลงที่คุณเพิ่มจะถูกลบหากคุณทำเช่นนั้น</string>
+    <string name="music3_lyrics_reset_title">รีเซ็ตเนื้อเพลงหรือไม่</string>
+    <string name="music3_lyrics_tx_error">เนื้อเพลงผิด</string>
+    <string name="music3_resume_playback_content">ตรวจพบว่าการเล่นเพลงถูกขัดจังหวะโดยแอปอื่น</string>
+    <string name="music3_resume_playback_title">เล่นต่อหรือไม่</string>
+    <string name="music3_summary_pause_detach">หยุดเล่นชั่วคราวเมื่อถอดหูฟังออก</string>
+    <string name="music3_tag_edit_discard_change">ออกและยกเลิกการเปลี่ยนแปลงหรือไม่</string>
+    <string name="music3_terms_of_service_should_agree">ยอมรับ %1$s &amp; %2$s ของเราแล้วเริ่มต้นเส้นทางแห่งเสียงเพลงของคุณ!</string>
+    <string name="music3_thanks_for_your_feedback">ขอบคุณสำหรับคำติชมอันมีค่าของคุณ</string>
+
+    <string name="music_guide_allow_description">หากต้องการฟังเพลง จะต้องอนุญาตให้ %s เข้าถึงไฟล์สื่อต่างๆ ในอุปกรณ์</string>
+    <string name="music_player_share_text">นี่คือเพลงสำหรับคุณจาก %1$s</string>
+
+    <string name="my_favourite">ของโปรด</string>
+
+    <string name="network_error">ข้อผิดพลาดเครือข่าย</string>
+    <string name="network_error_pls_try">เครือข่ายผิดพลาด โปรดลองใหม่ภายหลัง</string>
+
+    <string name="new_playlist">เพลย์ลิสต์ใหม่</string>
+    <string name="new_share_email_text">ฉันใช้ แอปมิวสิคเ อยู่\\n\\nลองใช้ดูสิ ดาวน์โหลดแอปได้ที่นี่\\n</string>
+
+    <string name="next_song">เพลงถัดไป</string>
+
+    <string name="no_backup">ไม่พบข้อมูลสำรอง</string>
+    <string name="no_document_provider">ไม่มีผู้ให้บริการเอกสารที่สามารถจัดการคำขออนุญาตได้</string>
+    <string name="no_songs_found">ไม่พบเพลง</string>
+
+    <string name="not_good">ไม่ค่อยพอใจ</string>
+
+    <string name="nothing_found">ไม่พบสิ่งใด</string>
+
+    <string name="now_playing">ธีมโปรแกรมเล่น</string>
+
+    <string name="number_song_add_playlist">เพิ่ม %d เพลงไปที่เพลย์ลิสต์</string>
+    <string name="number_song_add_queue">เพิ่ม %d เพลงไปที่คิว</string>
+    <string name="number_song_selected">เลือกแล้ว %d เพลง</string>
+    <string name="number_songs_add_playlist">เพิ่ม %d เพลงไปที่เพลย์ลิสต์</string>
+    <string name="number_songs_add_queue">เพิ่ม %d เพลงไปที่คิว</string>
+    <string name="number_songs_selected">เลือกแล้ว %d เพลง</string>
+
+    <string name="off">ปิด</string>
+
+    <string name="open_settings">เปิดการตั้งค่า</string>
+
+    <string name="options_ads">โฆษณาเยอะเกินไป</string>
+    <string name="options_bugs">ข้อผิดพลาด</string>
+    <string name="options_music_stop">เพลงหยุดเล่น</string>
+    <string name="options_others">อื่น ๆ</string>
+    <string name="options_songs_not_found">บางเพลงไม่ถูกแสดง</string>
+    <string name="options_suggestions">คำแนะนำ</string>
+
+    <string name="pause_detach">หยุดขณะเสียบหูฟัง</string>
+
+    <string name="pg_permission_dialog_title">ต้องได้รับสิทธิ์การเข้าถึง</string>
+
+    <string name="play">เล่น</string>
+    <string name="play_after_song">เล่นหลังจากเพลงปัจจุบัน</string>
+    <string name="play_next">เล่นเพลงถัดไป</string>
+
+    <string name="playing_queue">คิวเพลง</string>
+
+    <string name="playlist">เพลย์ลิสต์</string>
+    <string name="playlist_already_exist">มีเพลง %1$s อยู่แล้ว</string>
+    <string name="playlist_edit_hint">ใส่ชื่อเพลย์ลิสต์</string>
+    <string name="playlist_last_added">เพิ่มล่าสุด</string>
+    <string name="playlist_most_played">เล่นมากที่สุด</string>
+    <string name="playlist_recently_played">เล่นล่าสุด</string>
+    <string name="playlist_top_tracks">เพลงยอดนิยม</string>
+
+    <string-array name="preset_reverb">
+        <!--It refes to no reverb effect.-->
+        <item>ไม่มี</item>
+        <!--It is one of reverb types. You will enjoy the music just like in a small room.-->
+        <item>ห้องขนาดเล็ก</item>
+        <!--It is one of reverb types. You will enjoy the music just like in a medium room.-->
+        <item>ห้องขนาดกลาง</item>
+        <!--It is one of reverb types. You will enjoy the music just like in a large room.-->
+        <item>ห้องขนาดใหญ่</item>
+        <!--It is one of reverb types. You will enjoy the music just like in a large hall.-->
+        <item>ห้องโถงขนาดกลาง</item>
+        <!--It is one of reverb types. You will enjoy the music just like in large hall.-->
+        <item>ห้องโถงขนาดใหญ่</item>
+        <!--It is one of reverb types. You will enjoy the music just like from a plate. Plate here you can understand it as a metal plate.-->
+        <item>แผ่นโลหะ</item>
+    </string-array>
+
+    <string name="price_lifetime">%s/ชำระครั้งเดียว</string>
+
+    <string name="privacy_policy">นโยบายความเป็นส่วนตัว</string>
+
+    <string name="queue">คิว</string>
+
+    <string name="rate_us">มาให้เราทางคะแนน</string>
+
+    <string name="rating_we_like_you">เราก็ชอบคุณเช่นกัน!</string>
+
+    <string name="reader_exit_ads">คุณแน่ใจหรือไม่ว่าต้องการออก</string>
+
+    <string name="remaining_x">พื้นที่ที่เหลือ: %s</string>
+
+    <string name="remind_me_anymore">ไม่ต้องเตือนฉันอีกต่อไป</string>
+
+    <string name="remove">ลบ</string>
+    <string name="remove_ad">ลบโฆษณา</string>
+    <string name="remove_from_playlist">ลบออกจากเพลย์ลิสต์</string>
+    <string name="remove_from_queue">นำออกจากคิว</string>
+    <string name="remove_song_message">คุณแน่ใจหรือไม่ว่าต้องการลบ %s</string>
+
+    <string name="rename">ตั้งชื่อใหม่</string>
+    <string name="rename_failed">ตั้งชื่อใหม่ไม่สำเร็จ</string>
+    <string name="rename_success">ตั้งชื่อใหม่สำเร็จ</string>
+
+    <string name="repeat_loop">ลูปทั้งหมด</string>
+    <string name="repeat_off">วนซ้ำ ปิด</string>
+    <string name="repeat_order">ลำดับ</string>
+    <string name="repeat_repeat">เล่นรายการปัจจุบันซ้ำ</string>
+    <string name="repeat_shuffle">สลับรายการทั้งหมด</string>
+
+    <string name="restore_failed">กู้คืนไม่สำเร็จ</string>
+    <string name="restore_playlist">กู้คืนเพลย์ลิสต์</string>
+    <string name="restore_success">กู้คืนสำเร็จ</string>
+
+    <string name="result">ผลลัพธ์</string>
+
+    <string name="resume">นับก้าวต่อ</string>
+    <string name="resume_playback_content">เราพบว่าการเล่นเพลงถูกขัดจังหวะโดยแอปพลิเคชันอื่น</string>
+    <string name="resume_playback_title">คุณต้องการเล่นต่อหรือไม่</string>
+
+    <string name="retry">ลองใหม่อีกครั้ง</string>
+
+    <string name="reverb">เสียงก้อง</string>
+
+    <string name="ringtone_set">ตั้งริงโทนสำเร็จ</string>
+    <string name="ringtone_set_failed">ตั้งริงโทนไม่สำเร็จ</string>
+
+    <string name="save">บันทึก</string>
+
+    <string name="saving_tags">กำลังบันทึกแท็ก...</string>
+
+    <string name="scan">สแกน</string>
+    <string name="scan_library">สแกนเพลง</string>
+    <string name="scan_result">%1$s เพลง ถูกเพิ่มไปที่ %2$s</string>
+
+    <string name="scanner_lib_rate_leave_feedback">ยินดีรับฟังข้อเสนอแนะของคุณ</string>
+    <string name="scanner_lib_rate_like_you">ขอบคุณมาก!</string>
+    <string name="scanner_share_dialog_title_2">ขอบคุณสำหรับการสนับสนุนของคุณ!</string>
+
+    <string name="scanning">กำลังสแกน</string>
+
+    <string name="screen_lock_play">เล่นเพลงในขณะล็อกหน้าจอ</string>
+
+    <string name="sd_card_access_step_1_format">
+        <![CDATA[แตะปุ่มที่มุมซ้ายบนและ<font color=\"#F44831\"><b>เลือกการ์ด SD</b></font>]]>
+    </string>
+    <string name="sd_card_access_step_2_format">
+        <![CDATA[<font color=\"#F44831\"><b>แตะ \'เลือก\'</b></font> ที่ด้านล่างของหน้าจอถัดไปเพื่อให้สิทธิ์ในการเขียน]]>
+    </string>
+    <string name="sd_tips">โปรดเลือก&lt;b&gt;ไดเรกทอรีราก&lt;/b&gt;ของ SD การ์ด &lt;br/&gt;&lt;b&gt;(%s)&lt;/b&gt; เพื่ออนุญาตดำเนินการ</string>
+
+    <string name="sdcard_permission_required">สิทธิ์ที่จำเป็นในการลบเพลงออกจากการ์ด SD</string>
+
+    <string name="search">ค้นหา</string>
+    <string name="search_albums">ค้นหาอัลบั้ม</string>
+    <string name="search_artists">ค้นหาศิลปิน</string>
+    <string name="search_folders">ค้นหาโฟลเดอร์</string>
+    <string name="search_genres">ค้นหาประเภท</string>
+    <string name="search_history">ประวัติการค้นหา</string>
+    <string name="search_library">ค้นหาไลบรารี</string>
+    <string name="search_music_on_youtube">ค้นหาเพลงจาก YouTube</string>
+    <string name="search_on_youtube">ค้นหาบนYouTube</string>
+    <string name="search_songs">ค้นหาเพลง</string>
+
+    <string name="select_all">เลือกทั้งหมด</string>
+    <string name="select_backup">เลือกบันทึกแบ็คอัปเพื่อกู้ข้อมูล</string>
+    <string name="select_folder">เลือกโฟลเดอร์</string>
+
+    <string name="set">ตั้งค่า</string>
+    <string name="set_as_ringtone">ตั้งเป็นริงโทน</string>
+    <string name="set_ringtone">ตั้งค่า %s เป็นเสียงเรียกเข้า</string>
+    <string name="set_ringtone_message">ในการตั้งค่าเสียงเรียกเข้าของคุณ โปรดอนุญาตสิทธิ์ที่จำเป็น</string>
+
+    <string name="settings">การตั้งค่า</string>
+
+    <string name="share">แชร์</string>
+    <string name="share_email_title">แชร์ แอปมิวสิคเ กับคุณ</string>
+
+    <string name="show">แสดง</string>
+
+    <string name="shuffle">สุ่ม</string>
+    <string name="shuffle_off">สุ่ม ปิด</string>
+    <string name="shuffle_on">สุ่ม เปิด</string>
+
+    <string name="size">ขนาด</string>
+
+    <string name="sleep_timer">ตัวตั้งเวลาปิด</string>
+
+    <string name="slide_to_unlock">สไลด์เพื่อปลดล็อก</string>
+
+    <string name="song">เพลง</string>
+    <string name="song_added_plural">เพิ่ม %s เพลงใหม่แล้ว</string>
+    <string name="song_added_singular">เพิ่ม %s เพลงใหม่แล้ว</string>
+    <string name="song_deleted">ลบ %d เพลงแล้ว</string>
+    <string name="song_name">ชื่อเพลง</string>
+    <string name="song_scanned_plural">สแกน %s เพลงแล้ว</string>
+    <string name="song_scanned_singular">สแกน %s เพลงแล้ว</string>
+    <string name="song_title">ชื่อ</string>
+
+    <string name="songs">เพลง</string>
+    <string name="songs_deleted">ลบ %d เพลงแล้ว</string>
+
+    <string name="sort_by">จัดเรียงตาม</string>
+    <string name="sort_by_name">ชื่อ</string>
+    <string name="sort_key_add_playlist">เวลาที่เพิ่มลงในเพลย์ลิสต์</string>
+    <string name="sort_key_album_name">ชื่ออัลบั้ม</string>
+    <string name="sort_key_number_of_albums">จำนวนอัลบั้ม</string>
+    <string name="sort_key_time_added">เพิ่มเวลาแล้ว</string>
+    <string name="sort_key_track">ลำดับในอัลบั้ม</string>
+    <string name="sort_order_a_z">จาก A ถึง Z</string>
+    <string name="sort_order_big_small">จากใหญ่ไปเล็ก</string>
+    <string name="sort_order_entry_number_of_songs">จำนวนเพลง</string>
+    <string name="sort_order_long_short">จากยาวไปสั้น</string>
+    <string name="sort_order_short_long">จากสั้นไปยาว</string>
+    <string name="sort_order_small_big">จากเล็กไปใหญ่</string>
+    <string name="sort_order_z_a">จาก Z ถึง A</string>
+
+    <string name="start">เริ่ม</string>
+
+    <string name="storage">การเก็บรักษา</string>
+
+    <string name="subscription_des_music">เมื่อสมัครสมาชิก คุณจะสามารถเข้าถึงไลบรารีเนื้อหาภายในแอปได้ไม่ จำกัด หากคุณไม่ทำการยกเลิกก่อนที่ช่วงทดลองใช้ฟรีจะสิ้นสุด คุณจะถูกเรียกเก็บเงิน %s โดยอัตโนมัติทุกเดือนจนกว่าคุณจะยกเลิก</string>
+    <string name="subscription_detail">รายละเอียดการสมัคร</string>
+    <string name="subscription_price">หลังจากนั้น ราคา %s/เดือน</string>
+
+    <string name="summary_feedback">รายงานข้อบกพร่องและเสนอแนะสิ่งที่ควรปรับปรุง</string>
+    <string name="summary_pause_detach">เปิด/ปิดการหยุดเล่นเพลงชั่วคราวในขณะถอดหูฟัง</string>
+    <string name="summary_rateUs">ชอบแอปนี้ไหม? กรุณาให้คะแนนด้วย!</string>
+    <string name="summary_screen_lock_play">แสดงเพลงที่เล่นอยู่ในขณะล็อกหน้าจอ</string>
+
+    <string name="system">ระบบ</string>
+    <string name="system_default">เริ่มต้นระบบ</string>
+
+    <string name="tag_edit_discard_change">แน่ใจหรือไม่ว่าต้องการยกเลิกการเปลี่ยนแปลงนี้?</string>
+    <string name="tag_edit_error">แก้ไขไม่สำเร็จ</string>
+    <string name="tag_edit_success">แก้ไขสำเร็จ</string>
+
+    <string name="tap_permission">แตะที่สิทธิ์</string>
+    <string name="tap_to_start">แตะเพื่อเริ่ม แอปมิวสิคเ</string>
+
+    <string name="terms_of_service">เงื่อนไขการใช้บริการ</string>
+    <string name="terms_of_service_guide">การแตะ \"%1$s\" แสดงว่าคุณได้อ่านและยอมรับ %2$s และ %3$s ของเราแล้ว</string>
+    <string name="terms_of_service_should_agree">หากต้องการใช้ %1$s คุณต้องยอมรับ %2$s และ %3$s</string>
+
+    <string name="thanks_for_loving_x">ขอบคุณที่รัก %s</string>
+    <string name="thanks_for_your_feedback">ขอบคุณที่ส่งความคิดเห็นมา</string>
+
+    <string name="theme">ธีมแอป</string>
+
+    <string name="thx_feedback_tip">เราจะแก้ไขในเวอร์ชันต่อไป ขออภัยในความไม่สะดวก</string>
+
+    <string name="timer_after_this">หยุดเมื่อเพลงที่เล่นอยู่จบ</string>
+    <string name="timer_stop_after">หยุดเพลงหลังจาก</string>
+    <string name="timer_turn_off">ตัวตั้งเวลาปิดเครื่องปิดอยู่</string>
+    <string name="timer_turn_off_latter">ปิดในอีก %s</string>
+
+    <string name="title_is_null">เว้นชื่อไว้ไม่ได้</string>
+
+    <string name="transparency">ความโปร่งใส</string>
+
+    <string name="turn_off">ปิด</string>
+    <string name="turn_off_after">ปิดในอีก %1$d นาที</string>
+    <string name="turn_off_ends">ปิดเมื่อเพลงที่เล่นอยู่จบ</string>
+    <string name="turn_storage">เปิดสิทธิ์ในการจัดเก็บข้อมูล</string>
+
+    <string name="unit_secs">วินาที</string>
+
+    <string name="unknow_error">เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ</string>
+
+    <string name="unlock_for_free">ปลดล็อกฟรี</string>
+    <string name="unlock_premium_themes">ปลดล็อคธีมทั้งหมด</string>
+
+    <string name="version">เวอร์ชัน</string>
+
+    <string name="view">ดู</string>
+    <string name="view_all">ดูทั้งหมด</string>
+
+    <string name="virtualizer">วิชวลไลเซอร์</string>
+
+    <string name="vivo_deny">ปฏิเสธ</string>
+
+    <string name="what_a_pity">น่าเสียดาย!</string>
+
+    <string name="x_hours">%s ชั่วโมง</string>
+    <string name="x_minutes">%s นาที</string>
+    <string name="x_seconds">%s วินาที</string>
+    <string name="x_selected">เลือกแล้ว %s รายการ</string>
+    <string name="x_song_hide_single">%1$s เพลงถูกซ่อนอยู่ คุณสามารถไปที่%2$sเพื่อแสดง</string>
+    <string name="x_songs_hide_1">%1$s เพลงซ่อนอยู่ คุณสามารถไปที่%2$sเพื่อแสดง</string>
+
+    <string name="xbooster_notification_access">การเข้าถึงการแจ้งเตือน</string>
+
+    <string name="yes">ใช่</string>
+    <string name="music3_remove_successfully">ลบเรียบร้อยแล้ว</string>
+
+    <string name="camera_preparing">กำลังเตรียม…</string>
+
+    <string name="widget_tap_start">แตะเพื่อเริ่ม เครื่องเล่นเพลง</string>
+    <string name="music3_notification_access_desc">โปรดให้สิทธิ์การเข้าถึงการแจ้งเตือน %s เพื่อควบคุมการเล่นเพลงจากศูนย์การแจ้งเตือนอย่างรวดเร็ว</string>
+    <string name="music3_app_name">เครื่องเล่นเพลง</string>
+
+    <string name="go_file_manager">ไป</string>
+    <string name="music3_click_to_authorize">คลิกที่นี่เพื่ออนุญาต</string>
+    <string name="music3_language_guide">กรุณาเลือกภาษาอื่นที่ไม่ใช่ \&#34;ระบบ\&#34; และคลิกที่นี่เพื่อยืนยัน</string>
+    <string name="pdf_reader2_enter_homepage_guide">แตะเพื่อเข้าสู่หน้าแรก</string>
+
+    <string name="mp3_current_speed">ความเร็วปัจจุบัน: %s</string>
+    <string name="mp3_edit_lyrics">แก้ไขเนื้อเพลง</string>
+    <string name="mp3_enter_lyrics">ใส่เนื้อเพลง</string>
+    <string name="mp3_enter_lyrics_here">ใส่เนื้อเพลงของคุณที่นี่…</string>
+    <string name="music3_playback_speed">ความเร็วในการเล่น</string>
+    <string name="music3_playback_speed_changed">ความเร็วในการเล่นเปลี่ยนเป็น %sX</string>
+    <string name="music3_playback_speed_num">ความเร็วในการเล่น: %s</string>
+    <string name="normal">ปกติ</string>
+    <string name="paste">วาง</string>
+    <string name="music3_playback_speed_changed_failed">เปลี่ยนเป็น %sX ไม่สำเร็จ รีเซ็ตเป็น 1.0X</string>
+
+    <string name="music3_app_title_1">เครื่องเล่นเพลง - DDMusic</string>
+    <string name="music3_delete_permission_access">โปรด&#60;b&#62;ทำตามขั้นตอนในหน้าถัดไป&#60;/b&#62;เพื่อให้สิทธิ์เข้าถึง</string>
+    <string name="music3_delete_some_no_premission">แต่ที่เหลือล้มเหลวเนื่องจาก &#60;b&#62;ปัญหาการให้สิทธิ์&#60;/b&#62;</string>
+    <string name="music3_delete_videos_gpt">ลบวิดีโอ %s หรือไม่?</string>
+    <string name="music3_error_playing_video_gpt">เกิดข้อผิดพลาดในการเล่นวิดีโอ \&#34;%s\&#34;</string>
+    <string name="music3_grant_media_files_access_gpt">โปรดให้สิทธิ์ %s เข้าถึงไฟล์สื่อเพื่อเล่นวิดีโอ</string>
+    <string name="music3_next">ถัดไป</string>
+    <string name="music3_resume_auto">เล่นต่อจากเดิม</string>
+    <string name="music3_scan_local_videos_gpt">เพื่อสแกนวิดีโอท้องถิ่น กรุณา:</string>
+    <string name="music3_scan_video_gpt">สแกนวิดีโอ</string>
+    <string name="music3_sd_card_access_step_2_format">จากนั้น &#60;b&#62;แตะ \'เลือก\'&#60;/b&#62; เพื่อให้สิทธิ์ในการเขียน</string>
+    <string name="music3_sd_write_access_required_gpt">การลบวิดีโอจาก SD Card ต้องการสิทธิ์เขียน</string>
+    <string name="music3_search_videos">ค้นหาวิดีโอ</string>
+    <string name="music3_select_albums_gpt">เลือกอัลบั้ม</string>
+    <string name="music3_select_artists_gpt">เลือกศิลปิน</string>
+    <string name="music3_select_genres_gpt">เลือกแนวเพลง</string>
+    <string name="music3_select_playlists_gpt">เลือกเพลย์ลิสต์</string>
+    <string name="music3_select_songs_gpt">เลือกเพลง</string>
+    <string name="music3_select_videos_gpt">เลือกวิดีโอ</string>
+    <string name="music3_videos_added_gpt">&#60;b&#62;%1$s&#60;/b&#62; วิดีโอเพิ่มเข้าไปใน %2$s</string>
+    <string name="music3_video_info_gpt">ข้อมูลวิดีโอ</string>
+    <string name="music3_video_name_gpt">ชื่อวิดีโอ</string>
+    <string name="music3_video_not_found_gpt">ไม่พบวิดีโอ?</string>
+    <string name="music3_x_new_videos_added_gpt">เพิ่มวิดีโอใหม่ %s ครั้ง</string>
+    <string name="music3_x_videos_deleted_gpt">ลบวิดีโอ %s ครั้ง</string>
+
+    <string name="allplayer_fast_forward">กรอไปข้างหน้า</string>
+    <string name="allplayer_mute_play_gpt">เล่นโดยปิดเสียง</string>
+    <string name="allplayer_recently_watched_gpt">ดูเร็วๆ นี้</string>
+    <string name="brightness">ความสว่าง</string>
+    <string name="btn_allow">อนุญาต</string>
+    <string name="enter_name">กรุณาใส่ชื่อ</string>
+    <string name="got_it_1">ทราบแล้ว</string>
+    <string name="music3_1_new_video_added_gpt">เพิ่มวิดีโอใหม่ %s ครั้ง</string>
+    <string name="music4_allow_photo_video">อนุญาตให้เข้าถึงรูปภาพและวิดีโอ</string>
+    <string name="music4_photo_permission_step3">ค้นหาแล้วแตะที่รูปภาพและวิดีโอ</string>
+    <string name="music_3_video_share">วิดีโอสำหรับคุณจาก %1$s %2$s</string>
+    <string name="no_videos_found">ไม่พบวิดีโอ</string><!-- 用ChatGPT翻译 -->
+    <string name="n_videos">%s วิดีโอ</string>
+    <string name="n_videos_1">%s วีดีโอ</string>
+    <string name="one_video">1 วิดีโอ</string>
+    <string name="pause_play">หยุด/เริ่มต้น</string>
+    <string name="rewind">กรอกลับของ</string>
+    <string name="rp_next">ถัดไป</string>
+    <string name="sd_card_access_step_1">แตะปุ่มที่มุมซ้ายบนและ&#60;b&#62;เลือกการ์ด SD&#60;/b&#62;</string>
+    <string name="sound_boost_tips">ปรับแต่งต่อไปเพื่อเร่งระดับเสียงสูงสุดถึง 200%</string>
+    <string name="start_over">เริ่มใหม่</string>
+    <string name="tab_videos">วิดีโอ</string>
+    <string name="tap_again_to_exit">แตะอีกครั้งเพื่อออก</string>
+    <string name="video">วิดีโอ</string>
+    <string name="volume">ระดับเสียง</string>
+    <string name="xgallery_no_next_video">อยู่ที่วิดีโอสุดท้ายแล้ว</string>
+    <string name="xgallery_no_previous_video">อยู่ที่วิดีโอแรกแล้ว</string>
+    <string name="xgallery_playing_lock_screen">ล็อกหน้าจอแล้ว</string>
+    <string name="xgallery_playing_unlock_screen">ปลดล็อคหน้าจอแล้ว</string>
+    <string name="xgallery_sound_off">ปิดเสียง</string>
+    <string name="xgallery_sound_on">เปิดเสียง</string>
+    <string name="zoom_in_out">ซูมเข้า/ออก</string>
+    <string name="music3_1_video_deleted_gpt">ลบวิดีโอ %s ครั้ง</string>
+    <string name="music4_choose_allow">เลือก อนุญาต</string>
+    <string name="open_settings_1">เปิดการตั้งค่า</string>
+    <string name="music4_error_playing_file_error">เล่นไม่สำเร็จ ไฟล์ไม่ถูกต้อง</string>
+    <string name="music4_error_playing_path_error">เล่นไม่สำเร็จ เส้นทางไฟล์ไม่ถูกต้อง</string>
+    <string name="music3_1_song_added_gpt">เพิ่ม &#60;b&#62;1&#60;/b&#62; เพลงใน %s</string>
+    <string name="music3_1_video_added_gpt">เพิ่ม &#60;b&#62;1&#60;/b&#62; วิดีโอใน %s</string>
+
+    <string name="all_reader2_major_update_gpt">อัปเดตสำคัญ</string>
+    <string name="all_reader2_new_version_gpt">เวอร์ชันใหม่</string>
+    <string name="all_reader2_new_version_ready_gpt">เวอร์ชันใหม่พร้อมแล้ว!</string>
+    <string name="all_reader2_new_version_title_plan1_gpt">เวอร์ชันล่าสุดของเราได้รับรีวิว 5 ดาวจากผู้ใช้ %s คน!</string>
+    <string name="booster2_new_version_des2_gpt">เข้าร่วม %s ผู้ใช้ที่พึงพอใจและอัปเกรดเพื่อประสบการณ์ 5 ดาว!</string>
+    <string name="booster2_new_version_des3_gpt">เวอร์ชันล่าสุดของเรามีอัตราความพึงพอใจที่สูงถึง %s จนถึงตอนนี้.</string>
+    <string name="booster2_new_version_en_desc3_gpt">การออกแบบ UI ที่ถูกปรับแต่ง</string>
+    <string name="booster2_version_update">การอัปเดตเวอร์ชัน</string>
+    <string name="docx_new_version_benefits3_gpt">แก้ไขข้อผิดพลาดเล็กน้อย</string>
+    <string name="install">ติดตั้ง</string>
+    <string name="lyrics_source_gpt">แหล่งที่มาของเนื้อเพลง: ผู้ใช้นิรนาม</string>
+    <string name="pdf_reader3_update_from_gp_gpt">ไม่สำเร็จ โปรดอัปเดตจาก Google Play</string>
+    <string name="recommended">แนะนำ</string>
+    <string name="step4_update_reason_1_gpt">ในการอัปเดตนี้เราได้แก้ไขปัญหาหลายรายการและปรับปรุงประสิทธิภาพของแอปพลิเคชันโดยรวม</string>
+    <string name="update">อัพเดท</string>
+    <string name="update_failed_network_wg_gpt">อัปเดตไม่สำเร็จ โปรดตรวจสอบเครือข่ายของคุณและลองอีกครั้ง</string>
+    <string name="update_now_for_better_1">คุณสามารถ &#60;b&#62;อัปเดตตอนนี้&#60;/b&#62; เพื่อประสบการณ์ที่ดีกว่า</string>
+    <string name="updating">กำลังอัปเดต...</string>
+    <string name="upgrade">อัปเกรด</string>
+    <string name="upgrade_to_new_version">สัมผัสประสิทธิภาพที่ดีขึ้นและความเสถียรเพิ่มขึ้นกับเวอร์ชันล่าสุดของเรา \n\n&#60;b&#62;แตะเพื่ออัปเกรดเดี๋ยวนี้&#60;/b&#62;</string>
+    <string name="upload_lyrics_statement_gpt">เมื่อคุณอัปโหลดเนื้อเพลงไปยังแอปของเรา, โปรดตรวจสอบว่าคุณมีสิทธิ์ทำเช่นนั้นและการอัปโหลดของคุณไม่ละเมิดสิทธิ์ทรัพย์สินทางปัญญาใด ๆ โดยการอัปโหลด, คุณให้สิทธิ์เราใช้เนื้อหาของคุณฟรีและเราจะให้เครดิตแหล่งที่มาเป็น \&#34;ผู้ใช้นิรนาม\&#34;.</string>
+    <string name="video_player_in_music_gpt">เครื่องเล่นวิดีโอ</string>
+    <string name="video_player_moved_gpt">เครื่องเล่นวิดีโอถูกย้ายมาที่นี่</string>
+</resources>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--通用Color 资源-->
+
+    <color name="white">#FFFFFFFF</color>
+    <color name="transparent">@android:color/transparent</color>
+    <color name="black">#FF000000</color>
+
+    <color name="white.alpha.10">#1AFFFFFF</color>
+    <color name="white.alpha.20">#33FFFFFF</color>
+    <color name="white.alpha.30">#4DFFFFFF</color>
+    <color name="white.alpha.40">#66FFFFFF</color>
+    <color name="white.alpha.50">#80FFFFFF</color>
+    <color name="white.alpha.60">#99FFFFFF</color>
+    <color name="white.alpha.70">#B3FFFFFF</color>
+    <color name="white.alpha.80">#CCFFFFFF</color>
+    <color name="white.alpha.90">#E6FFFFFF</color>
+
+
+    <color name="black.33">#FF333333</color>
+    <color name="black.28">#FF282828</color>
+    <color name="black.a1">#FFA1A1A1</color>
+    <color name="black.01">#FF010101</color>
+    <color name="black.11">#FF111111</color>
+    <color name="black.38">#FF383838</color>
+    <color name="black.2d">#FF2D2D2D</color>
+    <color name="black.d8">#FFD8D8D8</color>
+    <color name="black.79">#FF797979</color>
+    <color name="black.20">#FF202020</color>
+
+
+    <color name="black.d8.alpha10">#1AD8D8D8</color>
+    <color name="black.d8.alpha20">#33D8D8D8</color>
+
+    <!--Base Alpha Colors-->
+    <color name="black.a1.alpha10">#1AA1A1A1</color>
+    <color name="black.a1.alpha20">#33A1A1A1</color>
+    <color name="black.a1.alpha30">#4DA1A1A1</color>
+    <color name="black.a1.alpha40">#66A1A1A1</color>
+    <color name="black.a1.alpha50">#80A1A1A1</color>
+    <color name="black.a1.alpha60">#99A1A1A1</color>
+    <color name="black.a1.alpha70">#B3A1A1A1</color>
+    <color name="black.a1.alpha80">#CCA1A1A1</color>
+    <color name="black.a1.alpha90">#E6A1A1A1</color>
+
+    <color name="black.01.alpha80">#CC010101</color>
+
+    <color name="black.33.alpha20">#33333333</color>
+
+    <color name="color_337CFF">#337CFF</color>
+    <color name="color_EA2200">#FFEA2200</color>
+    <color name="color_E9541D">#FFE9541D</color>
+    <color name="color_EB4E2B">#EB4E2B</color>
+
+    <color name="color_20_33ffffff">#33ffffff</color>
+    <color name="color_ff5c00">#FF5C00</color>
+    <color name="color.b3353147">#b3353147</color>
+    <color name="color.353147">#353147</color>
+    <color name="color_1c1927">#1c1927</color>
+    <color name="color_a1a1a1">#a1a1a1</color>
+</resources>

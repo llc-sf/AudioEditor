@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <dimen name="dp_negative_1">-0.8533dp</dimen>
+    <dimen name="dp_negative_2">-1.7067dp</dimen>
+    <dimen name="dp_negative_3">-2.5600dp</dimen>
+    <dimen name="dp_negative_4">-3.4133dp</dimen>
+    <dimen name="dp_negative_5">-4.2667dp</dimen>
+    <dimen name="dp_negative_6">-5.1200dp</dimen>
+    <dimen name="dp_negative_7">-5.9733dp</dimen>
+    <dimen name="dp_negative_8">-6.8267dp</dimen>
+    <dimen name="dp_negative_9">-7.6800dp</dimen>
+    <dimen name="dp_negative_10">-8.5333dp</dimen>
+    <dimen name="dp_negative_11">-9.3867dp</dimen>
+    <dimen name="dp_negative_12">-10.2400dp</dimen>
+    <dimen name="dp_negative_13">-11.0933dp</dimen>
+    <dimen name="dp_negative_14">-11.9467dp</dimen>
+    <dimen name="dp_negative_15">-12.8000dp</dimen>
+    <dimen name="dp_negative_16">-13.6533dp</dimen>
+    <dimen name="dp_negative_17">-14.5067dp</dimen>
+    <dimen name="dp_negative_18">-15.3600dp</dimen>
+    <dimen name="dp_negative_19">-16.2133dp</dimen>
+    <dimen name="dp_negative_20">-17.0667dp</dimen>
+    <dimen name="dp_negative_21">-17.9200dp</dimen>
+    <dimen name="dp_negative_22">-18.7733dp</dimen>
+    <dimen name="dp_negative_23">-19.6267dp</dimen>
+    <dimen name="dp_negative_24">-20.4800dp</dimen>
+    <dimen name="dp_negative_25">-21.3333dp</dimen>
+    <dimen name="dp_negative_26">-22.1867dp</dimen>
+    <dimen name="dp_negative_27">-23.0400dp</dimen>
+    <dimen name="dp_negative_28">-23.8933dp</dimen>
+    <dimen name="dp_negative_29">-24.7467dp</dimen>
+    <dimen name="dp_negative_30">-25.6000dp</dimen>
+
+    <dimen name="dp.05">0.4267dp</dimen>
+</resources>

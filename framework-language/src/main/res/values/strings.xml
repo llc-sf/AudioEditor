@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="duration">Duration</string>
+    <string name="error_playing_track">Failed to play %1$s</string><!-- Error playing track %1$s -->
+    <string name="playlist_last_added">Last added</string>
+    <string name="playlist_recently_played">Recently played</string>
+    <string name="playlist_top_tracks">Top Tracks</string>
+    <string name="songs">Songs</string>
+    <string name="albums">Albums</string>
+    <string name="artists">Artists</string>
+    <string name="library">Library</string>
+    <string name="playlist">Playlist</string>
+    <string name="playing_queue">Playing Queue</string>
+    <string name="now_playing">Player Theme</string>
+    <string name="settings">Settings</string>
+    <string name="search">Search</string>
+    <string name="equalizer">Equalizer</string>
+    <string name="search_library">Search library</string>
+
+    <string name="count_song">%d song</string>
+    <string name="count_songs">%d songs</string>
+    <string name="count_album">%d album</string>
+    <string name="count_albums">%d albums</string>
+    <string name="app_name_compat_mp3">Free Music</string>
+    <string name="app_name_compat_music">Music Player</string>
+    <!--Music3 的品牌名称不用翻译-->
+    <!-- 根据music_player整理 -->
+
+    <string name="general">General</string>
+    <string name="play">Play</string>
+    <string name="add_to_playlist">Add to playlist</string>
+    <string name="go_to_album">Go to album</string>
+    <string name="go_to_artist">Go to artist</string>
+    <string name="add_to_queue">Add to queue</string>
+    <string name="play_next">Play next</string>
+    <string name="new_playlist">New playlist</string>
+    <string name="nothing_found">Nothing found</string>
+    <string name="folders">Folders</string>
+    <string name="summary_pause_detach">Toggle for pausing playback when headphone is detached</string>
+    <string name="pause_detach">Pause on detach</string>
+    <string name="tap_to_start">Tap to start MP3 Player</string>
+    <string name="number_song_add_queue">%d song added to the queue</string>
+    <string name="number_songs_add_queue">%d songs added to the queue</string>
+    <string name="number_song_add_playlist">%d song added to playlist</string>
+    <string name="number_songs_add_playlist">%d songs added to playlist</string>
+    <string name="number_song_selected">%d song selected</string>
+    <string name="number_songs_selected">%d songs selected</string>
+    <string name="equ_custom">Custom</string>
+    <string name="virtualizer">Virtualizer</string>
+    <string name="bass_boost">Bass boost</string>
+    <string name="reverb">Reverb</string>
+
+    <string name="scan">Scan</string>
+    <string name="sleep_timer">Sleep timer</string>
+    <string name="theme">Skin Theme</string>
+    <string name="slide_to_unlock">Slide to unlock</string>
+    <string name="off">Off</string>
+    <string name="timer_after_this">Stop after current song</string><!-- Stop when current song ends -->
+    <string name="summary_screen_lock_play">Show now playing when lock screen</string>
+    <string name="screen_lock_play">Lock Screen Playing</string>
+    <string name="delete_from_device">Delete from device</string>
+    <string name="turn_off_after">Turn off in %1$d minutes</string><!-- Turn off %1$d minutes later -->
+    <string name="turn_off_ends">Turn off after current song</string><!-- Turn off when current song ends -->
+    <string name="turn_off">Turn off</string>
+    <string name="summary_feedback">Report bugs and tell us what to improve</string><!-- 已和产品讨论可以去掉这个字段 -->
+
+    <string name="share_email_title">Share MP3 Player with you</string>
+    <string name="new_share_email_text">I\'m using MP3 Player.\\n\\nTry it yourself. Download the app here:\\n</string>
+    <string name="summary_rateUs">Like this app? Please rate us!</string><!-- 已和产品讨论可以去掉这个字段 -->
+    <string name="my_favourite">My favourite</string>
+    <string name="select_all">Select all</string>
+    <string name="guide_allow_description">To listen music,\n MP3 Player needs to access media files on your device.</string>
+    <string name="open_settings">Go to Settings</string>
+    <!-- 1.Open Settings \n2.Tap Permissions \n3.Turn on Storage -->
+    <string name="guide_enable_description_1">To listen music, you need to:</string>
+    <string name="added_to_favourite">Added to Favourite</string>
+    <string name="cancel_favorite_success">Removed from Favourite</string>
+    <string name="share">Share</string>
+    <string name="help">Help</string>
+    <string name="feedback">Feedback</string>
+    <string name="feedback_mail_text">System info</string>
+    <string name="rate_us">Rate us</string>
+    <string name="language_title">Language</string>
+    <string name="system_default">System default</string>
+
+    <string name="change_language_title">Select Language</string>
+    <string name="delete_playlist_title">Delete playlist</string><!-- 删除该字段，只保留新翻译字段中的Delete playlist %1$s? -->
+    <string name="delete_playlist_message">Are you sure you want to delete playlist %1$s?</string>
+    <string name="delete">Delete</string>
+    <string name="playlist_edit_hint">Enter playlist name</string>
+    <string name="create">Create</string>
+    <string name="next_song">Next Song</string>
+    <string name="delete_song">Delete song?</string><!-- 删除该字段，只保留新翻译字段中的Delete %1$s? -->
+    <string name="delete_song_message">Are you sure you want to delete %1$s?</string>
+    <string name="create_new_playlist">Create new playlist</string>
+    <string name="genres">Genres</string>
+    <string-array name="preset_reverb">
+        <!--It refes to no reverb effect.-->
+        <item>None</item>
+        <!--It is one of reverb types. You will enjoy the music just like in a small room.-->
+        <item>Small Room</item>
+        <!--It is one of reverb types. You will enjoy the music just like in a medium room.-->
+        <item>Medium Room</item>
+        <!--It is one of reverb types. You will enjoy the music just like in a large room.-->
+        <item>Large Room</item>
+        <!--It is one of reverb types. You will enjoy the music just like in a large hall.-->
+        <item>Medium Hall</item>
+        <!--It is one of reverb types. You will enjoy the music just like in large hall.-->
+        <item>Large Hall</item>
+        <!--It is one of reverb types. You will enjoy the music just like from a plate. Plate here you can understand it as a metal plate.-->
+        <item>Plate</item>
+    </string-array>
+    <string name="storage">Storage</string>
+    <string name="directory_empty">Empty</string><!-- Directory is empty -->
+    <string name="count_sub_folders">%d subfolders</string>
+    <string name="count_media_files">%d media files</string>
+    <string name="count_sub_folder">%d subfolder</string>
+    <string name="count_media_file">%d media file</string>
+    <string name="directories">Directories</string>
+    <string name="internal_sd">Internal Storage</string>
+    <string name="edit_tags">Edit tags</string>
+    <string name="set_as_ringtone">Set as ringtone</string>
+    <string name="dialog_title_set_ringtone">Set Ringtone</string>
+    <string name="dialog_message_set_ringtone">To set your ringtone, MP3 Player requires permission to write system settings.\n\nAfter granting permission, try setting your ringtone again.</string>
+    <string name="action_ok">OK</string>
+    <!-- Toast after setting a song as phone ringtone -->
+    <string name="ringtone_set">Set succeeded</string><!-- Set successfully -->
+    <!-- Toast if setting ringtone fails -->
+    <string name="ringtone_set_failed">Set failed</string>
+    <!-- Message displayed when tag editing fails -->
+    <string name="tag_edit_error">Edit failed</string>
+    <!-- Tag editor saving tags -->
+    <string name="saving_tags">Saving tags...</string>
+    <!-- Artist (singular) -->
+    <string name="artist_title">Artist</string>
+    <!-- Album (singular) -->
+    <string name="album_title">Album</string>
+    <!-- Title (singular) -->
+    <string name="song_title">Title</string>
+    <!-- Genre (singular)-->
+    <string name="genre_title">Genre</string>
+    <!-- Button text for saving tags  -->
+    <string name="save">Save</string>
+    <string name="tag_edit_discard_change">Are you sure you want to discard the changes?</string>
+    <string name="rename">Rename</string>
+    <string name="change_album_art">Change cover</string><!-- Change album cover -->
+    <string name="change_cover_failed">Failed to change cover</string><!-- Change cover failed -->
+    <string name="tag_edit_success">Edit succeeded</string><!-- Edit successfully -->
+    <string name="rename_success">Rename succeeded</string><!-- Rename successfully -->
+    <string name="rename_failed">Rename failed</string>
+    <string name="discard">Discard</string>
+    <string name="playlist_already_exist">%1$s already exist</string>
+    <string name="add_playlist_unknow_error">Failed to create playlist</string><!-- Unable to create playlist -->
+    <string name="title_is_null">Title cannot be blank.</string><!-- The title can\'t be empty. -->
+    <string name="edit_tag">Edit tag</string>
+    <string name="location">Location</string>
+    <string name="size">Size</string>
+    <string name="version">Version</string>
+    <string name="details">Song information</string><!-- Details -->
+    <string name="edit">Edit</string>
+    <string name="repeat_order">Order</string>
+    <string name="repeat_shuffle">Shuffle All</string>
+    <string name="repeat_repeat">Repeat One</string><!-- Repeat Current -->
+    <string name="repeat_loop">Loop All</string>
+
+    <string name="scan_library">Scan music</string>
+    <string name="select_folder">Select folders</string>
+    <string name="ignore_short_song">Ignore songs under 60 sec.</string><!-- Ignore less than 60 sec songs. -->
+    <string name="ignore_short_files">Ignore files smaller than 50k.</string><!-- Ignore less than 50 K files. -->
+    <string name="folder_select_title">Folders Selection</string>
+    <string name="scanning">Scanning</string>
+    <string name="scan_result">%1$s songs added to %2$s </string>
+    <string name="done">Done</string>
+    <string name="exit_scan">Exit scanning?</string>
+    <string name="exit">Exit</string>
+    <string name="lock_screen_disable_confirm">Turn off Lock Screen Playing?</string>
+    <string name="enable_lock_screen_tip">You can turn it on by “Settings - Lock Screen Playing”.</string>
+
+    <string name="remove_ad">Remove Ads</string>
+    <string name="hide">Hide</string>
+
+    <string name="song_deleted">Deleted %d song.</string><!-- %d song was deleted -->
+    <string name="songs_deleted">Deleted %d songs.</string><!-- %d songs were deleted -->
+    <string name="clear_playlist">Clear %s</string>
+    <string name="backup_playlist">Backup playlist</string>
+    <string name="restore_playlist">Restore playlist</string>
+    <string name="restore_success">Restore succeeded</string><!-- Restore successfully -->
+    <string name="restore_failed">Restore failed</string>
+    <string name="backup_success">Backup succeeded</string><!-- Backup successfully -->
+    <string name="backup_fail">Backup failed</string>
+    <string name="all_songs">All songs</string>
+    <string name="backup_title">Backup?</string>
+    <string name="last_backup">Last backup: %s</string>
+    <string name="backup">Backup</string>
+    <string name="manual_backups">Manual backup</string><!-- Manual backup list -->
+    <string name="backup_summary_playlist">%d playlist</string>
+    <string name="auto_backups">Auto backup</string><!-- Auto backup list -->
+    <string name="no_backup">No backup records</string><!-- No backup found -->
+    <string name="go_premium">Go Premium</string>
+    <string name="unlock_premium_themes">Unlock all themes</string>
+    <string name="access_all_features">Free access to all new features in the future versions</string>
+    <string name="free_7_days_trial_1">7 DAYS FREE TRIAL</string>
+    <string name="subscription_price">%s/month after</string>
+    <string name="subscription_detail">Subscription details</string>
+    <string name="network_error">Network Failure</string><!-- Network Error -->
+    <string name="delete_failed">Delete failed</string>
+    <string name="backup_summary_playlists">%d playlists</string>
+    <string name="manage_playlist">Manage</string>
+
+    <string name="allow">Allow</string>
+    <string name="retry">Retry</string>
+
+    <string name="local">Local</string>
+    <string name="more_setting">More settings</string>
+    <string name="more">More</string>
+    <string name="history">History</string>
+    <string name="search_history">Search history</string>
+    <string name="search_music_on_youtube">Search songs from YouTube</string>
+    <string name="local_songs">Local songs</string>
+    <string name="action_continue">Continue</string>
+    <string name="subscription_des_music">This subscription gives you unlimited access to our app content library. If you don\'t cancel before the trial ends, you will be automatically charged %s each month until you cancel.</string>
+    <string name="cancel">Cancel</string>
+
+
+    <string name="hidden_directory">Hidden folders</string>
+    <string name="show">Show</string>
+
+
+    <!--电池优化选项-->
+    <string name="battery_opt_title_first">Avoid abnormal stop</string>
+    <string name="apply_more_permission_killed_dialog_title">%s was forcibly stopped</string>
+    <string name="battery_opt_content">To avoid abnormal stop of music playing, please give %s the necessary permission.</string>
+    <string name="set">SET</string>
+
+    <!--反馈询问弹窗-->
+    <string name="ask_like_app">Do you like %s?</string><!-- Are you satisfied with %s? -->
+    <string name="good">Yes</string><!-- Good -->
+    <string name="not_good">Not really</string>
+
+    <!--感谢好评-->
+    <string name="thanks_for_loving_x">Thanks for loving %s.</string>
+    <string name="rating_we_like_you">We like you too!</string>
+
+    <!--反馈选项-->
+    <string name="options_songs_not_found">Some songs are not shown</string><!-- Some songs are not displayed -->
+    <string name="options_ads">Too many ads</string>
+    <string name="options_music_stop">Music stops playing</string>
+    <string name="options_suggestions">Suggestions</string>
+    <string name="options_bugs">Bugs</string>
+    <string name="options_others">Others</string>
+
+    <!--反馈成功-->
+    <string name="thanks_for_your_feedback">Thanks for your feedback.</string>
+    <string name="thx_feedback_tip">We will fix it in the future version. Sorry for the inconvenience.</string>
+
+
+    <!--扫描页-->
+    <string name="ignore_less_duration">Ignore duration less than</string>
+    <string name="ignore_less_size">Ignore size less than</string>
+    <string name="unit_secs">sec</string>
+
+    <!--隐私权限-->
+    <string name="agree_continue">Agree and continue</string>
+    <string name="disagree_exit">Disagree and exit</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="start">Start</string>
+    <string name="terms_of_service">Terms of use</string>
+    <string name="terms_of_service_guide">Clicking \"%1$s\" indicates you have read and agreed to our %2$s and %3$s.</string><!-- By tapping \&#34;%1$s\&#34;, you indicate that you have read and agree to our %2$s and %3$s. -->
+    <string name="terms_of_service_should_agree">To use %1$s, you need to agree to the %2$s and %3$s.</string>
+
+
+    <!-- SD卡删除提示-->
+    <string name="no_document_provider">No DocumentProvider available to handle permission request</string>
+    <string name="sd_tips">Please choose the &lt;b&gt;root directory&lt;b&gt; of external SD card &lt;br/&gt;&lt;b&gt;(%s)&lt;/b&gt; to grant permission to operate.</string>
+
+    <!--主动扫描-->
+    <string name="song_added_plural">%s new songs added.</string>
+    <string name="song_added_singular">%s new song added.</string>
+    <string name="song_scanned_plural">%s songs scanned.</string>
+    <string name="song_scanned_singular">%s song scanned.</string>
+
+
+    <!--定时器-->
+    <string name="timer_stop_after">Stop music after</string>
+    <string name="timer_turn_off">Sleep timer is off</string><!-- Sleep timer turned off -->
+    <string name="timer_turn_off_latter">Turn off %s later</string>
+
+    <!--分钟的缩写-->
+    <string name="abbre_minute">m</string>
+    <string name="x_hours">%s hours</string>
+    <string name="x_minutes">%s minutes</string>
+    <string name="x_seconds">%s seconds</string>
+
+    <string name="action_reset">Reset</string>
+    <string name="end_period">End</string>
+
+
+    <!--焦点丢失弹窗-->
+    <string name="remind_me_anymore">Don\'t remind me anymore</string>
+    <string name="resume">Resume</string>
+    <string name="resume_playback_content">It is detected that the music playing has been interrupted by another app.</string><!-- We detected that the music playback was interrupted by other applications. -->
+    <string name="resume_playback_title">Resume playing?</string><!-- Do you want to resume playing? -->
+    <string name="song">Song</string>
+
+    <!--歌词-->
+    <string name="lyrics_show_title">Lyrics</string>
+    <string name="lyrics_loading">Loading lyrics...</string>
+    <string name="lyrics_add_local">Add local lyrics</string>
+    <string name="lyrics_search_online">Search online</string>
+
+    <!--歌词错误提示-->
+    <string name="lyrics_net_error">Oops, please check your network connection.</string>
+    <string name="lyrics_no_found">Oops, lyrics not found.</string>
+
+
+    <!--反馈选项-->
+    <string name="lyrics_tx_error">Lyrics text error</string>
+    <string name="lyrics_no_matches">Song or artist name matches wrong</string>
+    <string name="lyrics_no_scroll">Lyrics do not scroll</string>
+    <!--反馈弹窗提示-->
+    <string name="lyrics_thanks_fb">We will try our best to improve it.</string>
+
+    <!--歌词导入成功提示-->
+    <string name="lyrics_imported">Lyrics imported.</string>
+
+
+    <!--歌词重置提示-->
+    <string name="lyrics_reset_title">Are you sure to reset the lyrics?</string>
+    <string name="lyrics_reset_msg">If you do, it will delete the lyrics you added.</string>
+
+    <!--导入歌词提示步骤-->
+    <string name="import_clip_tips_title">How to import lyrics</string>
+
+
+    <!--歌词剪切板导入提示-->
+    <string name="import_clip_tips_save_title">Import lyrics</string>
+
+    <string name="import_tel">Import</string>
+
+    <!--确认信息弹窗-->
+    <string name="confirm_information">Confirm information</string>
+    <string name="import_clip_tips">Please select lyrics and copy.</string>
+
+
+    <!--歌词导入失败，格式不支持-->
+    <string name="lyrics_import_failed_no_format">Lyrics import failed due to unsupported file type.</string><!-- Lyrics import failed, the file format is not supported. -->
+    <!--自动加载失败，弹窗标题-->
+    <string name="lyrics_load_failed">Failed to load lyrics</string>
+    <!--自动加载失败编辑歌曲确认-->
+    <string name="lyrics_edit_song_info">You can edit the song information to get lyrics accurately.</string>
+    <!--html格式提示文字，可以格式化加粗-->
+    <string name="import_clip_tips_html">Please &lt;b&gt;Select&lt;/b&gt; lyrics and &lt;b&gt;Copy&lt;/b&gt;.</string>
+
+
+    <string name="sort_by">Sort by</string>
+
+    <!--排序类别-->
+    <string name="sort_key_time_added">Time added</string>
+    <!--排序规则-->
+    <string name="sort_order_a_z">From A to Z</string>
+    <string name="sort_order_z_a">From Z to A</string>
+    <string name="sort_order_short_long">From short to long</string>
+    <string name="sort_order_long_short">From long to short</string>
+    <string name="sort_order_small_big">From small to large</string>
+    <string name="sort_order_big_small">From large to small</string>
+    <string name="from_new_to_old">From old to new</string>
+    <string name="from_old_to_new">From new to old</string>
+    <string name="sort_by_name">Name</string>
+
+    <!--清除队列-->
+    <string name="clear_queue_info">Are you sure you want to clear the playing queue?</string>
+    <string name="clear">Clear</string>
+    <!--循环模式-->
+    <string name="shuffle_on">Shuffle On</string>
+    <string name="shuffle_off">Shuffle Off</string>
+    <string name="repeat_off">Repeat Off</string>
+
+
+    <!--Music 未翻译完整，缺新加7种多语言-->
+    <string name="no_songs_found">No songs found.</string>
+    <string name="change_cover">Change cover</string>
+    <string name="color">Color</string>
+    <string name="transparency">Transparency</string>
+    <string name="blur">Blur</string>
+    <string name="change_picture">Change Picture</string>
+    <string name="unlock_for_free">Unlock For Free</string>
+    <string name="lucky_title">Lucky guy,congrats!</string>
+    <string name="lucky_desc">No need to watch video this time.</string>
+    <string name="music_player_share_text">A song for you from %1$s</string><!-- Here is a song for you from %1$s. -->
+    <!--单次购买-->
+    <string name="price_lifetime">%s/One-Time Purchase</string>
+
+
+    <string name="access_files">Allow access to media files on the device.</string>
+    <string name="add_tracks">Add songs</string>
+    <string name="allow_access">Allow Access</string>
+    <string name="allow_access_storage">Allow access to storage</string>
+    <string name="allow_all_time">Allow all the time</string>
+    <string name="already_exists">Already exists</string>
+    <string name="artist_name">Artist name</string>
+    <string name="choose_allow">Choose \&#34;Allow\&#34;</string><!--根据permission_goto_set_3整理-->
+    <string name="count_artist">%s artist</string>
+    <string name="count_artists_1" translatable="false">@string/count_artists</string><!-- 数字为2/3/4 -->
+    <string name="count_artists">%s artists</string>
+    <string name="count_folder">%s folder</string>
+    <string name="count_folders">%s folders</string>
+    <string name="count_folders_1" translatable="false">@string/count_folders</string>
+    <string name="count_genre">%s genre</string>
+    <string name="count_genres_1" translatable="false">@string/count_genres</string><!-- 数字为2/3/4 -->
+    <string name="count_genres">%s genres</string>
+    <string name="created_playlist">Playlist %s created</string>
+    <string name="deleted_success">Delete succeeded</string><!-- Deleted successfully -->
+    <string name="delete_permission_access">Please be sure to &#60;b&#62;select the right folder&#60;/b&#62; when authorizing.</string>
+    <string name="delete_some_no_premission">While others failed due to lack of permission.</string>
+    <string name="diet_for_you">For you</string>
+    <string name="edit_photo">Edit photo</string>
+    <string name="entered_same_name">This name is already in use, please try a new one.</string><!-- The name already exists, please try another one. -->
+    <string name="error_playing_file_error">Play failed, the file doesn\'t exist</string><!-- 根据error_playing_path_error和file_not_exist整理 -->
+    <string name="error_playing_normal">Play failed, an unknown error occurred</string><!-- 根据error_playing_path_error和unknow_error整理 -->
+    <string name="error_playing_path_error">Play failed, path error.</string>
+    <string name="exe_all">All</string>
+    <string name="exit_1">Exit</string>
+    <string name="featured">Featured</string>
+    <string name="file_not_exist">The file doesn\'t exist</string><!--TODO unused -->
+    <string name="free_space_needed">Required space: %s (recommended)</string><!-- Space needed: %s (recommended) -->
+    <string name="free_space_to_ensure">Please free up some space to ensure the app works properly.</string>
+    <string name="free_up_space">Free up space</string>
+    <string name="insufficient_space">Insufficient space</string>
+    <string name="music">Music</string>
+    <string name="music_guide_allow_description">To listen music, %s needs to access media files on your device.</string><!-- 从Music1程序文字上传 -->
+    <string name="pg_permission_dialog_title">Permission Required</string>
+    <string name="playlist_most_played">Most played</string>
+    <string name="play_after_song">Play after the current song</string>
+    <string name="reader_exit_ads">Do you want to exit?</string><!-- Are you sure you want to exit? -->
+    <string name="remaining_x">Remaining: %s</string><!-- 根据time_remaining_1整理 -->
+    <string name="remove">Remove</string>
+    <string name="remove_from_playlist">Remove from playlist</string><!-- 从Music1程序文字上传 -->
+    <string name="remove_from_queue">Remove from queue</string><!-- 从Music1程序文字上传 -->
+    <string name="remove_song_message">Are you sure you want to remove %s?</string>
+    <string name="result">Result</string>
+    <string name="sdcard_permission_required">Permission required to delete songs from SD card.</string>
+    <string name="sd_card_access_step_1_format"><![CDATA[Tap the button in the top left corner and <font color=\"#F44831\"><b>choose SD card</b></font>.]]></string>
+    <string name="sd_card_access_step_2_format"><![CDATA[<font color=\"#F44831\"><b>Tap SELECT</b></font> at the bottom of the next screen to grant write access.]]></string>
+    <string name="search_albums">Search albums</string>
+    <string name="search_artists">Search artists</string>
+    <string name="search_folders">Search folders</string>
+    <string name="search_genres">Search genres</string>
+    <string name="search_on_youtube">Search on YouTube</string><!-- 根据search_in_google_play_string整理 -->
+    <string name="search_songs">Search songs</string>
+    <string name="select_backup">Choose a backup to restore</string><!-- Select a backup record to restore -->
+    <string name="set_ringtone">Set %s as ringtone?</string>
+    <string name="set_ringtone_message">To set your ringtone, please allow the necessary permission.</string>
+    <string name="shuffle">Shuffle</string>
+    <string name="song_name">Song name</string>
+    <string name="sort_key_add_playlist">Time added to playlist</string>
+    <string name="sort_key_album_name">Album name</string>
+    <string name="sort_key_number_of_albums">Number of albums</string>
+    <string name="sort_key_track">Order in album</string>
+    <string name="sort_order_entry_number_of_songs">Number of songs</string><!-- 从Music1上传的 -->
+    <string name="system">System</string>
+    <string name="tap_permission">Tap Permissions</string><!-- 根据open_permission_step_2整理 -->
+    <string name="turn_storage">Turn on Storage permission</string><!-- 根据open_permission_step_3整理 -->
+    <string name="unknow_error">An unknown error occurred</string>
+    <string name="view">View</string>
+    <string name="view_all">View all</string>
+    <string name="vivo_deny">Deny</string><!--从vivo X30 Pro上拿的-->
+    <string name="xbooster_notification_access">Notification Access</string><!-- 从华为p10系统拿的文字 -->
+    <string name="x_selected">%s selected</string>
+    <string name="x_song_hide_single">%1$s song is hidden, you can go to %2$s to show it.</string>
+    <string name="x_songs_hide_1">%1$s songs are hidden, you can go to %2$s to show them.</string><!-- 数字≥5 -->
+    <string name="x_songs_hide_2" translatable="false">@string/x_songs_hide_1</string><!-- 数字为2/3/4 -->
+    <string name="queue">Queue</string>
+
+
+    <!--差异化语言-->
+    <string name="music3_apply_more_permission_killed_dialog_title">%s was forced to stop</string>
+    <string name="music3_battery_opt_content">Please grant %s the necessary permission to prevent background playback from being forcibly stopped.</string>
+    <string name="music3_battery_opt_title_first">For continuous play in the background</string>
+    <string name="music3_delete_playlist_message">Delete playlist %1$s?</string>
+    <string name="music3_delete_song_message">Delete %1$s?</string>
+    <string name="music3_exit_scan">Quit Scanning?</string>
+    <string name="music3_free_space_to_ensure">To make sure the app works properly, please free up some space.</string>
+    <string name="music3_guide_allow_description">Please grant %s media files access to play music.</string>
+    <string name="music3_guide_enable_description_1">To play music, please:</string>
+    <string name="music3_import_clip_tips_html">&#60;b&#62;Select&#60;/b&#62; the lyrics, then &#60;b&#62;Copy&#60;/b&#62;.</string>
+    <string name="music3_import_clip_tips_title">How should I import lyrics?</string>
+    <string name="music3_lyrics_edit_song_info">Please make sure the song info below is correct and try again.</string>
+    <string name="music3_lyrics_load_failed">Loading lyrics failed</string>
+    <string name="music3_lyrics_no_found">Sorry, couldn\'t find the lyrics.</string>
+    <string name="music3_lyrics_no_matches">Song or artist mismatched</string>
+    <string name="music3_lyrics_no_scroll">Lyrics can\'t scroll</string>
+    <string name="music3_lyrics_reset_msg">The lyrics you added will be deleted if you do so.</string>
+    <string name="music3_lyrics_reset_title">Reset the lyrics?</string>
+    <string name="music3_lyrics_tx_error">Wrong lyrics</string>
+    <string name="music3_resume_playback_content">It is detected that the music playing has been interrupted by another app.</string>
+    <string name="music3_resume_playback_title">Resume playing?</string>
+    <string name="music3_summary_pause_detach">Pause playing when headphones are disconnected</string>
+    <string name="music3_tag_edit_discard_change">Exit and discard the changes?</string>
+    <string name="music3_terms_of_service_should_agree">Agree to our %1$s &#38; %2$s, and start your music journey!</string>
+
+    <string name="confirm_and_fix">We will confirm the problem and fix it in the next version as soon as possible!</string>
+    <string name="continue_to_work_hard">We will continue to work hard.</string>
+    <string name="enhancer_best_rating">The best rating for us</string>
+    <string name="enhancer_thanks_rate_us">Thanks for using %s!\nIt would be greatly appreciated if you could rate us.</string>
+    <string name="music3_clear_queue_info">The playing queue will be cleared. Are you sure to continue?</string><!-- 前半句是付费的，后半句由are_you_sure_to_continue整理 -->
+    <string name="music3_thanks_for_your_feedback">Thanks for your valuable feedback.</string><!-- 部分由feedback_success_toast整理，其他语言是新送翻的 -->
+    <string name="network_error_pls_try">Network error, please try again</string>
+    <string name="scanner_lib_rate_leave_feedback">Your feedback is welcome.</string>
+    <string name="scanner_lib_rate_like_you">Much appreciated!</string>
+    <string name="scanner_share_dialog_title_2">Thank you for your support!</string>
+    <string name="what_a_pity">What a pity!</string>
+    <string name="yes">YES</string><!-- bg,hr,hu,sr取自btn_yes；ur取自PC项目"ok"字段，用于stamp camera, 其他项目谨慎使用 -->
+
+    <string name="music3_remove_successfully">Removed successfully</string>
+
+    <string name="camera_preparing">Preparing…</string>
+
+    <!--更换包名后重发文案-->
+    <string name="widget_tap_start">Tap to start Music Player</string>
+    <string name="music3_notification_access_desc">Please grant %s notification access to quickly control music playback from notification center.</string><!-- 根据notification_access_desc进行整理 -->
+    <string name="music3_app_name">Music Player - DDMusic</string>
+
+
+    <!--V1.2.0 新增文案-->
+    <string name="music3_language_guide">Please select a language other than System and click here to confirm.</string>
+    <string name="music3_click_to_authorize">Click here to authorize</string>
+    <string name="go_file_manager">GO</string>
+    <string name="pdf_reader2_enter_homepage_guide">Tap to enter the homepage</string>
+    <!-- v1.5.0 新增文案   -->
+    <string name="mp3_current_speed">Current speed: %s</string><!-- 根据current_speed_1整理 -->
+    <string name="mp3_edit_lyrics">Edit lyrics</string>
+    <string name="mp3_enter_lyrics">Enter lyrics</string>
+    <string name="mp3_enter_lyrics_here">Enter your lyrics here…</string>
+    <string name="music3_playback_speed">Playback speed</string><!-- 拿自华为音乐 -->
+    <string name="music3_playback_speed_changed">Playback speed changed to %sX</string>
+    <string name="music3_playback_speed_num">Playback speed: %s</string><!-- 整理自music3_playback_speed -->
+    <string name="normal">Normal</string>
+    <string name="paste">Paste</string>
+
+    <string name="music3_playback_speed_changed_failed">Failed to change to %sX, reset to 1.0X</string>
+
+
+    <string name="music3_app_title_1">Music Player - DDMusic</string><!-- 根据music_player整理，DDMusic保留英文 -->
+    <string name="music3_delete_permission_access">Please &#60;b&#62;follow the steps on the next page&#60;/b&#62; to allow access.</string><!-- 根据music4_delete_permission_access整理 -->
+    <string name="music3_delete_some_no_premission">But the rest failed due to &#60;b&#62;permission issues&#60;/b&#62;.</string><!-- 根据music4_delete_some_no_premission整理 -->
+    <string name="music3_delete_videos_gpt">Delete %s videos?</string>
+    <string name="music3_error_playing_video_gpt">Error Playing Video \&#34;%s\&#34;</string>
+    <string name="music3_grant_media_files_access_gpt">Please grant %s media files access to play videos.</string>
+    <string name="music3_next">Next</string><!-- 根据rp_next整理 -->
+    <string name="music3_resume_auto">Continue playing from where you stopped</string><!-- 根据resume_auto整理 -->
+    <string name="music3_scan_local_videos_gpt">To scan local videos, please:</string>
+    <string name="music3_scan_video_gpt">Scan video</string>
+    <string name="music3_sd_card_access_step_2_format">Then &#60;b&#62;tap SELECT&#60;/b&#62; to allow write access.</string><!-- 根据music4_sd_card_access_step_2_format整理 -->
+    <string name="music3_sd_write_access_required_gpt">Deleting videos from SD Card requires write access</string>
+    <string name="music3_search_videos">Search videos</string><!-- 根据allplayer_search_videos_gpt整理 -->
+    <string name="music3_select_albums_gpt">Select albums</string>
+    <string name="music3_select_artists_gpt">Select artists</string>
+    <string name="music3_select_genres_gpt">Select genres</string>
+    <string name="music3_select_playlists_gpt">Select playlists</string>
+    <string name="music3_select_songs_gpt">Select songs</string>
+    <string name="music3_select_videos_gpt">Select videos</string>
+    <string name="music3_videos_added_gpt">&#60;b&#62;%1$s&#60;/b&#62; videos added to %2$s</string>
+    <string name="music3_video_info_gpt">Video information</string>
+    <string name="music3_video_name_gpt">Video name</string>
+    <string name="music3_video_not_found_gpt">Video not found?</string>
+    <string name="music3_x_new_videos_added_gpt">%s new videos added</string>
+    <string name="music3_x_videos_deleted_gpt">%s videos deleted</string>
+
+    <string name="allplayer_fast_forward">Fast forward</string><!-- 从XPlayer修改大小写上传，原字段名为fast_forward -->
+    <string name="allplayer_mute_play_gpt">Mute play</string>
+    <string name="allplayer_recently_watched_gpt">Recently watched</string>
+    <string name="brightness">Brightness</string><!-- 从photo editor上传，改了字段名 -->
+    <string name="btn_allow">Allow</string>
+    <string name="enter_name">Please enter a name</string>
+    <string name="got_it_1">Got it</string><!-- 根据got_it整理 -->
+    <string name="music3_1_new_video_added_gpt">%s new video added</string>
+    <string name="music4_allow_photo_video">Allow access to photos and videos</string>
+    <string name="music4_photo_permission_step3">Find and tap Photos and Videos</string>
+    <string name="music_3_video_share">A video for you from %1$s %2$s</string>
+    <string name="no_videos_found">No videos found</string><!-- 根据sorry_no_videos_found整理 -->
+    <string name="n_videos">%s videos</string>
+    <string name="n_videos_1">%s video</string>
+    <string name="one_video">1 video</string>
+    <string name="pause_play">Pause/Play</string><!-- 从XPlayer上传 -->
+    <string name="rewind">Rewind</string><!-- 从XPlayer上传 -->
+    <string name="rp_next">Next</string>
+    <string name="sd_card_access_step_1">Tap the button in the top left corner and &#60;b&#62;choose SD card&#60;/b&#62;.</string>
+    <string name="sound_boost_tips">Continue adjusting to boost the volume up to 200%.</string><!-- 从XPlayer上传 -->
+    <string name="start_over">Start Over</string><!-- D1程序文字, af, iw, ur是送翻的，kk, sw, uz是gpt翻译的 -->
+    <string name="tab_videos">Videos</string>
+    <string name="tap_again_to_exit">Tap again to exit</string>
+    <string name="video">Video</string>
+    <string name="volume">Volume</string>
+    <string name="xgallery_no_next_video">Already at the last video</string>
+    <string name="xgallery_no_previous_video">Already at the first video</string>
+    <string name="xgallery_playing_lock_screen">Screen locked</string>
+    <string name="xgallery_playing_unlock_screen">Screen unlocked</string>
+    <string name="xgallery_sound_off">Sound off</string><!-- 整理自sound_off -->
+    <string name="xgallery_sound_on">Sound on</string><!-- 整理自sound_on -->
+    <string name="zoom_in_out">Zoom in/out</string>
+    <string name="music3_1_video_deleted_gpt">%s video deleted</string>
+    <string name="music4_choose_allow">Choose Allow</string><!-- 根据choose_allow整理 -->
+    <string name="open_settings_1">Open Settings</string>
+    <string name="music4_error_playing_file_error">Play failed, invalid file.</string><!-- 前半句整理自error_playing_path_error，后半句新送翻 -->
+    <string name="music4_error_playing_path_error">Play failed, invalid file path.</string><!-- 前半句整理自error_playing_path_error，后半句新送翻 -->
+    <string name="music3_1_song_added_gpt">&#60;b&#62;1&#60;/b&#62; song added to %s</string>
+    <string name="music3_1_video_added_gpt">&#60;b&#62;1&#60;/b&#62; video added to %s</string>
+
+
+    <!--    <string name="new_version_desc_1_gpt">Over %s users are satisfied with our latest version, giving it 5 stars!</string>-->
+    <!--    <string name="new_version_gpt">New Version</string>-->
+    <!--    <string name="recommend">👍 Recommend</string>-->
+    <!--    <string name="new_version_notification_gpt_custom">New version is ready!</string>-->
+    <!--    <string name="update_failed_toast_gpt">Failed to update, please retry through Google Play.</string>-->
+    <!--    <string name="new_version_update">New version update</string>-->
+    <!--    <string name="b_we">We have fixed several known issues to further enhance the stability of the application.</string>-->
+
+
+    <!--  0218  -->
+    <string name="all_reader2_major_update_gpt">Major Update</string>
+    <string name="all_reader2_new_version_gpt">New Version</string>
+    <string name="all_reader2_new_version_ready_gpt">New version is ready!</string>
+    <string name="all_reader2_new_version_title_plan1_gpt">Our latest version has received 5-star reviews from %s users!</string>
+    <string name="booster2_new_version_des2_gpt">Join the %s satisfied users and upgrade for a 5-star experience!</string>
+    <string name="booster2_new_version_des3_gpt">Our latest version boasts an impressive %s satisfaction rate so far.</string>
+    <string name="booster2_version_update">Version update</string><!-- 根据version_update整理 -->
+    <string name="install">Install</string><!-- 多语言从PC拿的 -->
+    <string name="pdf_reader3_update_from_gp_gpt">Failed, please update from Google Play</string>
+    <string name="recommended">Recommend</string>
+    <!--  b_we  -->
+    <string name="step4_update_reason_1_gpt">In this update, we\'ve fixed several issues and enhanced the overall performance of the application.</string>
+    <!--  todo  大写  -->
+    <string name="update">Update</string>
+    <string name="update_failed_network_wg_gpt">Update failed, please check your network and try again</string>
+    <string name="update_now_for_better_1">You can &#60;b&#62;update now&#60;/b&#62; for a better experience.</string><!-- 整理自update_now_for_better -->
+    <string name="updating">Updating...</string>
+    <string name="upgrade_to_new_version">Experience enhanced performance and increased stability with our latest version. \n\n&#60;b&#62;Tap to upgrade now.&#60;/b&#62;</string><!-- 整理自all_reader2_new_version_desc_gpt -->
+    <string name="upload_lyrics_statement_gpt">When you upload lyrics to our app, please make sure that you have the right to do so and that your upload does not violate any intellectual property rights. By uploading, you authorize us to use your content for free, and we will credit its source as \&#34;anonymous user\&#34;.</string>
+    <string name="video_player_in_music_gpt">Video player</string>
+    <string name="video_player_moved_gpt">Video player moved here</string>
+    <string name="lyrics_source_gpt">Lyrics source: anonymous user</string>
+    <string name="upgrade">Upgrade</string>
+</resources>

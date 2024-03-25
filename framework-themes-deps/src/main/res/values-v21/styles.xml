@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--SeekBar 主题配置-->
+    <style name="DefaultSeekbar" parent="@style/Widget.AppCompat.SeekBar">
+        <item name="android:thumb">@drawable/default_seekbar_thumb</item>
+        <item name="android:splitTrack">false</item>
+    </style>
+
+
+</resources>

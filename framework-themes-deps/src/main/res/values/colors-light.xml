@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--深色&浅色模式中 定义的Color 保持和 colors-night.xml 中的一致-->
+    <color name="window.bg.color">@color/white</color>
+
+    <color name="colorAccent">#FFEB4E2B</color>
+    <color name="colorSecondary">@color/white</color>
+    <color name="colorRipple">@color/black.a1.alpha80</color>
+
+    <color name="txt.color.primary">@color/black</color>
+    <color name="txt.color.secondary">@color/black.a1</color>
+
+    <color name="divider.color">@color/black.33.alpha20</color>
+
+    <color name="ad.title.color">@color/black.79</color>
+    <color name="ad.summary.color">@color/black.79</color>
+    <color name="ad.stroke.color">@color/black.33.alpha20</color>
+
+    <color name="bottom.dialog.bg.color">@color/black.20</color>
+    <color name="bottom.dialog.title.color">@color/white</color>
+    <color name="bottom.dialog.summary.color">@color/black.a1</color>
+
+</resources>

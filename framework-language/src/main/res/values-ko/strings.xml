@@ -1,0 +1,696 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="abbre_minute">분</string>
+
+    <string name="access_all_features">향후 버전의 모든 새로운 기능을 무료로 이용할 수 있음</string>
+    <string name="access_files">기기의 미디어 파일에 액세스를 허용합니다.</string>
+
+    <string name="action_continue">계속</string>
+    <string name="action_ok">확인</string>
+    <string name="action_reset">다시 설정하기</string>
+
+    <string name="add_playlist_unknow_error">재생 목록을 생성할 수 없습니다</string>
+    <string name="add_to_playlist">재생 목록에 추가</string>
+    <string name="add_to_queue">대기열에 추가</string>
+    <string name="add_tracks">노래 추가</string>
+
+    <string name="added_to_favourite">즐겨찾기에 추가됨</string>
+
+    <string name="agree_continue">동의하고 계속</string>
+
+    <string name="album_title">앨범</string>
+
+    <string name="albums">앨범</string>
+
+    <string name="all_songs">모든 노래</string>
+
+    <string name="allow">허용</string>
+    <string name="allow_access">접근 권한 부여</string>
+    <string name="allow_access_storage">저장소 액세스 허용</string>
+    <string name="allow_all_time">항상 허용</string>
+
+    <string name="already_exists">이미 있음</string>
+
+    <string name="app_name_compat_mp3">무료 음악</string>
+    <string name="app_name_compat_music">음악 플레이어</string>
+
+    <string name="apply_more_permission_killed_dialog_title">%s 앱이 강제로 중지되었습니다</string>
+
+    <string name="artist_name">아티스트 이름</string>
+    <string name="artist_title">아티스트</string>
+
+    <string name="artists">아티스트</string>
+
+    <string name="ask_like_app">%s 앱이 마음에 드세요?</string>
+
+    <string name="auto_backups">자동 백업 목록</string>
+
+    <string name="backup">백업</string>
+    <string name="backup_fail">백업 실패</string>
+    <string name="backup_playlist">백업 재생 목록</string>
+    <string name="backup_success">백업 성공</string>
+    <string name="backup_summary_playlist">%d 재생 목록</string>
+    <string name="backup_summary_playlists">%d 재생 목록</string>
+    <string name="backup_title">백업?</string>
+
+    <string name="bass_boost">베이스 부스트</string>
+
+    <string name="battery_opt_content">음악이 비정상적으로 중단되는 것을 방지하려면 %s에 필요한 권한을 부여해 주세요</string>
+    <string name="battery_opt_title_first">비정상적인 중단을 방지하세요</string>
+
+    <string name="blur">흐림</string>
+
+    <string name="cancel">취소</string>
+    <string name="cancel_favorite_success">즐겨찾기에서 삭제됨</string>
+
+    <string name="change_album_art">앨범 표지 변경</string>
+    <string name="change_cover">표지 변경</string>
+    <string name="change_cover_failed">표지 변경 실패</string>
+    <string name="change_language_title">언어 선택</string>
+    <string name="change_picture">사진 변경</string>
+
+    <string name="choose_allow">\"허용\" 선택</string>
+
+    <string name="clear">지우기</string>
+    <string name="clear_playlist">%s 삭제</string>
+    <string name="clear_queue_info">재생 대기열을 지우시겠습니까?</string>
+
+    <string name="color">컬러</string>
+
+    <string name="confirm_and_fix">문제를 확인해서 최대한 빨리 다음 버전에서 수정하겠습니다!</string>
+    <string name="confirm_information">정보 확인</string>
+
+    <string name="continue_to_work_hard">계속 열심히 노력하겠습니다.</string>
+
+    <string name="count_album">%d 앨범</string>
+    <string name="count_albums">%d 앨범</string>
+    <string name="count_artist">아티스트 %s명</string>
+    <string name="count_artists">아티스트 %s명</string>
+    <string name="count_folder">폴더 %s개</string>
+    <string name="count_folders">폴더 %s개</string>
+    <string name="count_genre">장르 %s개</string>
+    <string name="count_genres">장르 %s개</string>
+    <string name="count_media_file">%d 미디어 파일</string>
+    <string name="count_media_files">%d 미디어 파일</string>
+    <string name="count_song">%d 노래</string>
+    <string name="count_songs">%d 노래</string>
+    <string name="count_sub_folder">%d 하위 폴더</string>
+    <string name="count_sub_folders">%d 하위 폴더</string>
+
+    <string name="create">생성</string>
+    <string name="create_new_playlist">새 재생 목록 만들기</string>
+
+    <string name="created_playlist">플레이리스트 %s 생성됨</string>
+
+    <string name="delete">삭제</string>
+    <string name="delete_failed">삭제 실패</string>
+    <string name="delete_from_device">기기에서 삭제</string>
+    <string name="delete_permission_access">인증 시 &lt;b&gt;올바른 폴더를 선택&lt;/b&gt;하세요.</string>
+    <string name="delete_playlist_message">%1$s 재생 목록을 정말 삭제하시겠습니까?</string>
+    <string name="delete_playlist_title">재생 목록 삭제</string>
+    <string name="delete_some_no_premission">하지만 다른 노래는 권한이 부족하여 실패했습니다.</string>
+    <string name="delete_song">노래를 삭제하시겠습니까?</string>
+    <string name="delete_song_message">%1$s을(를) 정말 삭제하시겠습니까?</string>
+
+    <string name="deleted_success">삭제 성공</string>
+
+    <string name="details">세부사항</string>
+
+    <string name="dialog_message_set_ringtone">벨소리를 설정하려면 음악 플레이어에게 시스템 설정 쓰기 권한을 부여해야합니다.\n\n권한 부여 후 벨소리를 다시 설정하세요.</string>
+    <string name="dialog_title_set_ringtone">벨소리 설정</string>
+
+    <string name="diet_for_you">나를 위한</string>
+
+    <string name="directories">디렉토리</string>
+
+    <string name="directory_empty">디렉토리가 비어 있습니다.</string>
+
+    <string name="disagree_exit">동의하지 않고 나가기</string>
+
+    <string name="discard">버리기</string>
+
+    <string name="done">완료</string>
+
+    <string name="duration">총시간</string>
+
+    <string name="edit">편집</string>
+    <string name="edit_photo">사진 편집</string>
+    <string name="edit_tag">태그 수정</string>
+    <string name="edit_tags">태그 수정</string>
+
+    <string name="enable_lock_screen_tip">\"설정 - 잠금 화면 재생\"에서 켤 수 있습니다.</string>
+
+    <string name="end_period">종료</string>
+
+    <string name="enhancer_best_rating">저희를 위한 최고의 평가</string>
+    <string name="enhancer_thanks_rate_us">%s를 사용해 주셔서 감사합니다!\n저희를 평가해 주시면 대단히 감사하겠습니다.</string>
+
+    <string name="entered_same_name">이 이름은 이미 존재합니다. 다른 이름을 사용해 보세요.</string>
+
+    <string name="equ_custom">맞춤</string>
+
+    <string name="equalizer">이퀄라이저</string>
+
+    <string name="error_playing_file_error">재생 실패, 파일이 존재하지 않습니다</string>
+    <string name="error_playing_normal">재생 실패, 알 수 없는 오류가 발생했습니다</string>
+    <string name="error_playing_path_error">재생 실패, 경로 오류.</string>
+    <string name="error_playing_track">%1$s 재생 중 오류</string>
+
+    <string name="exe_all">모두</string>
+
+    <string name="exit">종료</string>
+    <string name="exit_1">종료</string>
+    <string name="exit_scan">스캐닝을 종료하시겠습니까?</string>
+
+    <string name="featured">추천</string>
+
+    <string name="feedback">피드백</string>
+    <string name="feedback_mail_text">시스템정보</string>
+
+    <string name="file_not_exist">파일이 존재하지 않습니다</string>
+
+    <string name="folder_select_title">폴더 선택</string>
+
+    <string name="folders">폴더</string>
+
+    <string name="free_7_days_trial_1">7일 동안 무료 체험</string>
+    <string name="free_space_needed">필요한 용량: %s (권장)</string>
+    <string name="free_space_to_ensure">앱이 제대로 작동하도록 저장공간을 비우세요.</string>
+    <string name="free_up_space">공간 비우기</string>
+
+    <string name="from_new_to_old">오래된 항목순</string>
+    <string name="from_old_to_new">최신 항목순</string>
+
+    <string name="general">일반</string>
+
+    <string name="genre_title">장르</string>
+
+    <string name="genres">장르</string>
+
+    <string name="go_premium">프리미엄 구매하기</string>
+    <string name="go_to_album">앨범으로 가기</string>
+    <string name="go_to_artist">아티스트로 가기</string>
+
+    <string name="good">좋음</string>
+
+    <string name="guide_allow_description">음악을 들으려면,\n음악 플레이어에게 기기에 있는 미디어 파일 엑세스를 허용해야합니다.</string>
+    <string name="guide_enable_description_1">음악을 들으려면, 다음을 수행해야합니다:</string>
+
+    <string name="help">도움말</string>
+
+    <string name="hidden_directory">숨겨진 폴더</string>
+
+    <string name="hide">숨기기</string>
+
+    <string name="history">히스토리</string>
+
+    <string name="ignore_less_duration">재생 시간이 다음 미만인 것은 무시</string>
+    <string name="ignore_less_size">크기가 다음 미만인 것은 무시</string>
+    <string name="ignore_short_files">50K 미만의 파일 무시하기.</string>
+    <string name="ignore_short_song">60초 미만의 노래 무시하기.</string>
+
+    <string name="import_clip_tips">가사를 선택하고 복사하세요</string>
+    <string name="import_clip_tips_html">가사를 &lt;b&gt;선택&lt;/b&gt;하고 &lt;b&gt;복사&lt;/b&gt;하세요</string>
+    <string name="import_clip_tips_save_title">가사 가져오기</string>
+    <string name="import_clip_tips_title">가사 가져오는 방법</string>
+    <string name="import_tel">가져오기</string>
+
+    <string name="insufficient_space">공간 부족</string>
+
+    <string name="internal_sd">내부 저장소</string>
+
+    <string name="language_title">언어</string>
+
+    <string name="last_backup">마지막 백업: %s</string>
+
+    <string name="library">라이브러리</string>
+
+    <string name="local">로컬</string>
+    <string name="local_songs">현지 노래</string>
+
+    <string name="location">위치</string>
+
+    <string name="lock_screen_disable_confirm">잠금 화면 재생을 끄시겠습니까?</string>
+
+    <string name="lucky_desc">이번엔 광고를 보실 필요가 없습니다.</string>
+    <string name="lucky_title">축하합니다! 운이 좋으시네요.</string>
+
+    <string name="lyrics_add_local">로컬 가사 추가</string>
+    <string name="lyrics_edit_song_info">곡 정보를 편집하여 가사를 정확하게 가져올 수 있습니다.</string>
+    <string name="lyrics_import_failed_no_format">가사 가져오기에 실패했습니다. 지원되지 않는 파일 형식입니다.</string>
+    <string name="lyrics_imported">가사를 가져왔습니다</string>
+    <string name="lyrics_load_failed">가사를 불러오지 못했습니다</string>
+    <string name="lyrics_loading">가사를 불러오는 중...</string>
+    <string name="lyrics_net_error">앗! 네트워크 연결 상태를 확인하세요.</string>
+    <string name="lyrics_no_found">앗! 가사를 찾을 수 없습니다.</string>
+    <string name="lyrics_no_matches">곡 또는 아티스트 이름이 일치하지 않습니다</string>
+    <string name="lyrics_no_scroll">가사가 스크롤되지 않습니다</string>
+    <string name="lyrics_reset_msg">그럴 경우, 추가된 가사가 삭제됩니다.</string>
+    <string name="lyrics_reset_title">가사를 재설정하시겠습니까?</string>
+    <string name="lyrics_search_online">온라인 검색</string>
+    <string name="lyrics_show_title">가사</string>
+    <string name="lyrics_thanks_fb">피드백을 제공해 주셔서 감사합니다! 개선할 수 있도록 최선을 다하겠습니다.</string>
+    <string name="lyrics_tx_error">가사 텍스트 오류</string>
+
+    <string name="manage_playlist">꾸리다</string>
+
+    <string name="manual_backups">수동 백업 목록</string>
+
+    <string name="more">더 보기</string>
+    <string name="more_setting">추가 설정</string>
+
+    <string name="music">음악</string>
+
+    <string name="music3_apply_more_permission_killed_dialog_title">%s이(가) 강제로 중지되었습니다</string>
+    <string name="music3_battery_opt_content">%s에 필요한 권한을 부여하여 백그라운드 재생이 강제로 중지되지 않도록 하십시오.</string>
+    <string name="music3_battery_opt_title_first">백그라운드에서의 연속 재생을 위해</string>
+    <string name="music3_clear_queue_info">재생 대기열이 초기화됩니다. 계속할까요?</string>
+    <string name="music3_delete_playlist_message">플레이리스트 %1$s을(를) 삭제할까요?</string>
+    <string name="music3_delete_song_message">%1$s을(를) 삭제할까요?</string>
+    <string name="music3_exit_scan">스캔에서 나가시겠습니까?</string>
+    <string name="music3_free_space_to_ensure">앱이 제대로 작동하게 하려면 저장 공간을 확보하세요.</string>
+    <string name="music3_guide_allow_description">음악을 재생하려면 %s에 미디어 파일 접근 권한을 부여하세요.</string>
+    <string name="music3_guide_enable_description_1">음악을 재생하려면, 다음을 수행하세요:</string>
+    <string name="music3_import_clip_tips_html">가사를 &lt;b&gt;선택&lt;/b&gt;한 다음 &lt;b&gt;복사&lt;/b&gt;하세요.</string>
+    <string name="music3_import_clip_tips_title">가사를 어떻게 가져오나요?</string>
+    <string name="music3_lyrics_edit_song_info">아래 곡 정보가 올바른지 확인하고 다시 시도하세요.</string>
+    <string name="music3_lyrics_load_failed">가사 불러오기 실패</string>
+    <string name="music3_lyrics_no_found">죄송하지만, 가사를 찾을 수 없습니다.</string>
+    <string name="music3_lyrics_no_matches">곡 또는 아티스트가 일치하지 않음</string>
+    <string name="music3_lyrics_no_scroll">가사를 스크롤할 수 없음</string>
+    <string name="music3_lyrics_reset_msg">그런 경우 추가한 가사가 삭제됩니다.</string>
+    <string name="music3_lyrics_reset_title">가사를 재설정할까요?</string>
+    <string name="music3_lyrics_tx_error">잘못된 가사</string>
+    <string name="music3_resume_playback_content">음악 재생이 다른 앱에 의해 중단되었음이 감지되었습니다.</string>
+    <string name="music3_resume_playback_title">재생을 계속하시겠습니까?</string>
+    <string name="music3_summary_pause_detach">헤드폰이 분리되면 재생을 일시 중지합니다</string>
+    <string name="music3_tag_edit_discard_change">나가서 변경 사항을 취소하시겠습니까?</string>
+    <string name="music3_terms_of_service_should_agree">%1$s 및 %2$s에 동의하고 음악 여정을 시작하세요!</string>
+    <string name="music3_thanks_for_your_feedback">소중한 피드백을 제공해 주셔서 감사합니다.</string>
+
+    <string name="music_guide_allow_description">음악을 들으려면, %s에게 기기에 있는 미디어 파일 엑세스를 허용해야합니다.</string>
+    <string name="music_player_share_text">%1$s에서 전해 드리는 노래입니다.</string>
+
+    <string name="my_favourite">내 즐겨 찾기</string>
+
+    <string name="network_error">네트워크 오류</string>
+    <string name="network_error_pls_try">네트워크 오류. 다시 시도하세요</string>
+
+    <string name="new_playlist">새로운 재생 목록</string>
+    <string name="new_share_email_text">나는 음악 플레이어을 사용하고 있어요.\\n\\n한 번 써보세요. 여기서 다운 받으시면 됩니다:\\n</string>
+
+    <string name="next_song">다음 노래</string>
+
+    <string name="no_backup">백업을 찾을 수 없습니다</string>
+    <string name="no_document_provider">이 권한 요청을 처리할 DocumentProvider가 없습니다.</string>
+    <string name="no_songs_found">노래를 찾을 수 없습니다</string>
+
+    <string name="not_good">아니요</string>
+
+    <string name="nothing_found">아무것도 찾을 수 없습니다</string>
+
+    <string name="now_playing">플레이어 테마</string>
+
+    <string name="number_song_add_playlist">%d개의 노래가 재생 목록에 추가되었습니다</string>
+    <string name="number_song_add_queue">%d개의 노래가 대기열에 추가되었습니다</string>
+    <string name="number_song_selected">%d개의 노래가 선택되었습니다</string>
+    <string name="number_songs_add_playlist">%d개의 노래가 재생 목록에 추가되었습니다</string>
+    <string name="number_songs_add_queue">%d개의 노래가 대기열에 추가되었습니다</string>
+    <string name="number_songs_selected">%d개의 노래가 선택되었습니다</string>
+
+    <string name="off">끔</string>
+
+    <string name="open_settings">설정 열기</string>
+
+    <string name="options_ads">광고가 너무 많습니다</string>
+    <string name="options_bugs">버그</string>
+    <string name="options_music_stop">음악 재생이 중단됨</string>
+    <string name="options_others">기타</string>
+    <string name="options_songs_not_found">표시되지 않는 노래가 있음</string>
+    <string name="options_suggestions">제안</string>
+
+    <string name="pause_detach">분리시 일시 중지</string>
+
+    <string name="pg_permission_dialog_title">허가 필요</string>
+
+    <string name="play">재생</string>
+    <string name="play_after_song">현재 노래 이후 재생</string>
+    <string name="play_next">다음 재생</string>
+
+    <string name="playing_queue">재생 대기열</string>
+
+    <string name="playlist">재생 목록</string>
+    <string name="playlist_already_exist">%1$s이(가) 이미 존재합니다</string>
+    <string name="playlist_edit_hint">재생 목록 이름 입력</string>
+    <string name="playlist_last_added">마지막 추가</string>
+    <string name="playlist_most_played">최다 재생</string>
+    <string name="playlist_recently_played">최근 재생</string>
+    <string name="playlist_top_tracks">내 탑 트랙</string>
+
+    <string-array name="preset_reverb">
+        <!--It refes to no reverb effect.-->
+        <item>없음</item>
+        <!--It is one of reverb types. You will enjoy the music just like in a small room.-->
+        <item>작은 방</item>
+        <!--It is one of reverb types. You will enjoy the music just like in a medium room.-->
+        <item>중간 방</item>
+        <!--It is one of reverb types. You will enjoy the music just like in a large room.-->
+        <item>큰 방</item>
+        <!--It is one of reverb types. You will enjoy the music just like in a large hall.-->
+        <item>중간 전당</item>
+        <!--It is one of reverb types. You will enjoy the music just like in large hall.-->
+        <item>큰 전당</item>
+        <!--It is one of reverb types. You will enjoy the music just like from a plate. Plate here you can understand it as a metal plate.-->
+        <item>접시</item>
+    </string-array>
+
+    <string name="price_lifetime">%s/일시불 구매</string>
+
+    <string name="privacy_policy">개인 정보 정책</string>
+
+    <string name="queue">대기열</string>
+
+    <string name="rate_us">평가하기</string>
+
+    <string name="rating_we_like_you">저희도 고객님이 좋아요!</string>
+
+    <string name="reader_exit_ads">정말로 종료하시겠습니까?</string>
+
+    <string name="remaining_x">남음: %s</string>
+
+    <string name="remind_me_anymore">더 이상 표시하지 않음</string>
+
+    <string name="remove">삭제</string>
+    <string name="remove_ad">광고 삭제</string>
+    <string name="remove_from_playlist">재생 목록에서 삭제</string>
+    <string name="remove_from_queue">대기열에서 삭제</string>
+    <string name="remove_song_message">정말로 %s을(를) 제거하시겠습니까?</string>
+
+    <string name="rename">이름 변경</string>
+    <string name="rename_failed">이름 변경 실패</string>
+    <string name="rename_success">이름 변경 성공</string>
+
+    <string name="repeat_loop">모두 반복</string>
+    <string name="repeat_off">반복 끔</string>
+    <string name="repeat_order">순서</string>
+    <string name="repeat_repeat">반복</string>
+    <string name="repeat_shuffle">무작위 재생</string>
+
+    <string name="restore_failed">복구 실패</string>
+    <string name="restore_playlist">재생 목록 복구</string>
+    <string name="restore_success">복구 성공</string>
+
+    <string name="result">결과</string>
+
+    <string name="resume">다시 시작</string>
+    <string name="resume_playback_content">다른 애플리케이션으로 인하여 음악 재생이 중단되었습니다.</string>
+    <string name="resume_playback_title">재생을 계속하시겠습니까?</string>
+
+    <string name="retry">재시도</string>
+
+    <string name="reverb">소리 울림</string>
+
+    <string name="ringtone_set">설정 성공</string>
+    <string name="ringtone_set_failed">설정 실패</string>
+
+    <string name="save">저장</string>
+
+    <string name="saving_tags">태그 저장 중...</string>
+
+    <string name="scan">스캔</string>
+    <string name="scan_library">음악 스캔</string>
+    <string name="scan_result">%1$s개의 노래가 %2$s에 추가되었습니다</string>
+
+    <string name="scanner_lib_rate_leave_feedback">회원님의 피드백을 환영합니다.</string>
+    <string name="scanner_lib_rate_like_you">대단히 감사합니다!</string>
+    <string name="scanner_share_dialog_title_2">지원에 감사드립니다!</string>
+
+    <string name="scanning">스캔 중</string>
+
+    <string name="screen_lock_play">잠금 화면 재생</string>
+
+    <string name="sd_card_access_step_1_format">
+        <![CDATA[좌측 상단 모서리에 있는 버튼을 탭하고 <font color=\"#F44831\"><b>SD 카드를 선택하세요</b></font>.]]>
+    </string>
+    <string name="sd_card_access_step_2_format">
+        <![CDATA[다음 화면의 하단에서 <font color=\"#F44831\"><b>선택을 탭하고</b></font> 쓰기 권한을 부여하세요.]]>
+    </string>
+    <string name="sd_tips">외부SD카드의 위치를 선택해(%s) 작동 권한을 부여해주세요.</string>
+
+    <string name="sdcard_permission_required">SD 카드의 노래를 삭제하려면 권한이 필요합니다.</string>
+
+    <string name="search">검색</string>
+    <string name="search_albums">앨범 검색</string>
+    <string name="search_artists">아티스트 검색</string>
+    <string name="search_folders">폴더 검색</string>
+    <string name="search_genres">장르 검색</string>
+    <string name="search_history">검색 히스토리</string>
+    <string name="search_library">라이브러리 검색</string>
+    <string name="search_music_on_youtube">YouTube에서 노래 검색</string>
+    <string name="search_on_youtube">YouTube에서 검색하기</string>
+    <string name="search_songs">노래 검색</string>
+
+    <string name="select_all">모두 선택</string>
+    <string name="select_backup">복원할 백업 기록을 선택하세요</string>
+    <string name="select_folder">폴더 선택</string>
+
+    <string name="set">설정</string>
+    <string name="set_as_ringtone">벨소리로 설정</string>
+    <string name="set_ringtone">%s을(를) 벨소리로 설정할까요?</string>
+    <string name="set_ringtone_message">벨소리로 설정하려면, 필요한 권한을 허용하세요.</string>
+
+    <string name="settings">설정</string>
+
+    <string name="share">공유</string>
+    <string name="share_email_title">음악 플레이어을 당신과 공유합니다</string>
+
+    <string name="show">보기</string>
+
+    <string name="shuffle">셔플</string>
+    <string name="shuffle_off">임의 재생 끔</string>
+    <string name="shuffle_on">임의 재생 켬</string>
+
+    <string name="size">크기</string>
+
+    <string name="sleep_timer">수면 타이머</string>
+
+    <string name="slide_to_unlock">슬라이드로 잠금해제</string>
+
+    <string name="song">노래</string>
+    <string name="song_added_plural">%s개의 신곡이 추가되었습니다.</string>
+    <string name="song_added_singular">%s개의 신곡이 추가되었습니다.</string>
+    <string name="song_deleted">%d곡이 삭제되었습니다</string>
+    <string name="song_name">노래 이름</string>
+    <string name="song_scanned_plural">%s개의 곡을 검색했습니다.</string>
+    <string name="song_scanned_singular">%s개의 곡을 검색했습니다.</string>
+    <string name="song_title">제목</string>
+
+    <string name="songs">노래</string>
+    <string name="songs_deleted">%d곡이 삭제되었습니다</string>
+
+    <string name="sort_by">정렬 기준</string>
+    <string name="sort_by_name">이름</string>
+    <string name="sort_key_add_playlist">플레이리스트에 시간 추가됨</string>
+    <string name="sort_key_album_name">앨범 이름</string>
+    <string name="sort_key_number_of_albums">앨범의 수</string>
+    <string name="sort_key_time_added">추가된 시간</string>
+    <string name="sort_key_track">앨범에서 주문</string>
+    <string name="sort_order_a_z">내림차순</string>
+    <string name="sort_order_big_small">큰 항목순</string>
+    <string name="sort_order_entry_number_of_songs">노래 수</string>
+    <string name="sort_order_long_short">긴 항목순</string>
+    <string name="sort_order_short_long">짧은 항목순</string>
+    <string name="sort_order_small_big">작은 항목순</string>
+    <string name="sort_order_z_a">오름차순</string>
+
+    <string name="start">시작</string>
+
+    <string name="storage">저장소</string>
+
+    <string name="subscription_des_music">이 구독은 당사의 앱 콘텐츠 라이브러리에 대한 무제한 액세스 권한을 제공합니다. 체험 기간이 종료하기 전에 취소하지 않으면, 취소할 때까지 매달 %s의 요금이 자동으로 청구됩니다.</string>
+    <string name="subscription_detail">구독 세부 사항</string>
+    <string name="subscription_price">그 후에는 월 %s</string>
+
+    <string name="summary_feedback">버그 신고 및 개선 사항을 알려주세요</string>
+    <string name="summary_pause_detach">헤드폰이 분리 될 때 재생 일시 중지 토글</string>
+    <string name="summary_rateUs">이 앱이 마음에 드시나요? 평점을 주세요!</string>
+    <string name="summary_screen_lock_play">잠금 화면에서 지금 재생 중인 노래 표시</string>
+
+    <string name="system">시스템</string>
+    <string name="system_default">시스템의 기본</string>
+
+    <string name="tag_edit_discard_change">변경 사항을 정말 삭제하시겠습니까?</string>
+    <string name="tag_edit_error">편집 실패</string>
+    <string name="tag_edit_success">편집 성공</string>
+
+    <string name="tap_permission">권한 클릭하기</string>
+    <string name="tap_to_start">눌러 음악 플레이어 시작</string>
+
+    <string name="terms_of_service">이용 약관</string>
+    <string name="terms_of_service_guide">\"%1$s\"을 탭하시면 당사의 %2$s 및 %3$s을 읽고 이에 동의하신 것으로 간주됩니다.</string>
+    <string name="terms_of_service_should_agree">%1$s 앱을 사용하려면 %2$s 및 %3$s에 동의하셔야 합니다.</string>
+
+    <string name="thanks_for_loving_x">%s을 칭찬해 주셔서 감사합니다.</string>
+    <string name="thanks_for_your_feedback">피드백을 주셔서 감사합니다.</string>
+
+    <string name="theme">스킨 테마</string>
+
+    <string name="thx_feedback_tip">차후 버전에서 수정하겠습니다. 불편을 끼쳐 드려 죄송합니다.</string>
+
+    <string name="timer_after_this">현재 노래가 끝나면 멈추기</string>
+    <string name="timer_stop_after">다음 이후 음악 중지</string>
+    <string name="timer_turn_off">수면 타이머가 꺼짐</string>
+    <string name="timer_turn_off_latter">%s 후 끄기</string>
+
+    <string name="title_is_null">제목은 필수란입니다.</string>
+
+    <string name="transparency">투명도</string>
+
+    <string name="turn_off">끄기</string>
+    <string name="turn_off_after">%1$d분 후 끄기</string>
+    <string name="turn_off_ends">현재 노래가 끝나면 끄기</string>
+    <string name="turn_storage">저장 공간 권한 켜기</string>
+
+    <string name="unit_secs">초</string>
+
+    <string name="unknow_error">알 수 없는 오류가 발생했습니다</string>
+
+    <string name="unlock_for_free">무료로 잠금 해제</string>
+    <string name="unlock_premium_themes">모든 테마 잠금해제</string>
+
+    <string name="version">버전</string>
+
+    <string name="view">보기</string>
+    <string name="view_all">전체 보기</string>
+
+    <string name="virtualizer">버추얼라이저</string>
+
+    <string name="vivo_deny">허용 안 함</string>
+
+    <string name="what_a_pity">유감입니다!</string>
+
+    <string name="x_hours">%s시간</string>
+    <string name="x_minutes">%s분</string>
+    <string name="x_seconds">%s 초</string>
+    <string name="x_selected">%s 선택됨</string>
+    <string name="x_song_hide_single">%1$s곡이 숨겨졌습니다, %2$s로 가서 볼 수 있습니다.</string>
+    <string name="x_songs_hide_1">%1$s곡이 숨겨졌습니다, %2$s로 가서 볼 수 있습니다.</string>
+
+    <string name="xbooster_notification_access">알림 액세스</string>
+
+    <string name="yes">네</string>
+    <string name="music3_remove_successfully">제거 성공</string>
+
+    <string name="camera_preparing">준비 중…</string>
+
+    <string name="widget_tap_start">탭하여 음악 플레이어 시작</string>
+    <string name="music3_notification_access_desc">알림 센터에서 빠르게 음악 재생을 제어하려면 %s 알림 권한을 부여하세요.</string>
+    <string name="music3_app_name">음악 플레이어</string>
+
+    <string name="go_file_manager">이동</string>
+    <string name="music3_click_to_authorize">여기를 클릭하여 인증하세요</string>
+    <string name="music3_language_guide">\&#34;시스템\&#34; 이외의 언어를 선택하고 여기를 클릭하여 확인하세요.</string>
+    <string name="pdf_reader2_enter_homepage_guide">탭하여 홈페이지를 입력하세요</string>
+
+    <string name="mp3_current_speed">현재 속도: %s</string>
+    <string name="mp3_edit_lyrics">가사 편집</string>
+    <string name="mp3_enter_lyrics">가사 입력</string>
+    <string name="mp3_enter_lyrics_here">여기에 가사를 입력하세요…</string>
+    <string name="music3_playback_speed">재생 속도</string>
+    <string name="music3_playback_speed_changed">재생 속도가 %sX로 변경됨</string>
+    <string name="music3_playback_speed_num">재생 속도: %s</string>
+    <string name="normal">정상</string>
+    <string name="paste">붙여넣기</string>
+    <string name="music3_playback_speed_changed_failed">%sX로 변경 실패, 1.0X로 초기화</string>
+
+    <string name="music3_app_title_1">음악 플레이어 - DDMusic</string>
+    <string name="music3_delete_permission_access">&#60;b&#62;다음 페이지의 단계를 따라&#60;/b&#62;액세스를 허용하세요.</string>
+    <string name="music3_delete_some_no_premission">&#60;b&#62;접근 권한 문제&#60;/b&#62;로 인해 나머지는 실패했습니다.</string>
+    <string name="music3_delete_videos_gpt">%s개의 비디오를 삭제하시겠습니까?</string>
+    <string name="music3_error_playing_video_gpt">비디오 재생 중 오류 발생 \&#34;%s\&#34;</string>
+    <string name="music3_grant_media_files_access_gpt">%s 미디어 파일에 비디오를 재생할 수 있는 액세스 권한을 부여하십시오.</string>
+    <string name="music3_next">다음</string>
+    <string name="music3_resume_auto">정지한 곳부터 재생 계속</string>
+    <string name="music3_scan_local_videos_gpt">로컬 비디오를 스캔하려면 다음을 수행하십시오:</string>
+    <string name="music3_scan_video_gpt">비디오 스캔</string>
+    <string name="music3_sd_card_access_step_2_format">&#60;b&#62;선택을 탭하여&#60;/b&#62;쓰기 액세스를 허용하세요.</string>
+    <string name="music3_sd_write_access_required_gpt">SD 카드에서 비디오를 삭제하려면 쓰기 액세스가 필요합니다</string>
+    <string name="music3_search_videos">비디오 검색</string>
+    <string name="music3_select_albums_gpt">앨범 선택</string>
+    <string name="music3_select_artists_gpt">아티스트 선택</string>
+    <string name="music3_select_genres_gpt">장르 선택</string>
+    <string name="music3_select_playlists_gpt">재생 목록 선택</string>
+    <string name="music3_select_songs_gpt">노래 선택</string>
+    <string name="music3_select_videos_gpt">비디오 선택</string>
+    <string name="music3_videos_added_gpt">&#60;b&#62;%1$s&#60;/b&#62;개의 비디오가 %2$s에 추가됨</string>
+    <string name="music3_video_info_gpt">비디오 정보</string>
+    <string name="music3_video_name_gpt">비디오 이름</string>
+    <string name="music3_video_not_found_gpt">비디오를 찾을 수 없나요?</string>
+    <string name="music3_x_new_videos_added_gpt">%s개의 새로운 비디오 추가됨</string>
+    <string name="music3_x_videos_deleted_gpt">%s개의 비디오 삭제됨</string>
+
+    <string name="allplayer_fast_forward">빨리 감기</string>
+    <string name="allplayer_mute_play_gpt">음소거 재생</string>
+    <string name="allplayer_recently_watched_gpt">최근 시청한</string>
+    <string name="brightness">밝기</string>
+    <string name="btn_allow">허용</string>
+    <string name="enter_name">이름을 입력하세요</string>
+    <string name="got_it_1">알겠습니다</string>
+    <string name="music3_1_new_video_added_gpt">%s개의 새로운 비디오 추가됨</string>
+    <string name="music4_allow_photo_video">사진 및 동영상에 대한 액세스 허용</string>
+    <string name="music4_photo_permission_step3">사진과 동영상을 찾아 탭하세요</string>
+    <string name="music_3_video_share">%1$s에서 보낸 비디오：%2$s</string>
+    <string name="no_videos_found">동영상을 찾을 수 없음</string>
+    <string name="n_videos">%s개의 동영상</string>
+    <string name="n_videos_1">%s 동영상</string>
+    <string name="one_video">1개의 동영상</string>
+    <string name="pause_play">일시 중지/재생</string>
+    <string name="rewind">되감기</string>
+    <string name="rp_next">다음</string>
+    <string name="sd_card_access_step_1">좌측 상단 모서리에 있는 버튼을 탭하고 &#60;b&#62;SD 카드를 선택하세요&#60;/b&#62;.</string>
+    <string name="sound_boost_tips">조정을 계속하여 볼륨을 최대 200%로 부스트하세요.</string>
+    <string name="start_over">처음부터 시작</string><!-- gpt的 -->
+    <string name="tab_videos">동영상</string>
+    <string name="tap_again_to_exit">다시 탭하여 종료합니다</string>
+    <string name="video">동영상</string>
+    <string name="volume">볼륨</string>
+    <string name="xgallery_no_next_video">이미 지난 동영상에서</string><!-- 190344 -->
+    <string name="xgallery_no_previous_video">이미 첫 번째 동영상에서</string>
+    <string name="xgallery_playing_lock_screen">화면 잠김</string>
+    <string name="xgallery_playing_unlock_screen">화면 잠금 해제됨</string>
+    <string name="xgallery_sound_off">소리 끔</string>
+    <string name="xgallery_sound_on">소리 켬</string>
+    <string name="zoom_in_out">확대/축소</string>
+    <string name="music3_1_video_deleted_gpt">%s개의 비디오 삭제됨</string>
+    <string name="music4_choose_allow">허용 선택</string>
+    <string name="open_settings_1">설정으로 가기</string>
+    <string name="music4_error_playing_file_error">재생 실패, 유효하지 않은 파일.</string>
+    <string name="music4_error_playing_path_error">재생 실패, 유효하지 않은 파일 경로입니다.</string>
+    <string name="music3_1_song_added_gpt">&#60;b&#62;1&#60;/b&#62; 곡이 %s에 추가되었습니다</string>
+    <string name="music3_1_video_added_gpt">&#60;b&#62;1&#60;/b&#62; 비디오가 %s에 추가되었습니다</string>
+
+    <string name="all_reader2_major_update_gpt">주요 업데이트</string>
+    <string name="all_reader2_new_version_en_desc_5_gpt">사용자 경험 개선</string>
+    <string name="all_reader2_new_version_gpt">새로운 버전</string>
+    <string name="all_reader2_new_version_ready_gpt">새 버전이 준비되었습니다!</string>
+    <string name="all_reader2_new_version_title_plan1_gpt">저희 최신 버전은 %s명의 사용자로부터 5성급 리뷰를 받았습니다!</string>
+    <string name="booster2_new_version_des2_gpt">%s명의 만족한 사용자에게 합류하여 5성급 경험으로 업그레이드하세요!</string>
+    <string name="booster2_new_version_des3_gpt">우리의 최신 버전은 지금까지 %s의 인상적인 만족도를 자랑합니다.</string>
+    <string name="booster2_new_version_en_desc3_gpt">최적화된 UI 디자인</string>
+    <string name="booster2_version_update">버전 업데이트</string>
+    <string name="docx_new_version_benefits3_gpt">작은 버그 수정</string>
+    <string name="install">설치</string>
+    <string name="lyrics_source_gpt">가사 출처: 익명 사용자</string>
+    <string name="pdf_reader3_update_from_gp_gpt">실패했습니다. Google Play에서 업데이트하세요.</string>
+    <string name="recommended">추천</string>
+    <string name="step4_update_reason_1_gpt">이 업데이트에서 여러 문제를 해결하고 전체 애플리케이션 성능을 향상시켰습니다.</string>
+    <string name="update">새롭게 하다</string>
+    <string name="update_failed_network_wg_gpt">업데이트 실패, 네트워크를 확인하고 다시 시도하세요</string>
+    <string name="update_now_for_better_1">&#60;b&#62;지금 업데이트하세요&#60;/b&#62; 더 나은 경험을 위해.</string>
+    <string name="updating">업데이트 중...</string>
+    <string name="upgrade">업그레이드</string>
+    <string name="upgrade_to_new_version">최신 버전으로 향상된 성능과 높은 안정성을 경험하세요. \n\n&#60;b&#62;지금 업그레이드하려면 터치하세요.&#60;/b&#62;</string>
+    <string name="upload_lyrics_statement_gpt">우리 앱에 가사를 업로드할 때, 해당하는 권리가 있음을 확인하고 업로드가 지적 재산권을 침해하지 않는지 확인해 주세요. 업로드함으로써, 당신은 우리가 당신의 콘텐츠를 무료로 사용할 수 있도록 허가하며, 출처를 \&#34;익명 사용자\&#34;로 기재할 것입니다.</string>
+    <string name="video_player_in_music_gpt">비디오 플레이어</string>
+    <string name="video_player_moved_gpt">비디오 플레이어가 여기로 이동되었습니다</string>
+</resources>
