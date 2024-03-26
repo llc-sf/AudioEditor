@@ -7,14 +7,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.san.audioeditor.viewmodel.pagedata.MediaPickPageData
+import com.san.audioeditor.viewmodel.pagedata.AudioPickPageData
 import com.san.audioeditor.storage.AudioSyncUtil
 import dev.android.player.framework.base.viewmodel.BaseViewModel
 import dev.android.player.framework.data.model.Song
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AudioPickViewModel : BaseViewModel<MediaPickPageData>() {
+class AudioPickViewModel : BaseViewModel<AudioPickPageData>() {
 
     companion object {
 
@@ -30,8 +30,6 @@ class AudioPickViewModel : BaseViewModel<MediaPickPageData>() {
 
     private val _mediaViewState = MutableLiveData<MediaPickPageState>()
     var mediaPickState: LiveData<MediaPickPageState> = _mediaViewState
-
-    var code: String? = null
 
 
     data class MediaPickPageState(

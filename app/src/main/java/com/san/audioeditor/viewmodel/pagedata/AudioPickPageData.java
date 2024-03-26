@@ -1,4 +1,4 @@
 package com.san.audioeditor.viewmodel.pagedata;
 
-public class MediaPickPageData {
+public class AudioPickPageData {
 }
