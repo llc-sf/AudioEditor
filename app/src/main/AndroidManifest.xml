@@ -40,7 +40,7 @@
         android:supportsRtl="true"
         android:theme="@style/MusicTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,7 +48,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AudioCutHandleActivity"></activity>
+        <activity android:name=".activity.AudioCutHandleActivity"></activity>
+
+        <!--数据同步服务-->
+        <service android:name=".storage.MediaSyncService" />
     </application>
 
 </manifest>

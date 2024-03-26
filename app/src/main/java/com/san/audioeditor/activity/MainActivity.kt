@@ -1,11 +1,13 @@
-package com.san.audioeditor
+package com.san.audioeditor.activity
 
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
+import com.san.audioeditor.R
 import com.san.audioeditor.databinding.ActivityMainBinding
 import com.san.audioeditor.fragment.IndexFragment
+import com.san.audioeditor.storage.MediaSyncService
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        MediaSyncService.sync(this)
         showFragment()
     }
 

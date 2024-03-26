@@ -1,4 +1,4 @@
-package com.san.audioeditor
+package com.san.audioeditor.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.masoudss.lib.demo.AmplitudaActivity
 import com.masoudss.lib.demo.AmplitudaValueActivity
+import com.san.audioeditor.R
 import dev.audio.ffmpeglib.listener.OnItemClickListener
 import com.san.audioeditor.adapter.WaterfallAdapter
 import com.san.audioeditor.handler.FFmpegHandler

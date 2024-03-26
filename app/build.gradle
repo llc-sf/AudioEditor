@@ -55,6 +55,7 @@ dependencies {
 
 
     implementation project(":framework-base")
+    implementation project(":framework-data")
     implementation project(":framework-dimens-375")
     implementation project(":framework-utils")
     implementation project(":framework-themes-deps")

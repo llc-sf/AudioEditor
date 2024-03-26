@@ -1,4 +1,4 @@
-package com.san.audioeditor
+package com.san.audioeditor.activity
 
 import android.Manifest
 import android.content.Intent
@@ -13,6 +13,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import com.san.audioeditor.R
 import dev.audio.ffmpeglib.FFmpegApplication
 import dev.audio.ffmpeglib.tool.ContentUtil
 import java.lang.Exception
