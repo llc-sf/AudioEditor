@@ -644,4 +644,6 @@
     <!--todo 有老的值 -->
     <string name="create">create</string>
     <string name="output">output</string>
+    <string name="cut_editor">Cut Editor</string>
+    <string name="audio_pick">Audio Pick</string>
 </resources>

@@ -1,10 +1,12 @@
 package com.san.audioeditor.fragment
 
 import android.view.LayoutInflater
+import android.view.View
 import com.san.audioeditor.cell.CellMediaItemView
 import com.san.audioeditor.databinding.FragmentMediaPickBinding
 import com.san.audioeditor.viewmodel.MediaPickViewModel
 import dev.android.player.framework.base.BaseMVVMFragment
+import dev.android.player.framework.utils.ImmerseDesign
 import dev.android.player.widget.cell.MultiTypeFastScrollAdapter
 
 class MediaPickFragment : BaseMVVMFragment<FragmentMediaPickBinding>() {
@@ -31,6 +33,7 @@ class MediaPickFragment : BaseMVVMFragment<FragmentMediaPickBinding>() {
 
     override fun initView() {
         super.initView()
+        viewBinding.toolbar.ImmerseDesign()
         mAdapter.register(CellMediaItemView())
         viewBinding.recycleview.adapter = mAdapter
         mAdapter.notifyDataSetChanged()

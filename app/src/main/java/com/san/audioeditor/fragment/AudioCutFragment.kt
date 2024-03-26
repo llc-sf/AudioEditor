@@ -2,6 +2,7 @@ package com.san.audioeditor.fragment
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.SeekBar
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.PlaybackParameters
@@ -16,6 +17,7 @@ import com.san.audioeditor.databinding.FragmentAudioCutBinding
 import com.san.audioeditor.viewmodel.AudioCutViewModel
 import dev.android.player.framework.base.BaseMVVMFragment
 import dev.android.player.framework.data.model.Song
+import dev.android.player.framework.utils.ImmerseDesign
 import dev.audio.recorder.utils.Log
 import dev.audio.timeruler.R
 import dev.audio.timeruler.bean.TimeBean
@@ -60,6 +62,7 @@ class AudioCutFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
 
     override fun initView() {
         super.initView()
+        viewBinding.toolbar.ImmerseDesign()
         initTimeBar()
     }
 
