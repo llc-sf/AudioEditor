@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.san.audioeditor.activity.AudioCutActivity
 import com.san.audioeditor.activity.MediaPickActivity
 import com.san.audioeditor.databinding.FragmentCreateBinding
 import dev.android.player.framework.base.BaseFragment
@@ -49,7 +50,9 @@ class CreateFragment : BaseFragment() {
             if (result.resultCode == Activity.RESULT_OK) {
                 var song = result.data?.getParcelableExtra<Song>(MediaPickFragment.PARAM_SONG)
                 Log.i(TAG, "pick song: $song")
-
+                if(song!= null){
+                    AudioCutActivity.open(requireContext(), song!!)
+                }
             }
         }
 

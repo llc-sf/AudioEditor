@@ -7,14 +7,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.san.audioeditor.viewmodel.pagedata.MediaPickPageData
-import com.san.audioeditor.storage.MediaSyncUtil
+import com.san.audioeditor.viewmodel.pagedata.AudioCutPageData
 import dev.android.player.framework.base.viewmodel.BaseViewModel
 import dev.android.player.framework.data.model.Song
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MediaPickViewModel : BaseViewModel<MediaPickPageData>() {
+class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
 
     companion object {
 
@@ -24,18 +23,16 @@ class MediaPickViewModel : BaseViewModel<MediaPickPageData>() {
     class ThemeListViewFactory() : ViewModelProvider.Factory {
         // 构造 数据访问接口实例
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return MediaPickViewModel() as T
+            return AudioCutViewModel() as T
         }
     }
 
-    private val _mediaViewState = MutableLiveData<MediaPickPageState>()
-    var mediaPickState: LiveData<MediaPickPageState> = _mediaViewState
-
-    var code: String? = null
+    private val _audioCutViewState = MutableLiveData<AudioCutViewModel>()
+    var audioCutState: LiveData<AudioCutViewModel> = _audioCutViewState
 
 
-    data class MediaPickPageState(
-        var songs: List<Song>? = null,
+    data class AudioCutViewModel(
+        var song: Song? = null,
     )
 
 
@@ -43,8 +40,7 @@ class MediaPickViewModel : BaseViewModel<MediaPickPageData>() {
         viewModelScope.launch(Dispatchers.IO) {
             launchOnUI {
                 refresh(
-                    MediaPickPageState(
-                        songs = MediaSyncUtil.songs
+                    AudioCutViewModel(
                     )
                 )
 
@@ -53,8 +49,8 @@ class MediaPickViewModel : BaseViewModel<MediaPickPageData>() {
     }
 
 
-    private fun refresh(pageState: MediaPickPageState) {
-        _mediaViewState.value = pageState
+    private fun refresh(pageState: AudioCutViewModel) {
+        _audioCutViewState.value = pageState
     }
 
 }

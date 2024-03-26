@@ -19,9 +19,8 @@ abstract class BaseMVVMFragment<T : ViewBinding> : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initViewModel()
         initData()
-
+        initViewModel()
     }
 
     abstract fun initViewModel()

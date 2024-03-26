@@ -43,7 +43,10 @@ abstract class BaseFragment : Fragment() {
         super.onAttach(context)
         this.mActivity = context as? AppCompatActivity
         if (activity is AppCompatActivity) {
-            (activity as AppCompatActivity).onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+            (activity as AppCompatActivity).onBackPressedDispatcher.addCallback(
+                this,
+                onBackPressedCallback
+            )
         }
     }
 
@@ -84,7 +87,6 @@ abstract class BaseFragment : Fragment() {
     }
 
     private fun onLoadData() {
-        Log.d(TAG, "${this::class.java},onLoadData: isVisibleToUser = $isVisibleToUser, isViewCreated = $isViewCreated, isResumed = $isResumed isFirstLoaded = $isFirstLoaded")
         if (isViewCreated && (isVisibleToUser || isResumed) && isFirstLoaded) {
             isFirstLoaded = false
             onLazyLoad()
