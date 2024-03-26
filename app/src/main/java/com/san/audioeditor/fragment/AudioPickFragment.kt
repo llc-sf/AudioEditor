@@ -3,7 +3,7 @@ package com.san.audioeditor.fragment
 import android.view.LayoutInflater
 import com.san.audioeditor.cell.CellAudioItemView
 import com.san.audioeditor.databinding.FragmentMediaPickBinding
-import com.san.audioeditor.viewmodel.MediaPickViewModel
+import com.san.audioeditor.viewmodel.AudioPickViewModel
 import dev.android.player.framework.base.BaseMVVMFragment
 import dev.android.player.framework.utils.ImmerseDesign
 import dev.android.player.widget.cell.MultiTypeFastScrollAdapter
@@ -27,9 +27,9 @@ class AudioPickFragment : BaseMVVMFragment<FragmentMediaPickBinding>() {
         return FragmentMediaPickBinding.inflate(inflater)
     }
 
-    private lateinit var mViewModel: MediaPickViewModel
+    private lateinit var mViewModel: AudioPickViewModel
     override fun initViewModel() {
-        mViewModel = MediaPickViewModel()
+        mViewModel = AudioPickViewModel()
     }
 
 

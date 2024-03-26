@@ -14,7 +14,7 @@ import dev.android.player.framework.data.model.Song
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MediaPickViewModel : BaseViewModel<MediaPickPageData>() {
+class AudioPickViewModel : BaseViewModel<MediaPickPageData>() {
 
     companion object {
 
@@ -24,7 +24,7 @@ class MediaPickViewModel : BaseViewModel<MediaPickPageData>() {
     class ThemeListViewFactory() : ViewModelProvider.Factory {
         // 构造 数据访问接口实例
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return MediaPickViewModel() as T
+            return AudioPickViewModel() as T
         }
     }
 
