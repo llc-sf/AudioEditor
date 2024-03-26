@@ -49,11 +49,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.AudioCutHandleActivity"></activity>
-        <activity android:name=".activity.MediaPickActivity"></activity>
+        <activity android:name=".activity.AudioPickActivity"></activity>
         <activity android:name=".activity.AudioCutActivity"></activity>
 
         <!--数据同步服务-->
-        <service android:name=".storage.MediaSyncService" />
+        <service android:name=".storage.AudioSyncService" />
     </application>
 
 </manifest>

@@ -7,7 +7,7 @@ import android.view.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.san.audioeditor.activity.AudioCutActivity
-import com.san.audioeditor.activity.MediaPickActivity
+import com.san.audioeditor.activity.AudioPickActivity
 import com.san.audioeditor.databinding.FragmentCreateBinding
 import dev.android.player.framework.base.BaseFragment
 import dev.android.player.framework.data.model.Song
@@ -40,7 +40,7 @@ class CreateFragment : BaseFragment() {
         super.onViewCreatedCompat(view, savedInstanceState)
 
         binding.create.setOnClickListener {
-            val intent = Intent(context, MediaPickActivity::class.java)
+            val intent = Intent(context, AudioPickActivity::class.java)
             pickAudioResult.launch(intent)
         }
     }
@@ -48,7 +48,7 @@ class CreateFragment : BaseFragment() {
     private val pickAudioResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                var song = result.data?.getParcelableExtra<Song>(MediaPickFragment.PARAM_SONG)
+                var song = result.data?.getParcelableExtra<Song>(AudioPickFragment.PARAM_SONG)
                 Log.i(TAG, "pick song: $song")
                 if(song!= null){
                     AudioCutActivity.open(requireContext(), song!!)

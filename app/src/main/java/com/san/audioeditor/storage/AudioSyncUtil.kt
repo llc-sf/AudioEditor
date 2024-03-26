@@ -5,7 +5,7 @@ import dev.android.player.framework.data.model.Song
 import dev.audio.recorder.utils.Log
 import java.util.*
 
-object MediaSyncUtil {
+object AudioSyncUtil {
 
     internal const val TAG = "MediaSyncUtil"
 
@@ -16,7 +16,7 @@ object MediaSyncUtil {
     }
 
 
-    private fun MediaSyncUtil.getSystemSongs(context: Context): List<Song> {
+    private fun AudioSyncUtil.getSystemSongs(context: Context): List<Song> {
         val result: MutableList<Song> = ArrayList()
         try {
             context.contentResolver.query(

@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.san.audioeditor.viewmodel.pagedata.MediaPickPageData
-import com.san.audioeditor.storage.MediaSyncUtil
+import com.san.audioeditor.storage.AudioSyncUtil
 import dev.android.player.framework.base.viewmodel.BaseViewModel
 import dev.android.player.framework.data.model.Song
 import kotlinx.coroutines.Dispatchers
@@ -44,7 +44,7 @@ class MediaPickViewModel : BaseViewModel<MediaPickPageData>() {
             launchOnUI {
                 refresh(
                     MediaPickPageState(
-                        songs = MediaSyncUtil.songs
+                        songs = AudioSyncUtil.songs
                     )
                 )
 

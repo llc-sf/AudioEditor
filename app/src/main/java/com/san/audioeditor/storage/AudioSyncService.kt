@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 /**
  * 应用数据库同步服务
  */
-class MediaSyncService : IntentService(TAG) {
+class AudioSyncService : IntentService(TAG) {
 
     companion object {
         private const val TAG = "MediaSyncService"
@@ -23,7 +23,7 @@ class MediaSyncService : IntentService(TAG) {
          */
         fun sync(context: Context) {
             try {
-                val intent = Intent(context, MediaSyncService::class.java)
+                val intent = Intent(context, AudioSyncService::class.java)
                 intent.action = SYNC_ACTION
                 context.startService(intent)
             } catch (e: Exception) {
@@ -44,7 +44,7 @@ class MediaSyncService : IntentService(TAG) {
             SYNC_ACTION -> {
                 if (isRunning.compareAndSet(false, true)) {
                     Log.d(TAG, "onHandleIntent() Start Time = " + System.currentTimeMillis())
-                    MediaSyncUtil.sync(this)
+                    AudioSyncUtil.sync(this)
                     isRunning.set(false)
                     stopSelf()
                     Log.d(TAG, "onHandleIntent() End Time = " + System.currentTimeMillis())

@@ -11,7 +11,7 @@ import android.widget.RelativeLayout
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.san.audioeditor.databinding.ItemSongViewBinding
-import com.san.audioeditor.fragment.MediaPickFragment
+import com.san.audioeditor.fragment.AudioPickFragment
 import dev.android.player.framework.data.model.Song
 import dev.android.player.framework.utils.DateUtil
 import dev.android.player.framework.utils.FileUtils
@@ -19,9 +19,9 @@ import dev.android.player.framework.utils.StringsUtils
 import java.io.Serializable
 
 /**
- * 歌曲Item
+ * AudioItem
  */
-class SongItemView @JvmOverloads constructor(
+class AudioItemView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : RelativeLayout(context, attrs) {
 
@@ -93,7 +93,7 @@ class SongItemView @JvmOverloads constructor(
             mBinding.root.setOnClickListener {
                 (mBinding.root.context as? Activity)?.setResult(Activity.RESULT_OK, Intent().apply {
                     putExtras(Bundle().apply {
-                        putParcelable(MediaPickFragment.PARAM_SONG, song)
+                        putParcelable(AudioPickFragment.PARAM_SONG, song)
                     })
                 })
                 (mBinding.root.context as? Activity)?.finish()
