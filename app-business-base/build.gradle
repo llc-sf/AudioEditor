@@ -1,0 +1,53 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'musicplayer.playmusic.audioplayer.base'
+    compileSdk rootProject.ext.COMPILE_SDK_VERSION
+    buildToolsVersion rootProject.ext.BUILD_TOOLS_VERSION
+
+    defaultConfig {
+        minSdk rootProject.ext.MIN_SDK_VERSION
+        targetSdk rootProject.ext.TARGET_SDK_VERSION
+
+        buildConfigField "String", "APPLICATION_ID", "\"${rootProject.ext.APPLICATION_ID}\""
+
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
+        buildConfig true
+    }
+}
+
+dependencies {
+
+    implementation rootProject.ext.Image.glide
+
+
+    implementation project(':framework-rx')
+    implementation project(":framework-language")
+    implementation project(":framework-themes-deps")
+    implementation project(":framework-utils")
+    implementation project(':framework-data')
+    implementation project(':framework-base')
+
+    implementation project(":widget-text")
+    implementation project(":widget-recyclerview")
+}

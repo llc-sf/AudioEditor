@@ -10,6 +10,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/app-business-base" />
             <option value="$PROJECT_DIR$/ffmpegLib" />
             <option value="$PROJECT_DIR$/framework-appprovider" />
             <option value="$PROJECT_DIR$/framework-base" />

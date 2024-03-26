@@ -16,12 +16,15 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Looper;
 import android.os.StatFs;
 import android.os.storage.StorageManager;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
 
 import androidx.core.app.NotificationManagerCompat;
 
@@ -37,7 +40,7 @@ public class AndroidUtil {
      * 获取当前系统的版本号
      */
     public static int getCurrentSystemVersion() {
-        return android.os.Build.VERSION.SDK_INT;
+        return Build.VERSION.SDK_INT;
     }
 
     /**
@@ -46,7 +49,7 @@ public class AndroidUtil {
      * @return 版本名称
      */
     public static String getCurrentSystemVersionName() {
-        return android.os.Build.VERSION.RELEASE;
+        return Build.VERSION.RELEASE;
     }
 
     /**
@@ -58,7 +61,7 @@ public class AndroidUtil {
         int versionCode = 0;
         try {
             versionCode = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode;
-        } catch (android.content.pm.PackageManager.NameNotFoundException e) {
+        } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
         return versionCode;
@@ -73,7 +76,7 @@ public class AndroidUtil {
         String versionName = "";
         try {
             versionName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
-        } catch (android.content.pm.PackageManager.NameNotFoundException e) {
+        } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
         return versionName;
@@ -102,7 +105,7 @@ public class AndroidUtil {
         String appName = "";
         try {
             appName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).applicationInfo.loadLabel(context.getPackageManager()).toString();
-        } catch (android.content.pm.PackageManager.NameNotFoundException e) {
+        } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
         return appName;
@@ -114,10 +117,10 @@ public class AndroidUtil {
      * @param context
      */
     public static Drawable getAppIcon(Context context) {
-        android.graphics.drawable.Drawable appIcon = null;
+        Drawable appIcon = null;
         try {
             appIcon = context.getPackageManager().getApplicationIcon(context.getPackageName());
-        } catch (android.content.pm.PackageManager.NameNotFoundException e) {
+        } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
         return appIcon;
@@ -143,11 +146,6 @@ public class AndroidUtil {
         return "";
     }
 
-    public static boolean isMainProcess(Context context) {
-        //进程名字 == 包名 为主进程
-        return TextUtils.equals(getProcessName(context), context.getPackageName());
-    }
-
 
     /**
      * 是否已经安装某个应用
@@ -158,7 +156,7 @@ public class AndroidUtil {
         try {
             context.getPackageManager().getPackageInfo(packageName, 0);
             return true;
-        } catch (android.content.pm.PackageManager.NameNotFoundException e) {
+        } catch (PackageManager.NameNotFoundException e) {
             return false;
         }
     }
@@ -327,47 +325,6 @@ public class AndroidUtil {
                 >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 
-    /**
-     * 判断是否是Oppo手机 或者 Oppo手机子品牌
-     *
-     * @return
-     */
-    public static boolean isOppoDevice() {
-        String manufacturer = Build.MANUFACTURER;
-        if (TextUtils.isEmpty(manufacturer)) {
-            return false;
-        }
-        return manufacturer.toLowerCase().contains("oppo") || manufacturer.toLowerCase().contains("oneplus") || manufacturer.toLowerCase().contains("realme");
-    }
-
-    /**
-     * 判断是否是VIVO手机 或者 VIVO手机子品牌
-     *
-     * @return
-     */
-    public static boolean isVIVODevice() {
-        String manufacturer = Build.MANUFACTURER;
-        if (TextUtils.isEmpty(manufacturer)) {
-            return false;
-        }
-        return manufacturer.toLowerCase().contains("vivo") || manufacturer.toLowerCase().contains("bbk") || manufacturer.toLowerCase().contains("iqoo")
-                || manufacturer.toLowerCase().contains("vsmart"); // vsmart 是vivo的子品牌
-    }
-
-
-    /**
-     * 判断是否是IQOO手机
-     *
-     * @return
-     */
-    public static boolean isIQOODevice() {
-        String manufacturer = Build.MANUFACTURER;
-        if (TextUtils.isEmpty(manufacturer)) {
-            return false;
-        }
-        return manufacturer.toLowerCase().contains("iqoo");
-    }
-
 
     public static boolean hasPermission(Context context, String permission) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -376,7 +333,7 @@ public class AndroidUtil {
         return true;
     }
 
-    public static String getStoragePermissionPermissionString() {
+    public static String getStoragePermissionPermissionStringAdapter33() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             return Manifest.permission.READ_MEDIA_AUDIO;
         } else {
@@ -384,8 +341,21 @@ public class AndroidUtil {
         }
     }
 
-    public static boolean hasStoragePermission(Context context) {
-        return hasPermission(context, getStoragePermissionPermissionString());
+    public static String getPicPermissionPermissionStringAdapter33() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            return Manifest.permission.READ_MEDIA_IMAGES;
+        } else {
+            return Manifest.permission.WRITE_EXTERNAL_STORAGE;
+        }
+    }
+
+    public static boolean hasStoragePermissionAdapter33(Context context) {
+        return hasPermission(context, getStoragePermissionPermissionStringAdapter33());
+    }
+
+
+    public static boolean hasPicPermissionAdapter33(Context context) {
+        return hasPermission(context, getPicPermissionPermissionStringAdapter33());
     }
 
 
@@ -515,18 +485,14 @@ public class AndroidUtil {
 
     }
 
-
-    public static boolean hasVideoPermissionAdapter33(Context context) {
-        return hasPermission(context, getVideoPermissionPermissionStringAdapter33());
+    public static int[] getPositionInScreen(View view) {
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+        int x = location[0];
+        int y = location[1];
+        return location;
     }
 
-    public static String getVideoPermissionPermissionStringAdapter33() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            return Manifest.permission.READ_MEDIA_VIDEO;
-        } else {
-            return Manifest.permission.WRITE_EXTERNAL_STORAGE;
-        }
-    }
 
     public static void goSettingPage(Context context) {
         Intent intent = new Intent();
@@ -537,8 +503,83 @@ public class AndroidUtil {
         Uri uri = Uri.fromParts("package", context.getPackageName(), null);
         intent.setData(uri);
         context.startActivity(intent);
+        TrackerMultiple.onEvent("Storage", "Permission2_OpenSetting");
     }
 
+    /**
+     * 判断是否是Oppo手机 或者 Oppo手机子品牌
+     *
+     * @return
+     */
+    public static boolean isOppoDevice() {
+        String manufacturer = Build.MANUFACTURER;
+        if (TextUtils.isEmpty(manufacturer)) {
+            return false;
+        }
+        return manufacturer.toLowerCase().contains("oppo") || manufacturer.toLowerCase().contains("oneplus") || manufacturer.toLowerCase().contains("realme");
+    }
+
+
+    public static boolean isPixel4a() {
+        try {
+            String model = Build.MODEL;
+            return TextUtils.equals(model, "Pixel 4a (5G)");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    /**
+     * 判断是否是VIVO手机 或者 VIVO手机子品牌
+     *
+     * @return
+     */
+    public static boolean isVIVODevice() {
+        String manufacturer = Build.MANUFACTURER;
+        if (TextUtils.isEmpty(manufacturer)) {
+            return false;
+        }
+        return manufacturer.toLowerCase().contains("vivo") || manufacturer.toLowerCase().contains("bbk") || manufacturer.toLowerCase().contains("iqoo")
+                || manufacturer.toLowerCase().contains("vsmart"); // vsmart 是vivo的子品牌
+    }
+
+
+    /**
+     * 注意线程
+     *
+     * @param context
+     * @return
+     */
+    public static String getCustomExternalFilesDir(Context context, String type) {
+        if (Thread.currentThread() == Looper.getMainLooper().getThread()) {
+            throw new RuntimeException("This method must be called from the UI thread");
+        }
+
+        try {
+            String APP_CACHE_DIR = Environment.getExternalStorageDirectory() + File.separator + "Android" + File.separator + "data" + File.separator
+                    + context.getPackageName() + File.separator + "files" + File.separator + type;
+            Log.i("AndroidUtil", "custom APP_CACHE_DIR:" + APP_CACHE_DIR);
+            File file = new File(APP_CACHE_DIR);
+            if (!file.exists()) {
+                boolean isMake = file.mkdirs();
+                // 创建失败再用系统方式获取
+                if (!isMake) {
+                    file = context.getExternalFilesDir(type);
+                    if (file != null) {
+                        APP_CACHE_DIR = file.getAbsolutePath();
+                        Log.i("AndroidUtil", "system APP_CACHE_DIR:" + APP_CACHE_DIR);
+                    }
+                }
+            }
+            return APP_CACHE_DIR;
+        } catch (Exception e) {
+            e.printStackTrace();
+            File file = context.getExternalFilesDir(type);
+            return file.getAbsolutePath();
+        }
+    }
 
 }
 

@@ -24,16 +24,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    buildFeatures {
+        viewBinding true
+        buildConfig true
+    }
+
     compileOptions {
+
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = '1.8'
-    }
-
-    buildFeatures {
-        viewBinding true
+        tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+            kotlinOptions.jvmTarget = "1.8"
+        }
     }
 
 }
@@ -59,4 +63,9 @@ dependencies {
     implementation project(":framework-dimens-375")
     implementation project(":framework-utils")
     implementation project(":framework-themes-deps")
+    implementation project(":app-business-base")
+    implementation project(":widget-recyclerview")
+
+    implementation "com.airbnb.android:lottie:5.0.3"
+
 }

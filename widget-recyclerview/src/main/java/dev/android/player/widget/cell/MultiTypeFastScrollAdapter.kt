@@ -57,7 +57,7 @@ open class MultiTypeFastScrollAdapter @JvmOverloads constructor(
     }
 
 
-    override fun getSections(): Array<String> {
+    override fun getSections(): Array<Any> {
         return if (isIndexerData()) {
             val sections: MutableList<String> = ArrayList()
             mSectionPositions.clear()

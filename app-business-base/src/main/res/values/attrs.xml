@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="BottomPlayerVew">
+        <!--是否已经在播放队列中了-->
+        <attr name="bp_isqueue" format="boolean" />
+    </declare-styleable>
+</resources>

@@ -45,7 +45,7 @@ ext {
             compiler: "com.github.bumptech.glide:compiler:$GLIDE_VERSION",
     ]
 
-    KTX_VERSION = "1.5.0"
+    KTX_VERSION = "1.6.2"
     Kotlin = [
             coroutines  : 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2',
             fragment_ktx: "androidx.fragment:fragment-ktx:$KTX_VERSION",

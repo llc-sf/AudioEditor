@@ -49,6 +49,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.AudioCutHandleActivity"></activity>
+        <activity android:name=".activity.MediaPickActivity"></activity>
 
         <!--数据同步服务-->
         <service android:name=".storage.MediaSyncService" />
