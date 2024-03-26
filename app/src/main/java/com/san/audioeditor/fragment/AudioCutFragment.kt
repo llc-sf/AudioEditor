@@ -2,7 +2,6 @@ package com.san.audioeditor.fragment
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.SeekBar
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.PlaybackParameters
@@ -12,6 +11,7 @@ import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import com.masoudss.lib.utils.WaveformOptions
+import com.san.audioeditor.R
 import com.san.audioeditor.activity.AudioCutActivity
 import com.san.audioeditor.databinding.FragmentAudioCutBinding
 import com.san.audioeditor.viewmodel.AudioCutViewModel
@@ -19,7 +19,6 @@ import dev.android.player.framework.base.BaseMVVMFragment
 import dev.android.player.framework.data.model.Song
 import dev.android.player.framework.utils.ImmerseDesign
 import dev.audio.recorder.utils.Log
-import dev.audio.timeruler.R
 import dev.audio.timeruler.bean.TimeBean
 import dev.audio.timeruler.bean.VideoBean
 import dev.audio.timeruler.bean.Waveform
@@ -151,30 +150,46 @@ class AudioCutFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         viewBinding.btnPlay.setOnClickListener {
             viewBinding.timeBar.setCursorTimeValue(viewBinding.timeBar.getCursorTimeValue() + 1000)
         }
-        viewBinding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
+        viewBinding.rgScale.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
-                R.id.rb1 -> {
+                R.id.scale1 -> {
                     viewBinding.timeBar.setMode(BaseMultiTrackAudioEditorView.MODE_ARRAY[0])
                 }
 
-                R.id.rb2 -> {
+                R.id.scale2 -> {
                     viewBinding.timeBar.setMode(BaseMultiTrackAudioEditorView.MODE_ARRAY[1])
                 }
 
-                R.id.rb3 -> {
+                R.id.scale3 -> {
                     viewBinding.timeBar.setMode(BaseMultiTrackAudioEditorView.MODE_ARRAY[2])
                 }
 
-                R.id.rb4 -> {
+                R.id.scale4 -> {
                     viewBinding.timeBar.setMode(BaseMultiTrackAudioEditorView.MODE_ARRAY[3])
                 }
 
-                R.id.rb5 -> {
+                R.id.scale5 -> {
                     viewBinding.timeBar.setMode(BaseMultiTrackAudioEditorView.MODE_ARRAY[4])
                 }
 
-                R.id.rb6 -> {
+                R.id.scale6 -> {
                     viewBinding.timeBar.setMode(BaseMultiTrackAudioEditorView.MODE_ARRAY[5])
+                }
+            }
+
+            viewBinding.rgModel.setOnCheckedChangeListener { group, checkedId ->
+                when (checkedId) {
+                    R.id.model1 -> {
+                        R.id.radioGroup
+                    }
+
+                    R.id.model2 -> {
+
+                    }
+
+                    R.id.model3 -> {
+
+                    }
                 }
             }
         }
@@ -205,32 +220,34 @@ class AudioCutFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
             override fun onScaleChange(mode: String) {
                 when (mode) {
                     BaseMultiTrackAudioEditorView.MODE_UINT_100_MS -> {
-                        viewBinding.radioGroup.check(R.id.rb1)
+                        viewBinding.rgScale.check(R.id.scale1)
                     }
 
                     BaseMultiTrackAudioEditorView.MODE_UINT_500_MS -> {
-                        viewBinding.radioGroup.check(R.id.rb2)
+                        viewBinding.rgScale.check(R.id.scale2)
                     }
 
                     BaseMultiTrackAudioEditorView.MODE_UINT_1000_MS -> {
-                        viewBinding.radioGroup.check(R.id.rb3)
+                        viewBinding.rgScale.check(R.id.scale3)
                     }
 
                     BaseMultiTrackAudioEditorView.MODE_UINT_2000_MS -> {
-                        viewBinding.radioGroup.check(R.id.rb4)
+                        viewBinding.rgScale.check(R.id.scale4)
                     }
 
                     BaseMultiTrackAudioEditorView.MODE_UINT_3000_MS -> {
-                        viewBinding.radioGroup.check(R.id.rb5)
+                        viewBinding.rgScale.check(R.id.scale5)
                     }
 
                     BaseMultiTrackAudioEditorView.MODE_UINT_6000_MS -> {
-                        viewBinding.radioGroup.check(R.id.rb6)
+                        viewBinding.rgScale.check(R.id.scale6)
                     }
 
                 }
             }
         })
+
+
 
         play(requireContext())
     }

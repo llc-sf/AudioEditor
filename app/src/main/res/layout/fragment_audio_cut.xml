@@ -48,7 +48,7 @@
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/rg_model" />
 
     <TextView
         android:id="@+id/btnZoom"
@@ -73,7 +73,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btnZoom" />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/rg_scale"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -82,21 +82,21 @@
         app:layout_constraintTop_toBottomOf="@id/timeBar">
 
         <RadioButton
-            android:id="@+id/rb1"
+            android:id="@+id/scale1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:text="1" />
 
         <RadioButton
-            android:id="@+id/rb2"
+            android:id="@+id/scale2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:text="2" />
 
         <RadioButton
-            android:id="@+id/rb3"
+            android:id="@+id/scale3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
@@ -104,25 +104,59 @@
             android:text="3" />
 
         <RadioButton
-            android:id="@+id/rb4"
+            android:id="@+id/scale4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:text="4" />
 
         <RadioButton
-            android:id="@+id/rb5"
+            android:id="@+id/scale5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:text="5" />
 
         <RadioButton
-            android:id="@+id/rb6"
+            android:id="@+id/scale6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:text="6" />
+    </RadioGroup>
+
+
+    <RadioGroup
+        android:id="@+id/rg_model"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rg_scale">
+
+        <RadioButton
+            android:id="@+id/model1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:text="select" />
+
+        <RadioButton
+            android:id="@+id/model2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:text="delete" />
+
+        <RadioButton
+            android:id="@+id/model3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:checked="true"
+            android:text="jump" />
+
     </RadioGroup>
 
     <TextView
