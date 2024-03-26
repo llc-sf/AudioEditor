@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.san.audioeditor.fragment.AudioCutFragment
-import com.san.audioeditor.fragment.MediaPickFragment
 import dev.android.player.framework.data.model.Song
 import musicplayer.playmusic.audioplayer.base.BaseFragmentActivity
 

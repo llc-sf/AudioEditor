@@ -13,6 +13,11 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+
+    init {
+        System.loadLibrary("media-handle")
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -37,7 +42,11 @@ class MainActivity : AppCompatActivity() {
                 transaction.remove(f)
             }
             Log.d("MainFragment", "showLocalSongs() called")
-            transaction.replace(R.id.fragment_container, IndexFragment(), IndexFragment::class.java.simpleName)
+            transaction.replace(
+                R.id.fragment_container,
+                IndexFragment(),
+                IndexFragment::class.java.simpleName
+            )
                 .commitNowAllowingStateLoss()
         } catch (e: Exception) {
             e.printStackTrace()

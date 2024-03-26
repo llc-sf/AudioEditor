@@ -64,9 +64,9 @@ open class MultiTypeFastScrollAdapter @JvmOverloads constructor(
             for (i in 0 until itemCount) {
                 val data = items[i]
                 if (data != null && data is IndexModel) {
-                    val section: String = data.getIndexer(mIndexerKey)
+                    val section: String? = data.getIndexer(mIndexerKey)
                     if (!TextUtils.isEmpty(section) && !sections.contains(section)) {
-                        sections.add(section)
+                        sections.add(section!!)
                         mSectionPositions.add(i)
                     }
                 }

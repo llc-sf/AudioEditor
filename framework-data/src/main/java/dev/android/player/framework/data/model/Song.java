@@ -264,4 +264,8 @@ public class Song extends IndexModel implements Serializable, Parcelable, IDelet
     public int getFileType() {
         return IDeleteFileBean.TYPE_SONG;
     }
+
+
 }
+
+
