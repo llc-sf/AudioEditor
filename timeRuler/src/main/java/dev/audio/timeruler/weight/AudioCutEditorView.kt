@@ -27,8 +27,11 @@ open class AudioCutEditorView @JvmOverloads constructor(
      * 波形数据
      */
     private var audioFragment: AudioFragmentWithCut? = null
+
+    /**
+     * 是否触摸到裁剪线
+     */
     private var touchCutLine = false
-    private val simpleDateFormat = SimpleDateFormat("HH:mm:ss")
 
     init {
         init()
@@ -37,7 +40,6 @@ open class AudioCutEditorView @JvmOverloads constructor(
     private fun init() {
         setTickMarkStrategy(this)
     }
-
 
 
     // 设置波形数据的方法
@@ -103,26 +105,6 @@ open class AudioCutEditorView @JvmOverloads constructor(
 
     override fun disPlay(scaleValue: Long, keyScale: Boolean): Boolean {
         return keyScale
-    }
-
-
-    override fun getScaleValue(scaleValue: Long, keyScale: Boolean): String {
-        val formattedTime = simpleDateFormat.format(scaleValue)
-        // 解析天、小时、分钟和秒
-        val parts = formattedTime.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        val hours = parts[0].toInt()
-        val minutes = parts[1].toInt()
-        val seconds = parts[2].toInt()
-        // 转换为秒
-        return (hours * 3600 + minutes * 60 + seconds).toString() + "s"
-    }
-
-    override fun getColor(scaleValue: Long, keyScale: Boolean): Int {
-        return tickValueColor
-    }
-
-    override fun getSize(scaleValue: Long, keyScale: Boolean, maxScaleValueSize: Float): Float {
-        return tickValueSize
     }
 
 

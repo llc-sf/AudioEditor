@@ -468,7 +468,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
      */
     protected open fun calcContentHeight(baselinePositionProportion: Float): Int {
         var tickValueHeight = 0
-        if (showTickValue && null != mTickMarkStrategy) {
+        if (showTickValue) {
             mScalePaint!!.textSize = maxScaleValueSize
             val fontMetrics = mScalePaint!!.fontMetrics
             val ceil = Math.ceil((fontMetrics.bottom - fontMetrics.top).toDouble())
@@ -683,20 +683,18 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         keyScale: Boolean
     ) {
         if (showTickValue) {
-            if (null != mTickMarkStrategy) {
-                if (mTickMarkStrategy!!.disPlay(scaleValue, keyScale)) {
-                    mScalePaint!!.color = mTickMarkStrategy!!.getColor(scaleValue, keyScale)
-                    mScalePaint!!.textAlign = Paint.Align.CENTER
-                    var size = mTickMarkStrategy!!.getSize(scaleValue, keyScale, maxScaleValueSize)
-                    size = Math.min(maxScaleValueSize, size)
-                    mScalePaint!!.textSize = size
-                    canvas.drawText(
-                        mTickMarkStrategy!!.getScaleValue(scaleValue, keyScale),
-                        x,
-                        y - tickValueOffset,
-                        mScalePaint!!
-                    )
-                }
+            if (mTickMarkStrategy?.disPlay(scaleValue, keyScale) == true) {
+                mScalePaint!!.color = tickValueColor
+                mScalePaint!!.textAlign = Paint.Align.CENTER
+                var size = tickValueSize
+                size = Math.min(maxScaleValueSize, size)
+                mScalePaint!!.textSize = size
+                canvas.drawText(
+                    getScaleValue(scaleValue, keyScale),
+                    x,
+                    y - tickValueOffset,
+                    mScalePaint!!
+                )
             }
         }
     }
@@ -1068,6 +1066,18 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         invalidate()
     }
 
+    private val simpleDateFormat = SimpleDateFormat("HH:mm:ss")
+    fun getScaleValue(scaleValue: Long, keyScale: Boolean): String {
+        val formattedTime = simpleDateFormat.format(scaleValue)
+        // 解析天、小时、分钟和秒
+        val parts = formattedTime.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        val hours = parts[0].toInt()
+        val minutes = parts[1].toInt()
+        val seconds = parts[2].toInt()
+        // 转换为秒
+        return (hours * 3600 + minutes * 60 + seconds).toString() + "s"
+    }
+
     interface TickMarkStrategy {
         /**
          * 是否显示刻度值
@@ -1078,35 +1088,35 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
          */
         fun disPlay(scaleValue: Long, keyScale: Boolean): Boolean
 
-        /**
-         * 获取显示的刻度值
-         *
-         * @param scaleValue
-         * @param keyScale
-         * @return
-         */
-        fun getScaleValue(scaleValue: Long, keyScale: Boolean): String
+//        /**
+//         * 获取显示的刻度值
+//         *
+//         * @param scaleValue
+//         * @param keyScale
+//         * @return
+//         */
+//        fun getScaleValue(scaleValue: Long, keyScale: Boolean): String
 
-        /**
-         * 获取当前刻度值显示颜色
-         *
-         * @param scaleValue
-         * @param keyScale
-         * @return
-         */
-        @ColorInt
-        fun getColor(scaleValue: Long, keyScale: Boolean): Int
+//        /**
+//         * 获取当前刻度值显示颜色
+//         *
+//         * @param scaleValue
+//         * @param keyScale
+//         * @return
+//         */
+//        @ColorInt
+//        fun getColor(scaleValue: Long, keyScale: Boolean): Int
 
-        /**
-         * 获取当前刻度值显示大小
-         *
-         * @param scaleValue
-         * @param keyScale
-         * @param maxScaleValueSize
-         * @return
-         */
-        @Dimension
-        fun getSize(scaleValue: Long, keyScale: Boolean, maxScaleValueSize: Float): Float
+//        /**
+//         * 获取当前刻度值显示大小
+//         *
+//         * @param scaleValue
+//         * @param keyScale
+//         * @param maxScaleValueSize
+//         * @return
+//         */
+//        @Dimension
+//        fun getSize(scaleValue: Long, keyScale: Boolean, maxScaleValueSize: Float): Float
     }
 
 

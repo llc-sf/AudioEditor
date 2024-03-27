@@ -25,7 +25,6 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
     private val cursorBackgroundColor: Int
     private val cursorValueSize: Float
     private val colorScaleBackground: Int
-    private val simpleDateFormat = SimpleDateFormat("HH:mm:ss")
     private var tickValueBoundOffsetH = 20f
     private var drawCursorContent: Boolean
 
@@ -186,30 +185,9 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
         }
     }
 
-
     override fun disPlay(scaleValue: Long, keyScale: Boolean): Boolean {
         return keyScale
     }
-
-    override fun getScaleValue(scaleValue: Long, keyScale: Boolean): String {
-        val formattedTime = simpleDateFormat.format(scaleValue)
-        // 解析天、小时、分钟和秒
-        val parts = formattedTime.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        val hours = parts[0].toInt()
-        val minutes = parts[1].toInt()
-        val seconds = parts[2].toInt()
-        // 转换为秒
-        return (hours * 3600 + minutes * 60 + seconds).toString() + "s"
-    }
-
-    override fun getColor(scaleValue: Long, keyScale: Boolean): Int {
-        return tickValueColor
-    }
-
-    override fun getSize(scaleValue: Long, keyScale: Boolean, maxScaleValueSize: Float): Float {
-        return tickValueSize
-    }
-
 
     override fun calcContentHeight(baselinePositionProportion: Float): Int {
         val contentHeight = super.calcContentHeight(baselinePositionProportion)
