@@ -175,7 +175,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
                 MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                     onLongPress = false
 //                    offsetOriCurrentValue1 = mCursorValue1 - mCursorValue
-                    refreshOffsetUpTouchX(cursorValue)
+                    refreshOffsetLongPressUpTouchX(cursorValue)
                 }                 // 结束长按状态
 
             }
@@ -352,7 +352,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
      *
      * 长按移动，手指抬起时  与原来起点的cursorValue差值，惯性滑动用
      */
-    private fun refreshOffsetUpTouchX(oriCursorValue: Long) {
+    private fun refreshOffsetLongPressUpTouchX(oriCursorValue: Long) {
         audioFragments[longTouchIndex]?.let {
             it.refreshOffsetUpTouchX(oriCursorValue)
         }
