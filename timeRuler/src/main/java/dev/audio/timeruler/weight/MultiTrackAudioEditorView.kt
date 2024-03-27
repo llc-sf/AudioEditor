@@ -10,14 +10,11 @@ import android.graphics.RectF
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
-import androidx.annotation.ColorInt
-import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.timeruler.R
-import dev.audio.timeruler.weight.BaseAudioEditorView.TickMarkStrategy
 import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.utils.SizeUtils
+import dev.audio.timeruler.weight.BaseAudioEditorView.TickMarkStrategy
 import java.text.SimpleDateFormat
-import kotlin.reflect.KProperty
 
 open class MultiTrackAudioEditorView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
@@ -76,7 +73,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
 
     // 设置波形数据的方法
     fun setWaveform(waveform: Waveform) {
-        audioFragments.add(AudioFragmentWithCut(this).apply {
+        audioFragments.add(AudioFragment(this).apply {
             index = 0
             duration = 1000 * 60 * 2
             maxWaveHeight = 50f
@@ -113,19 +110,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
     }
 
 
-    private var audioFragments = mutableListOf<AudioFragmentWithCut>()
-
-
-    private var touchCutLine = false
-    private fun isTouchCutLine(event: MotionEvent): Boolean {
-        audioFragments?.forEachIndexed { index, audioFragment ->
-            if (audioFragment.isTarget(event)) {
-                touchCutLine = true
-                return touchCutLine
-            }
-        }
-        return touchCutLine
-    }
+    private var audioFragments = mutableListOf<AudioFragment>()
 
     /**
      * 绘制游标
@@ -136,54 +121,81 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
     }
 
 
+    //**************************** 长按处理 ****************************
+    //是否是长按
+    var onLongPress = false
+
+    // 长按水平方向上的初始位置
+    private var longPressStartTouchX = 0f
+
+    //长按命中的是哪一个轨道
+    var longTouchIndex = 0
+
+
+    override fun onLongPress(e: MotionEvent) {
+        // do nothing
+        Log.i(long_press_tag, "onLongPress")
+        onLongPress = true
+        //确定长按命中的轨道
+        longTouchIndex = onLongPressTrackIndex(e)
+        // 记录长按横坐标的初始位置
+        longPressStartTouchX = e.x
+        // 记录长按竖坐标的初始位置
+        refreshLongPressStartY(e.y)
+
+    }
+
+    private fun handleLongPressHorizontalMovement(deltaX: Float) {
+        Log.i(touch_tag, "unitPixel=$unitMsPixel")
+        try {
+            if (unitMsPixel != 0f) {
+//                mCursorValue1 -= (deltaX / unitPixel).toLong()
+                refreshCursorValueByLongPressHandleHorizontalMove(deltaX)
+                invalidate()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
     /**
      * 裁剪拨片的触摸事件
      */
     override fun onTouchEvent(event: MotionEvent): Boolean {
+        super.onTouchEvent(event)
         when (event.action) {
-            MotionEvent.ACTION_DOWN -> {
-                Log.i(
-                    BaseAudioEditorView.cut_tag,
-                    "onTouchEvent: ACTION_DOWN touchCutLine=$touchCutLine"
-                )
-                var isTargetCut = isTouchCutLine(event)
-                if (isTargetCut) {
-                    audioFragments?.forEachIndexed { index, audioFragment ->
-                        audioFragment.onTouchEvent(context, this@MultiTrackAudioEditorView, event)
-                    }
-                    return true
-                }
-            }
-
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                Log.i(
-                    BaseAudioEditorView.cut_tag,
-                    "onTouchEvent: ACTION_UP touchCutLine=$touchCutLine"
-                )
-                if (touchCutLine) {
-                    audioFragments?.forEachIndexed { index, audioFragment ->
-                        audioFragment.onTouchEvent(context, this@MultiTrackAudioEditorView, event)
-                    }
-                }
-                touchCutLine = false
-            }
-
-            MotionEvent.ACTION_MOVE -> {
-                Log.i(
-                    BaseAudioEditorView.cut_tag,
-                    "onTouchEvent: ACTION_MOVE touchCutLine=$touchCutLine"
-                )
-                if (touchCutLine) {
-                    audioFragments?.forEachIndexed { index, audioFragment ->
-                        audioFragment.onTouchEvent(context, this@MultiTrackAudioEditorView, event)
-                    }
-                    return true
+                if (onLongPress) {
+                    onLongPressTouchUpEvent()
                 }
             }
         }
-        return super.onTouchEvent(event)
+
+        if (onLongPress) {
+            when (event.action) {
+                MotionEvent.ACTION_MOVE -> {
+                    // 计算偏移量
+                    val deltaX = event.x - longPressStartTouchX
+                    longPressStartTouchX = event.x
+//                    currentY1 = event.y.toInt()
+                    refreshLongPressCurrentTouchY(event.y.toInt())
+                    // 使用偏移量进行你的操作
+                    handleLongPressHorizontalMovement(deltaX)
+                }
+
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                    onLongPress = false
+//                    offsetOriCurrentValue1 = mCursorValue1 - mCursorValue
+                    refreshOffsetUpTouchX(cursorValue)
+                }                 // 结束长按状态
+
+            }
+        }
+
+        return true
     }
 
+    //**************************** 长按处理 ****************************
     override fun drawWaveformSeekBar(canvas: Canvas) {
         super.drawWaveformSeekBar(canvas)
         audioFragments.forEach { audioFragment ->

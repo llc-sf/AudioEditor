@@ -720,53 +720,12 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
                 }
             }
         }
-        when (event.action) {
-            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                if (onLongPress) {
-                    onLongPressTouchUpEvent()
-                }
-            }
-        }
-
-        if (onLongPress) {
-            when (event.action) {
-                MotionEvent.ACTION_MOVE -> {
-                    // 计算偏移量
-                    val deltaX = event.x - longPressStartTouchX
-                    longPressStartTouchX = event.x
-//                    currentY1 = event.y.toInt()
-                    refreshLongPressCurrentTouchY(event.y.toInt())
-                    // 使用偏移量进行你的操作
-                    handleLongPressHorizontalMovement(deltaX)
-                }
-
-                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                    onLongPress = false
-//                    offsetOriCurrentValue1 = mCursorValue1 - mCursorValue
-                    refreshOffsetUpTouchX(cursorValue)
-                }                 // 结束长按状态
-
-            }
-        }
-
         return true
     }
 
     open fun onLongPressTouchUpEvent() {
     }
 
-    private fun handleLongPressHorizontalMovement(deltaX: Float) {
-        Log.i(touch_tag, "unitPixel=$unitMsPixel")
-        try {
-            if (unitMsPixel != 0f) {
-//                mCursorValue1 -= (deltaX / unitPixel).toLong()
-                refreshCursorValueByLongPressHandleHorizontalMove(deltaX)
-                invalidate()
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
 
     override fun onScale(detector: ScaleGestureDetector): Boolean {
         var scaleFactor = detector.scaleFactor
@@ -918,30 +877,6 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
     }
 
 
-    //**************************** 长按处理 ****************************
-    //是否是长按
-    var onLongPress = false
-
-    // 长按水平方向上的初始位置
-    private var longPressStartTouchX = 0f
-
-    //长按命中的是哪一个轨道
-    var longTouchIndex = 0
-
-    //**************************** 长按处理 ****************************
-    override fun onLongPress(e: MotionEvent) {
-        // do nothing
-        Log.i(long_press_tag, "onLongPress")
-        onLongPress = true
-        //确定长按命中的轨道
-        longTouchIndex = onLongPressTrackIndex(e)
-        // 记录长按横坐标的初始位置
-        longPressStartTouchX = e.x
-        // 记录长按竖坐标的初始位置
-        refreshLongPressStartY(e.y)
-
-    }
-
     open fun onLongPressTrackIndex(e: MotionEvent): Int {
         return 0
     }
@@ -969,6 +904,9 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
                 }
             }
         }
+    }
+
+    override fun onLongPress(e: MotionEvent) {
     }
 
     override fun onFling(

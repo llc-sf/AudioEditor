@@ -183,52 +183,6 @@ open class AudioCutEditorView @JvmOverloads constructor(
         path.close()
     }
 
-
-    /**
-     * 长按命中的轨道 index
-     */
-    override fun onLongPressTrackIndex(e: MotionEvent): Int {
-        //view 在屏幕上的y坐标
-        audioFragments.forEachIndexed { index, audioFragment ->
-            if (e.y > (audioFragment.rect?.top ?: 0) && e.y < (audioFragment.rect?.bottom
-                    ?: 0) && e.x > (audioFragment.rect?.left
-                    ?: 0) && e.x < (audioFragment.rect?.right ?: 0)
-            ) {
-                return index.apply {
-                    Log.i(
-                        long_press_tag,
-                        "TimeRulerBar onLongPressTrackIndex touchy=$y,index=$this,rect=${audioFragment.rect}"
-                    )
-                }
-            }
-        }
-        return 0.apply {
-            Log.i(long_press_tag, "TimeRulerBar onLongPressTrackIndex touchy=$y,index=$this")
-        }
-    }
-
-    /**
-     * 长按起始的Y坐标
-     */
-    override fun refreshLongPressStartY(startY: Float) {
-        Log.i(
-            long_press_tag,
-            "TimeRulerBar refreshLongPressStartY startY=$startY,longTouchIndex=$longTouchIndex"
-        )
-        audioFragments[longTouchIndex]?.let {
-            it.refreshLongPressStartY(startY)
-        }
-    }
-
-    /**
-     * 长按移动的Y坐标
-     */
-    override fun refreshLongPressCurrentTouchY(currentY: Int) {
-        audioFragments[longTouchIndex]?.let {
-            it.refreshLongPressCurrentTouchY(currentY)
-        }
-    }
-
     /**
      * 惯性滑动 tag时间戳更新
      */
@@ -238,18 +192,6 @@ open class AudioCutEditorView @JvmOverloads constructor(
         }
     }
 
-    /**
-     * 长按波形图 水平方向移动
-     */
-    override fun refreshCursorValueByLongPressHandleHorizontalMove(deltaX: Float) {
-        Log.i(
-            long_press_tag,
-            "TimeRulerBar refreshCursorValueByLongPressHandleHorizontalMove: $deltaX"
-        )
-        audioFragments[longTouchIndex]?.let {
-            it.refreshCursorValueByLongPressHandleHorizontalMove(deltaX)
-        }
-    }
 
     /**
      * 滑动时间轴，tag时间戳更新
@@ -260,27 +202,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
         }
     }
 
-    /**
-     * 长按结束 抬起手指 手指x轴的坐标
-     *
-     * 长按移动，手指抬起时  与原来起点的cursorValue差值，惯性滑动用
-     */
-    override fun refreshOffsetUpTouchX(oriCursorValue: Long) {
-        audioFragments[longTouchIndex]?.let {
-            it.refreshOffsetUpTouchX(oriCursorValue)
-        }
-    }
 
 
-    /**
-     * 手指拿起
-     * y轴上的坐标清除(上下拖拽波形图功能)
-     */
-    override fun onLongPressTouchUpEvent() {
-        super.onLongPressTouchUpEvent()
-        audioFragments[longTouchIndex]?.let {
-            it.onLongPressTouchUpEvent()
-        }
-    }
 
 }
