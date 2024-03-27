@@ -358,6 +358,16 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
 
 
     /**
+     * 时间轴上的时间戳对应屏幕上的位置
+     *
+     * timeStamp时间与当前游标timeStamp的差值 * 单位像素 = 当前时间戳应该位置x-游标位置x
+     *
+     */
+    fun time2PositionInTimeline(timeStamp: Long): Float {
+        return (cursorPosition + (timeStamp - cursorValue) * unitMsPixel)
+    }
+
+    /**
      * 设置 坐标轴 游标的时间值
      */
     fun setCursorTimeValue(cursorValue: Long) {
