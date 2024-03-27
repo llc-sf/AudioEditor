@@ -40,12 +40,12 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
         strokeWidth = strokeWidth_cut
     }
 
-    val startTimestamp by Ref { audio.startTimestamp }
-    val cursorOffsetTime by Ref { audio.cursorOffsetTime }
-    val duration by Ref { audio.duration }
-    val strokeWidth by Ref { audio.strokeWidth }
-    val rect by Ref { audio.rect }
-    val unitMsPixel by Ref { audio.unitMsPixel }
+    private val startTimestamp by Ref { audio.startTimestamp }
+    private val cursorOffsetTime by Ref { audio.cursorOffsetTime }
+    private val duration by Ref { audio.duration }
+    private val strokeWidth by Ref { audio.strokeWidth }
+    private val rect by Ref { audio.rect }
+    private val unitMsPixel by Ref { audio.unitMsPixel }
 
     /**
      * 裁剪选中的起始时间  ms
@@ -173,7 +173,8 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
     private var isMovingEnd: Boolean = false
     private var lastTouchXProcess: Float = 0f
 
-    private val moveHandler = MoveHandler(audio = WeakReference(audio), cutPiece =  WeakReference(this))
+    private val moveHandler =
+        MoveHandler(audio = WeakReference(audio), cutPiece = WeakReference(this))
 
     class MoveHandler(
         private var audio: WeakReference<AudioFragmentWithCut>? = null,

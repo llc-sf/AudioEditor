@@ -16,7 +16,7 @@ class AudioFragmentWithCut(audioEditorView: BaseAudioEditorView) :
     AudioFragment(audioEditorView) {
 
 
-    var cutPieceFragment: CutPieceFragment? = null
+    private var cutPieceFragment: CutPieceFragment? = null
 
     override fun initCutFragment() {
         super.initCutFragment()
