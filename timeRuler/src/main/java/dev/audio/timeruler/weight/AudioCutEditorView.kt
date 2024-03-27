@@ -45,7 +45,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
 
     // 设置波形数据的方法
     fun setWaveform(waveform: Waveform) {
-        audioFragments.add(AudioFragmentWithCut(this).apply {
+        audioFragment = AudioFragmentWithCut(this).apply {
             index = 0
             duration = 1000 * 60 * 2
             maxWaveHeight = 50f
@@ -53,25 +53,15 @@ open class AudioCutEditorView @JvmOverloads constructor(
             color = Color.RED
             startTimestamp = mScaleInfo?.startValue ?: 0
             this.waveform = waveform
-        })
+        }
         invalidate() // 触发重新绘制
     }
 
 
-    private var audioFragments = mutableListOf<AudioFragmentWithCut>()
+    private var audioFragment: AudioFragmentWithCut? = null
 
 
     private var touchCutLine = false
-    private fun isTouchCutLine(event: MotionEvent): Boolean {
-        audioFragments?.forEachIndexed { index, audioFragment ->
-            if (audioFragment.isTarget(event)) {
-                touchCutLine = true
-                return touchCutLine
-            }
-        }
-        return touchCutLine
-    }
-
 
     /**
      * 裁剪拨片的触摸事件
@@ -82,11 +72,10 @@ open class AudioCutEditorView @JvmOverloads constructor(
                 Log.i(
                     cut_tag, "onTouchEvent: ACTION_DOWN touchCutLine=$touchCutLine"
                 )
-                var isTargetCut = isTouchCutLine(event)
+                var isTargetCut = audioFragment?.isTarget(event) ?: false
                 if (isTargetCut) {
-                    audioFragments?.forEachIndexed { index, audioFragment ->
-                        audioFragment.onTouchEvent(context, this@AudioCutEditorView, event)
-                    }
+                    audioFragment?.onTouchEvent(context, this@AudioCutEditorView, event)
+                    touchCutLine = true
                     return true
                 }
             }
@@ -96,9 +85,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
                     cut_tag, "onTouchEvent: ACTION_UP touchCutLine=$touchCutLine"
                 )
                 if (touchCutLine) {
-                    audioFragments?.forEachIndexed { index, audioFragment ->
-                        audioFragment.onTouchEvent(context, this@AudioCutEditorView, event)
-                    }
+                    audioFragment?.onTouchEvent(context, this@AudioCutEditorView, event)
                 }
                 touchCutLine = false
             }
@@ -108,9 +95,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
                     cut_tag, "onTouchEvent: ACTION_MOVE touchCutLine=$touchCutLine"
                 )
                 if (touchCutLine) {
-                    audioFragments?.forEachIndexed { index, audioFragment ->
-                        audioFragment.onTouchEvent(context, this@AudioCutEditorView, event)
-                    }
+                    audioFragment?.onTouchEvent(context, this@AudioCutEditorView, event)
                     return true
                 }
             }
@@ -120,9 +105,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
 
     override fun drawWaveformSeekBar(canvas: Canvas) {
         super.drawWaveformSeekBar(canvas)
-        audioFragments.forEach { audioFragment ->
-            audioFragment.drawWave(canvas)
-        }
+        audioFragment?.drawWave(canvas)
     }
 
 
@@ -158,30 +141,11 @@ open class AudioCutEditorView @JvmOverloads constructor(
     }
 
 
-    /*可自行绘制浮标*/
-    override fun drawCursor(canvas: Canvas, cursorPosition: Float, cursorValue: Long) {
-        super.drawCursor(canvas, cursorPosition, cursorValue)
-        if (!drawCursorContent) return
-        val keyTickHeight = keyTickHeight
-        val baselinePosition = baselinePosition
-        // ①绘制倒三角
-        val path = Path()
-        val statY = baselinePosition - keyTickHeight
-        // 倒三角形顶边的 y
-        val topSidePosition = statY
-        path.moveTo(cursorPosition, statY)
-        path.lineTo(cursorPosition - 3.5f, topSidePosition)
-        path.lineTo(cursorPosition + 3.5f, topSidePosition)
-        path.close()
-    }
-
     /**
      * 惯性滑动 tag时间戳更新
      */
     override fun refreshCursorValueByComputeScroll(currX: Int) {
-        audioFragments.forEach {
-            it.refreshCursorValueByComputeScroll(currX)
-        }
+        audioFragment?.refreshCursorValueByComputeScroll(currX)
     }
 
 
@@ -189,9 +153,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
      * 滑动时间轴，tag时间戳更新
      */
     override fun refreshCursorValueByOnScroll(distanceX: Float, courseIncrement: Long) {
-        audioFragments.forEach {
-            it.refreshCursorValueByOnScroll(distanceX, courseIncrement)
-        }
+        audioFragment?.refreshCursorValueByOnScroll(distanceX, courseIncrement)
     }
 
 
