@@ -71,30 +71,24 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
             startTimestamp = mScaleInfo?.startValue ?: 0
             this.waveform = waveform
         })
-//        audioFragments.add(CutAudioFragment().apply {
-//            index = 1
-//            duration = 1000 * 60 * 2
-//            maxWaveHeight = 50f
-//            waveVerticalPosition = 400f
-//            color = Color.RED
-//            cursorPosition = mCursorPosition
-//            startValue = mScaleInfo?.startValue ?: 0
-//            this.unitMsPixel = unitPixel
-//            this.waveform = waveform
-//            cursorValue = mCursorTimeValue
-//        })
-//        audioFragments.add(CutAudioFragment().apply {
-//            index = 2
-//            duration = 1000 * 60 * 2
-//            maxWaveHeight = 50f
-//            waveVerticalPosition = 600f
-//            color = Color.RED
-//            cursorPosition = mCursorPosition
-//            startValue = mScaleInfo?.startValue ?: 0
-//            this.unitMsPixel = unitPixel
-//            this.waveform = waveform
-//            cursorValue = mCursorTimeValue
-//        })
+        audioFragments.add(AudioFragment(this).apply {
+            index = 1
+            duration = 1000 * 60 * 2
+            maxWaveHeight = 50f
+            waveVerticalPosition = 400f
+            color = Color.RED
+            startTimestamp = mScaleInfo?.startValue ?: 0
+            this.waveform = waveform
+        })
+        audioFragments.add(AudioFragment(this).apply {
+            index = 2
+            duration = 1000 * 60 * 2
+            maxWaveHeight = 50f
+            waveVerticalPosition = 600f
+            color = Color.RED
+            startTimestamp = mScaleInfo?.startValue ?: 0
+            this.waveform = waveform
+        })
         invalidate() // 触发重新绘制
     }
 
@@ -274,7 +268,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
     /**
      * 长按命中的轨道 index
      */
-    override fun onLongPressTrackIndex(e: MotionEvent): Int {
+    private fun onLongPressTrackIndex(e: MotionEvent): Int {
         //view 在屏幕上的y坐标
         audioFragments.forEachIndexed { index, audioFragment ->
             if (e.y > (audioFragment.rect?.top ?: 0) && e.y < (audioFragment.rect?.bottom
@@ -363,8 +357,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
      * 手指拿起
      * y轴上的坐标清除(上下拖拽波形图功能)
      */
-    override fun onLongPressTouchUpEvent() {
-        super.onLongPressTouchUpEvent()
+    private fun onLongPressTouchUpEvent() {
         audioFragments[longTouchIndex]?.let {
             it.onLongPressTouchUpEvent()
         }

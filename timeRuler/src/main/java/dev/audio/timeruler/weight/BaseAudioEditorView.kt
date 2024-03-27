@@ -268,6 +268,31 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
     private var mGestureDetectorCompat: GestureDetectorCompat? = null
     private var scrollHappened = false
 
+    protected val baselinePosition: Float
+        protected get() = mBaselinePosition + 10
+
+    private val scaleGestureDetect: ScaleGestureDetector
+        get() {
+            if (null == mScaleGestureDetector) {
+                mScaleGestureDetector = ScaleGestureDetector(context, this)
+            }
+            return mScaleGestureDetector!!
+        }
+    private val gestureDetectorCompat: GestureDetectorCompat
+        get() {
+            if (null == mGestureDetectorCompat) {
+                mGestureDetectorCompat = GestureDetectorCompat(context, this)
+            }
+            return mGestureDetectorCompat!!
+        }
+    private val scroller: Scroller
+        get() {
+            if (null == mScroller) {
+                mScroller = Scroller(context)
+            }
+            return mScroller!!
+        }
+
     init {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.BaseScaleBar)
         tickValueColor = typedArray.getColor(R.styleable.TimeRulerBar_tickValueColor, Color.WHITE)
@@ -403,29 +428,15 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         invalidate()
     }
 
-    fun print(timestamp: Long) {
-        // 假设这是你的时间戳
-        // 创建一个日期对象
-        val date = Date(timestamp)
-        // 创建SimpleDateFormat对象，定义日期和时间的格式
-        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        // 使用SimpleDateFormat对象格式化日期对象
-        val formattedDate = sdf.format(date)
-        // 打印格式化后的日期和时间
-        Log.i("llc_date", "formattedDate:$formattedDate")
-    }
-
     /**
      * @param keyScaleRange 关键刻度值f
      * @param unitValue     每个刻度的值
      */
-    protected fun updateScaleInfo(keyScaleRange: Long, unitValue: Long) {
+    private fun updateScaleInfo(keyScaleRange: Long, unitValue: Long) {
         mScaleInfo!!.keyScaleRange = keyScaleRange
         mScaleInfo!!.unitValue = unitValue
     }
 
-    protected val baselinePosition: Float
-        protected get() = mBaselinePosition + 10
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         setMeasuredDimension(
@@ -642,8 +653,6 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
 
     protected open fun drawWaveformSeekBar(canvas: Canvas) {}
 
-    protected open fun onEndTickDraw(canvas: Canvas?) {}
-
     /**
      * 绘制游标
      *
@@ -692,27 +701,6 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         }
     }
 
-    private val scaleGestureDetect: ScaleGestureDetector
-        get() {
-            if (null == mScaleGestureDetector) {
-                mScaleGestureDetector = ScaleGestureDetector(context, this)
-            }
-            return mScaleGestureDetector!!
-        }
-    private val gestureDetectorCompat: GestureDetectorCompat
-        get() {
-            if (null == mGestureDetectorCompat) {
-                mGestureDetectorCompat = GestureDetectorCompat(context, this)
-            }
-            return mGestureDetectorCompat!!
-        }
-    private val scroller: Scroller
-        get() {
-            if (null == mScroller) {
-                mScroller = Scroller(context)
-            }
-            return mScroller!!
-        }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         scaleGestureDetect.onTouchEvent(event)
@@ -731,9 +719,6 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
             }
         }
         return true
-    }
-
-    open fun onLongPressTouchUpEvent() {
     }
 
 
@@ -821,7 +806,10 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         return true
     }
 
-    override fun onScaleEnd(detector: ScaleGestureDetector) {}
+    override fun onScaleEnd(detector: ScaleGestureDetector) {
+
+    }
+
     override fun onDown(e: MotionEvent): Boolean {
         Log.i(touch_tag, "onDown")
         if (status == STATUS_SCROLL_FLING) {
@@ -884,11 +872,6 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         }
         invalidate()
         return result
-    }
-
-
-    open fun onLongPressTrackIndex(e: MotionEvent): Int {
-        return 0
     }
 
 
@@ -960,7 +943,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         fun onStopTrackingTouch(cursorValue: Long)
     }
 
-    protected var scaleChangeListener: OnScaleChangeListener? = null
+    private var scaleChangeListener: OnScaleChangeListener? = null
 
     fun setOnScaleChangeListener(onScaleChangeListenerListener: OnScaleChangeListener?) {
         this.scaleChangeListener = onScaleChangeListenerListener
@@ -980,7 +963,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         setMode(mode, true)
     }
 
-    fun setMode(
+    private fun setMode(
         @Mode mode: String,
         setScaleRatio: Boolean,
         isRefreshUnitPixel: Boolean = true
