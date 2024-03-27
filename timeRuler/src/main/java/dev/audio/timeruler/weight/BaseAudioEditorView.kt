@@ -1054,27 +1054,12 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         invalidate()
     }
 
-    open fun refreshLongPressStartY(startY: Float) {
-
-    }
 
     open fun refreshCursorValueByComputeScroll(currX: Int) {
 
     }
 
-    open fun refreshCursorValueByLongPressHandleHorizontalMove(deltaX: Float) {
-
-    }
-
     open fun refreshCursorValueByOnScroll(distanceX: Float, courseIncrement: Long) {
-
-    }
-
-    open fun refreshOffsetUpTouchX(oriCursorValue: Long) {
-
-    }
-
-    open fun refreshLongPressCurrentTouchY(currentY: Int) {
 
     }
 

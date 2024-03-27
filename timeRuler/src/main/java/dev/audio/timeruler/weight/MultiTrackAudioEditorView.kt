@@ -297,7 +297,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
     /**
      * 长按起始的Y坐标
      */
-    override fun refreshLongPressStartY(startY: Float) {
+    private fun refreshLongPressStartY(startY: Float) {
         Log.i(
             long_press_tag,
             "TimeRulerBar refreshLongPressStartY startY=$startY,longTouchIndex=$longTouchIndex"
@@ -310,7 +310,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
     /**
      * 长按移动的Y坐标
      */
-    override fun refreshLongPressCurrentTouchY(currentY: Int) {
+    fun refreshLongPressCurrentTouchY(currentY: Int) {
         audioFragments[longTouchIndex]?.let {
             it.refreshLongPressCurrentTouchY(currentY)
         }
@@ -328,7 +328,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
     /**
      * 长按波形图 水平方向移动
      */
-    override fun refreshCursorValueByLongPressHandleHorizontalMove(deltaX: Float) {
+    private fun refreshCursorValueByLongPressHandleHorizontalMove(deltaX: Float) {
         Log.i(
             long_press_tag,
             "TimeRulerBar refreshCursorValueByLongPressHandleHorizontalMove: $deltaX"
@@ -352,7 +352,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
      *
      * 长按移动，手指抬起时  与原来起点的cursorValue差值，惯性滑动用
      */
-    override fun refreshOffsetUpTouchX(oriCursorValue: Long) {
+    private fun refreshOffsetUpTouchX(oriCursorValue: Long) {
         audioFragments[longTouchIndex]?.let {
             it.refreshOffsetUpTouchX(oriCursorValue)
         }
