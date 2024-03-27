@@ -1038,6 +1038,12 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         mColorScale = scale
     }
 
+    private var drawCursorContent: Boolean = true
+    fun setShowCursor(isShowCursorContent: Boolean) {
+        drawCursorContent = isShowCursorContent
+        invalidate()
+    }
+
     open fun refreshLongPressStartY(startY: Float) {
 
     }

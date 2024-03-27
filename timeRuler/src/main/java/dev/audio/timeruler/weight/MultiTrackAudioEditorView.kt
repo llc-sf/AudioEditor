@@ -239,12 +239,6 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
         return Math.max(contentHeight, cursorContentHeight)
     }
 
-
-    fun setShowCursor(isShowCursorContent: Boolean) {
-        drawCursorContent = isShowCursorContent
-        invalidate()
-    }
-
     var cursorDateFormat = SimpleDateFormat("HH:mm:ss")
 
     /*可自行绘制浮标*/

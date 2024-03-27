@@ -23,6 +23,12 @@ open class AudioCutEditorView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : BaseAudioEditorView(context, attrs), TickMarkStrategy {
 
+    /**
+     * 波形数据
+     */
+    private var audioFragment: AudioFragmentWithCut? = null
+    private var touchCutLine = false
+    private val simpleDateFormat = SimpleDateFormat("HH:mm:ss")
 
     init {
         init()
@@ -57,11 +63,6 @@ open class AudioCutEditorView @JvmOverloads constructor(
         invalidate() // 触发重新绘制
     }
 
-
-    private var audioFragment: AudioFragmentWithCut? = null
-
-
-    private var touchCutLine = false
 
     /**
      * 裁剪拨片的触摸事件
@@ -113,7 +114,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
         return keyScale
     }
 
-    private val simpleDateFormat = SimpleDateFormat("HH:mm:ss")
+
     override fun getScaleValue(scaleValue: Long, keyScale: Boolean): String {
         val formattedTime = simpleDateFormat.format(scaleValue)
         // 解析天、小时、分钟和秒
@@ -131,13 +132,6 @@ open class AudioCutEditorView @JvmOverloads constructor(
 
     override fun getSize(scaleValue: Long, keyScale: Boolean, maxScaleValueSize: Float): Float {
         return tickValueSize
-    }
-
-
-    private var drawCursorContent: Boolean = true
-    fun setShowCursor(isShowCursorContent: Boolean) {
-        drawCursorContent = isShowCursorContent
-        invalidate()
     }
 
 
