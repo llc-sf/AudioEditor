@@ -72,14 +72,6 @@ open class AudioCutEditorView @JvmOverloads constructor(
         return touchCutLine
     }
 
-    /**
-     * 绘制游标
-     */
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-        drawCursor(canvas, cursorPosition, cursorValue)
-    }
-
 
     /**
      * 裁剪拨片的触摸事件
@@ -201,8 +193,6 @@ open class AudioCutEditorView @JvmOverloads constructor(
             it.refreshCursorValueByOnScroll(distanceX, courseIncrement)
         }
     }
-
-
 
 
 }
