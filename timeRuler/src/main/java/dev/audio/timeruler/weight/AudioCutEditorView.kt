@@ -39,6 +39,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
 
     private fun init() {
         setTickMarkStrategy(this)
+        mCursorPositionProportion = 0.0f
     }
 
 

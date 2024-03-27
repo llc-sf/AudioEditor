@@ -240,7 +240,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
      *
      * 游标相对view width的位置  0～ 1
      */
-    private var mCursorPositionProportion = 0.5f
+    protected var mCursorPositionProportion = 0.5f
 
     // 刻度尺横线位置
     private var mBaselinePosition = 0f
