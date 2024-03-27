@@ -19,47 +19,16 @@ import dev.audio.timeruler.utils.SizeUtils
 import java.text.SimpleDateFormat
 import kotlin.reflect.KProperty
 
-open class MultiTrackAudioEditorView @JvmOverloads constructor(
+open class AudioCutEditorView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : BaseAudioEditorView(context, attrs), TickMarkStrategy {
-    private var mTickPaint: Paint? = null
-    private var mColorCursorPaint: Paint? = null
-    private val mTriangleHeight = 10f
-    private val cursorBackgroundColor: Int
-    private val cursorValueSize: Float
-    private val colorScaleBackground: Int
-    private val simpleDateFormat = SimpleDateFormat("HH:mm:ss")
-    private var tickValueBoundOffsetH = 20f
-    private var drawCursorContent: Boolean
 
 
     init {
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.TimeRulerBar)
-        cursorBackgroundColor =
-            typedArray.getColor(R.styleable.TimeRulerBar_cursorBackgroundColor, Color.RED)
-        cursorValueSize = typedArray.getDimension(
-            R.styleable.TimeRulerBar_cursorValueSize, SizeUtils.sp2px(getContext(), 10f).toFloat()
-        )
-        colorScaleBackground =
-            typedArray.getColor(R.styleable.TimeRulerBar_colorScaleBackground, Color.WHITE)
-        drawCursorContent = typedArray.getBoolean(R.styleable.TimeRulerBar_drawCursorContent, true)
-        typedArray.recycle()
         init()
     }
 
     private fun init() {
-        tickValueBoundOffsetH = SizeUtils.dp2px(context, 6f).toFloat()
-        mTickPaint = Paint()
-        mTickPaint!!.color = tickValueColor
-        mTickPaint!!.isAntiAlias = true
-        mTickPaint!!.style = Paint.Style.FILL_AND_STROKE
-        mTickPaint!!.textAlign = Paint.Align.CENTER
-        mTickPaint!!.textSize = tickValueSize
-        mTickPaint!!.strokeWidth = 1f
-        mTickPaint!!.isDither = true
-        mColorCursorPaint = Paint()
-        mColorCursorPaint!!.style = Paint.Style.FILL_AND_STROKE
-        mColorCursorPaint!!.isDither = true
         setTickMarkStrategy(this)
     }
 
@@ -85,30 +54,6 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
             startTimestamp = mScaleInfo?.startValue ?: 0
             this.waveform = waveform
         })
-//        audioFragments.add(CutAudioFragment().apply {
-//            index = 1
-//            duration = 1000 * 60 * 2
-//            maxWaveHeight = 50f
-//            waveVerticalPosition = 400f
-//            color = Color.RED
-//            cursorPosition = mCursorPosition
-//            startValue = mScaleInfo?.startValue ?: 0
-//            this.unitMsPixel = unitPixel
-//            this.waveform = waveform
-//            cursorValue = mCursorTimeValue
-//        })
-//        audioFragments.add(CutAudioFragment().apply {
-//            index = 2
-//            duration = 1000 * 60 * 2
-//            maxWaveHeight = 50f
-//            waveVerticalPosition = 600f
-//            color = Color.RED
-//            cursorPosition = mCursorPosition
-//            startValue = mScaleInfo?.startValue ?: 0
-//            this.unitMsPixel = unitPixel
-//            this.waveform = waveform
-//            cursorValue = mCursorTimeValue
-//        })
         invalidate() // 触发重新绘制
     }
 
@@ -143,13 +88,12 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 Log.i(
-                    BaseAudioEditorView.cut_tag,
-                    "onTouchEvent: ACTION_DOWN touchCutLine=$touchCutLine"
+                    cut_tag, "onTouchEvent: ACTION_DOWN touchCutLine=$touchCutLine"
                 )
                 var isTargetCut = isTouchCutLine(event)
                 if (isTargetCut) {
                     audioFragments?.forEachIndexed { index, audioFragment ->
-                        audioFragment.onTouchEvent(context, this@MultiTrackAudioEditorView, event)
+                        audioFragment.onTouchEvent(context, this@AudioCutEditorView, event)
                     }
                     return true
                 }
@@ -157,12 +101,11 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
 
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                 Log.i(
-                    BaseAudioEditorView.cut_tag,
-                    "onTouchEvent: ACTION_UP touchCutLine=$touchCutLine"
+                    cut_tag, "onTouchEvent: ACTION_UP touchCutLine=$touchCutLine"
                 )
                 if (touchCutLine) {
                     audioFragments?.forEachIndexed { index, audioFragment ->
-                        audioFragment.onTouchEvent(context, this@MultiTrackAudioEditorView, event)
+                        audioFragment.onTouchEvent(context, this@AudioCutEditorView, event)
                     }
                 }
                 touchCutLine = false
@@ -170,12 +113,11 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
 
             MotionEvent.ACTION_MOVE -> {
                 Log.i(
-                    BaseAudioEditorView.cut_tag,
-                    "onTouchEvent: ACTION_MOVE touchCutLine=$touchCutLine"
+                    cut_tag, "onTouchEvent: ACTION_MOVE touchCutLine=$touchCutLine"
                 )
                 if (touchCutLine) {
                     audioFragments?.forEachIndexed { index, audioFragment ->
-                        audioFragment.onTouchEvent(context, this@MultiTrackAudioEditorView, event)
+                        audioFragment.onTouchEvent(context, this@AudioCutEditorView, event)
                     }
                     return true
                 }
@@ -196,6 +138,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
         return keyScale
     }
 
+    private val simpleDateFormat = SimpleDateFormat("HH:mm:ss")
     override fun getScaleValue(scaleValue: Long, keyScale: Boolean): String {
         val formattedTime = simpleDateFormat.format(scaleValue)
         // 解析天、小时、分钟和秒
@@ -216,24 +159,12 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
     }
 
 
-    override fun calcContentHeight(baselinePositionProportion: Float): Int {
-        val contentHeight = super.calcContentHeight(baselinePositionProportion)
-        mColorCursorPaint!!.textSize = cursorValueSize
-        val fontMetrics = mColorCursorPaint!!.fontMetrics
-        val ceil = Math.ceil((fontMetrics.bottom - fontMetrics.top).toDouble())
-        val cursorValueHeight = (ceil + mTriangleHeight + tickValueBoundOffsetH).toInt() + 5
-        val cursorContentHeight =
-            ((keyTickHeight + cursorValueHeight) / baselinePositionProportion + 0.5f).toInt()
-        return Math.max(contentHeight, cursorContentHeight)
-    }
-
-
+    private var drawCursorContent: Boolean = true
     fun setShowCursor(isShowCursorContent: Boolean) {
         drawCursorContent = isShowCursorContent
         invalidate()
     }
 
-    var cursorDateFormat = SimpleDateFormat("HH:mm:ss")
 
     /*可自行绘制浮标*/
     override fun drawCursor(canvas: Canvas, cursorPosition: Float, cursorValue: Long) {
@@ -245,36 +176,13 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
         val path = Path()
         val statY = baselinePosition - keyTickHeight
         // 倒三角形顶边的 y
-        val topSidePosition = statY - mTriangleHeight
+        val topSidePosition = statY
         path.moveTo(cursorPosition, statY)
         path.lineTo(cursorPosition - 3.5f, topSidePosition)
         path.lineTo(cursorPosition + 3.5f, topSidePosition)
         path.close()
-        mTickPaint!!.color = cursorBackgroundColor
-        canvas.drawPath(path, mTickPaint!!)
-        val content = cursorDateFormat.format(cursorValue)
-        val textBound = Rect()
-        mTickPaint!!.textSize = cursorValueSize
-        // 测量内容大小
-        mTickPaint!!.getTextBounds(content, 0, content.length, textBound)
-
-        // ②绘制内容背景
-        // 创建包裹内容的背景大小
-        val rectF = RectF(
-            0f, 0f, (textBound.width() + 20).toFloat(), textBound.height() + tickValueBoundOffsetH
-        )
-        // 背景位置
-        // x方向： 关于游标居中  y方向:在倒三角形上边
-        rectF.offset(cursorPosition - rectF.width() * 0.5f, topSidePosition + 0.5f - rectF.height())
-        val rx = rectF.width() * 0.5f
-        mTickPaint!!.color = cursorBackgroundColor
-        canvas.drawRoundRect(rectF, rx, rx, mTickPaint!!)
-        mTickPaint!!.color = tickValueColor
-        // ③ 绘制内容
-        // 使内容绘制在背景内,达到包裹效果
-        val textY = rectF.centerY() + textBound.height() * 0.5f
-        canvas.drawText(content, cursorPosition, textY, mTickPaint!!)
     }
+
 
     /**
      * 长按命中的轨道 index

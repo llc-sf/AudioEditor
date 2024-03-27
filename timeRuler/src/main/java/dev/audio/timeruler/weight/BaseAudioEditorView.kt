@@ -16,6 +16,7 @@ import androidx.annotation.Dimension
 import androidx.annotation.FloatRange
 import androidx.annotation.StringDef
 import androidx.core.view.GestureDetectorCompat
+import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.ffmpeglib.tool.TimeUtil
 import dev.audio.timeruler.R
 import dev.audio.timeruler.listener.OnScaleChangeListener
@@ -31,7 +32,7 @@ import kotlin.reflect.KProperty
  * 坐标轴游标：中间的一个竖线
  *
  */
-abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
+abstract class BaseAudioEditorView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
 ) :
@@ -187,17 +188,23 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
     private var mScalePaint: Paint? = null
     protected var mScaleInfo: ScaleMode? = null
 
+    /*刻度线颜色*/
+    val tickValueColor: Int
+
+    /*刻度字体大小*/
+    val tickValueSize: Float
+
     /*每毫秒多少像素*/
     var unitMsPixel: Float = 0f
 
 
     open fun cursorPositionPixelChange(prop: KProperty<*>, old: Float, new: Float) {
-
+        invalidate()
     }
 
 
     open fun cursorValueChange(prop: KProperty<*>, old: Long, new: Long) {
-
+        invalidate()
     }
 
     /*一个屏幕宽度最少显示多少毫秒  8s*/
@@ -212,6 +219,7 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
 
     /*一毫秒最少占多少像素*/
     private var minUnitPixel = 0f
+
 
     /*时间戳*/
     var cursorValue: Long by ObservableProperty(0L) { prop, old, new ->
@@ -259,6 +267,45 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
 
     private var mGestureDetectorCompat: GestureDetectorCompat? = null
     private var scrollHappened = false
+
+    init {
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.BaseScaleBar)
+        tickValueColor = typedArray.getColor(R.styleable.TimeRulerBar_tickValueColor, Color.WHITE)
+        tickValueSize = typedArray.getDimension(
+            R.styleable.TimeRulerBar_tickValueSize,
+            SizeUtils.sp2px(getContext(), 8f).toFloat()
+        )
+        keyTickHeight = typedArray.getDimension(
+            R.styleable.BaseScaleBar_keyTickHeight,
+            SizeUtils.dp2px(getContext(), 10f).toFloat()
+        )
+        tickValueOffset = typedArray.getDimension(
+            R.styleable.BaseScaleBar_tickValueOffset,
+            SizeUtils.dp2px(getContext(), -30f).toFloat()
+        )
+        tickDirectionUp = typedArray.getBoolean(R.styleable.BaseScaleBar_tickDirectionUp, true)
+        mNormalTickAndKeyTickRatio =
+            typedArray.getFloat(R.styleable.BaseScaleBar_normalTickRatio, 0.67f)
+        tickColor = typedArray.getColor(R.styleable.BaseScaleBar_tickColor, Color.BLACK)
+        cursorLineColor =
+            typedArray.getColor(R.styleable.BaseScaleBar_cursorLineColor, Color.YELLOW)
+        showCursorLine = typedArray.getBoolean(R.styleable.BaseScaleBar_showCursorLine, true)
+        showTickValue = typedArray.getBoolean(R.styleable.BaseScaleBar_showCursorLine, true)
+        showTickLine = typedArray.getBoolean(R.styleable.BaseScaleBar_showTickLine, true)
+        maxScaleValueSize = typedArray.getDimension(
+            R.styleable.BaseScaleBar_maxScaleValueSize,
+            SizeUtils.sp2px(getContext(), 15f).toFloat()
+        )
+        var position = typedArray.getFloat(R.styleable.BaseScaleBar_cursorPosition, 0.5f)
+        mCursorPositionProportion = position
+        position = typedArray.getFloat(R.styleable.BaseScaleBar_baselinePosition, 0.67f)
+        mBaselinePositionProportion = position
+        // 释放
+        typedArray.recycle()
+        init()
+    }
+
+
     private fun init() {
         mScalePaint = Paint()
         mScalePaint!!.isAntiAlias = true
@@ -342,6 +389,7 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
         mScaleInfo!!.startValue = start
         mScaleInfo!!.endValue = end
         cursorValue = start
+        setMode(mMode, true)
         invalidate()
     }
 
@@ -580,9 +628,6 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
             }
         }
         drawWaveformSeekBar(canvas)
-//        onEndTickDraw(canvas)
-        drawCursor(canvas, cursorPosition, cursorValue)
-
     }
 
     protected open fun drawWaveformSeekBar(canvas: Canvas) {}
@@ -777,7 +822,32 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
         lastScale = scale
     }
 
-    protected open fun onScale(info: ScaleMode?, unitPixel: Float) {}
+
+    private fun onScale(info: ScaleMode?, unitPixel: Float) {
+        val width = width
+        // 计算一屏刻度值跨度
+        val screenSpanValue = width / unitPixel
+        updateMode(screenSpanValue)
+    }
+
+
+    private fun updateMode(screenSpanValue: Float) {
+        Log.i("TAG", "updateMode: $screenSpanValue")
+        if (screenSpanValue >= SCREEN_WIDTH_TIME_VALUE_ARRAY[5]) {
+            setMode(MODE_ARRAY[5], setScaleRatio = false, isRefreshUnitPixel = false)
+        } else if (screenSpanValue >= SCREEN_WIDTH_TIME_VALUE_ARRAY[4]) {
+            setMode(MODE_ARRAY[4], setScaleRatio = false, isRefreshUnitPixel = false)
+        } else if (screenSpanValue >= SCREEN_WIDTH_TIME_VALUE_ARRAY[3]) {
+            setMode(MODE_ARRAY[3], setScaleRatio = false, isRefreshUnitPixel = false)
+        } else if (screenSpanValue >= SCREEN_WIDTH_TIME_VALUE_ARRAY[2]) {
+            setMode(MODE_ARRAY[2], setScaleRatio = false, isRefreshUnitPixel = false)
+        } else if (screenSpanValue >= SCREEN_WIDTH_TIME_VALUE_ARRAY[1]) {
+            setMode(MODE_ARRAY[1], setScaleRatio = false, isRefreshUnitPixel = false)
+        } else {
+            setMode(MODE_ARRAY[0], setScaleRatio = false, isRefreshUnitPixel = false)
+        }
+    }
+
     override fun onScaleBegin(detector: ScaleGestureDetector): Boolean {
         return true
     }
@@ -930,20 +1000,6 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
         invalidate()
     }
 
-    protected inner class ScaleMode {
-        var startValue: Long = 0
-        var endValue: Long = 0
-
-        /**
-         * 间隔多少毫秒是一个刻度（普通）
-         */
-        var unitValue: Long = 0
-
-        /**
-         * 间隔多少毫秒是一个关键刻度
-         */
-        var keyScaleRange: Long = 0
-    }
 
     private var mOnCursorListener: OnCursorListener? = null
     fun setOnCursorListener(l: OnCursorListener?) {
@@ -964,40 +1020,84 @@ abstract class BaseMultiTrackAudioEditorView @JvmOverloads constructor(
 
     private var mTickMarkStrategy: TickMarkStrategy? = null
 
-    init {
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.BaseScaleBar)
-        keyTickHeight = typedArray.getDimension(
-            R.styleable.BaseScaleBar_keyTickHeight,
-            SizeUtils.dp2px(getContext(), 10f).toFloat()
-        )
-        tickValueOffset = typedArray.getDimension(
-            R.styleable.BaseScaleBar_tickValueOffset,
-            SizeUtils.dp2px(getContext(), -30f).toFloat()
-        )
-        tickDirectionUp = typedArray.getBoolean(R.styleable.BaseScaleBar_tickDirectionUp, true)
-        mNormalTickAndKeyTickRatio =
-            typedArray.getFloat(R.styleable.BaseScaleBar_normalTickRatio, 0.67f)
-        tickColor = typedArray.getColor(R.styleable.BaseScaleBar_tickColor, Color.BLACK)
-        cursorLineColor =
-            typedArray.getColor(R.styleable.BaseScaleBar_cursorLineColor, Color.YELLOW)
-        showCursorLine = typedArray.getBoolean(R.styleable.BaseScaleBar_showCursorLine, true)
-        showTickValue = typedArray.getBoolean(R.styleable.BaseScaleBar_showCursorLine, true)
-        showTickLine = typedArray.getBoolean(R.styleable.BaseScaleBar_showTickLine, true)
-        maxScaleValueSize = typedArray.getDimension(
-            R.styleable.BaseScaleBar_maxScaleValueSize,
-            SizeUtils.sp2px(getContext(), 15f).toFloat()
-        )
-        var position = typedArray.getFloat(R.styleable.BaseScaleBar_cursorPosition, 0.5f)
-        mCursorPositionProportion = position
-        position = typedArray.getFloat(R.styleable.BaseScaleBar_baselinePosition, 0.67f)
-        mBaselinePositionProportion = position
-        // 释放
-        typedArray.recycle()
-        init()
-    }
-
     fun setTickMarkStrategy(tickMarkStrategy: TickMarkStrategy?) {
         mTickMarkStrategy = tickMarkStrategy
+    }
+
+    fun setScreenSpanValue(screenSpanValue: Long) {
+        minScreenSpanValue = screenSpanValue
+    }
+
+    fun setMode(@Mode mode: String) {
+        setMode(mode, true)
+    }
+
+    fun setMode(
+        @Mode mode: String,
+        setScaleRatio: Boolean,
+        isRefreshUnitPixel: Boolean = true
+    ) {
+        val screeWithDuration: Long
+        var index = 0
+        when (mode) {
+            MODE_ARRAY[0] -> {
+                index = 0
+                updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
+                screeWithDuration = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
+            }
+
+            MODE_ARRAY[1] -> {
+                index = 1
+                updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
+                screeWithDuration = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
+            }
+
+            MODE_ARRAY[2] -> {
+                index = 2
+                updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
+                screeWithDuration = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
+            }
+
+            MODE_ARRAY[3] -> {
+                index = 3
+                updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
+                screeWithDuration = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
+            }
+
+            MODE_ARRAY[4] -> {
+                index = 4
+                updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
+                screeWithDuration = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
+            }
+
+            MODE_ARRAY[5] -> {
+                index = 5
+                updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
+                screeWithDuration = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
+            }
+
+            else -> throw RuntimeException("not support mode: $mode")
+        }
+        if (isRefreshUnitPixel) {
+            //todo  不一定是屏幕宽度
+            unitMsPixel = (ScreenUtil.getScreenWidth(context) * 1f / screeWithDuration)
+        }
+        Log.e(TAG, "unitPixel: $unitMsPixel")
+        if (setScaleRatio) {
+            setScaleRatio(minScreenSpanValue * 1.0f / screeWithDuration)
+        }
+        if (mode != mMode) {
+            mMode = mode
+            scaleChangeListener?.onScaleChange(mMode)
+        }
+        invalidate()
+    }
+
+
+    private var mColorScale: ColorScale? = null
+
+    fun setColorScale(scale: ColorScale?) {
+        mColorScale = scale
     }
 
     open fun refreshLongPressStartY(startY: Float) {

@@ -230,7 +230,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
 
 
     fun onTouchEvent(context: Context, view: View, event: MotionEvent?): Boolean {
-        Log.i(BaseMultiTrackAudioEditorView.cut_tag, "onTouchEvent: ")
+        Log.i(BaseAudioEditorView.cut_tag, "onTouchEvent: ")
         if (event == null) return false
         var width = ScreenUtil.getScreenWidth(context)
         val x = event.x
@@ -243,7 +243,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
             }
 
             MotionEvent.ACTION_MOVE -> {
-                Log.i(BaseMultiTrackAudioEditorView.cut_tag, "cut onTouchEvent: ACTION_DOWN")
+                Log.i(BaseAudioEditorView.cut_tag, "cut onTouchEvent: ACTION_DOWN")
                 // 检查控件是否已经初始化宽度
                 if (width > 0) {
                     val dx = x - lastTouchXProcess
@@ -299,12 +299,12 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
                     lastTouchXProcess = x
                     startTimestampPosition.apply {
                         Log.i(
-                            BaseMultiTrackAudioEditorView.cut_tag,
+                            BaseAudioEditorView.cut_tag,
                             "startTimestampPosition: $this"
                         )
                     }
                     endTimestampPosition.apply {
-                        Log.i(BaseMultiTrackAudioEditorView.cut_tag, "endTimestampPosition: $this")
+                        Log.i(BaseAudioEditorView.cut_tag, "endTimestampPosition: $this")
                     }
                     view.invalidate()
                 }
@@ -367,12 +367,12 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
             endRect.contains(event.x.toInt(), event.y.toInt())
         ) {
             return true.apply {
-                Log.i(BaseMultiTrackAudioEditorView.cut_tag, "isTarget: true")
+                Log.i(BaseAudioEditorView.cut_tag, "isTarget: true")
             }
         }
 
         return false.apply {
-            Log.i(BaseMultiTrackAudioEditorView.cut_tag, "isTarget: false")
+            Log.i(BaseAudioEditorView.cut_tag, "isTarget: false")
         }
     }
 

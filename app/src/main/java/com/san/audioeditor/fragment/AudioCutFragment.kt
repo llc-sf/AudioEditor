@@ -25,7 +25,7 @@ import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.listener.OnScaleChangeListener
 import dev.audio.timeruler.multitrack.MultiTrackRenderersFactory
 import dev.audio.timeruler.multitrack.MultiTrackSelector
-import dev.audio.timeruler.weight.BaseMultiTrackAudioEditorView
+import dev.audio.timeruler.weight.BaseAudioEditorView
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -92,11 +92,11 @@ class AudioCutFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         //一个手机宽度显示多长时间
 //        viewBinding.timeBar.setScreenSpanValue(TimeRulerBar.VALUE_1000_MS * 8)
         //
-        viewBinding.timeBar.setMode(BaseMultiTrackAudioEditorView.MODE_ARRAY[2])
+        viewBinding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[2])
         viewBinding.timeBar.setRange(startTime, endTime)
 
         viewBinding.timeBar.setOnCursorListener(object :
-            BaseMultiTrackAudioEditorView.OnCursorListener {
+            BaseAudioEditorView.OnCursorListener {
             override fun onStartTrackingTouch(cursorValue: Long) {
 
             }
@@ -126,7 +126,6 @@ class AudioCutFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         viewBinding.seekAreaOffset.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                viewBinding.timeBar.setVideoAreaOffset(progress)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -153,27 +152,27 @@ class AudioCutFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         viewBinding.rgScale.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.scale1 -> {
-                    viewBinding.timeBar.setMode(BaseMultiTrackAudioEditorView.MODE_ARRAY[0])
+                    viewBinding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[0])
                 }
 
                 R.id.scale2 -> {
-                    viewBinding.timeBar.setMode(BaseMultiTrackAudioEditorView.MODE_ARRAY[1])
+                    viewBinding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[1])
                 }
 
                 R.id.scale3 -> {
-                    viewBinding.timeBar.setMode(BaseMultiTrackAudioEditorView.MODE_ARRAY[2])
+                    viewBinding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[2])
                 }
 
                 R.id.scale4 -> {
-                    viewBinding.timeBar.setMode(BaseMultiTrackAudioEditorView.MODE_ARRAY[3])
+                    viewBinding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[3])
                 }
 
                 R.id.scale5 -> {
-                    viewBinding.timeBar.setMode(BaseMultiTrackAudioEditorView.MODE_ARRAY[4])
+                    viewBinding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[4])
                 }
 
                 R.id.scale6 -> {
-                    viewBinding.timeBar.setMode(BaseMultiTrackAudioEditorView.MODE_ARRAY[5])
+                    viewBinding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[5])
                 }
             }
 
@@ -219,27 +218,27 @@ class AudioCutFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         viewBinding.timeBar.setOnScaleChangeListener(object : OnScaleChangeListener {
             override fun onScaleChange(mode: String) {
                 when (mode) {
-                    BaseMultiTrackAudioEditorView.MODE_UINT_100_MS -> {
+                    BaseAudioEditorView.MODE_UINT_100_MS -> {
                         viewBinding.rgScale.check(R.id.scale1)
                     }
 
-                    BaseMultiTrackAudioEditorView.MODE_UINT_500_MS -> {
+                    BaseAudioEditorView.MODE_UINT_500_MS -> {
                         viewBinding.rgScale.check(R.id.scale2)
                     }
 
-                    BaseMultiTrackAudioEditorView.MODE_UINT_1000_MS -> {
+                    BaseAudioEditorView.MODE_UINT_1000_MS -> {
                         viewBinding.rgScale.check(R.id.scale3)
                     }
 
-                    BaseMultiTrackAudioEditorView.MODE_UINT_2000_MS -> {
+                    BaseAudioEditorView.MODE_UINT_2000_MS -> {
                         viewBinding.rgScale.check(R.id.scale4)
                     }
 
-                    BaseMultiTrackAudioEditorView.MODE_UINT_3000_MS -> {
+                    BaseAudioEditorView.MODE_UINT_3000_MS -> {
                         viewBinding.rgScale.check(R.id.scale5)
                     }
 
-                    BaseMultiTrackAudioEditorView.MODE_UINT_6000_MS -> {
+                    BaseAudioEditorView.MODE_UINT_6000_MS -> {
                         viewBinding.rgScale.check(R.id.scale6)
                     }
 

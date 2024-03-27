@@ -12,8 +12,8 @@ import android.view.View
  *
  * 带裁剪模式
  */
-class AudioFragmentWithCut(multiTrackAudioEditorView: MultiTrackAudioEditorView) :
-    AudioFragment(multiTrackAudioEditorView) {
+class AudioFragmentWithCut(audioEditorView: BaseAudioEditorView) :
+    AudioFragment(audioEditorView) {
 
 
     var cutPieceFragment: CutPieceFragment? = null
@@ -45,7 +45,7 @@ class AudioFragmentWithCut(multiTrackAudioEditorView: MultiTrackAudioEditorView)
 
 
     fun onTouchEvent(context: Context, view: View, event: MotionEvent?): Boolean {
-        Log.i(BaseMultiTrackAudioEditorView.cut_tag, "onTouchEvent: ")
+        Log.i(BaseAudioEditorView.cut_tag, "onTouchEvent: ")
         return cutPieceFragment?.onTouchEvent(context, view, event) ?: false
     }
 

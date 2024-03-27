@@ -13,13 +13,13 @@ import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import com.masoudss.lib.utils.WaveformOptions
-import dev.audio.timeruler.weight.BaseMultiTrackAudioEditorView
-import dev.audio.timeruler.weight.BaseMultiTrackAudioEditorView.Companion.MODE_UINT_1000_MS
-import dev.audio.timeruler.weight.BaseMultiTrackAudioEditorView.Companion.MODE_UINT_100_MS
-import dev.audio.timeruler.weight.BaseMultiTrackAudioEditorView.Companion.MODE_UINT_2000_MS
-import dev.audio.timeruler.weight.BaseMultiTrackAudioEditorView.Companion.MODE_UINT_3000_MS
-import dev.audio.timeruler.weight.BaseMultiTrackAudioEditorView.Companion.MODE_UINT_500_MS
-import dev.audio.timeruler.weight.BaseMultiTrackAudioEditorView.Companion.MODE_UINT_6000_MS
+import dev.audio.timeruler.weight.BaseAudioEditorView
+import dev.audio.timeruler.weight.BaseAudioEditorView.Companion.MODE_UINT_1000_MS
+import dev.audio.timeruler.weight.BaseAudioEditorView.Companion.MODE_UINT_100_MS
+import dev.audio.timeruler.weight.BaseAudioEditorView.Companion.MODE_UINT_2000_MS
+import dev.audio.timeruler.weight.BaseAudioEditorView.Companion.MODE_UINT_3000_MS
+import dev.audio.timeruler.weight.BaseAudioEditorView.Companion.MODE_UINT_500_MS
+import dev.audio.timeruler.weight.BaseAudioEditorView.Companion.MODE_UINT_6000_MS
 import dev.audio.timeruler.R
 import dev.audio.timeruler.bean.TimeBean
 import dev.audio.timeruler.bean.VideoBean
@@ -65,11 +65,11 @@ class TimeRulerActivity : AppCompatActivity() {
         //一个手机宽度显示多长时间
 //        binding.timeBar.setScreenSpanValue(TimeRulerBar.VALUE_1000_MS * 8)
         //
-        binding.timeBar.setMode(BaseMultiTrackAudioEditorView.MODE_ARRAY[2])
+        binding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[2])
         binding.timeBar.setRange(startTime, endTime)
 
         binding.timeBar.setOnCursorListener(object :
-            BaseMultiTrackAudioEditorView.OnCursorListener {
+            BaseAudioEditorView.OnCursorListener {
             override fun onStartTrackingTouch(cursorValue: Long) {
 
             }
@@ -98,7 +98,6 @@ class TimeRulerActivity : AppCompatActivity() {
 
         binding.seekAreaOffset.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                binding.timeBar.setVideoAreaOffset(progress)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -125,27 +124,27 @@ class TimeRulerActivity : AppCompatActivity() {
         binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.rb1 -> {
-                    binding.timeBar.setMode(BaseMultiTrackAudioEditorView.MODE_ARRAY[0])
+                    binding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[0])
                 }
 
                 R.id.rb2 -> {
-                    binding.timeBar.setMode(BaseMultiTrackAudioEditorView.MODE_ARRAY[1])
+                    binding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[1])
                 }
 
                 R.id.rb3 -> {
-                    binding.timeBar.setMode(BaseMultiTrackAudioEditorView.MODE_ARRAY[2])
+                    binding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[2])
                 }
 
                 R.id.rb4 -> {
-                    binding.timeBar.setMode(BaseMultiTrackAudioEditorView.MODE_ARRAY[3])
+                    binding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[3])
                 }
 
                 R.id.rb5 -> {
-                    binding.timeBar.setMode(BaseMultiTrackAudioEditorView.MODE_ARRAY[4])
+                    binding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[4])
                 }
 
                 R.id.rb6 -> {
-                    binding.timeBar.setMode(BaseMultiTrackAudioEditorView.MODE_ARRAY[5])
+                    binding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[5])
                 }
             }
         }

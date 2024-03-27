@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/cut_editor" />
 
-    <dev.audio.timeruler.weight.MultiTrackAudioEditorView
+    <dev.audio.timeruler.weight.AudioCutEditorView
         android:id="@+id/timeBar"
         android:layout_width="match_parent"
         android:layout_height="382dp"

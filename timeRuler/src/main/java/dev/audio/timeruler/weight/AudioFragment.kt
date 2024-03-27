@@ -7,8 +7,8 @@ import android.graphics.Path
 import android.graphics.Rect
 import android.util.Log
 import dev.audio.ffmpeglib.tool.TimeUtil
-import dev.audio.timeruler.weight.BaseMultiTrackAudioEditorView.Companion.long_press_tag
-import dev.audio.timeruler.weight.BaseMultiTrackAudioEditorView.Companion.time_line_tag
+import dev.audio.timeruler.weight.BaseAudioEditorView.Companion.long_press_tag
+import dev.audio.timeruler.weight.BaseAudioEditorView.Companion.time_line_tag
 import dev.audio.timeruler.bean.Ref
 import dev.audio.timeruler.bean.Waveform
 import kotlin.math.roundToInt
@@ -16,7 +16,7 @@ import kotlin.math.roundToInt
 /**
  * 波形片段
  */
-open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorView) {
+open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
     companion object {
 
         const val DEFAULT_WAVE_HEIGHT = 150f
@@ -60,11 +60,11 @@ open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorVie
         get() = (duration * unitMsPixel).toInt()
 
     //每毫秒对应的像素
-    val unitMsPixel by Ref { multiTrackAudioEditorView.unitMsPixel }
+    val unitMsPixel by Ref { audioEditorView.unitMsPixel }
 
 
     //当前指示标的位置（元素）
-    val cursorPosition by Ref { multiTrackAudioEditorView.cursorPosition }
+    val cursorPosition by Ref { audioEditorView.cursorPosition }
 
 
     /**
@@ -72,7 +72,7 @@ open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorVie
      * 当前坐标轴的时间游标同步
      *
      */
-    val cursorValue by Ref { multiTrackAudioEditorView.cursorValue }
+    val cursorValue by Ref { audioEditorView.cursorValue }
 
 
     //选中的一圈矩形宽度
@@ -341,11 +341,11 @@ open class AudioFragment(var multiTrackAudioEditorView: MultiTrackAudioEditorVie
     }
 
     fun moveRightByPixel(distance: Float) {
-        multiTrackAudioEditorView.moveRightByPixel(distance)
+        audioEditorView.moveRightByPixel(distance)
     }
 
     fun moveRightByTime(time: Long) {
-        multiTrackAudioEditorView.moveRightByTime(time)
+        audioEditorView.moveRightByTime(time)
     }
 
 
