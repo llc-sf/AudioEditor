@@ -16,7 +16,7 @@ import kotlin.math.roundToInt
 /**
  * 波形片段
  */
-open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
+open class AudioFragment(private var audioEditorView: BaseAudioEditorView) {
     companion object {
 
         const val DEFAULT_WAVE_HEIGHT = 150f
@@ -37,7 +37,7 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
      * 波形图在时间坐标轴上的结束时间戳
      * （范围：时间角度）
      */
-    var endTimestamp: Long = 0
+    private var endTimestamp: Long = 0
         get() {
             return startTimestamp + duration
         }
@@ -64,7 +64,7 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
 
 
     //当前指示标的位置（元素）
-    val cursorPosition by Ref { audioEditorView.cursorPosition }
+    private val cursorPosition by Ref { audioEditorView.cursorPosition }
 
 
     /**
@@ -72,7 +72,7 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
      * 当前坐标轴的时间游标同步
      *
      */
-    val cursorValue by Ref { audioEditorView.cursorValue }
+    private val cursorValue by Ref { audioEditorView.cursorValue }
 
 
     //选中的一圈矩形宽度

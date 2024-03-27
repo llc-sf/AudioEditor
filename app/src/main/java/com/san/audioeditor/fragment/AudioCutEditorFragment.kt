@@ -25,12 +25,14 @@ import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.listener.OnScaleChangeListener
 import dev.audio.timeruler.multitrack.MultiTrackRenderersFactory
 import dev.audio.timeruler.multitrack.MultiTrackSelector
+import dev.audio.timeruler.utils.format2Duration
+import dev.audio.timeruler.utils.formatToCursorDateString
 import dev.audio.timeruler.weight.BaseAudioEditorView
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 
-class AudioCutFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
+class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
 
 
     companion object {
@@ -82,11 +84,17 @@ class AudioCutFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         calendar[Calendar.MILLISECOND] = 0
         var startTime = calendar.timeInMillis
 
+
+        val hours = (mViewModel.song.duration / (1000 * 60 * 60) % 24)
+        val minutes = (mViewModel.song.duration / (1000 * 60) % 60)
+        val seconds = (mViewModel.song.duration / 1000 % 60)
+        val milliseconds = (mViewModel.song.duration % 1000)
+
         // 23:59:59 999
-        calendar[Calendar.HOUR_OF_DAY] = 0
-        calendar[Calendar.MINUTE] = 10
-        calendar[Calendar.SECOND] = 0
-        calendar[Calendar.MILLISECOND] = 0
+        calendar[Calendar.HOUR_OF_DAY] = hours
+        calendar[Calendar.MINUTE] = minutes
+        calendar[Calendar.SECOND] = seconds
+        calendar[Calendar.MILLISECOND] = milliseconds
         var endTime = calendar.timeInMillis
 
         //一个手机宽度显示多长时间
@@ -95,10 +103,12 @@ class AudioCutFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         viewBinding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[2])
         viewBinding.timeBar.setRange(startTime, endTime)
 
+        viewBinding.durationTime.text = mViewModel.song.duration.toLong().format2Duration()
+
         viewBinding.timeBar.setOnCursorListener(object :
             BaseAudioEditorView.OnCursorListener {
             override fun onStartTrackingTouch(cursorValue: Long) {
-
+                viewBinding.tvData.text = cursorDateFormat.format(Date(cursorValue))
             }
 
             override fun onProgressChanged(cursorValue: Long, fromeUser: Boolean) {
@@ -106,7 +116,7 @@ class AudioCutFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
             }
 
             override fun onStopTrackingTouch(cursorValue: Long) {
-
+                viewBinding.tvData.text = cursorDateFormat.format(Date(cursorValue))
             }
         })
 
@@ -212,7 +222,7 @@ class AudioCutFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
             requireContext(),
             mViewModel.song.path
         ) {
-            viewBinding.timeBar.setWaveform(Waveform(it.toList()))
+            viewBinding.timeBar.setWaveform(Waveform(it.toList()),mViewModel.song.duration.toLong())
         }
 
         viewBinding.timeBar.setOnScaleChangeListener(object : OnScaleChangeListener {

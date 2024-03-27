@@ -21,6 +21,7 @@ import dev.audio.ffmpeglib.tool.TimeUtil
 import dev.audio.timeruler.R
 import dev.audio.timeruler.listener.OnScaleChangeListener
 import dev.audio.timeruler.utils.SizeUtils
+import dev.audio.timeruler.utils.formatToCursorDateString
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -46,6 +47,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         const val touch_tag = "touch_tag"
         const val time_line_tag = "time_line_tag"
         const val cut_tag = "cut_tag"
+        const val deadline_tag = "deadline_tag"
 
         /**
          * updateScaleInfo(500ms, 100ms);
@@ -858,6 +860,8 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
 //        mCursorValue1 += courseIncrement
         refreshCursorValueByOnScroll(distanceX, courseIncrement)
         var result = true
+        Log.i(deadline_tag,"cursorValue=${cursorValue.formatToCursorDateString()}; mScaleInfo!!.startValue=${mScaleInfo!!.startValue.formatToCursorDateString()}; mScaleInfo!!.endValue=${mScaleInfo!!.endValue.formatToCursorDateString()}")
+
         if (cursorValue < mScaleInfo!!.startValue) {
             cursorValue = mScaleInfo!!.startValue
             result = false
@@ -885,6 +889,9 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
                 cursorValue = mScaleInfo!!.startValue
             } else if (cursorValue > mScaleInfo!!.endValue) {
                 cursorValue = mScaleInfo!!.endValue
+            }
+            if (null != mOnCursorListener) {
+                mOnCursorListener!!.onProgressChanged(cursorValue,true)
             }
             invalidate()
         } else {
@@ -1067,7 +1074,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
     }
 
     private val simpleDateFormat = SimpleDateFormat("HH:mm:ss")
-    fun getScaleValue(scaleValue: Long, keyScale: Boolean): String {
+    private fun getScaleValue(scaleValue: Long, keyScale: Boolean): String {
         val formattedTime = simpleDateFormat.format(scaleValue)
         // 解析天、小时、分钟和秒
         val parts = formattedTime.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
