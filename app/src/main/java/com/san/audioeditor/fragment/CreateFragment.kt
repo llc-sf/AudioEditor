@@ -8,6 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.san.audioeditor.activity.AudioCutActivity
 import com.san.audioeditor.activity.AudioPickActivity
+import com.san.audioeditor.activity.MultiTrackerAudioEditorActivity
 import com.san.audioeditor.databinding.FragmentCreateBinding
 import dev.android.player.framework.base.BaseFragment
 import dev.android.player.framework.data.model.Song
@@ -36,10 +37,18 @@ class CreateFragment : BaseFragment() {
         return binding.root
     }
 
+    private var isMulti = false
     override fun onViewCreatedCompat(view: View, savedInstanceState: Bundle?) {
         super.onViewCreatedCompat(view, savedInstanceState)
 
         binding.create.setOnClickListener {
+            isMulti = false
+            val intent = Intent(context, AudioPickActivity::class.java)
+            pickAudioResult.launch(intent)
+        }
+
+        binding.createMulti.setOnClickListener {
+            isMulti = true
             val intent = Intent(context, AudioPickActivity::class.java)
             pickAudioResult.launch(intent)
         }
@@ -50,8 +59,13 @@ class CreateFragment : BaseFragment() {
             if (result.resultCode == Activity.RESULT_OK) {
                 var song = result.data?.getParcelableExtra<Song>(AudioPickFragment.PARAM_SONG)
                 Log.i(TAG, "pick song: $song")
-                if(song!= null){
-                    AudioCutActivity.open(requireContext(), song!!)
+                if (song != null) {
+                    if (isMulti) {
+                        MultiTrackerAudioEditorActivity.open(requireContext(), song)
+                    } else {
+                        AudioCutActivity.open(requireContext(), song!!)
+                    }
+
                 }
             }
         }

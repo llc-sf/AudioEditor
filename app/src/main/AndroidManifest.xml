@@ -51,6 +51,7 @@
         <activity android:name=".activity.AudioCutHandleActivity"></activity>
         <activity android:name=".activity.AudioPickActivity"></activity>
         <activity android:name=".activity.AudioCutActivity"></activity>
+        <activity android:name=".activity.MultiTrackerAudioEditorActivity"></activity>
 
         <!--数据同步服务-->
         <service android:name=".storage.AudioSyncService" />
