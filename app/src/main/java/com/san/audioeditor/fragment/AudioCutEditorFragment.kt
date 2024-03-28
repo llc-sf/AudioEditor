@@ -26,7 +26,6 @@ import dev.audio.timeruler.listener.OnScaleChangeListener
 import dev.audio.timeruler.multitrack.MultiTrackRenderersFactory
 import dev.audio.timeruler.multitrack.MultiTrackSelector
 import dev.audio.timeruler.utils.format2Duration
-import dev.audio.timeruler.utils.formatToCursorDateString
 import dev.audio.timeruler.weight.AudioEditorConfig
 import dev.audio.timeruler.weight.BaseAudioEditorView
 import java.text.SimpleDateFormat
@@ -112,7 +111,8 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
                 .build()
         )
         viewBinding.durationTime.text = mViewModel.song.duration.toLong().format2Duration()
-        viewBinding.durationTime1.text = (mViewModel.song.duration/1000).toString()
+        viewBinding.durationTime1.text = (mViewModel.song.duration / 1000).toString()
+        viewBinding.scale.text = viewBinding.timeBar.mMode.toString()
 
         viewBinding.timeBar.setOnCursorListener(object :
             BaseAudioEditorView.OnCursorListener {
@@ -168,46 +168,26 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         viewBinding.btnPlay.setOnClickListener {
             viewBinding.timeBar.setCursorTimeValue(viewBinding.timeBar.getCursorTimeValue() + 1000)
         }
-        viewBinding.rgScale.setOnCheckedChangeListener { group, checkedId ->
+        viewBinding.zoomIn.setOnClickListener {
+            viewBinding.timeBar.zoomIn()
+        }
+        viewBinding.zoomOut.setOnClickListener {
+            viewBinding.timeBar.zoomOut()
+        }
+
+
+        viewBinding.rgModel.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
-                R.id.scale1 -> {
-                    viewBinding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[0])
+                R.id.model1 -> {
+                    R.id.radioGroup
                 }
 
-                R.id.scale2 -> {
-                    viewBinding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[1])
+                R.id.model2 -> {
+
                 }
 
-                R.id.scale3 -> {
-                    viewBinding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[2])
-                }
+                R.id.model3 -> {
 
-                R.id.scale4 -> {
-                    viewBinding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[3])
-                }
-
-                R.id.scale5 -> {
-                    viewBinding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[4])
-                }
-
-                R.id.scale6 -> {
-                    viewBinding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[5])
-                }
-            }
-
-            viewBinding.rgModel.setOnCheckedChangeListener { group, checkedId ->
-                when (checkedId) {
-                    R.id.model1 -> {
-                        R.id.radioGroup
-                    }
-
-                    R.id.model2 -> {
-
-                    }
-
-                    R.id.model3 -> {
-
-                    }
                 }
             }
         }
@@ -238,30 +218,30 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         }
 
         viewBinding.timeBar.setOnScaleChangeListener(object : OnScaleChangeListener {
-            override fun onScaleChange(mode: String) {
+            override fun onScaleChange(mode: Int) {
                 when (mode) {
                     BaseAudioEditorView.MODE_UINT_100_MS -> {
-                        viewBinding.rgScale.check(R.id.scale1)
+                        viewBinding.scale.text = "0"
                     }
 
                     BaseAudioEditorView.MODE_UINT_500_MS -> {
-                        viewBinding.rgScale.check(R.id.scale2)
+                        viewBinding.scale.text = "1"
                     }
 
                     BaseAudioEditorView.MODE_UINT_1000_MS -> {
-                        viewBinding.rgScale.check(R.id.scale3)
+                        viewBinding.scale.text = "2"
                     }
 
                     BaseAudioEditorView.MODE_UINT_2000_MS -> {
-                        viewBinding.rgScale.check(R.id.scale4)
+                        viewBinding.scale.text = "3"
                     }
 
                     BaseAudioEditorView.MODE_UINT_3000_MS -> {
-                        viewBinding.rgScale.check(R.id.scale5)
+                        viewBinding.scale.text = "4"
                     }
 
                     BaseAudioEditorView.MODE_UINT_6000_MS -> {
-                        viewBinding.rgScale.check(R.id.scale6)
+                        viewBinding.scale.text = "5"
                     }
 
                 }

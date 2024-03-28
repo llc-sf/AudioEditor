@@ -12,7 +12,7 @@ import android.view.ScaleGestureDetector
 import android.view.View
 import android.widget.Scroller
 import androidx.annotation.FloatRange
-import androidx.annotation.StringDef
+import androidx.annotation.IntDef
 import androidx.core.view.GestureDetectorCompat
 import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.ffmpeglib.tool.TimeUtil
@@ -52,32 +52,32 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         /**
          * updateScaleInfo(500ms, 100ms);
          */
-        const val MODE_UINT_100_MS = "unit 100 ms"
+        const val MODE_UINT_100_MS = 0
 
         /**
          * updateScaleInfo(2.5s, 500ms);
          */
-        const val MODE_UINT_500_MS = "unit 500 ms"
+        const val MODE_UINT_500_MS = 1
 
         /**
          * updateScaleInfo(5s, 1s);
          */
-        const val MODE_UINT_1000_MS = "unit 1000 ms"
+        const val MODE_UINT_1000_MS = 2
 
         /**
          * updateScaleInfo(10s, 2s);
          */
-        const val MODE_UINT_2000_MS = "unit 2000 ms"
+        const val MODE_UINT_2000_MS = 3
 
         /**
          * updateScaleInfo(15s, 3s);
          */
-        const val MODE_UINT_3000_MS = "unit 3000 ms"
+        const val MODE_UINT_3000_MS = 4
 
         /**
          * updateScaleInfo(30s, 6s);
          */
-        const val MODE_UINT_6000_MS = "unit 6000 ms"
+        const val MODE_UINT_6000_MS = 5
 
         //数组管理
         val MODE_ARRAY = arrayOf(
@@ -157,7 +157,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
 
     }
 
-    @StringDef(
+    @IntDef(
         MODE_UINT_100_MS,
         MODE_UINT_500_MS,
         MODE_UINT_1000_MS,
@@ -168,7 +168,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
     annotation class Mode
 
     @Mode
-    protected var mMode = MODE_UINT_1000_MS
+    var mMode = MODE_UINT_1000_MS
 
     private var mScaleGestureDetector: ScaleGestureDetector? = null
     private var mScalePaint: Paint? = null
@@ -237,7 +237,9 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         mMode = config.mode
         startValue = config.startValue
         endValue = config.endValue
-        maxScreenSpanValue = config.maxScreenSpanValue
+        if (config.maxScreenSpanValue > 0) {
+            maxScreenSpanValue = config.maxScreenSpanValue
+        }
         setMode(mMode, true)
     }
 
@@ -606,7 +608,10 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
             }
         }
         val rightNeighborTickValue = leftNeighborTickValue + unitValue.apply {
-            Log.i(wave_tag,"unitValue=$unitValue;unitMsPixel=$unitMsPixel,mTickSpacing=$mTickSpacing")
+            Log.i(
+                wave_tag,
+                "unitValue=$unitValue;unitMsPixel=$unitMsPixel,mTickSpacing=$mTickSpacing"
+            )
         }
         val rightNeighborPosition = leftNeighborPosition + mTickSpacing
         val rightCount = ((width - cursorPosition) / mTickSpacing + 0.5f).toInt()
@@ -968,7 +973,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
     }
 
 
-    fun setMode(@Mode mode: String) {
+    fun setMode(@Mode mode: Int) {
         setMode(mode, true)
     }
 
@@ -985,50 +990,14 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
      *  3、unitMsPixel    每毫秒多少像素
      */
     private fun setMode(
-        @Mode mode: String,
+        @Mode mode: Int,
         isRefreshUnitPixel: Boolean = true
     ) {
         var screeWithDuration: Long
-        var index: Int
-        when (mode) {
-            MODE_ARRAY[0] -> {
-                index = 0
-                updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
-                screeWithDuration = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
-            }
-
-            MODE_ARRAY[1] -> {
-                index = 1
-                updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
-                screeWithDuration = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
-            }
-
-            MODE_ARRAY[2] -> {
-                index = 2
-                updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
-                screeWithDuration = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
-            }
-
-            MODE_ARRAY[3] -> {
-                index = 3
-                updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
-                screeWithDuration = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
-            }
-
-            MODE_ARRAY[4] -> {
-                index = 4
-                updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
-                screeWithDuration = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
-            }
-
-            MODE_ARRAY[5] -> {
-                index = 5
-                updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
-                screeWithDuration = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
-            }
-
-            else -> throw RuntimeException("not support mode: $mode")
-        }
+        var index = mode
+        updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
+        screeWithDuration = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
+        //检测是否超出范围
         if (screeWithDuration > maxScreenSpanValue) {
             screeWithDuration = maxScreenSpanValue
             SCREEN_WIDTH_TIME_VALUE_ARRAY.forEachReversedWithIndex { i, value ->
@@ -1038,39 +1007,20 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
                 }
             }
             this.unitValue = maxScreenSpanValue / SCREEN_SECTIONS
-            this.keyScaleRange = unitValue * 5
-            if (isRefreshUnitPixel) {
-                //todo  不一定是屏幕宽度
-                unitMsPixel = (ScreenUtil.getScreenWidth(context) * 1f / screeWithDuration)
-            }
+            updateScaleInfo(this.unitValue * 5, this.unitValue)
             //audio显示完全
             cursorValue = startValue.apply {
-                Log.i(wave_tag,"startValue:${startValue.formatToCursorDateString()}")
-            }
-            Log.e(TAG, "unitPixel: $unitMsPixel")
-            if (index == 0) {
-                if (mMode != MODE_ARRAY[0]) {
-                    mMode = MODE_ARRAY[0]
-                    scaleChangeListener?.onScaleChange(mMode)
-                }
-            } else {
-                if (mMode != MODE_ARRAY[index]) {
-                    mMode = MODE_ARRAY[index]
-                    scaleChangeListener?.onScaleChange(mMode)
-                }
-            }
-        } else {
-            if (isRefreshUnitPixel) {
-                //todo  不一定是屏幕宽度
-                unitMsPixel = (ScreenUtil.getScreenWidth(context) * 1f / screeWithDuration)
-            }
-            Log.e(TAG, "unitPixel: $unitMsPixel")
-            if (mode != mMode) {
-                mMode = mode
-                scaleChangeListener?.onScaleChange(mMode)
+                Log.i(wave_tag, "startValue:${startValue.formatToCursorDateString()}")
             }
         }
-
+        if (isRefreshUnitPixel) {
+            //todo  不一定是屏幕宽度
+            unitMsPixel = (ScreenUtil.getScreenWidth(context) * 1f / screeWithDuration)
+        }
+        if (mMode != index) {
+            mMode = index
+            scaleChangeListener?.onScaleChange(mMode)
+        }
         invalidate()
     }
 
@@ -1128,6 +1078,24 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         val seconds = parts[2].toInt()
         // 转换为秒
         return (hours * 3600 + minutes * 60 + seconds).toString() + "s"
+    }
+
+    /**
+     * 放大
+     */
+    fun zoomIn() {
+        if (mMode > 0) {
+            setMode(MODE_ARRAY[mMode - 1])
+        }
+    }
+
+    /**
+     * 缩小
+     */
+    fun zoomOut() {
+        if (mMode < MODE_ARRAY.size - 1) {
+            setMode(MODE_ARRAY[mMode + 1])
+        }
     }
 
     interface TickMarkStrategy {

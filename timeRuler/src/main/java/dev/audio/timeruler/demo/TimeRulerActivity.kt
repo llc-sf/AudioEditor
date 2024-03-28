@@ -171,7 +171,7 @@ class TimeRulerActivity : AppCompatActivity() {
         }
 
         binding.timeBar.setOnScaleChangeListener(object : OnScaleChangeListener {
-            override fun onScaleChange(mode: String) {
+            override fun onScaleChange(mode: Int) {
                 when (mode) {
                     MODE_UINT_100_MS -> {
                         binding.radioGroup.check(R.id.rb1)

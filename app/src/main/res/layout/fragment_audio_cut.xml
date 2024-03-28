@@ -71,6 +71,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/durationTime" />
+
     <TextView
         android:id="@+id/btnZoom"
         android:layout_width="match_parent"
@@ -93,58 +94,36 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnZoom" />
 
-    <RadioGroup
+    <LinearLayout
         android:id="@+id/rg_scale"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/timeBar">
 
-        <RadioButton
-            android:id="@+id/scale1"
+        <Button
+            android:id="@+id/zoom_out"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:text="1" />
+            android:text="Zoom Out" />
 
-        <RadioButton
-            android:id="@+id/scale2"
+        <TextView
+            android:id="@id/scale"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:text="2" />
+            android:layout_marginHorizontal="@dimen/dp_10"
+            android:textColor="@color/white" />
 
-        <RadioButton
-            android:id="@+id/scale3"
+        <Button
+            android:id="@+id/zoom_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:checked="true"
-            android:text="3" />
+            android:text="Zoom In" />
 
-        <RadioButton
-            android:id="@+id/scale4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:text="4" />
-
-        <RadioButton
-            android:id="@+id/scale5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:text="5" />
-
-        <RadioButton
-            android:id="@+id/scale6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:text="6" />
-    </RadioGroup>
+    </LinearLayout>
 
 
     <RadioGroup

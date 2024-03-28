@@ -216,7 +216,7 @@ class MultiAudioEditorFragment : BaseMVVMFragment<FragmentMutilAudioEditorBindin
         }
 
         viewBinding.timeBar.setOnScaleChangeListener(object : OnScaleChangeListener {
-            override fun onScaleChange(mode: String) {
+            override fun onScaleChange(mode: Int) {
                 when (mode) {
                     BaseAudioEditorView.MODE_UINT_100_MS -> {
                         viewBinding.rgScale.check(R.id.scale1)
