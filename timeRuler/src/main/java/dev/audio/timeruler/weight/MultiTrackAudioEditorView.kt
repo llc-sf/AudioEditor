@@ -67,7 +67,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
             maxWaveHeight = 50f
             waveVerticalPosition = 200f
             color = Color.RED
-            startTimestamp = mScaleInfo?.startValue ?: 0
+            startTimestamp = startValue ?: 0
             this.waveform = waveform
         })
         audioFragments.add(AudioFragment(this).apply {
@@ -76,7 +76,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
             maxWaveHeight = 50f
             waveVerticalPosition = 400f
             color = Color.RED
-            startTimestamp = mScaleInfo?.startValue ?: 0
+            startTimestamp = startValue ?: 0
             this.waveform = waveform
         })
         audioFragments.add(AudioFragment(this).apply {
@@ -85,7 +85,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
             maxWaveHeight = 50f
             waveVerticalPosition = 600f
             color = Color.RED
-            startTimestamp = mScaleInfo?.startValue ?: 0
+            startTimestamp = startValue
             this.waveform = waveform
         })
         invalidate() // 触发重新绘制

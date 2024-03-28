@@ -27,6 +27,7 @@ import dev.audio.timeruler.multitrack.MultiTrackRenderersFactory
 import dev.audio.timeruler.multitrack.MultiTrackSelector
 import dev.audio.timeruler.utils.format2Duration
 import dev.audio.timeruler.utils.formatToCursorDateString
+import dev.audio.timeruler.weight.AudioEditorConfig
 import dev.audio.timeruler.weight.BaseAudioEditorView
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -99,11 +100,19 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
 
         //一个手机宽度显示多长时间
 //        viewBinding.timeBar.setScreenSpanValue(TimeRulerBar.VALUE_1000_MS * 8)
-        //
-        viewBinding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[2])
-        viewBinding.timeBar.setRange(startTime, endTime)
+//        viewBinding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[2])
+//        viewBinding.timeBar.setRange(startTime, endTime)
 
+        viewBinding.timeBar.initConfig(
+            AudioEditorConfig.Builder()
+                .mode(BaseAudioEditorView.MODE_ARRAY[2])
+                .startValue(startTime)
+                .endValue(endTime)
+                .maxScreenSpanValue(mViewModel.song.duration.toLong())
+                .build()
+        )
         viewBinding.durationTime.text = mViewModel.song.duration.toLong().format2Duration()
+        viewBinding.durationTime1.text = (mViewModel.song.duration/1000).toString()
 
         viewBinding.timeBar.setOnCursorListener(object :
             BaseAudioEditorView.OnCursorListener {
@@ -222,7 +231,10 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
             requireContext(),
             mViewModel.song.path
         ) {
-            viewBinding.timeBar.setWaveform(Waveform(it.toList()),mViewModel.song.duration.toLong())
+            viewBinding.timeBar.setWaveform(
+                Waveform(it.toList()),
+                mViewModel.song.duration.toLong()
+            )
         }
 
         viewBinding.timeBar.setOnScaleChangeListener(object : OnScaleChangeListener {

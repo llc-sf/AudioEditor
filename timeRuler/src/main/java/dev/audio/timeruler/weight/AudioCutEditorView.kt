@@ -44,14 +44,14 @@ open class AudioCutEditorView @JvmOverloads constructor(
 
 
     // 设置波形数据的方法
-    fun setWaveform(waveform: Waveform,duration:Long) {
+    fun setWaveform(waveform: Waveform, duration: Long) {
         audioFragment = AudioFragmentWithCut(this).apply {
             index = 0
             this.duration = duration
             maxWaveHeight = 50f
             waveVerticalPosition = 200f
             color = Color.RED
-            startTimestamp = mScaleInfo?.startValue ?: 0
+            startTimestamp = startValue
             this.waveform = waveform
         }
         invalidate() // 触发重新绘制

@@ -11,8 +11,6 @@ import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import android.view.View
 import android.widget.Scroller
-import androidx.annotation.ColorInt
-import androidx.annotation.Dimension
 import androidx.annotation.FloatRange
 import androidx.annotation.StringDef
 import androidx.core.view.GestureDetectorCompat
@@ -22,9 +20,9 @@ import dev.audio.timeruler.R
 import dev.audio.timeruler.listener.OnScaleChangeListener
 import dev.audio.timeruler.utils.SizeUtils
 import dev.audio.timeruler.utils.formatToCursorDateString
+import org.jetbrains.anko.collections.forEachReversedWithIndex
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
 import kotlin.reflect.KProperty
 
 /**
@@ -48,6 +46,8 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         const val time_line_tag = "time_line_tag"
         const val cut_tag = "cut_tag"
         const val deadline_tag = "deadline_tag"
+        const val init_tag = "init_tag"
+        const val wave_tag = "wave_tag"
 
         /**
          * updateScaleInfo(500ms, 100ms);
@@ -157,7 +157,6 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
 
     }
 
-
     @StringDef(
         MODE_UINT_100_MS,
         MODE_UINT_500_MS,
@@ -168,50 +167,61 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
     )
     annotation class Mode
 
-    @JvmField
     @Mode
     protected var mMode = MODE_UINT_1000_MS
 
-    /* 缩放比例*/
-    private var mScaleRatio = 1.0f
-
-    /* 关键刻度高度*/
-    protected val keyTickHeight: Float
-
-    /* 刻度高度*/
-    private var mTickHeight = 0f
-
-    /* 普通刻度线与关键刻度线的比*/
-    private val mNormalTickAndKeyTickRatio: Float
-
-    /* 刻度间距*/
-    private var mTickSpacing = 0f
     private var mScaleGestureDetector: ScaleGestureDetector? = null
     private var mScalePaint: Paint? = null
-    protected var mScaleInfo: ScaleMode? = null
 
-    /*刻度线颜色*/
+    /* 普通刻度线与关键刻度线的比 */
+    private val mNormalTickAndKeyTickRatio: Float
+
+    /* 关键刻度高度 */
+    protected val keyTickHeight: Float
+
+    /* 刻度高度 */
+    private var mTickHeight = 0f
+
+    /* 刻度间距 像素*/
+    /**
+     * 设置时机：
+     * 1、onSizeChanged
+     * 2、onScale
+     */
+    private var mTickSpacing = 0f
+        get() {
+            return unitValue * unitMsPixel
+        }
+
+    /* 时间刻度开始时间 */
+    protected var startValue: Long = 0
+        set(value) {
+            if (cursorValue == 0L) {
+                cursorValue = startValue
+            }
+            field = value
+        }
+
+    /* 时间刻度结束时间 */
+    private var endValue: Long = 0
+
+    /* 间隔多少毫秒是一个刻度（普通） */
+    private var unitValue: Long = 0
+
+    /* 间隔多少毫秒是一个关键刻度 */
+    private var keyScaleRange: Long = 0
+
+    /* 刻度线颜色 */
     val tickValueColor: Int
 
-    /*刻度字体大小*/
+    /* 刻度字体大小 */
     val tickValueSize: Float
 
-    /*每毫秒多少像素*/
+    /*  每毫秒多少像素 */
     var unitMsPixel: Float = 0f
 
-
-    open fun cursorPositionPixelChange(prop: KProperty<*>, old: Float, new: Float) {
-        invalidate()
-    }
-
-
-    open fun cursorValueChange(prop: KProperty<*>, old: Long, new: Long) {
-        invalidate()
-    }
-
     /*一个屏幕宽度最少显示多少毫秒  8s*/
-    @JvmField
-    protected var minScreenSpanValue: Long = 0
+    private var minScreenSpanValue: Long = 0
 
     /*一个屏幕宽度最多显示多少毫秒  80s*/
     private var maxScreenSpanValue: Long = 0
@@ -221,6 +231,43 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
 
     /*一毫秒最少占多少像素*/
     private var minUnitPixel = 0f
+
+
+    fun initConfig(config: AudioEditorConfig) {
+        mMode = config.mode
+        startValue = config.startValue
+        endValue = config.endValue
+        maxScreenSpanValue = config.maxScreenSpanValue
+        setMode(mMode, true)
+    }
+
+    open fun setRange(start: Long, end: Long) {
+        if (start >= end) {
+            return
+        }
+        startValue = start
+        endValue = end
+        cursorValue = start
+        invalidate()
+    }
+
+    /**
+     * @param keyScaleRange 关键刻度值f
+     * @param unitValue     每个刻度的值
+     */
+    private fun updateScaleInfo(keyScaleRange: Long, unitValue: Long) {
+        this.keyScaleRange = keyScaleRange
+        this.unitValue = unitValue
+    }
+
+    open fun cursorPositionPixelChange(prop: KProperty<*>, old: Float, new: Float) {
+        invalidate()
+    }
+
+
+    open fun cursorValueChange(prop: KProperty<*>, old: Long, new: Long) {
+        invalidate()
+    }
 
 
     /*时间戳*/
@@ -350,21 +397,20 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         minScreenSpanValue = SCREEN_WIDTH_TIME_VALUE_ARRAY[0]
         maxScreenSpanValue = SCREEN_WIDTH_TIME_VALUE_ARRAY[SCREEN_WIDTH_TIME_VALUE_ARRAY.size - 1]
 
-        mScaleInfo = ScaleMode()
-        mScaleInfo!!.unitValue = 60000
-        mScaleInfo!!.keyScaleRange = (5 * 60 * 1000).toLong()
+        unitValue = 60000
+        keyScaleRange = (5 * 60 * 1000).toLong()
         val calendar = Calendar.getInstance()
         calendar[Calendar.HOUR_OF_DAY] = 0
         calendar[Calendar.MINUTE] = 0
         calendar[Calendar.SECOND] = 0
-        mScaleInfo!!.startValue = calendar.timeInMillis
+        startValue = calendar.timeInMillis
 
         calendar[Calendar.HOUR_OF_DAY] = 23
         calendar[Calendar.MINUTE] = 59
         calendar[Calendar.SECOND] = 59
-        mScaleInfo!!.endValue = calendar.timeInMillis
+        endValue = calendar.timeInMillis
 
-        cursorValue = mScaleInfo!!.startValue
+        cursorValue = startValue
     }
 
 
@@ -388,7 +434,6 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
             fromInclusive = false
         ) scaleRatio: Float
     ) {
-        mScaleRatio = scaleRatio
     }
 
 
@@ -418,33 +463,12 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
 
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        Log.i(init_tag, "onSizeChanged()")
         mTickHeight = keyTickHeight * mNormalTickAndKeyTickRatio
         cursorPosition = w * mCursorPositionProportion
         mBaselinePosition = h * mBaselinePositionProportion
         maxUnitPixel = w * 1.0f / minScreenSpanValue
         minUnitPixel = w * 1.0f / maxScreenSpanValue
-        unitMsPixel = maxUnitPixel * mScaleRatio
-        mTickSpacing = mScaleInfo!!.unitValue * unitMsPixel
-    }
-
-    open fun setRange(start: Long, end: Long) {
-        if (start >= end) {
-            return
-        }
-        mScaleInfo!!.startValue = start
-        mScaleInfo!!.endValue = end
-        cursorValue = start
-        setMode(mMode, true)
-        invalidate()
-    }
-
-    /**
-     * @param keyScaleRange 关键刻度值f
-     * @param unitValue     每个刻度的值
-     */
-    private fun updateScaleInfo(keyScaleRange: Long, unitValue: Long) {
-        mScaleInfo!!.keyScaleRange = keyScaleRange
-        mScaleInfo!!.unitValue = unitValue
     }
 
 
@@ -500,21 +524,21 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
                 mScalePaint!!
             )
         }
-        val leftRange = cursorValue - mScaleInfo!!.startValue
-        val leftNeighborOffset = leftRange % mScaleInfo!!.unitValue
+        val leftRange = cursorValue - startValue
+        val leftNeighborOffset = leftRange % unitValue
         val leftNeighborTickValue = cursorValue - leftNeighborOffset
         val leftNeighborPosition = cursorPosition - leftNeighborOffset * unitMsPixel
         val leftCount = (cursorPosition / mTickSpacing + 0.5f).toInt()
         var onDrawTickPosition: Float
         var onDrawTickValue: Long
         for (i in 0 until leftCount) {
-            onDrawTickValue = leftNeighborTickValue - mScaleInfo!!.unitValue * i
-            if (onDrawTickValue < mScaleInfo!!.startValue) {
+            onDrawTickValue = leftNeighborTickValue - unitValue * i
+            if (onDrawTickValue < startValue) {
                 break
             }
             onDrawTickPosition = leftNeighborPosition - mTickSpacing * i
             if (tickDirectionUp) {
-                if ((onDrawTickValue - mScaleInfo!!.startValue) % mScaleInfo!!.keyScaleRange == 0L) {
+                if ((onDrawTickValue - startValue) % keyScaleRange == 0L) {
                     canvas.drawLine(
                         onDrawTickPosition,
                         baselinePosition,
@@ -546,7 +570,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
                     )
                 }
             } else {
-                if ((onDrawTickValue - mScaleInfo!!.startValue) % mScaleInfo!!.keyScaleRange == 0L) {
+                if ((onDrawTickValue - startValue) % keyScaleRange == 0L) {
                     canvas.drawLine(
                         onDrawTickPosition,
                         baselinePosition,
@@ -554,7 +578,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
                         baselinePosition + keyTickHeight,
                         mScalePaint!!
                     )
-                    if ((onDrawTickValue - mScaleInfo!!.startValue) % (mScaleInfo!!.keyScaleRange * 2) == 0L) {
+                    if ((onDrawTickValue - startValue) % (keyScaleRange * 2) == 0L) {
                         drawTickValue(
                             canvas,
                             onDrawTickPosition,
@@ -581,17 +605,19 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
                 }
             }
         }
-        val rightNeighborTickValue = leftNeighborTickValue + mScaleInfo!!.unitValue
+        val rightNeighborTickValue = leftNeighborTickValue + unitValue.apply {
+            Log.i(wave_tag,"unitValue=$unitValue;unitMsPixel=$unitMsPixel,mTickSpacing=$mTickSpacing")
+        }
         val rightNeighborPosition = leftNeighborPosition + mTickSpacing
         val rightCount = ((width - cursorPosition) / mTickSpacing + 0.5f).toInt()
         for (i in 0 until rightCount) {
-            onDrawTickValue = rightNeighborTickValue + mScaleInfo!!.unitValue * i
-            if (onDrawTickValue > mScaleInfo!!.endValue) {
+            onDrawTickValue = rightNeighborTickValue + unitValue * i
+            if (onDrawTickValue > endValue) {
                 break
             }
             onDrawTickPosition = rightNeighborPosition + mTickSpacing * i
             if (tickDirectionUp) {
-                if ((onDrawTickValue - mScaleInfo!!.startValue) % mScaleInfo!!.keyScaleRange == 0L) {
+                if ((onDrawTickValue - startValue) % keyScaleRange == 0L) {
                     canvas.drawLine(
                         onDrawTickPosition,
                         baselinePosition,
@@ -623,7 +649,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
                     )
                 }
             } else {
-                if ((onDrawTickValue - mScaleInfo!!.startValue) % mScaleInfo!!.keyScaleRange == 0L) {
+                if ((onDrawTickValue - startValue) % keyScaleRange == 0L) {
                     canvas.drawLine(
                         onDrawTickPosition,
                         baselinePosition,
@@ -631,7 +657,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
                         baselinePosition + keyTickHeight,
                         mScalePaint!!
                     )
-                    if ((onDrawTickValue - mScaleInfo!!.startValue) % (mScaleInfo!!.keyScaleRange * 2) == 0L) {
+                    if ((onDrawTickValue - startValue) % (keyScaleRange * 2) == 0L) {
                         drawTickValue(
                             canvas,
                             onDrawTickPosition,
@@ -737,15 +763,10 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         unitMsPixel *= scaleFactor
         if (unitMsPixel > maxUnitPixel) {
             unitMsPixel = maxUnitPixel
-            scaleFactor = 1.0f
         } else if (unitMsPixel < minUnitPixel) {
             unitMsPixel = minUnitPixel
-            scaleFactor = 1.0f
         }
-        onScale(mScaleInfo, unitMsPixel)
-        mScaleRatio *= scaleFactor
-        mTickSpacing = mScaleInfo!!.unitValue * unitMsPixel
-        Log.d(TAG, mScaleRatio.toString() + "onScale:mTickSpacing " + mTickSpacing)
+        onScale()
         invalidate()
         return unitMsPixel < maxUnitPixel || unitMsPixel > minUnitPixel
     }
@@ -754,41 +775,12 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
 
     /*0~1000之间*/
     fun setScale(scale: Float) {
-        var scaleFactor = 0.9f + scale / 10000
-        if (lastScale < scale) {
-            scaleFactor = 1 + scale / 10000
-        }
-        status = STATUS_ZOOM
-        unitMsPixel *= scaleFactor
-        if (unitMsPixel > maxUnitPixel) {
-            unitMsPixel = maxUnitPixel
-            scaleFactor = 1.0f
-        } else if (unitMsPixel < minUnitPixel) {
-            unitMsPixel = minUnitPixel
-            scaleFactor = 1.0f
-        }
-        Log.d(TAG, unitMsPixel.toString() + "onScalescaleFactor: " + scaleFactor)
-        if (scale == 1000f) {
-            scaleFactor = 1f
-            unitMsPixel = (6.0f * Math.pow(10.0, -4.0)).toFloat()
-        }
-        if (scale == 0f) {
-            scaleFactor = 1f
-            unitMsPixel = (1.25f * Math.pow(10.0, -5.0)).toFloat()
-        }
-        onScale(mScaleInfo, unitMsPixel)
-        mScaleRatio *= scaleFactor
-        mTickSpacing = mScaleInfo!!.unitValue * unitMsPixel
-        Log.d(TAG, mScaleRatio.toString() + "onScale:mTickSpacing " + mTickSpacing)
-        invalidate()
-        lastScale = scale
     }
 
 
-    private fun onScale(info: ScaleMode?, unitPixel: Float) {
-        val width = width
+    private fun onScale() {
         // 计算一屏刻度值跨度
-        val screenSpanValue = width / unitPixel
+        val screenSpanValue = width / unitMsPixel
         updateMode(screenSpanValue)
     }
 
@@ -796,17 +788,17 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
     private fun updateMode(screenSpanValue: Float) {
         Log.i("TAG", "updateMode: $screenSpanValue")
         if (screenSpanValue >= SCREEN_WIDTH_TIME_VALUE_ARRAY[5]) {
-            setMode(MODE_ARRAY[5], setScaleRatio = false, isRefreshUnitPixel = false)
+            setMode(MODE_ARRAY[5], isRefreshUnitPixel = false)
         } else if (screenSpanValue >= SCREEN_WIDTH_TIME_VALUE_ARRAY[4]) {
-            setMode(MODE_ARRAY[4], setScaleRatio = false, isRefreshUnitPixel = false)
+            setMode(MODE_ARRAY[4], isRefreshUnitPixel = false)
         } else if (screenSpanValue >= SCREEN_WIDTH_TIME_VALUE_ARRAY[3]) {
-            setMode(MODE_ARRAY[3], setScaleRatio = false, isRefreshUnitPixel = false)
+            setMode(MODE_ARRAY[3], isRefreshUnitPixel = false)
         } else if (screenSpanValue >= SCREEN_WIDTH_TIME_VALUE_ARRAY[2]) {
-            setMode(MODE_ARRAY[2], setScaleRatio = false, isRefreshUnitPixel = false)
+            setMode(MODE_ARRAY[2], isRefreshUnitPixel = false)
         } else if (screenSpanValue >= SCREEN_WIDTH_TIME_VALUE_ARRAY[1]) {
-            setMode(MODE_ARRAY[1], setScaleRatio = false, isRefreshUnitPixel = false)
+            setMode(MODE_ARRAY[1], isRefreshUnitPixel = false)
         } else {
-            setMode(MODE_ARRAY[0], setScaleRatio = false, isRefreshUnitPixel = false)
+            setMode(MODE_ARRAY[0], isRefreshUnitPixel = false)
         }
     }
 
@@ -870,16 +862,16 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         var result = true
         Log.i(
             deadline_tag,
-            "cursorValue=${cursorValue.formatToCursorDateString()}; mScaleInfo!!.startValue=${mScaleInfo!!.startValue.formatToCursorDateString()}; mScaleInfo!!.endValue=${mScaleInfo!!.endValue.formatToCursorDateString()}"
+            "cursorValue=${cursorValue.formatToCursorDateString()}; mScaleInfo!!.startValue=${startValue.formatToCursorDateString()}; mScaleInfo!!.endValue=${endValue.formatToCursorDateString()}"
         )
 
-        if (cursorValue < mScaleInfo!!.startValue) {
-            cursorValue = mScaleInfo!!.startValue
+        if (cursorValue < startValue) {
+            cursorValue = startValue
             result = false
-        } else if (cursorValue > mScaleInfo!!.endValue - (mTickMarkStrategy?.getCursorEndOffset()
+        } else if (cursorValue > endValue - (mTickMarkStrategy?.getCursorEndOffset()
                 ?: 0)
         ) {
-            cursorValue = mScaleInfo!!.endValue - (mTickMarkStrategy?.getCursorEndOffset() ?: 0)
+            cursorValue = endValue - (mTickMarkStrategy?.getCursorEndOffset() ?: 0)
             result = false
         }
         if (null != mOnCursorListener) {
@@ -894,16 +886,16 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         Log.i(touch_tag, "computeScroll")
         if (scroller.computeScrollOffset()) {
             val currX = scroller.currX
-            cursorValue = mScaleInfo!!.startValue + (currX / unitMsPixel).toLong()
+            cursorValue = startValue + (currX / unitMsPixel).toLong()
 //            mCursorValue1 =
 //                mScaleInfo!!.startValue + offsetOriCurrentValue1 + (currX / unitPixel).toLong()
             refreshCursorValueByComputeScroll(currX)
-            if (cursorValue < mScaleInfo!!.startValue) {
-                cursorValue = mScaleInfo!!.startValue
-            } else if (cursorValue > mScaleInfo!!.endValue - (mTickMarkStrategy?.getCursorEndOffset()
+            if (cursorValue < startValue) {
+                cursorValue = startValue
+            } else if (cursorValue > endValue - (mTickMarkStrategy?.getCursorEndOffset()
                     ?: 0)
             ) {
-                cursorValue = mScaleInfo!!.endValue - (mTickMarkStrategy?.getCursorEndOffset() ?: 0)
+                cursorValue = endValue - (mTickMarkStrategy?.getCursorEndOffset() ?: 0)
             }
             if (null != mOnCursorListener) {
                 mOnCursorListener!!.onProgressChanged(cursorValue, true)
@@ -930,8 +922,8 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
     ): Boolean {
         Log.i(touch_tag, "onFling")
         status = STATUS_SCROLL_FLING
-        val startX = ((cursorValue - mScaleInfo!!.startValue) * unitMsPixel).toInt()
-        val maX = ((mScaleInfo!!.endValue - mScaleInfo!!.startValue) * unitMsPixel).toInt()
+        val startX = ((cursorValue - startValue) * unitMsPixel).toInt()
+        val maX = ((endValue - startValue) * unitMsPixel).toInt()
         scroller.fling(
             startX,
             0,
@@ -975,21 +967,29 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         mTickMarkStrategy = tickMarkStrategy
     }
 
-    fun setScreenSpanValue(screenSpanValue: Long) {
-        minScreenSpanValue = screenSpanValue
-    }
 
     fun setMode(@Mode mode: String) {
         setMode(mode, true)
     }
 
+
+    /**
+     * 调用处：
+     * 1、初始化 initConfig
+     * 2、放大缩小调节档位
+     * 3、手势缩放
+     *
+     * 元素刷新：
+     *  1、unitValue      间隔多少毫秒是一个刻度（普通）
+     *  2、keyScaleRange  间隔多少毫秒是一个刻度（关键刻度）
+     *  3、unitMsPixel    每毫秒多少像素
+     */
     private fun setMode(
         @Mode mode: String,
-        setScaleRatio: Boolean,
         isRefreshUnitPixel: Boolean = true
     ) {
-        val screeWithDuration: Long
-        var index = 0
+        var screeWithDuration: Long
+        var index: Int
         when (mode) {
             MODE_ARRAY[0] -> {
                 index = 0
@@ -1029,18 +1029,48 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
 
             else -> throw RuntimeException("not support mode: $mode")
         }
-        if (isRefreshUnitPixel) {
-            //todo  不一定是屏幕宽度
-            unitMsPixel = (ScreenUtil.getScreenWidth(context) * 1f / screeWithDuration)
+        if (screeWithDuration > maxScreenSpanValue) {
+            screeWithDuration = maxScreenSpanValue
+            SCREEN_WIDTH_TIME_VALUE_ARRAY.forEachReversedWithIndex { i, value ->
+                if (value > screeWithDuration) {
+                    index = (i - 1)
+                    return@forEachReversedWithIndex
+                }
+            }
+            this.unitValue = maxScreenSpanValue / SCREEN_SECTIONS
+            this.keyScaleRange = unitValue * 5
+            if (isRefreshUnitPixel) {
+                //todo  不一定是屏幕宽度
+                unitMsPixel = (ScreenUtil.getScreenWidth(context) * 1f / screeWithDuration)
+            }
+            //audio显示完全
+            cursorValue = startValue.apply {
+                Log.i(wave_tag,"startValue:${startValue.formatToCursorDateString()}")
+            }
+            Log.e(TAG, "unitPixel: $unitMsPixel")
+            if (index == 0) {
+                if (mMode != MODE_ARRAY[0]) {
+                    mMode = MODE_ARRAY[0]
+                    scaleChangeListener?.onScaleChange(mMode)
+                }
+            } else {
+                if (mMode != MODE_ARRAY[index]) {
+                    mMode = MODE_ARRAY[index]
+                    scaleChangeListener?.onScaleChange(mMode)
+                }
+            }
+        } else {
+            if (isRefreshUnitPixel) {
+                //todo  不一定是屏幕宽度
+                unitMsPixel = (ScreenUtil.getScreenWidth(context) * 1f / screeWithDuration)
+            }
+            Log.e(TAG, "unitPixel: $unitMsPixel")
+            if (mode != mMode) {
+                mMode = mode
+                scaleChangeListener?.onScaleChange(mMode)
+            }
         }
-        Log.e(TAG, "unitPixel: $unitMsPixel")
-        if (setScaleRatio) {
-            setScaleRatio(minScreenSpanValue * 1.0f / screeWithDuration)
-        }
-        if (mode != mMode) {
-            mMode = mode
-            scaleChangeListener?.onScaleChange(mMode)
-        }
+
         invalidate()
     }
 

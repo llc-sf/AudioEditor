@@ -11,6 +11,7 @@ import dev.audio.timeruler.weight.BaseAudioEditorView.Companion.long_press_tag
 import dev.audio.timeruler.weight.BaseAudioEditorView.Companion.time_line_tag
 import dev.audio.timeruler.bean.Ref
 import dev.audio.timeruler.bean.Waveform
+import dev.audio.timeruler.weight.BaseAudioEditorView.Companion.wave_tag
 import kotlin.math.roundToInt
 
 /**
@@ -57,7 +58,12 @@ open class AudioFragment(private var audioEditorView: BaseAudioEditorView) {
 
     //波形宽度
     private val waveViewWidth
-        get() = (duration * unitMsPixel).toInt()
+        get() = (duration * unitMsPixel).toInt().apply {
+            Log.i(
+                wave_tag,
+                "waveViewWidth width=$this duration:$duration unitMsPixel:$unitMsPixel"
+            )
+        }
 
     //每毫秒对应的像素
     val unitMsPixel by Ref { audioEditorView.unitMsPixel }
