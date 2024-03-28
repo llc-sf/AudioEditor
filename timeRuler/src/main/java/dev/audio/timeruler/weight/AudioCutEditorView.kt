@@ -108,6 +108,10 @@ open class AudioCutEditorView @JvmOverloads constructor(
         return keyScale
     }
 
+    override fun getCursorEndOffset(): Long {
+        return screenWithDuration
+    }
+
 
     /**
      * 惯性滑动 tag时间戳更新

@@ -189,6 +189,10 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
         return keyScale
     }
 
+    override fun getCursorEndOffset(): Long {
+        return 0
+    }
+
     override fun calcContentHeight(baselinePositionProportion: Float): Int {
         val contentHeight = super.calcContentHeight(baselinePositionProportion)
         mColorCursorPaint!!.textSize = cursorValueSize

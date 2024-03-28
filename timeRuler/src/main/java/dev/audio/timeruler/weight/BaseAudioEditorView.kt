@@ -239,6 +239,14 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
     }
 
     /**
+     * 一屏幕显示多少时间
+     */
+    var screenWithDuration: Long = 0
+        get() {
+            return (width / unitMsPixel).toLong()
+        }
+
+    /**
      *
      * 游标相对view width的位置  0～ 1
      */
@@ -373,7 +381,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         }
     }
 
-    protected fun setScaleRatio(
+    private fun setScaleRatio(
         @FloatRange(
             from = 0.0,
             to = 1.0,
@@ -860,13 +868,18 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
 //        mCursorValue1 += courseIncrement
         refreshCursorValueByOnScroll(distanceX, courseIncrement)
         var result = true
-        Log.i(deadline_tag,"cursorValue=${cursorValue.formatToCursorDateString()}; mScaleInfo!!.startValue=${mScaleInfo!!.startValue.formatToCursorDateString()}; mScaleInfo!!.endValue=${mScaleInfo!!.endValue.formatToCursorDateString()}")
+        Log.i(
+            deadline_tag,
+            "cursorValue=${cursorValue.formatToCursorDateString()}; mScaleInfo!!.startValue=${mScaleInfo!!.startValue.formatToCursorDateString()}; mScaleInfo!!.endValue=${mScaleInfo!!.endValue.formatToCursorDateString()}"
+        )
 
         if (cursorValue < mScaleInfo!!.startValue) {
             cursorValue = mScaleInfo!!.startValue
             result = false
-        } else if (cursorValue > mScaleInfo!!.endValue) {
-            cursorValue = mScaleInfo!!.endValue
+        } else if (cursorValue > mScaleInfo!!.endValue - (mTickMarkStrategy?.getCursorEndOffset()
+                ?: 0)
+        ) {
+            cursorValue = mScaleInfo!!.endValue - (mTickMarkStrategy?.getCursorEndOffset() ?: 0)
             result = false
         }
         if (null != mOnCursorListener) {
@@ -887,11 +900,13 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
             refreshCursorValueByComputeScroll(currX)
             if (cursorValue < mScaleInfo!!.startValue) {
                 cursorValue = mScaleInfo!!.startValue
-            } else if (cursorValue > mScaleInfo!!.endValue) {
-                cursorValue = mScaleInfo!!.endValue
+            } else if (cursorValue > mScaleInfo!!.endValue - (mTickMarkStrategy?.getCursorEndOffset()
+                    ?: 0)
+            ) {
+                cursorValue = mScaleInfo!!.endValue - (mTickMarkStrategy?.getCursorEndOffset() ?: 0)
             }
             if (null != mOnCursorListener) {
-                mOnCursorListener!!.onProgressChanged(cursorValue,true)
+                mOnCursorListener!!.onProgressChanged(cursorValue, true)
             }
             invalidate()
         } else {
@@ -1124,7 +1139,17 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
 //         */
 //        @Dimension
 //        fun getSize(scaleValue: Long, keyScale: Boolean, maxScaleValueSize: Float): Float
+
+        /**
+         * cursor 最大值相关
+         *
+         * 限制波形往左移动的做大距离
+         *
+         * if(cursorValue > mScaleInfo!!.endValue - getCursorEndOffset()){
+         *    cursorValue = mScaleInfo!!.endValue - getCursorEndOffset()
+         * }
+         */
+        fun getCursorEndOffset(): Long
     }
-
-
 }
+
