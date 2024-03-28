@@ -162,7 +162,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
 
         viewBinding.btnShowCursor.setOnClickListener {
             viewBinding.btnShowCursor.isSelected = !viewBinding.btnShowCursor.isSelected
-            viewBinding.timeBar.setShowCursor(viewBinding.btnShowCursor.isSelected);
+            viewBinding.timeBar.setShowCursor(viewBinding.btnShowCursor.isSelected)
         }
 
         viewBinding.btnPlay.setOnClickListener {
