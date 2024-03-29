@@ -58,8 +58,8 @@ open class AudioCutEditorView @JvmOverloads constructor(
         audioFragment = AudioFragmentWithCut(this).apply {
             index = 0
             this.duration = duration
-            maxWaveHeight = 50f
-            waveVerticalPosition = 200f
+            maxWaveHeight = 200f
+            waveVerticalPosition = 500f
             color = Color.RED
             startTimestamp = startValue
             this.waveform = waveform
