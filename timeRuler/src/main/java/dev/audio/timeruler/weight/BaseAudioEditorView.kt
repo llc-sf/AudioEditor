@@ -988,6 +988,8 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
 
     /**
      * @param isRefreshUnitPixel 是否刷新单位像素
+     * 1、手势放大缩小 调节unitMsPixel，screeWithDuration由调节unitMsPixel决定
+     * 2、直接档位调节 调节screeWithDuration，调节unitMsPixel由调节screeWithDuration决定
      *
      * 调用处：
      * 1、初始化 initConfig
