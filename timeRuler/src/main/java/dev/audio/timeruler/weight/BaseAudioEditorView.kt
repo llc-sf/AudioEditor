@@ -453,10 +453,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         return (cursorPosition + (timeStamp - cursorValue) * unitMsPixel)
     }
 
-    fun setPlayerProgress(currentPosition: Long, duration: Long) {
-        this.cursorValue = startValue + currentPosition
-        invalidate()
-    }
+
 
     /**
      * 设置 坐标轴 游标的时间值

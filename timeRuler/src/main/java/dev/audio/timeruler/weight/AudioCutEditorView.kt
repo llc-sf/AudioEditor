@@ -32,6 +32,11 @@ open class AudioCutEditorView @JvmOverloads constructor(
         mCursorPositionProportion = 0.0f
     }
 
+    fun setPlayerProgress(currentPosition: Long, duration: Long) {
+        this.cursorValue = startValue + currentPosition
+        invalidate()
+    }
+
 
     // 设置波形数据的方法
     fun setWaveform(waveform: Waveform, duration: Long) {
