@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.MotionEvent
 import dev.audio.timeruler.weight.BaseAudioEditorView.TickMarkStrategy
 import dev.audio.timeruler.bean.Waveform
+import dev.audio.timeruler.player.PlayerManager
 
 open class AudioCutEditorView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
@@ -57,6 +58,9 @@ open class AudioCutEditorView @JvmOverloads constructor(
      * 裁剪拨片的触摸事件
      */
     override fun onTouchEvent(event: MotionEvent): Boolean {
+        if(PlayerManager.isPlaying){
+            return true
+        }
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 Log.i(

@@ -16,8 +16,8 @@ import com.masoudss.lib.utils.WaveformOptions
 import com.san.audioeditor.R
 import com.san.audioeditor.activity.AudioCutActivity
 import com.san.audioeditor.databinding.FragmentAudioCutBinding
-import com.san.audioeditor.player.PlayerManager
-import com.san.audioeditor.player.PlayerProgressCallback
+import dev.audio.timeruler.player.PlayerManager
+import dev.audio.timeruler.player.PlayerProgressCallback
 import com.san.audioeditor.viewmodel.AudioCutViewModel
 import dev.android.player.framework.base.BaseMVVMFragment
 import dev.android.player.framework.data.model.Song

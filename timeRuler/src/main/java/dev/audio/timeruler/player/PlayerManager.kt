@@ -1,9 +1,10 @@
-package com.san.audioeditor.player
+package dev.audio.timeruler.player
 
 import android.content.Context
 import android.net.Uri
 import android.os.Handler
 import android.os.Looper
+import com.android.app.AppProvider
 import com.google.android.exoplayer2.ExoPlaybackException
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.PlaybackParameters
@@ -14,8 +15,6 @@ import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import com.masoudss.lib.utils.Utils
-import com.san.audioeditor.AudioEditorApplication
-import dev.audio.recorder.utils.Log
 import dev.audio.timeruler.multitrack.MultiTrackRenderersFactory
 import dev.audio.timeruler.multitrack.MultiTrackSelector
 
@@ -26,7 +25,7 @@ object PlayerManager {
     var player: SimpleExoPlayer
 
     init {
-        player = initExoPlayer(AudioEditorApplication.getAppContext())
+        player = initExoPlayer(AppProvider.context)
     }
 
     private const val PROGRESS_UPDATE_INTERVAL = 10L
@@ -108,21 +107,19 @@ object PlayerManager {
     }
 
     fun playByPath(path: String) {
-        Log.i(TAG, "path=$path")
         //path 转 uri
         var uri: Uri? =
-            Utils.getAudioUriFromPath(AudioEditorApplication.getAppContext(), path) ?: return
+            Utils.getAudioUriFromPath(AppProvider.context, path) ?: return
         var dataSourceFactory = DefaultDataSourceFactory(
-            AudioEditorApplication.getAppContext(),
+            AppProvider.context,
             Util.getUserAgent(
-                AudioEditorApplication.getAppContext(),
-                AudioEditorApplication.getAppContext().packageName
+                AppProvider.context,
+                AppProvider.context.packageName
             )
         )
         // 创建多个 MediaSource，分别对应不同的音频文件
         val audioSource = ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(
             MediaItem.fromUri(uri!!.apply {
-                Log.i(TAG, "uri=$this")
             })
         )
         playByMediaSource(audioSource)
@@ -130,10 +127,10 @@ object PlayerManager {
 
     fun playByUri(uri: Uri) {
         var dataSourceFactory = DefaultDataSourceFactory(
-            AudioEditorApplication.getAppContext(),
+            AppProvider.context,
             Util.getUserAgent(
-                AudioEditorApplication.getAppContext(),
-                AudioEditorApplication.getAppContext().packageName
+                AppProvider.context,
+                AppProvider.context.packageName
             )
         )
         // 创建多个 MediaSource，分别对应不同的音频文件
@@ -150,6 +147,9 @@ object PlayerManager {
     fun play() {
         player.play()
     }
+
+    var isPlaying: Boolean = false
+        get() = player.isPlaying
 
 
 }
