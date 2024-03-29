@@ -22,7 +22,7 @@ import java.lang.ref.WeakReference
 /**
  * 音波上的裁剪片段
  */
-class CutPieceFragment(var audio: AudioFragmentWithCut) {
+class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = false) {
 
     companion object {
         //裁剪竖线的宽度
@@ -51,7 +51,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
     )
     annotation class CutMode
 
-    private var cutMode = CUT_MODE_DELETE
+    private var cutMode = CUT_MODE_SELECT
 
 
     private val timestampHandlerRadius = 20f
@@ -147,37 +147,39 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
         return x in startTimestampPosition..endTimestampPosition
     }
 
-    fun initCutFragment() {
-        startTimestampTimeInSelf = duration / 3
-        endTimestampTimeInSelf = duration / 3 * 2
+    fun initCutFragment(start: Float, end: Float) {
+        startTimestampTimeInSelf = (duration * start).toLong()
+        endTimestampTimeInSelf = (duration * end).toLong()
     }
 
     fun drawCutFragment(canvas: Canvas) {
-        // 绘制代表开始和结束时间戳的线，线的终止位置应在圆圈的下缘
-        canvas.drawLine(
-            startTimestampPosition, timestampHandlerRadius * 2, startTimestampPosition,
+        if (isMajor || cutMode == CUT_MODE_JUMP) {
+            // 绘制代表开始和结束时间戳的线，线的终止位置应在圆圈的下缘
+            canvas.drawLine(
+                startTimestampPosition, timestampHandlerRadius * 2, startTimestampPosition,
 //            height.toFloat(),
-            200f, timestampLinePaint
-        )
-        canvas.drawLine(
-            endTimestampPosition, timestampHandlerRadius * 2, endTimestampPosition,
-            //            height.toFloat(),
-            200f, timestampLinePaint
-        )
+                200f, timestampLinePaint
+            )
+            canvas.drawLine(
+                endTimestampPosition, timestampHandlerRadius * 2, endTimestampPosition,
+                //            height.toFloat(),
+                200f, timestampLinePaint
+            )
 
-        // 绘制圆圈标记在直线的顶端
-        canvas.drawCircle(
-            startTimestampPosition,
-            timestampHandlerRadius,
-            timestampHandlerRadius,
-            timestampHandlerPaint
-        )
-        canvas.drawCircle(
-            endTimestampPosition,
-            timestampHandlerRadius,
-            timestampHandlerRadius,
-            timestampHandlerPaint
-        )
+            // 绘制圆圈标记在直线的顶端
+            canvas.drawCircle(
+                startTimestampPosition,
+                timestampHandlerRadius,
+                timestampHandlerRadius,
+                timestampHandlerPaint
+            )
+            canvas.drawCircle(
+                endTimestampPosition,
+                timestampHandlerRadius,
+                timestampHandlerRadius,
+                timestampHandlerPaint
+            )
+        }
         drawCut(canvas)
     }
 
@@ -189,6 +191,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
         paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
         when (cutMode) {
             CUT_MODE_SELECT -> {
+                if (!isMajor) {
+                    return
+                }
                 // 创建覆盖两条竖线中间区域的矩形
                 val rect = Rect(
                     startTimestampPosition.toInt() + strokeWidth_cut.toInt(),
@@ -202,7 +207,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
             }
 
             CUT_MODE_DELETE -> {
-
+                if (!isMajor) {
+                    return
+                }
                 val rectLeft = Rect(
                     0,
                     (rect?.top ?: 0) + strokeWidth.toInt(),
@@ -434,7 +441,8 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
     }
 
 
-    fun isTarget(event: MotionEvent): Boolean {
+    fun isTarget(event: MotionEvent?): Boolean {
+        if (event == null) return false
         // 为开始时间戳的圆球创建一个矩形
         val startRect = Rect(
             startTimestampPosition.toInt(),

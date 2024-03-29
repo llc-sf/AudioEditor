@@ -2,7 +2,9 @@ package com.san.audioeditor.fragment
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.SeekBar
+import androidx.core.view.isVisible
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.PlaybackParameters
 import com.google.android.exoplayer2.SimpleExoPlayer
@@ -180,14 +182,17 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         viewBinding.rgModel.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.model1 -> {
+                    viewBinding.cutAdd.visibility = View.INVISIBLE
                     viewBinding.timeBar.setCutMode(CutPieceFragment.CUT_MODE_SELECT)
                 }
 
                 R.id.model2 -> {
+                    viewBinding.cutAdd.visibility = View.INVISIBLE
                     viewBinding.timeBar.setCutMode(CutPieceFragment.CUT_MODE_DELETE)
                 }
 
                 R.id.model3 -> {
+                    viewBinding.cutAdd.visibility = View.VISIBLE
                     viewBinding.timeBar.setCutMode(CutPieceFragment.CUT_MODE_JUMP)
                 }
             }

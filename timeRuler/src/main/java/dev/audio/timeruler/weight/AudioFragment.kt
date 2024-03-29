@@ -122,6 +122,7 @@ open class AudioFragment(private var audioEditorView: BaseAudioEditorView) {
         }
 
 
+    //竖直轨道
     var index = 0
 
     //波形时长

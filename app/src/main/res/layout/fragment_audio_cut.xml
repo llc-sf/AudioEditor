@@ -141,6 +141,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
+            android:checked="true"
             android:text="select" />
 
         <RadioButton
@@ -155,8 +156,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:checked="true"
             android:text="jump" />
+
+        <Button
+            android:id="@+id/cut_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="add" />
 
     </RadioGroup>
 

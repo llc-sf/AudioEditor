@@ -3,21 +3,11 @@ package dev.audio.timeruler.weight
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Path
-import android.graphics.Rect
-import android.graphics.RectF
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
-import androidx.annotation.ColorInt
-import dev.audio.ffmpeglib.tool.ScreenUtil
-import dev.audio.timeruler.R
 import dev.audio.timeruler.weight.BaseAudioEditorView.TickMarkStrategy
 import dev.audio.timeruler.bean.Waveform
-import dev.audio.timeruler.utils.SizeUtils
-import java.text.SimpleDateFormat
-import kotlin.reflect.KProperty
 
 open class AudioCutEditorView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
@@ -67,7 +57,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
                 Log.i(
                     cut_tag, "onTouchEvent: ACTION_DOWN touchCutLine=$touchCutLine"
                 )
-                var isTargetCut = audioFragment?.isTarget(event) ?: false
+                var isTargetCut = audioFragment?.isCutLineTarget(event) ?: false
                 if (isTargetCut) {
                     audioFragment?.onTouchEvent(context, this@AudioCutEditorView, event)
                     touchCutLine = true
