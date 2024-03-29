@@ -223,7 +223,11 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
     /*一个屏幕宽度最少显示多少毫秒  8s*/
     private var minScreenSpanValue: Long = 0
 
-    /*一个屏幕宽度最多显示多少毫秒  80s*/
+    /**
+     * 一个屏幕宽度最多显示多少毫秒
+     *
+     * 注意缩小，手势或者档位变化时候，需要判断边界值
+     */
     private var maxScreenSpanValue: Long = 0
 
     /*一毫秒最多占多少像素*/
@@ -772,7 +776,6 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
             unitMsPixel = minUnitPixel
         }
         onScale()
-        invalidate()
         return unitMsPixel < maxUnitPixel || unitMsPixel > minUnitPixel
     }
 
