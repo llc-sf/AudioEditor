@@ -212,6 +212,14 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
                 }
             }
         }
+
+        viewBinding.play.setOnClickListener {
+            PlayerManager.play()
+        }
+        viewBinding.pause.setOnClickListener {
+            PlayerManager.pause()
+        }
+
         setData()
 
     }

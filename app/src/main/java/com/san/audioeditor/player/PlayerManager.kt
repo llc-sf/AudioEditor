@@ -143,5 +143,13 @@ object PlayerManager {
         playByMediaSource(audioSource)
     }
 
+    fun pause() {
+        player.pause()
+    }
+
+    fun play() {
+        player.play()
+    }
+
 
 }

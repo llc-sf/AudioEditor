@@ -125,6 +125,28 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/play_actions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rg_scale">
+
+        <Button
+            android:id="@+id/play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="play" />
+
+        <Button
+            android:id="@+id/pause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="pause" />
+    </LinearLayout>
 
     <RadioGroup
         android:id="@+id/rg_model"
@@ -134,7 +156,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rg_scale">
+        app:layout_constraintTop_toBottomOf="@id/play_actions">
 
         <RadioButton
             android:id="@+id/model1"
