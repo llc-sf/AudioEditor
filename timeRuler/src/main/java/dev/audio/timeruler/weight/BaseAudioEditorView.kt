@@ -789,11 +789,16 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
     private fun onScale() {
         // 计算一屏刻度值跨度
         val screenSpanValue = width / unitMsPixel
-        updateMode(screenSpanValue)
+        close2Mode(screenSpanValue)
     }
 
 
-    private fun updateMode(screenSpanValue: Float) {
+    /**
+     * 靠近 而不是设置
+     *
+     * 这时候属于无级变速 结余6档位中间
+     */
+    private fun close2Mode(screenSpanValue: Float) {
         Log.i("TAG", "updateMode: $screenSpanValue")
         if (screenSpanValue >= SCREEN_WIDTH_TIME_VALUE_ARRAY[5]) {
             setMode(MODE_ARRAY[5], isRefreshUnitPixel = false)
@@ -982,6 +987,8 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
 
 
     /**
+     * @param isRefreshUnitPixel 是否刷新单位像素
+     *
      * 调用处：
      * 1、初始化 initConfig
      * 2、放大缩小调节档位
@@ -991,11 +998,13 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
      *  1、unitValue      间隔多少毫秒是一个刻度（普通）
      *  2、keyScaleRange  间隔多少毫秒是一个刻度（关键刻度）
      *  3、unitMsPixel    每毫秒多少像素
+     *  4、cursorValue    控制波形图的x坐标以免尾部出现空白现象
      */
     private fun setMode(
         @Mode mode: Int,
         isRefreshUnitPixel: Boolean = true
     ) {
+        //计算屏幕显示多少时间
         var screeWithDuration: Long
         var index = mode
         updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
@@ -1016,9 +1025,17 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
                 Log.i(wave_tag, "startValue:${startValue.formatToCursorDateString()}")
             }
         }
-        if (isRefreshUnitPixel) {
+        if(!isRefreshUnitPixel){
+            //手势放大缩小
+            screeWithDuration = (width/(unitMsPixel)).toLong()
+        }else{
+            //直接档位变化
             //todo  不一定是屏幕宽度
             unitMsPixel = (ScreenUtil.getScreenWidth(context) * 1f / screeWithDuration)
+        }
+        if (cursorValue + screeWithDuration > endValue) {
+            //判断是否有 尾部空白没有坐标的情况
+            cursorValue = endValue - screeWithDuration
         }
         if (mMode != index) {
             mMode = index
