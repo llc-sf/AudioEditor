@@ -17,6 +17,7 @@ import com.san.audioeditor.R
 import com.san.audioeditor.activity.AudioCutActivity
 import com.san.audioeditor.databinding.FragmentAudioCutBinding
 import com.san.audioeditor.player.PlayerManager
+import com.san.audioeditor.player.PlayerProgressCallback
 import com.san.audioeditor.viewmodel.AudioCutViewModel
 import dev.android.player.framework.base.BaseMVVMFragment
 import dev.android.player.framework.data.model.Song
@@ -69,6 +70,19 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         PlayerManager.playByPath(mViewModel.song.path)
         viewBinding.toolbar.ImmerseDesign()
         initTimeBar()
+
+        PlayerManager.addProgressListener(object : PlayerProgressCallback {
+            override fun onProgressChanged(position: Long, duration: Long) {
+                if (isAdded) {
+                    viewBinding.timeBar.setPlayerProgress(position, duration)
+                }
+            }
+        })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        PlayerManager.releasePlayer()
     }
 
     override fun startObserve() {

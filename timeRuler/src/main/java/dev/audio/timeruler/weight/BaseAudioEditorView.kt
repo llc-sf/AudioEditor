@@ -453,6 +453,11 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         return (cursorPosition + (timeStamp - cursorValue) * unitMsPixel)
     }
 
+    fun setPlayerProgress(currentPosition: Long, duration: Long) {
+        this.cursorValue = startValue + currentPosition
+        invalidate()
+    }
+
     /**
      * 设置 坐标轴 游标的时间值
      */
@@ -1027,10 +1032,10 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
                 Log.i(wave_tag, "startValue:${startValue.formatToCursorDateString()}")
             }
         }
-        if(!isRefreshUnitPixel){
+        if (!isRefreshUnitPixel) {
             //手势放大缩小
-            screeWithDuration = (width/(unitMsPixel)).toLong()
-        }else{
+            screeWithDuration = (width / (unitMsPixel)).toLong()
+        } else {
             //直接档位变化
             //todo  不一定是屏幕宽度
             unitMsPixel = (ScreenUtil.getScreenWidth(context) * 1f / screeWithDuration)
