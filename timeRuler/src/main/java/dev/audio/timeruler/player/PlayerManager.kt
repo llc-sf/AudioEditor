@@ -100,13 +100,13 @@ object PlayerManager {
         progressListener = listener
     }
 
-    fun playByMediaSource(mediaSource: MediaSource) {
-        player.playWhenReady = true
+    fun playByMediaSource(mediaSource: MediaSource, autoPlay: Boolean = false) {
+        player.playWhenReady = autoPlay
         player.setMediaSource(mediaSource)
         player.prepare()
     }
 
-    fun playByPath(path: String) {
+    fun playByPath(path: String, autoPlay: Boolean = false) {
         //path 转 uri
         var uri: Uri? =
             Utils.getAudioUriFromPath(AppProvider.context, path) ?: return
@@ -122,10 +122,10 @@ object PlayerManager {
             MediaItem.fromUri(uri!!.apply {
             })
         )
-        playByMediaSource(audioSource)
+        playByMediaSource(audioSource,autoPlay)
     }
 
-    fun playByUri(uri: Uri) {
+    fun playByUri(uri: Uri, autoPlay: Boolean = false) {
         var dataSourceFactory = DefaultDataSourceFactory(
             AppProvider.context,
             Util.getUserAgent(
@@ -137,7 +137,7 @@ object PlayerManager {
         val audioSource = ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(
             MediaItem.fromUri(uri)
         )
-        playByMediaSource(audioSource)
+        playByMediaSource(audioSource,autoPlay)
     }
 
     fun pause() {
@@ -145,6 +145,11 @@ object PlayerManager {
     }
 
     fun play() {
+        player.play()
+    }
+
+    fun playWithSeek(position:Long){
+        player.seekTo(position)
         player.play()
     }
 

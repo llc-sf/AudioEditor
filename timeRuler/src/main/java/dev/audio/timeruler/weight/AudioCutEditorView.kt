@@ -33,9 +33,23 @@ open class AudioCutEditorView @JvmOverloads constructor(
         mCursorPositionProportion = 0.0f
     }
 
+    /**
+     * 设置 cursor 位置
+     */
     fun setPlayerProgress(currentPosition: Long, duration: Long) {
         this.cursorValue = startValue + currentPosition
+        if (cursorValue + screenWithDuration >= endValue) {
+            this.cursorValue = endValue - screenWithDuration
+            return
+        }
         invalidate()
+    }
+
+    /**
+     * cursor对应的歌曲位置
+     */
+    fun getCurrentPosition(): Long {
+        return cursorValue - startValue
     }
 
 
@@ -58,7 +72,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
      * 裁剪拨片的触摸事件
      */
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        if(PlayerManager.isPlaying){
+        if (PlayerManager.isPlaying) {
             return true
         }
         when (event.action) {
@@ -127,7 +141,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
         audioFragment?.refreshCursorValueByOnScroll(distanceX, courseIncrement)
     }
 
-    fun setCutMode(cutMode:Int){
+    fun setCutMode(cutMode: Int) {
         audioFragment?.setCutMode(cutMode)
         invalidate()
     }

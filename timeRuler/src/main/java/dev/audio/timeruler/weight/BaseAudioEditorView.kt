@@ -203,7 +203,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         }
 
     /* 时间刻度结束时间 */
-    private var endValue: Long = 0
+    protected var endValue: Long = 0
 
     /* 间隔多少毫秒是一个刻度（普通） */
     private var unitValue: Long = 0
