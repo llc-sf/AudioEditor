@@ -54,4 +54,8 @@ class AudioFragmentWithCut(audioEditorView: BaseAudioEditorView) :
         return cutPieceFragment?.isTarget(event) ?: false
     }
 
+    fun setCutMode(cutMode: Int) {
+        cutPieceFragment?.setCutMode(cutMode)
+    }
+
 }

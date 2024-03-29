@@ -13,6 +13,7 @@ import android.os.Message
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import androidx.annotation.IntDef
 import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.timeruler.bean.Ref
 import java.lang.ref.WeakReference
@@ -26,7 +27,31 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
     companion object {
         //裁剪竖线的宽度
         const val strokeWidth_cut = 5f
+
+        /**
+         * 选择剪辑
+         */
+        const val CUT_MODE_SELECT = 0
+
+        /**
+         * 删除剪辑
+         */
+        const val CUT_MODE_DELETE = 1
+
+        /**
+         * 跳剪
+         */
+        const val CUT_MODE_JUMP = 2
     }
+
+    @IntDef(
+        CUT_MODE_SELECT,
+        CUT_MODE_DELETE,
+        CUT_MODE_JUMP,
+    )
+    annotation class CutMode
+
+    private var cutMode = CUT_MODE_DELETE
 
 
     private val timestampHandlerRadius = 20f
@@ -99,6 +124,21 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
             return audio.time2PositionInTimeline(endTimestampTimeInTimeline)
         }
 
+    /**
+     * 歌曲结束时间在屏幕上的位置
+     */
+    private var endPositionOfAudio: Float = 0f
+        get() {
+            return audio.time2PositionInTimeline(endTimestampOfAudio)
+        }
+
+    /**
+     * 歌曲结束时间在时间轴上的位置
+     */
+    private var endTimestampOfAudio: Long = 0
+        get() {
+            return startTimestamp + cursorOffsetTime + duration
+        }
 
     /**
      * 是否选中  裁剪
@@ -115,20 +155,14 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
     fun drawCutFragment(canvas: Canvas) {
         // 绘制代表开始和结束时间戳的线，线的终止位置应在圆圈的下缘
         canvas.drawLine(
-            startTimestampPosition,
-            timestampHandlerRadius * 2,
-            startTimestampPosition,
+            startTimestampPosition, timestampHandlerRadius * 2, startTimestampPosition,
 //            height.toFloat(),
-            200f,
-            timestampLinePaint
+            200f, timestampLinePaint
         )
         canvas.drawLine(
-            endTimestampPosition,
-            timestampHandlerRadius * 2,
-            endTimestampPosition,
+            endTimestampPosition, timestampHandlerRadius * 2, endTimestampPosition,
             //            height.toFloat(),
-            200f,
-            timestampLinePaint
+            200f, timestampLinePaint
         )
 
         // 绘制圆圈标记在直线的顶端
@@ -153,17 +187,74 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
         val paint = Paint()
         paint.color = Color.YELLOW
         paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
-        // 创建覆盖两条竖线中间区域的矩形
-        val rect =
-            Rect(
-                startTimestampPosition.toInt() + strokeWidth_cut.toInt(),
-                (rect?.top ?: 0) + strokeWidth.toInt(),
-                endTimestampPosition.toInt() - strokeWidth_cut.toInt(),
-                ((rect?.bottom ?: 0) - strokeWidth.toInt())
-            )
+        when (cutMode) {
+            CUT_MODE_SELECT -> {
+                // 创建覆盖两条竖线中间区域的矩形
+                val rect = Rect(
+                    startTimestampPosition.toInt() + strokeWidth_cut.toInt(),
+                    (rect?.top ?: 0) + strokeWidth.toInt(),
+                    endTimestampPosition.toInt() - strokeWidth_cut.toInt(),
+                    ((rect?.bottom ?: 0) - strokeWidth.toInt())
+                )
 
-        // 在波形图上绘制这个矩形
-        canvas.drawRect(rect, paint)
+                // 在波形图上绘制这个矩形
+                canvas.drawRect(rect, paint)
+            }
+
+            CUT_MODE_DELETE -> {
+
+                val rectLeft = Rect(
+                    0,
+                    (rect?.top ?: 0) + strokeWidth.toInt(),
+                    startTimestampPosition.toInt() - strokeWidth_cut.toInt(),
+                    ((rect?.bottom ?: 0) - strokeWidth.toInt())
+                )
+                canvas.drawRect(rectLeft, paint)
+
+
+                val rectRight = Rect(
+                    endTimestampPosition.toInt() + strokeWidth_cut.toInt(),
+                    (rect?.top ?: 0) + strokeWidth.toInt(),
+                    endPositionOfAudio.toInt(),
+                    ((rect?.bottom ?: 0) - strokeWidth.toInt())
+                )
+                canvas.drawRect(rectRight, paint)
+
+
+//                val rectLeft =
+//                    Rect(
+//                        startTimestampTimeInTimeline.toInt(),
+//                        (rect?.top ?: 0) + strokeWidth.toInt(),
+//                        startTimestampPosition.toInt() - strokeWidth_cut.toInt(),
+//                        ((rect?.bottom ?: 0) - strokeWidth.toInt())
+//                    )
+//                canvas.drawRect(rectLeft, paint)
+
+
+//                val rectRight =
+//                    Rect(
+//                        endTimestampPosition.toInt() + strokeWidth_cut.toInt(),
+//                        (rect?.top ?: 0) + strokeWidth.toInt(),
+//                        endTimestampTimeInTimeline.toInt() - strokeWidth_cut.toInt(),
+//                        ((rect?.bottom ?: 0) - strokeWidth.toInt())
+//                    )
+//                canvas.drawRect(rectRight, paint)
+            }
+
+            CUT_MODE_JUMP -> {
+                // 创建覆盖两条竖线中间区域的矩形
+                val rect = Rect(
+                    startTimestampPosition.toInt() + strokeWidth_cut.toInt(),
+                    (rect?.top ?: 0) + strokeWidth.toInt(),
+                    endTimestampPosition.toInt() - strokeWidth_cut.toInt(),
+                    ((rect?.bottom ?: 0) - strokeWidth.toInt())
+                )
+
+                // 在波形图上绘制这个矩形
+                canvas.drawRect(rect, paint)
+            }
+        }
+
         // 移除Xfermode
         paint.xfermode = null
     }
@@ -179,8 +270,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
     class MoveHandler(
         private var audio: WeakReference<AudioFragmentWithCut>? = null,
         private var cutPiece: WeakReference<CutPieceFragment>? = null
-    ) :
-        Handler(Looper.getMainLooper()) {
+    ) : Handler(Looper.getMainLooper()) {
 
         companion object {
             const val MSG_MOVE = 1
@@ -237,8 +327,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
         val x = event.x
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                isMovingStart =
-                    Math.abs(x - startTimestampPosition) <= strokeWidth_cut
+                isMovingStart = Math.abs(x - startTimestampPosition) <= strokeWidth_cut
                 isMovingEnd = Math.abs(x - endTimestampPosition) <= strokeWidth_cut
                 lastTouchXProcess = x
             }
@@ -300,8 +389,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
                     lastTouchXProcess = x
                     startTimestampPosition.apply {
                         Log.i(
-                            BaseAudioEditorView.cut_tag,
-                            "startTimestampPosition: $this"
+                            BaseAudioEditorView.cut_tag, "startTimestampPosition: $this"
                         )
                     }
                     endTimestampPosition.apply {
@@ -364,8 +452,10 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
         )
 
         // 检查触摸点是否落在开始或结束的矩形内
-        if (startRect.contains(event.x.toInt(), event.y.toInt()) ||
-            endRect.contains(event.x.toInt(), event.y.toInt())
+        if (startRect.contains(
+                event.x.toInt(),
+                event.y.toInt()
+            ) || endRect.contains(event.x.toInt(), event.y.toInt())
         ) {
             return true.apply {
                 Log.i(BaseAudioEditorView.cut_tag, "isTarget: true")
@@ -375,6 +465,10 @@ class CutPieceFragment(var audio: AudioFragmentWithCut) {
         return false.apply {
             Log.i(BaseAudioEditorView.cut_tag, "isTarget: false")
         }
+    }
+
+    fun setCutMode(cutMode: Int) {
+        this.cutMode = cutMode
     }
 
 

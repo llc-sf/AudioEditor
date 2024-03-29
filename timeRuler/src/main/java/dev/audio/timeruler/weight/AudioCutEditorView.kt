@@ -128,5 +128,10 @@ open class AudioCutEditorView @JvmOverloads constructor(
         audioFragment?.refreshCursorValueByOnScroll(distanceX, courseIncrement)
     }
 
+    fun setCutMode(cutMode:Int){
+        audioFragment?.setCutMode(cutMode)
+        invalidate()
+    }
+
 
 }

@@ -28,6 +28,7 @@ import dev.audio.timeruler.multitrack.MultiTrackSelector
 import dev.audio.timeruler.utils.format2Duration
 import dev.audio.timeruler.weight.AudioEditorConfig
 import dev.audio.timeruler.weight.BaseAudioEditorView
+import dev.audio.timeruler.weight.CutPieceFragment
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -179,15 +180,15 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         viewBinding.rgModel.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.model1 -> {
-                    R.id.radioGroup
+                    viewBinding.timeBar.setCutMode(CutPieceFragment.CUT_MODE_SELECT)
                 }
 
                 R.id.model2 -> {
-
+                    viewBinding.timeBar.setCutMode(CutPieceFragment.CUT_MODE_DELETE)
                 }
 
                 R.id.model3 -> {
-
+                    viewBinding.timeBar.setCutMode(CutPieceFragment.CUT_MODE_JUMP)
                 }
             }
         }
