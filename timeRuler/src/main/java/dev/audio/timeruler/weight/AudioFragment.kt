@@ -23,6 +23,7 @@ open class AudioFragment(private var audioEditorView: BaseAudioEditorView) {
         const val DEFAULT_WAVE_HEIGHT = 150f
         const val DEFAULT_WAVE_VERTICAL_POSITION = 200f
         const val DEFAULT_WAVE_COLOR = Color.RED
+        const val WAVE_STEP = 400
     }
 
     /**
@@ -55,6 +56,8 @@ open class AudioFragment(private var audioEditorView: BaseAudioEditorView) {
 
     //波形高度
     var maxWaveHeight: Float = DEFAULT_WAVE_HEIGHT
+
+    var waveStep = WAVE_STEP
 
     //波形宽度
     private val waveViewWidth
@@ -169,7 +172,7 @@ open class AudioFragment(private var audioEditorView: BaseAudioEditorView) {
 
     }
 
-    open fun drawWave(
+    open fun onDraw(
         canvas: Canvas
     ) {
         var wf = waveform
@@ -189,7 +192,7 @@ open class AudioFragment(private var audioEditorView: BaseAudioEditorView) {
             "drawWave index=$index offsetCursorValue = ${cursorValue - cursorValue}"
         )
 
-        for (i in samples.indices step 400) { // 步长设置为400，可根据需要调整
+        for (i in samples.indices step waveStep) { // 步长设置为400，可根据需要调整
             val x = (waveViewWidth * (i / samples.size.toFloat())) + x
             val sampleValue = (samples[i] / maxAmplitude) * amplitudeScale
             val y = centerY - sampleValue

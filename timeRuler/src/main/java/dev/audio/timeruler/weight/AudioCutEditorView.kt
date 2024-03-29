@@ -113,7 +113,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
 
     override fun drawWaveformSeekBar(canvas: Canvas) {
         super.drawWaveformSeekBar(canvas)
-        audioFragment?.drawWave(canvas)
+        audioFragment?.onDraw(canvas)
     }
 
 
