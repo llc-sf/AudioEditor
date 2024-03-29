@@ -154,33 +154,37 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
 
     fun drawCutFragment(canvas: Canvas) {
         if (isMajor || cutMode == CUT_MODE_JUMP) {
-            // 绘制代表开始和结束时间戳的线，线的终止位置应在圆圈的下缘
-            canvas.drawLine(
-                startTimestampPosition, timestampHandlerRadius * 2, startTimestampPosition,
-//            height.toFloat(),
-                200f, timestampLinePaint
-            )
-            canvas.drawLine(
-                endTimestampPosition, timestampHandlerRadius * 2, endTimestampPosition,
-                //            height.toFloat(),
-                200f, timestampLinePaint
-            )
-
-            // 绘制圆圈标记在直线的顶端
-            canvas.drawCircle(
-                startTimestampPosition,
-                timestampHandlerRadius,
-                timestampHandlerRadius,
-                timestampHandlerPaint
-            )
-            canvas.drawCircle(
-                endTimestampPosition,
-                timestampHandlerRadius,
-                timestampHandlerRadius,
-                timestampHandlerPaint
-            )
+            drawCutLines(canvas)
         }
         drawCut(canvas)
+    }
+
+    private fun drawCutLines(canvas: Canvas) {
+        // 绘制代表开始和结束时间戳的线，线的终止位置应在圆圈的下缘
+        canvas.drawLine(
+            startTimestampPosition, timestampHandlerRadius * 2, startTimestampPosition,
+            //            height.toFloat(),
+            rect?.bottom?.toFloat() ?: 0f, timestampLinePaint
+        )
+        canvas.drawLine(
+            endTimestampPosition, timestampHandlerRadius * 2, endTimestampPosition,
+            //            height.toFloat(),
+            rect?.bottom?.toFloat() ?: 0f, timestampLinePaint
+        )
+
+        // 绘制圆圈标记在直线的顶端
+        canvas.drawCircle(
+            startTimestampPosition,
+            timestampHandlerRadius,
+            timestampHandlerRadius,
+            timestampHandlerPaint
+        )
+        canvas.drawCircle(
+            endTimestampPosition,
+            timestampHandlerRadius,
+            timestampHandlerRadius,
+            timestampHandlerPaint
+        )
     }
 
 
@@ -227,25 +231,6 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
                 )
                 canvas.drawRect(rectRight, paint)
 
-
-//                val rectLeft =
-//                    Rect(
-//                        startTimestampTimeInTimeline.toInt(),
-//                        (rect?.top ?: 0) + strokeWidth.toInt(),
-//                        startTimestampPosition.toInt() - strokeWidth_cut.toInt(),
-//                        ((rect?.bottom ?: 0) - strokeWidth.toInt())
-//                    )
-//                canvas.drawRect(rectLeft, paint)
-
-
-//                val rectRight =
-//                    Rect(
-//                        endTimestampPosition.toInt() + strokeWidth_cut.toInt(),
-//                        (rect?.top ?: 0) + strokeWidth.toInt(),
-//                        endTimestampTimeInTimeline.toInt() - strokeWidth_cut.toInt(),
-//                        ((rect?.bottom ?: 0) - strokeWidth.toInt())
-//                    )
-//                canvas.drawRect(rectRight, paint)
             }
 
             CUT_MODE_JUMP -> {
