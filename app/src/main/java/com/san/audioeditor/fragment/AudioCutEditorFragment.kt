@@ -16,6 +16,7 @@ import com.masoudss.lib.utils.WaveformOptions
 import com.san.audioeditor.R
 import com.san.audioeditor.activity.AudioCutActivity
 import com.san.audioeditor.databinding.FragmentAudioCutBinding
+import com.san.audioeditor.player.PlayerManager
 import com.san.audioeditor.viewmodel.AudioCutViewModel
 import dev.android.player.framework.base.BaseMVVMFragment
 import dev.android.player.framework.data.model.Song
@@ -60,12 +61,12 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
     }
 
     override fun initData() {
-        super.initData()
     }
 
 
     override fun initView() {
         super.initView()
+        PlayerManager.playByPath(mViewModel.song.path)
         viewBinding.toolbar.ImmerseDesign()
         initTimeBar()
     }

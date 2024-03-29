@@ -12,9 +12,16 @@ class AudioEditorApplication : Application() {
         UIModeSettings.setPreparedMode(AppCompatDelegate.MODE_NIGHT_YES);
     }
 
+    companion object {
+        private lateinit var mAppContext: AudioEditorApplication
+        fun getAppContext(): AudioEditorApplication {
+            return mAppContext
+        }
+    }
+
     override fun onCreate() {
         super.onCreate()
-
+        mAppContext = this
         FFmpegApplication.onCreate(this)
     }
 }
