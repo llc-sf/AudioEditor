@@ -75,6 +75,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
                 var isTargetPlayLine = isPlayingLineTarget(event)
                 if (isTargetPlayLine) {
                     currentPlayingPosition = event.x
+                    cursorValue + (currentPlayingPosition / unitMsPixel).toLong()
                     touchPlayingLine = true
                     return true
                 }
@@ -89,6 +90,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
                 }
                 if(touchPlayingLine){
                     currentPlayingPosition = event.x
+                    cursorValue + (currentPlayingPosition / unitMsPixel).toLong()
                     invalidate()
                 }
                 touchCutLine = false
@@ -105,6 +107,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
                 }
                 if(touchPlayingLine){
                     currentPlayingPosition = event.x
+                    cursorValue + (currentPlayingPosition / unitMsPixel).toLong()
                     invalidate()
                     return true
                 }
@@ -131,7 +134,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
 
 
     private fun isPlayingLineTarget(event: MotionEvent): Boolean {
-        return event.x <= currentPlayingPosition + 10 && event.x >= currentPlayingPosition - 10
+        return event.x <= currentPlayingPosition + 20 && event.x >= currentPlayingPosition - 20
     }
 
 
