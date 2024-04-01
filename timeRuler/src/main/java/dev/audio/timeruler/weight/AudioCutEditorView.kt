@@ -10,8 +10,6 @@ import android.view.MotionEvent
 import dev.audio.timeruler.weight.BaseAudioEditorView.TickMarkStrategy
 import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.player.PlayerManager
-import dev.audio.timeruler.utils.formatToCursorDateString
-import kotlin.reflect.KProperty
 
 open class AudioCutEditorView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
@@ -48,7 +46,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
             startTimestamp = startValue
             this.waveform = waveform
         }
-        currentAudioPlayingTime = (audioFragment!!.duration / 6f).toLong()
+        currentPlayingTimeInAudio = (audioFragment!!.duration / 6f).toLong()
         currentPlayingPosition = (audioFragment!!.duration / 6f) * unitMsPixel
         invalidate() // 触发重新绘制
     }
@@ -136,33 +134,33 @@ open class AudioCutEditorView @JvmOverloads constructor(
     /**
      * 播放条对应的时间戳  在时间轴上
      */
-    private var currentPlayingTimeStamp: Long = 0L
+    private var currentPlayingTimeInTimeLine: Long = 0L
 
     /**
      * 歌曲当前播放位置  对于歌曲时长来说
      */
-    private var currentAudioPlayingTime: Long = 0L
+    private var currentPlayingTimeInAudio: Long = 0L
 
     /**
      * 设置 cursor 位置
      */
     fun setPlayerProgress(currentPosition: Long, duration: Long) {
-        if(currentPosition==duration){
+        if (currentPosition >= duration) {
             cursorValue = startValue
-            currentAudioPlayingTime = 0
-            currentPlayingTimeStamp = startValue
             currentPlayingPosition = 0f
+            currentPlayingTimeInTimeLine = startValue
+            currentPlayingTimeInAudio  = 0
             invalidate()
             return
         }
-        this.currentAudioPlayingTime = currentPosition
-        currentPlayingTimeStamp = startValue + currentAudioPlayingTime
-        var tempCursorValue = (currentPlayingTimeStamp - (currentPlayingPosition / unitMsPixel).toLong())
+        currentPlayingTimeInAudio = currentPosition
+        currentPlayingTimeInTimeLine = startValue + currentPlayingTimeInAudio
+        var tempCursorValue =
+            (currentPlayingTimeInTimeLine - (currentPlayingPosition / unitMsPixel).toLong())
         if (tempCursorValue + screenWithDuration >= endValue) {
             //播放条移动
             this.cursorValue = endValue - screenWithDuration
-            currentPlayingPosition = (currentPlayingTimeStamp - this.cursorValue) * unitMsPixel
-            Log.i("llc_fuck","setPlayerProgress currentPlayingPosition=$currentPlayingPosition")
+            currentPlayingPosition = (currentPlayingTimeInTimeLine - this.cursorValue) * unitMsPixel
         } else {
             //音波移动
             cursorValue = tempCursorValue
@@ -171,31 +169,21 @@ open class AudioCutEditorView @JvmOverloads constructor(
         invalidate()
     }
 
-    override fun cursorValueChange(prop: KProperty<*>, old: Long, new: Long) {
-        super.cursorValueChange(prop, old, new)
-//        extracted(new)
-    }
-
     override fun notifycu() {
         super.notifycu()
         extracted(cursorValue)
     }
 
     private fun extracted(new: Long) {
-        currentPlayingTimeStamp = new + (currentPlayingPosition / unitMsPixel).toLong()
-        currentAudioPlayingTime = currentPlayingTimeStamp - startValue
-        Log.i(
-            cut_tag,
-            "cursorValueChange: currentPlayingTimeStamp=${currentPlayingTimeStamp.formatToCursorDateString()}"
-        )
-        Log.i("llc_fuck","extracted currentPlayingPosition=$currentPlayingPosition")
+        currentPlayingTimeInTimeLine = new + (currentPlayingPosition / unitMsPixel).toLong()
+        currentPlayingTimeInAudio = currentPlayingTimeInTimeLine - startValue
     }
 
     /**
      * cursor对应的歌曲位置
      */
     fun getCurrentPosition(): Long {
-        return currentAudioPlayingTime
+        return currentPlayingTimeInAudio
     }
 
 
