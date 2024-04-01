@@ -3,12 +3,15 @@ package dev.audio.timeruler.weight
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Paint
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import dev.audio.timeruler.weight.BaseAudioEditorView.TickMarkStrategy
 import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.player.PlayerManager
+import dev.audio.timeruler.utils.formatToCursorDateString
+import kotlin.reflect.KProperty
 
 open class AudioCutEditorView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
@@ -33,25 +36,6 @@ open class AudioCutEditorView @JvmOverloads constructor(
         mCursorPositionProportion = 0.0f
     }
 
-    /**
-     * 设置 cursor 位置
-     */
-    fun setPlayerProgress(currentPosition: Long, duration: Long) {
-        this.cursorValue = startValue + currentPosition
-        if (cursorValue + screenWithDuration >= endValue) {
-            this.cursorValue = endValue - screenWithDuration
-            return
-        }
-        invalidate()
-    }
-
-    /**
-     * cursor对应的歌曲位置
-     */
-    fun getCurrentPosition(): Long {
-        return cursorValue - startValue
-    }
-
 
     // 设置波形数据的方法
     fun setWaveform(waveform: Waveform, duration: Long) {
@@ -64,6 +48,8 @@ open class AudioCutEditorView @JvmOverloads constructor(
             startTimestamp = startValue
             this.waveform = waveform
         }
+        currentAudioPlayingTime = (audioFragment!!.duration / 6f).toLong()
+        currentPlayingPosition = (audioFragment!!.duration / 6f) * unitMsPixel
         invalidate() // 触发重新绘制
     }
 
@@ -114,6 +100,102 @@ open class AudioCutEditorView @JvmOverloads constructor(
     override fun drawWaveformSeekBar(canvas: Canvas) {
         super.drawWaveformSeekBar(canvas)
         audioFragment?.onDraw(canvas)
+    }
+
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+        drawPlayingLine(canvas)
+    }
+
+
+    private val playingLinePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        color = Color.WHITE
+        strokeWidth = CutPieceFragment.strokeWidth_cut
+    }
+
+//    private var currentPlayingPosition: Int = 0
+//        get() {
+//            this.cursorValue = startValue + currentPosition
+//        }
+
+
+    private fun drawPlayingLine(canvas: Canvas) {
+        canvas.drawLine(
+            currentPlayingPosition, 0.0f,
+            currentPlayingPosition, audioFragment?.rect?.bottom?.toFloat() ?: 0f,
+            playingLinePaint
+        )
+    }
+
+
+    /**
+     * 播放条对应的屏幕位置 x坐标
+     */
+    private var currentPlayingPosition: Float = 0.0f
+
+    /**
+     * 播放条对应的时间戳  在时间轴上
+     */
+    private var currentPlayingTimeStamp: Long = 0L
+
+    /**
+     * 歌曲当前播放位置  对于歌曲时长来说
+     */
+    private var currentAudioPlayingTime: Long = 0L
+
+    /**
+     * 设置 cursor 位置
+     */
+    fun setPlayerProgress(currentPosition: Long, duration: Long) {
+        if(currentPosition==duration){
+            cursorValue = startValue
+            currentAudioPlayingTime = 0
+            currentPlayingTimeStamp = startValue
+            currentPlayingPosition = 0f
+            invalidate()
+            return
+        }
+        this.currentAudioPlayingTime = currentPosition
+        currentPlayingTimeStamp = startValue + currentAudioPlayingTime
+        var tempCursorValue = (currentPlayingTimeStamp - (currentPlayingPosition / unitMsPixel).toLong())
+        if (tempCursorValue + screenWithDuration >= endValue) {
+            //播放条移动
+            this.cursorValue = endValue - screenWithDuration
+            currentPlayingPosition = (currentPlayingTimeStamp - this.cursorValue) * unitMsPixel
+            Log.i("llc_fuck","setPlayerProgress currentPlayingPosition=$currentPlayingPosition")
+        } else {
+            //音波移动
+            cursorValue = tempCursorValue
+
+        }
+        invalidate()
+    }
+
+    override fun cursorValueChange(prop: KProperty<*>, old: Long, new: Long) {
+        super.cursorValueChange(prop, old, new)
+//        extracted(new)
+    }
+
+    override fun notifycu() {
+        super.notifycu()
+        extracted(cursorValue)
+    }
+
+    private fun extracted(new: Long) {
+        currentPlayingTimeStamp = new + (currentPlayingPosition / unitMsPixel).toLong()
+        currentAudioPlayingTime = currentPlayingTimeStamp - startValue
+        Log.i(
+            cut_tag,
+            "cursorValueChange: currentPlayingTimeStamp=${currentPlayingTimeStamp.formatToCursorDateString()}"
+        )
+        Log.i("llc_fuck","extracted currentPlayingPosition=$currentPlayingPosition")
+    }
+
+    /**
+     * cursor对应的歌曲位置
+     */
+    fun getCurrentPosition(): Long {
+        return currentAudioPlayingTime
     }
 
 

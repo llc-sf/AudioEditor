@@ -892,8 +892,13 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         if (null != mOnCursorListener) {
             mOnCursorListener!!.onProgressChanged(cursorValue, true)
         }
+        notifycu()
         invalidate()
         return result
+    }
+
+    open fun notifycu() {
+
     }
 
 
@@ -924,6 +929,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
                 }
             }
         }
+        notifycu()
     }
 
     override fun onLongPress(e: MotionEvent) {
