@@ -319,8 +319,8 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
         val x = event.x
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                isMovingStart = Math.abs(x - startTimestampPosition) <= strokeWidth_cut
-                isMovingEnd = Math.abs(x - endTimestampPosition) <= strokeWidth_cut
+                isMovingStart = (event.x <= startRect.right + 20 && event.x >= startRect.left - 20)
+                isMovingEnd = (event.x <= endRect.right + 20 && event.x >= endRect.left - 20)
                 lastTouchXProcess = x
             }
 
@@ -425,38 +425,35 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
         // 这将影响波形图的显示和时间戳的计算
     }
 
+    // 为开始时间戳的圆球创建一个矩形
+    private var startRect: Rect = Rect()
+        get() {
+            return Rect(
+                startTimestampPosition.toInt(),
+                timestampHandlerRadius.toInt(),
+                startTimestampPosition.toInt() + (timestampHandlerRadius * 2).toInt(),
+                timestampHandlerRadius.toInt() + 200
+            )
+        }
+
+
+    // 为结束时间戳的圆球创建一个矩形
+    private var endRect: Rect = Rect()
+        get() {
+            return Rect(
+                endTimestampPosition.toInt(),
+                timestampHandlerRadius.toInt(),
+                endTimestampPosition.toInt() + (timestampHandlerRadius * 2).toInt(),
+                timestampHandlerRadius.toInt() + 200
+            )
+        }
 
     fun isTarget(event: MotionEvent?): Boolean {
         if (event == null) return false
-        // 为开始时间戳的圆球创建一个矩形
-        val startRect = Rect(
-            startTimestampPosition.toInt(),
-            timestampHandlerRadius.toInt(),
-            startTimestampPosition.toInt() + (timestampHandlerRadius * 2).toInt(),
-            timestampHandlerRadius.toInt() + 200
-        )
+        return (event.x <= startRect.right + 20 && event.x >= startRect.left - 20).apply {
 
-        // 为结束时间戳的圆球创建一个矩形
-        val endRect = Rect(
-            endTimestampPosition.toInt(),
-            timestampHandlerRadius.toInt(),
-            endTimestampPosition.toInt() + (timestampHandlerRadius * 2).toInt(),
-            timestampHandlerRadius.toInt() + 200
-        )
+        } || (event.x <= endRect.right + 20 && event.x >= endRect.left - 20).apply {
 
-        // 检查触摸点是否落在开始或结束的矩形内
-        if (startRect.contains(
-                event.x.toInt(),
-                event.y.toInt()
-            ) || endRect.contains(event.x.toInt(), event.y.toInt())
-        ) {
-            return true.apply {
-                Log.i(BaseAudioEditorView.cut_tag, "isTarget: true")
-            }
-        }
-
-        return false.apply {
-            Log.i(BaseAudioEditorView.cut_tag, "isTarget: false")
         }
     }
 
