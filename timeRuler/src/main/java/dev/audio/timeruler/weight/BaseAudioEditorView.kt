@@ -244,7 +244,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         if (config.maxScreenSpanValue > 0) {
             maxScreenSpanValue = config.maxScreenSpanValue
         }
-        setMode(mMode, true)
+        setMode(mMode, isWaveFullScreen = true)
     }
 
     open fun setRange(start: Long, end: Long) {
@@ -452,7 +452,6 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
     fun time2PositionInTimeline(timeStamp: Long): Float {
         return (cursorPosition + (timeStamp - cursorValue) * unitMsPixel)
     }
-
 
 
     /**
@@ -1012,7 +1011,8 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
      */
     private fun setMode(
         @Mode mode: Int,
-        isRefreshUnitPixel: Boolean = true
+        isRefreshUnitPixel: Boolean = true,
+        isWaveFullScreen: Boolean = false
     ) {
         //计算屏幕显示多少时间
         var screeWithDuration: Long
@@ -1020,7 +1020,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
         screeWithDuration = SCREEN_WIDTH_TIME_VALUE_ARRAY[index]
         //检测是否超出范围
-        if (screeWithDuration > maxScreenSpanValue) {
+        if (screeWithDuration > maxScreenSpanValue || isWaveFullScreen) {
             screeWithDuration = maxScreenSpanValue
             SCREEN_WIDTH_TIME_VALUE_ARRAY.forEachReversedWithIndex { i, value ->
                 if (value > screeWithDuration) {
