@@ -25,6 +25,8 @@ open class AudioCutEditorView @JvmOverloads constructor(
      */
     private var touchCutLine = false
 
+    private var touchPlayingLine = false
+
     init {
         init()
     }
@@ -70,6 +72,12 @@ open class AudioCutEditorView @JvmOverloads constructor(
                     touchCutLine = true
                     return true
                 }
+                var isTargetPlayLine = isPlayingLineTarget(event)
+                if (isTargetPlayLine) {
+                    currentPlayingPosition = event.x
+                    touchPlayingLine = true
+                    return true
+                }
             }
 
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
@@ -79,7 +87,12 @@ open class AudioCutEditorView @JvmOverloads constructor(
                 if (touchCutLine) {
                     audioFragment?.onTouchEvent(context, this@AudioCutEditorView, event)
                 }
+                if(touchPlayingLine){
+                    currentPlayingPosition = event.x
+                    invalidate()
+                }
                 touchCutLine = false
+                touchPlayingLine = false
             }
 
             MotionEvent.ACTION_MOVE -> {
@@ -88,6 +101,11 @@ open class AudioCutEditorView @JvmOverloads constructor(
                 )
                 if (touchCutLine) {
                     audioFragment?.onTouchEvent(context, this@AudioCutEditorView, event)
+                    return true
+                }
+                if(touchPlayingLine){
+                    currentPlayingPosition = event.x
+                    invalidate()
                     return true
                 }
             }
@@ -110,6 +128,12 @@ open class AudioCutEditorView @JvmOverloads constructor(
         color = Color.WHITE
         strokeWidth = CutPieceFragment.strokeWidth_cut
     }
+
+
+    private fun isPlayingLineTarget(event: MotionEvent): Boolean {
+        return event.x <= currentPlayingPosition + 10 && event.x >= currentPlayingPosition - 10
+    }
+
 
 //    private var currentPlayingPosition: Int = 0
 //        get() {
@@ -149,7 +173,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
             cursorValue = startValue
             currentPlayingPosition = 0f
             currentPlayingTimeInTimeLine = startValue
-            currentPlayingTimeInAudio  = 0
+            currentPlayingTimeInAudio = 0
             invalidate()
             return
         }
