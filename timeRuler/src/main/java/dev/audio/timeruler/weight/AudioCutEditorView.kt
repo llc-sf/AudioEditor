@@ -169,13 +169,13 @@ open class AudioCutEditorView @JvmOverloads constructor(
         invalidate()
     }
 
-    override fun notifycu() {
-        super.notifycu()
-        extracted(cursorValue)
+    override fun notifyPlayLine() {
+        super.notifyPlayLine()
+        notifyPlayLineImp()
     }
 
-    private fun extracted(new: Long) {
-        currentPlayingTimeInTimeLine = new + (currentPlayingPosition / unitMsPixel).toLong()
+    private fun notifyPlayLineImp() {
+        currentPlayingTimeInTimeLine = cursorValue + (currentPlayingPosition / unitMsPixel).toLong()
         currentPlayingTimeInAudio = currentPlayingTimeInTimeLine - startValue
     }
 
