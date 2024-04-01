@@ -90,7 +90,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
                 if (touchCutLine) {
                     audioFragment?.onTouchEvent(context, this@AudioCutEditorView, event)
                 }
-                if(touchPlayingLine){
+                if (touchPlayingLine) {
                     currentPlayingPosition = event.x
                     cursorValue + (currentPlayingPosition / unitMsPixel).toLong()
                     invalidate()
@@ -107,7 +107,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
                     audioFragment?.onTouchEvent(context, this@AudioCutEditorView, event)
                     return true
                 }
-                if(touchPlayingLine){
+                if (touchPlayingLine) {
                     currentPlayingPosition = event.x
                     cursorValue + (currentPlayingPosition / unitMsPixel).toLong()
                     invalidate()
@@ -209,11 +209,31 @@ open class AudioCutEditorView @JvmOverloads constructor(
     }
 
     /**
-     *
+     * 更新播放条位置  因为档位改变
      */
-    override fun updatePlayingLineByModeChange() {
-        super.updatePlayingLineByModeChange()
-        cursorValue = currentPlayingTimeInTimeLine - (currentPlayingPosition / unitMsPixel).toLong()
+    override fun updatePlayingLineByModeChange(v: Int) {
+        super.updatePlayingLineByModeChange(v)
+        if (v < 0) {
+            //缩小档位
+            var tempCursorValue =
+                currentPlayingTimeInTimeLine - (currentPlayingPosition / unitMsPixel).toLong()
+            if (tempCursorValue < startValue) {
+                //头部出现空白现象
+                cursorValue = startValue
+                currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
+            } else if (tempCursorValue + screenWithDuration > endValue) {
+                //尾部出现空白现象
+                cursorValue = endValue - screenWithDuration
+                currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
+            } else {
+                cursorValue =
+                    currentPlayingTimeInTimeLine - (currentPlayingPosition / unitMsPixel).toLong()
+            }
+        } else {
+            //放大档位
+            currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
+        }
+
     }
 
     /**

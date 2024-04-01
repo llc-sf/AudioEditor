@@ -1053,12 +1053,12 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         }
         if(!isWaveFullScreen){
             //刷新游标位置
-            updatePlayingLineByModeChange()
+            updatePlayingLineByModeChange(index-mode)
         }
         invalidate()
     }
 
-    open fun updatePlayingLineByModeChange() {
+    open fun updatePlayingLineByModeChange(v:Int) {
     }
 
 
