@@ -10,6 +10,7 @@ import android.view.MotionEvent
 import dev.audio.timeruler.weight.BaseAudioEditorView.TickMarkStrategy
 import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.player.PlayerManager
+import dev.audio.timeruler.utils.formatToCursorDateString
 
 open class AudioCutEditorView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
@@ -50,6 +51,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
         }
         currentPlayingTimeInAudio = (audioFragment!!.duration / 6f).toLong()
         currentPlayingPosition = (audioFragment!!.duration / 6f) * unitMsPixel
+        currentPlayingTimeInTimeLine = cursorValue + currentPlayingTimeInAudio
         invalidate() // 触发重新绘制
     }
 
@@ -204,6 +206,14 @@ open class AudioCutEditorView @JvmOverloads constructor(
     private fun notifyPlayLineImp() {
         currentPlayingTimeInTimeLine = cursorValue + (currentPlayingPosition / unitMsPixel).toLong()
         currentPlayingTimeInAudio = currentPlayingTimeInTimeLine - startValue
+    }
+
+    /**
+     *
+     */
+    override fun updatePlayingLineByModeChange() {
+        super.updatePlayingLineByModeChange()
+        cursorValue = currentPlayingTimeInTimeLine - (currentPlayingPosition / unitMsPixel).toLong()
     }
 
     /**
