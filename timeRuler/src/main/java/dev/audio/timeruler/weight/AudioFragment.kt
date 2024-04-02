@@ -25,6 +25,7 @@ open class AudioFragment(private var audioEditorView: BaseAudioEditorView) {
         const val DEFAULT_WAVE_VERTICAL_POSITION = 200f
         const val DEFAULT_WAVE_COLOR = Color.RED
         const val WAVE_STEP = 20
+        const val WAVE_STEP_CONTINUOUS = 400
     }
 
     /**
@@ -58,7 +59,8 @@ open class AudioFragment(private var audioEditorView: BaseAudioEditorView) {
     //波形高度
     var maxWaveHeight: Float = DEFAULT_WAVE_HEIGHT
 
-    var waveStep = WAVE_STEP
+    private var waveStep = WAVE_STEP
+    private var waveStepContinuous = WAVE_STEP_CONTINUOUS
 
     //波形宽度
     private val waveViewWidth
@@ -214,6 +216,79 @@ open class AudioFragment(private var audioEditorView: BaseAudioEditorView) {
         }
         canvas.drawRect(rect!!, rectPaint)
 
+    }
+
+    open fun onDrawContinuous(canvas: Canvas) {
+        var wf = waveform
+        val samples = wf?.amplitudes ?: return
+        val centerY = getTrackYPosition() // 使用新变量设置垂直位置 //            val centerY = waveVerticalPosition // 使用新变量设置垂直位置
+        val maxAmplitude = (samples.maxOrNull() ?: 1).toFloat()
+
+        // 使用 maxWaveHeight 变量来控制波形高度
+        val amplitudeScale = maxWaveHeight
+
+        val path = Path()
+        val upperPoints = mutableListOf<Pair<Float, Float>>()
+
+        Log.i(time_line_tag, "drawWave index=$index offsetCursorValue = ${cursorValue - cursorValue}")
+
+        for (i in samples.indices step waveStepContinuous) { // 步长设置为400，可根据需要调整
+            val x = (waveViewWidth * (i / samples.size.toFloat())) + x
+            val sampleValue = (samples[i] / maxAmplitude) * amplitudeScale
+            val y = centerY - sampleValue
+            upperPoints.add(Pair(x, y))
+        }
+
+        upperPoints.add(Pair(waveViewWidth + x, centerY))
+
+        path.moveTo(0f + x, centerY)
+        for (i in 0 until upperPoints.size - 1) {
+            val (x1, y1) = upperPoints[i]
+            val (x2, y2) = upperPoints[i + 1]
+            val midX = (x1 + x2) / 2
+            val midY = (y1 + y2) / 2
+            path.quadTo(x1, y1, midX, midY)
+        }
+
+        val (lastUpperX, lastUpperY) = upperPoints.last()
+        path.lineTo(lastUpperX, lastUpperY)
+
+        for (i in upperPoints.size - 2 downTo 0) {
+            val (x1, y1) = upperPoints[i]
+            val y = 2 * centerY - y1
+            if (i > 0) {
+                val (x2, y2) = upperPoints[i - 1]
+                val midX = (x1 + x2) / 2
+                val midY = 2 * centerY - (y1 + y2) / 2
+                path.quadTo(x1, y, midX, midY)
+            } else {
+                path
+
+                // 最后连接回到起始点的中心线
+                path.lineTo(x1, y)
+            }
+        }
+
+        // 闭合路径
+        path.lineTo(0f + x, centerY)
+
+        // 绘制路径
+        canvas.drawPath(path, mWavePaint)
+        rect = Rect((0f + x).toInt(), (centerY - maxWaveHeight).toInt(), ((0f + x) + waveViewWidth).toInt(), (maxWaveHeight + centerY).toInt()).apply {
+            Log.i(long_press_tag, "index:${index} draw: $this")
+        } //画空心rect
+        val rectPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            this.color = Color.RED
+            this.style = Paint.Style.STROKE
+            this.strokeWidth = strokeWidth
+        }
+        canvas.drawRect(rect!!, rectPaint)
+        Log.i(time_line_tag, "timeline drawWave index=$index cursorValueTotal:${
+            TimeUtil.getDetailTime(cursorValue)
+        },cursorValue:${TimeUtil.getDetailTime(cursorValue)},startValue:${
+            TimeUtil.getDetailTime(startTimestamp)
+        }")
+        Log.i(time_line_tag, "timeline drawWave index=$index currentTime:${cursorValue - startTimestamp} [${startTimestamp},${endTimestamp}]")
     }
 
 
