@@ -229,28 +229,6 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                 currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
             }
         }
-
-        //        if (v < 0) {
-        //            //缩小档位
-        //            var tempCursorValue =
-        //                currentPlayingTimeInTimeLine - (currentPlayingPosition / unitMsPixel).toLong()
-        //            if (tempCursorValue < startValue) {
-        //                //头部出现空白现象
-        //                cursorValue = startValue
-        //                currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
-        //            } else if (tempCursorValue + screenWithDuration > endValue) {
-        //                //尾部出现空白现象
-        //                cursorValue = endValue - screenWithDuration
-        //                currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
-        //            } else {
-        //                cursorValue =
-        //                    currentPlayingTimeInTimeLine - (currentPlayingPosition / unitMsPixel).toLong()
-        //            }
-        //        } else {
-        //            //放大档位
-        //            currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
-        //        }
-
     }
 
     /**
