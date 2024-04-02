@@ -204,6 +204,51 @@ open class AudioFragment(private var audioEditorView: BaseAudioEditorView) {
             canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, mWavePaint)
         }
 
+        waveRect(centerY, canvas)
+
+    }
+
+
+    open fun onDrawEndDeal(canvas: Canvas) {
+        var wf = waveform
+        val samples = wf?.amplitudes ?: return
+        val centerY = getTrackYPosition()
+        val maxAmplitude = (samples.maxOrNull() ?: 1).toFloat()
+
+        val fixedBarWidth = 8f
+        val fixedGapWidth = 8f
+        val cornerRadius = fixedBarWidth / 2
+        val totalWidthNeeded = fixedBarWidth + fixedGapWidth
+
+        // 调整最后一个矩形的间隔以填充整个宽度
+        val adjustedWaveViewWidth = waveViewWidth - fixedGapWidth // 确保最后一个矩形条后没有多余的间隔
+        val barsToFit = (adjustedWaveViewWidth / totalWidthNeeded).toInt()
+        val actualWidthUsed = barsToFit * totalWidthNeeded
+        val remainingWidth = adjustedWaveViewWidth - actualWidthUsed
+        val additionalGap = if (barsToFit > 0) remainingWidth / barsToFit else 0f
+
+        val step = (samples.size.toFloat() / (barsToFit + 1)).toInt().coerceAtLeast(1)
+
+        for (i in 0 until barsToFit) {
+            val sampleIndex = i * step
+            if (sampleIndex >= samples.size) break
+
+            val scaledSampleValue = (samples[sampleIndex] / maxAmplitude) * maxWaveHeight
+            val barHeight = scaledSampleValue * 2
+
+            val xPosition = i * (totalWidthNeeded + additionalGap) + x
+            val top = centerY - (barHeight / 2)
+            val bottom = centerY + (barHeight / 2)
+
+            val rectF = RectF(xPosition, top, xPosition + fixedBarWidth, bottom)
+            canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, mWavePaint)
+        }
+
+        waveRect(centerY, canvas)
+
+    }
+
+    private fun waveRect(centerY: Float, canvas: Canvas) {
         rect = Rect((0f + x).toInt(), (centerY - maxWaveHeight).toInt(), ((0f + x) + waveViewWidth).toInt(), (maxWaveHeight + centerY).toInt()).apply {
             Log.i(long_press_tag, "index:${index} draw: $this")
         }
@@ -215,8 +260,8 @@ open class AudioFragment(private var audioEditorView: BaseAudioEditorView) {
             this.strokeWidth = strokeWidth
         }
         canvas.drawRect(rect!!, rectPaint)
-
     }
+
 
     open fun onDrawContinuous(canvas: Canvas) {
         var wf = waveform
