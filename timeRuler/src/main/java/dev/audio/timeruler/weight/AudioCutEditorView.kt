@@ -13,9 +13,9 @@ import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.player.PlayerManager
 import dev.audio.timeruler.utils.formatToCursorDateString
 
-open class AudioCutEditorView @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null
-) : BaseAudioEditorView(context, attrs), TickMarkStrategy {
+open class AudioCutEditorView @JvmOverloads constructor(context: Context,
+                                                        attrs: AttributeSet? = null) :
+    BaseAudioEditorView(context, attrs), TickMarkStrategy {
 
     /**
      * 波形数据
@@ -66,9 +66,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
         }
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                Log.i(
-                    cut_tag, "onTouchEvent: ACTION_DOWN touchCutLine=$touchCutLine"
-                )
+                Log.i(cut_tag, "onTouchEvent: ACTION_DOWN touchCutLine=$touchCutLine")
                 var isTargetCut = audioFragment?.isCutLineTarget(event) ?: false
                 if (isTargetCut) {
                     audioFragment?.onTouchEvent(context, this@AudioCutEditorView, event)
@@ -85,9 +83,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
             }
 
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                Log.i(
-                    cut_tag, "onTouchEvent: ACTION_UP touchCutLine=$touchCutLine"
-                )
+                Log.i(cut_tag, "onTouchEvent: ACTION_UP touchCutLine=$touchCutLine")
                 if (touchCutLine) {
                     audioFragment?.onTouchEvent(context, this@AudioCutEditorView, event)
                 }
@@ -101,9 +97,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
             }
 
             MotionEvent.ACTION_MOVE -> {
-                Log.i(
-                    cut_tag, "onTouchEvent: ACTION_MOVE touchCutLine=$touchCutLine"
-                )
+                Log.i(cut_tag, "onTouchEvent: ACTION_MOVE touchCutLine=$touchCutLine")
                 if (touchCutLine) {
                     audioFragment?.onTouchEvent(context, this@AudioCutEditorView, event)
                     return true
@@ -141,18 +135,15 @@ open class AudioCutEditorView @JvmOverloads constructor(
     }
 
 
-//    private var currentPlayingPosition: Int = 0
-//        get() {
-//            this.cursorValue = startValue + currentPosition
-//        }
+    //    private var currentPlayingPosition: Int = 0
+    //        get() {
+    //            this.cursorValue = startValue + currentPosition
+    //        }
 
 
     private fun drawPlayingLine(canvas: Canvas) {
-        canvas.drawLine(
-            currentPlayingPosition, 0.0f,
-            currentPlayingPosition, audioFragment?.rect?.bottom?.toFloat() ?: 0f,
-            playingLinePaint
-        )
+        canvas.drawLine(currentPlayingPosition, 0.0f, currentPlayingPosition, audioFragment?.rect?.bottom?.toFloat()
+            ?: 0f, playingLinePaint)
     }
 
 
@@ -185,14 +176,11 @@ open class AudioCutEditorView @JvmOverloads constructor(
         }
         currentPlayingTimeInAudio = currentPosition
         currentPlayingTimeInTimeLine = startValue + currentPlayingTimeInAudio
-        var tempCursorValue =
-            (currentPlayingTimeInTimeLine - (currentPlayingPosition / unitMsPixel).toLong())
-        if (tempCursorValue + screenWithDuration >= endValue) {
-            //播放条移动
+        var tempCursorValue = (currentPlayingTimeInTimeLine - (currentPlayingPosition / unitMsPixel).toLong())
+        if (tempCursorValue + screenWithDuration >= endValue) { //播放条移动
             this.cursorValue = endValue - screenWithDuration
             currentPlayingPosition = (currentPlayingTimeInTimeLine - this.cursorValue) * unitMsPixel
-        } else {
-            //音波移动
+        } else { //音波移动
             cursorValue = tempCursorValue
 
         }
@@ -215,38 +203,53 @@ open class AudioCutEditorView @JvmOverloads constructor(
     override fun updatePlayingLineByModeChange(v: Int) {
         super.updatePlayingLineByModeChange(v)
         cursorValue = currentPlayingTimeInTimeLine - (currentPlayingPosition / unitMsPixel).toLong()
-        if(cursorValue < startValue){
-            //左边有空白
-            Log.i(playline_tag,"左边有空白")
+        if (cursorValue < startValue) { //左边有空白
+            Log.i(playline_tag, "左边有空白")
             cursorValue = startValue
-            currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
-        }else if(cursorValue + screenWithDuration > endValue){
-            //右边有空白
-            Log.i(playline_tag,"右边有空白")
+            currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel //避免播放条太靠左
+        } else if (cursorValue + screenWithDuration > endValue) { //右边有空白
+            Log.i(playline_tag, "右边有空白")
             cursorValue = endValue - screenWithDuration
-            currentPlayingPosition = ScreenUtil.getScreenWidth(context).toFloat() - (endValue - currentPlayingTimeInTimeLine) * unitMsPixel
+            currentPlayingPosition = ScreenUtil.getScreenWidth(context)
+                .toFloat() - (endValue - currentPlayingTimeInTimeLine) * unitMsPixel
         }
 
-//        if (v < 0) {
-//            //缩小档位
-//            var tempCursorValue =
-//                currentPlayingTimeInTimeLine - (currentPlayingPosition / unitMsPixel).toLong()
-//            if (tempCursorValue < startValue) {
-//                //头部出现空白现象
-//                cursorValue = startValue
-//                currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
-//            } else if (tempCursorValue + screenWithDuration > endValue) {
-//                //尾部出现空白现象
-//                cursorValue = endValue - screenWithDuration
-//                currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
-//            } else {
-//                cursorValue =
-//                    currentPlayingTimeInTimeLine - (currentPlayingPosition / unitMsPixel).toLong()
-//            }
-//        } else {
-//            //放大档位
-//            currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
-//        }
+        //避免播放条太靠左
+        if (time2PositionInTimeline(startValue) < 0) {
+            //右移动波形不会导致播放条向右超出屏幕
+            if (currentPlayingPosition + (cursorValue - startValue).time2Pixel(unitMsPixel) < ScreenUtil.getScreenWidth(context)) {
+                cursorValue = startValue
+                currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
+            }
+        } //避免播放条太靠右
+        if (time2PositionInTimeline(endValue) > ScreenUtil.getScreenWidth(context)) {
+            if (currentPlayingPosition - (time2PositionInTimeline(endValue) - ScreenUtil.getScreenWidth(context)) > 0) {
+                //左移动波形不会导致播放条向左超出屏幕
+                cursorValue = endValue - screenWithDuration
+                currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
+            }
+        }
+
+        //        if (v < 0) {
+        //            //缩小档位
+        //            var tempCursorValue =
+        //                currentPlayingTimeInTimeLine - (currentPlayingPosition / unitMsPixel).toLong()
+        //            if (tempCursorValue < startValue) {
+        //                //头部出现空白现象
+        //                cursorValue = startValue
+        //                currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
+        //            } else if (tempCursorValue + screenWithDuration > endValue) {
+        //                //尾部出现空白现象
+        //                cursorValue = endValue - screenWithDuration
+        //                currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
+        //            } else {
+        //                cursorValue =
+        //                    currentPlayingTimeInTimeLine - (currentPlayingPosition / unitMsPixel).toLong()
+        //            }
+        //        } else {
+        //            //放大档位
+        //            currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
+        //        }
 
     }
 
