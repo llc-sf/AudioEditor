@@ -48,6 +48,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(
         const val deadline_tag = "deadline_tag"
         const val init_tag = "init_tag"
         const val wave_tag = "wave_tag"
+        const val playline_tag = "playline_tag"
 
         /**
          * updateScaleInfo(500ms, 100ms);
