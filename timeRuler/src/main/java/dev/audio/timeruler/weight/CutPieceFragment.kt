@@ -164,9 +164,14 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
         canvas.drawLine(startTimestampPosition, timestampHandlerRadius * 2, startTimestampPosition, //            height.toFloat(),
                         rect?.bottom?.toFloat() ?: 0f, timestampLinePaint)
         canvas.drawLine(endTimestampPosition, timestampHandlerRadius * 2, endTimestampPosition, //            height.toFloat(),
-                        rect?.bottom?.toFloat() ?: 0f, timestampLinePaint)
-
-        // 绘制圆圈标记在直线的顶端
+                        rect?.bottom?.toFloat()
+                            ?: 0f, timestampLinePaint) //        if(startTimestampPosition<0){
+        //
+        //        }
+        //        if(endTimestampPosition>ScreenUtil.getScreenWidth(audio.getContext())){
+        //
+        //        }
+        audio.refreshCutLineAnchor(isMajor && (startTimestampPosition < 0 || startTimestampPosition > ScreenUtil.getScreenWidth(audio.getContext())), isMajor && (endTimestampPosition > ScreenUtil.getScreenWidth(audio.getContext()) || endTimestampPosition < 0)) // 绘制圆圈标记在直线的顶端
         canvas.drawCircle(startTimestampPosition, timestampHandlerRadius, timestampHandlerRadius, timestampHandlerPaint)
         canvas.drawCircle(endTimestampPosition, timestampHandlerRadius, timestampHandlerRadius, timestampHandlerPaint)
     }
@@ -244,6 +249,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
 
             //移动波形图的距离
             const val MOVE_STEP_TIME = 500L
+
             //移动波形图的时间间隔
             const val MOVE_INTERVAL_TIME_DELAY = 6L
 
@@ -465,5 +471,27 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
         this.cutMode = cutMode
     }
 
+    fun ancher2CutEndLine() {
+        if (isMajor) {
+            var offsetTimeValue = ((ScreenUtil.getScreenWidth(audio.getContext())
+                .toFloat() / 2 - endTimestampPosition) / unitMsPixel).toLong()
+            var tempCursor = audio.cursorValue - offsetTimeValue
+            if (tempCursor + audio.screenWithDuration > audio.endTimestamp) { //不足了
+                tempCursor = audio.endTimestamp - audio.screenWithDuration
+            }
+            audio.audioEditorView.cursorValue = tempCursor
+        }
+    }
 
+    fun ancher2CutStartLine() {
+        if (isMajor) {
+            var offsetTimeValue = ((ScreenUtil.getScreenWidth(audio.getContext())
+                .toFloat() / 2 - startTimestampPosition) / unitMsPixel).toLong()
+            var tempCursor = audio.cursorValue - offsetTimeValue
+            if (tempCursor < audio.startTimestamp) { //不足了
+                tempCursor = audio.startTimestamp
+            }
+            audio.audioEditorView.cursorValue = tempCursor
+        }
+    }
 }

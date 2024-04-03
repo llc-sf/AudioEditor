@@ -12,7 +12,7 @@ import android.view.View
  *
  * 带裁剪模式
  */
-class AudioFragmentWithCut(audioEditorView: BaseAudioEditorView) :
+class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) :
     AudioFragment(audioEditorView) {
 
 
@@ -85,6 +85,23 @@ class AudioFragmentWithCut(audioEditorView: BaseAudioEditorView) :
     fun setCutMode(cutMode: Int) {
         cutPieceFragments.forEach {
             it.setCutMode(cutMode)
+        }
+    }
+
+    fun refreshCutLineAnchor(start: Boolean, end: Boolean) {
+        Log.i(BaseAudioEditorView.cut_tag, "refreshCutLineAnchor: start=$start  end=$end")
+        (audioEditorView as AudioCutEditorView)?.refreshCutLineAnchor(start,end)
+    }
+
+    fun ancher2CutEndLine() {
+        cutPieceFragments.forEach {
+            it.ancher2CutEndLine()
+        }
+    }
+
+    fun ancher2CutStartLine() {
+        cutPieceFragments.forEach {
+            it.ancher2CutStartLine()
         }
     }
 

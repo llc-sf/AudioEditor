@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.SeekBar
+import androidx.core.view.isVisible
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.PlaybackParameters
 import com.google.android.exoplayer2.SimpleExoPlayer
@@ -29,6 +30,7 @@ import dev.audio.timeruler.listener.OnScaleChangeListener
 import dev.audio.timeruler.multitrack.MultiTrackRenderersFactory
 import dev.audio.timeruler.multitrack.MultiTrackSelector
 import dev.audio.timeruler.utils.format2Duration
+import dev.audio.timeruler.weight.AudioCutEditorView
 import dev.audio.timeruler.weight.AudioEditorConfig
 import dev.audio.timeruler.weight.BaseAudioEditorView
 import dev.audio.timeruler.weight.CutPieceFragment
@@ -53,8 +55,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         var song = arguments?.getSerializable(AudioCutActivity.PARAM_SONG)
         Log.i(TAG, "song: $song")
         if (song is Song) {
-            mViewModel =
-                AudioCutViewModel(arguments?.getSerializable(AudioCutActivity.PARAM_SONG) as Song)
+            mViewModel = AudioCutViewModel(arguments?.getSerializable(AudioCutActivity.PARAM_SONG) as Song)
         } else {
             activity?.finish()
         }
@@ -69,14 +70,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         PlayerManager.playByPath(mViewModel.song.path)
         viewBinding.toolbar.ImmerseDesign()
         initTimeBar()
-
-        PlayerManager.addProgressListener(object : PlayerProgressCallback {
-            override fun onProgressChanged(position: Long, duration: Long) {
-                if (isAdded) {
-                    viewBinding.timeBar.setPlayerProgress(position, duration)
-                }
-            }
-        })
     }
 
     override fun onDestroyView() {
@@ -85,8 +78,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
     }
 
     override fun startObserve() {
-        mViewModel.audioCutState.observe(viewLifecycleOwner) {
-        }
+        mViewModel.audioCutState.observe(viewLifecycleOwner) {}
     }
 
 
@@ -115,24 +107,20 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         var endTime = calendar.timeInMillis
 
         //一个手机宽度显示多长时间
-//        viewBinding.timeBar.setScreenSpanValue(TimeRulerBar.VALUE_1000_MS * 8)
-//        viewBinding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[2])
-//        viewBinding.timeBar.setRange(startTime, endTime)
+        //        viewBinding.timeBar.setScreenSpanValue(TimeRulerBar.VALUE_1000_MS * 8)
+        //        viewBinding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[2])
+        //        viewBinding.timeBar.setRange(startTime, endTime)
 
-        viewBinding.timeBar.initConfig(
-            AudioEditorConfig.Builder()
-                .mode(BaseAudioEditorView.MODE_ARRAY[2])
-                .startValue(startTime)
-                .endValue(endTime)
-                .maxScreenSpanValue(mViewModel.song.duration.toLong())
-                .build()
-        )
+        viewBinding.timeBar.initConfig(AudioEditorConfig.Builder()
+                                           .mode(BaseAudioEditorView.MODE_ARRAY[2])
+                                           .startValue(startTime).endValue(endTime)
+                                           .maxScreenSpanValue(mViewModel.song.duration.toLong())
+                                           .build())
         viewBinding.durationTime.text = mViewModel.song.duration.toLong().format2Duration()
         viewBinding.durationTime1.text = (mViewModel.song.duration / 1000).toString()
         viewBinding.scale.text = viewBinding.timeBar.mMode.toString()
 
-        viewBinding.timeBar.setOnCursorListener(object :
-            BaseAudioEditorView.OnCursorListener {
+        viewBinding.timeBar.setOnCursorListener(object : BaseAudioEditorView.OnCursorListener {
             override fun onStartTrackingTouch(cursorValue: Long) {
                 viewBinding.tvData.text = cursorDateFormat.format(Date(cursorValue))
             }
@@ -160,7 +148,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         })
 
         viewBinding.seekAreaOffset.setOnSeekBarChangeListener(object :
-            SeekBar.OnSeekBarChangeListener {
+                                                                  SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
             }
 
@@ -213,15 +201,40 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         }
 
         viewBinding.play.setOnClickListener {
-            if(viewBinding.timeBar.getCurrentPosition()>0){
+            if (viewBinding.timeBar.getCurrentPosition() > 0) {
                 PlayerManager.playWithSeek(viewBinding.timeBar.getCurrentPosition())
-            }else{
+            } else {
                 PlayerManager.play()
             }
 
         }
         viewBinding.pause.setOnClickListener {
             PlayerManager.pause()
+        }
+
+        PlayerManager.addProgressListener(object : PlayerProgressCallback {
+            override fun onProgressChanged(position: Long, duration: Long) {
+                if (isAdded) {
+                    viewBinding.timeBar.setPlayerProgress(position, duration)
+                }
+            }
+        })
+
+        viewBinding.timeBar.addOnCutLineChangeListener(object :
+                                                           AudioCutEditorView.OnCutLineChangeListener {
+
+            override fun onCutLineChange(start: Boolean, end: Boolean) {
+                viewBinding.clpLeft.visibility = if (start) View.VISIBLE else View.INVISIBLE
+                viewBinding.clpRight.visibility = if (end) View.VISIBLE else View.INVISIBLE
+            }
+        })
+
+        viewBinding.clpLeft.setOnClickListener {
+            viewBinding.timeBar.ancher2CutStartLine()
+        }
+
+        viewBinding.clpRight.setOnClickListener {
+            viewBinding.timeBar.ancher2CutEndLine()
         }
 
         setData()
@@ -240,14 +253,8 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         val timeBean = TimeBean(videos)
         viewBinding.timeBar.setColorScale(timeBean)
 
-        WaveformOptions.getSampleFrom(
-            requireContext(),
-            mViewModel.song.path
-        ) {
-            viewBinding.timeBar.setWaveform(
-                Waveform(it.toList()),
-                mViewModel.song.duration.toLong()
-            )
+        WaveformOptions.getSampleFrom(requireContext(), mViewModel.song.path) {
+            viewBinding.timeBar.setWaveform(Waveform(it.toList()), mViewModel.song.duration.toLong())
         }
 
         viewBinding.timeBar.setOnScaleChangeListener(object : OnScaleChangeListener {
@@ -287,38 +294,22 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
     }
 
 
-    private fun play(context: Context) {
-        // 创建 ExoPlayer 实例
+    private fun play(context: Context) { // 创建 ExoPlayer 实例
         val player: SimpleExoPlayer = initExoPlayer(context)
 
-        var dataSourceFactory = DefaultDataSourceFactory(
-            context,
-            Util.getUserAgent(context, context.packageName)
-        )
-        // 创建多个 MediaSource，分别对应不同的音频文件
-        val audioSource1 = ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(
-            MediaItem.fromUri(
-                "content://media/external/audio/media/5184"
-            )
-        )
+        var dataSourceFactory = DefaultDataSourceFactory(context, Util.getUserAgent(context, context.packageName)) // 创建多个 MediaSource，分别对应不同的音频文件
+        val audioSource1 = ProgressiveMediaSource.Factory(dataSourceFactory)
+            .createMediaSource(MediaItem.fromUri("content://media/external/audio/media/5184"))
         player.playWhenReady = true
         player.setMediaSource(
 
-            MergingMediaSource(
-                audioSource1
-            )
-        )
+            MergingMediaSource(audioSource1))
     }
 
 
     private fun initExoPlayer(mAppContext: Context): SimpleExoPlayer {
-        val player = SimpleExoPlayer.Builder(
-            mAppContext,
-            MultiTrackRenderersFactory(
-                2,
-                mAppContext
-            )
-        ).setTrackSelector(MultiTrackSelector()).build()
+        val player = SimpleExoPlayer.Builder(mAppContext, MultiTrackRenderersFactory(2, mAppContext))
+            .setTrackSelector(MultiTrackSelector()).build()
         player.repeatMode = SimpleExoPlayer.REPEAT_MODE_ALL
         player.playWhenReady = true
         player.setPlaybackParameters(PlaybackParameters(1f))

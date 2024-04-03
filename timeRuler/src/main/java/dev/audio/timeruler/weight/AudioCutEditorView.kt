@@ -123,6 +123,10 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         drawPlayingLine(canvas)
     }
 
+    fun onDrawCutLinePosition(canvas: Canvas) {
+
+    }
+
 
     private val playingLinePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.WHITE
@@ -273,6 +277,29 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     fun setCutMode(cutMode: Int) {
         audioFragment?.setCutMode(cutMode)
         invalidate()
+    }
+
+
+    interface OnCutLineChangeListener {
+        fun onCutLineChange(start: Boolean, end: Boolean)
+    }
+
+    private var onCutLineChangeListener: OnCutLineChangeListener? = null
+
+    fun addOnCutLineChangeListener(listener: OnCutLineChangeListener) {
+        onCutLineChangeListener = listener
+    }
+
+    fun refreshCutLineAnchor(start: Boolean, end: Boolean) {
+        onCutLineChangeListener?.onCutLineChange(start, end)
+    }
+
+    fun ancher2CutEndLine() {
+        audioFragment?.ancher2CutEndLine()
+    }
+
+    fun ancher2CutStartLine() {
+        audioFragment?.ancher2CutStartLine()
     }
 
 

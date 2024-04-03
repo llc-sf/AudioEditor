@@ -20,7 +20,7 @@
     <dev.audio.timeruler.weight.AudioCutEditorView
         android:id="@+id/timeBar"
         android:layout_width="match_parent"
-        android:layout_height="382dp"
+        android:layout_height="260dp"
         android:background="#141414"
         app:baselinePosition="0.0"
         app:colorScaleBackground="#141414"
@@ -148,6 +148,32 @@
             android:text="pause" />
     </LinearLayout>
 
+
+    <LinearLayout
+        android:id="@+id/cutLinePosition"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/play_actions">
+
+        <Button
+            android:id="@+id/clp_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="start"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/clp_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="end"
+            android:visibility="invisible" />
+    </LinearLayout>
+
     <RadioGroup
         android:id="@+id/rg_model"
         android:layout_width="0dp"
@@ -156,7 +182,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/play_actions">
+        app:layout_constraintTop_toBottomOf="@id/cutLinePosition">
 
         <RadioButton
             android:id="@+id/model1"
