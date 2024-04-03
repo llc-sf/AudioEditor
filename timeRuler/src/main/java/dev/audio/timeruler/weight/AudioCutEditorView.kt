@@ -11,6 +11,7 @@ import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.timeruler.weight.BaseAudioEditorView.TickMarkStrategy
 import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.player.PlayerManager
+import kotlin.reflect.KProperty
 
 open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                                                         attrs: AttributeSet? = null) :
@@ -87,8 +88,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                     audioFragment?.onTouchEvent(context, this@AudioCutEditorView, event)
                 }
                 if (touchPlayingLine) {
-                    currentPlayingPosition = event.x
-                    cursorValue + (currentPlayingPosition / unitMsPixel).toLong()
+                    manuallyUpdatePlayingLine(event)
                     invalidate()
                 }
                 touchCutLine = false
@@ -102,7 +102,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                     return true
                 }
                 if (touchPlayingLine) {
-                    currentPlayingPosition = event.x
+                    manuallyUpdatePlayingLine(event)
                     Log.i(playline_tag, "onTouchEvent: ACTION_MOVE currentPlayingPosition=$currentPlayingPosition") //                    cursorValue + (currentPlayingPosition / unitMsPixel).toLong()
                     invalidate()
                     return true
@@ -111,6 +111,28 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         }
         Log.i(cut_tag, "super.onTouchEvent(event)")
         return super.onTouchEvent(event)
+    }
+
+    override fun cursorValueChange(prop: KProperty<*>, old: Long, new: Long) {
+        super.cursorValueChange(prop, old, new)
+        refreshPlayingLine()
+        //todo cursor改变引发的一些列变化 总结
+    }
+
+    /**
+     * 主动更新播放条
+     */
+    private fun manuallyUpdatePlayingLine(event: MotionEvent) {
+        currentPlayingPosition = event.x
+        currentPlayingTimeInTimeLine = cursorValue + (currentPlayingPosition / unitMsPixel).toLong()
+        currentPlayingTimeInAudio = currentPlayingTimeInTimeLine - startValue
+    }
+
+    /**
+     * 被动刷新播放条位置
+     */
+    private fun refreshPlayingLine() {
+        currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
     }
 
     override fun drawWaveformSeekBar(canvas: Canvas) {
