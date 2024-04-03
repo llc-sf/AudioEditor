@@ -738,6 +738,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
             if (null != mOnCursorListener) {
                 mOnCursorListener!!.onProgressChanged(cursorValue, true)
             }
+            notifyPlayLine()
             invalidate()
         } else {
             if (status == STATUS_SCROLL_FLING) {
@@ -747,7 +748,6 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
                 }
             }
         }
-        notifyPlayLine()
     }
 
     override fun onLongPress(e: MotionEvent) {

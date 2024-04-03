@@ -104,12 +104,13 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                 }
                 if (touchPlayingLine) {
                     currentPlayingPosition = event.x
-                    cursorValue + (currentPlayingPosition / unitMsPixel).toLong()
+                    Log.i(playline_tag, "onTouchEvent: ACTION_MOVE currentPlayingPosition=$currentPlayingPosition") //                    cursorValue + (currentPlayingPosition / unitMsPixel).toLong()
                     invalidate()
                     return true
                 }
             }
         }
+        Log.i(cut_tag, "super.onTouchEvent(event)")
         return super.onTouchEvent(event)
     }
 
@@ -166,14 +167,12 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
      * 设置 cursor 位置
      */
     fun setPlayerProgress(currentPosition: Long, duration: Long) {
-        if (currentPlayingPosition > ScreenUtil.getScreenWidth(context) || currentPlayingPosition < 0) {
-            //播放条移动到屏幕外  需要移动波形到屏幕中间
-            cursorValue += (((ScreenUtil.getScreenWidth(context) / 2).toFloat() - currentPlayingPosition)/unitMsPixel).toLong()
+        if (currentPlayingPosition > ScreenUtil.getScreenWidth(context) || currentPlayingPosition < 0) { //播放条移动到屏幕外  需要移动波形到屏幕中间
+            cursorValue += (((ScreenUtil.getScreenWidth(context) / 2).toFloat() - currentPlayingPosition) / unitMsPixel).toLong()
             currentPlayingPosition = (ScreenUtil.getScreenWidth(context) / 2).toFloat()
             invalidate()
         }
-        if (currentPosition >= duration) {
-            //播放结束
+        if (currentPosition >= duration) { //播放结束
             cursorValue = startValue
             currentPlayingPosition = 0f
             currentPlayingTimeInTimeLine = startValue
@@ -204,6 +203,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         //        currentPlayingTimeInAudio = currentPlayingTimeInTimeLine - startValue
 
         //播放条在时间轴上的位置不动
+        Log.i(playline_tag, "notifyPlayLineImp ")
         currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
     }
 
