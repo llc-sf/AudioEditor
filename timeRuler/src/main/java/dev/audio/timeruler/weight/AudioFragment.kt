@@ -18,7 +18,7 @@ import kotlin.math.roundToInt
 /**
  * 波形片段
  */
-open class AudioFragment(private var audioEditorView: BaseAudioEditorView) {
+open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
     companion object {
 
         const val DEFAULT_WAVE_HEIGHT = 150f
@@ -41,7 +41,7 @@ open class AudioFragment(private var audioEditorView: BaseAudioEditorView) {
      * 波形图在时间坐标轴上的结束时间戳
      * （范围：时间角度）
      */
-    private var endTimestamp: Long = 0
+    var endTimestamp: Long = 0
         get() {
             return startTimestamp + duration
         }

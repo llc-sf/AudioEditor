@@ -16,7 +16,10 @@ import android.view.View
 import androidx.annotation.IntDef
 import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.timeruler.bean.Ref
+import dev.audio.timeruler.weight.CutPieceFragment.MoveHandler.Companion.MSG_MOVE_TO_OFFSET
 import java.lang.ref.WeakReference
+import kotlin.math.max
+import kotlin.math.min
 
 
 /**
@@ -159,37 +162,19 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
         drawCut(canvas)
     }
 
-    private fun drawCutLines(canvas: Canvas) {
-        // 绘制代表开始和结束时间戳的线，线的终止位置应在圆圈的下缘
-        canvas.drawLine(
-            startTimestampPosition, timestampHandlerRadius * 2, startTimestampPosition,
-            //            height.toFloat(),
-            rect?.bottom?.toFloat() ?: 0f, timestampLinePaint
-        )
-        canvas.drawLine(
-            endTimestampPosition, timestampHandlerRadius * 2, endTimestampPosition,
-            //            height.toFloat(),
-            rect?.bottom?.toFloat() ?: 0f, timestampLinePaint
-        )
+    private fun drawCutLines(canvas: Canvas) { // 绘制代表开始和结束时间戳的线，线的终止位置应在圆圈的下缘
+        canvas.drawLine(startTimestampPosition, timestampHandlerRadius * 2, startTimestampPosition, //            height.toFloat(),
+                        rect?.bottom?.toFloat() ?: 0f, timestampLinePaint)
+        canvas.drawLine(endTimestampPosition, timestampHandlerRadius * 2, endTimestampPosition, //            height.toFloat(),
+                        rect?.bottom?.toFloat() ?: 0f, timestampLinePaint)
 
         // 绘制圆圈标记在直线的顶端
-        canvas.drawCircle(
-            startTimestampPosition,
-            timestampHandlerRadius,
-            timestampHandlerRadius,
-            timestampHandlerPaint
-        )
-        canvas.drawCircle(
-            endTimestampPosition,
-            timestampHandlerRadius,
-            timestampHandlerRadius,
-            timestampHandlerPaint
-        )
+        canvas.drawCircle(startTimestampPosition, timestampHandlerRadius, timestampHandlerRadius, timestampHandlerPaint)
+        canvas.drawCircle(endTimestampPosition, timestampHandlerRadius, timestampHandlerRadius, timestampHandlerPaint)
     }
 
 
-    private fun drawCut(canvas: Canvas) {
-        // 假设已经有了一个Bitmap和Canvas，并且波形已经绘制完成
+    private fun drawCut(canvas: Canvas) { // 假设已经有了一个Bitmap和Canvas，并且波形已经绘制完成
         val paint = Paint()
         paint.color = Color.YELLOW
         paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
@@ -197,14 +182,10 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
             CUT_MODE_SELECT -> {
                 if (!isMajor) {
                     return
-                }
-                // 创建覆盖两条竖线中间区域的矩形
-                val rect = Rect(
-                    startTimestampPosition.toInt() + strokeWidth_cut.toInt(),
-                    (rect?.top ?: 0) + strokeWidth.toInt(),
-                    endTimestampPosition.toInt() - strokeWidth_cut.toInt(),
-                    ((rect?.bottom ?: 0) - strokeWidth.toInt())
-                )
+                } // 创建覆盖两条竖线中间区域的矩形
+                val rect = Rect(startTimestampPosition.toInt() + strokeWidth_cut.toInt(), (rect?.top
+                    ?: 0) + strokeWidth.toInt(), endTimestampPosition.toInt() - strokeWidth_cut.toInt(), ((rect?.bottom
+                    ?: 0) - strokeWidth.toInt()))
 
                 // 在波形图上绘制这个矩形
                 canvas.drawRect(rect, paint)
@@ -214,33 +195,23 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
                 if (!isMajor) {
                     return
                 }
-                val rectLeft = Rect(
-                    0,
-                    (rect?.top ?: 0) + strokeWidth.toInt(),
-                    startTimestampPosition.toInt() - strokeWidth_cut.toInt(),
-                    ((rect?.bottom ?: 0) - strokeWidth.toInt())
-                )
+                val rectLeft = Rect(0, (rect?.top
+                    ?: 0) + strokeWidth.toInt(), startTimestampPosition.toInt() - strokeWidth_cut.toInt(), ((rect?.bottom
+                    ?: 0) - strokeWidth.toInt()))
                 canvas.drawRect(rectLeft, paint)
 
 
-                val rectRight = Rect(
-                    endTimestampPosition.toInt() + strokeWidth_cut.toInt(),
-                    (rect?.top ?: 0) + strokeWidth.toInt(),
-                    endPositionOfAudio.toInt(),
-                    ((rect?.bottom ?: 0) - strokeWidth.toInt())
-                )
+                val rectRight = Rect(endTimestampPosition.toInt() + strokeWidth_cut.toInt(), (rect?.top
+                    ?: 0) + strokeWidth.toInt(), endPositionOfAudio.toInt(), ((rect?.bottom
+                    ?: 0) - strokeWidth.toInt()))
                 canvas.drawRect(rectRight, paint)
 
             }
 
-            CUT_MODE_JUMP -> {
-                // 创建覆盖两条竖线中间区域的矩形
-                val rect = Rect(
-                    startTimestampPosition.toInt() + strokeWidth_cut.toInt(),
-                    (rect?.top ?: 0) + strokeWidth.toInt(),
-                    endTimestampPosition.toInt() - strokeWidth_cut.toInt(),
-                    ((rect?.bottom ?: 0) - strokeWidth.toInt())
-                )
+            CUT_MODE_JUMP -> { // 创建覆盖两条竖线中间区域的矩形
+                val rect = Rect(startTimestampPosition.toInt() + strokeWidth_cut.toInt(), (rect?.top
+                    ?: 0) + strokeWidth.toInt(), endTimestampPosition.toInt() - strokeWidth_cut.toInt(), ((rect?.bottom
+                    ?: 0) - strokeWidth.toInt()))
 
                 // 在波形图上绘制这个矩形
                 canvas.drawRect(rect, paint)
@@ -256,17 +227,17 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
     private var isMovingEnd: Boolean = false
     private var lastTouchXProcess: Float = 0f
 
-    private val moveHandler =
-        MoveHandler(audio = WeakReference(audio), cutPiece = WeakReference(this))
+    private val moveHandler = MoveHandler(audio = WeakReference(audio), cutPiece = WeakReference(this))
 
-    class MoveHandler(
-        private var audio: WeakReference<AudioFragmentWithCut>? = null,
-        private var cutPiece: WeakReference<CutPieceFragment>? = null
-    ) : Handler(Looper.getMainLooper()) {
+    class MoveHandler(private var audio: WeakReference<AudioFragmentWithCut>? = null,
+                      private var cutPiece: WeakReference<CutPieceFragment>? = null) :
+        Handler(Looper.getMainLooper()) {
 
         companion object {
             const val MSG_MOVE = 1
 
+            // 添加一个新的消息标识符
+            const val MSG_MOVE_TO_OFFSET = 2
 
             //靠边缘的移动速度有以下两个变量控制
             //移动波形图的时间间隔
@@ -274,23 +245,84 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
 
             //移动波形图的像素间隔
             const val MOVE_INTERVAL_SPACE = 5f
+
+
+            const val MOVE_STEP_TIME = 400L
+            const val MOVE_INTERVAL_TIME_DELAY = 6L
+
         }
 
+        // 新增一个成员变量来存储剩余的偏移量
+        private var remainingOffsetValue = 0L
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
             when (msg.what) {
-                MSG_MOVE -> {
-                    // 实现移动波形图的逻辑
-                    audio?.get()?.apply {
-                        //波形移动
-                        this.moveRightByPixel(MOVE_INTERVAL_SPACE)
-                        //剪切范围也扩大
+                MSG_MOVE -> { // 实现移动波形图的逻辑
+                    audio?.get()?.apply { //波形移动
+                        this.moveRightByPixel(MOVE_INTERVAL_SPACE) //剪切范围也扩大
                         cutPiece?.get()?.expendRightByPixel(MOVE_INTERVAL_SPACE)
                         sendMessageDelayed(obtainMessage(MSG_MOVE), MOVE_INTERVAL_TIME)
                     }
                 }
+
+                MSG_MOVE_TO_OFFSET -> {
+                    if (msg.obj is Long) {
+                        remainingOffsetValue = msg.obj as Long
+                    }
+                    audio?.get()?.apply {
+                        val stepTimeValue = if (Math.abs(remainingOffsetValue) >= MOVE_STEP_TIME) {
+                            MOVE_STEP_TIME
+                        } else {
+                            Math.abs(remainingOffsetValue)
+                        }
+
+                        if (remainingOffsetValue > 0) {
+                            cutPiece?.get()?.waveMoveLeft(stepTimeValue)
+                            remainingOffsetValue -= stepTimeValue
+                        } else {
+                            cutPiece?.get()?.waveMoveRight(stepTimeValue) // 可能需要一个相应的向左移动的方法
+                            remainingOffsetValue += stepTimeValue
+                        }
+
+                        if (Math.abs(remainingOffsetValue) > 0) {
+                            sendMessageDelayed(obtainMessage(MSG_MOVE_TO_OFFSET), MOVE_INTERVAL_TIME_DELAY)
+                        }
+                    }
+                }
             }
         }
+    }
+
+    private fun waveMoveRight(stepTimeValue: Long) {
+        Log.i("llc_fuck","waveMoveRight stepTimeValue=$stepTimeValue")
+        var tempCursorValue = audio.audioEditorView.cursorValue - stepTimeValue
+        if (tempCursorValue <= audio.startTimestamp) {
+            moveHandler.removeMessages(MSG_MOVE_TO_OFFSET)
+            audio.audioEditorView.cursorValue = audio.startTimestamp
+            return
+        }
+        if(tempCursorValue + audio.audioEditorView.screenWithDuration >= audio.endTimestamp){
+            moveHandler.removeMessages(MSG_MOVE_TO_OFFSET)
+            audio.audioEditorView.cursorValue = audio.endTimestamp - audio.audioEditorView.screenWithDuration
+            return
+        }
+        audio.audioEditorView.cursorValue = tempCursorValue
+    }
+
+    private fun waveMoveLeft(stepTimeValue: Long) {
+        Log.i("llc_fuck","waveMoveLeft stepTimeValue=$stepTimeValue")
+        var tempCursorValue = audio.audioEditorView.cursorValue + stepTimeValue
+        if (tempCursorValue <= audio.startTimestamp) {
+            moveHandler.removeMessages(MSG_MOVE_TO_OFFSET)
+            audio.audioEditorView.cursorValue = audio.startTimestamp
+            return
+        }
+        if(tempCursorValue + audio.audioEditorView.screenWithDuration >= audio.endTimestamp){
+            moveHandler.removeMessages(MSG_MOVE_TO_OFFSET)
+            audio.audioEditorView.cursorValue = audio.endTimestamp - audio.audioEditorView.screenWithDuration
+            return
+        }
+        audio.audioEditorView.cursorValue = tempCursorValue
     }
 
     /**
@@ -325,19 +357,15 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
             }
 
             MotionEvent.ACTION_MOVE -> {
-                Log.i(BaseAudioEditorView.cut_tag, "cut onTouchEvent: ACTION_DOWN")
-                // 检查控件是否已经初始化宽度
+                Log.i(BaseAudioEditorView.cut_tag, "cut onTouchEvent: ACTION_DOWN") // 检查控件是否已经初始化宽度
                 if (width > 0) {
                     val dx = x - lastTouchXProcess
                     if (isMovingStart) {
                         startTimestampPosition += dx
-                        if (startTimestampPosition <= (rect?.left ?: 0)) {
-                            //开始小于本身了
+                        if (startTimestampPosition <= (rect?.left ?: 0)) { //开始小于本身了
                             startTimestampTimeInSelf = 0
-                        } else if (startTimestampPosition >= endTimestampPosition - strokeWidth_cut) {
-                            //开始大于结束了
-                            startTimestampTimeInSelf =
-                                endTimestampTimeInSelf - (strokeWidth_cut).pixel2Time(unitMsPixel)
+                        } else if (startTimestampPosition >= endTimestampPosition - strokeWidth_cut) { //开始大于结束了
+                            startTimestampTimeInSelf = endTimestampTimeInSelf - (strokeWidth_cut).pixel2Time(unitMsPixel)
                         } else {
                             startTimestampTimeInSelf += dx.pixel2Time(unitMsPixel)
                         }
@@ -347,28 +375,20 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
                             stopMoveRight()
                         }
                         endTimestampPosition += dx
-                        if (endTimestampPosition >= (rect?.right ?: 0)) {
-                            //结束大于本身了
+                        if (endTimestampPosition >= (rect?.right ?: 0)) { //结束大于本身了
                             endTimestampTimeInSelf = duration
-                        } else if (endTimestampPosition <= startTimestampPosition + strokeWidth_cut) {
-                            //结束小于开始了
-                            endTimestampTimeInSelf =
-                                startTimestampTimeInSelf + (strokeWidth_cut).pixel2Time(unitMsPixel)
+                        } else if (endTimestampPosition <= startTimestampPosition + strokeWidth_cut) { //结束小于开始了
+                            endTimestampTimeInSelf = startTimestampTimeInSelf + (strokeWidth_cut).pixel2Time(unitMsPixel)
                         } else {
                             val newEndTimestampPosition = endTimestampPosition + dx
                             val screenWidth = ScreenUtil.getScreenWidth(context)
-                            val maxEndPosition = screenWidth - strokeWidth_cut
-                            // 检查是否到达屏幕边界
-                            if (newEndTimestampPosition >= maxEndPosition) {
-                                // 检查是否有更多波形数据可以加载
+                            val maxEndPosition = screenWidth - strokeWidth_cut // 检查是否到达屏幕边界
+                            if (newEndTimestampPosition >= maxEndPosition) { // 检查是否有更多波形数据可以加载
                                 if (canLoadMoreWaveData(context)) {
-                                    moveRight()
-                                    // 加载更多波形数据
-                                    loadMoreWaveData(newEndTimestampPosition)
-                                    // 更新duration和unitMsPixel
+                                    moveRight() // 加载更多波形数据
+                                    loadMoreWaveData(newEndTimestampPosition) // 更新duration和unitMsPixel
                                     updateDurationAndUnitPixel()
-                                } else {
-                                    // 到达最大范围，不再移动
+                                } else { // 到达最大范围，不再移动
                                     endTimestampPosition = maxEndPosition
                                 }
                             } else {
@@ -380,9 +400,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
                     }
                     lastTouchXProcess = x
                     startTimestampPosition.apply {
-                        Log.i(
-                            BaseAudioEditorView.cut_tag, "startTimestampPosition: $this"
-                        )
+                        Log.i(BaseAudioEditorView.cut_tag, "startTimestampPosition: $this")
                     }
                     endTimestampPosition.apply {
                         Log.i(BaseAudioEditorView.cut_tag, "endTimestampPosition: $this")
@@ -392,6 +410,12 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
             }
 
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                if (isMovingEnd) {
+                    positionCutEndLine(event)
+                }
+                if (isMovingStart) {
+                    positionCutStartLine(event)
+                }
                 isMovingStart = false
                 isMovingEnd = false
                 stopMoveRight()
@@ -399,6 +423,19 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
             }
         }
         return true
+    }
+
+    private fun positionCutEndLine(event: MotionEvent) { //end cutLine 居中
+        var offsetTimeValue = ((event.x - ScreenUtil.getScreenWidth(audio.getContext()) / 2) / audio.unitMsPixel).toLong()
+        moveHandler.removeMessages(MSG_MOVE_TO_OFFSET)
+        moveHandler.sendMessage(moveHandler.obtainMessage(MSG_MOVE_TO_OFFSET, offsetTimeValue))
+    }
+
+    private fun positionCutStartLine(event: MotionEvent) { //end cutLine 居中
+        var offsetTimeValue = ((event.x - ScreenUtil.getScreenWidth(audio.getContext()) / 2) / audio.unitMsPixel).toLong()
+        moveHandler.removeMessages(MSG_MOVE_TO_OFFSET)
+        moveHandler.sendMessage(moveHandler.obtainMessage(MSG_MOVE_TO_OFFSET, offsetTimeValue))
+
     }
 
     private fun moveRight() {
@@ -409,43 +446,30 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
         moveHandler.removeMessages(MoveHandler.MSG_MOVE)
     }
 
-    private fun canLoadMoreWaveData(context: Context): Boolean {
-        // 实现检查是否有更多波形数据可以加载的逻辑
+    private fun canLoadMoreWaveData(context: Context): Boolean { // 实现检查是否有更多波形数据可以加载的逻辑
         // 返回true表示可以加载，返回false表示没有更多数据
         return rect?.right ?: 0 > ScreenUtil.getScreenWidth(context)
     }
 
-    private fun loadMoreWaveData(newEndTimestampPosition: Float) {
-        // 实现加载更多波形数据的逻辑
+    private fun loadMoreWaveData(newEndTimestampPosition: Float) { // 实现加载更多波形数据的逻辑
         // 这可能涉及到异步操作，需要确保数据加载完成后再更新UI
     }
 
-    private fun updateDurationAndUnitPixel() {
-        // 更新duration和unitMsPixel的值
+    private fun updateDurationAndUnitPixel() { // 更新duration和unitMsPixel的值
         // 这将影响波形图的显示和时间戳的计算
     }
 
     // 为开始时间戳的圆球创建一个矩形
     private var startRect: Rect = Rect()
         get() {
-            return Rect(
-                startTimestampPosition.toInt(),
-                timestampHandlerRadius.toInt(),
-                startTimestampPosition.toInt() + (timestampHandlerRadius * 2).toInt(),
-                timestampHandlerRadius.toInt() + 200
-            )
+            return Rect(startTimestampPosition.toInt(), timestampHandlerRadius.toInt(), startTimestampPosition.toInt() + (timestampHandlerRadius * 2).toInt(), timestampHandlerRadius.toInt() + 200)
         }
 
 
     // 为结束时间戳的圆球创建一个矩形
     private var endRect: Rect = Rect()
         get() {
-            return Rect(
-                endTimestampPosition.toInt(),
-                timestampHandlerRadius.toInt(),
-                endTimestampPosition.toInt() + (timestampHandlerRadius * 2).toInt(),
-                timestampHandlerRadius.toInt() + 200
-            )
+            return Rect(endTimestampPosition.toInt(), timestampHandlerRadius.toInt(), endTimestampPosition.toInt() + (timestampHandlerRadius * 2).toInt(), timestampHandlerRadius.toInt() + 200)
         }
 
     fun isTarget(event: MotionEvent?): Boolean {

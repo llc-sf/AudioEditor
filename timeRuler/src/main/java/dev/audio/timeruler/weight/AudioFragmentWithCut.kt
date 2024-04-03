@@ -18,6 +18,10 @@ class AudioFragmentWithCut(audioEditorView: BaseAudioEditorView) :
 
     private var cutPieceFragments = mutableListOf<CutPieceFragment>()
 
+    fun getContext(): Context? {
+        return audioEditorView.context
+    }
+
     override fun initCutFragment() {
         super.initCutFragment()
         cutPieceFragments.add(CutPieceFragment(this,true).apply {
