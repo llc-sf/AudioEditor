@@ -249,6 +249,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
 
             //移动波形图的距离
             const val MOVE_STEP_TIME = 500L
+            const val MOVE_STEP_PIXEL = 20f
 
             //移动波形图的时间间隔
             const val MOVE_INTERVAL_TIME_DELAY = 6L
@@ -257,6 +258,16 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
 
         // 新增一个成员变量来存储剩余的偏移量
         private var remainingOffsetValue = 0L
+
+        //移动波形图的距离
+        private var moveStepTime = MOVE_STEP_TIME
+
+        /**
+         * 是否固定像素移动
+         * true:固定像素移动   各个档位移动速率一样
+         * false:固定时间移动  放大档位移动速率快
+         */
+        private var isMoveByFixedPixel = true
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
             when (msg.what) {
@@ -272,9 +283,13 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
                     if (msg.obj is Long) {
                         remainingOffsetValue = msg.obj as Long
                     }
+
                     audio?.get()?.apply {
-                        val stepTimeValue = if (Math.abs(remainingOffsetValue) >= MOVE_STEP_TIME) {
-                            MOVE_STEP_TIME
+                        if (isMoveByFixedPixel) {
+                            moveStepTime = (MOVE_STEP_PIXEL / this.unitMsPixel).toLong()
+                        }
+                        val stepTimeValue = if (Math.abs(remainingOffsetValue) >= moveStepTime) {
+                            moveStepTime
                         } else {
                             Math.abs(remainingOffsetValue)
                         }
