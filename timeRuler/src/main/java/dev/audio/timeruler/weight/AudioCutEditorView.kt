@@ -166,7 +166,14 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
      * 设置 cursor 位置
      */
     fun setPlayerProgress(currentPosition: Long, duration: Long) {
+        if (currentPlayingPosition > ScreenUtil.getScreenWidth(context) || currentPlayingPosition < 0) {
+            //播放条移动到屏幕外  需要移动波形到屏幕中间
+            cursorValue += (((ScreenUtil.getScreenWidth(context) / 2).toFloat() - currentPlayingPosition)/unitMsPixel).toLong()
+            currentPlayingPosition = (ScreenUtil.getScreenWidth(context) / 2).toFloat()
+            invalidate()
+        }
         if (currentPosition >= duration) {
+            //播放结束
             cursorValue = startValue
             currentPlayingPosition = 0f
             currentPlayingTimeInTimeLine = startValue
@@ -192,9 +199,12 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         notifyPlayLineImp()
     }
 
-    private fun notifyPlayLineImp() {
-        currentPlayingTimeInTimeLine = cursorValue + (currentPlayingPosition / unitMsPixel).toLong()
-        currentPlayingTimeInAudio = currentPlayingTimeInTimeLine - startValue
+    private fun notifyPlayLineImp() { //播放条在屏幕上的位置不动
+        //        currentPlayingTimeInTimeLine = cursorValue + (currentPlayingPosition / unitMsPixel).toLong()
+        //        currentPlayingTimeInAudio = currentPlayingTimeInTimeLine - startValue
+
+        //播放条在时间轴上的位置不动
+        currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
     }
 
     /**
@@ -215,16 +225,14 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         }
 
         //避免播放条太靠左
-        if (time2PositionInTimeline(startValue) < 0) {
-            //右移动波形不会导致播放条向右超出屏幕
+        if (time2PositionInTimeline(startValue) < 0) { //右移动波形不会导致播放条向右超出屏幕
             if (currentPlayingPosition + (cursorValue - startValue).time2Pixel(unitMsPixel) < ScreenUtil.getScreenWidth(context)) {
                 cursorValue = startValue
                 currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
             }
         } //避免播放条太靠右
         if (time2PositionInTimeline(endValue) > ScreenUtil.getScreenWidth(context)) {
-            if (currentPlayingPosition - (time2PositionInTimeline(endValue) - ScreenUtil.getScreenWidth(context)) > 0) {
-                //左移动波形不会导致播放条向左超出屏幕
+            if (currentPlayingPosition - (time2PositionInTimeline(endValue) - ScreenUtil.getScreenWidth(context)) > 0) { //左移动波形不会导致播放条向左超出屏幕
                 cursorValue = endValue - screenWithDuration
                 currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
             }

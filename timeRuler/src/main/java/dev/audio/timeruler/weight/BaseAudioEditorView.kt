@@ -852,7 +852,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
             scaleChangeListener?.onScaleChange(mMode)
         }
         if (!isWaveFullScreen) { //刷新游标位置
-//            updatePlayingLineByModeChange(index - mode)
+            updatePlayingLineByModeChange(index - mode)
         }
         invalidate()
     }
