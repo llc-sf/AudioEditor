@@ -75,13 +75,14 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
     //当前指示标的位置（元素）
     private val cursorPosition by Ref { audioEditorView.cursorPosition }
 
+    val screenWithDuration by Ref { audioEditorView.screenWithDuration }
 
     /**
      *
      * 当前坐标轴的时间游标同步
      *
      */
-    private val cursorValue by Ref { audioEditorView.cursorValue }
+    val cursorValue by Ref { audioEditorView.cursorValue }
 
 
     //选中的一圈矩形宽度

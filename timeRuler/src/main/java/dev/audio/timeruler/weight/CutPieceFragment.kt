@@ -18,8 +18,6 @@ import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.timeruler.bean.Ref
 import dev.audio.timeruler.weight.CutPieceFragment.MoveHandler.Companion.MSG_MOVE_TO_OFFSET
 import java.lang.ref.WeakReference
-import kotlin.math.max
-import kotlin.math.min
 
 
 /**
@@ -235,8 +233,6 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
 
         companion object {
             const val MSG_MOVE = 1
-
-            // 添加一个新的消息标识符
             const val MSG_MOVE_TO_OFFSET = 2
 
             //靠边缘的移动速度有以下两个变量控制
@@ -246,8 +242,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
             //移动波形图的像素间隔
             const val MOVE_INTERVAL_SPACE = 5f
 
-
-            const val MOVE_STEP_TIME = 400L
+            //移动波形图的距离
+            const val MOVE_STEP_TIME = 500L
+            //移动波形图的时间间隔
             const val MOVE_INTERVAL_TIME_DELAY = 6L
 
         }
@@ -277,10 +274,10 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
                         }
 
                         if (remainingOffsetValue > 0) {
-                            cutPiece?.get()?.waveMoveLeft(stepTimeValue)
+                            cutPiece?.get()?.waveMove(-stepTimeValue)
                             remainingOffsetValue -= stepTimeValue
                         } else {
-                            cutPiece?.get()?.waveMoveRight(stepTimeValue) // 可能需要一个相应的向左移动的方法
+                            cutPiece?.get()?.waveMove(stepTimeValue)
                             remainingOffsetValue += stepTimeValue
                         }
 
@@ -293,33 +290,22 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
         }
     }
 
-    private fun waveMoveRight(stepTimeValue: Long) {
-        Log.i("llc_fuck","waveMoveRight stepTimeValue=$stepTimeValue")
-        var tempCursorValue = audio.audioEditorView.cursorValue - stepTimeValue
-        if (tempCursorValue <= audio.startTimestamp) {
-            moveHandler.removeMessages(MSG_MOVE_TO_OFFSET)
-            audio.audioEditorView.cursorValue = audio.startTimestamp
-            return
-        }
-        if(tempCursorValue + audio.audioEditorView.screenWithDuration >= audio.endTimestamp){
-            moveHandler.removeMessages(MSG_MOVE_TO_OFFSET)
-            audio.audioEditorView.cursorValue = audio.endTimestamp - audio.audioEditorView.screenWithDuration
-            return
-        }
-        audio.audioEditorView.cursorValue = tempCursorValue
-    }
 
-    private fun waveMoveLeft(stepTimeValue: Long) {
-        Log.i("llc_fuck","waveMoveLeft stepTimeValue=$stepTimeValue")
-        var tempCursorValue = audio.audioEditorView.cursorValue + stepTimeValue
+    /**
+     * 移动波形图
+     *
+     * @param stepTimeValue 移动的时间
+     */
+    private fun waveMove(stepTimeValue: Long) {
+        var tempCursorValue = audio.cursorValue - stepTimeValue
         if (tempCursorValue <= audio.startTimestamp) {
             moveHandler.removeMessages(MSG_MOVE_TO_OFFSET)
             audio.audioEditorView.cursorValue = audio.startTimestamp
             return
         }
-        if(tempCursorValue + audio.audioEditorView.screenWithDuration >= audio.endTimestamp){
+        if (tempCursorValue + audio.screenWithDuration >= audio.endTimestamp) {
             moveHandler.removeMessages(MSG_MOVE_TO_OFFSET)
-            audio.audioEditorView.cursorValue = audio.endTimestamp - audio.audioEditorView.screenWithDuration
+            audio.audioEditorView.cursorValue = audio.endTimestamp - audio.screenWithDuration
             return
         }
         audio.audioEditorView.cursorValue = tempCursorValue
@@ -410,11 +396,8 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
             }
 
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                if (isMovingEnd) {
-                    positionCutEndLine(event)
-                }
-                if (isMovingStart) {
-                    positionCutStartLine(event)
+                if (isMovingEnd || isMovingStart) {
+                    cutLineMove2Middle(event)
                 }
                 isMovingStart = false
                 isMovingEnd = false
@@ -425,17 +408,14 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
         return true
     }
 
-    private fun positionCutEndLine(event: MotionEvent) { //end cutLine 居中
-        var offsetTimeValue = ((event.x - ScreenUtil.getScreenWidth(audio.getContext()) / 2) / audio.unitMsPixel).toLong()
+
+    /**
+     * 移动裁剪线到中间
+     */
+    private fun cutLineMove2Middle(event: MotionEvent) {
+        var offsetTimeValue = ((event.x - ScreenUtil.getScreenWidth(audio.getContext()) / 2) / unitMsPixel).toLong()
         moveHandler.removeMessages(MSG_MOVE_TO_OFFSET)
         moveHandler.sendMessage(moveHandler.obtainMessage(MSG_MOVE_TO_OFFSET, offsetTimeValue))
-    }
-
-    private fun positionCutStartLine(event: MotionEvent) { //end cutLine 居中
-        var offsetTimeValue = ((event.x - ScreenUtil.getScreenWidth(audio.getContext()) / 2) / audio.unitMsPixel).toLong()
-        moveHandler.removeMessages(MSG_MOVE_TO_OFFSET)
-        moveHandler.sendMessage(moveHandler.obtainMessage(MSG_MOVE_TO_OFFSET, offsetTimeValue))
-
     }
 
     private fun moveRight() {
