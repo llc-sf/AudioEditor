@@ -93,15 +93,15 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) :
         (audioEditorView as AudioCutEditorView)?.refreshCutLineAnchor(start,end)
     }
 
-    fun ancher2CutEndLine() {
+    fun anchor2CutEndLine() {
         cutPieceFragments.forEach {
-            it.ancher2CutEndLine()
+            it.anchor2CutEndLine()
         }
     }
 
-    fun ancher2CutStartLine() {
+    fun anchor2CutStartLine() {
         cutPieceFragments.forEach {
-            it.ancher2CutStartLine()
+            it.anchor2CutStartLine()
         }
     }
 

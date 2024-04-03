@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.SeekBar
-import androidx.core.view.isVisible
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.PlaybackParameters
 import com.google.android.exoplayer2.SimpleExoPlayer
@@ -230,11 +229,11 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         })
 
         viewBinding.clpLeft.setOnClickListener {
-            viewBinding.timeBar.ancher2CutStartLine()
+            viewBinding.timeBar.anchor2CutStartLine()
         }
 
         viewBinding.clpRight.setOnClickListener {
-            viewBinding.timeBar.ancher2CutEndLine()
+            viewBinding.timeBar.anchor2CutEndLine()
         }
 
         setData()

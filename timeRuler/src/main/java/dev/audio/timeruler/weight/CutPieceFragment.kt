@@ -471,7 +471,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
         this.cutMode = cutMode
     }
 
-    fun ancher2CutEndLine() {
+    fun anchor2CutEndLine() {
         if (isMajor) {
             var offsetTimeValue = ((ScreenUtil.getScreenWidth(audio.getContext())
                 .toFloat() / 2 - endTimestampPosition) / unitMsPixel).toLong()
@@ -483,7 +483,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
         }
     }
 
-    fun ancher2CutStartLine() {
+    fun anchor2CutStartLine() {
         if (isMajor) {
             var offsetTimeValue = ((ScreenUtil.getScreenWidth(audio.getContext())
                 .toFloat() / 2 - startTimestampPosition) / unitMsPixel).toLong()

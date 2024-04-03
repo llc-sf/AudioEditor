@@ -294,12 +294,12 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         onCutLineChangeListener?.onCutLineChange(start, end)
     }
 
-    fun ancher2CutEndLine() {
-        audioFragment?.ancher2CutEndLine()
+    fun anchor2CutEndLine() {
+        audioFragment?.anchor2CutEndLine()
     }
 
-    fun ancher2CutStartLine() {
-        audioFragment?.ancher2CutStartLine()
+    fun anchor2CutStartLine() {
+        audioFragment?.anchor2CutStartLine()
     }
 
 
