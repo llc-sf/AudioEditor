@@ -677,6 +677,9 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
         return false
     }
 
+    /**
+     * 真正滚动回调
+     */
     override fun onScroll(e1: MotionEvent,
                           e2: MotionEvent,
                           distanceX: Float,
@@ -713,16 +716,22 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
         if (null != mOnCursorListener) {
             mOnCursorListener!!.onProgressChanged(cursorValue, true)
         }
-        notifyPlayLine()
+        waveScrollNotify()
         invalidate()
         return result
     }
 
-    open fun notifyPlayLine() {
+    /**
+     * 波形滚动通知
+     */
+    open fun waveScrollNotify() {
 
     }
 
-
+    /**
+     * View 滚动回调
+     * 只要触摸 就有回调
+     */
     override fun computeScroll() {
         Log.i(touch_tag, "computeScroll")
         if (scroller.computeScrollOffset()) {
@@ -738,7 +747,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
             if (null != mOnCursorListener) {
                 mOnCursorListener!!.onProgressChanged(cursorValue, true)
             }
-            notifyPlayLine()
+            waveScrollNotify()
             invalidate()
         } else {
             if (status == STATUS_SCROLL_FLING) {

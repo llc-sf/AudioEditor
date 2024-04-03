@@ -11,7 +11,6 @@ import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.timeruler.weight.BaseAudioEditorView.TickMarkStrategy
 import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.player.PlayerManager
-import dev.audio.timeruler.utils.formatToCursorDateString
 
 open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                                                         attrs: AttributeSet? = null) :
@@ -193,8 +192,8 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         invalidate()
     }
 
-    override fun notifyPlayLine() {
-        super.notifyPlayLine()
+    override fun waveScrollNotify() {
+        super.waveScrollNotify()
         notifyPlayLineImp()
     }
 
