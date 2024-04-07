@@ -187,6 +187,10 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
      * 歌曲当前播放位置  对于歌曲时长来说
      */
     private var currentPlayingTimeInAudio: Long = 0L
+        set(value) {
+            onPlayingLineChangeListener?.onPlayingLineChange(value)
+            field = value
+        }
 
     /**
      * 设置 cursor 位置
@@ -310,6 +314,16 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     fun addOnCutLineChangeListener(listener: OnCutLineChangeListener) {
         onCutLineChangeListener = listener
+    }
+
+    interface OnPlayingLineChangeListener {
+        fun onPlayingLineChange(value: Long)
+    }
+
+    private var onPlayingLineChangeListener: OnPlayingLineChangeListener? = null
+
+    fun addOnPlayingLineChangeListener(listener: OnPlayingLineChangeListener) {
+        onPlayingLineChangeListener = listener
     }
 
     fun refreshCutLineAnchor(start: Boolean, end: Boolean) {

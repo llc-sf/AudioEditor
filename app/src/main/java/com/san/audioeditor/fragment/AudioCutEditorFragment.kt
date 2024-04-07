@@ -228,6 +228,14 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
             }
         })
 
+        viewBinding.timeBar.addOnPlayingLineChangeListener(object :
+                                                               AudioCutEditorView.OnPlayingLineChangeListener {
+
+            override fun onPlayingLineChange(value: Long) {
+                viewBinding.currentPlayTime.text = value.format2Duration()
+            }
+        })
+
         viewBinding.clpLeft.setOnClickListener {
             viewBinding.timeBar.anchor2CutStartLine()
         }
