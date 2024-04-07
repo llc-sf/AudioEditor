@@ -43,6 +43,8 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
          * 跳剪
          */
         const val CUT_MODE_JUMP = 2
+
+        const val TIME_STEP = 1000L
     }
 
     @IntDef(
@@ -522,6 +524,36 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
                 tempCursor = audio.startTimestamp
             }
             audio.audioEditorView.cursorValue = tempCursor
+        }
+    }
+
+
+
+    fun startCutMinus() {
+        if (isMajor) {
+            startTimestampTimeInSelf -= TIME_STEP
+            audio.invalidate()
+        }
+    }
+
+    fun startCutPlus() {
+        if (isMajor) {
+            startTimestampTimeInSelf += TIME_STEP
+            audio.invalidate()
+        }
+    }
+
+    fun startEndMinus() {
+        if (isMajor) {
+            endTimestampTimeInSelf -= TIME_STEP
+            audio.invalidate()
+        }
+    }
+
+    fun startEndPlus() {
+        if (isMajor) {
+            endTimestampTimeInSelf += TIME_STEP
+            audio.invalidate()
         }
     }
 }

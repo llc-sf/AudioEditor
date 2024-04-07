@@ -27,34 +27,111 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-        <TextView
-            android:id="@+id/cut_start"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cut_start_ly"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@id/duration_selected"
-            app:layout_constraintEnd_toStartOf="@id/duration_selected"
+            app:layout_constraintBottom_toBottomOf="@id/duration_selected_ly"
+            app:layout_constraintEnd_toStartOf="@id/duration_selected_ly"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/duration_selected" />
+            app:layout_constraintTop_toTopOf="@id/duration_selected_ly">
 
-        <TextView
-            android:id="@+id/duration_selected"
+            <TextView
+                android:id="@+id/cut_start_minus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@id/cut_start"
+                app:layout_constraintEnd_toStartOf="@id/cut_start"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cut_start" />
+
+            <TextView
+                android:id="@+id/cut_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/cut_start_plus"
+                app:layout_constraintStart_toEndOf="@id/cut_start_minus"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/cut_start_plus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@id/cut_start"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/cut_start"
+                app:layout_constraintTop_toTopOf="@id/cut_start" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/duration_selected_ly"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toStartOf="@id/cut_end"
-            app:layout_constraintStart_toEndOf="@id/cut_start"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toStartOf="@id/cut_end_ly"
+            app:layout_constraintStart_toEndOf="@id/cut_start_ly"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/cut_end"
+            <TextView
+                android:id="@+id/duration_selected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cut_end_ly"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@id/duration_selected"
+            app:layout_constraintBottom_toBottomOf="@id/duration_selected_ly"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/duration_selected"
-            app:layout_constraintTop_toTopOf="@id/duration_selected" />
+            app:layout_constraintStart_toEndOf="@id/duration_selected_ly"
+            app:layout_constraintTop_toTopOf="@id/duration_selected_ly">
+
+            <TextView
+                android:id="@+id/cut_end_minus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@id/cut_end"
+                app:layout_constraintEnd_toStartOf="@id/cut_end"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cut_end" />
+
+            <TextView
+                android:id="@+id/cut_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/cut_end_plus"
+                app:layout_constraintStart_toEndOf="@id/cut_end_minus"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/cut_end_plus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@id/cut_end"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/cut_end"
+                app:layout_constraintTop_toTopOf="@id/cut_end" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <dev.audio.timeruler.weight.AudioCutEditorView

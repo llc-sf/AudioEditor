@@ -108,4 +108,32 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) :
         }
     }
 
+    fun startCutMinus() {
+        cutPieceFragments.forEach {
+            it.startCutMinus()
+        }
+    }
+
+    fun invalidate() {
+        audioEditorView.invalidate()
+    }
+
+    fun startCutPlus() {
+        cutPieceFragments.forEach {
+            it.startCutPlus()
+        }
+    }
+
+    fun startEndMinus() {
+        cutPieceFragments.forEach {
+            it.startEndMinus()
+        }
+    }
+
+    fun startEndPlus() {
+        cutPieceFragments.forEach {
+            it.startEndPlus()
+        }
+    }
+
 }

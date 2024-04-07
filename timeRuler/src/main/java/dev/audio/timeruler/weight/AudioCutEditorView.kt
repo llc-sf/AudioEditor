@@ -361,5 +361,21 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         audioFragment?.anchor2CutStartLine()
     }
 
+    fun startCutMinus() {
+        audioFragment?.startCutMinus()
+    }
+
+    fun startCutPlus() {
+        audioFragment?.startCutPlus()
+    }
+
+    fun startEndMinus() {
+        audioFragment?.startEndMinus()
+    }
+
+    fun startEndPlus() {
+        audioFragment?.startEndPlus()
+    }
+
 
 }
