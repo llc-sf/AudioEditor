@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import dev.audio.timeruler.bean.Ref
 
 
 /**
@@ -17,6 +18,8 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) :
 
 
     private var cutPieceFragments = mutableListOf<CutPieceFragment>()
+
+    val onCutLineChangeListener by Ref {audioEditorView.onCutLineChangeListener}
 
     fun getContext(): Context? {
         return audioEditorView.context

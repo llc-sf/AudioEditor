@@ -73,12 +73,21 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
     private val rect by Ref { audio.rect }
     private val unitMsPixel by Ref { audio.unitMsPixel }
 
+
+    private val onCutLineChangeListener by Ref { audio.onCutLineChangeListener }
+
     /**
      * 裁剪选中的起始时间  ms
      * 相对于自己来说
      * 例：歌曲200*1000ms   起始时间80*1000ms
      */
     private var startTimestampTimeInSelf = 0L
+        set(value) {
+            field = value
+            if(isMajor){
+                onCutLineChangeListener?.onCutLineChange(startTimestampTimeInSelf, endTimestampTimeInSelf)
+            }
+        }
 
     /**
      * 裁剪选中的结束时间点  ms
@@ -86,6 +95,12 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
      * 例：歌曲200*1000ms   起始时间120*1000ms
      */
     private var endTimestampTimeInSelf = 0L
+        set(value) {
+            field = value
+            if(isMajor){
+                onCutLineChangeListener?.onCutLineChange(startTimestampTimeInSelf, endTimestampTimeInSelf)
+            }
+        }
 
 
     /**

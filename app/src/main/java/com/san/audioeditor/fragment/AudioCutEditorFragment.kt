@@ -219,12 +219,22 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
             }
         })
 
-        viewBinding.timeBar.addOnCutLineChangeListener(object :
-                                                           AudioCutEditorView.OnCutLineChangeListener {
+        viewBinding.timeBar.addOnCutLineAnchorChangeListener(object :
+                                                                 AudioCutEditorView.OnCutLineAnchorChangeListener {
 
             override fun onCutLineChange(start: Boolean, end: Boolean) {
                 viewBinding.clpLeft.visibility = if (start) View.VISIBLE else View.INVISIBLE
                 viewBinding.clpRight.visibility = if (end) View.VISIBLE else View.INVISIBLE
+            }
+        })
+
+        viewBinding.timeBar.addOnCutLineChangeListener(object :
+                                                           AudioCutEditorView.OnCutLineChangeListener {
+
+            override fun onCutLineChange(start: Long, end: Long) {
+                viewBinding.cutStart.text = "${start.format2Duration()}"
+                viewBinding.cutEnd.text = "${end.format2Duration()}"
+                viewBinding.durationSelected.text = "${(end-start).format2Duration()}"
             }
         })
 

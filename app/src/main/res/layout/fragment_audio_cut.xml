@@ -18,6 +18,45 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/cut_editor" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cut_ly"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <TextView
+            android:id="@+id/cut_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/duration_selected"
+            app:layout_constraintEnd_toStartOf="@id/duration_selected"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/duration_selected" />
+
+        <TextView
+            android:id="@+id/duration_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@id/cut_end"
+            app:layout_constraintStart_toEndOf="@id/cut_start"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/cut_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/duration_selected"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/duration_selected"
+            app:layout_constraintTop_toTopOf="@id/duration_selected" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <dev.audio.timeruler.weight.AudioCutEditorView
         android:id="@+id/timeBar"
         android:layout_width="match_parent"
@@ -30,7 +69,7 @@
         app:drawCursorContent="false"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintTop_toBottomOf="@id/cut_ly"
         app:showCursorLine="true"
         app:tickColor="#ffffff"
         app:tickDirectionUp="false"

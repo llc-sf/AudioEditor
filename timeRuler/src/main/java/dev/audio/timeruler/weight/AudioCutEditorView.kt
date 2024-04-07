@@ -115,8 +115,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     override fun cursorValueChange(prop: KProperty<*>, old: Long, new: Long) {
         super.cursorValueChange(prop, old, new)
-        refreshPlayingLine()
-        //todo cursor改变引发的一些列变化 总结
+        refreshPlayingLine() //todo cursor改变引发的一些列变化 总结
     }
 
     /**
@@ -305,17 +304,37 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         invalidate()
     }
 
-
     interface OnCutLineChangeListener {
-        fun onCutLineChange(start: Boolean, end: Boolean)
+        fun onCutLineChange(startTimeStep: Long, endTimeStep: Long)
     }
 
-    private var onCutLineChangeListener: OnCutLineChangeListener? = null
+    var onCutLineChangeListener: OnCutLineChangeListener? = null
 
     fun addOnCutLineChangeListener(listener: OnCutLineChangeListener) {
         onCutLineChangeListener = listener
     }
 
+
+    //*************************************剪切条锚点定位是否显示的监听 start *************************************//
+    /**
+     * 剪切条锚点定位是否显示的监听
+     */
+    interface OnCutLineAnchorChangeListener {
+        fun onCutLineChange(start: Boolean, end: Boolean)
+    }
+
+
+    private var onCutLineAnchorChangeListener: OnCutLineAnchorChangeListener? = null
+
+    fun addOnCutLineAnchorChangeListener(listener: OnCutLineAnchorChangeListener) {
+        onCutLineAnchorChangeListener = listener
+    }//*************************************剪切条锚点定位是否显示的监听 end *************************************//
+
+
+    //*************************************播放条位置变化监听 start *************************************//
+    /**
+     * 播放条位置变化监听
+     */
     interface OnPlayingLineChangeListener {
         fun onPlayingLineChange(value: Long)
     }
@@ -324,10 +343,10 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     fun addOnPlayingLineChangeListener(listener: OnPlayingLineChangeListener) {
         onPlayingLineChangeListener = listener
-    }
+    } //*************************************播放条位置变化监听 end *************************************//
 
     fun refreshCutLineAnchor(start: Boolean, end: Boolean) {
-        onCutLineChangeListener?.onCutLineChange(start, end)
+        onCutLineAnchorChangeListener?.onCutLineChange(start, end)
     }
 
     fun anchor2CutEndLine() {
