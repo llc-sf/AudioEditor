@@ -304,6 +304,10 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         invalidate()
     }
 
+    //*************************************剪切条起点终点时间戳变化监听 start *************************************//
+    /**
+     * 剪切条起点终点时间戳变化监听
+     */
     interface OnCutLineChangeListener {
         fun onCutLineChange(startTimeStep: Long, endTimeStep: Long)
     }
@@ -312,7 +316,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     fun addOnCutLineChangeListener(listener: OnCutLineChangeListener) {
         onCutLineChangeListener = listener
-    }
+    } //*************************************剪切条起点终点时间戳变化监听 end *************************************//
 
 
     //*************************************剪切条锚点定位是否显示的监听 start *************************************//
@@ -328,7 +332,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     fun addOnCutLineAnchorChangeListener(listener: OnCutLineAnchorChangeListener) {
         onCutLineAnchorChangeListener = listener
-    }//*************************************剪切条锚点定位是否显示的监听 end *************************************//
+    } //*************************************剪切条锚点定位是否显示的监听 end *************************************//
 
 
     //*************************************播放条位置变化监听 start *************************************//
