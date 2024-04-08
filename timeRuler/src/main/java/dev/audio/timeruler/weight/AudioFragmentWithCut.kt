@@ -13,16 +13,15 @@ import dev.audio.timeruler.bean.Ref
  *
  * 带裁剪模式
  */
-class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) :
-    AudioFragment(audioEditorView) {
+class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(audioEditorView) {
 
 
     val currentPlayingTimeInAudio by Ref { audioEditorView.currentPlayingTimeInAudio }
 
     private var cutPieceFragments = mutableListOf<CutPieceFragment>()
 
-    val onCutLineChangeListener by Ref {audioEditorView.onCutLineChangeListener}
-    val onTrimAnchorChangeListener by Ref {audioEditorView.onTrimAnchorChangeListener}
+    val onCutLineChangeListener by Ref { audioEditorView.onCutLineChangeListener }
+    val onTrimAnchorChangeListener by Ref { audioEditorView.onTrimAnchorChangeListener }
 
     fun getContext(): Context? {
         return audioEditorView.context
@@ -30,11 +29,11 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) :
 
     override fun initCutFragment() {
         super.initCutFragment()
-        cutPieceFragments.add(CutPieceFragment(this).apply {
-            this.initCutFragment(1/6f, 2/6f)
+        cutPieceFragments.add(CutPieceFragment(this, index = 0).apply {
+            this.initCutFragment(1 / 6f, 2 / 6f)
         })
-        cutPieceFragments.add(CutPieceFragment(this,false).apply {
-            this.initCutFragment(4/6f, 5/6f)
+        cutPieceFragments.add(CutPieceFragment(this, false, index = 1).apply {
+            this.initCutFragment(4 / 6f, 5 / 6f)
         })
     }
 
@@ -50,16 +49,12 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) :
         return isSelected
     }
 
-    override fun onDraw(canvas: Canvas) {
-        // 开启图层
-        val saved = canvas.saveLayer(null, null, Canvas.ALL_SAVE_FLAG)
-        //绘制完整音波
-        super.onDraw(canvas)
-        //绘制选中片段
+    override fun onDraw(canvas: Canvas) { // 开启图层
+        val saved = canvas.saveLayer(null, null, Canvas.ALL_SAVE_FLAG) //绘制完整音波
+        super.onDraw(canvas) //绘制选中片段
         cutPieceFragments.forEach {
             it.drawCutFragment(canvas)
-        }
-        //恢复图层
+        } //恢复图层
         canvas.restoreToCount(saved)
     }
 
@@ -81,7 +76,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) :
             }
         }
         return isTarget.apply {
-            if(!this){
+            if (!this) {
                 currentTouchIndex = -1
             }
             Log.i(BaseAudioEditorView.cut_tag, "isCutLineTarget: $this   index=$currentTouchIndex")
@@ -90,13 +85,13 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) :
 
     fun setCutMode(cutMode: Int) {
         cutPieceFragments.forEach {
-            it.setCutMode(cutMode)
+            it.cutMode = (cutMode)
         }
     }
 
     fun refreshCutLineAnchor(start: Boolean, end: Boolean) {
         Log.i(BaseAudioEditorView.cut_tag, "refreshCutLineAnchor: start=$start  end=$end")
-        (audioEditorView as AudioCutEditorView)?.refreshCutLineAnchor(start,end)
+        (audioEditorView as AudioCutEditorView)?.refreshCutLineAnchor(start, end)
     }
 
     fun anchor2CutEndLine() {
@@ -158,6 +153,31 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) :
         cutPieceFragments.forEach {
             it.freshTrimAnchor()
         }
+    }
+
+    fun getCurrentCutPieceFragment(): CutPieceFragment {
+        try {
+            return cutPieceFragments[currentTouchIndex]
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return cutPieceFragments[0]
+    }
+
+    fun getCutMode(): Int {
+        return getCurrentCutPieceFragment()?.cutMode ?: CutPieceFragment.CUT_MODE_SELECT
+    }
+
+    fun onSingleTapUp(event: MotionEvent): Boolean {
+        if (getCutMode() == CutPieceFragment.CUT_MODE_JUMP) {
+            cutPieceFragments.forEachIndexed { index, cutPieceFragment ->
+                cutPieceFragment.onSingleTapUp(event)
+            }
+            return true
+        } else {
+            return false
+        }
+
     }
 
 }

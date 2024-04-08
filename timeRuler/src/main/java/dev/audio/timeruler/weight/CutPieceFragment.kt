@@ -22,8 +22,13 @@ import java.lang.ref.WeakReference
 
 /**
  * 音波上的裁剪片段
+ * @param audio 音波
+ * @param isSelected 是否选中
+ * @param index 第几个裁剪片段
  */
-class CutPieceFragment(var audio: AudioFragmentWithCut, private var isSelected: Boolean = true) {
+class CutPieceFragment(var audio: AudioFragmentWithCut,
+                       private var isSelected: Boolean = true,
+                       private var index: Int) {
 
     companion object {
         //裁剪竖线的宽度
@@ -54,7 +59,14 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, private var isSelected: 
     )
     annotation class CutMode
 
-    private var cutMode = CUT_MODE_SELECT
+    var cutMode = CUT_MODE_SELECT
+        set(value) {
+            field = value
+            freshTrimAnchor()
+            if (value != CUT_MODE_JUMP && index == 0) {
+                isSelected = true
+            }
+        }
 
 
     private val timestampHandlerRadius = 20f
@@ -521,10 +533,6 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, private var isSelected: 
         }
     }
 
-    fun setCutMode(cutMode: Int) {
-        this.cutMode = cutMode
-        freshTrimAnchor()
-    }
 
     fun anchor2CutEndLine() {
         if (isSelected) {
@@ -650,5 +658,12 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, private var isSelected: 
             }
 
         }
+    }
+
+
+    fun onSingleTapUp(event: MotionEvent): Boolean {
+        isSelected = event.x in startTimestampPosition..endTimestampPosition
+        audio.invalidate()
+        return isSelected
     }
 }

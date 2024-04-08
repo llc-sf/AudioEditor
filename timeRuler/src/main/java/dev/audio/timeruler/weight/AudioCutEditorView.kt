@@ -57,6 +57,13 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         invalidate() // 触发重新绘制
     }
 
+    override fun onSingleTapUp(e: MotionEvent): Boolean {
+        if(audioFragment?.onSingleTapUp(e)==true){
+            return true
+        }
+        return super.onSingleTapUp(e)
+    }
+
 
     /**
      * 裁剪拨片的触摸事件
