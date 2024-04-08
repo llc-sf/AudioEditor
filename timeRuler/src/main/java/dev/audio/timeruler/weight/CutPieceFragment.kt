@@ -579,4 +579,34 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
             audio.invalidate()
         }
     }
+
+    /**
+     * 设定播放位置为裁剪起点
+     */
+    fun trimStart(currentPlayingTimeInAudio: Long) {
+        if (isMajor) {
+            if (currentPlayingTimeInAudio < endTimestampTimeInSelf) {
+                startTimestampTimeInSelf = currentPlayingTimeInAudio
+            } else { //                endTimestampTimeInSelf = currentPlayingTimeInAudio
+                startTimestampTimeInSelf = currentPlayingTimeInAudio
+                endTimestampTimeInSelf = (startTimestampTimeInSelf + 10000L).coerceAtMost(duration)
+            }
+            audio.invalidate()
+        }
+    }
+
+    /**
+     * 设定播放位置为裁剪终点
+     */
+    fun trimEnd(currentPlayingTimeInAudio: Long) {
+        if (isMajor) {
+            if (currentPlayingTimeInAudio > startTimestampTimeInSelf) {
+                endTimestampTimeInSelf = currentPlayingTimeInAudio
+            } else { //                startTimestampTimeInSelf = currentPlayingTimeInAudio
+                endTimestampTimeInSelf = currentPlayingTimeInAudio
+                startTimestampTimeInSelf = (endTimestampTimeInSelf - 10000L).coerceAtLeast(0)
+            }
+            audio.invalidate()
+        }
+    }
 }

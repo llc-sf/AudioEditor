@@ -284,6 +284,32 @@
             android:text="pause" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/trim_anchor_ly"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/play_actions"
+        android:visibility="visible"
+        >
+
+        <Button
+            android:id="@+id/trim_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trim start point" />
+
+        <Button
+            android:id="@+id/trim_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trim end point" />
+
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/cutLinePosition"
@@ -293,7 +319,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/play_actions">
+        app:layout_constraintTop_toBottomOf="@id/trim_anchor_ly">
 
         <Button
             android:id="@+id/clp_left"
@@ -367,6 +393,7 @@
         android:layout_height="45dp"
         android:gravity="center"
         android:text="模拟播放"
+        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnShowCursor" />

@@ -377,5 +377,13 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         audioFragment?.startEndPlus()
     }
 
+    fun trimStart() {
+        audioFragment?.trimStart(currentPlayingTimeInAudio)
+    }
+
+    fun trimEnd() {
+        audioFragment?.trimEnd(currentPlayingTimeInAudio)
+    }
+
 
 }

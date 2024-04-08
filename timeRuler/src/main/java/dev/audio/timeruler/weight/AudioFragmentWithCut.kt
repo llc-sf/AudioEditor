@@ -136,4 +136,16 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) :
         }
     }
 
+    fun trimStart(currentPlayingTimeInAudio: Long) {
+        cutPieceFragments.forEach {
+            it.trimStart(currentPlayingTimeInAudio)
+        }
+    }
+
+    fun trimEnd(currentPlayingTimeInAudio: Long) {
+        cutPieceFragments.forEach {
+            it.trimEnd(currentPlayingTimeInAudio)
+        }
+    }
+
 }
