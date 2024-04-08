@@ -151,4 +151,13 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) :
         }
     }
 
+    /**
+     * 播放条移动
+     */
+    fun freshTrimAnchor() {
+        cutPieceFragments.forEach {
+            it.freshTrimAnchor()
+        }
+    }
+
 }

@@ -16,6 +16,8 @@ import android.view.View
 import androidx.annotation.IntDef
 import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.timeruler.bean.Ref
+import dev.audio.timeruler.utils.format2Duration
+import dev.audio.timeruler.utils.formatToCursorDateString
 import dev.audio.timeruler.weight.CutPieceFragment.MoveHandler.Companion.MSG_MOVE_TO_OFFSET
 import java.lang.ref.WeakReference
 
@@ -107,9 +109,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
             }
         }
 
-    private fun freshTrimAnchor() {
-        if (cutMode == CUT_MODE_SELECT) {
-            onTrimAnchorChangeListener?.onTrimChange(audio.currentPlayingTimeInAudio > startTimestampTimeInSelf, audio.currentPlayingTimeInAudio < endTimestampTimeInSelf)
+    fun freshTrimAnchor() {
+        if (isMajor && cutMode == CUT_MODE_DELETE) {
+            onTrimAnchorChangeListener?.onTrimChange(audio.currentPlayingTimeInAudio < this.startTimestampTimeInSelf, audio.currentPlayingTimeInAudio > this.endTimestampTimeInSelf)
         }
     }
 
@@ -595,17 +597,17 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
     fun trimStart(currentPlayingTimeInAudio: Long) {
         if (isMajor) {
             when (cutMode) {
-                CUT_MODE_DELETE -> {
+                CUT_MODE_SELECT -> {
                     if (currentPlayingTimeInAudio < endTimestampTimeInSelf) {
                         startTimestampTimeInSelf = currentPlayingTimeInAudio
-                    } else {
-                        startTimestampTimeInSelf = endTimestampTimeInSelf
-                        endTimestampTimeInSelf = currentPlayingTimeInAudio
+                    } else { //                endTimestampTimeInSelf = currentPlayingTimeInAudio
+                        startTimestampTimeInSelf = currentPlayingTimeInAudio
+                        endTimestampTimeInSelf = (startTimestampTimeInSelf + 10000L).coerceAtMost(duration)
                     }
                     audio.invalidate()
                 }
 
-                CUT_MODE_SELECT -> {
+                CUT_MODE_DELETE -> {
                     startTimestampTimeInSelf = currentPlayingTimeInAudio
                     audio.invalidate()
                 }
@@ -619,17 +621,17 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
     fun trimEnd(currentPlayingTimeInAudio: Long) {
         if (isMajor) {
             when (cutMode) {
-                CUT_MODE_DELETE -> {
+                CUT_MODE_SELECT -> {
                     if (currentPlayingTimeInAudio > startTimestampTimeInSelf) {
                         endTimestampTimeInSelf = currentPlayingTimeInAudio
-                    } else {
-                        endTimestampTimeInSelf = startTimestampTimeInSelf
-                        startTimestampTimeInSelf = currentPlayingTimeInAudio
+                    } else { //                startTimestampTimeInSelf = currentPlayingTimeInAudio
+                        endTimestampTimeInSelf = currentPlayingTimeInAudio
+                        startTimestampTimeInSelf = (endTimestampTimeInSelf - 10000L).coerceAtLeast(0)
                     }
                     audio.invalidate()
                 }
 
-                CUT_MODE_SELECT -> {
+                CUT_MODE_DELETE -> {
                     endTimestampTimeInSelf = currentPlayingTimeInAudio
                     audio.invalidate()
                 }

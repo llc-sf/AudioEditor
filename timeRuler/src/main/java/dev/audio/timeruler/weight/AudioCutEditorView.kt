@@ -190,6 +190,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         set(value) {
             onPlayingLineChangeListener?.onPlayingLineChange(value)
             field = value
+            audioFragment?.freshTrimAnchor()
         }
 
     /**
