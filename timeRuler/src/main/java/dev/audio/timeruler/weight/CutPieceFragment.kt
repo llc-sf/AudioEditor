@@ -585,13 +585,20 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
      */
     fun trimStart(currentPlayingTimeInAudio: Long) {
         if (isMajor) {
-            if (currentPlayingTimeInAudio < endTimestampTimeInSelf) {
-                startTimestampTimeInSelf = currentPlayingTimeInAudio
-            } else { //                endTimestampTimeInSelf = currentPlayingTimeInAudio
-                startTimestampTimeInSelf = currentPlayingTimeInAudio
-                endTimestampTimeInSelf = (startTimestampTimeInSelf + 10000L).coerceAtMost(duration)
+            when(cutMode){
+                CUT_MODE_SELECT->{
+                    if (currentPlayingTimeInAudio < endTimestampTimeInSelf) {
+                        startTimestampTimeInSelf = currentPlayingTimeInAudio
+                    } else { //                endTimestampTimeInSelf = currentPlayingTimeInAudio
+                        startTimestampTimeInSelf = currentPlayingTimeInAudio
+                        endTimestampTimeInSelf = (startTimestampTimeInSelf + 10000L).coerceAtMost(duration)
+                    }
+                    audio.invalidate()
+                }
+                CUT_MODE_DELETE->{
+
+                }
             }
-            audio.invalidate()
         }
     }
 
@@ -600,13 +607,21 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
      */
     fun trimEnd(currentPlayingTimeInAudio: Long) {
         if (isMajor) {
-            if (currentPlayingTimeInAudio > startTimestampTimeInSelf) {
-                endTimestampTimeInSelf = currentPlayingTimeInAudio
-            } else { //                startTimestampTimeInSelf = currentPlayingTimeInAudio
-                endTimestampTimeInSelf = currentPlayingTimeInAudio
-                startTimestampTimeInSelf = (endTimestampTimeInSelf - 10000L).coerceAtLeast(0)
+            when(cutMode){
+                CUT_MODE_SELECT->{
+                    if (currentPlayingTimeInAudio > startTimestampTimeInSelf) {
+                        endTimestampTimeInSelf = currentPlayingTimeInAudio
+                    } else { //                startTimestampTimeInSelf = currentPlayingTimeInAudio
+                        endTimestampTimeInSelf = currentPlayingTimeInAudio
+                        startTimestampTimeInSelf = (endTimestampTimeInSelf - 10000L).coerceAtLeast(0)
+                    }
+                    audio.invalidate()
+                }
+                CUT_MODE_DELETE->{
+
+                }
             }
-            audio.invalidate()
+
         }
     }
 }
