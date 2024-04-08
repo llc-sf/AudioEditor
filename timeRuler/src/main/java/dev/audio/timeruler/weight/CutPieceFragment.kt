@@ -61,11 +61,11 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
 
     var cutMode = CUT_MODE_SELECT
         set(value) {
+            if (field != value) {
+                isSelected = index == 0
+            }
             field = value
             freshTrimAnchor()
-            if (value != CUT_MODE_JUMP && index == 0) {
-                isSelected = true
-            }
         }
 
 
