@@ -111,7 +111,11 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
 
     fun freshTrimAnchor() {
         if (isMajor && cutMode == CUT_MODE_DELETE) {
-            onTrimAnchorChangeListener?.onTrimChange(audio.currentPlayingTimeInAudio < this.startTimestampTimeInSelf, audio.currentPlayingTimeInAudio > this.endTimestampTimeInSelf)
+            if (audio.currentPlayingTimeInAudio < this.endTimestampTimeInSelf && audio.currentPlayingTimeInAudio > this.startTimestampTimeInSelf) {
+                onTrimAnchorChangeListener?.onTrimChange(start = true, end = true)
+            } else {
+                onTrimAnchorChangeListener?.onTrimChange(audio.currentPlayingTimeInAudio < this.startTimestampTimeInSelf, audio.currentPlayingTimeInAudio > this.endTimestampTimeInSelf)
+            }
         }
     }
 
