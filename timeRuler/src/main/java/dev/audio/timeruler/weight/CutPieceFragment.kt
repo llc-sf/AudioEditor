@@ -16,8 +16,6 @@ import android.view.View
 import androidx.annotation.IntDef
 import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.timeruler.bean.Ref
-import dev.audio.timeruler.utils.format2Duration
-import dev.audio.timeruler.utils.formatToCursorDateString
 import dev.audio.timeruler.weight.CutPieceFragment.MoveHandler.Companion.MSG_MOVE_TO_OFFSET
 import java.lang.ref.WeakReference
 
@@ -25,7 +23,7 @@ import java.lang.ref.WeakReference
 /**
  * 音波上的裁剪片段
  */
-class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = false) {
+class CutPieceFragment(var audio: AudioFragmentWithCut, private var isSelected: Boolean = true) {
 
     companion object {
         //裁剪竖线的宽度
@@ -89,7 +87,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
     private var startTimestampTimeInSelf = 0L
         set(value) {
             field = value
-            if (isMajor) {
+            if (isSelected) {
                 onCutLineChangeListener?.onCutLineChange(startTimestampTimeInSelf, endTimestampTimeInSelf)
                 freshTrimAnchor()
             }
@@ -103,7 +101,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
     private var endTimestampTimeInSelf = 0L
         set(value) {
             field = value
-            if (isMajor) {
+            if (isSelected) {
                 onCutLineChangeListener?.onCutLineChange(startTimestampTimeInSelf, endTimestampTimeInSelf)
                 freshTrimAnchor()
             }
@@ -116,7 +114,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
      * 3、裁剪条移动
      */
     fun freshTrimAnchor() {
-        if (isMajor && cutMode == CUT_MODE_DELETE) {
+        if (isSelected && cutMode == CUT_MODE_DELETE) {
             if (audio.currentPlayingTimeInAudio < this.endTimestampTimeInSelf && audio.currentPlayingTimeInAudio > this.startTimestampTimeInSelf) {
                 onTrimAnchorChangeListener?.onTrimChange(start = true, end = true)
             } else {
@@ -192,7 +190,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
     }
 
     fun drawCutFragment(canvas: Canvas) {
-        if (isMajor || cutMode == CUT_MODE_JUMP) {
+        if (isSelected || cutMode == CUT_MODE_JUMP) {
             drawCutLines(canvas)
         }
         drawCut(canvas)
@@ -209,19 +207,21 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
         //        if(endTimestampPosition>ScreenUtil.getScreenWidth(audio.getContext())){
         //
         //        }
-        audio.refreshCutLineAnchor(isMajor && (startTimestampPosition < 0 || startTimestampPosition > ScreenUtil.getScreenWidth(audio.getContext())), isMajor && (endTimestampPosition > ScreenUtil.getScreenWidth(audio.getContext()) || endTimestampPosition < 0)) // 绘制圆圈标记在直线的顶端
-        canvas.drawCircle(startTimestampPosition, timestampHandlerRadius, timestampHandlerRadius, timestampHandlerPaint)
-        canvas.drawCircle(endTimestampPosition, timestampHandlerRadius, timestampHandlerRadius, timestampHandlerPaint)
+        audio.refreshCutLineAnchor(isSelected && (startTimestampPosition < 0 || startTimestampPosition > ScreenUtil.getScreenWidth(audio.getContext())), isSelected && (endTimestampPosition > ScreenUtil.getScreenWidth(audio.getContext()) || endTimestampPosition < 0)) // 绘制圆圈标记在直线的顶端
+        if (isSelected) {
+            canvas.drawCircle(startTimestampPosition, timestampHandlerRadius, timestampHandlerRadius, timestampHandlerPaint)
+            canvas.drawCircle(endTimestampPosition, timestampHandlerRadius, timestampHandlerRadius, timestampHandlerPaint)
+        }
     }
 
 
     private fun drawCut(canvas: Canvas) { // 假设已经有了一个Bitmap和Canvas，并且波形已经绘制完成
         val paint = Paint()
-        paint.color = Color.YELLOW
+        paint.color = if (isSelected) Color.YELLOW else Color.GRAY
         paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
         when (cutMode) {
             CUT_MODE_SELECT -> {
-                if (!isMajor) {
+                if (!isSelected) {
                     return
                 } // 创建覆盖两条竖线中间区域的矩形
                 val rect = Rect(startTimestampPosition.toInt() + strokeWidth_cut.toInt(), (rect?.top
@@ -233,7 +233,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
             }
 
             CUT_MODE_DELETE -> {
-                if (!isMajor) {
+                if (!isSelected) {
                     return
                 }
                 val rectLeft = Rect(0, (rect?.top
@@ -526,7 +526,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
     }
 
     fun anchor2CutEndLine() {
-        if (isMajor) {
+        if (isSelected) {
             var offsetTimeValue = ((ScreenUtil.getScreenWidth(audio.getContext())
                 .toFloat() / 2 - endTimestampPosition) / unitMsPixel).toLong()
             var tempCursor = audio.cursorValue - offsetTimeValue
@@ -538,7 +538,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
     }
 
     fun anchor2CutStartLine() {
-        if (isMajor) {
+        if (isSelected) {
             var offsetTimeValue = ((ScreenUtil.getScreenWidth(audio.getContext())
                 .toFloat() / 2 - startTimestampPosition) / unitMsPixel).toLong()
             var tempCursor = audio.cursorValue - offsetTimeValue
@@ -551,7 +551,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
 
 
     fun startCutMinus() {
-        if (isMajor) {
+        if (isSelected) {
             var temp = startTimestampTimeInSelf - TIME_STEP
             if (temp <= 0) {
                 startTimestampTimeInSelf = 0
@@ -564,7 +564,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
     }
 
     fun startCutPlus() {
-        if (isMajor) {
+        if (isSelected) {
             var temp = startTimestampTimeInSelf + TIME_STEP
             if (temp >= endTimestampTimeInSelf) {
                 startTimestampTimeInSelf = endTimestampTimeInSelf - 100
@@ -577,7 +577,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
     }
 
     fun startEndMinus() {
-        if (isMajor) {
+        if (isSelected) {
             var temp = endTimestampTimeInSelf - TIME_STEP
             if (temp <= startTimestampTimeInSelf) {
                 endTimestampTimeInSelf = startTimestampTimeInSelf + 100
@@ -590,7 +590,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
     }
 
     fun startEndPlus() {
-        if (isMajor) {
+        if (isSelected) {
             var temp = endTimestampTimeInSelf + TIME_STEP
             if (temp >= duration) {
                 endTimestampTimeInSelf = duration
@@ -606,7 +606,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
      * 设定播放位置为裁剪起点
      */
     fun trimStart(currentPlayingTimeInAudio: Long) {
-        if (isMajor) {
+        if (isSelected) {
             when (cutMode) {
                 CUT_MODE_SELECT -> {
                     if (currentPlayingTimeInAudio < endTimestampTimeInSelf) {
@@ -630,7 +630,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
      * 设定播放位置为裁剪终点
      */
     fun trimEnd(currentPlayingTimeInAudio: Long) {
-        if (isMajor) {
+        if (isSelected) {
             when (cutMode) {
                 CUT_MODE_SELECT -> {
                     if (currentPlayingTimeInAudio > startTimestampTimeInSelf) {

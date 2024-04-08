@@ -30,10 +30,10 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) :
 
     override fun initCutFragment() {
         super.initCutFragment()
-        cutPieceFragments.add(CutPieceFragment(this,true).apply {
+        cutPieceFragments.add(CutPieceFragment(this).apply {
             this.initCutFragment(1/6f, 2/6f)
         })
-        cutPieceFragments.add(CutPieceFragment(this).apply {
+        cutPieceFragments.add(CutPieceFragment(this,false).apply {
             this.initCutFragment(4/6f, 5/6f)
         })
     }
