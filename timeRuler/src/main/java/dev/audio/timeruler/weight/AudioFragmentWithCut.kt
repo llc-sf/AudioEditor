@@ -16,6 +16,22 @@ import dev.audio.timeruler.bean.Ref
 class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(audioEditorView) {
 
 
+    private var currentCutPieceFragment: CutPieceFragment? = null
+        get() {
+            try {
+                return cutPieceFragments[currentTouchIndex]
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            return cutPieceFragments[0]
+        }
+
+    private var cutMode: Int = CutPieceFragment.CUT_MODE_SELECT
+        get() {
+            return currentCutPieceFragment?.cutMode ?: CutPieceFragment.CUT_MODE_SELECT
+        }
+
+
     val currentPlayingTimeInAudio by Ref { audioEditorView.currentPlayingTimeInAudio }
 
     private var cutPieceFragments = mutableListOf<CutPieceFragment>()
@@ -155,22 +171,10 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         }
     }
 
-    fun getCurrentCutPieceFragment(): CutPieceFragment {
-        try {
-            return cutPieceFragments[currentTouchIndex]
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return cutPieceFragments[0]
-    }
-
-    fun getCutMode(): Int {
-        return getCurrentCutPieceFragment()?.cutMode ?: CutPieceFragment.CUT_MODE_SELECT
-    }
 
     fun onSingleTapUp(event: MotionEvent): Boolean {
-        if (getCutMode() == CutPieceFragment.CUT_MODE_JUMP) {
-            cutPieceFragments.forEachIndexed { index, cutPieceFragment ->
+        if (cutMode == CutPieceFragment.CUT_MODE_JUMP) {
+            cutPieceFragments.forEachIndexed { _, cutPieceFragment ->
                 cutPieceFragment.onSingleTapUp(event)
             }
             return true
