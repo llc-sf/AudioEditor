@@ -525,7 +525,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
         }
 
     fun isTarget(event: MotionEvent?): Boolean {
-        if (event == null) return false
+        if (event == null || !isSelected) return false
         return (event.x <= startRect.right + 20 && event.x >= startRect.left - 20).apply {
 
         } || (event.x <= endRect.right + 20 && event.x >= endRect.left - 20).apply {
