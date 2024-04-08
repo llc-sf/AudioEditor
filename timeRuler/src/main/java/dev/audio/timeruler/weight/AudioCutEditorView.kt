@@ -11,6 +11,7 @@ import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.timeruler.weight.BaseAudioEditorView.TickMarkStrategy
 import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.player.PlayerManager
+import java.util.Objects
 import kotlin.reflect.KProperty
 
 open class AudioCutEditorView @JvmOverloads constructor(context: Context,
@@ -185,7 +186,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     /**
      * 歌曲当前播放位置  对于歌曲时长来说
      */
-    private var currentPlayingTimeInAudio: Long = 0L
+    var currentPlayingTimeInAudio: Long = 0L
         set(value) {
             onPlayingLineChangeListener?.onPlayingLineChange(value)
             field = value
@@ -332,6 +333,18 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     fun addOnCutLineAnchorChangeListener(listener: OnCutLineAnchorChangeListener) {
         onCutLineAnchorChangeListener = listener
+    } //*************************************剪切条锚点定位是否显示的监听 end *************************************//
+
+
+    //*************************************剪切条锚点定位是否显示的监听 start *************************************//
+    interface OnTrimAnchorChangeListener {
+        fun onTrimChange(start: Boolean, end: Boolean)
+    }
+
+    var onTrimAnchorChangeListener: OnTrimAnchorChangeListener? = null
+
+    fun addOnTrimAnchorChangeListener(listener: OnTrimAnchorChangeListener) {
+        onTrimAnchorChangeListener = listener
     } //*************************************剪切条锚点定位是否显示的监听 end *************************************//
 
 

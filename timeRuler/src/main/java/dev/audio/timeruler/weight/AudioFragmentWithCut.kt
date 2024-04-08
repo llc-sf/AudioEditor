@@ -17,9 +17,12 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) :
     AudioFragment(audioEditorView) {
 
 
+    val currentPlayingTimeInAudio by Ref { audioEditorView.currentPlayingTimeInAudio }
+
     private var cutPieceFragments = mutableListOf<CutPieceFragment>()
 
     val onCutLineChangeListener by Ref {audioEditorView.onCutLineChangeListener}
+    val onTrimAnchorChangeListener by Ref {audioEditorView.onTrimAnchorChangeListener}
 
     fun getContext(): Context? {
         return audioEditorView.context

@@ -240,6 +240,15 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
             }
         })
 
+        viewBinding.timeBar.addOnTrimAnchorChangeListener(object :
+                                                              AudioCutEditorView.OnTrimAnchorChangeListener {
+
+            override fun onTrimChange(start: Boolean, end: Boolean) {
+                viewBinding.trimStart.visibility = if (start) View.VISIBLE else View.INVISIBLE
+                viewBinding.trimEnd.visibility = if (end) View.VISIBLE else View.INVISIBLE
+            }
+        })
+
         viewBinding.timeBar.addOnCutLineChangeListener(object :
                                                            AudioCutEditorView.OnCutLineChangeListener {
 
