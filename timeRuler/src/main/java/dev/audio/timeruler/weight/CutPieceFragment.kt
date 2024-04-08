@@ -109,6 +109,12 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
             }
         }
 
+    /**
+     * 调用时机
+     * 1、播放条移动时
+     * 2、裁剪模式变化
+     * 3、裁剪条移动
+     */
     fun freshTrimAnchor() {
         if (isMajor && cutMode == CUT_MODE_DELETE) {
             if (audio.currentPlayingTimeInAudio < this.endTimestampTimeInSelf && audio.currentPlayingTimeInAudio > this.startTimestampTimeInSelf) {
@@ -516,6 +522,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
 
     fun setCutMode(cutMode: Int) {
         this.cutMode = cutMode
+        freshTrimAnchor()
     }
 
     fun anchor2CutEndLine() {
