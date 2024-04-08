@@ -197,18 +197,19 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, private var isSelected: 
     }
 
     private fun drawCutLines(canvas: Canvas) { // 绘制代表开始和结束时间戳的线，线的终止位置应在圆圈的下缘
-        canvas.drawLine(startTimestampPosition, timestampHandlerRadius * 2, startTimestampPosition, //            height.toFloat(),
-                        rect?.bottom?.toFloat() ?: 0f, timestampLinePaint)
-        canvas.drawLine(endTimestampPosition, timestampHandlerRadius * 2, endTimestampPosition, //            height.toFloat(),
-                        rect?.bottom?.toFloat()
-                            ?: 0f, timestampLinePaint) //        if(startTimestampPosition<0){
-        //
-        //        }
-        //        if(endTimestampPosition>ScreenUtil.getScreenWidth(audio.getContext())){
-        //
-        //        }
-        audio.refreshCutLineAnchor(isSelected && (startTimestampPosition < 0 || startTimestampPosition > ScreenUtil.getScreenWidth(audio.getContext())), isSelected && (endTimestampPosition > ScreenUtil.getScreenWidth(audio.getContext()) || endTimestampPosition < 0)) // 绘制圆圈标记在直线的顶端
         if (isSelected) {
+            canvas.drawLine(startTimestampPosition, timestampHandlerRadius * 2, startTimestampPosition, //            height.toFloat(),
+                            rect?.bottom?.toFloat() ?: 0f, timestampLinePaint)
+            canvas.drawLine(endTimestampPosition, timestampHandlerRadius * 2, endTimestampPosition, //            height.toFloat(),
+                            rect?.bottom?.toFloat()
+                                ?: 0f, timestampLinePaint) //        if(startTimestampPosition<0){
+            //
+            //        }
+            //        if(endTimestampPosition>ScreenUtil.getScreenWidth(audio.getContext())){
+            //
+            //        }
+            audio.refreshCutLineAnchor(isSelected && (startTimestampPosition < 0 || startTimestampPosition > ScreenUtil.getScreenWidth(audio.getContext())), isSelected && (endTimestampPosition > ScreenUtil.getScreenWidth(audio.getContext()) || endTimestampPosition < 0)) // 绘制圆圈标记在直线的顶端
+
             canvas.drawCircle(startTimestampPosition, timestampHandlerRadius, timestampHandlerRadius, timestampHandlerPaint)
             canvas.drawCircle(endTimestampPosition, timestampHandlerRadius, timestampHandlerRadius, timestampHandlerPaint)
         }
