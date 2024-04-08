@@ -44,7 +44,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
          */
         const val CUT_MODE_JUMP = 2
 
-        const val TIME_STEP = 1000L
+        const val TIME_STEP = 100L
     }
 
     @IntDef(
@@ -86,7 +86,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
     private var startTimestampTimeInSelf = 0L
         set(value) {
             field = value
-            if(isMajor){
+            if (isMajor) {
                 onCutLineChangeListener?.onCutLineChange(startTimestampTimeInSelf, endTimestampTimeInSelf)
             }
         }
@@ -99,7 +99,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
     private var endTimestampTimeInSelf = 0L
         set(value) {
             field = value
-            if(isMajor){
+            if (isMajor) {
                 onCutLineChangeListener?.onCutLineChange(startTimestampTimeInSelf, endTimestampTimeInSelf)
             }
         }
@@ -528,31 +528,54 @@ class CutPieceFragment(var audio: AudioFragmentWithCut, var isMajor: Boolean = f
     }
 
 
-
     fun startCutMinus() {
         if (isMajor) {
-            startTimestampTimeInSelf -= TIME_STEP
+            var temp = startTimestampTimeInSelf - TIME_STEP
+            if (temp <= 0) {
+                startTimestampTimeInSelf = 0
+                audio.invalidate()
+                return
+            }
+            startTimestampTimeInSelf = temp
             audio.invalidate()
         }
     }
 
     fun startCutPlus() {
         if (isMajor) {
-            startTimestampTimeInSelf += TIME_STEP
+            var temp = startTimestampTimeInSelf + TIME_STEP
+            if (temp >= endTimestampTimeInSelf) {
+                startTimestampTimeInSelf = endTimestampTimeInSelf - 100
+                audio.invalidate()
+                return
+            }
+            startTimestampTimeInSelf = temp
             audio.invalidate()
         }
     }
 
     fun startEndMinus() {
         if (isMajor) {
-            endTimestampTimeInSelf -= TIME_STEP
+            var temp = endTimestampTimeInSelf - TIME_STEP
+            if (temp <= startTimestampTimeInSelf) {
+                endTimestampTimeInSelf = startTimestampTimeInSelf + 100
+                audio.invalidate()
+                return
+            }
+            endTimestampTimeInSelf = temp
             audio.invalidate()
         }
     }
 
     fun startEndPlus() {
         if (isMajor) {
-            endTimestampTimeInSelf += TIME_STEP
+            var temp = endTimestampTimeInSelf + TIME_STEP
+            if (temp >= duration) {
+                endTimestampTimeInSelf = duration
+                audio.invalidate()
+                return
+            }
+            endTimestampTimeInSelf = temp
             audio.invalidate()
         }
     }
