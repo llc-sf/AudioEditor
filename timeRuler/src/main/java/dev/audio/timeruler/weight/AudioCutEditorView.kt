@@ -58,7 +58,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     }
 
     override fun onSingleTapUp(e: MotionEvent): Boolean {
-        if(audioFragment?.onSingleTapUp(e)==true){
+        if (audioFragment?.onSingleTapUp(e) == true) {
             return true
         }
         return super.onSingleTapUp(e)
@@ -308,11 +308,6 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         audioFragment?.refreshCursorValueByOnScroll(distanceX, courseIncrement)
     }
 
-    fun setCutMode(cutMode: Int) {
-        audioFragment?.setCutMode(cutMode)
-        invalidate()
-    }
-
     //*************************************剪切条起点终点时间戳变化监听 start *************************************//
     /**
      * 剪切条起点终点时间戳变化监听
@@ -404,6 +399,14 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     fun trimEnd() {
         audioFragment?.trimEnd(currentPlayingTimeInAudio)
+    }
+
+    fun cutAdd() {
+        audioFragment?.cutAdd()
+    }
+
+    fun switchCutMode(mode: Int) {
+        audioFragment?.switchCutMode(mode)
     }
 
 

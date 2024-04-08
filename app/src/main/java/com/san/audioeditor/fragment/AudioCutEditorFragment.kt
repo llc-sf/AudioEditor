@@ -185,22 +185,33 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
             when (checkedId) {
                 R.id.model1 -> {
                     viewBinding.cutAdd.visibility = View.INVISIBLE
-                    viewBinding.timeBar.setCutMode(CutPieceFragment.CUT_MODE_SELECT)
+                    viewBinding.cutRemove.visibility = View.INVISIBLE
+                    viewBinding.timeBar.switchCutMode(CutPieceFragment.CUT_MODE_SELECT)
                     viewBinding.trimAnchorLy.isVisible = true
                 }
 
                 R.id.model2 -> {
                     viewBinding.cutAdd.visibility = View.INVISIBLE
-                    viewBinding.timeBar.setCutMode(CutPieceFragment.CUT_MODE_DELETE)
+                    viewBinding.cutRemove.visibility = View.INVISIBLE
+                    viewBinding.timeBar.switchCutMode(CutPieceFragment.CUT_MODE_DELETE)
                     viewBinding.trimAnchorLy.isVisible = true
                 }
 
                 R.id.model3 -> {
                     viewBinding.cutAdd.visibility = View.VISIBLE
-                    viewBinding.timeBar.setCutMode(CutPieceFragment.CUT_MODE_JUMP)
+                    viewBinding.cutRemove.visibility = View.VISIBLE
+                    viewBinding.timeBar.switchCutMode(CutPieceFragment.CUT_MODE_JUMP)
                     viewBinding.trimAnchorLy.isVisible = false
                 }
             }
+        }
+
+        viewBinding.cutAdd.setOnClickListener {
+           viewBinding.timeBar.cutAdd()
+        }
+
+        viewBinding.cutRemove.setOnClickListener {
+
         }
 
         viewBinding.play.setOnClickListener {

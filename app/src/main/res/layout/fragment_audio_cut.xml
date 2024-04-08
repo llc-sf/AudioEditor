@@ -407,7 +407,15 @@
             android:layout_height="wrap_content"
             android:text="add" />
 
+        <Button
+            android:id="@+id/cut_remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="remove" />
+
     </RadioGroup>
+
+
 
     <TextView
         android:id="@+id/btnAreaOffset"

@@ -16,14 +16,18 @@ import dev.audio.timeruler.bean.Ref
 class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(audioEditorView) {
 
 
-    private var currentCutPieceFragment: CutPieceFragment? = null
+    var currentCutPieceFragment: CutPieceFragment? = null
         get() {
             try {
-                return cutPieceFragments[currentTouchIndex]
+                cutPieceFragments.forEach {
+                    if (it.isSelected) {
+                        return it
+                    }
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-            return cutPieceFragments[0]
+            return null
         }
 
     private var cutMode: Int = CutPieceFragment.CUT_MODE_SELECT
@@ -45,10 +49,10 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
 
     override fun initCutFragment() {
         super.initCutFragment()
-        cutPieceFragments.add(CutPieceFragment(this, index = 0).apply {
+        cutPieceFragments.add(CutPieceFragment(this, index = cutPieceFragments.size).apply {
             this.initCutFragment(1 / 6f, 2 / 6f)
         })
-        cutPieceFragments.add(CutPieceFragment(this, false, index = 1).apply {
+        cutPieceFragments.add(CutPieceFragment(this, false, index = cutPieceFragments.size).apply {
             this.initCutFragment(4 / 6f, 5 / 6f)
         })
     }
@@ -77,32 +81,19 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
 
     fun onTouchEvent(context: Context, view: View, event: MotionEvent?): Boolean {
         Log.i(BaseAudioEditorView.cut_tag, "onTouchEvent: ")
-        return cutPieceFragments[currentTouchIndex].onTouchEvent(context, view, event)
+        return currentCutPieceFragment?.onTouchEvent(context, view, event) ?: false
     }
 
 
-    private var currentTouchIndex = -1
     fun isCutLineTarget(event: MotionEvent): Boolean {
         var isTarget = false
         cutPieceFragments.forEachIndexed { index, cutPieceFragment ->
             if (cutPieceFragment.isTarget(event)) {
-                currentTouchIndex = index
                 isTarget = true
                 return@forEachIndexed
             }
         }
-        return isTarget.apply {
-            if (!this) {
-                currentTouchIndex = -1
-            }
-            Log.i(BaseAudioEditorView.cut_tag, "isCutLineTarget: $this   index=$currentTouchIndex")
-        }
-    }
-
-    fun setCutMode(cutMode: Int) {
-        cutPieceFragments.forEach {
-            it.cutMode = (cutMode)
-        }
+        return isTarget
     }
 
     fun refreshCutLineAnchor(start: Boolean, end: Boolean) {
@@ -182,6 +173,23 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
             return false
         }
 
+    }
+
+    fun cutAdd() {
+        cutPieceFragments.forEach {
+            it.isSelected = false
+        }
+        cutPieceFragments.add(CutPieceFragment(this, true, index = cutPieceFragments.size, mode = CutPieceFragment.CUT_MODE_JUMP).apply {
+            this.initCutFragment(audio.currentPlayingTimeInAudio, if (audio.currentPlayingTimeInAudio + 1000L * 6 > audio.duration) audio.duration else audio.currentPlayingTimeInAudio + 1000L * 6)
+        })
+        audioEditorView.invalidate()
+    }
+
+
+    fun switchCutMode(mode: Int) {
+        cutPieceFragments.forEach {
+            it.switchCutMode(mode)
+        }
     }
 
 }

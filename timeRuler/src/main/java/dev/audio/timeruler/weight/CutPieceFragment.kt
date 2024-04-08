@@ -27,8 +27,9 @@ import java.lang.ref.WeakReference
  * @param index 第几个裁剪片段
  */
 class CutPieceFragment(var audio: AudioFragmentWithCut,
-                       private var isSelected: Boolean = true,
-                       private var index: Int) {
+                       var isSelected: Boolean = true,
+                       private var index: Int,
+                       mode: Int = CUT_MODE_SELECT) {
 
     companion object {
         //裁剪竖线的宽度
@@ -59,14 +60,25 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     )
     annotation class CutMode
 
-    var cutMode = CUT_MODE_SELECT
+    /**
+     * 区别 switchCutMode
+     */
+    var cutMode = mode
         set(value) {
-            if (field != value) {
-                isSelected = index == 0
-            }
             field = value
             freshTrimAnchor()
         }
+
+    /**
+     * 剪切模式切换专用
+     */
+    fun switchCutMode(@CutMode cutMode: Int) {
+        this.cutMode = cutMode //重点
+        if(audio.currentCutPieceFragment==null){
+            isSelected = index == 0
+        }
+        audio.invalidate()
+    }
 
 
     private val timestampHandlerRadius = 20f
@@ -199,6 +211,11 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     fun initCutFragment(start: Float, end: Float) {
         startTimestampTimeInSelf = (duration * start).toLong()
         endTimestampTimeInSelf = (duration * end).toLong()
+    }
+
+    fun initCutFragment(start: Long, end: Long) {
+        startTimestampTimeInSelf = if (start < 0) 0 else start
+        endTimestampTimeInSelf = if (end > duration) duration else end
     }
 
     fun drawCutFragment(canvas: Canvas) {
