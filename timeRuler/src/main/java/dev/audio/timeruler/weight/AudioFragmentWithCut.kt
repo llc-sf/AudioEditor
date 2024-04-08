@@ -32,7 +32,10 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
 
     private var cutMode: Int = CutPieceFragment.CUT_MODE_SELECT
         get() {
-            return currentCutPieceFragment?.cutMode ?: CutPieceFragment.CUT_MODE_SELECT
+            cutPieceFragments?.forEach {
+                return it.cutMode
+            }
+            return CutPieceFragment.CUT_MODE_SELECT
         }
 
 
