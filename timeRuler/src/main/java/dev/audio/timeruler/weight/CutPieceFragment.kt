@@ -77,6 +77,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
         if (audio.currentCutPieceFragment == null) {
             isSelected = index == 0
         }
+        //todo  非跳裁剪转跳剪 可能存在重合的情况
         audio.invalidate()
     }
 
@@ -459,8 +460,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                             startTimestampTimeInSelf = 0
                         } else if (startTimestampPosition >= endTimestampPosition - strokeWidth_cut) { //开始大于结束了
                             startTimestampTimeInSelf = endTimestampTimeInSelf - (strokeWidth_cut).pixel2Time(unitMsPixel)
-                        } else if (isInOtherFragments(startTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))) {
-                            startTimestampTimeInSelf = getFragmentInOtherFragments(endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))?.endTimestampTimeInSelf?:startTimestampTimeInSelf
+                        } else if (cutMode == CUT_MODE_JUMP && isInOtherFragments(startTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))) {
+                            startTimestampTimeInSelf = getFragmentInOtherFragments(endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))?.endTimestampTimeInSelf
+                                ?: startTimestampTimeInSelf
                         } else {
                             startTimestampTimeInSelf += dx.pixel2Time(unitMsPixel)
                         }
@@ -474,8 +476,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                             endTimestampTimeInSelf = duration
                         } else if (endTimestampPosition <= startTimestampPosition + strokeWidth_cut) { //结束小于开始了
                             endTimestampTimeInSelf = startTimestampTimeInSelf + (strokeWidth_cut).pixel2Time(unitMsPixel)
-                        } else if (isInOtherFragments(endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))) {
-                            endTimestampTimeInSelf = getFragmentInOtherFragments(endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))?.startTimestampTimeInSelf?:endTimestampTimeInSelf
+                        } else if (cutMode == CUT_MODE_JUMP && isInOtherFragments(endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))) {
+                            endTimestampTimeInSelf = getFragmentInOtherFragments(endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))?.startTimestampTimeInSelf
+                                ?: endTimestampTimeInSelf
                         } else {
                             val newEndTimestampPosition = endTimestampPosition + dx
                             val screenWidth = ScreenUtil.getScreenWidth(context)
