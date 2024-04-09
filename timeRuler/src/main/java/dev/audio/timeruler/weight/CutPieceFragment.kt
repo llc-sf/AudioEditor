@@ -472,10 +472,10 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                             endTimestampTimeInSelf = duration
                         } else if (endTimestampPosition <= startTimestampPosition + strokeWidth_cut) { //结束小于开始了
                             endTimestampTimeInSelf = startTimestampTimeInSelf + (strokeWidth_cut).pixel2Time(unitMsPixel)
-                        } else if (isInFragments(endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel)).apply {
+                        } else if (isInOtherFragments(endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel)).apply {
                                 Log.i("llc_fuck", "isInFragments:$this")
                             }) {
-                            endTimestampTimeInSelf = getInFragments(endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))
+                            endTimestampTimeInSelf = getFragmentInOtherFragments(endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))
                         } else {
                             val newEndTimestampPosition = endTimestampPosition + dx
                             val screenWidth = ScreenUtil.getScreenWidth(context)
@@ -717,7 +717,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     /**
      * 时间戳是否别的片段内
      */
-    private fun isInFragments(timeStep: Long): Boolean {
+    private fun isInOtherFragments(timeStep: Long): Boolean {
         var result = false
         audio.cutPieceFragments.forEach {
             if (it != this@CutPieceFragment && it.isInFragment(timeStep)) {
@@ -729,7 +729,10 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     }
 
 
-    private fun getInFragments(timeStep: Long): Long {
+    /**
+     * 时间戳是否别的片段内 并返回所在片段
+     */
+    private fun getFragmentInOtherFragments(timeStep: Long): Long {
         var result = 0L
         audio.cutPieceFragments.forEach {
             if (it != this@CutPieceFragment && it.isInFragment(timeStep)) {
