@@ -66,7 +66,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     var cutMode = mode
         set(value) {
             field = value
-            freshTrimAnchor()
+            linesChangeNotify()
         }
 
     /**
@@ -114,7 +114,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             field = value
             if (isSelected) {
                 onCutLineChangeListener?.onCutLineChange(startTimestampTimeInSelf, endTimestampTimeInSelf)
-                freshTrimAnchor()
+                linesChangeNotify()
             }
         }
 
@@ -128,7 +128,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             field = value
             if (isSelected) {
                 onCutLineChangeListener?.onCutLineChange(startTimestampTimeInSelf, endTimestampTimeInSelf)
-                freshTrimAnchor()
+                linesChangeNotify()
             }
         }
 
@@ -138,7 +138,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
      * 2、裁剪模式变化
      * 3、裁剪条移动
      */
-    fun freshTrimAnchor() {
+    fun linesChangeNotify() {
         if (isSelected && cutMode == CUT_MODE_DELETE) {
             if (audio.currentPlayingTimeInAudio < this.endTimestampTimeInSelf && audio.currentPlayingTimeInAudio > this.startTimestampTimeInSelf) {
                 onTrimAnchorChangeListener?.onTrimChange(start = true, end = true)

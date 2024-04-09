@@ -159,7 +159,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
      */
     fun freshTrimAnchor() {
         cutPieceFragments.forEach {
-            it.freshTrimAnchor()
+            it.linesChangeNotify()
         }
     }
 
