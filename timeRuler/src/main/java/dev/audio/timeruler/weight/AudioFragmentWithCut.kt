@@ -41,10 +41,11 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
 
     val currentPlayingTimeInAudio by Ref { audioEditorView.currentPlayingTimeInAudio }
 
-    private var cutPieceFragments = mutableListOf<CutPieceFragment>()
+    var cutPieceFragments = mutableListOf<CutPieceFragment>()
 
     val onCutLineChangeListener by Ref { audioEditorView.onCutLineChangeListener }
     val onTrimAnchorChangeListener by Ref { audioEditorView.onTrimAnchorChangeListener }
+    val cutModeChangeButtonEnableListener by Ref { audioEditorView.cutModeChangeButtonEnableListener }
 
     fun getContext(): Context? {
         return audioEditorView.context
@@ -163,6 +164,9 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
     }
 
 
+    /**
+     * 单击事件
+     */
     fun onSingleTapUp(event: MotionEvent): Boolean {
         if (cutMode == CutPieceFragment.CUT_MODE_JUMP) {
             cutPieceFragments.forEachIndexed { _, cutPieceFragment ->
@@ -176,6 +180,9 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
     }
 
 
+    /**
+     * 切换裁剪模式
+     */
     fun switchCutMode(mode: Int) {
         if (cutPieceFragments.isEmpty()) {
             initCutFragment()
@@ -198,13 +205,14 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
             this.initCutFragment(audio.currentPlayingTimeInAudio, if (audio.currentPlayingTimeInAudio + 1000L * 6 > audio.duration) audio.duration else audio.currentPlayingTimeInAudio + 1000L * 6)
         })
         audioEditorView.invalidate()
+        freshTrimAnchor()
     }
 
     /**
      * 移除裁剪片段
      */
     fun cutRemove() {
-        if(currentCutPieceFragment == null){
+        if (currentCutPieceFragment == null) {
             return
         }
         cutPieceFragments.remove(currentCutPieceFragment)
@@ -212,6 +220,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
             cutPieceFragments[0].isSelected = true
         }
         audioEditorView.invalidate()
+        freshTrimAnchor()
     }
 
 }

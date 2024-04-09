@@ -308,6 +308,19 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         audioFragment?.refreshCursorValueByOnScroll(distanceX, courseIncrement)
     }
 
+
+    //*************************************剪切条起点终点时间戳变化监听 start *************************************//
+    interface CutModeChangeButtonEnableListener {
+        fun onCutModeChange(addEnable:Boolean, removeEnable: Boolean)
+    }
+
+    var cutModeChangeButtonEnableListener: CutModeChangeButtonEnableListener? = null
+
+    fun addCutModeChangeButtonEnableListener(listener: CutModeChangeButtonEnableListener) {
+        cutModeChangeButtonEnableListener = listener
+    }//*************************************剪切条起点终点时间戳变化监听 end *************************************//
+
+
     //*************************************剪切条起点终点时间戳变化监听 start *************************************//
     /**
      * 剪切条起点终点时间戳变化监听

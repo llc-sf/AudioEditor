@@ -74,7 +74,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
      */
     fun switchCutMode(@CutMode cutMode: Int) {
         this.cutMode = cutMode //重点
-        if(audio.currentCutPieceFragment==null){
+        if (audio.currentCutPieceFragment == null) {
             isSelected = index == 0
         }
         audio.invalidate()
@@ -102,6 +102,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
 
     private val onCutLineChangeListener by Ref { audio.onCutLineChangeListener }
     private val onTrimAnchorChangeListener by Ref { audio.onTrimAnchorChangeListener }
+    private val cutModeChangeButtonEnableListener by Ref { audio.cutModeChangeButtonEnableListener }
 
     /**
      * 裁剪选中的起始时间  ms
@@ -132,7 +133,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
         }
 
     /**
-     * 调用时机
+     * 裁剪条或者播放条变化
      * 1、播放条移动时
      * 2、裁剪模式变化
      * 3、裁剪条移动
@@ -144,6 +145,23 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             } else {
                 onTrimAnchorChangeListener?.onTrimChange(audio.currentPlayingTimeInAudio < this.startTimestampTimeInSelf, audio.currentPlayingTimeInAudio > this.endTimestampTimeInSelf)
             }
+        }
+
+        when (cutMode) {
+            CUT_MODE_SELECT, CUT_MODE_DELETE -> {
+                cutModeChangeButtonEnableListener?.onCutModeChange(addEnable = false, removeEnable = false)
+            }
+
+            CUT_MODE_JUMP -> {
+                var addEnable = true
+                var removeEnable = false
+                audio.cutPieceFragments.forEachIndexed { _, cutPieceFragment ->
+                    removeEnable = removeEnable || (cutPieceFragment.isSelected)
+                    addEnable = addEnable && (audio.currentPlayingTimeInAudio < cutPieceFragment.startTimestampTimeInSelf || audio.currentPlayingTimeInAudio > cutPieceFragment.endTimestampTimeInSelf)
+                }
+                cutModeChangeButtonEnableListener?.onCutModeChange(addEnable, removeEnable)
+            }
+
         }
     }
 

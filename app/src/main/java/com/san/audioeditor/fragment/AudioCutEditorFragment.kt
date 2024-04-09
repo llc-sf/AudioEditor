@@ -270,6 +270,16 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
             }
         })
 
+        viewBinding.timeBar.addCutModeChangeButtonEnableListener(object :
+                                                                    AudioCutEditorView.CutModeChangeButtonEnableListener {
+
+
+            override fun onCutModeChange(addEnable: Boolean, removeEnable: Boolean) {
+                viewBinding.cutAdd.visibility = if (addEnable) View.VISIBLE else View.INVISIBLE
+                viewBinding.cutRemove.visibility = if (removeEnable) View.VISIBLE else View.INVISIBLE
+            }
+        })
+
         viewBinding.cutStartMinus.setOnClickListener {
             viewBinding.timeBar.startCutMinus()
         }
