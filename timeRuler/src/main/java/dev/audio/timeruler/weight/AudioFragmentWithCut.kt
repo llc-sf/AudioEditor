@@ -191,8 +191,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         }
         if (mode == CutPieceFragment.CUT_MODE_JUMP) { //cutPieceFragments只保留isSelected
             //其他模式转跳剪辑  只保留当前选中的
-            cutPieceFragments.clear()
-            cutPieceFragments.addAll(cutPieceFragments.filter { it.isSelected })
+            cutPieceFragments = cutPieceFragments.filter { it.isSelected }.toMutableList()
         }
         cutPieceFragments.forEach {
             it.switchCutMode(mode)
