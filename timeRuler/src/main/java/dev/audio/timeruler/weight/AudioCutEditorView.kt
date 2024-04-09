@@ -409,5 +409,9 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         audioFragment?.switchCutMode(mode)
     }
 
+    fun cutRemove() {
+        audioFragment?.cutRemove()
+    }
+
 
 }

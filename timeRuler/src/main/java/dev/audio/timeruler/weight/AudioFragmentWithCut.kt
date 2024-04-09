@@ -53,10 +53,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
     override fun initCutFragment() {
         super.initCutFragment()
         cutPieceFragments.add(CutPieceFragment(this, index = cutPieceFragments.size).apply {
-            this.initCutFragment(1 / 6f, 2 / 6f)
-        })
-        cutPieceFragments.add(CutPieceFragment(this, false, index = cutPieceFragments.size).apply {
-            this.initCutFragment(4 / 6f, 5 / 6f)
+            this.initCutFragment(1 / 3f, 2 / 3f)
         })
     }
 
@@ -178,6 +175,21 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
 
     }
 
+
+    fun switchCutMode(mode: Int) {
+        if (cutPieceFragments.isEmpty()) {
+            initCutFragment()
+            audioEditorView.invalidate()
+            return
+        }
+        cutPieceFragments.forEach {
+            it.switchCutMode(mode)
+        }
+    }
+
+    /**
+     * 增加裁剪片段
+     */
     fun cutAdd() {
         cutPieceFragments.forEach {
             it.isSelected = false
@@ -188,11 +200,18 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         audioEditorView.invalidate()
     }
 
-
-    fun switchCutMode(mode: Int) {
-        cutPieceFragments.forEach {
-            it.switchCutMode(mode)
+    /**
+     * 移除裁剪片段
+     */
+    fun cutRemove() {
+        if(currentCutPieceFragment == null){
+            return
         }
+        cutPieceFragments.remove(currentCutPieceFragment)
+        if (cutPieceFragments.isNotEmpty()) {
+            cutPieceFragments[0].isSelected = true
+        }
+        audioEditorView.invalidate()
     }
 
 }

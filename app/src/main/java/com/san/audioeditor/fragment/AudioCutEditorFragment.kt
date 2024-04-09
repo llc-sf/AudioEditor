@@ -211,7 +211,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         }
 
         viewBinding.cutRemove.setOnClickListener {
-
+            viewBinding.timeBar.cutRemove()
         }
 
         viewBinding.play.setOnClickListener {
