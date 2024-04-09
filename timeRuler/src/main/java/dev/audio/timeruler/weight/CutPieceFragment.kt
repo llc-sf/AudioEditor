@@ -459,6 +459,8 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                             startTimestampTimeInSelf = 0
                         } else if (startTimestampPosition >= endTimestampPosition - strokeWidth_cut) { //开始大于结束了
                             startTimestampTimeInSelf = endTimestampTimeInSelf - (strokeWidth_cut).pixel2Time(unitMsPixel)
+                        } else if (isInOtherFragments(startTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))) {
+                            startTimestampTimeInSelf = getFragmentInOtherFragments(endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))?.endTimestampTimeInSelf?:startTimestampTimeInSelf
                         } else {
                             startTimestampTimeInSelf += dx.pixel2Time(unitMsPixel)
                         }
@@ -472,10 +474,8 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                             endTimestampTimeInSelf = duration
                         } else if (endTimestampPosition <= startTimestampPosition + strokeWidth_cut) { //结束小于开始了
                             endTimestampTimeInSelf = startTimestampTimeInSelf + (strokeWidth_cut).pixel2Time(unitMsPixel)
-                        } else if (isInOtherFragments(endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel)).apply {
-                                Log.i("llc_fuck", "isInFragments:$this")
-                            }) {
-                            endTimestampTimeInSelf = getFragmentInOtherFragments(endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))
+                        } else if (isInOtherFragments(endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))) {
+                            endTimestampTimeInSelf = getFragmentInOtherFragments(endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))?.startTimestampTimeInSelf?:endTimestampTimeInSelf
                         } else {
                             val newEndTimestampPosition = endTimestampPosition + dx
                             val screenWidth = ScreenUtil.getScreenWidth(context)
@@ -732,11 +732,11 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     /**
      * 时间戳是否别的片段内 并返回所在片段
      */
-    private fun getFragmentInOtherFragments(timeStep: Long): Long {
-        var result = 0L
+    private fun getFragmentInOtherFragments(timeStep: Long): CutPieceFragment? {
+        var result: CutPieceFragment? = null
         audio.cutPieceFragments.forEach {
             if (it != this@CutPieceFragment && it.isInFragment(timeStep)) {
-                result = it.startTimestampTimeInSelf
+                result = it
                 return@forEach
             }
         }
