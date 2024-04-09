@@ -109,7 +109,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
      * 相对于自己来说
      * 例：歌曲200*1000ms   起始时间80*1000ms
      */
-    private var startTimestampTimeInSelf = 0L
+    var startTimestampTimeInSelf = 0L
         set(value) {
             field = value
             if (isSelected) {
@@ -700,5 +700,12 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
         isSelected = event.x in startTimestampPosition..endTimestampPosition
         audio.invalidate()
         return isSelected
+    }
+
+    /**
+     * 时间点是否在区间内
+     */
+    fun isInFragment(timeStep: Long): Boolean {
+        return timeStep in startTimestampTimeInSelf..endTimestampTimeInSelf
     }
 }

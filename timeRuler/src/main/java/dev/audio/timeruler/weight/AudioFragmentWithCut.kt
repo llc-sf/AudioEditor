@@ -202,7 +202,17 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
             it.isSelected = false
         }
         cutPieceFragments.add(CutPieceFragment(this, true, index = cutPieceFragments.size, mode = CutPieceFragment.CUT_MODE_JUMP).apply {
-            this.initCutFragment(audio.currentPlayingTimeInAudio, if (audio.currentPlayingTimeInAudio + 1000L * 6 > audio.duration) audio.duration else audio.currentPlayingTimeInAudio + 1000L * 6)
+            var endTemp = audio.currentPlayingTimeInAudio + 1000L * 6 //不能超范围
+            if (endTemp > audio.duration) {
+                endTemp = audio.duration
+            } //不能重叠
+            cutPieceFragments.forEachIndexed { index, cutPieceFragment ->
+                if (cutPieceFragment.isInFragment(endTemp)) {
+                    endTemp = cutPieceFragment.startTimestampTimeInSelf
+                    return@forEachIndexed
+                }
+            }
+            this.initCutFragment(audio.currentPlayingTimeInAudio, endTemp)
         })
         audioEditorView.invalidate()
         freshTrimAnchor()
