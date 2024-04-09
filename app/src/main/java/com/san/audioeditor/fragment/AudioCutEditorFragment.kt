@@ -187,21 +187,21 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
                     viewBinding.cutAdd.visibility = View.INVISIBLE
                     viewBinding.cutRemove.visibility = View.INVISIBLE
                     viewBinding.timeBar.switchCutMode(CutPieceFragment.CUT_MODE_SELECT)
-                    viewBinding.trimAnchorLy.isVisible = true
+                    viewBinding.trimAnchorLy.visibility = View.VISIBLE
                 }
 
                 R.id.model2 -> {
                     viewBinding.cutAdd.visibility = View.INVISIBLE
                     viewBinding.cutRemove.visibility = View.INVISIBLE
                     viewBinding.timeBar.switchCutMode(CutPieceFragment.CUT_MODE_DELETE)
-                    viewBinding.trimAnchorLy.isVisible = true
+                    viewBinding.trimAnchorLy.visibility = View.VISIBLE
                 }
 
                 R.id.model3 -> {
                     viewBinding.cutAdd.visibility = View.VISIBLE
                     viewBinding.cutRemove.visibility = View.VISIBLE
                     viewBinding.timeBar.switchCutMode(CutPieceFragment.CUT_MODE_JUMP)
-                    viewBinding.trimAnchorLy.isVisible = false
+                    viewBinding.trimAnchorLy.visibility = View.INVISIBLE
                 }
             }
         }
