@@ -77,6 +77,8 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
 
     val screenWithDuration by Ref { audioEditorView.screenWithDuration }
 
+    val baselinePosition by Ref { audioEditorView.baselinePosition }
+
     /**
      *
      * 当前坐标轴的时间游标同步

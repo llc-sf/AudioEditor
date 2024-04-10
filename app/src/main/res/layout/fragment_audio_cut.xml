@@ -148,6 +148,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cut_ly"
         app:showCursorLine="true"
+        app:showTickLine="false"
         app:tickColor="#ffffff"
         app:tickDirectionUp="false"
         app:tickValueColor="#ffffff"

@@ -99,6 +99,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     private val strokeWidth by Ref { audio.strokeWidth }
     private val rect by Ref { audio.rect }
     private val unitMsPixel by Ref { audio.unitMsPixel }
+    private val baselinePosition by Ref { audio.baselinePosition }
 
 
     private val onCutLineChangeListener by Ref { audio.onCutLineChangeListener }
@@ -246,9 +247,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
 
     private fun drawCutLines(canvas: Canvas) { // 绘制代表开始和结束时间戳的线，线的终止位置应在圆圈的下缘
         if (isSelected) {
-            canvas.drawLine(startTimestampPosition, timestampHandlerRadius * 2, startTimestampPosition, //            height.toFloat(),
+            canvas.drawLine(startTimestampPosition, baselinePosition, startTimestampPosition, //            height.toFloat(),
                             rect?.bottom?.toFloat() ?: 0f, timestampLinePaint)
-            canvas.drawLine(endTimestampPosition, timestampHandlerRadius * 2, endTimestampPosition, //            height.toFloat(),
+            canvas.drawLine(endTimestampPosition, baselinePosition, endTimestampPosition, //            height.toFloat(),
                             rect?.bottom?.toFloat()
                                 ?: 0f, timestampLinePaint) //        if(startTimestampPosition<0){
             //

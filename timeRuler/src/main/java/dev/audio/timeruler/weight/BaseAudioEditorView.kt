@@ -300,8 +300,8 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
     private var mGestureDetectorCompat: GestureDetectorCompat? = null
     private var scrollHappened = false
 
-    protected val baselinePosition: Float
-        protected get() = mBaselinePosition + 10
+    val baselinePosition: Float
+         get() = mBaselinePosition + 10
 
     private val scaleGestureDetect: ScaleGestureDetector
         get() {

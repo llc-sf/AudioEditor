@@ -175,7 +175,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
 
     private fun drawPlayingLine(canvas: Canvas) {
-        canvas.drawLine(currentPlayingPosition, 0.0f, currentPlayingPosition, audioFragment?.rect?.bottom?.toFloat()
+        canvas.drawLine(currentPlayingPosition, baselinePosition, currentPlayingPosition, audioFragment?.rect?.bottom?.toFloat()
             ?: 0f, playingLinePaint)
     }
 
