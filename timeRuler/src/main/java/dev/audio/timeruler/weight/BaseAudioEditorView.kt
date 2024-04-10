@@ -188,6 +188,12 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
     /* 刻度线颜色 */
     val tickValueColor: Int
 
+    /* 顶部padding */
+    private val topPadding: Float
+
+    /* 底部padding */
+    private val bottomPadding: Float
+
     /* 刻度字体大小 */
     val tickValueSize: Float
 
@@ -303,7 +309,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
     private var scrollHappened = false
 
     val baselinePosition: Float
-        get() = mBaselinePosition + 10
+        get() = mBaselinePosition + topPadding
 
     private val scaleGestureDetect: ScaleGestureDetector
         get() {
@@ -331,6 +337,10 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.BaseScaleBar)
         tickValueColor = typedArray.getColor(R.styleable.BaseScaleBar_tickValueColor, Color.WHITE)
         tickValueSize = typedArray.getDimension(R.styleable.BaseScaleBar_tickValueSize, SizeUtils.sp2px(getContext(), 8f)
+            .toFloat())
+        topPadding = typedArray.getDimension(R.styleable.BaseScaleBar_topPadding, SizeUtils.sp2px(getContext(), 0f)
+            .toFloat())
+        bottomPadding = typedArray.getDimension(R.styleable.BaseScaleBar_bottomPadding, SizeUtils.sp2px(getContext(), 0f)
             .toFloat())
         keyTickHeight = typedArray.getDimension(R.styleable.BaseScaleBar_keyTickHeight, SizeUtils.dp2px(getContext(), 10f)
             .toFloat())
@@ -467,7 +477,6 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
 
     override fun onDraw(canvas: Canvas) {
         Log.i(long_press_tag, "onDraw cursorValue=${TimeUtil.getDetailTime(cursorValue)}")
-        val baselinePosition = baselinePosition
         mScalePaint!!.color = tickColor
         if (showTickLine) {
             canvas.drawLine(scrollX.toFloat(), baselinePosition, (scrollX + width).toFloat(), baselinePosition, mScalePaint!!)

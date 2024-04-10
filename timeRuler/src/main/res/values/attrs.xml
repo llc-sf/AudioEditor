@@ -20,13 +20,18 @@
         <!-- 是否显示刻度值-->
         <attr name="showTickValue" format="boolean" />
         <!-- 刻度线开口方向-->
-        <attr name="tickDirectionUp" format="boolean"/>
+        <attr name="tickDirectionUp" format="boolean" />
         <!--游标线颜色-->
         <attr name="cursorLineColor" format="color|reference" />
         <!--currentPlaying 播放条刻度字体大小-->
         <attr name="playingTextSize" format="dimension|reference" />
         <!--currentPlaying 播放条底部三角形变成-->
         <attr name="triangleSideLength" format="dimension|reference" />
+
+        <!--View 顶部padding-->
+        <attr name="topPadding" format="dimension|reference" />
+        <!--View 底部padding-->
+        <attr name="bottomPadding" format="dimension|reference" />
 
         <!--刻度值颜色-->
         <attr name="tickValueColor" format="color|reference" />

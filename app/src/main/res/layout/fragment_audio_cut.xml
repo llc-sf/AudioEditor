@@ -155,6 +155,7 @@
         app:tickValueColor="#ffffff"
         app:tickValueOffset="0dp"
         app:tickValueSize="10dp"
+        app:topPadding="6dp"
         app:triangleSideLength="12dp" />
 
     <LinearLayout
