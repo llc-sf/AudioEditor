@@ -23,10 +23,8 @@
         <attr name="tickDirectionUp" format="boolean"/>
         <!--游标线颜色-->
         <attr name="cursorLineColor" format="color|reference" />
-        <!--刻度值最大规格(字体大小)-->
-        <attr name="maxScaleValueSize" format="color|reference" />
-
-
+        <!--currentPlaying 播放条刻度字体大小-->
+        <attr name="playingTextSize" format="dimension|reference" />
 
         <!--刻度值颜色-->
         <attr name="tickValueColor" format="color|reference" />

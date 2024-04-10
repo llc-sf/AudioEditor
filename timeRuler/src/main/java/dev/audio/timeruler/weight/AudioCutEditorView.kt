@@ -9,12 +9,12 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import dev.audio.ffmpeglib.tool.ScreenUtil
+import dev.audio.timeruler.R
 import dev.audio.timeruler.weight.BaseAudioEditorView.TickMarkStrategy
 import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.player.PlayerManager
-import dev.audio.timeruler.utils.format2Duration
+import dev.audio.timeruler.utils.SizeUtils
 import dev.audio.timeruler.utils.format2DurationSimple
-import java.util.Objects
 import kotlin.reflect.KProperty
 
 open class AudioCutEditorView @JvmOverloads constructor(context: Context,
@@ -33,11 +33,18 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     private var touchPlayingLine = false
 
+    private var playingTextSize = 20f
+
     init {
-        init()
+        init(attrs)
     }
 
-    private fun init() {
+    private fun init(attrs: AttributeSet?) {
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.BaseScaleBar)
+        playingTextSize  = typedArray.getDimension(R.styleable.BaseScaleBar_playingTextSize, SizeUtils.sp2px(context, 8f)
+            .toFloat())
+        typedArray.recycle()
+
         setTickMarkStrategy(this)
         mCursorPositionProportion = 0.0f
     }
@@ -198,10 +205,11 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         return y + 50f
     }
 
+
     private fun drawText(canvas: Canvas, y: Float, text: String) {
         val paint = Paint()
         paint.color = Color.WHITE // 设置文本颜色
-        paint.textSize = 40f // 设置文本大小
+        paint.textSize = playingTextSize // 设置文本大小
         // 计算文本的位置，确保文字在三角形下方居中
         val textWidth = paint.measureText(text)
         canvas.drawText(text, currentPlayingPosition - textWidth / 2, y + 50f, paint)
