@@ -203,8 +203,8 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
             val bottom = centerY + (barHeight / 2)
 
             // 绘制带有圆角的矩形条
-//            val rectF = RectF(xPosition, top, xPosition + fixedBarWidth, bottom)
-//            canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, mWavePaint)
+            val rectF = RectF(xPosition, top, xPosition + fixedBarWidth, bottom)
+            canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, mWavePaint)
         }
 
         waveRect(centerY, canvas)
@@ -262,7 +262,7 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
             this.style = Paint.Style.STROKE
             this.strokeWidth = strokeWidth
         }
-        canvas.drawRect(rect!!, rectPaint)
+//        canvas.drawRect(rect!!, rectPaint)
     }
 
 
