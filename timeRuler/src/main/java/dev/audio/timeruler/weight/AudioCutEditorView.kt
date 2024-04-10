@@ -196,7 +196,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         drawText(canvas, y, currentPlayingTimeInAudio.format2DurationSimple())
     }
 
-
+    //播放条 播放条与三角的间距
     private var margin1 = 20f
     private fun drawTriangle(canvas: Canvas, y: Float): Float {
         val path = Path()
@@ -215,6 +215,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         color = Color.WHITE
         textSize = playingTextSize
     }
+    //播放条三角与文字的间距
     private var margin2 = 10f
     private fun drawText(canvas: Canvas, y: Float, text: String) {
         val textWidth = textPaint.measureText(text)
