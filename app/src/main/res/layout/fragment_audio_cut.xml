@@ -154,7 +154,7 @@
         app:tickDirectionUp="false"
         app:tickValueColor="#ffffff"
         app:tickValueOffset="0dp"
-        app:tickValueSize="10dp"
+        app:tickValueSize="30dp"
         app:topPadding="6dp"
         app:triangleSideLength="12dp" />
 

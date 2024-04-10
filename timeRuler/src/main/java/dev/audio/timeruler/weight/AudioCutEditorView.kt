@@ -15,6 +15,7 @@ import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.player.PlayerManager
 import dev.audio.timeruler.utils.SizeUtils
 import dev.audio.timeruler.utils.format2DurationSimple
+import dev.audio.timeruler.utils.getTopY
 import kotlin.reflect.KProperty
 
 open class AudioCutEditorView @JvmOverloads constructor(context: Context,
@@ -217,7 +218,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         paint.color = Color.WHITE
         paint.textSize = playingTextSize
         val textWidth = paint.measureText(text)
-        canvas.drawText(text, currentPlayingPosition - textWidth / 2, y + playingTextSize + margin, paint)
+        canvas.drawText(text, currentPlayingPosition - textWidth / 2, y + paint.getTopY() + margin, paint)
     }
 
 

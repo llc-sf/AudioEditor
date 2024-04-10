@@ -193,16 +193,6 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
         return 0
     }
 
-    override fun calcContentHeight(baselinePositionProportion: Float): Int {
-        val contentHeight = super.calcContentHeight(baselinePositionProportion)
-        mColorCursorPaint!!.textSize = cursorValueSize
-        val fontMetrics = mColorCursorPaint!!.fontMetrics
-        val ceil = Math.ceil((fontMetrics.bottom - fontMetrics.top).toDouble())
-        val cursorValueHeight = (ceil + mTriangleHeight + tickValueBoundOffsetH).toInt() + 5
-        val cursorContentHeight =
-            ((keyTickHeight + cursorValueHeight) / baselinePositionProportion + 0.5f).toInt()
-        return Math.max(contentHeight, cursorContentHeight)
-    }
 
     var cursorDateFormat = SimpleDateFormat("HH:mm:ss")
 
