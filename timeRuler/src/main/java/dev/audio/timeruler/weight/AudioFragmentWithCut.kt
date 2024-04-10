@@ -58,6 +58,13 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         })
     }
 
+    /**
+     * 与轨道无关了
+     */
+    override fun getTrackYPosition(): Float {
+        return startYInParent + maxWaveHeight
+    }
+
 
     /**
      * 是否选中  裁剪
@@ -84,7 +91,6 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         Log.i(BaseAudioEditorView.cut_tag, "onTouchEvent: ")
         return currentCutPieceFragment?.onTouchEvent(context, view, event) ?: false
     }
-
 
     fun isCutLineTarget(event: MotionEvent): Boolean {
         var isTarget = false

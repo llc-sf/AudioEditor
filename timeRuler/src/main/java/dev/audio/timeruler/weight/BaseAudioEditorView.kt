@@ -333,6 +333,11 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
             return mScroller!!
         }
 
+    var startYInParent = 0f
+        get() {
+            return baselinePosition + keyTickHeight
+        }
+
     init {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.BaseScaleBar)
         tickValueColor = typedArray.getColor(R.styleable.BaseScaleBar_tickValueColor, Color.WHITE)
