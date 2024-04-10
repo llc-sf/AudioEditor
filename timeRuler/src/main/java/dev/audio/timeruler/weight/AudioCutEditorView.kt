@@ -226,6 +226,25 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         return super.calcContentHeight() + (textPaint.getTextHeight() + triangleSideLength + margin1).toInt()
     }
 
+    override fun drawRightKeyTick(canvas: Canvas,
+                                  index: Int,
+                                  onDrawTickValue: Long,
+                                  onDrawTickPosition: Float,
+                                  paint: Paint,
+                                  rightCount: Int
+    ) {
+        if (index == 0) {
+            drawTickValue(canvas, 20f + paint.measureText(cursorValue.format2DurationSimple()) / 2, topPadding + paint!!.getTopY(), cursorValue, true)
+        } else if (index == rightCount / 3) {
+            drawTickValue(canvas, ScreenUtil.getScreenWidth(context) / 3f, topPadding + paint!!.getTopY(), cursorValue + screenWithDuration / 3, true)
+        } else if (index == rightCount / 3 * 2) {
+            drawTickValue(canvas, ScreenUtil.getScreenWidth(context) / 3f * 2, topPadding + paint!!.getTopY(), cursorValue + screenWithDuration / 3 * 2, true)
+        } else if (index == rightCount - 1) {
+            drawTickValue(canvas, ScreenUtil.getScreenWidth(context)
+                .toFloat() - paint!!.measureText((cursorValue + screenWithDuration).format2DurationSimple()) / 2 - 20f, topPadding + paint!!.getTopY(), cursorValue + screenWithDuration, true)
+        }
+    }
+
 
     /**
      * 播放条对应的屏幕位置 x坐标

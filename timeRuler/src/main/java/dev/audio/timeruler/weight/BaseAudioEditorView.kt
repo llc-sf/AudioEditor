@@ -502,9 +502,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
             } else {
                 if ((onDrawTickValue - startValue) % keyScaleRange == 0L) {
                     canvas.drawLine(onDrawTickPosition, baselinePosition, onDrawTickPosition, baselinePosition + keyTickHeight, mScalePaint!!)
-                    if ((onDrawTickValue - startValue) % (keyScaleRange * 2) == 0L) {
-                        drawTickValue(canvas, onDrawTickPosition, baselinePosition - keyTickHeight, onDrawTickValue, true)
-                    }
+                    drawLeftKeyTick(canvas, i, onDrawTickValue, onDrawTickPosition, mScalePaint!!, leftCount)
                 } else {
                     canvas.drawLine(onDrawTickPosition, baselinePosition, onDrawTickPosition, baselinePosition + mTickHeight, mScalePaint!!)
                     drawTickValue(canvas, onDrawTickPosition, baselinePosition - mTickHeight, onDrawTickValue, false)
@@ -531,20 +529,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
                     drawTickValue(canvas, onDrawTickPosition, baselinePosition - mTickHeight, onDrawTickValue, false)
                 }
             } else {
-                if (i == 0) {
-                    drawTickValue(canvas, 20f + mScalePaint!!.measureText(getScaleValueHms(cursorValue, true)) / 2, topPadding + mScalePaint!!.getTopY(), cursorValue, true)
-                } else if (i == rightCount / 3) {
-                    drawTickValue(canvas, ScreenUtil.getScreenWidth(context) / 3f, topPadding + mScalePaint!!.getTopY(), cursorValue + screenWithDuration / 3, true)
-                } else if (i == rightCount / 3 * 2) {
-                    drawTickValue(canvas, ScreenUtil.getScreenWidth(context) / 3f * 2, topPadding + mScalePaint!!.getTopY(), cursorValue + screenWithDuration / 3 * 2, true)
-                } else if (i == rightCount - 1) {
-                    drawTickValue(canvas, ScreenUtil.getScreenWidth(context)
-                        .toFloat() - mScalePaint!!.measureText(getScaleValueHms(cursorValue + screenWithDuration, true)) / 2 - 20f, topPadding + mScalePaint!!.getTopY(), cursorValue + screenWithDuration, true)
-                } //关键刻度绘制刻度值
-                //                if ((onDrawTickValue - startValue) % (keyScaleRange * 2) == 0L) {
-                //                    drawTickValue(canvas, onDrawTickPosition, baselinePosition, onDrawTickValue, true)
-                //                }
-
+                drawRightKeyTick(canvas, i, onDrawTickValue, onDrawTickPosition, mScalePaint!!, rightCount)
                 if ((onDrawTickValue - startValue) % keyScaleRange == 0L) {
                     canvas.drawLine(onDrawTickPosition, baselinePosition, onDrawTickPosition, baselinePosition + keyTickHeight, mScalePaint!!)
                 } else {
@@ -556,6 +541,36 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
         drawWaveformSeekBar(canvas)
 
         drawRange(canvas)
+    }
+
+    /**
+     * cursorValue 左边关键帧刻度值绘制
+     *  默认关键帧绘制值 如有特殊需求再在子类中绘制
+     */
+    open fun drawLeftKeyTick(canvas: Canvas,
+                             index: Int,
+                             onDrawTickValue: Long,
+                             onDrawTickPosition: Float,
+                             paint: Paint,
+                             leftCount: Int) {
+        if ((onDrawTickValue - startValue) % (keyScaleRange * 2) == 0L) {
+            drawTickValue(canvas, onDrawTickPosition, baselinePosition + keyTickHeight + mScalePaint!!.getTopY(), onDrawTickValue, true)
+        }
+    }
+
+    /**
+     * cursorValue 右边关键帧刻度值绘制 默认关键帧绘制值
+     * 默认关键帧绘制值 如有特殊需求再在子类中绘制
+     */
+    open fun drawRightKeyTick(canvas: Canvas,
+                              index: Int,
+                              onDrawTickValue: Long,
+                              onDrawTickPosition: Float,
+                              paint: Paint,
+                              rightCount: Int) { //关键刻度绘制刻度值
+        if ((onDrawTickValue - startValue) % (keyScaleRange * 2) == 0L) {
+            drawTickValue(canvas, onDrawTickPosition, baselinePosition + keyTickHeight + mScalePaint!!.getTopY(), onDrawTickValue, true)
+        }
     }
 
     private fun drawKeyValueRange(canvas: Canvas) {
@@ -612,16 +627,12 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
      * @param scaleValue
      * @param keyScale
      */
-    private fun drawTickValue(canvas: Canvas,
-                              x: Float,
-                              y: Float,
-                              scaleValue: Long,
-                              keyScale: Boolean) {
+    fun drawTickValue(canvas: Canvas, x: Float, y: Float, scaleValue: Long, keyScale: Boolean) {
         if (showTickValue) {
             if (mTickMarkStrategy?.disPlay(scaleValue, keyScale) == true) {
                 mScalePaint!!.color = tickValueColor
                 mScalePaint!!.textAlign = Paint.Align.CENTER
-                canvas.drawText(getScaleValueHms(scaleValue, keyScale), x, y, mScalePaint!!)
+                canvas.drawText(getScaleValue(scaleValue, keyScale), x, y, mScalePaint!!)
 
             }
         }
@@ -971,28 +982,6 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
         val minutes = parts[1].toInt()
         val seconds = parts[2].toInt() // 转换为秒
         return (hours * 3600 + minutes * 60 + seconds).toString() + "s"
-    }
-
-    /**
-     * HH:mm:ss 格式
-     */
-    private fun getScaleValueHms(scaleValue: Long, keyScale: Boolean): String {
-        val calendar = Calendar.getInstance().apply {
-            timeInMillis = scaleValue
-        }
-        val hours = calendar.get(Calendar.HOUR_OF_DAY)
-        val minutes = calendar.get(Calendar.MINUTE)
-        val seconds = calendar.get(Calendar.SECOND)
-
-        // 如果不显示小时且小时为0，则直接返回 mm:ss 格式
-        if (hours == 0) {
-            return String.format("%02d:%02d", minutes, seconds)
-        }
-
-        // 否则，根据需要显示小时
-        val timePattern = "HH:mm:ss"
-        val simpleDateFormat = SimpleDateFormat(timePattern, Locale.getDefault())
-        return simpleDateFormat.format(scaleValue)
     }
 
     /**
