@@ -13,6 +13,7 @@ import dev.audio.timeruler.weight.BaseAudioEditorView.TickMarkStrategy
 import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.player.PlayerManager
 import dev.audio.timeruler.utils.format2Duration
+import dev.audio.timeruler.utils.format2DurationSimple
 import java.util.Objects
 import kotlin.reflect.KProperty
 
@@ -180,7 +181,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         canvas.drawLine(currentPlayingPosition, baselinePosition, currentPlayingPosition, audioFragment?.rect?.bottom?.toFloat()
             ?: 0f, playingLinePaint)
         var y = drawTriangle(canvas, audioFragment?.rect?.bottom?.toFloat() ?: 0f)
-        drawText(canvas, y, currentPlayingTimeInAudio.format2Duration())
+        drawText(canvas, y, currentPlayingTimeInAudio.format2DurationSimple())
     }
 
     private fun drawTriangle(canvas: Canvas, y: Float): Float {

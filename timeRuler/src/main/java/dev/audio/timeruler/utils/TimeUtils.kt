@@ -27,3 +27,18 @@ fun Long.format2Duration(): String {
 
     return String.format("%02d:%02d:%02d.%03d", hours, minutes, seconds, milliseconds)
 }
+
+
+fun Long.format2DurationSimple(): String {
+    val totalSeconds = this / 1000
+    val hours = totalSeconds / 3600
+    val minutes = (totalSeconds % 3600) / 60
+    val seconds = totalSeconds % 60
+    val millis = this % 1000
+
+    return when {
+        hours > 0 -> String.format("%d:%02d:%02d.%03d", hours, minutes, seconds, millis)
+        minutes > 0 -> String.format("%02d:%02d.%03d", minutes, seconds, millis)
+        else -> String.format("%02d:%03d", seconds, millis)
+    }
+}
