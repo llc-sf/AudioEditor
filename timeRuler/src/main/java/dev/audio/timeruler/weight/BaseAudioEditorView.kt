@@ -333,7 +333,10 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
             return mScroller!!
         }
 
-    var startYInParent = 0f
+    /**
+     * 波形绘制开始  y坐标开始
+     */
+    var waveStartYInParent = 0f
         get() {
             return baselinePosition + keyTickHeight
         }

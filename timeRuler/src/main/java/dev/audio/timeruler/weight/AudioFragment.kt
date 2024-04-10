@@ -86,7 +86,7 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
      */
     val cursorValue by Ref { audioEditorView.cursorValue }
 
-    val startYInParent by Ref { audioEditorView.startYInParent }
+    val waveStartYInParent by Ref { audioEditorView.waveStartYInParent }
 
 
     //选中的一圈矩形宽度

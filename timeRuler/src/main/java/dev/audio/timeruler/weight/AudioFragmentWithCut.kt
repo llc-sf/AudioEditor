@@ -62,7 +62,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
      * 与轨道无关了
      */
     override fun getTrackYPosition(): Float {
-        return startYInParent + maxWaveHeight
+        return waveStartYInParent + maxWaveHeight
     }
 
 
