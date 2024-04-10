@@ -60,7 +60,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
     }
 
     override fun calcContentHeight(): Int {
-        return super.calcContentHeight() + 500
+        return super.calcContentHeight() + 500//todo   加上所有波形图的高度+间隙
     }
 
     // 设置波形数据的方法
