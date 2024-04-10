@@ -30,15 +30,15 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
 
 
     init {
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.TimeRulerBar)
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.BaseScaleBar)
         cursorBackgroundColor =
-            typedArray.getColor(R.styleable.TimeRulerBar_cursorBackgroundColor, Color.RED)
+            typedArray.getColor(R.styleable.BaseScaleBar_cursorBackgroundColor, Color.RED)
         cursorValueSize = typedArray.getDimension(
-            R.styleable.TimeRulerBar_cursorValueSize, SizeUtils.sp2px(getContext(), 10f).toFloat()
+            R.styleable.BaseScaleBar_cursorValueSize, SizeUtils.sp2px(getContext(), 10f).toFloat()
         )
         colorScaleBackground =
-            typedArray.getColor(R.styleable.TimeRulerBar_colorScaleBackground, Color.WHITE)
-        drawCursorContent = typedArray.getBoolean(R.styleable.TimeRulerBar_drawCursorContent, true)
+            typedArray.getColor(R.styleable.BaseScaleBar_colorScaleBackground, Color.WHITE)
+        drawCursorContent = typedArray.getBoolean(R.styleable.BaseScaleBar_drawCursorContent, true)
         typedArray.recycle()
         init()
     }

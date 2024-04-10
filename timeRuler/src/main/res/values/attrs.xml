@@ -25,15 +25,13 @@
         <attr name="cursorLineColor" format="color|reference" />
         <!--刻度值最大规格(字体大小)-->
         <attr name="maxScaleValueSize" format="color|reference" />
-    </declare-styleable>
 
-    <declare-styleable name="TimeRulerBar">
+
+
         <!--刻度值颜色-->
         <attr name="tickValueColor" format="color|reference" />
         <!--刻度时间轴高度-->
         <attr name="videoAreaHeight" format="dimension|reference" />
-        <!--刻度时间轴偏移量-->
-        <attr name="videoAreaOffset" format="dimension|reference" />
         <!--刻度值大小-->
         <attr name="tickValueSize" format="dimension|reference" />
         <!--是否绘制游标-->
@@ -45,4 +43,5 @@
         <!--颜色刻度尺背景-->
         <attr name="colorScaleBackground" format="color|reference" />
     </declare-styleable>
+
 </resources>

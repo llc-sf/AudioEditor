@@ -327,10 +327,9 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
 
     init {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.BaseScaleBar)
-        tickValueColor = typedArray.getColor(R.styleable.TimeRulerBar_tickValueColor, Color.WHITE)
-        tickValueSize = typedArray.getDimension(R.styleable.TimeRulerBar_tickValueSize, SizeUtils.sp2px(getContext(), 8f)
+        tickValueColor = typedArray.getColor(R.styleable.BaseScaleBar_tickValueColor, Color.WHITE)
+        tickValueSize = typedArray.getDimension(R.styleable.BaseScaleBar_tickValueSize, SizeUtils.sp2px(getContext(), 8f)
             .toFloat())
-        Log.i("llc_fuck", "tickValueSize=$tickValueSize")
         keyTickHeight = typedArray.getDimension(R.styleable.BaseScaleBar_keyTickHeight, SizeUtils.dp2px(getContext(), 10f)
             .toFloat())
         tickValueOffset = typedArray.getDimension(R.styleable.BaseScaleBar_tickValueOffset, SizeUtils.dp2px(getContext(), -30f)
