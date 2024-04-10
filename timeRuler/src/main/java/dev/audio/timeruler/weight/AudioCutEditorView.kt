@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.Path
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
@@ -11,6 +12,7 @@ import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.timeruler.weight.BaseAudioEditorView.TickMarkStrategy
 import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.player.PlayerManager
+import dev.audio.timeruler.utils.format2Duration
 import java.util.Objects
 import kotlin.reflect.KProperty
 
@@ -177,6 +179,31 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     private fun drawPlayingLine(canvas: Canvas) {
         canvas.drawLine(currentPlayingPosition, baselinePosition, currentPlayingPosition, audioFragment?.rect?.bottom?.toFloat()
             ?: 0f, playingLinePaint)
+        var y = drawTriangle(canvas, audioFragment?.rect?.bottom?.toFloat() ?: 0f)
+        drawText(canvas, y, currentPlayingTimeInAudio.format2Duration())
+    }
+
+    private fun drawTriangle(canvas: Canvas, y: Float): Float {
+        val path = Path()
+        path.moveTo(currentPlayingPosition, y + 30f) // 移动到三角形底边的中心点，三角形顶点向上
+        // 绘制三角形的其它两个点，形成一个向上的三角形
+        path.lineTo(currentPlayingPosition - 20, y + 50f)
+        path.lineTo(currentPlayingPosition + 20, y + 50f)
+        path.close() // 闭合路径形成三角形
+        val paint = Paint()
+        paint.color = Color.WHITE // 设置三角形颜色
+        paint.style = Paint.Style.FILL // 填充样式
+        canvas.drawPath(path, paint) // 绘制三角形
+        return y + 50f
+    }
+
+    private fun drawText(canvas: Canvas, y: Float, text: String) {
+        val paint = Paint()
+        paint.color = Color.WHITE // 设置文本颜色
+        paint.textSize = 40f // 设置文本大小
+        // 计算文本的位置，确保文字在三角形下方居中
+        val textWidth = paint.measureText(text)
+        canvas.drawText(text, currentPlayingPosition - textWidth / 2, y + 50f, paint)
     }
 
 
@@ -311,14 +338,14 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     //*************************************剪切条起点终点时间戳变化监听 start *************************************//
     interface CutModeChangeButtonEnableListener {
-        fun onCutModeChange(addEnable:Boolean, removeEnable: Boolean)
+        fun onCutModeChange(addEnable: Boolean, removeEnable: Boolean)
     }
 
     var cutModeChangeButtonEnableListener: CutModeChangeButtonEnableListener? = null
 
     fun addCutModeChangeButtonEnableListener(listener: CutModeChangeButtonEnableListener) {
         cutModeChangeButtonEnableListener = listener
-    }//*************************************剪切条起点终点时间戳变化监听 end *************************************//
+    } //*************************************剪切条起点终点时间戳变化监听 end *************************************//
 
 
     //*************************************剪切条起点终点时间戳变化监听 start *************************************//
