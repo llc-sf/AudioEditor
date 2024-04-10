@@ -33,6 +33,9 @@
         <!--View 底部padding-->
         <attr name="bottomPadding" format="dimension|reference" />
 
+        <!--音波高度-->
+        <attr name="waveHeight" format="dimension|reference" />
+
         <!--刻度值颜色-->
         <attr name="tickValueColor" format="color|reference" />
         <!--刻度值大小-->

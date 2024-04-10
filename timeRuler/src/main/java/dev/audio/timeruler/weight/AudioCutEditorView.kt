@@ -15,6 +15,7 @@ import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.player.PlayerManager
 import dev.audio.timeruler.utils.SizeUtils
 import dev.audio.timeruler.utils.format2DurationSimple
+import dev.audio.timeruler.utils.getTextHeight
 import dev.audio.timeruler.utils.getTopY
 import kotlin.reflect.KProperty
 
@@ -60,8 +61,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         audioFragment = AudioFragmentWithCut(this).apply {
             index = 0
             this.duration = duration
-            maxWaveHeight = 200f
-            waveVerticalPosition = 300f
+            maxWaveHeight = waveHeight
             color = Color.RED
             startTimestamp = startValue
             this.waveform = waveform
@@ -197,28 +197,32 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     }
 
 
+    private var margin1 = 20f
     private fun drawTriangle(canvas: Canvas, y: Float): Float {
-        var margin = 20f
         val path = Path()
-        path.moveTo(currentPlayingPosition, y + margin)
-        path.lineTo(currentPlayingPosition - triangleSideLength / 2, y + margin + triangleSideLength / 2)
-        path.lineTo(currentPlayingPosition + triangleSideLength / 2, y + margin + triangleSideLength / 2)
+        path.moveTo(currentPlayingPosition, y + margin1)
+        path.lineTo(currentPlayingPosition - triangleSideLength / 2, y + margin1 + triangleSideLength / 2)
+        path.lineTo(currentPlayingPosition + triangleSideLength / 2, y + margin1 + triangleSideLength / 2)
         path.close()
         val paint = Paint()
         paint.color = Color.WHITE
         paint.style = Paint.Style.FILL
         canvas.drawPath(path, paint)
-        return y + margin + triangleSideLength / 2
+        return y + margin1 + triangleSideLength / 2
     }
 
-
+    private var textPaint = Paint().apply {
+        color = Color.WHITE
+        textSize = playingTextSize
+    }
+    private var margin2 = 10f
     private fun drawText(canvas: Canvas, y: Float, text: String) {
-        var margin = 10f
-        val paint = Paint()
-        paint.color = Color.WHITE
-        paint.textSize = playingTextSize
-        val textWidth = paint.measureText(text)
-        canvas.drawText(text, currentPlayingPosition - textWidth / 2, y + paint.getTopY() + margin, paint)
+        val textWidth = textPaint.measureText(text)
+        canvas.drawText(text, currentPlayingPosition - textWidth / 2, y + textPaint.getTopY() + margin2, textPaint)
+    }
+
+    override fun calcContentHeight(): Int {
+        return super.calcContentHeight() + (textPaint.getTextHeight() + triangleSideLength + margin1).toInt()
     }
 
 

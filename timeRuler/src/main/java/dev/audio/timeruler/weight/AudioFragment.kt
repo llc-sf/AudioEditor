@@ -56,7 +56,7 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
     //波形数据
     var waveform: Waveform? = null
 
-    //波形高度
+    //波形高度的一半
     var maxWaveHeight: Float = DEFAULT_WAVE_HEIGHT
 
     private var waveStep = WAVE_STEP
@@ -166,11 +166,16 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
     }
 
 
+    /**
+     * 波形中心Y坐标
+     * 多轨道时，获取轨道的Y坐标
+     *
+     * 裁剪模式下，单独算
+     */
     open fun getTrackYPosition(): Float { //        return waveVerticalPosition + ((((currentTouchY.toDouble() - startY) / waveVerticalPosition).roundToInt() * waveVerticalPosition).toInt())
         return waveVerticalLongPressTempPosition.apply {
             Log.i(long_press_tag, "index:${index} ondraw waveVerticalPositionLongPress: $this")
         }
-
     }
 
     open fun onDraw(canvas: Canvas) {

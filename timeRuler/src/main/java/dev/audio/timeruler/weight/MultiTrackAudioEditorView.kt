@@ -59,6 +59,10 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
         setTickMarkStrategy(this)
     }
 
+    override fun calcContentHeight(): Int {
+        return super.calcContentHeight() + 500
+    }
+
     // 设置波形数据的方法
     fun setWaveform(waveform: Waveform) {
         audioFragments.add(AudioFragment(this).apply {

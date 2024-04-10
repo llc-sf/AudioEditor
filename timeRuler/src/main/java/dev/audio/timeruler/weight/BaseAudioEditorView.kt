@@ -191,10 +191,13 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
     val tickValueColor: Int
 
     /* 顶部padding */
-    private val topPadding: Float
+    val topPadding: Float
 
     /* 底部padding */
-    private val bottomPadding: Float
+    val bottomPadding: Float
+
+    /* 音波高度 */
+    val waveHeight: Float
 
     /* 刻度字体大小 */
     val tickValueSize: Float
@@ -351,6 +354,8 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
             .toFloat())
         bottomPadding = typedArray.getDimension(R.styleable.BaseScaleBar_bottomPadding, SizeUtils.sp2px(getContext(), 0f)
             .toFloat())
+        waveHeight = typedArray.getDimension(R.styleable.BaseScaleBar_waveHeight, SizeUtils.sp2px(getContext(), 150f)
+            .toFloat())
         keyTickHeight = typedArray.getDimension(R.styleable.BaseScaleBar_keyTickHeight, SizeUtils.dp2px(getContext(), 10f)
             .toFloat())
         tickValueOffset = typedArray.getDimension(R.styleable.BaseScaleBar_tickValueOffset, SizeUtils.dp2px(getContext(), -30f)
@@ -452,16 +457,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
     }
 
     private fun getHeightSize(size: Int, heightMeasureSpec: Int): Int {
-        var result = size
-        val contentHeight = calcContentHeight()
-        val specMode = MeasureSpec.getMode(heightMeasureSpec)
-        val specSize = MeasureSpec.getSize(heightMeasureSpec)
-        when (specMode) {
-            MeasureSpec.UNSPECIFIED -> size
-            MeasureSpec.AT_MOST -> result = contentHeight
-            MeasureSpec.EXACTLY -> result = specSize
-        }
-        return result
+        return calcContentHeight()
     }
 
     /**
@@ -471,14 +467,8 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
      * @param baselinePositionProportion
      * @return
      */
-    protected open fun calcContentHeight(): Int {
-        var tickValueHeight = 0
-        if (showTickValue) {
-            val fontMetrics = mScalePaint!!.fontMetrics
-            val ceil = Math.ceil((fontMetrics.bottom - fontMetrics.top).toDouble())
-            tickValueHeight = (ceil + tickValueOffset).toInt()
-        }
-        return 0
+    open fun calcContentHeight(): Int {
+        return (topPadding + mScalePaint!!.getTextHeight() + keyTickHeight + bottomPadding + waveHeight * 2).toInt()
     }
 
     override fun onDraw(canvas: Canvas) {
