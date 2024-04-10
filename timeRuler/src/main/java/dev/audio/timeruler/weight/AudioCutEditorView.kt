@@ -199,26 +199,25 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     private fun drawTriangle(canvas: Canvas, y: Float): Float {
         var margin = 30f
         val path = Path()
-        path.moveTo(currentPlayingPosition, y + margin) // 移动到三角形底边的中心点，三角形顶点向上
-        // 绘制三角形的其它两个点，形成一个向上的三角形
+        path.moveTo(currentPlayingPosition, y + margin)
         path.lineTo(currentPlayingPosition - triangleSideLength / 2, y + margin + triangleSideLength / 2)
         path.lineTo(currentPlayingPosition + triangleSideLength / 2, y + margin + triangleSideLength / 2)
-        path.close() // 闭合路径形成三角形
+        path.close()
         val paint = Paint()
-        paint.color = Color.WHITE // 设置三角形颜色
-        paint.style = Paint.Style.FILL // 填充样式
-        canvas.drawPath(path, paint) // 绘制三角形
+        paint.color = Color.WHITE
+        paint.style = Paint.Style.FILL
+        canvas.drawPath(path, paint)
         return y + margin + triangleSideLength / 2
     }
 
 
     private fun drawText(canvas: Canvas, y: Float, text: String) {
+        var margin = 10f
         val paint = Paint()
-        paint.color = Color.WHITE // 设置文本颜色
-        paint.textSize = playingTextSize // 设置文本大小
-        // 计算文本的位置，确保文字在三角形下方居中
+        paint.color = Color.WHITE
+        paint.textSize = playingTextSize
         val textWidth = paint.measureText(text)
-        canvas.drawText(text, currentPlayingPosition - textWidth / 2, y + 50f, paint)
+        canvas.drawText(text, currentPlayingPosition - textWidth / 2, y + playingTextSize + margin, paint)
     }
 
 
