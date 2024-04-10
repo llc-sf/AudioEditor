@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.Rect
 import android.util.AttributeSet
 import android.util.Log
 import android.view.GestureDetector
@@ -16,6 +17,7 @@ import androidx.annotation.IntDef
 import androidx.core.view.GestureDetectorCompat
 import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.ffmpeglib.tool.TimeUtil
+import dev.audio.timeruler.BuildConfig
 import dev.audio.timeruler.R
 import dev.audio.timeruler.listener.OnScaleChangeListener
 import dev.audio.timeruler.utils.SizeUtils
@@ -301,7 +303,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
     private var scrollHappened = false
 
     val baselinePosition: Float
-         get() = mBaselinePosition + 10
+        get() = mBaselinePosition + 10
 
     private val scaleGestureDetect: ScaleGestureDetector
         get() {
@@ -546,6 +548,22 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
             }
         }
         drawWaveformSeekBar(canvas)
+
+        if (BuildConfig.DEBUG) {
+            drawRange(canvas)
+        }
+    }
+
+    private fun drawRange(canvas: Canvas) {
+        var rect = Rect(0, 0, width, height)
+
+        //画空心rect
+        val rectPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            this.color = Color.GREEN
+            this.style = Paint.Style.STROKE
+            this.strokeWidth = strokeWidth
+        }
+        canvas.drawRect(rect!!, rectPaint)
     }
 
     protected open fun drawWaveformSeekBar(canvas: Canvas) {}
