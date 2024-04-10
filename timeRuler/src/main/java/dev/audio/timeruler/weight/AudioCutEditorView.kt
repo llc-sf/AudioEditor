@@ -33,7 +33,9 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     private var touchPlayingLine = false
 
+    //播放条刻度字体大小
     private var playingTextSize = 20f
+    private var triangleSideLength = 20f
 
     init {
         init(attrs)
@@ -41,7 +43,9 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     private fun init(attrs: AttributeSet?) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.BaseScaleBar)
-        playingTextSize  = typedArray.getDimension(R.styleable.BaseScaleBar_playingTextSize, SizeUtils.sp2px(context, 8f)
+        playingTextSize = typedArray.getDimension(R.styleable.BaseScaleBar_playingTextSize, SizeUtils.sp2px(context, 8f)
+            .toFloat())
+        triangleSideLength = typedArray.getDimension(R.styleable.BaseScaleBar_triangleSideLength, SizeUtils.sp2px(context, 20f)
             .toFloat())
         typedArray.recycle()
 
@@ -191,18 +195,20 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         drawText(canvas, y, currentPlayingTimeInAudio.format2DurationSimple())
     }
 
+
     private fun drawTriangle(canvas: Canvas, y: Float): Float {
+        var margin = 30f
         val path = Path()
-        path.moveTo(currentPlayingPosition, y + 30f) // 移动到三角形底边的中心点，三角形顶点向上
+        path.moveTo(currentPlayingPosition, y + margin) // 移动到三角形底边的中心点，三角形顶点向上
         // 绘制三角形的其它两个点，形成一个向上的三角形
-        path.lineTo(currentPlayingPosition - 20, y + 50f)
-        path.lineTo(currentPlayingPosition + 20, y + 50f)
+        path.lineTo(currentPlayingPosition - triangleSideLength / 2, y + margin + triangleSideLength / 2)
+        path.lineTo(currentPlayingPosition + triangleSideLength / 2, y + margin + triangleSideLength / 2)
         path.close() // 闭合路径形成三角形
         val paint = Paint()
         paint.color = Color.WHITE // 设置三角形颜色
         paint.style = Paint.Style.FILL // 填充样式
         canvas.drawPath(path, paint) // 绘制三角形
-        return y + 50f
+        return y + margin + triangleSideLength / 2
     }
 
 

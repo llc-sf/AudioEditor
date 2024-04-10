@@ -25,6 +25,8 @@
         <attr name="cursorLineColor" format="color|reference" />
         <!--currentPlaying 播放条刻度字体大小-->
         <attr name="playingTextSize" format="dimension|reference" />
+        <!--currentPlaying 播放条底部三角形变成-->
+        <attr name="triangleSideLength" format="dimension|reference" />
 
         <!--刻度值颜色-->
         <attr name="tickValueColor" format="color|reference" />

@@ -154,7 +154,8 @@
         app:tickDirectionUp="false"
         app:tickValueColor="#ffffff"
         app:tickValueOffset="0dp"
-        app:tickValueSize="10dp" />
+        app:tickValueSize="10dp"
+        app:triangleSideLength="12dp" />
 
     <LinearLayout
         android:id="@+id/edit_ly"
