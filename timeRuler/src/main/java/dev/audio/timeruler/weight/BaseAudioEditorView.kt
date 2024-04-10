@@ -633,8 +633,24 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
                 mScalePaint!!.color = tickValueColor
                 mScalePaint!!.textAlign = Paint.Align.CENTER
                 canvas.drawText(getScaleValue(scaleValue, keyScale), x, y, mScalePaint!!)
-
             }
+        }
+    }
+
+    /**
+     * 绘制刻度线描述
+     *
+     * @param canvas
+     * @param x
+     * @param y
+     * @param scaleValue
+     * @param keyScale
+     */
+    fun drawTickValue(canvas: Canvas, content: String, x: Float, y: Float) {
+        if (showTickValue) {
+            mScalePaint!!.color = tickValueColor
+            mScalePaint!!.textAlign = Paint.Align.CENTER
+            canvas.drawText(content, x, y, mScalePaint!!)
         }
     }
 

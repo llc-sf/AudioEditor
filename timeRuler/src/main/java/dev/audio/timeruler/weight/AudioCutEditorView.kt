@@ -226,6 +226,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         return super.calcContentHeight() + (textPaint.getTextHeight() + triangleSideLength + margin1).toInt()
     }
 
+    //分三份
     override fun drawRightKeyTick(canvas: Canvas,
                                   index: Int,
                                   onDrawTickValue: Long,
@@ -233,15 +234,20 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                                   paint: Paint,
                                   rightCount: Int
     ) {
+
         if (index == 0) {
-            drawTickValue(canvas, 20f + paint.measureText(cursorValue.format2DurationSimple()) / 2, topPadding + paint!!.getTopY(), cursorValue, true)
+            var content = (cursorValue-startValue).format2DurationSimple()
+            drawTickValue(canvas,content, 20f + paint.measureText(content) / 2, topPadding + paint!!.getTopY())
         } else if (index == rightCount / 3) {
-            drawTickValue(canvas, ScreenUtil.getScreenWidth(context) / 3f, topPadding + paint!!.getTopY(), cursorValue + screenWithDuration / 3, true)
+            var content = ((cursorValue-startValue) + screenWithDuration / 3).format2DurationSimple()
+            drawTickValue(canvas,content, ScreenUtil.getScreenWidth(context) / 3f, topPadding + paint!!.getTopY())
         } else if (index == rightCount / 3 * 2) {
-            drawTickValue(canvas, ScreenUtil.getScreenWidth(context) / 3f * 2, topPadding + paint!!.getTopY(), cursorValue + screenWithDuration / 3 * 2, true)
+            var content = ((cursorValue-startValue) + screenWithDuration / 3 * 2).format2DurationSimple()
+            drawTickValue(canvas, content,ScreenUtil.getScreenWidth(context) / 3f * 2, topPadding + paint!!.getTopY())
         } else if (index == rightCount - 1) {
-            drawTickValue(canvas, ScreenUtil.getScreenWidth(context)
-                .toFloat() - paint!!.measureText((cursorValue + screenWithDuration).format2DurationSimple()) / 2 - 20f, topPadding + paint!!.getTopY(), cursorValue + screenWithDuration, true)
+            var content = ((cursorValue-startValue) + screenWithDuration).format2DurationSimple()
+            drawTickValue(canvas, content,ScreenUtil.getScreenWidth(context)
+                .toFloat() - paint!!.measureText(content) / 2 - 20f, topPadding + paint!!.getTopY())
         }
     }
 
