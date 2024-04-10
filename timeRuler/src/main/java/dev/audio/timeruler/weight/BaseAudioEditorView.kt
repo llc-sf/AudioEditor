@@ -23,6 +23,7 @@ import dev.audio.timeruler.utils.formatToCursorDateString
 import org.jetbrains.anko.collections.forEachReversedWithIndex
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 import kotlin.reflect.KProperty
 
 /**
@@ -293,9 +294,6 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
      */
     private var status = STATUS_NONE
 
-    /* 刻度值 最大规格*/
-    private val maxScaleValueSize: Float
-
     /*文字偏移量*/
     private val tickValueOffset: Float
 
@@ -332,6 +330,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
         tickValueColor = typedArray.getColor(R.styleable.TimeRulerBar_tickValueColor, Color.WHITE)
         tickValueSize = typedArray.getDimension(R.styleable.TimeRulerBar_tickValueSize, SizeUtils.sp2px(getContext(), 8f)
             .toFloat())
+        Log.i("llc_fuck", "tickValueSize=$tickValueSize")
         keyTickHeight = typedArray.getDimension(R.styleable.BaseScaleBar_keyTickHeight, SizeUtils.dp2px(getContext(), 10f)
             .toFloat())
         tickValueOffset = typedArray.getDimension(R.styleable.BaseScaleBar_tickValueOffset, SizeUtils.dp2px(getContext(), -30f)
@@ -343,8 +342,6 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
         showCursorLine = typedArray.getBoolean(R.styleable.BaseScaleBar_showCursorLine, true)
         showTickValue = typedArray.getBoolean(R.styleable.BaseScaleBar_showCursorLine, true)
         showTickLine = typedArray.getBoolean(R.styleable.BaseScaleBar_showTickLine, true)
-        maxScaleValueSize = typedArray.getDimension(R.styleable.BaseScaleBar_maxScaleValueSize, SizeUtils.sp2px(getContext(), 15f)
-            .toFloat())
         var position = typedArray.getFloat(R.styleable.BaseScaleBar_cursorPosition, 0.5f)
         mCursorPositionProportion = position
         position = typedArray.getFloat(R.styleable.BaseScaleBar_baselinePosition, 0.67f)
@@ -377,6 +374,8 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
         endValue = calendar.timeInMillis
 
         cursorValue = startValue
+
+        mScalePaint!!.textSize = tickValueSize
     }
 
 
@@ -458,7 +457,6 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
     protected open fun calcContentHeight(baselinePositionProportion: Float): Int {
         var tickValueHeight = 0
         if (showTickValue) {
-            mScalePaint!!.textSize = maxScaleValueSize
             val fontMetrics = mScalePaint!!.fontMetrics
             val ceil = Math.ceil((fontMetrics.bottom - fontMetrics.top).toDouble())
             tickValueHeight = (ceil + tickValueOffset).toInt()
@@ -472,9 +470,9 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
         mScalePaint!!.color = tickColor
         if (showTickLine) {
             canvas.drawLine(scrollX.toFloat(), baselinePosition, (scrollX + width).toFloat(), baselinePosition, mScalePaint!!)
-        }
-        val leftRange = cursorValue - startValue
-        val leftNeighborOffset = leftRange % unitValue
+        } //cursorValue 与 startValue 的距离 time
+        val leftRange = cursorValue - startValue //cursorValue 左边几格
+        val leftNeighborOffset = leftRange % unitValue //
         val leftNeighborTickValue = cursorValue - leftNeighborOffset
         val leftNeighborPosition = cursorPosition - leftNeighborOffset * unitMsPixel
         val leftCount = (cursorPosition / mTickSpacing + 0.5f).toInt()
@@ -526,11 +524,22 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
                     drawTickValue(canvas, onDrawTickPosition, baselinePosition - mTickHeight, onDrawTickValue, false)
                 }
             } else {
+                if (i == 0) {
+                    drawTickValue(canvas, 20f + mScalePaint!!.measureText(getScaleValueHms(cursorValue, true)) / 2, baselinePosition - keyTickHeight, cursorValue, true)
+                } else if (i == rightCount / 3) {
+                    drawTickValue(canvas, ScreenUtil.getScreenWidth(context) / 3f, baselinePosition - keyTickHeight, cursorValue + screenWithDuration / 3, true)
+                } else if (i == rightCount / 3 * 2) {
+                    drawTickValue(canvas, ScreenUtil.getScreenWidth(context) / 3f * 2, baselinePosition - keyTickHeight, cursorValue + screenWithDuration / 3 * 2, true)
+                } else if (i == rightCount - 1) {
+                    drawTickValue(canvas, ScreenUtil.getScreenWidth(context)
+                        .toFloat() - mScalePaint!!.measureText(getScaleValueHms(cursorValue + screenWithDuration, true)) / 2 - 20f, baselinePosition - keyTickHeight, cursorValue + screenWithDuration, true)
+                } //关键刻度绘制刻度值
+                //                if ((onDrawTickValue - startValue) % (keyScaleRange * 2) == 0L) {
+                //                    drawTickValue(canvas, onDrawTickPosition, baselinePosition, onDrawTickValue, true)
+                //                }
+
                 if ((onDrawTickValue - startValue) % keyScaleRange == 0L) {
                     canvas.drawLine(onDrawTickPosition, baselinePosition, onDrawTickPosition, baselinePosition + keyTickHeight, mScalePaint!!)
-                    if ((onDrawTickValue - startValue) % (keyScaleRange * 2) == 0L) {
-                        drawTickValue(canvas, onDrawTickPosition, baselinePosition - keyTickHeight, onDrawTickValue, true)
-                    }
                 } else {
                     canvas.drawLine(onDrawTickPosition, baselinePosition, onDrawTickPosition, baselinePosition + mTickHeight, mScalePaint!!)
                     drawTickValue(canvas, onDrawTickPosition, baselinePosition - mTickHeight, onDrawTickValue, false)
@@ -573,10 +582,8 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
             if (mTickMarkStrategy?.disPlay(scaleValue, keyScale) == true) {
                 mScalePaint!!.color = tickValueColor
                 mScalePaint!!.textAlign = Paint.Align.CENTER
-                var size = tickValueSize
-                size = Math.min(maxScaleValueSize, size)
-                mScalePaint!!.textSize = size
-                canvas.drawText(getScaleValue(scaleValue, keyScale), x, y - tickValueOffset, mScalePaint!!)
+                canvas.drawText(getScaleValueHms(scaleValue, keyScale), x, y - tickValueOffset, mScalePaint!!)
+
             }
         }
     }
@@ -914,6 +921,10 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
     }
 
     private val simpleDateFormat = SimpleDateFormat("HH:mm:ss")
+
+    /**
+     * xxs  格式
+     */
     private fun getScaleValue(scaleValue: Long, keyScale: Boolean): String {
         val formattedTime = simpleDateFormat.format(scaleValue) // 解析天、小时、分钟和秒
         val parts = formattedTime.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
@@ -921,6 +932,28 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
         val minutes = parts[1].toInt()
         val seconds = parts[2].toInt() // 转换为秒
         return (hours * 3600 + minutes * 60 + seconds).toString() + "s"
+    }
+
+    /**
+     * HH:mm:ss 格式
+     */
+    private fun getScaleValueHms(scaleValue: Long, keyScale: Boolean): String {
+        val calendar = Calendar.getInstance().apply {
+            timeInMillis = scaleValue
+        }
+        val hours = calendar.get(Calendar.HOUR_OF_DAY)
+        val minutes = calendar.get(Calendar.MINUTE)
+        val seconds = calendar.get(Calendar.SECOND)
+
+        // 如果不显示小时且小时为0，则直接返回 mm:ss 格式
+        if (hours == 0) {
+            return String.format("%02d:%02d", minutes, seconds)
+        }
+
+        // 否则，根据需要显示小时
+        val timePattern = "HH:mm:ss"
+        val simpleDateFormat = SimpleDateFormat(timePattern, Locale.getDefault())
+        return simpleDateFormat.format(scaleValue)
     }
 
     /**

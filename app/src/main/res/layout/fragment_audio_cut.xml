@@ -139,7 +139,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="#141414"
-        app:baselinePosition="0.0"
+        app:baselinePosition="0.1"
         app:colorScaleBackground="#141414"
         app:cursorBackgroundColor="@android:color/holo_red_dark"
         app:cursorPosition="0.5"
@@ -151,7 +151,7 @@
         app:tickColor="#ffffff"
         app:tickDirectionUp="false"
         app:tickValueColor="#ffffff"
-        app:tickValueOffset="-30dp"
+        app:tickValueOffset="0dp"
         app:tickValueSize="10dp"
         app:videoAreaHeight="20dp"
         app:videoAreaOffset="30dp" />
