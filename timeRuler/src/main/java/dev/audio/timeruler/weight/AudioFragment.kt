@@ -161,7 +161,7 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
 
 
     private val mWavePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        this.color = Color.RED
+        this.color = Color.GRAY
         this.style = Paint.Style.FILL
     }
 

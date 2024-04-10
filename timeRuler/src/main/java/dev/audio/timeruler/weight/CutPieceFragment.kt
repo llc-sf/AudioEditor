@@ -267,7 +267,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
 
     private fun drawCut(canvas: Canvas) { // 假设已经有了一个Bitmap和Canvas，并且波形已经绘制完成
         val paint = Paint()
-        paint.color = if (isSelected) Color.YELLOW else Color.GRAY
+        paint.color = Color.RED
         paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
         when (cutMode) {
             CUT_MODE_SELECT -> {

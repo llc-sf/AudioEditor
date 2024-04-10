@@ -62,7 +62,6 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             index = 0
             this.duration = duration
             maxWaveHeight = waveHeight
-            color = Color.RED
             startTimestamp = startValue
             this.waveform = waveform
         }
