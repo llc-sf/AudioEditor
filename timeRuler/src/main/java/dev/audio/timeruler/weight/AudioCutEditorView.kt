@@ -197,7 +197,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
 
     private fun drawTriangle(canvas: Canvas, y: Float): Float {
-        var margin = 30f
+        var margin = 20f
         val path = Path()
         path.moveTo(currentPlayingPosition, y + margin)
         path.lineTo(currentPlayingPosition - triangleSideLength / 2, y + margin + triangleSideLength / 2)

@@ -262,7 +262,7 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
             this.style = Paint.Style.STROKE
             this.strokeWidth = strokeWidth
         }
-//        canvas.drawRect(rect!!, rectPaint)
+        canvas.drawRect(rect!!, rectPaint)
     }
 
 
