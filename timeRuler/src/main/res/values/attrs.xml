@@ -30,8 +30,6 @@
 
         <!--刻度值颜色-->
         <attr name="tickValueColor" format="color|reference" />
-        <!--刻度时间轴高度-->
-        <attr name="videoAreaHeight" format="dimension|reference" />
         <!--刻度值大小-->
         <attr name="tickValueSize" format="dimension|reference" />
         <!--是否绘制游标-->

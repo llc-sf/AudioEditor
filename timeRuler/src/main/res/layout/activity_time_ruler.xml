@@ -28,9 +28,7 @@
             app:tickDirectionUp="false"
             app:tickValueColor="#ffffff"
             app:tickValueOffset="-30dp"
-            app:tickValueSize="10dp"
-            app:videoAreaHeight="20dp"
-            app:videoAreaOffset="30dp" />
+            app:tickValueSize="10dp" />
 
         <TextView
             android:id="@+id/tvData"

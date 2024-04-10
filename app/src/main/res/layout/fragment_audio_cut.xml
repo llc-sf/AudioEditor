@@ -152,9 +152,7 @@
         app:tickDirectionUp="false"
         app:tickValueColor="#ffffff"
         app:tickValueOffset="0dp"
-        app:tickValueSize="10dp"
-        app:videoAreaHeight="20dp"
-        app:videoAreaOffset="30dp" />
+        app:tickValueSize="10dp" />
 
     <LinearLayout
         android:id="@+id/edit_ly"
@@ -414,7 +412,6 @@
             android:text="remove" />
 
     </RadioGroup>
-
 
 
     <TextView
