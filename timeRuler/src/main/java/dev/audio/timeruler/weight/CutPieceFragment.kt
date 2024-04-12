@@ -80,6 +80,8 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
         if (audio.currentCutPieceFragment == null) {
             isSelected = index == 0
         } //todo  非跳裁剪转跳剪 可能存在重合的情况
+        initEndHandleBitmap(true)
+        initStartHandleBitmap(true)
         audio.invalidate()
     }
 
@@ -254,7 +256,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             canvas.drawLine(endTimestampPosition, baselinePosition, endTimestampPosition, //            height.toFloat(),
                             rect?.bottom?.toFloat() ?: 0f, timestampLinePaint)
             audio.refreshCutLineAnchor(isSelected && (startTimestampPosition < 0 || startTimestampPosition > ScreenUtil.getScreenWidth(audio.getContext())), isSelected && (endTimestampPosition > ScreenUtil.getScreenWidth(audio.getContext()) || endTimestampPosition < 0)) // 绘制圆圈标记在直线的顶端
-            drawHandle(canvas)
+            drawStartHandle(canvas)
             drawEndHandle(canvas)
         }
     }
@@ -263,16 +265,20 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     private var startMargin = ScreenUtil.dp2px(audio.getContext(), 40)
 
     // 绘制把手的函数，假定它是在你提供的代码的类中
-    private fun drawHandle(canvas: Canvas) {
-        if (startHandleBitmap == null) {
-            startHandleBitmap = BitmapFactory.decodeResource(audio.getContext()?.resources, R.mipmap.ic_bar_left)
-            startHandleBitmap = Bitmap.createScaledBitmap(startHandleBitmap!!, startHandleBitmap!!.width * 2, startHandleBitmap!!.height * 2, true)
-        }
+    private fun drawStartHandle(canvas: Canvas) {
+        initStartHandleBitmap()
         if (isSelected) {
             val handleXStart = startTimestampPosition - startHandleBitmap!!.width / 2
             val handleYStart = baselinePosition - startHandleBitmap!!.height + startMargin
 
             canvas.drawBitmap(startHandleBitmap!!, handleXStart, handleYStart, null)
+        }
+    }
+
+    private fun initStartHandleBitmap(forceInit: Boolean = false) {
+        if (startHandleBitmap == null || forceInit) {
+            startHandleBitmap = BitmapFactory.decodeResource(audio.getContext()?.resources, if (cutMode == CUT_MODE_DELETE) R.mipmap.ic_bar_right else R.mipmap.ic_bar_left)
+            startHandleBitmap = Bitmap.createScaledBitmap(startHandleBitmap!!, startHandleBitmap!!.width * 2, startHandleBitmap!!.height * 2, true)
         }
     }
 
@@ -282,16 +288,20 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
 
     // 绘制把手的函数，假定它是在你提供的代码的类中
     private fun drawEndHandle(canvas: Canvas) {
-        if (endHandleBitmap == null) {
-            endHandleBitmap = BitmapFactory.decodeResource(audio.getContext()?.resources, R.mipmap.ic_bar_right)
-            endHandleBitmap = Bitmap.createScaledBitmap(endHandleBitmap!!, endHandleBitmap!!.width * 2, endHandleBitmap!!.height * 2, true)
-        }
+        initEndHandleBitmap()
         if (isSelected) {
             val handleXEnd = endTimestampPosition - endHandleBitmap!!.width / 2
             val handleYEnd = ((rect?.bottom ?: 0) - endHandleBitmap!!.height - endMargin).toFloat()
 
             // 绘制把手Bitmap在开始位置
             canvas.drawBitmap(endHandleBitmap!!, handleXEnd, handleYEnd, null)
+        }
+    }
+
+    private fun initEndHandleBitmap(forceInit: Boolean = false) {
+        if (endHandleBitmap == null || forceInit) {
+            endHandleBitmap = BitmapFactory.decodeResource(audio.getContext()?.resources, if (cutMode == CUT_MODE_DELETE) R.mipmap.ic_bar_left else R.mipmap.ic_bar_right)
+            endHandleBitmap = Bitmap.createScaledBitmap(endHandleBitmap!!, endHandleBitmap!!.width * 2, endHandleBitmap!!.height * 2, true)
         }
     }
 
