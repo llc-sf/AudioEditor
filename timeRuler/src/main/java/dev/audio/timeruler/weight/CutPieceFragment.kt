@@ -262,14 +262,14 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     }
 
     private var startHandleBitmap: Bitmap? = null
-    private var startMargin = ScreenUtil.dp2px(audio.getContext(), 40)
+    private var startMargin = ScreenUtil.dp2px(audio.getContext(), 12 + 10) //10为keyTickHeight高度
 
     // 绘制把手的函数，假定它是在你提供的代码的类中
     private fun drawStartHandle(canvas: Canvas) {
         initStartHandleBitmap()
         if (isSelected) {
             val handleXStart = startTimestampPosition - startHandleBitmap!!.width / 2
-            val handleYStart = baselinePosition - startHandleBitmap!!.height + startMargin
+            val handleYStart = baselinePosition + startMargin
 
             canvas.drawBitmap(startHandleBitmap!!, handleXStart, handleYStart, null)
         }
@@ -286,7 +286,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     private var endHandleBitmap: Bitmap? = null
     private var endMargin = ScreenUtil.dp2px(audio.getContext(), 12)
 
-    // 绘制把手的函数，假定它是在你提供的代码的类中
+    /**
+     * 剪切条把手
+     */
     private fun drawEndHandle(canvas: Canvas) {
         initEndHandleBitmap()
         if (isSelected) {
@@ -298,6 +300,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
         }
     }
 
+    /**
+     * 剪切条把手
+     */
     private fun initEndHandleBitmap(forceInit: Boolean = false) {
         if (endHandleBitmap == null || forceInit) {
             endHandleBitmap = BitmapFactory.decodeResource(audio.getContext()?.resources, if (cutMode == CUT_MODE_DELETE) R.mipmap.ic_bar_left else R.mipmap.ic_bar_right)

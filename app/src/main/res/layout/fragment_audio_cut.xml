@@ -157,6 +157,8 @@
         app:tickValueSize="10dp"
         app:topPadding="6dp"
         app:waveHeight="60dp"
+        app:keyTickHeight="10dp"
+        app:normalTickRatio="0.67"
         app:triangleSideLength="12dp" />
 
     <LinearLayout
