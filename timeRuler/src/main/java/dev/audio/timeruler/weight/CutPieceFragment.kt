@@ -17,6 +17,7 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.annotation.IntDef
 import dev.audio.ffmpeglib.tool.ScreenUtil
+import dev.audio.timeruler.BuildConfig
 import dev.audio.timeruler.R
 import dev.audio.timeruler.bean.Ref
 import dev.audio.timeruler.weight.CutPieceFragment.MoveHandler.Companion.MSG_MOVE_TO_OFFSET
@@ -242,15 +243,16 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
         endTimestampTimeInSelf = if (end > duration) duration else end
     }
 
-    fun drawCutFragment(canvas: Canvas) {
-        if (isSelected || cutMode == CUT_MODE_JUMP) {
-            drawCutLines(canvas)
-        }
-        drawCut(canvas)
-    }
+    //    fun drawCutFragment(canvas: Canvas) {
+    //        if (isSelected || cutMode == CUT_MODE_JUMP) {
+    //            drawCutLines(canvas)
+    //        }
+    //        drawCut(canvas)
+    //    }
 
-    private fun drawCutLines(canvas: Canvas) { // 绘制代表开始和结束时间戳的线，线的终止位置应在圆圈的下缘
-        if (isSelected) {
+
+    fun drawCutLines(canvas: Canvas) { // 绘制代表开始和结束时间戳的线，线的终止位置应在圆圈的下缘
+        if (isSelected || cutMode == CUT_MODE_JUMP) {
             canvas.drawLine(startTimestampPosition, baselinePosition, startTimestampPosition, //            height.toFloat(),
                             rect?.bottom?.toFloat() ?: 0f, timestampLinePaint)
             canvas.drawLine(endTimestampPosition, baselinePosition, endTimestampPosition, //            height.toFloat(),
@@ -262,6 +264,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     }
 
     private var startHandleBitmap: Bitmap? = null
+    private var startHandleRect = Rect()
     private var startMargin = ScreenUtil.dp2px(audio.getContext(), 12 + 10) //10为keyTickHeight高度
 
     // 绘制把手的函数，假定它是在你提供的代码的类中
@@ -270,8 +273,17 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
         if (isSelected) {
             val handleXStart = startTimestampPosition - startHandleBitmap!!.width / 2
             val handleYStart = baselinePosition + startMargin
-
+            var clickPadding = ScreenUtil.dp2px(audio.getContext(), 5)
+            startHandleRect = Rect(handleXStart.toInt()-clickPadding, handleYStart.toInt()-clickPadding, (handleXStart + startHandleBitmap!!.width).toInt()+clickPadding, (handleYStart + startHandleBitmap!!.height).toInt()+clickPadding)
             canvas.drawBitmap(startHandleBitmap!!, handleXStart, handleYStart, null)
+            if (BuildConfig.DEBUG) { //画空心rect
+                val rectPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                    this.color = Color.GREEN
+                    this.style = Paint.Style.STROKE
+                    this.strokeWidth = strokeWidth
+                }
+                canvas.drawRect(startHandleRect, rectPaint)
+            }
         }
     }
 
@@ -284,6 +296,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
 
 
     private var endHandleBitmap: Bitmap? = null
+    private var endHandleRect = Rect()
     private var endMargin = ScreenUtil.dp2px(audio.getContext(), 12)
 
     /**
@@ -294,9 +307,17 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
         if (isSelected) {
             val handleXEnd = endTimestampPosition - endHandleBitmap!!.width / 2
             val handleYEnd = ((rect?.bottom ?: 0) - endHandleBitmap!!.height - endMargin).toFloat()
-
-            // 绘制把手Bitmap在开始位置
+            var clickPadding = ScreenUtil.dp2px(audio.getContext(), 5)
+            endHandleRect = Rect(handleXEnd.toInt()-clickPadding, handleYEnd.toInt()-clickPadding, (handleXEnd + endHandleBitmap!!.width).toInt()+clickPadding, (handleYEnd + endHandleBitmap!!.height).toInt()+clickPadding) // 绘制把手Bitmap在开始位置
             canvas.drawBitmap(endHandleBitmap!!, handleXEnd, handleYEnd, null)
+            if (BuildConfig.DEBUG) { //画空心rect
+                val rectPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                    this.color = Color.GREEN
+                    this.style = Paint.Style.STROKE
+                    this.strokeWidth = strokeWidth
+                }
+                canvas.drawRect(endHandleRect, rectPaint)
+            }
         }
     }
 
@@ -311,7 +332,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     }
 
 
-    private fun drawCut(canvas: Canvas) { // 假设已经有了一个Bitmap和Canvas，并且波形已经绘制完成
+    fun drawCut(canvas: Canvas) { // 假设已经有了一个Bitmap和Canvas，并且波形已经绘制完成
         val paint = Paint()
         paint.color = Color.RED
         paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)

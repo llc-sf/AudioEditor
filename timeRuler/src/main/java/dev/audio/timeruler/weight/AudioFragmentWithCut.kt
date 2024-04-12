@@ -81,9 +81,12 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         val saved = canvas.saveLayer(null, null, Canvas.ALL_SAVE_FLAG) //绘制完整音波
         super.onDraw(canvas) //绘制选中片段
         cutPieceFragments.forEach {
-            it.drawCutFragment(canvas)
+            it.drawCut(canvas)
         } //恢复图层
         canvas.restoreToCount(saved)
+        cutPieceFragments.forEach {
+            it.drawCutLines(canvas)
+        } //绘制剪切条
     }
 
 
