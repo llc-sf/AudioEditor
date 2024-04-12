@@ -69,4 +69,29 @@
         app:npv_TextSizeNormal="@dimen/sp_28"
         app:npv_TextSizeSelected="@dimen/sp_40"
         app:npv_WrapSelectorWheel="true" />
+
+    <TextView
+        android:id="@+id/space_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp_6"
+        android:includeFontPadding="false"
+        android:paddingBottom="@dimen/dp_3"
+        android:text="."
+        android:textColor="?attr/textColorPrimary"
+        android:textSize="@dimen/sp_40"
+        android:textStyle="bold" />
+
+    <dev.audio.timeruler.timer.NumberPickerView
+        android:id="@+id/msecond"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_120"
+        android:minHeight="@dimen/dp_100"
+        app:npv_ShowDivider="false"
+        app:npv_ShownCount="3"
+        app:npv_TextColorHint="?attr/textColorSecondary"
+        app:npv_TextColorSelected="?attr/textColorPrimary"
+        app:npv_TextSizeNormal="@dimen/sp_28"
+        app:npv_TextSizeSelected="@dimen/sp_40"
+        app:npv_WrapSelectorWheel="true" />
 </merge>

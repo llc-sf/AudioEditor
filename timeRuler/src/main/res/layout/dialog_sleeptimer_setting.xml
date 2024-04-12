@@ -26,7 +26,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_title" />
 
-    <dev.audio.timeruler.timer.SleepTimerTimePick
+    <dev.audio.timeruler.timer.TimerTimePick
         android:id="@+id/time_pick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

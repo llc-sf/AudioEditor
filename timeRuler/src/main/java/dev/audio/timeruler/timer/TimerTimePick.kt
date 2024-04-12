@@ -14,7 +14,7 @@ import dev.audio.timeruler.databinding.ViewSleepTimerPickBinding
 /**
  * 定时器 时间选择控件
  */
-class SleepTimerTimePick @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
+class TimerTimePick @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
     LinearLayout(context, attrs), NumberPickerView.OnValueChangeListener,
     NumberPickerView.OnValueChangeListenerInScrolling {
 
@@ -51,6 +51,14 @@ class SleepTimerTimePick @JvmOverloads constructor(context: Context, attrs: Attr
         binding.second.setOnValueChangedListener(this)
         binding.second.setOnValueChangeListenerInScrolling(this)
 
+
+        binding.msecond.setDisplayedValues(getMsSecondDisplayValue())
+        binding.msecond.minValue = 0
+        binding.msecond.maxValue = 9
+        binding.msecond.setContentTextTypeface(Typeface.DEFAULT_BOLD)
+        binding.msecond.setOnValueChangedListener(this)
+        binding.msecond.setOnValueChangeListenerInScrolling(this)
+
     }
 
 
@@ -66,6 +74,14 @@ class SleepTimerTimePick @JvmOverloads constructor(context: Context, attrs: Attr
         return mutableListOf<String>().apply {
             for (i in 0 until 60) {
                 add(String.format("%02d", i))
+            }
+        }.toTypedArray()
+    }
+
+    private fun getMsSecondDisplayValue(): Array<String> {
+        return mutableListOf<String>().apply {
+            for (i in 0 until 10) {
+                add(i.toString())
             }
         }.toTypedArray()
     }
