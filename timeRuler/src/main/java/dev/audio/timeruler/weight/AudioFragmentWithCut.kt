@@ -248,4 +248,12 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         freshTrimAnchor()
     }
 
+    fun getCutLineStartTime(): Long {
+        return currentCutPieceFragment?.startTimestampTimeInSelf ?: 0L
+    }
+
+    fun getCutLineEndTime(): Long? {
+        return currentCutPieceFragment?.endTimestampTimeInSelf ?: 0L
+    }
+
 }

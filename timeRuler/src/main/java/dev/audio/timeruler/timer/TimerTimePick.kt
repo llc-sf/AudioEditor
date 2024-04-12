@@ -111,10 +111,11 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
         val _hour = (time / 1000) / 3600
         val _minute = ((time / 1000) % 3600) / 60
         val _second = (time / 1000) % 60
+        val _msecond = (time % 1000) / 100
         binding.hour.value = _hour.toInt()
         binding.minute.value = _minute.toInt()
         binding.second.value = _second.toInt()
-        mListener?.onSelection(time)
+        binding.msecond.value = _msecond.toInt()
     }
 
 

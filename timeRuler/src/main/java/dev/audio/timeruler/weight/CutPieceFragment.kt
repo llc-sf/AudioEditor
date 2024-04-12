@@ -131,7 +131,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
      * 相对于自己来说
      * 例：歌曲200*1000ms   起始时间120*1000ms
      */
-    private var endTimestampTimeInSelf = 0L
+     var endTimestampTimeInSelf = 0L
         set(value) {
             field = value
             if (isSelected) {

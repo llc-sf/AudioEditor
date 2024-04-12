@@ -497,5 +497,13 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         audioFragment?.cutRemove()
     }
 
+    fun getCutLineStartTime(): Long {
+      return  audioFragment?.getCutLineStartTime()?:0
+    }
+
+    fun getCutLineEndTime(): Long {
+        return  audioFragment?.getCutLineEndTime()?:0
+    }
+
 
 }
