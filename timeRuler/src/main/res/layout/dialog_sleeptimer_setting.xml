@@ -26,14 +26,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_title" />
 
-    <dev.audio.timeruler.timer.TimerTimePick
-        android:id="@+id/time_pick"
+
+    <FrameLayout
+        android:id="@+id/time_ly"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/dp_30"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+        app:layout_constraintTop_toBottomOf="@id/tv_title">
+
+        <dev.audio.timeruler.timer.TimerTimePick
+            android:id="@+id/time_pick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <dev.audio.timeruler.timer.KeyBoardTimerTimePick
+            android:id="@+id/time_pick_kb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+    </FrameLayout>
 
     <LinearLayout
         style="@style/BottomDialog.ButtonContainer"
@@ -42,7 +56,7 @@
         android:layout_marginTop="@dimen/dp_36"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/time_pick">
+        app:layout_constraintTop_toBottomOf="@id/time_ly">
 
         <dev.android.player.widget.text.CornersButton
             android:id="@+id/btn_cancel"

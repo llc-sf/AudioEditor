@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <EditText
+        android:id="@+id/hour"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_120"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/space_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp_6"
+        android:includeFontPadding="false"
+        android:text=":"
+        android:textColor="?attr/textColorPrimary"
+        android:textSize="@dimen/sp_40"
+        android:textStyle="bold" />
+
+
+    <EditText
+        android:id="@+id/minute"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_120"
+        android:inputType="number"
+        android:minHeight="@dimen/dp_100" />
+
+    <TextView
+        android:id="@+id/space_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp_6"
+        android:includeFontPadding="false"
+        android:paddingBottom="@dimen/dp_3"
+        android:text=":"
+        android:textColor="?attr/textColorPrimary"
+        android:textSize="@dimen/sp_40"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/second"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_120"
+        android:inputType="number"
+        android:minHeight="@dimen/dp_100" />
+
+    <TextView
+        android:id="@+id/space_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp_6"
+        android:includeFontPadding="false"
+        android:paddingBottom="@dimen/dp_3"
+        android:text="."
+        android:textColor="?attr/textColorPrimary"
+        android:textSize="@dimen/sp_40"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/msecond"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_120"
+        android:inputType="number"
+        android:minHeight="@dimen/dp_100" />
+</merge>
