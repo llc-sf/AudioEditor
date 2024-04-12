@@ -8,9 +8,14 @@
 
     <EditText
         android:id="@+id/hour"
-        android:layout_width="@dimen/dp_60"
+        android:layout_width="@dimen/dp_50"
         android:layout_height="@dimen/dp_120"
-        android:inputType="number" />
+        android:background="@null"
+        android:inputType="number"
+        android:maxEms="2"
+        android:maxLength="2"
+        android:textSize="@dimen/sp_40"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/space_1"
@@ -26,10 +31,15 @@
 
     <EditText
         android:id="@+id/minute"
-        android:layout_width="@dimen/dp_60"
+        android:layout_width="@dimen/dp_50"
         android:layout_height="@dimen/dp_120"
+        android:background="@null"
         android:inputType="number"
-        android:minHeight="@dimen/dp_100" />
+        android:maxEms="2"
+        android:maxLength="2"
+        android:minHeight="@dimen/dp_100"
+        android:textSize="@dimen/sp_40"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/space_2"
@@ -45,10 +55,15 @@
 
     <EditText
         android:id="@+id/second"
-        android:layout_width="@dimen/dp_60"
+        android:layout_width="@dimen/dp_50"
         android:layout_height="@dimen/dp_120"
+        android:background="@null"
         android:inputType="number"
-        android:minHeight="@dimen/dp_100" />
+        android:maxEms="2"
+        android:maxLength="2"
+        android:minHeight="@dimen/dp_100"
+        android:textSize="@dimen/sp_40"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/space_3"
@@ -64,8 +79,13 @@
 
     <EditText
         android:id="@+id/msecond"
-        android:layout_width="@dimen/dp_60"
+        android:layout_width="@dimen/dp_50"
         android:layout_height="@dimen/dp_120"
+        android:background="@null"
         android:inputType="number"
-        android:minHeight="@dimen/dp_100" />
+        android:maxEms="1"
+        android:maxLength="1"
+        android:minHeight="@dimen/dp_100"
+        android:textSize="@dimen/sp_40"
+        android:textStyle="bold" />
 </merge>
