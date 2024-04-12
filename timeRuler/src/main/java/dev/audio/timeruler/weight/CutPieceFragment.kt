@@ -20,6 +20,7 @@ import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.timeruler.BuildConfig
 import dev.audio.timeruler.R
 import dev.audio.timeruler.bean.Ref
+import dev.audio.timeruler.utils.isTouch
 import dev.audio.timeruler.weight.CutPieceFragment.MoveHandler.Companion.MSG_MOVE_TO_OFFSET
 import java.lang.ref.WeakReference
 
@@ -264,7 +265,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     }
 
     private var startHandleBitmap: Bitmap? = null
-    private var startHandleClickRect = Rect()
+    private var startHandleTouchRect = Rect()
     private var startHandleRealRect = Rect()
     private var startMargin = ScreenUtil.dp2px(audio.getContext(), 12 + 10) //10为keyTickHeight高度
 
@@ -275,7 +276,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             val handleXStart = startTimestampPosition - startHandleBitmap!!.width / 2
             val handleYStart = baselinePosition + startMargin
             var clickPadding = ScreenUtil.dp2px(audio.getContext(), 5)
-            startHandleClickRect = Rect(handleXStart.toInt() - clickPadding, handleYStart.toInt() - clickPadding, (handleXStart + startHandleBitmap!!.width).toInt() + clickPadding, (handleYStart + startHandleBitmap!!.height).toInt() + clickPadding)
+            startHandleTouchRect = Rect(handleXStart.toInt() - clickPadding, handleYStart.toInt() - clickPadding, (handleXStart + startHandleBitmap!!.width).toInt() + clickPadding, (handleYStart + startHandleBitmap!!.height).toInt() + clickPadding)
             startHandleRealRect = Rect(handleXStart.toInt(), handleYStart.toInt(), (handleXStart + startHandleBitmap!!.width).toInt(), (handleYStart + startHandleBitmap!!.height).toInt())
             canvas.drawBitmap(startHandleBitmap!!, handleXStart, handleYStart, null)
             if (BuildConfig.DEBUG) { //画空心rect
@@ -284,7 +285,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                     this.style = Paint.Style.STROKE
                     this.strokeWidth = strokeWidth
                 }
-                canvas.drawRect(startHandleClickRect, rectPaint)
+                canvas.drawRect(startHandleTouchRect, rectPaint)
                 rectPaint.color = Color.BLUE
                 canvas.drawRect(startHandleRealRect, rectPaint)
             }
@@ -300,7 +301,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
 
 
     private var endHandleBitmap: Bitmap? = null
-    private var endHandleClickRect = Rect()
+    private var endHandleTouchRect = Rect()
     private var endHandleRealRect = Rect()
     private var endMargin = ScreenUtil.dp2px(audio.getContext(), 12)
 
@@ -313,7 +314,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             val handleXEnd = endTimestampPosition - endHandleBitmap!!.width / 2
             val handleYEnd = ((rect?.bottom ?: 0) - endHandleBitmap!!.height - endMargin).toFloat()
             var clickPadding = ScreenUtil.dp2px(audio.getContext(), 5)
-            endHandleClickRect = Rect(handleXEnd.toInt() - clickPadding, handleYEnd.toInt() - clickPadding, (handleXEnd + endHandleBitmap!!.width).toInt() + clickPadding, (handleYEnd + endHandleBitmap!!.height).toInt() + clickPadding) // 绘制把手Bitmap在开始位置
+            endHandleTouchRect = Rect(handleXEnd.toInt() - clickPadding, handleYEnd.toInt() - clickPadding, (handleXEnd + endHandleBitmap!!.width).toInt() + clickPadding, (handleYEnd + endHandleBitmap!!.height).toInt() + clickPadding) // 绘制把手Bitmap在开始位置
             endHandleRealRect = Rect(handleXEnd.toInt(), handleYEnd.toInt(), (handleXEnd + endHandleBitmap!!.width).toInt(), (handleYEnd + endHandleBitmap!!.height).toInt()) // 绘制把手Bitmap在开始位置
             canvas.drawBitmap(endHandleBitmap!!, handleXEnd, handleYEnd, null)
             if (BuildConfig.DEBUG) { //画空心rect
@@ -322,7 +323,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                     this.style = Paint.Style.STROKE
                     this.strokeWidth = strokeWidth
                 }
-                canvas.drawRect(endHandleClickRect, rectPaint)
+                canvas.drawRect(endHandleTouchRect, rectPaint)
                 rectPaint.color = Color.BLUE
                 canvas.drawRect(endHandleRealRect, rectPaint)
             }
@@ -521,8 +522,8 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
         val x = event.x
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                isMovingStart = (event.x <= startRect.right + 20 && event.x >= startRect.left - 20)
-                isMovingEnd = (event.x <= endRect.right + 20 && event.x >= endRect.left - 20)
+                isMovingStart = startHandleTouchRect.isTouch(event)
+                isMovingEnd = endHandleTouchRect.isTouch(event)
                 lastTouchXProcess = x
             }
 
@@ -644,11 +645,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
 
     fun isTarget(event: MotionEvent?): Boolean {
         if (event == null || !isSelected) return false
-        return (event.x <= startRect.right + 20 && event.x >= startRect.left - 20).apply {
-
-        } || (event.x <= endRect.right + 20 && event.x >= endRect.left - 20).apply {
-
-        }
+        return startHandleTouchRect.isTouch(event) || endHandleTouchRect.isTouch(event)
     }
 
 
