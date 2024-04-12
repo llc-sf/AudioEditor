@@ -264,7 +264,8 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     }
 
     private var startHandleBitmap: Bitmap? = null
-    private var startHandleRect = Rect()
+    private var startHandleClickRect = Rect()
+    private var startHandleRealRect = Rect()
     private var startMargin = ScreenUtil.dp2px(audio.getContext(), 12 + 10) //10为keyTickHeight高度
 
     // 绘制把手的函数，假定它是在你提供的代码的类中
@@ -274,7 +275,8 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             val handleXStart = startTimestampPosition - startHandleBitmap!!.width / 2
             val handleYStart = baselinePosition + startMargin
             var clickPadding = ScreenUtil.dp2px(audio.getContext(), 5)
-            startHandleRect = Rect(handleXStart.toInt()-clickPadding, handleYStart.toInt()-clickPadding, (handleXStart + startHandleBitmap!!.width).toInt()+clickPadding, (handleYStart + startHandleBitmap!!.height).toInt()+clickPadding)
+            startHandleClickRect = Rect(handleXStart.toInt() - clickPadding, handleYStart.toInt() - clickPadding, (handleXStart + startHandleBitmap!!.width).toInt() + clickPadding, (handleYStart + startHandleBitmap!!.height).toInt() + clickPadding)
+            startHandleRealRect = Rect(handleXStart.toInt(), handleYStart.toInt(), (handleXStart + startHandleBitmap!!.width).toInt(), (handleYStart + startHandleBitmap!!.height).toInt())
             canvas.drawBitmap(startHandleBitmap!!, handleXStart, handleYStart, null)
             if (BuildConfig.DEBUG) { //画空心rect
                 val rectPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -282,7 +284,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                     this.style = Paint.Style.STROKE
                     this.strokeWidth = strokeWidth
                 }
-                canvas.drawRect(startHandleRect, rectPaint)
+                canvas.drawRect(startHandleClickRect, rectPaint)
+                rectPaint.color = Color.BLUE
+                canvas.drawRect(startHandleRealRect, rectPaint)
             }
         }
     }
@@ -296,7 +300,8 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
 
 
     private var endHandleBitmap: Bitmap? = null
-    private var endHandleRect = Rect()
+    private var endHandleClickRect = Rect()
+    private var endHandleRealRect = Rect()
     private var endMargin = ScreenUtil.dp2px(audio.getContext(), 12)
 
     /**
@@ -308,7 +313,8 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             val handleXEnd = endTimestampPosition - endHandleBitmap!!.width / 2
             val handleYEnd = ((rect?.bottom ?: 0) - endHandleBitmap!!.height - endMargin).toFloat()
             var clickPadding = ScreenUtil.dp2px(audio.getContext(), 5)
-            endHandleRect = Rect(handleXEnd.toInt()-clickPadding, handleYEnd.toInt()-clickPadding, (handleXEnd + endHandleBitmap!!.width).toInt()+clickPadding, (handleYEnd + endHandleBitmap!!.height).toInt()+clickPadding) // 绘制把手Bitmap在开始位置
+            endHandleClickRect = Rect(handleXEnd.toInt() - clickPadding, handleYEnd.toInt() - clickPadding, (handleXEnd + endHandleBitmap!!.width).toInt() + clickPadding, (handleYEnd + endHandleBitmap!!.height).toInt() + clickPadding) // 绘制把手Bitmap在开始位置
+            endHandleRealRect = Rect(handleXEnd.toInt(), handleYEnd.toInt(), (handleXEnd + endHandleBitmap!!.width).toInt(), (handleYEnd + endHandleBitmap!!.height).toInt()) // 绘制把手Bitmap在开始位置
             canvas.drawBitmap(endHandleBitmap!!, handleXEnd, handleYEnd, null)
             if (BuildConfig.DEBUG) { //画空心rect
                 val rectPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -316,7 +322,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                     this.style = Paint.Style.STROKE
                     this.strokeWidth = strokeWidth
                 }
-                canvas.drawRect(endHandleRect, rectPaint)
+                canvas.drawRect(endHandleClickRect, rectPaint)
+                rectPaint.color = Color.BLUE
+                canvas.drawRect(endHandleRealRect, rectPaint)
             }
         }
     }
