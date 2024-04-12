@@ -43,7 +43,12 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     api project(":waveform")
+    implementation project(":framework-dimens-375")
     implementation project(":framework-appprovider")
+    implementation project(":framework-themes-deps")
+    implementation project(":app-business-base")
+    implementation project(":framework-base")
+
 
     api 'com.google.android.exoplayer:exoplayer-core:2.12.0'
     api 'androidx.media3:media3-common:1.2.1'

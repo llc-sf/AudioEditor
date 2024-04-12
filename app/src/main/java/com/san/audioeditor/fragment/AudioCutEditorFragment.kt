@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.SeekBar
-import androidx.core.view.isVisible
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.PlaybackParameters
 import com.google.android.exoplayer2.SimpleExoPlayer
@@ -29,6 +28,7 @@ import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.listener.OnScaleChangeListener
 import dev.audio.timeruler.multitrack.MultiTrackRenderersFactory
 import dev.audio.timeruler.multitrack.MultiTrackSelector
+import dev.audio.timeruler.timer.DialogTimerSetting
 import dev.audio.timeruler.utils.format2Duration
 import dev.audio.timeruler.weight.AudioCutEditorView
 import dev.audio.timeruler.weight.AudioEditorConfig
@@ -207,7 +207,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         }
 
         viewBinding.cutAdd.setOnClickListener {
-           viewBinding.timeBar.cutAdd()
+            viewBinding.timeBar.cutAdd()
         }
 
         viewBinding.cutRemove.setOnClickListener {
@@ -271,7 +271,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         })
 
         viewBinding.timeBar.addCutModeChangeButtonEnableListener(object :
-                                                                    AudioCutEditorView.CutModeChangeButtonEnableListener {
+                                                                     AudioCutEditorView.CutModeChangeButtonEnableListener {
 
 
             override fun onCutModeChange(addEnable: Boolean, removeEnable: Boolean) {
@@ -291,6 +291,12 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         }
         viewBinding.cutEndPlus.setOnClickListener {
             viewBinding.timeBar.startEndPlus()
+        }
+        viewBinding.cutEnd.setOnClickListener {
+            DialogTimerSetting.show(parentFragmentManager)
+        }
+        viewBinding.cutStart.setOnClickListener {
+            DialogTimerSetting.show(parentFragmentManager)
         }
 
 
