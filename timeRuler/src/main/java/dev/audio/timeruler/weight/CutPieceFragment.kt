@@ -525,23 +525,27 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                 isMovingStart = startHandleTouchRect.isTouch(event)
                 isMovingEnd = endHandleTouchRect.isTouch(event)
                 lastTouchXProcess = x
+                Log.i(BaseAudioEditorView.cut_tag, "cut onTouchEvent: ACTION_DOWN isMovingStart=$isMovingStart isMovingEnd=$isMovingEnd")
             }
 
             MotionEvent.ACTION_MOVE -> {
-                Log.i(BaseAudioEditorView.cut_tag, "cut onTouchEvent: ACTION_DOWN") // 检查控件是否已经初始化宽度
+                Log.i(BaseAudioEditorView.cut_tag, "cut onTouchEvent: ACTION_MOVE") // 检查控件是否已经初始化宽度
                 if (width > 0) {
                     val dx = x - lastTouchXProcess
                     if (isMovingStart) {
                         startTimestampPosition += dx
                         if (startTimestampPosition <= (rect?.left ?: 0)) { //开始小于本身了
                             startTimestampTimeInSelf = 0
-                        } else if (startTimestampPosition >= endTimestampPosition - strokeWidth_cut) { //开始大于结束了
-                            startTimestampTimeInSelf = endTimestampTimeInSelf - (strokeWidth_cut).pixel2Time(unitMsPixel)
+                        } else if (startTimestampPosition > endTimestampPosition) { //开始大于结束了
+                            startTimestampTimeInSelf = endTimestampTimeInSelf
                         } else if (cutMode == CUT_MODE_JUMP && isInOtherFragments(startTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))) {
                             startTimestampTimeInSelf = getFragmentInOtherFragments(endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))?.endTimestampTimeInSelf
                                 ?: startTimestampTimeInSelf
                         } else {
                             startTimestampTimeInSelf += dx.pixel2Time(unitMsPixel)
+                        } //容错 开始时间大于结束时间了
+                        if (startTimestampPosition > endTimestampPosition) {
+                            startTimestampTimeInSelf = endTimestampTimeInSelf
                         }
 
                     } else if (isMovingEnd) {
@@ -551,8 +555,8 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                         endTimestampPosition += dx
                         if (endTimestampPosition >= (rect?.right ?: 0)) { //结束大于本身了
                             endTimestampTimeInSelf = duration
-                        } else if (endTimestampPosition <= startTimestampPosition + strokeWidth_cut) { //结束小于开始了
-                            endTimestampTimeInSelf = startTimestampTimeInSelf + (strokeWidth_cut).pixel2Time(unitMsPixel)
+                        } else if (endTimestampPosition < startTimestampPosition) { //结束小于开始了
+                            endTimestampTimeInSelf = startTimestampTimeInSelf
                         } else if (cutMode == CUT_MODE_JUMP && isInOtherFragments(endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))) {
                             endTimestampTimeInSelf = getFragmentInOtherFragments(endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))?.startTimestampTimeInSelf
                                 ?: endTimestampTimeInSelf
@@ -573,6 +577,10 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                             }
 
                             endTimestampTimeInSelf += dx.pixel2Time(unitMsPixel)
+                            //容错 结束时间小于开始时间了
+                            if (endTimestampPosition < startTimestampPosition) {
+                                endTimestampTimeInSelf = startTimestampTimeInSelf
+                            }
                         }
                     }
                     lastTouchXProcess = x

@@ -103,7 +103,9 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
                 return@forEachIndexed
             }
         }
-        return isTarget
+        return isTarget.apply {
+            Log.i(BaseAudioEditorView.cut_tag, "isCutLineTarget() isTarget= $this")
+        }
     }
 
     fun refreshCutLineAnchor(start: Boolean, end: Boolean) {
