@@ -1,6 +1,8 @@
 package dev.audio.timeruler.weight
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -15,6 +17,7 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.annotation.IntDef
 import dev.audio.ffmpeglib.tool.ScreenUtil
+import dev.audio.timeruler.R
 import dev.audio.timeruler.bean.Ref
 import dev.audio.timeruler.weight.CutPieceFragment.MoveHandler.Companion.MSG_MOVE_TO_OFFSET
 import java.lang.ref.WeakReference
@@ -76,8 +79,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
         this.cutMode = cutMode //重点
         if (audio.currentCutPieceFragment == null) {
             isSelected = index == 0
-        }
-        //todo  非跳裁剪转跳剪 可能存在重合的情况
+        } //todo  非跳裁剪转跳剪 可能存在重合的情况
         audio.invalidate()
     }
 
@@ -250,17 +252,46 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             canvas.drawLine(startTimestampPosition, baselinePosition, startTimestampPosition, //            height.toFloat(),
                             rect?.bottom?.toFloat() ?: 0f, timestampLinePaint)
             canvas.drawLine(endTimestampPosition, baselinePosition, endTimestampPosition, //            height.toFloat(),
-                            rect?.bottom?.toFloat()
-                                ?: 0f, timestampLinePaint) //        if(startTimestampPosition<0){
-            //
-            //        }
-            //        if(endTimestampPosition>ScreenUtil.getScreenWidth(audio.getContext())){
-            //
-            //        }
+                            rect?.bottom?.toFloat() ?: 0f, timestampLinePaint)
             audio.refreshCutLineAnchor(isSelected && (startTimestampPosition < 0 || startTimestampPosition > ScreenUtil.getScreenWidth(audio.getContext())), isSelected && (endTimestampPosition > ScreenUtil.getScreenWidth(audio.getContext()) || endTimestampPosition < 0)) // 绘制圆圈标记在直线的顶端
+            drawHandle(canvas)
+            drawEndHandle(canvas)
+        }
+    }
 
-//            canvas.drawCircle(startTimestampPosition, timestampHandlerRadius, timestampHandlerRadius, timestampHandlerPaint)
-//            canvas.drawCircle(endTimestampPosition, timestampHandlerRadius, timestampHandlerRadius, timestampHandlerPaint)
+    private var startHandleBitmap: Bitmap? = null
+    private var startMargin = ScreenUtil.dp2px(audio.getContext(), 40)
+
+    // 绘制把手的函数，假定它是在你提供的代码的类中
+    private fun drawHandle(canvas: Canvas) {
+        if (startHandleBitmap == null) {
+            startHandleBitmap = BitmapFactory.decodeResource(audio.getContext()?.resources, R.mipmap.ic_bar_left)
+            startHandleBitmap = Bitmap.createScaledBitmap(startHandleBitmap!!, startHandleBitmap!!.width * 2, startHandleBitmap!!.height * 2, true)
+        }
+        if (isSelected) {
+            val handleXStart = startTimestampPosition - startHandleBitmap!!.width / 2
+            val handleYStart = baselinePosition - startHandleBitmap!!.height + startMargin
+
+            canvas.drawBitmap(startHandleBitmap!!, handleXStart, handleYStart, null)
+        }
+    }
+
+
+    private var endHandleBitmap: Bitmap? = null
+    private var endMargin = ScreenUtil.dp2px(audio.getContext(), 12)
+
+    // 绘制把手的函数，假定它是在你提供的代码的类中
+    private fun drawEndHandle(canvas: Canvas) {
+        if (endHandleBitmap == null) {
+            endHandleBitmap = BitmapFactory.decodeResource(audio.getContext()?.resources, R.mipmap.ic_bar_right)
+            endHandleBitmap = Bitmap.createScaledBitmap(endHandleBitmap!!, endHandleBitmap!!.width * 2, endHandleBitmap!!.height * 2, true)
+        }
+        if (isSelected) {
+            val handleXEnd = endTimestampPosition - endHandleBitmap!!.width / 2
+            val handleYEnd = ((rect?.bottom ?: 0) - endHandleBitmap!!.height - endMargin).toFloat()
+
+            // 绘制把手Bitmap在开始位置
+            canvas.drawBitmap(endHandleBitmap!!, handleXEnd, handleYEnd, null)
         }
     }
 
