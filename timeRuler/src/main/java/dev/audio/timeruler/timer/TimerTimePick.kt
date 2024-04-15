@@ -35,21 +35,21 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
 
     private fun initView() {
         binding.hour.setDisplayedValues(getHourDisplayValue())
-        binding.hour.minValue = cutTime.minTime.hours
+        binding.hour.minValue = 0
         binding.hour.maxValue = cutTime.maxTime.hours
         binding.hour.setContentTextTypeface(Typeface.DEFAULT_BOLD)
         binding.hour.setOnValueChangedListener(this)
         binding.hour.setOnValueChangeListenerInScrolling(this)
 
         binding.minute.setDisplayedValues(getMinuteDisplayValue())
-        binding.minute.minValue = cutTime.minTime.minutes
+        binding.minute.minValue = 0
         binding.minute.maxValue = 59
         binding.minute.setContentTextTypeface(Typeface.DEFAULT_BOLD)
         binding.minute.setOnValueChangedListener(this)
         binding.minute.setOnValueChangeListenerInScrolling(this)
 
         binding.second.setDisplayedValues(getMinuteDisplayValue())
-        binding.second.minValue = cutTime.minTime.second
+        binding.second.minValue = 0
         binding.second.maxValue = 59
         binding.second.setContentTextTypeface(Typeface.DEFAULT_BOLD)
         binding.second.setOnValueChangedListener(this)
