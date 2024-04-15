@@ -100,11 +100,11 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
                 }
             }
         }
-        if(binding.hour.value == cutTime.minTime.hours){
-            if (oldSecond < cutTime.minTime.second){
+        if (binding.hour.value == cutTime.minTime.hours) {
+            if (oldSecond < cutTime.minTime.second) {
                 binding.minute.minValue = cutTime.minTime.minutes + 1
                 binding.minute.value = oldMinute
-            }else if(oldSecond == cutTime.minTime.second){
+            } else if (oldSecond == cutTime.minTime.second) {
                 if (cutTime.minTime.minutes == binding.minute.value && (binding.msecond.value < cutTime.minTime.secondDecimal)) { //秒等于最大，分数秒大于最大  分数秒归0
                     binding.msecond.value = cutTime.minTime.secondDecimal
                 }
@@ -152,13 +152,8 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
 
 
     override fun onValueChange(picker: NumberPickerView?, oldVal: Int, newVal: Int) {
-        Log.i("llc_onscroll", "onValueChange: ${picker?.id} $oldVal $newVal") //        when(picker){
-        //            binding.hour->{
-        //
-        //            }
-        //        }
         refresh()
-        mListener?.onSelection(getTime())
+        mListener?.onSelection(DialogTimerSetting.Time(getTime()))
         performHapticFeedback(picker)
     }
 
@@ -166,7 +161,7 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
      * 返回选择时间的毫秒数
      */
     fun getTime(): Long {
-        return (binding.hour.value * 3600L + binding.minute.value * 60L + binding.second.value) * 1000
+        return (binding.hour.value * 3600L + binding.minute.value * 60L + binding.second.value) * 1000 + binding.msecond.value * 100
     }
 
     fun getTime(hour: Int, minute: Int, second: Int, msecond: Int): Long {
@@ -181,7 +176,6 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
 
 
     fun setTime(cutTime: DialogTimerSetting.CutTime) {
-        Log.i("llc_onscroll", "setTime: ")
         this.cutTime = cutTime
         initView()
         binding.hour.value = this.cutTime.time.hours
@@ -195,12 +189,10 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
      * 时间选择监听
      */
     interface OnTimeSelectionListener {
-        fun onSelection(time: Long)
+        fun onSelection(time: DialogTimerSetting.Time)
     }
 
     override fun onValueChangeInScrolling(picker: NumberPickerView?, oldVal: Int, newVal: Int) {
-        Log.i("llc_onscroll", "onValueChangeInScrolling: oldVal: $oldVal, newVal: $newVal")
-
         performHapticFeedback(picker)
     }
 

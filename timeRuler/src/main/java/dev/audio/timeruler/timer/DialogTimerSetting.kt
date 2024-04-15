@@ -79,7 +79,13 @@ class DialogTimerSetting : BaseBottomTranslucentDialog() {
 
 
         binding.timePick.setTime(CutTime(Time(60 * 60 * 1000 + 2 * 60 * 1000 + 24 * 1000 + 820), Time(60 * 60 * 1000 + 0 * 60 * 1000 + 20 * 1000 + 820), Time(60 * 60 * 1000 + 2 * 60 * 1000 + 30 * 1000 + 820)))
-        binding.timePickKb.setTime(CutTime(Time(start), Time(0), Time(0)))
+        binding.timePickKb.setTime(CutTime(Time(60 * 60 * 1000 + 2 * 60 * 1000 + 24 * 1000 + 820), Time(60 * 60 * 1000 + 0 * 60 * 1000 + 20 * 1000 + 820), Time(60 * 60 * 1000 + 2 * 60 * 1000 + 30 * 1000 + 820)))
+
+        binding.timePick.setTimeSelectionListener(object : TimerTimePick.OnTimeSelectionListener {
+            override fun onSelection(time: DialogTimerSetting.Time) {
+                binding.timePickKb.setData(time)
+            }
+        })
     }
 
 

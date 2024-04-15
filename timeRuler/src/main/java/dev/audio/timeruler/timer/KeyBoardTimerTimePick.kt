@@ -35,48 +35,53 @@ class KeyBoardTimerTimePick @JvmOverloads constructor(context: Context,
     }
 
 
-    fun setData(time: Long) { // 将时间戳转换为秒
-        //        val totalSeconds = time / 1000.0
-        //        val hours = (totalSeconds / 3600).toInt()
-        //        val minutes = ((totalSeconds % 3600) / 60).toInt()
-        //        val seconds = (totalSeconds % 60).toInt()
-        //        val decimalPart = ((totalSeconds % 60) * 10).toInt() % 10  // 取第一个小数位
-        //
-        //        binding.hour.setText(if (hours < 10) "0$hours" else hours.toString())
-        //        binding.minute.setText(if (minutes < 10) "0$minutes" else minutes.toString())
-        //        binding.second.setText(if (seconds < 10) "0$seconds" else seconds.toString())
-        //        binding.secondDecimal.setText(decimalPart.toString())
+    fun setData(time:DialogTimerSetting.Time) { // 将时间戳转换为秒
+//        val totalSeconds = time / 1000.0
+//        val hours = (totalSeconds / 3600).toInt()
+//        val minutes = ((totalSeconds % 3600) / 60).toInt()
+//        val seconds = (totalSeconds % 60).toInt()
+//        val decimalPart = ((totalSeconds % 60) * 10).toInt() % 10  // 取第一个小数位
+//
+//        binding.hour.setText(if (hours < 10) "0$hours" else hours.toString())
+//        binding.minute.setText(if (minutes < 10) "0$minutes" else minutes.toString())
+//        binding.second.setText(if (seconds < 10) "0$seconds" else seconds.toString())
+//        binding.secondDecimal.setText(decimalPart.toString())
+        freshView(time)
     }
 
-    fun setTime(time: DialogTimerSetting.CutTime) {
-        if (time.time.hours == 0) {
+    fun setTime(cutTime: DialogTimerSetting.CutTime) {
+        freshView(cutTime.time)
+
+    }
+
+    private fun freshView(time: DialogTimerSetting.Time) {
+        if (time.hours == 0) {
             binding.hour.isVisible = false
             binding.space1.isVisible = false
         } else {
             binding.hour.isVisible = true
             binding.space1.isVisible = true
-            binding.hour.setText(time.time.hoursStr)
+            binding.hour.setText(time.hoursStr)
         }
 
-        if (time.time.minutes == 0) {
+        if (time.minutes == 0) {
             binding.minute.isVisible = false
             binding.space2.isVisible = false
         } else {
             binding.minute.isVisible = true
             binding.space2.isVisible = true
-            binding.minute.setText(time.time.minutesStr)
+            binding.minute.setText(time.minutesStr)
         }
 
-        if(time.time.second == 0) {
+        if (time.second == 0) {
             binding.second.isVisible = false
             binding.space3.isVisible = false
         } else {
             binding.second.isVisible = true
             binding.space3.isVisible = true
-            binding.second.setText(time.time.secondStr)
+            binding.second.setText(time.secondStr)
         }
 
-        binding.secondDecimal.setText(time.time.secondDecimalStr)
-
+        binding.secondDecimal.setText(time.secondDecimalStr)
     }
 }
