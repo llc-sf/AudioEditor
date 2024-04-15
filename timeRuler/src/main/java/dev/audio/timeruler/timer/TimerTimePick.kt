@@ -43,14 +43,14 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
 
         binding.minute.setDisplayedValues(getMinuteDisplayValue())
         binding.minute.minValue = cutTime.minTime.minutes
-        binding.minute.maxValue = if (cutTime.maxTime.hours > 0) 59 else cutTime.maxTime.minutes
+        binding.minute.maxValue = 59
         binding.minute.setContentTextTypeface(Typeface.DEFAULT_BOLD)
         binding.minute.setOnValueChangedListener(this)
         binding.minute.setOnValueChangeListenerInScrolling(this)
 
         binding.second.setDisplayedValues(getMinuteDisplayValue())
         binding.second.minValue = cutTime.minTime.second
-        binding.second.maxValue = if (cutTime.maxTime.minutes > 0) 59 else cutTime.maxTime.second
+        binding.second.maxValue = 59
         binding.second.setContentTextTypeface(Typeface.DEFAULT_BOLD)
         binding.second.setOnValueChangedListener(this)
         binding.second.setOnValueChangeListenerInScrolling(this)
