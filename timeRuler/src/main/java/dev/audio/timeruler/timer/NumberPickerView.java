@@ -754,26 +754,42 @@ public class NumberPickerView extends View {
         return mMaxValue;
     }
 
+    // 设置最小值
     public void setMinValue(int minValue) {
-        mMinValue = minValue;
-        mMinShowIndex = 0;
-        updateNotWrapYLimit();
+        if (minValue < 0) {
+            throw new IllegalArgumentException("Min value should not be less than 0");
+        }
+        this.mMinValue = minValue;
+        if (this.mMaxValue < this.mMinValue) {  // 确保 maxValue 总是大于等于 minValue
+            this.mMaxValue = this.mMinValue;
+        }
+        updateDisplayedValues();
     }
 
-    //compatible for android.widget.NumberPicker
+    // 设置最大值
     public void setMaxValue(int maxValue) {
-        if (mDisplayedValues == null) {
-            throw new NullPointerException("mDisplayedValues should not be null");
+        if (maxValue < mMinValue) {
+            throw new IllegalArgumentException("Max value should be greater than or equal to min value");
         }
-        if (maxValue - mMinValue + 1 > mDisplayedValues.length) {
-            throw new IllegalArgumentException("(maxValue - mMinValue + 1) should not be greater than mDisplayedValues.length now " +
-                    " (maxValue - mMinValue + 1) is " + (maxValue - mMinValue + 1) + " and mDisplayedValues.length is " + mDisplayedValues.length);
-        }
-        mMaxValue = maxValue;
-        mMaxShowIndex = mMaxValue - mMinValue + mMinShowIndex;
-        setMinAndMaxShowIndex(mMinShowIndex, mMaxShowIndex);
-        updateNotWrapYLimit();
+        this.mMaxValue = maxValue;
+        updateDisplayedValues();
     }
+
+    // 更新显示的值数组
+    private void updateDisplayedValues() {
+        int count = mMaxValue - mMinValue + 1;
+        if (count <= 0) {
+            mDisplayedValues = new String[0]; // 避免创建负大小的数组
+        } else {
+            mDisplayedValues = new String[count];
+            for (int i = 0; i < count; i++) {
+                mDisplayedValues[i] = String.format("%02d", mMinValue + i);
+            }
+        }
+        mMaxShowIndex = count - 1;
+        setDisplayedValues(mDisplayedValues, false);
+    }
+
 
     //compatible for android.widget.NumberPicker
     public void setValue(int value) {
