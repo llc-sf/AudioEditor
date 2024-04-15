@@ -99,6 +99,15 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
                 }
             }
         }
+        if(binding.hour.value == cutTime.minTime.hours){
+            if (oldSecond < cutTime.minTime.second){
+                binding.minute.minValue = cutTime.minTime.minutes + 1
+            }else if(oldSecond == cutTime.minTime.second){
+                if (cutTime.minTime.minutes == binding.minute.value && (binding.msecond.value < cutTime.minTime.secondDecimal)) { //秒等于最大，分数秒大于最大  分数秒归0
+                    binding.msecond.value = cutTime.minTime.secondDecimal
+                }
+            }
+        }
         binding.second.setContentTextTypeface(Typeface.DEFAULT_BOLD)
         binding.second.setOnValueChangedListener(this)
         binding.second.setOnValueChangeListenerInScrolling(this)
