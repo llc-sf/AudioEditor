@@ -35,17 +35,17 @@ class KeyBoardTimerTimePick @JvmOverloads constructor(context: Context,
     }
 
 
-    fun setData(time:DialogTimerSetting.Time) { // 将时间戳转换为秒
-//        val totalSeconds = time / 1000.0
-//        val hours = (totalSeconds / 3600).toInt()
-//        val minutes = ((totalSeconds % 3600) / 60).toInt()
-//        val seconds = (totalSeconds % 60).toInt()
-//        val decimalPart = ((totalSeconds % 60) * 10).toInt() % 10  // 取第一个小数位
-//
-//        binding.hour.setText(if (hours < 10) "0$hours" else hours.toString())
-//        binding.minute.setText(if (minutes < 10) "0$minutes" else minutes.toString())
-//        binding.second.setText(if (seconds < 10) "0$seconds" else seconds.toString())
-//        binding.secondDecimal.setText(decimalPart.toString())
+    fun setData(time: DialogTimerSetting.Time) { // 将时间戳转换为秒
+        //        val totalSeconds = time / 1000.0
+        //        val hours = (totalSeconds / 3600).toInt()
+        //        val minutes = ((totalSeconds % 3600) / 60).toInt()
+        //        val seconds = (totalSeconds % 60).toInt()
+        //        val decimalPart = ((totalSeconds % 60) * 10).toInt() % 10  // 取第一个小数位
+        //
+        //        binding.hour.setText(if (hours < 10) "0$hours" else hours.toString())
+        //        binding.minute.setText(if (minutes < 10) "0$minutes" else minutes.toString())
+        //        binding.second.setText(if (seconds < 10) "0$seconds" else seconds.toString())
+        //        binding.secondDecimal.setText(decimalPart.toString())
         freshView(time)
     }
 
@@ -84,4 +84,27 @@ class KeyBoardTimerTimePick @JvmOverloads constructor(context: Context,
 
         binding.secondDecimal.setText(time.secondDecimalStr)
     }
+
+    fun getTime(): DialogTimerSetting.Time {
+        return DialogTimerSetting.Time(getTimeLong())
+    }
+
+    private fun getTimeLong(): Long {
+        val hour = binding.hour.text.toString().toInt()
+        val minute = binding.minute.text.toString().toInt()
+        val second = binding.second.text.toString().toInt()
+        val secondDecimal = binding.secondDecimal.text.toString().toInt()
+        return (hour * 3600L + minute * 60L + second) * 1000 + secondDecimal * 100
+    }
+
+    /**
+     * 时间选择后监听
+     */
+    private var mListener: TimerTimePick.OnTimeSelectionListener? = null
+
+    fun setTimeSelectionListener(listener: TimerTimePick.OnTimeSelectionListener?) {
+        this.mListener = listener
+    }
+
+
 }

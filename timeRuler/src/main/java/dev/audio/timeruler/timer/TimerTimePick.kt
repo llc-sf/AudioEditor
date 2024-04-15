@@ -178,10 +178,14 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
     fun setTime(cutTime: DialogTimerSetting.CutTime) {
         this.cutTime = cutTime
         initView()
-        binding.hour.value = this.cutTime.time.hours
-        binding.minute.value = this.cutTime.time.minutes
-        binding.second.value = this.cutTime.time.second
-        binding.msecond.value = this.cutTime.time.secondDecimal
+        freshTime(cutTime.time)
+    }
+
+    fun freshTime(time: DialogTimerSetting.Time) {
+        binding.hour.value = time.hours
+        binding.minute.value = time.minutes
+        binding.second.value = time.second
+        binding.msecond.value = time.secondDecimal
     }
 
 

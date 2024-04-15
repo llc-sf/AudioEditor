@@ -64,6 +64,12 @@ class DialogTimerSetting : BaseBottomTranslucentDialog() {
             keyboardMode = !keyboardMode
             binding.timePickKb.isVisible = keyboardMode
             binding.timePick.isVisible = !keyboardMode
+            if (!keyboardMode) {
+                binding.keyBoard.text = "切换到滚动"
+                if (binding.timePickKb.getTime().time >= startMin || binding.timePickKb.getTime().time <= endMax) {
+                    binding.timePick.freshTime(Time(binding.timePickKb.getTime().time))
+                }
+            }
         }
 
 
@@ -82,7 +88,7 @@ class DialogTimerSetting : BaseBottomTranslucentDialog() {
         binding.timePickKb.setTime(CutTime(Time(60 * 60 * 1000 + 2 * 60 * 1000 + 24 * 1000 + 820), Time(60 * 60 * 1000 + 0 * 60 * 1000 + 20 * 1000 + 820), Time(60 * 60 * 1000 + 2 * 60 * 1000 + 30 * 1000 + 820)))
 
         binding.timePick.setTimeSelectionListener(object : TimerTimePick.OnTimeSelectionListener {
-            override fun onSelection(time: DialogTimerSetting.Time) {
+            override fun onSelection(time: Time) {
                 binding.timePickKb.setData(time)
             }
         })
@@ -117,6 +123,7 @@ class DialogTimerSetting : BaseBottomTranslucentDialog() {
     }
 
     class Time(var time: Long) : Parcelable {
+
         //时间戳
         private val totalSeconds = time / 1000.0
         var hours: Int = 0
