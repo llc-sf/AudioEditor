@@ -90,8 +90,15 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
         binding.second.setDisplayedValues(getMinuteDisplayValue())
         binding.second.minValue = if (cutTime.minTime.hours == binding.hour.value && cutTime.minTime.minutes == binding.minute.value) cutTime.minTime.second else 0
         binding.second.maxValue = if (cutTime.maxTime.hours == binding.hour.value && cutTime.maxTime.minutes == binding.minute.value) cutTime.maxTime.second else 59
-        if (oldSecond >= cutTime.maxTime.second) {
-            binding.minute.maxValue = cutTime.maxTime.minutes - 1
+        if (binding.hour.value == cutTime.maxTime.hours) {
+            //最大值处理
+            if (oldSecond > cutTime.maxTime.second) {
+                //秒大于最大  分数最大范围=最大分数-1
+                binding.minute.maxValue = cutTime.maxTime.minutes - 1
+            } else if ((oldSecond == cutTime.maxTime.second && binding.msecond.value > cutTime.maxTime.secondDecimal)) {
+                //秒等于最大，分数秒大于最大  分数秒归0
+                binding.msecond.value = 0
+            }
         }
         binding.second.setContentTextTypeface(Typeface.DEFAULT_BOLD)
         binding.second.setOnValueChangedListener(this)
