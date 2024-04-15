@@ -78,7 +78,7 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/msecond"
+        android:id="@+id/secondDecimal"
         android:layout_width="@dimen/dp_50"
         android:layout_height="@dimen/dp_120"
         android:background="@null"

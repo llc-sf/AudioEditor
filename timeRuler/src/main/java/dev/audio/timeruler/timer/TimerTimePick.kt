@@ -30,23 +30,27 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
         orientation = HORIZONTAL
         gravity = Gravity.CENTER
         binding = ViewSleepTimerPickBinding.inflate(LayoutInflater.from(context), this)
+
+    }
+
+    private fun initView() {
         binding.hour.setDisplayedValues(getHourDisplayValue())
-        binding.hour.minValue = 0
-        binding.hour.maxValue = 23
+        binding.hour.minValue = cutTime.minTime.hours
+        binding.hour.maxValue = cutTime.maxTime.hours
         binding.hour.setContentTextTypeface(Typeface.DEFAULT_BOLD)
         binding.hour.setOnValueChangedListener(this)
         binding.hour.setOnValueChangeListenerInScrolling(this)
 
         binding.minute.setDisplayedValues(getMinuteDisplayValue())
-        binding.minute.minValue = 0
-        binding.minute.maxValue = 59
+        binding.minute.minValue = cutTime.minTime.minutes
+        binding.minute.maxValue = if (cutTime.maxTime.hours > 0) 59 else cutTime.maxTime.minutes
         binding.minute.setContentTextTypeface(Typeface.DEFAULT_BOLD)
         binding.minute.setOnValueChangedListener(this)
         binding.minute.setOnValueChangeListenerInScrolling(this)
 
         binding.second.setDisplayedValues(getMinuteDisplayValue())
-        binding.second.minValue = 0
-        binding.second.maxValue = 59
+        binding.second.minValue = cutTime.minTime.second
+        binding.second.maxValue = if (cutTime.maxTime.minutes > 0) 59 else cutTime.maxTime.second
         binding.second.setContentTextTypeface(Typeface.DEFAULT_BOLD)
         binding.second.setOnValueChangedListener(this)
         binding.second.setOnValueChangeListenerInScrolling(this)
@@ -58,7 +62,6 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
         binding.msecond.setContentTextTypeface(Typeface.DEFAULT_BOLD)
         binding.msecond.setOnValueChangedListener(this)
         binding.msecond.setOnValueChangeListenerInScrolling(this)
-
     }
 
 
@@ -103,11 +106,15 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
         this.mListener = listener
     }
 
+    private lateinit var cutTime: DialogTimerSetting.CutTime
+
+
     /**
      * 设置固定的时间
      * @param time 毫秒数
      */
     fun setTime(time: Long) {
+
         val _hour = (time / 1000) / 3600
         val _minute = ((time / 1000) % 3600) / 60
         val _second = (time / 1000) % 60
@@ -116,6 +123,16 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
         binding.minute.value = _minute.toInt()
         binding.second.value = _second.toInt()
         binding.msecond.value = _msecond.toInt()
+    }
+
+    fun setTime(cutTime: DialogTimerSetting.CutTime) {
+        this.cutTime = cutTime
+        initView()
+
+        binding.hour.value = this.cutTime.time.hours
+        binding.minute.value = this.cutTime.time.minutes
+        binding.second.value = this.cutTime.time.second
+        binding.msecond.value = this.cutTime.time.secondDecimal
     }
 
 
