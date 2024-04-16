@@ -41,6 +41,11 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     private var playingTextSize = 20f
     private var triangleSideLength = 20f
 
+    var cutMode: Int = CutPieceFragment.CUT_MODE_SELECT
+        get() {
+            return audioFragment?.cutMode ?: 0
+        }
+
     init {
         init(attrs)
     }
@@ -216,6 +221,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         color = Color.WHITE
         textSize = playingTextSize
     }
+
     //播放条三角与文字的间距
     private var margin2 = 10f
     private fun drawText(canvas: Canvas, y: Float, text: String) {
@@ -233,21 +239,20 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                                   onDrawTickValue: Long,
                                   onDrawTickPosition: Float,
                                   paint: Paint,
-                                  rightCount: Int
-    ) {
+                                  rightCount: Int) {
 
         if (index == 0) {
-            var content = (cursorValue-startValue).format2DurationSimple()
-            drawTickValue(canvas,content, 20f + paint.measureText(content) / 2, topPadding + paint!!.getTopY())
+            var content = (cursorValue - startValue).format2DurationSimple()
+            drawTickValue(canvas, content, 20f + paint.measureText(content) / 2, topPadding + paint!!.getTopY())
         } else if (index == rightCount / 3) {
-            var content = ((cursorValue-startValue) + screenWithDuration / 3).format2DurationSimple()
-            drawTickValue(canvas,content, ScreenUtil.getScreenWidth(context) / 3f, topPadding + paint!!.getTopY())
+            var content = ((cursorValue - startValue) + screenWithDuration / 3).format2DurationSimple()
+            drawTickValue(canvas, content, ScreenUtil.getScreenWidth(context) / 3f, topPadding + paint!!.getTopY())
         } else if (index == rightCount / 3 * 2) {
-            var content = ((cursorValue-startValue) + screenWithDuration / 3 * 2).format2DurationSimple()
-            drawTickValue(canvas, content,ScreenUtil.getScreenWidth(context) / 3f * 2, topPadding + paint!!.getTopY())
+            var content = ((cursorValue - startValue) + screenWithDuration / 3 * 2).format2DurationSimple()
+            drawTickValue(canvas, content, ScreenUtil.getScreenWidth(context) / 3f * 2, topPadding + paint!!.getTopY())
         } else if (index == rightCount - 1) {
-            var content = ((cursorValue-startValue) + screenWithDuration).format2DurationSimple()
-            drawTickValue(canvas, content,ScreenUtil.getScreenWidth(context)
+            var content = ((cursorValue - startValue) + screenWithDuration).format2DurationSimple()
+            drawTickValue(canvas, content, ScreenUtil.getScreenWidth(context)
                 .toFloat() - paint!!.measureText(content) / 2 - 20f, topPadding + paint!!.getTopY())
         }
     }
@@ -500,7 +505,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     }
 
     fun getCutLineStartTime(): Long {
-      return  audioFragment?.getCutLineStartTime()?:0
+        return audioFragment?.getCutLineStartTime() ?: 0
     }
 
     fun setCutLineStartTime(time: Long) {
@@ -508,7 +513,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     }
 
     fun getCutLineEndTime(): Long {
-        return  audioFragment?.getCutLineEndTime()?:0
+        return audioFragment?.getCutLineEndTime() ?: 0
     }
 
     fun setCutLineEndTime(time: Long) {
@@ -518,34 +523,57 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     fun editTrimStart(parentFragmentManager: FragmentManager) {
         var min = 0L
         var max = 0L
-        min = 0L
-        max = getCutLineEndTime()-100
-        DialogTimerSetting.show(parentFragmentManager, getCutLineStartTime(), -1, min, max)
-            ?.let {
-                it.setTimeSelectionListener(object :
-                                                DialogTimerSetting.OnTimeSelectionListener {
-                    override fun onSelection(time: DialogTimerSetting.Time) {
-                        setCutLineStartTime(time.time)
-                    }
-                })
+        when (cutMode){
+            CutPieceFragment.CUT_MODE_SELECT,CutPieceFragment.CUT_MODE_DELETE -> {
+                min = 0L
+                max = getCutLineEndTime() - 100
             }
+            CutPieceFragment.CUT_MODE_JUMP -> {
+                var preCutPieceFragment = audioFragment?.getPreCutPieceFragment()
+                if (preCutPieceFragment != null) {
+                    min = preCutPieceFragment.endTimestampTimeInSelf
+                } else {
+                    min = 0L
+                }
+                max = getCutLineEndTime() - 100
+            }
+        }
+        DialogTimerSetting.show(parentFragmentManager, getCutLineStartTime(), -1, min, max)?.let {
+            it.setTimeSelectionListener(object : DialogTimerSetting.OnTimeSelectionListener {
+                override fun onSelection(time: DialogTimerSetting.Time) {
+                    setCutLineStartTime(time.time)
+                }
+            })
+        }
     }
 
     fun editTrimEnd(parentFragmentManager: FragmentManager) {
-        var min = 0L
-        var max = 0L
-        min = getCutLineStartTime()+100
-        max = audioFragment?.duration?:0
-        DialogTimerSetting.show(parentFragmentManager, -1, getCutLineEndTime(), min, max)
-            ?.let {
-                it.setTimeSelectionListener(object :
-                                                DialogTimerSetting.OnTimeSelectionListener {
-                    override fun onSelection(time: DialogTimerSetting.Time) {
-                        setCutLineEndTime(time.time)
-                    }
-                })
+        var min: Long
+        var max: Long
+        min = getCutLineStartTime() + 100
+        max = audioFragment?.duration ?: 0
+        when(cutMode){
+            CutPieceFragment.CUT_MODE_SELECT,CutPieceFragment.CUT_MODE_DELETE -> {
+                min = getCutLineStartTime() + 100
+                max = audioFragment?.duration ?: 0
             }
+            CutPieceFragment.CUT_MODE_JUMP -> {
+                min = getCutLineStartTime() + 100
+                var nextCutPieceFragment = audioFragment?.getNextCutPieceFragment()
+                if (nextCutPieceFragment != null) {
+                    max = nextCutPieceFragment.startTimestampTimeInSelf
+                } else {
+                    max = audioFragment?.duration ?: 0
+                }
+            }
+        }
+        DialogTimerSetting.show(parentFragmentManager, -1, getCutLineEndTime(), min, max)?.let {
+            it.setTimeSelectionListener(object : DialogTimerSetting.OnTimeSelectionListener {
+                override fun onSelection(time: DialogTimerSetting.Time) {
+                    setCutLineEndTime(time.time)
+                }
+            })
+        }
     }
-
 
 }

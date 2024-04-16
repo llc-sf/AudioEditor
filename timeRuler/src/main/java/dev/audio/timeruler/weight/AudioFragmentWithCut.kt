@@ -30,7 +30,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
             return null
         }
 
-    private var cutMode: Int = CutPieceFragment.CUT_MODE_SELECT
+     var cutMode: Int = CutPieceFragment.CUT_MODE_SELECT
         get() {
             cutPieceFragments?.forEach {
                 return it.cutMode
@@ -266,5 +266,34 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         currentCutPieceFragment?.endTimestampTimeInSelf = (time)
         audioEditorView.invalidate()
     }
+
+
+
+    fun getNextCutPieceFragment(): CutPieceFragment? {
+        if(cutPieceFragments.size<=1){
+            return currentCutPieceFragment
+        }
+        val sortedList = cutPieceFragments.sortedBy { it.startTimestampTimeInSelf }
+        val index = sortedList.indexOf(currentCutPieceFragment)
+        return if (index == cutPieceFragments.size - 1) {
+            null
+        } else {
+            sortedList[index + 1]
+        }
+    }
+
+    fun getPreCutPieceFragment(): CutPieceFragment? {
+        if(cutPieceFragments.size<=1){
+            return currentCutPieceFragment
+        }
+        val sortedList = cutPieceFragments.sortedBy { it.startTimestampTimeInSelf }
+        val index = sortedList.indexOf(currentCutPieceFragment)
+        return if (index == 0) {
+            null
+        } else {
+            sortedList[index - 1]
+        }
+    }
+
 
 }
