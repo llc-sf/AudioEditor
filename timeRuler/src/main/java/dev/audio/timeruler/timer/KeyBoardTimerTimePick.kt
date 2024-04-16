@@ -1,17 +1,17 @@
 package dev.audio.timeruler.timer
 
 import android.content.Context
-import android.graphics.Typeface
 import android.util.AttributeSet
-import android.util.Log
 import android.view.Gravity
-import android.view.HapticFeedbackConstants
 import android.view.LayoutInflater
 import android.view.View
+import android.view.animation.CycleInterpolator
+import android.view.animation.TranslateAnimation
 import android.widget.LinearLayout
 import androidx.core.view.isVisible
+import dev.audio.timeruler.R
 import dev.audio.timeruler.databinding.ViewKeyboardTimerPickBinding
-import dev.audio.timeruler.databinding.ViewSleepTimerPickBinding
+import dev.audio.timeruler.utils.dp
 
 
 /**
@@ -29,7 +29,7 @@ class KeyBoardTimerTimePick @JvmOverloads constructor(context: Context,
     private var binding: ViewKeyboardTimerPickBinding
 
     init {
-        orientation = HORIZONTAL
+        orientation = VERTICAL
         gravity = Gravity.CENTER
         binding = ViewKeyboardTimerPickBinding.inflate(LayoutInflater.from(context), this)
     }
@@ -49,7 +49,9 @@ class KeyBoardTimerTimePick @JvmOverloads constructor(context: Context,
         freshView(time)
     }
 
+    lateinit var cutTime: DialogTimerSetting.CutTime
     fun setTime(cutTime: DialogTimerSetting.CutTime) {
+        this.cutTime = cutTime
         freshView(cutTime.time)
 
     }
@@ -104,6 +106,28 @@ class KeyBoardTimerTimePick @JvmOverloads constructor(context: Context,
 
     fun setTimeSelectionListener(listener: TimerTimePick.OnTimeSelectionListener?) {
         this.mListener = listener
+    }
+
+
+    fun showErrorTip(isStart: Boolean = true) {
+        var errorTips = if (getTime().time == cutTime.maxTime.time) {
+            context.resources.getString(R.string.trime_start_end_time_error)
+        } else {
+            if (isStart) {
+                context.resources.getString(R.string.trime_start_time_error)
+            } else {
+                context.resources.getString(R.string.trime_end_time_error)
+            }
+        }
+        binding.errorTips.text = errorTips
+        val anim = TranslateAnimation(0f, 4f.dp, 0f, 0f)
+        anim.interpolator = CycleInterpolator(3f)
+        anim.duration = 500
+        if (binding.errorTips.isVisible) {
+            binding.errorTips.startAnimation(anim)
+        } else {
+            binding.errorTips.visibility = View.VISIBLE
+        }
     }
 
 

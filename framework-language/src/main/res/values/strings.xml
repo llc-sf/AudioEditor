@@ -648,4 +648,7 @@
     <string name="cut_editor_multi">Cut Editor Multi</string>
     <string name="audio_pick">Audio Pick</string>
     <string name="trime_start_time">Trim start time</string>
+    <string name="trime_start_time_error">开始时间不能晚于结束时间</string>
+    <string name="trime_end_time_error">结束时间不能早于开始时间</string>
+    <string name="trime_start_end_time_error">开始时间和结束时间不能相等</string>
 </resources>

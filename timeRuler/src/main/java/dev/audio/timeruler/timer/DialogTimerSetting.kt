@@ -71,19 +71,6 @@ class DialogTimerSetting : BaseBottomTranslucentDialog() {
                 }
             }
         }
-
-
-
-
-        if (start != -1L) {
-
-            //            binding.timePick.setTime(start)
-            //            binding.timePickKb.setData(start)
-        } else if (end != -1L) { //            binding.timePick.setTime(end)
-            //            binding.timePickKb.setData(end)
-        }
-
-
         binding.timePick.setTime(CutTime(Time(60 * 60 * 1000 + 2 * 60 * 1000 + 24 * 1000 + 820), Time(60 * 60 * 1000 + 0 * 60 * 1000 + 20 * 1000 + 820), Time(60 * 60 * 1000 + 2 * 60 * 1000 + 30 * 1000 + 820)))
         binding.timePickKb.setTime(CutTime(Time(60 * 60 * 1000 + 2 * 60 * 1000 + 24 * 1000 + 820), Time(60 * 60 * 1000 + 0 * 60 * 1000 + 20 * 1000 + 820), Time(60 * 60 * 1000 + 2 * 60 * 1000 + 30 * 1000 + 820)))
 
@@ -92,6 +79,20 @@ class DialogTimerSetting : BaseBottomTranslucentDialog() {
                 binding.timePickKb.setData(time)
             }
         })
+        binding.btnOk.setOnClickListener {
+            if (keyboardMode) {
+                if (binding.timePickKb.getTime().time < startMin || binding.timePickKb.getTime().time > endMax) {
+                    binding.timePickKb.showErrorTip(start!=-1L)
+                } else {
+
+                }
+            } else {
+
+            }
+        }
+        binding.btnCancel.setOnClickListener {
+
+        }
     }
 
 
