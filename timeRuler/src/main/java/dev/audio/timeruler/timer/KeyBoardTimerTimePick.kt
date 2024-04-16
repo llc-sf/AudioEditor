@@ -1,6 +1,7 @@
 package dev.audio.timeruler.timer
 
 import android.content.Context
+import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -92,8 +93,10 @@ class KeyBoardTimerTimePick @JvmOverloads constructor(context: Context,
     }
 
     private fun getTimeLong(): Long {
-        val hour = binding.hour.text.toString().toInt()
-        val minute = binding.minute.text.toString().toInt()
+        val hour = if (TextUtils.isEmpty(binding.hour.text.toString())) 0 else binding.hour.text.toString()
+            .toInt()
+        val minute = if (TextUtils.isEmpty(binding.minute.text.toString())) 0 else binding.minute.text.toString()
+            .toInt()
         val second = binding.second.text.toString().toInt()
         val secondDecimal = binding.secondDecimal.text.toString().toInt()
         return (hour * 3600L + minute * 60L + second) * 1000 + secondDecimal * 100
