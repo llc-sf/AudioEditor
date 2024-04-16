@@ -72,8 +72,8 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             startTimestamp = startValue
             this.waveform = waveform
         }
-        currentPlayingTimeInAudio = (audioFragment!!.duration / 6f).toLong()
-        currentPlayingPosition = (audioFragment!!.duration / 6f) * unitMsPixel
+        currentPlayingTimeInAudio = (audioFragment!!.duration / 3f).toLong()
+        currentPlayingPosition = (audioFragment!!.duration / 3f) * unitMsPixel
         currentPlayingTimeInTimeLine = cursorValue + currentPlayingTimeInAudio
         invalidate() // 触发重新绘制
     }
