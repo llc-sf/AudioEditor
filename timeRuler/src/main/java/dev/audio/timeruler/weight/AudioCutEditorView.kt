@@ -8,11 +8,13 @@ import android.graphics.Path
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
+import androidx.fragment.app.FragmentManager
 import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.timeruler.R
 import dev.audio.timeruler.weight.BaseAudioEditorView.TickMarkStrategy
 import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.player.PlayerManager
+import dev.audio.timeruler.timer.DialogTimerSetting
 import dev.audio.timeruler.utils.SizeUtils
 import dev.audio.timeruler.utils.format2DurationSimple
 import dev.audio.timeruler.utils.getTextHeight
@@ -501,8 +503,48 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
       return  audioFragment?.getCutLineStartTime()?:0
     }
 
+    fun setCutLineStartTime(time: Long) {
+        audioFragment?.setCutLineStartTime(time)
+    }
+
     fun getCutLineEndTime(): Long {
         return  audioFragment?.getCutLineEndTime()?:0
+    }
+
+    fun setCutLineEndTime(time: Long) {
+        audioFragment?.setCutLineEndTime(time)
+    }
+
+    fun editTrimStart(parentFragmentManager: FragmentManager) {
+        var min = 0L
+        var max = 0L
+        min = 0L
+        max = getCutLineEndTime()-100
+        DialogTimerSetting.show(parentFragmentManager, getCutLineStartTime(), -1, min, max)
+            ?.let {
+                it.setTimeSelectionListener(object :
+                                                DialogTimerSetting.OnTimeSelectionListener {
+                    override fun onSelection(time: DialogTimerSetting.Time) {
+                        setCutLineStartTime(time.time)
+                    }
+                })
+            }
+    }
+
+    fun editTrimEnd(parentFragmentManager: FragmentManager) {
+        var min = 0L
+        var max = 0L
+        min = getCutLineStartTime()+100
+        max = audioFragment?.duration?:0
+        DialogTimerSetting.show(parentFragmentManager, -1, getCutLineEndTime(), min, max)
+            ?.let {
+                it.setTimeSelectionListener(object :
+                                                DialogTimerSetting.OnTimeSelectionListener {
+                    override fun onSelection(time: DialogTimerSetting.Time) {
+                        setCutLineEndTime(time.time)
+                    }
+                })
+            }
     }
 
 

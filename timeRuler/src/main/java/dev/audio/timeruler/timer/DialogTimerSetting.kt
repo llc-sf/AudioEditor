@@ -21,9 +21,13 @@ class DialogTimerSetting : BaseBottomTranslucentDialog() {
         const val param_end_max = "end_max"
 
 
-        fun show(manager: FragmentManager?, start: Long, end: Long, startMin: Long, endMax: Long) {
+        fun show(manager: FragmentManager?,
+                 start: Long,
+                 end: Long,
+                 startMin: Long,
+                 endMax: Long): DialogTimerSetting? {
             if (manager == null) {
-                return
+                return null
             }
             val fragment = DialogTimerSetting()
             fragment.arguments = Bundle().apply {
@@ -33,6 +37,7 @@ class DialogTimerSetting : BaseBottomTranslucentDialog() {
                 putLong(param_end_max, endMax)
             }
             BottomDialogManager.show(manager, fragment)
+            return fragment
         }
     }
 
@@ -41,15 +46,16 @@ class DialogTimerSetting : BaseBottomTranslucentDialog() {
 
     private var start = 0L
     private var end = 0L
-    private var startMin = 0L
-    private var endMax = 0L
+    private var min = 0L
+    private var max = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         start = arguments?.getLong(param_start) ?: -1
         end = arguments?.getLong(param_end) ?: -1
-        startMin = arguments?.getLong(param_start_min) ?: -1
-        endMax = arguments?.getLong(param_end_max) ?: -1
+        min = arguments?.getLong(param_start_min) ?: -1
+        max = arguments?.getLong(param_end_max) ?: -1
+
     }
 
     override fun getContentView(inflater: LayoutInflater, container: ViewGroup?): View {
@@ -66,13 +72,20 @@ class DialogTimerSetting : BaseBottomTranslucentDialog() {
             binding.timePick.isVisible = !keyboardMode
             if (!keyboardMode) {
                 binding.keyBoard.text = "切换到滚动"
-                if (binding.timePickKb.getTime().time >= startMin || binding.timePickKb.getTime().time <= endMax) {
+                if (binding.timePickKb.getTime().time >= min || binding.timePickKb.getTime().time <= max) {
                     binding.timePick.freshTime(Time(binding.timePickKb.getTime().time))
                 }
             }
         }
-        binding.timePick.setTime(CutTime(Time(60 * 60 * 1000 + 2 * 60 * 1000 + 24 * 1000 + 820), Time(60 * 60 * 1000 + 0 * 60 * 1000 + 20 * 1000 + 820), Time(60 * 60 * 1000 + 2 * 60 * 1000 + 30 * 1000 + 820)))
-        binding.timePickKb.setTime(CutTime(Time(60 * 60 * 1000 + 2 * 60 * 1000 + 24 * 1000 + 820), Time(60 * 60 * 1000 + 0 * 60 * 1000 + 20 * 1000 + 820), Time(60 * 60 * 1000 + 2 * 60 * 1000 + 30 * 1000 + 820)))
+        var time = 0L
+        if (start != -1L) {
+            time = (start)
+        } else if (end != -1L) {
+            time = (end)
+        }
+        var cutTime = CutTime(Time(time), Time(min), Time(max))
+        binding.timePick.setTime(cutTime)
+        binding.timePickKb.setTime(cutTime)
 
         binding.timePick.setTimeSelectionListener(object : TimerTimePick.OnTimeSelectionListener {
             override fun onSelection(time: Time) {
@@ -80,19 +93,26 @@ class DialogTimerSetting : BaseBottomTranslucentDialog() {
             }
         })
         binding.btnOk.setOnClickListener {
-            if (keyboardMode) {
-                if (binding.timePickKb.getTime().time < startMin || binding.timePickKb.getTime().time > endMax) {
-                    binding.timePickKb.showErrorTip(start!=-1L)
-                } else {
-
-                }
-            } else {
-
+            if (keyboardMode && (binding.timePickKb.getTime().time < min || binding.timePickKb.getTime().time > max)) {
+                binding.timePickKb.showErrorTip(start != -1L)
+                return@setOnClickListener
             }
+            mListener?.onSelection(binding.timePick.getTimeBean())
+            dismiss()
         }
         binding.btnCancel.setOnClickListener {
 
         }
+    }
+
+    interface OnTimeSelectionListener {
+        fun onSelection(time: Time)
+    }
+
+    var mListener: OnTimeSelectionListener? = null
+
+    fun setTimeSelectionListener(listener: OnTimeSelectionListener?) {
+        this.mListener = listener
     }
 
 

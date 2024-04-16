@@ -292,16 +292,12 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         viewBinding.cutEndPlus.setOnClickListener {
             viewBinding.timeBar.startEndPlus()
         }
-        viewBinding.cutStart.setOnClickListener {
-            //end todo 片段不能交织
-            DialogTimerSetting.show(parentFragmentManager, viewBinding.timeBar.getCutLineStartTime(), -1, 0,mViewModel.song.duration.toLong())
+        viewBinding.cutStart.setOnClickListener { //end todo 片段不能交织
+            viewBinding.timeBar.editTrimStart(parentFragmentManager)
         }
-        viewBinding.cutEnd.setOnClickListener {
-            //end todo 片段不能交织
-            DialogTimerSetting.show(parentFragmentManager, -1, viewBinding.timeBar.getCutLineEndTime(), viewBinding.timeBar.getCutLineStartTime(), mViewModel.song.duration.toLong())
+        viewBinding.cutEnd.setOnClickListener { //end todo 片段不能交织
+            viewBinding.timeBar.editTrimEnd(parentFragmentManager)
         }
-
-
 
 
         viewBinding.timeBar.addOnPlayingLineChangeListener(object :

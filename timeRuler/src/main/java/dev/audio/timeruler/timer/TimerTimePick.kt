@@ -169,6 +169,10 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
         return (binding.hour.value * 3600L + binding.minute.value * 60L + binding.second.value) * 1000 + binding.msecond.value * 100
     }
 
+    fun getTimeBean(): DialogTimerSetting.Time {
+        return DialogTimerSetting.Time((binding.hour.value * 3600L + binding.minute.value * 60L + binding.second.value) * 1000 + binding.msecond.value * 100)
+    }
+
     fun getTime(hour: Int, minute: Int, second: Int, msecond: Int): Long {
         return (hour * 3600L + minute * 60L + second) * 1000 + msecond * 100
     }

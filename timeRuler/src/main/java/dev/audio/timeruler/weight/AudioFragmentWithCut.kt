@@ -256,4 +256,15 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         return currentCutPieceFragment?.endTimestampTimeInSelf ?: 0L
     }
 
+    fun setCutLineStartTime(time: Long) {
+        currentCutPieceFragment?.startTimestampTimeInSelf = (time)
+        audioEditorView.invalidate()
+
+    }
+
+    fun setCutLineEndTime(time: Long) {
+        currentCutPieceFragment?.endTimestampTimeInSelf = (time)
+        audioEditorView.invalidate()
+    }
+
 }
