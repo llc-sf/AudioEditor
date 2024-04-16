@@ -91,9 +91,12 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
         binding.second.minValue = if (cutTime.minTime.hours == binding.hour.value && cutTime.minTime.minutes == binding.minute.value) cutTime.minTime.second else 0
         binding.second.maxValue = if (cutTime.maxTime.hours == binding.hour.value && cutTime.maxTime.minutes == binding.minute.value) cutTime.maxTime.second else 59
         if (binding.hour.value == cutTime.maxTime.hours) { //最大值处理
-            if (oldSecond > cutTime.maxTime.second) { //秒大于最大  分数最大范围=最大分数-1
-                binding.minute.maxValue = cutTime.maxTime.minutes - 1
-                binding.minute.value = oldMinute
+            if (cutTime.maxTime.hours == binding.hour.value && cutTime.maxTime.minutes == binding.minute.value && oldSecond > cutTime.maxTime.second) { //策略1：上一位超过  下一位置0
+                oldSecond = binding.second.minValue
+            } else if (oldSecond > cutTime.maxTime.second) { //秒大于最大  分数最大范围=最大分数-1
+                //策略2：下一位超过  上一位置最大值-1
+                //binding.minute.maxValue = cutTime.maxTime.minutes - 1
+                //binding.minute.value = oldMinute
             } else if (oldSecond == cutTime.maxTime.second) {
                 if (cutTime.maxTime.minutes == binding.minute.value && (binding.msecond.value > cutTime.maxTime.secondDecimal)) { //秒等于最大，分数秒大于最大  分数秒归0
                     binding.msecond.value = 0
@@ -101,9 +104,11 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
             }
         }
         if (binding.hour.value == cutTime.minTime.hours) {
-            if (oldSecond < cutTime.minTime.second) {
-                binding.minute.minValue = cutTime.minTime.minutes + 1
-                binding.minute.value = oldMinute
+            if (cutTime.minTime.hours == binding.hour.value && cutTime.minTime.minutes == binding.minute.value && oldSecond < cutTime.minTime.second) { //策略1：上一位超过  下一位置0
+                oldSecond = binding.second.maxValue
+            } else if (oldSecond < cutTime.minTime.second) { //策略2：下一位超过  上一位置最小加一
+//                binding.minute.minValue = cutTime.minTime.minutes + 1
+//                binding.minute.value = oldMinute
             } else if (oldSecond == cutTime.minTime.second) {
                 if (cutTime.minTime.minutes == binding.minute.value && (binding.msecond.value < cutTime.minTime.secondDecimal)) { //秒等于最大，分数秒大于最大  分数秒归0
                     binding.msecond.value = cutTime.minTime.secondDecimal
