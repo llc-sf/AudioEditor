@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import dev.audio.timeruler.bean.Ref
+import dev.audio.timeruler.player.PlayerManager
 
 
 /**
@@ -30,7 +31,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
             return null
         }
 
-     var cutMode: Int = CutPieceFragment.CUT_MODE_SELECT
+    var cutMode: Int = CutPieceFragment.CUT_MODE_SELECT
         get() {
             cutPieceFragments?.forEach {
                 return it.cutMode
@@ -252,7 +253,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         return currentCutPieceFragment?.startTimestampTimeInSelf ?: 0L
     }
 
-    fun getCutLineEndTime(): Long? {
+    fun getCutLineEndTime(): Long {
         return currentCutPieceFragment?.endTimestampTimeInSelf ?: 0L
     }
 
@@ -268,9 +269,8 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
     }
 
 
-
     fun getNextCutPieceFragment(): CutPieceFragment? {
-        if(cutPieceFragments.size<=1){
+        if (cutPieceFragments.size <= 1) {
             return currentCutPieceFragment
         }
         val sortedList = cutPieceFragments.sortedBy { it.startTimestampTimeInSelf }
@@ -283,7 +283,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
     }
 
     fun getPreCutPieceFragment(): CutPieceFragment? {
-        if(cutPieceFragments.size<=1){
+        if (cutPieceFragments.size <= 1) {
             return currentCutPieceFragment
         }
         val sortedList = cutPieceFragments.sortedBy { it.startTimestampTimeInSelf }
@@ -294,6 +294,47 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
             sortedList[index - 1]
         }
     }
+
+    fun updateMediaSource(isStart: Boolean,
+                          startTimestampTimeInSelf: Long,
+                          endTimestampTimeInSelf: Long) {
+        (audioEditorView as? AudioCutEditorView)?.updateMediaSource(isStart, startTimestampTimeInSelf, endTimestampTimeInSelf)
+
+    }
+
+    fun isInCut(currentPlayingTimeInAudio: Long): Boolean {
+        var result = false
+        cutPieceFragments.forEach {
+            result = result || it.isInFragment(currentPlayingTimeInAudio)
+            if (result) {
+                return true
+            }
+        }
+        return false
+    }
+
+    //播放条在第几个裁剪片段
+    fun cutIndex(currentPlayingTimeInAudio: Long): Int {
+        var result = -1
+        cutPieceFragments.forEachIndexed { index, cutPieceFragment ->
+            if (cutPieceFragment.isInFragment(currentPlayingTimeInAudio)) {
+                result = index
+                return result
+            }
+        }
+        return result
+    }
+
+    fun removeFake() {
+        //过滤掉 isFake = true 的
+        cutPieceFragments = cutPieceFragments.filter { !it.isFake }.toMutableList()
+
+    }
+
+    var cutPieceFragmentsOrder: List<CutPieceFragment> = mutableListOf()
+        get() {
+            return cutPieceFragments.sortedBy { it.startTimestampTimeInSelf }
+        }
 
 
 }

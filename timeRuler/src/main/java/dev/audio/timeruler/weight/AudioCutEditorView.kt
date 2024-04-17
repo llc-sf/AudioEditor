@@ -74,7 +74,6 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         }
         currentPlayingTimeInAudio = (audioFragment!!.duration / 3f).toLong()
         currentPlayingPosition = (audioFragment!!.duration / 3f) * unitMsPixel
-        currentPlayingTimeInTimeLine = cursorValue + currentPlayingTimeInAudio
         invalidate() // 触发重新绘制
     }
 
@@ -151,9 +150,43 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
      * 主动更新播放条
      */
     private fun manuallyUpdatePlayingLine(event: MotionEvent) {
+        if (audioFragment == null) {
+            return
+        } //只需要计算出当前播放条的位置即可，seek 在播放的时候做 todo 其实这里做也行 一会调整吧
         currentPlayingPosition = event.x
-        currentPlayingTimeInTimeLine = cursorValue + (currentPlayingPosition / unitMsPixel).toLong()
-        currentPlayingTimeInAudio = currentPlayingTimeInTimeLine - startValue
+        currentPlayingTimeInAudio = cursorValue + (currentPlayingPosition / unitMsPixel).toLong() - startValue //        var seekPosition = when (cutMode) {
+        //            CutPieceFragment.CUT_MODE_SELECT -> {
+        //                var result = currentPlayingTimeInAudio - getCutLineStartTime()
+        //                if (result < 0 || result > PlayerManager.player.duration) { //越界处理
+        //                    0
+        //                } else {
+        //                    result
+        //                }
+        //            }
+        //
+        //            CutPieceFragment.CUT_MODE_DELETE -> {
+        //                if (currentPlayingTimeInAudio in getCutLineStartTime()..getCutLineEndTime()) {
+        //                    0
+        //                } else {
+        //                    currentPlayingTimeInAudio
+        //                }
+        //            }
+        //
+        //            CutPieceFragment.CUT_MODE_JUMP -> {
+        //                if (audioFragment?.isInCut(currentPlayingTimeInAudio) == true) {
+        //                    var windowIndex = audioFragment!!.cutIndex(currentPlayingTimeInAudio)
+        //                    currentPlayingTimeInAudio - audioFragment!!.cutPieceFragmentsOrder[windowIndex].startTimestampTimeInSelf
+        //                } else {
+        //                    //重新设置播放内容
+        //                    currentPlayingTimeInAudio
+        //                }
+        //            }
+        //
+        //            else -> {
+        //                0
+        //            }
+        //        }
+        //        PlayerManager.seekTo(seekPosition) //        freshPlayingLineByAudioProgress(seekPosition)
     }
 
     /**
@@ -187,12 +220,6 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     private fun isPlayingLineTarget(event: MotionEvent): Boolean {
         return event.x <= currentPlayingPosition + 20 && event.x >= currentPlayingPosition - 20
     }
-
-
-    //    private var currentPlayingPosition: Int = 0
-    //        get() {
-    //            this.cursorValue = startValue + currentPosition
-    //        }
 
 
     private fun drawPlayingLine(canvas: Canvas) {
@@ -267,6 +294,9 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
      * 播放条对应的时间戳  在时间轴上
      */
     private var currentPlayingTimeInTimeLine: Long = 0L
+        get() {
+            return startValue + currentPlayingTimeInAudio
+        }
 
     /**
      * 歌曲当前播放位置  对于歌曲时长来说
@@ -279,31 +309,140 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         }
 
     /**
-     * 设置 cursor 位置
+     * 播放条在真正的播放片段的位置
+     */ //    var currentPlayingTimeInPlayingAudio = 0L
+    //        get() {
+    //            when (cutMode) {
+    //                CutPieceFragment.CUT_MODE_SELECT -> {
+    //                    return currentPlayingTimeInAudio - (audioFragment?.getCutLineStartTime() ?: 0)
+    //                }
+    //
+    //                CutPieceFragment.CUT_MODE_DELETE -> {
+    //                    return currentPlayingTimeInAudio
+    //                }
+    //
+    //                CutPieceFragment.CUT_MODE_JUMP -> {
+    //                    return currentPlayingTimeInAudio
+    //                }
+    //            }
+    //            return currentPlayingTimeInAudio
+    //        }
+
+    /**
+     *
+     * @param currentPositionInPlaying 当前真正播放位置
+     *
+     * 定位，以播放线定位 此时前提：播放线位置是正确的   随着播放进度，要么移动波形，要么移动播放条，使播放进度正确
      */
-    fun setPlayerProgress(currentPosition: Long, duration: Long) {
+    fun setPlayerProgress(currentWindowIndex: Int,
+                          currentPositionInPlaying: Long,
+                          duration: Long) { //在真个坐标轴中的位置
+        Log.i(playline_tag, "setPlayerProgress currentPositionInPlaying=$currentPositionInPlaying duration=$duration")
+        if (cutMode == CutPieceFragment.CUT_MODE_SELECT && currentPositionInPlaying >= duration) { //判断播放结束
+            restart()
+            return
+        }
+        if (cutMode == CutPieceFragment.CUT_MODE_DELETE && currentWindowIndex == 1 && currentPositionInPlaying >= duration) { //判断播放结束
+            restart()
+            return
+        }
+        if (cutMode == CutPieceFragment.CUT_MODE_JUMP && (currentWindowIndex + 1) == (audioFragment?.cutPieceFragments?.size
+                ?: 0) && currentPositionInPlaying >= duration
+        ) { //判断播放结束
+            restart()
+            return
+        } //时间轴上的时间（相对，从0）
+        var currentPosition: Long = 0
+        when (cutMode) {
+            CutPieceFragment.CUT_MODE_SELECT -> {
+                currentPosition = currentPositionInPlaying + (audioFragment?.getCutLineStartTime()
+                    ?: 0) //                checkPlayingPositionPixel(currentPosition)
+            }
+
+            CutPieceFragment.CUT_MODE_DELETE -> {
+                if (currentWindowIndex == 0) {
+                    currentPosition = currentPositionInPlaying
+                } else {
+                    currentPosition = (getCutLineEndTime()) + currentPositionInPlaying
+                }
+            }
+
+            CutPieceFragment.CUT_MODE_JUMP -> {
+                var cutFragment = audioFragment?.cutPieceFragments?.get(currentWindowIndex)
+                currentPosition = currentPositionInPlaying + (cutFragment?.startTimestampTimeInSelf
+                    ?: 0)
+            }
+        }
+        currentPlayingTimeInAudio = currentPosition
         if (currentPlayingPosition > ScreenUtil.getScreenWidth(context) || currentPlayingPosition < 0) { //播放条移动到屏幕外  需要移动波形到屏幕中间
             cursorValue += (((ScreenUtil.getScreenWidth(context) / 2).toFloat() - currentPlayingPosition) / unitMsPixel).toLong()
             currentPlayingPosition = (ScreenUtil.getScreenWidth(context) / 2).toFloat()
             invalidate()
         }
-        if (currentPosition >= duration) { //播放结束
-            cursorValue = startValue
-            currentPlayingPosition = 0f
-            currentPlayingTimeInTimeLine = startValue
-            currentPlayingTimeInAudio = 0
-            invalidate()
-            return
-        }
-        currentPlayingTimeInAudio = currentPosition
-        currentPlayingTimeInTimeLine = startValue + currentPlayingTimeInAudio
-        var tempCursorValue = (currentPlayingTimeInTimeLine - (currentPlayingPosition / unitMsPixel).toLong())
+
+        var tempCursorValue = (currentPlayingTimeInTimeLine - (currentPlayingPosition / unitMsPixel).toLong()) //波形移动优先，如果不能移动，再去移动播放条
         if (tempCursorValue + screenWithDuration >= endValue) { //播放条移动
             this.cursorValue = endValue - screenWithDuration
             currentPlayingPosition = (currentPlayingTimeInTimeLine - this.cursorValue) * unitMsPixel
         } else { //音波移动
             cursorValue = tempCursorValue
+        }
+        invalidate()
+    }
 
+    private fun restart() {
+        cursorValue = startValue
+        when (cutMode) {
+            CutPieceFragment.CUT_MODE_SELECT -> { //定位播放条
+                currentPlayingTimeInAudio = getCutLineStartTime()
+                currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
+            }
+
+            CutPieceFragment.CUT_MODE_DELETE -> { //定位播放条
+                currentPlayingTimeInAudio = 0
+                currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
+            }
+
+            CutPieceFragment.CUT_MODE_JUMP -> { //定位播放条
+                audioFragment?.removeFake()
+                currentPlayingTimeInAudio = audioFragment?.cutPieceFragmentsOrder?.get(0)?.startTimestampTimeInSelf
+                    ?: 0
+                currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
+            }
+        }
+        invalidate()
+    }
+
+    /**
+     * 检查播放位置是否在剪切片段内
+     */ //    private fun checkPlayingPositionPixel(currentPosition: Long) {
+    //        if (currentPlayingPosition.pixel2Time(unitMsPixel) < getCutLineStartTime() || currentPlayingPosition.pixel2Time(unitMsPixel) > getCutLineEndTime()) {
+    //            currentPlayingPosition = currentPosition.time2Pixel(unitMsPixel)
+    //            currentPlayingTimeInTimeLine = currentPlayingPosition.pixel2Time(unitMsPixel) + cursorValue
+    //            currentPlayingTimeInAudio = currentPlayingTimeInTimeLine - startValue
+    //        }
+    //    }
+
+    /**
+     * 1 播放结束
+     * 2 切换模式
+     */
+    private fun initPayingLinePosition() {
+        cursorValue = startValue
+        when (cutMode) {
+            CutPieceFragment.CUT_MODE_SELECT -> { //                seekTo(0, false) //
+                currentPlayingTimeInAudio = getCutLineStartTime()
+                currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
+            }
+
+            CutPieceFragment.CUT_MODE_DELETE -> {
+
+            }
+
+            CutPieceFragment.CUT_MODE_JUMP -> { //                seekTo(getCutLineStartTime(), false)
+                PlayerManager.seekTo(getCutLineStartTime())
+                PlayerManager.play()
+            }
         }
         invalidate()
     }
@@ -352,13 +491,6 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                 currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
             }
         }
-    }
-
-    /**
-     * cursor对应的歌曲位置
-     */
-    fun getCurrentPosition(): Long {
-        return currentPlayingTimeInAudio
     }
 
 
@@ -494,10 +626,44 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     fun cutAdd() {
         audioFragment?.cutAdd()
+        PlayerManager.updateMediaSourceDeleteJump(audioFragment!!.cutPieceFragments)
     }
 
     fun switchCutMode(mode: Int) {
         audioFragment?.switchCutMode(mode)
+        var isPlay = PlayerManager.isPlaying
+        PlayerManager.pause()
+        var seekPosition = 0L
+        var windowIndex = 0
+        when (mode) {
+            CutPieceFragment.CUT_MODE_SELECT -> {
+                PlayerManager.updateMediaSource(getCutLineStartTime(), getCutLineEndTime())
+                currentPlayingTimeInAudio = getCutLineStartTime()
+                currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
+            }
+
+            CutPieceFragment.CUT_MODE_DELETE -> {
+                PlayerManager.updateMediaSourceDelete(getCutLineStartTime(), getCutLineEndTime(), audioFragment?.duration
+                    ?: 0)
+                currentPlayingTimeInAudio = 0
+                currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
+            }
+
+            CutPieceFragment.CUT_MODE_JUMP -> {
+                if (audioFragment?.isInCut(currentPlayingTimeInAudio) == true) {
+                    PlayerManager.updateMediaSourceDeleteJump(audioFragment!!.cutPieceFragments)
+                    currentPlayingTimeInAudio = audioFragment!!.cutPieceFragmentsOrder[0].startTimestampTimeInSelf
+                    currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
+                    seekPosition = 0
+                    windowIndex = 0
+                }
+            }
+        }
+        if (isPlay) {
+            PlayerManager.playWithSeek(seekPosition, windowIndex)
+        } else {
+            PlayerManager.seekTo(seekPosition, windowIndex)
+        }
     }
 
     fun cutRemove() {
@@ -523,11 +689,12 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     fun editTrimStart(parentFragmentManager: FragmentManager) {
         var min = 0L
         var max = 0L
-        when (cutMode){
-            CutPieceFragment.CUT_MODE_SELECT,CutPieceFragment.CUT_MODE_DELETE -> {
+        when (cutMode) {
+            CutPieceFragment.CUT_MODE_SELECT, CutPieceFragment.CUT_MODE_DELETE -> {
                 min = 0L
                 max = getCutLineEndTime() - 100
             }
+
             CutPieceFragment.CUT_MODE_JUMP -> {
                 var preCutPieceFragment = audioFragment?.getPreCutPieceFragment()
                 if (preCutPieceFragment != null) {
@@ -552,11 +719,12 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         var max: Long
         min = getCutLineStartTime() + 100
         max = audioFragment?.duration ?: 0
-        when(cutMode){
-            CutPieceFragment.CUT_MODE_SELECT,CutPieceFragment.CUT_MODE_DELETE -> {
+        when (cutMode) {
+            CutPieceFragment.CUT_MODE_SELECT, CutPieceFragment.CUT_MODE_DELETE -> {
                 min = getCutLineStartTime() + 100
                 max = audioFragment?.duration ?: 0
             }
+
             CutPieceFragment.CUT_MODE_JUMP -> {
                 min = getCutLineStartTime() + 100
                 var nextCutPieceFragment = audioFragment?.getNextCutPieceFragment()
@@ -576,4 +744,157 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         }
     }
 
+    //    private fun freshPlayingLineByAudioProgress(position: Long) {
+    //        when (cutMode) {
+    //            CutPieceFragment.CUT_MODE_SELECT -> {
+    //                currentPlayingTimeInAudio = position + getCutLineStartTime()
+    //                currentPlayingPosition = (currentPlayingTimeInTimeLine - startValue) * unitMsPixel
+    //
+    //            }
+    //
+    //            CutPieceFragment.CUT_MODE_DELETE -> {
+    //
+    //            }
+    //
+    //            CutPieceFragment.CUT_MODE_JUMP -> {
+    //                currentPlayingTimeInAudio = position
+    //                currentPlayingPosition = (currentPlayingTimeInTimeLine - startValue) * unitMsPixel
+    //            }
+    //
+    //        }
+    //    }
+
+    //    /**
+    //     * 播放定位
+    //     */
+    //    private fun seekTo(position: Long, seek: Boolean = true) {
+    //        when (cutMode) {
+    //            CutPieceFragment.CUT_MODE_SELECT -> {
+    //                if (seek) {
+    //                    PlayerManager.seekTo(position)
+    //                }
+    //                currentPlayingTimeInAudio = position + getCutLineStartTime()
+    //                currentPlayingPosition = (currentPlayingTimeInTimeLine - startValue) * unitMsPixel
+    //
+    //            }
+    //
+    //            CutPieceFragment.CUT_MODE_DELETE -> {
+    //
+    //            }
+    //
+    //            CutPieceFragment.CUT_MODE_JUMP -> {
+    //                if (seek) {
+    //                    PlayerManager.seekTo(position)
+    //                    currentPlayingTimeInAudio = position
+    //                    currentPlayingPosition = (currentPlayingTimeInTimeLine - startValue) * unitMsPixel
+    //                }
+    //            }
+    //
+    //        }
+    //    }
+    fun playingLinePosition() {
+        when (cutMode) {
+            CutPieceFragment.CUT_MODE_SELECT -> {
+                if (currentPlayingTimeInAudio in getCutLineStartTime()..getCutLineEndTime()) {
+
+                } else {
+                    currentPlayingTimeInAudio = getCutLineStartTime()
+                    currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
+                }
+            }
+
+            CutPieceFragment.CUT_MODE_DELETE -> {
+
+            }
+
+            CutPieceFragment.CUT_MODE_JUMP -> {
+
+            }
+        }
+
+    }
+
+    fun play() {
+        if (audioFragment == null) {
+            return
+        }
+        when (cutMode) {
+            CutPieceFragment.CUT_MODE_SELECT -> {
+                audioFragment?.let {
+                    if (currentPlayingTimeInAudio in getCutLineStartTime()..getCutLineEndTime()) {
+                        PlayerManager.playWithSeek(currentPlayingTimeInAudio - getCutLineStartTime())
+                        PlayerManager.play()
+                    } else {
+                        currentPlayingTimeInAudio = getCutLineStartTime()
+                        currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
+                        PlayerManager.playWithSeek(0)
+                    }
+                }
+            }
+
+            CutPieceFragment.CUT_MODE_DELETE -> {
+                if (currentPlayingTimeInAudio in getCutLineStartTime()..getCutLineEndTime()) {
+                    currentPlayingTimeInAudio = 0
+                    currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
+                    PlayerManager.playWithSeek(0)
+                } else {
+                    if (currentPlayingTimeInAudio < getCutLineStartTime()) {
+                        PlayerManager.playWithSeek(currentPlayingTimeInAudio)
+                    } else {
+                        PlayerManager.playWithSeek(currentPlayingTimeInAudio - getCutLineEndTime(), 1)
+                    }
+
+                }
+            }
+
+            CutPieceFragment.CUT_MODE_JUMP -> {
+                if (audioFragment?.isInCut(currentPlayingTimeInAudio) == true) {
+                    var windowIndex = audioFragment?.cutIndex(currentPlayingTimeInAudio) ?: 0
+                    PlayerManager.playWithSeek(currentPlayingTimeInAudio - audioFragment!!.cutPieceFragmentsOrder[windowIndex].startTimestampTimeInSelf, windowIndex)
+                } else {
+                    var index = PlayerManager.updateMediaSourceDeleteJumpOut(audioFragment!!.cutPieceFragments, currentPlayingTimeInAudio, audioFragment!!.duration, audioFragment!!)
+                    PlayerManager.playWithSeek(0, index)
+                }
+            }
+        }
+    }
+
+    fun pause() {
+        PlayerManager.pause() //删除掉
+        audioFragment?.removeFake()
+    }
+
+    fun updateMediaSource(isStart: Boolean,
+                          startTimestampTimeInSelf: Long,
+                          endTimestampTimeInSelf: Long) {
+        when (cutMode) {
+            CutPieceFragment.CUT_MODE_SELECT -> {
+                PlayerManager.updateMediaSource(startTimestampTimeInSelf, endTimestampTimeInSelf)
+                PlayerManager.seekTo(currentPlayingTimeInAudio - getCutLineStartTime())
+
+            }
+
+            CutPieceFragment.CUT_MODE_DELETE -> {
+                PlayerManager.updateMediaSourceDelete(startTimestampTimeInSelf, endTimestampTimeInSelf, audioFragment?.duration
+                    ?: 0)
+                if (currentPlayingTimeInAudio > getCutLineEndTime()) {
+                    PlayerManager.seekTo(currentPlayingTimeInAudio - getCutLineEndTime(), 1)
+                } else {
+                    PlayerManager.seekTo(currentPlayingTimeInAudio)
+                }
+            }
+
+            CutPieceFragment.CUT_MODE_JUMP -> {
+                audioFragment?.let {
+                    PlayerManager.updateMediaSourceDeleteJump(it.cutPieceFragments)
+                    var index = it.cutIndex(currentPlayingTimeInAudio)
+                    if (index == -1) {
+                        PlayerManager.seekTo(currentPlayingTimeInAudio)
+                    } else {
+                        PlayerManager.seekTo(currentPlayingTimeInAudio - it.cutPieceFragments[index].startTimestampTimeInSelf, index)
+                    }
+                }
+            }
+        }
+    }
 }

@@ -215,15 +215,10 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         }
 
         viewBinding.play.setOnClickListener {
-            if (viewBinding.timeBar.getCurrentPosition() > 0) {
-                PlayerManager.playWithSeek(viewBinding.timeBar.getCurrentPosition())
-            } else {
-                PlayerManager.play()
-            }
-
+            viewBinding.timeBar.play()
         }
         viewBinding.pause.setOnClickListener {
-            PlayerManager.pause()
+            viewBinding.timeBar.pause()
         }
 
         viewBinding.trimStart.setOnClickListener {
@@ -235,9 +230,9 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         }
 
         PlayerManager.addProgressListener(object : PlayerProgressCallback {
-            override fun onProgressChanged(position: Long, duration: Long) {
+            override fun onProgressChanged(currentWindowIndex:Int,position: Long, duration: Long) {
                 if (isAdded) {
-                    viewBinding.timeBar.setPlayerProgress(position, duration)
+                    viewBinding.timeBar.setPlayerProgress(currentWindowIndex,position, duration)
                 }
             }
         })

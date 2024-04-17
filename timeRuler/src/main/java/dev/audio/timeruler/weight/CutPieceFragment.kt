@@ -20,6 +20,7 @@ import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.timeruler.BuildConfig
 import dev.audio.timeruler.R
 import dev.audio.timeruler.bean.Ref
+import dev.audio.timeruler.player.PlayerManager
 import dev.audio.timeruler.utils.isTouch
 import dev.audio.timeruler.weight.CutPieceFragment.MoveHandler.Companion.MSG_MOVE_TO_OFFSET
 import java.lang.ref.WeakReference
@@ -34,7 +35,8 @@ import java.lang.ref.WeakReference
 class CutPieceFragment(var audio: AudioFragmentWithCut,
                        var isSelected: Boolean = true,
                        private var index: Int,
-                       mode: Int = CUT_MODE_SELECT) {
+                       mode: Int = CUT_MODE_SELECT,
+                       var isFake: Boolean = false) {
 
     companion object {
         //裁剪竖线的宽度
@@ -122,6 +124,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             field = value
             if (isSelected) {
                 onCutLineChangeListener?.onCutLineChange(startTimestampTimeInSelf, endTimestampTimeInSelf)
+                audio.updateMediaSource(true, startTimestampTimeInSelf, endTimestampTimeInSelf)
                 linesChangeNotify()
             }
         }
@@ -131,11 +134,12 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
      * 相对于自己来说
      * 例：歌曲200*1000ms   起始时间120*1000ms
      */
-     var endTimestampTimeInSelf = 0L
+    var endTimestampTimeInSelf = 0L
         set(value) {
             field = value
             if (isSelected) {
                 onCutLineChangeListener?.onCutLineChange(startTimestampTimeInSelf, endTimestampTimeInSelf)
+                audio.updateMediaSource(false, startTimestampTimeInSelf, endTimestampTimeInSelf)
                 linesChangeNotify()
             }
         }
@@ -253,6 +257,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
 
 
     fun drawCutLines(canvas: Canvas) { // 绘制代表开始和结束时间戳的线，线的终止位置应在圆圈的下缘
+        if (isFake) {
+            return
+        }
         if (isSelected || cutMode == CUT_MODE_JUMP) {
             canvas.drawLine(startTimestampPosition, baselinePosition, startTimestampPosition, //            height.toFloat(),
                             rect?.bottom?.toFloat() ?: 0f, timestampLinePaint)
@@ -342,6 +349,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
 
 
     fun drawCut(canvas: Canvas) { // 假设已经有了一个Bitmap和Canvas，并且波形已经绘制完成
+        if (isFake) {
+            return
+        }
         val paint = Paint()
         paint.color = Color.RED
         paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
@@ -576,8 +586,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                                 endTimestampPosition = newEndTimestampPosition
                             }
 
-                            endTimestampTimeInSelf += dx.pixel2Time(unitMsPixel)
-                            //容错 结束时间小于开始时间了
+                            endTimestampTimeInSelf += dx.pixel2Time(unitMsPixel) //容错 结束时间小于开始时间了
                             if (endTimestampPosition < startTimestampPosition) {
                                 endTimestampTimeInSelf = startTimestampTimeInSelf
                             }

@@ -1,5 +1,5 @@
 package dev.audio.timeruler.player
 
 interface PlayerProgressCallback {
-    fun onProgressChanged(position: Long, duration: Long) // 添加这行代码
+    fun onProgressChanged(currentWindowIndex:Int,position: Long, duration: Long) // 添加这行代码
 }
