@@ -188,14 +188,14 @@ object PlayerManager {
         val audioSource = ProgressiveMediaSource.Factory(dataSourceFactory)
             .createMediaSource(MediaItem.fromUri(uri!!))
         var s = ConcatenatingMediaSource()
-        cutPieceFragments.forEach {
+        cutPieceFragments.sortedBy { it.startTimestampTimeInSelf }.forEach {
             s.addMediaSource(ClippingMediaSource(audioSource, it.startTimestampTimeInSelf * 1000, it.endTimestampTimeInSelf * 1000))
         }
         player.setMediaSource(s)
         player.prepare()
     }
 
-    fun updateMediaSourceDeleteJumpOut(cutPieceFragments: List<CutPieceFragment>? = null,
+    fun updateMediaSourceDeleteJumpOut(cutPieceFragments: MutableList<CutPieceFragment>? = null,
                                        start: Long,
                                        duration: Long,
                                        audioFragmentWithCut: AudioFragmentWithCut): Int {
@@ -206,15 +206,14 @@ object PlayerManager {
         if (uri == null) {
             return resultIndex
         } //多虑掉CutPieceFragment中 startTimestampTimeInSelf 小于 start 的
-        var result = mutableListOf<CutPieceFragment>()
         val cutPieceFragmentsFilter = cutPieceFragments.filter { it.startTimestampTimeInSelf >= start }
         var end = duration
         if (cutPieceFragmentsFilter.isEmpty()) {
-            result.add(CutPieceFragment(audioFragmentWithCut, false, 0, CutPieceFragment.CUT_MODE_JUMP,true).apply {
+            CutPieceFragment(audioFragmentWithCut, false, 0, CutPieceFragment.CUT_MODE_JUMP,true).apply {
                 startTimestampTimeInSelf = start
                 endTimestampTimeInSelf = end
-                (cutPieceFragments as? MutableList<CutPieceFragment>)?.add(this)
-            })
+                cutPieceFragments.add(this)
+            }
             resultIndex = cutPieceFragments.size - 1
         } else {
             cutPieceFragmentsFilter.forEachIndexed { index, cutPieceFragment ->
@@ -224,21 +223,18 @@ object PlayerManager {
                     return@forEachIndexed
                 }
             }
-            result.apply {
-                add(CutPieceFragment(audioFragmentWithCut, false, 0, CutPieceFragment.CUT_MODE_JUMP,true).apply {
-                    startTimestampTimeInSelf = start
-                    endTimestampTimeInSelf = end
-                    (cutPieceFragments as? MutableList<CutPieceFragment>)?.add(resultIndex, this)
-                })
-                addAll(cutPieceFragmentsFilter)
+            CutPieceFragment(audioFragmentWithCut, false, 0, CutPieceFragment.CUT_MODE_JUMP,true).apply {
+                startTimestampTimeInSelf = start
+                endTimestampTimeInSelf = end
+                cutPieceFragments.add(resultIndex, this)
             }
         }
 
 
-        var dataSourceFactory = DefaultDataSourceFactory(AppProvider.context, Util.getUserAgent(AppProvider.context, AppProvider.context.packageName))
+        val dataSourceFactory = DefaultDataSourceFactory(AppProvider.context, Util.getUserAgent(AppProvider.context, AppProvider.context.packageName))
         val audioSource = ProgressiveMediaSource.Factory(dataSourceFactory)
             .createMediaSource(MediaItem.fromUri(uri!!))
-        var s = ConcatenatingMediaSource()
+        val s = ConcatenatingMediaSource()
         cutPieceFragments.forEach {
             Log.i("llc_fuck", "start:${it.startTimestampTimeInSelf * 1000},end=${it.endTimestampTimeInSelf * 1000}")
             s.addMediaSource(ClippingMediaSource(audioSource, it.startTimestampTimeInSelf * 1000, it.endTimestampTimeInSelf * 1000))

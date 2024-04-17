@@ -217,19 +217,25 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         cutPieceFragments.forEach {
             it.isSelected = false
         }
-        cutPieceFragments.add(CutPieceFragment(this, true, index = cutPieceFragments.size, mode = CutPieceFragment.CUT_MODE_JUMP).apply {
-            var endTemp = audio.currentPlayingTimeInAudio + 1000L * 6 //不能超范围
-            if (endTemp > audio.duration) {
-                endTemp = audio.duration
-            } //不能重叠
-            cutPieceFragments.forEachIndexed { index, cutPieceFragment ->
-                if (cutPieceFragment.isInFragment(endTemp)) {
-                    endTemp = cutPieceFragment.startTimestampTimeInSelf
-                    return@forEachIndexed
+        cutPieceFragments.add(
+            CutPieceFragment(
+                this,
+                true,
+                index = cutPieceFragments.size,
+                mode = CutPieceFragment.CUT_MODE_JUMP
+            ).apply {
+                var endTemp = audio.currentPlayingTimeInAudio + 1000L * 6 //不能超范围
+                if (endTemp > audio.duration) {
+                    endTemp = audio.duration
+                } //不能重叠
+                cutPieceFragments.forEachIndexed { index, cutPieceFragment ->
+                    if (cutPieceFragment.isInFragment(endTemp)) {
+                        endTemp = cutPieceFragment.startTimestampTimeInSelf
+                        return@forEachIndexed
+                    }
                 }
-            }
-            this.initCutFragment(audio.currentPlayingTimeInAudio, endTemp)
-        })
+                this.initCutFragment(audio.currentPlayingTimeInAudio, endTemp)
+            })
         audioEditorView.invalidate()
         freshTrimAnchor()
     }
@@ -295,10 +301,16 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         }
     }
 
-    fun updateMediaSource(isStart: Boolean,
-                          startTimestampTimeInSelf: Long,
-                          endTimestampTimeInSelf: Long) {
-        (audioEditorView as? AudioCutEditorView)?.updateMediaSource(isStart, startTimestampTimeInSelf, endTimestampTimeInSelf)
+    fun updateMediaSource(
+        isStart: Boolean,
+        startTimestampTimeInSelf: Long,
+        endTimestampTimeInSelf: Long
+    ) {
+        (audioEditorView as? AudioCutEditorView)?.updateMediaSource(
+            isStart,
+            startTimestampTimeInSelf,
+            endTimestampTimeInSelf
+        )
 
     }
 
@@ -326,14 +338,20 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
     }
 
     fun removeFake() {
-        //过滤掉 isFake = true 的
-        cutPieceFragments = cutPieceFragments.filter { !it.isFake }.toMutableList()
-
+        if (hasFakeCut()) {
+            //过滤掉 isFake = true 的
+            cutPieceFragments = cutPieceFragments.filter { !it.isFake }.toMutableList()
+            PlayerManager.updateMediaSourceDeleteJump(cutPieceFragments)
+        }
     }
 
-    var cutPieceFragmentsOrder: List<CutPieceFragment> = mutableListOf()
+    private fun hasFakeCut(): Boolean {
+        return cutPieceFragments.any { it.isFake }
+    }
+
+    var cutPieceFragmentsOrder: MutableList<CutPieceFragment> = mutableListOf()
         get() {
-            return cutPieceFragments.sortedBy { it.startTimestampTimeInSelf }
+            return cutPieceFragments.sortedBy { it.startTimestampTimeInSelf }.toMutableList()
         }
 
 
