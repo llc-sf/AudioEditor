@@ -311,24 +311,26 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     /**
      *
-     * @param currentPositionInPlaying 当前真正播放位置
+     * @param positionInCutPiece 当前真正播放位置,对于播放片段
+     * @param durationCutPiece 当前播放片段的时长
+     * @param currentWindowIndex 当前播放片段的索引
      *
      * 定位，以播放线定位 此时前提：播放线位置是正确的   随着播放进度，要么移动波形，要么移动播放条，使播放进度正确
      */
     fun onProgressChange(currentWindowIndex: Int,
-                         currentPositionInPlaying: Long,
-                         duration: Long) { //在真个坐标轴中的位置
-        Log.i(playline_tag, "setPlayerProgress currentPositionInPlaying=$currentPositionInPlaying duration=$duration")
-        if (cutMode == CutPieceFragment.CUT_MODE_SELECT && currentPositionInPlaying >= duration) { //判断播放结束
+                         positionInCutPiece: Long,
+                         durationCutPiece: Long) { //在真个坐标轴中的位置
+        Log.i(playline_tag, "setPlayerProgress currentPositionInPlaying=$positionInCutPiece duration=$durationCutPiece")
+        if (cutMode == CutPieceFragment.CUT_MODE_SELECT && positionInCutPiece >= durationCutPiece) { //判断播放结束
             restart()
             return
         }
-        if (cutMode == CutPieceFragment.CUT_MODE_DELETE && currentWindowIndex == 1 && currentPositionInPlaying >= duration) { //判断播放结束
+        if (cutMode == CutPieceFragment.CUT_MODE_DELETE && currentWindowIndex == 1 && positionInCutPiece >= durationCutPiece) { //判断播放结束
             restart()
             return
         }
         if (cutMode == CutPieceFragment.CUT_MODE_JUMP && (currentWindowIndex + 1) == (audioFragment?.cutPieceFragments?.size
-                ?: 0) && currentPositionInPlaying >= duration
+                ?: 0) && positionInCutPiece >= durationCutPiece
         ) { //判断播放结束
             restart()
             return
@@ -336,21 +338,21 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         var currentPositionInWholeAudio: Long = 0
         when (cutMode) {
             CutPieceFragment.CUT_MODE_SELECT -> {
-                currentPositionInWholeAudio = currentPositionInPlaying + (audioFragment?.getCutLineStartTime()
+                currentPositionInWholeAudio = positionInCutPiece + (audioFragment?.getCutLineStartTime()
                     ?: 0)
             }
 
             CutPieceFragment.CUT_MODE_DELETE -> {
                 if (currentWindowIndex == 0) {
-                    currentPositionInWholeAudio = currentPositionInPlaying
+                    currentPositionInWholeAudio = positionInCutPiece
                 } else {
-                    currentPositionInWholeAudio = (getCutLineEndTime()) + currentPositionInPlaying
+                    currentPositionInWholeAudio = (getCutLineEndTime()) + positionInCutPiece
                 }
             }
 
             CutPieceFragment.CUT_MODE_JUMP -> {
                 val cutFragment = audioFragment?.cutPieceFragmentsOrder?.get(currentWindowIndex)
-                currentPositionInWholeAudio = currentPositionInPlaying + (cutFragment?.startTimestampTimeInSelf
+                currentPositionInWholeAudio = positionInCutPiece + (cutFragment?.startTimestampTimeInSelf
                     ?: 0)
             }
         }
