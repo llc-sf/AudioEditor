@@ -378,21 +378,19 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         when (cutMode) {
             CutPieceFragment.CUT_MODE_SELECT -> { //定位播放条
                 currentPlayingTimeInAudio = getCutLineStartTime()
-                currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
             }
 
             CutPieceFragment.CUT_MODE_DELETE -> { //定位播放条
                 currentPlayingTimeInAudio = 0
-                currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
             }
 
             CutPieceFragment.CUT_MODE_JUMP -> { //定位播放条
                 audioFragment?.removeFake()
                 currentPlayingTimeInAudio = audioFragment?.cutPieceFragmentsOrder?.get(0)?.startTimestampTimeInSelf
                     ?: 0
-                currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
             }
         }
+        currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
         invalidate()
     }
 
@@ -762,6 +760,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
             CutPieceFragment.CUT_MODE_JUMP -> {
                 if (audioFragment?.isInCut(currentPlayingTimeInAudio) == true) {
+                    PlayerManager.updateMediaSourceDeleteJump(audioFragment!!.cutPieceFragmentsOrder)
                     val windowIndex = audioFragment?.cutIndex(currentPlayingTimeInAudio) ?: 0
                     PlayerManager.playWithSeek(currentPlayingTimeInAudio - audioFragment!!.cutPieceFragmentsOrder[windowIndex].startTimestampTimeInSelf, windowIndex)
                 } else {
