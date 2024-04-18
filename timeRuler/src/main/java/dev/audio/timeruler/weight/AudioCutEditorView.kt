@@ -141,6 +141,14 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         return super.onTouchEvent(event)
     }
 
+    /**
+     * 播放条非因进度更新
+     */
+    fun freshPlayingLinePosition(timeInWholeAudio:Long){
+        currentPlayingTimeInAudio = timeInWholeAudio
+        currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
+    }
+
     override fun cursorValueChange(prop: KProperty<*>, old: Long, new: Long) {
         super.cursorValueChange(prop, old, new)
         refreshPlayingLine() //todo cursor改变引发的一些列变化 总结

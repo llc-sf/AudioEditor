@@ -241,12 +241,39 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         if (currentCutPieceFragment == null) {
             return
         }
+        var isInFragment = currentCutPieceFragment!!.isInFragment(currentPlayingTimeInAudio)
         cutPieceFragments.remove(currentCutPieceFragment)
+        var isPlaying = PlayerManager.isPlaying
+        PlayerManager.pause()
+        if (isInFragment) {//播放条在删除的片段内   重新定位 1、后一个（如果有）  2、第一个
+            var index =-1
+            cutPieceFragmentsOrder.forEachIndexed { i, cutPieceFragment ->
+                if(cutPieceFragment.startTimestampTimeInSelf>currentPlayingTimeInAudio){
+                    index = i
+                    return@forEachIndexed
+                }
+            }
+            PlayerManager.updateMediaSourceDeleteJump(cutPieceFragments)
+            (audioEditorView as? AudioCutEditorView)?.freshPlayingLinePosition(cutPieceFragmentsOrder[0].startTimestampTimeInSelf)
+            if(index == -1){
+                PlayerManager.seekTo(0, 0)
+            }else{
+                PlayerManager.seekTo(0, index)
+            }
+        } else {//播放条不在删除的片段内  直接删除，继续播放
+            var index = cutIndex(currentPlayingTimeInAudio)
+            PlayerManager.updateMediaSourceDeleteJump(cutPieceFragments)
+            PlayerManager.seekTo(currentPlayingTimeInAudio - cutPieceFragments[index].startTimestampTimeInSelf, index)
+        }
+        if (isPlaying) {
+            PlayerManager.play()
+        }
         if (cutPieceFragments.isNotEmpty()) {
             cutPieceFragments[0].isSelected = true
         }
         audioEditorView.invalidate()
         freshTrimAnchor()
+
     }
 
     fun getCutLineStartTime(): Long {
