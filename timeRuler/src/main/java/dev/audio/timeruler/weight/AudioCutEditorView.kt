@@ -792,14 +792,14 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                     val cutPieceFragmentsFilter = audioFragment!!.cutPieceFragmentsOrder.filter { it.startTimestampTimeInSelf >= currentPlayingTimeInAudio }
                     var end = audioFragment!!.duration
                     if (cutPieceFragmentsFilter.isEmpty()) {
-                        CutPieceFragment(audioFragment!!, false, 0, CutPieceFragment.CUT_MODE_JUMP, true).apply {
+                        CutPieceFragment(audioFragment!!, false, 0, CutPieceFragment.CUT_MODE_JUMP, isFake = true).apply {
                             startTimestampTimeInSelf = currentPlayingTimeInAudio
                             endTimestampTimeInSelf = end
                             audioFragment!!.cutPieceFragments.add(this)
                         }
                     } else {
                         end = cutPieceFragmentsFilter[0].startTimestampTimeInSelf
-                        CutPieceFragment(audioFragment!!, false, 0, CutPieceFragment.CUT_MODE_JUMP, true).apply {
+                        CutPieceFragment(audioFragment!!, false, 0, CutPieceFragment.CUT_MODE_JUMP, isFake = true).apply {
                             startTimestampTimeInSelf = currentPlayingTimeInAudio
                             endTimestampTimeInSelf = end
                             audioFragment!!.cutPieceFragments.add(this)

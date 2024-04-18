@@ -36,7 +36,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                        var isSelected: Boolean = true,
                        private var index: Int,
                        mode: Int = CUT_MODE_SELECT,
-                       var isFake: Boolean = false) {
+                       var isFake: Boolean = false,
+                       var addTime: Long = System.currentTimeMillis()
+) {
 
     companion object {
         //裁剪竖线的宽度

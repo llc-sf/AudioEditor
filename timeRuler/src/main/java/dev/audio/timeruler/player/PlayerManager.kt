@@ -209,7 +209,7 @@ object PlayerManager {
         val cutPieceFragmentsFilter = cutPieceFragments.filter { it.startTimestampTimeInSelf >= start }
         var end = duration
         if (cutPieceFragmentsFilter.isEmpty()) {
-            CutPieceFragment(audioFragmentWithCut, false, 0, CutPieceFragment.CUT_MODE_JUMP,true).apply {
+            CutPieceFragment(audioFragmentWithCut, false, 0, CutPieceFragment.CUT_MODE_JUMP, isFake = true).apply {
                 startTimestampTimeInSelf = start
                 endTimestampTimeInSelf = end
                 cutPieceFragments.add(this)
@@ -223,7 +223,7 @@ object PlayerManager {
                     return@forEachIndexed
                 }
             }
-            CutPieceFragment(audioFragmentWithCut, false, 0, CutPieceFragment.CUT_MODE_JUMP,true).apply {
+            CutPieceFragment(audioFragmentWithCut, false, 0, CutPieceFragment.CUT_MODE_JUMP, isFake = true).apply {
                 startTimestampTimeInSelf = start
                 endTimestampTimeInSelf = end
                 cutPieceFragments.add(resultIndex, this)
