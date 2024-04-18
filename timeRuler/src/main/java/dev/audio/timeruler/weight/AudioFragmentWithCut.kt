@@ -261,7 +261,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
                 PlayerManager.seekTo(0, index)
             }
         } else {//播放条不在删除的片段内  直接删除，继续播放
-            var index = cutIndex(currentPlayingTimeInAudio)
+            var index = playingLineIndexInFragments(currentPlayingTimeInAudio)
             PlayerManager.updateMediaSourceDeleteJump(cutPieceFragments)
             PlayerManager.seekTo(currentPlayingTimeInAudio - cutPieceFragments[index].startTimestampTimeInSelf, index)
         }
@@ -322,12 +322,19 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         }
     }
 
+    /**
+     * 更新媒体源
+     * by：裁剪条滑动抬起
+     */
     fun updateMediaSource(startTimestampTimeInSelf: Long, endTimestampTimeInSelf: Long) {
         (audioEditorView as? AudioCutEditorView)?.updateMediaSource(startTimestampTimeInSelf, endTimestampTimeInSelf)
 
     }
 
-    fun isInCut(currentPlayingTimeInAudio: Long): Boolean {
+    /**
+     * 播放条是否在裁剪片段内
+     */
+    fun isPlayingLineInAnyCutPiece(currentPlayingTimeInAudio: Long): Boolean {
         var result = false
         cutPieceFragments.forEach {
             result = result || it.isInFragment(currentPlayingTimeInAudio)
@@ -338,8 +345,10 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         return false
     }
 
-    //播放条在第几个裁剪片段  按顺序
-    fun cutIndex(currentPlayingTimeInAudio: Long): Int {
+    /**
+     * 播放条在第几个裁剪片段  按顺序
+     */
+    fun playingLineIndexInFragments(currentPlayingTimeInAudio: Long): Int {
         var result = -1
         cutPieceFragmentsOrder.forEachIndexed { index, cutPieceFragment ->
             if (cutPieceFragment.isInFragment(currentPlayingTimeInAudio)) {

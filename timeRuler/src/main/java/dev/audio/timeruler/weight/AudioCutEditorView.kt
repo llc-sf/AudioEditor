@@ -144,7 +144,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     /**
      * 播放条非因进度更新
      */
-    fun freshPlayingLinePosition(timeInWholeAudio:Long){
+    fun freshPlayingLinePosition(timeInWholeAudio: Long) {
         currentPlayingTimeInAudio = timeInWholeAudio
         currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
     }
@@ -212,10 +212,6 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         drawPlayingLine(canvas)
-    }
-
-    fun onDrawCutLinePosition(canvas: Canvas) {
-
     }
 
 
@@ -402,49 +398,12 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         invalidate()
     }
 
-    /**
-     * 检查播放位置是否在剪切片段内
-     */ //    private fun checkPlayingPositionPixel(currentPosition: Long) {
-    //        if (currentPlayingPosition.pixel2Time(unitMsPixel) < getCutLineStartTime() || currentPlayingPosition.pixel2Time(unitMsPixel) > getCutLineEndTime()) {
-    //            currentPlayingPosition = currentPosition.time2Pixel(unitMsPixel)
-    //            currentPlayingTimeInTimeLine = currentPlayingPosition.pixel2Time(unitMsPixel) + cursorValue
-    //            currentPlayingTimeInAudio = currentPlayingTimeInTimeLine - startValue
-    //        }
-    //    }
-
-    /**
-     * 1 播放结束
-     * 2 切换模式
-     */
-    private fun initPayingLinePosition() {
-        cursorValue = startValue
-        when (cutMode) {
-            CutPieceFragment.CUT_MODE_SELECT -> { //                seekTo(0, false) //
-                currentPlayingTimeInAudio = getCutLineStartTime()
-                currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
-            }
-
-            CutPieceFragment.CUT_MODE_DELETE -> {
-
-            }
-
-            CutPieceFragment.CUT_MODE_JUMP -> { //                seekTo(getCutLineStartTime(), false)
-                PlayerManager.seekTo(getCutLineStartTime())
-                PlayerManager.play()
-            }
-        }
-        invalidate()
-    }
-
     override fun waveScrollNotify() {
         super.waveScrollNotify()
         notifyPlayLineImp()
     }
 
     private fun notifyPlayLineImp() { //播放条在屏幕上的位置不动
-        //        currentPlayingTimeInTimeLine = cursorValue + (currentPlayingPosition / unitMsPixel).toLong()
-        //        currentPlayingTimeInAudio = currentPlayingTimeInTimeLine - startValue
-
         //播放条在时间轴上的位置不动
         Log.i(playline_tag, "notifyPlayLineImp ")
         currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
@@ -639,7 +598,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             }
 
             CutPieceFragment.CUT_MODE_JUMP -> {
-                if (audioFragment?.isInCut(currentPlayingTimeInAudio) == true) {
+                if (audioFragment?.isPlayingLineInAnyCutPiece(currentPlayingTimeInAudio) == true) {
                     PlayerManager.updateMediaSourceDeleteJump(audioFragment!!.cutPieceFragments)
                     currentPlayingTimeInAudio = audioFragment!!.cutPieceFragmentsOrder[0].startTimestampTimeInSelf
                     currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
@@ -770,9 +729,9 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             }
 
             CutPieceFragment.CUT_MODE_JUMP -> {
-                if (audioFragment?.isInCut(currentPlayingTimeInAudio) == true) {
+                if (audioFragment?.isPlayingLineInAnyCutPiece(currentPlayingTimeInAudio) == true) {
                     PlayerManager.updateMediaSourceDeleteJump(audioFragment!!.cutPieceFragmentsOrder)
-                    val windowIndex = audioFragment?.cutIndex(currentPlayingTimeInAudio) ?: 0
+                    val windowIndex = audioFragment?.playingLineIndexInFragments(currentPlayingTimeInAudio) ?: 0
                     PlayerManager.playWithSeek(currentPlayingTimeInAudio - audioFragment!!.cutPieceFragmentsOrder[windowIndex].startTimestampTimeInSelf, windowIndex)
                 } else {
                     if (audioFragment!!.cutPieceFragments.isEmpty()) {
@@ -838,7 +797,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             CutPieceFragment.CUT_MODE_JUMP -> {
                 audioFragment?.let {
                     PlayerManager.updateMediaSourceDeleteJump(it.cutPieceFragments)
-                    val index = it.cutIndex(currentPlayingTimeInAudio)
+                    val index = it.playingLineIndexInFragments(currentPlayingTimeInAudio)
                     if (index == -1) {
                         PlayerManager.seekTo(currentPlayingTimeInAudio)
                     } else {
