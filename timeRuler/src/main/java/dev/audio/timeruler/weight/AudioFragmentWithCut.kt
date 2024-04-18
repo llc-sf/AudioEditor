@@ -325,10 +325,10 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         return false
     }
 
-    //播放条在第几个裁剪片段
+    //播放条在第几个裁剪片段  按顺序
     fun cutIndex(currentPlayingTimeInAudio: Long): Int {
         var result = -1
-        cutPieceFragments.forEachIndexed { index, cutPieceFragment ->
+        cutPieceFragmentsOrder.forEachIndexed { index, cutPieceFragment ->
             if (cutPieceFragment.isInFragment(currentPlayingTimeInAudio)) {
                 result = index
                 return result
