@@ -647,20 +647,20 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         }
     }
 
-    fun cutRemove() {
+    fun cutRemove() { //todo 增删后，保持之前播放/暂停状态（是播放就继续播放）播放源同步
         audioFragment?.cutRemove()
     }
 
-    fun getCutLineStartTime(): Long {
+    private fun getCutLineStartTime(): Long {
         return audioFragment?.getCutLineStartTime() ?: 0
+    }
+
+    private fun getCutLineEndTime(): Long {
+        return audioFragment?.getCutLineEndTime() ?: 0
     }
 
     fun setCutLineStartTime(time: Long) {
         audioFragment?.setCutLineStartTime(time)
-    }
-
-    fun getCutLineEndTime(): Long {
-        return audioFragment?.getCutLineEndTime() ?: 0
     }
 
     fun setCutLineEndTime(time: Long) {
@@ -725,6 +725,9 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         }
     }
 
+    /**
+     * 先设置播放源，再seekTo播放
+     */
     fun play() {
         if (audioFragment == null) {
             return
@@ -806,9 +809,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         audioFragment?.removeFake()
     }
 
-    fun updateMediaSource(isStart: Boolean,
-                          startTimestampTimeInSelf: Long,
-                          endTimestampTimeInSelf: Long) {
+    fun updateMediaSource(startTimestampTimeInSelf: Long, endTimestampTimeInSelf: Long) {
         when (cutMode) {
             CutPieceFragment.CUT_MODE_SELECT -> {
                 PlayerManager.updateMediaSource(startTimestampTimeInSelf, endTimestampTimeInSelf)

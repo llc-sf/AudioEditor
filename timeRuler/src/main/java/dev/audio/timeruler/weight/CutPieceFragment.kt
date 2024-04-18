@@ -126,7 +126,6 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             field = value
             if (isSelected) {
                 onCutLineChangeListener?.onCutLineChange(startTimestampTimeInSelf, endTimestampTimeInSelf)
-                audio.updateMediaSource(true, startTimestampTimeInSelf, endTimestampTimeInSelf)
                 linesChangeNotify()
             }
         }
@@ -141,7 +140,6 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             field = value
             if (isSelected) {
                 onCutLineChangeListener?.onCutLineChange(startTimestampTimeInSelf, endTimestampTimeInSelf)
-                audio.updateMediaSource(false, startTimestampTimeInSelf, endTimestampTimeInSelf)
                 linesChangeNotify()
             }
         }
@@ -175,7 +173,6 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                 }
                 cutModeChangeButtonEnableListener?.onCutModeChange(addEnable, removeEnable)
             }
-
         }
     }
 
@@ -608,6 +605,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                 if (isMovingEnd || isMovingStart) {
                     cutLineMove2Middle(event)
+                    audio.updateMediaSource(startTimestampTimeInSelf, endTimestampTimeInSelf)
                 }
                 isMovingStart = false
                 isMovingEnd = false
