@@ -28,7 +28,6 @@ import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.listener.OnScaleChangeListener
 import dev.audio.timeruler.multitrack.MultiTrackRenderersFactory
 import dev.audio.timeruler.multitrack.MultiTrackSelector
-import dev.audio.timeruler.timer.DialogTimerSetting
 import dev.audio.timeruler.utils.format2Duration
 import dev.audio.timeruler.weight.AudioCutEditorView
 import dev.audio.timeruler.weight.AudioEditorConfig
@@ -232,7 +231,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         PlayerManager.addProgressListener(object : PlayerProgressCallback {
             override fun onProgressChanged(currentWindowIndex:Int,position: Long, duration: Long) {
                 if (isAdded) {
-                    viewBinding.timeBar.setPlayerProgress(currentWindowIndex,position, duration)
+                    viewBinding.timeBar.onProgressChange(currentWindowIndex, position, duration)
                 }
             }
         })

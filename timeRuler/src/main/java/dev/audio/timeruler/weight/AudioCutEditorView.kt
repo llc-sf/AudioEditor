@@ -19,7 +19,6 @@ import dev.audio.timeruler.utils.SizeUtils
 import dev.audio.timeruler.utils.format2DurationSimple
 import dev.audio.timeruler.utils.getTextHeight
 import dev.audio.timeruler.utils.getTopY
-import org.jetbrains.anko.collections.forEachWithIndex
 import kotlin.reflect.KProperty
 
 open class AudioCutEditorView @JvmOverloads constructor(context: Context,
@@ -309,25 +308,6 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             audioFragment?.freshTrimAnchor()
         }
 
-    /**
-     * 播放条在真正的播放片段的位置
-     */ //    var currentPlayingTimeInPlayingAudio = 0L
-    //        get() {
-    //            when (cutMode) {
-    //                CutPieceFragment.CUT_MODE_SELECT -> {
-    //                    return currentPlayingTimeInAudio - (audioFragment?.getCutLineStartTime() ?: 0)
-    //                }
-    //
-    //                CutPieceFragment.CUT_MODE_DELETE -> {
-    //                    return currentPlayingTimeInAudio
-    //                }
-    //
-    //                CutPieceFragment.CUT_MODE_JUMP -> {
-    //                    return currentPlayingTimeInAudio
-    //                }
-    //            }
-    //            return currentPlayingTimeInAudio
-    //        }
 
     /**
      *
@@ -335,9 +315,9 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
      *
      * 定位，以播放线定位 此时前提：播放线位置是正确的   随着播放进度，要么移动波形，要么移动播放条，使播放进度正确
      */
-    fun setPlayerProgress(currentWindowIndex: Int,
-                          currentPositionInPlaying: Long,
-                          duration: Long) { //在真个坐标轴中的位置
+    fun onProgressChange(currentWindowIndex: Int,
+                         currentPositionInPlaying: Long,
+                         duration: Long) { //在真个坐标轴中的位置
         Log.i(playline_tag, "setPlayerProgress currentPositionInPlaying=$currentPositionInPlaying duration=$duration")
         if (cutMode == CutPieceFragment.CUT_MODE_SELECT && currentPositionInPlaying >= duration) { //判断播放结束
             restart()
