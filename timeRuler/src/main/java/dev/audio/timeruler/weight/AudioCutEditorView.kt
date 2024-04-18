@@ -332,29 +332,29 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         ) { //判断播放结束
             restart()
             return
-        } //时间轴上的时间（相对，从0）
-        var currentPosition: Long = 0
+        } //当前播放点在整个音频中的时间戳
+        var currentPositionInWholeAudio: Long = 0
         when (cutMode) {
             CutPieceFragment.CUT_MODE_SELECT -> {
-                currentPosition = currentPositionInPlaying + (audioFragment?.getCutLineStartTime()
-                    ?: 0) //                checkPlayingPositionPixel(currentPosition)
+                currentPositionInWholeAudio = currentPositionInPlaying + (audioFragment?.getCutLineStartTime()
+                    ?: 0)
             }
 
             CutPieceFragment.CUT_MODE_DELETE -> {
                 if (currentWindowIndex == 0) {
-                    currentPosition = currentPositionInPlaying
+                    currentPositionInWholeAudio = currentPositionInPlaying
                 } else {
-                    currentPosition = (getCutLineEndTime()) + currentPositionInPlaying
+                    currentPositionInWholeAudio = (getCutLineEndTime()) + currentPositionInPlaying
                 }
             }
 
             CutPieceFragment.CUT_MODE_JUMP -> {
                 val cutFragment = audioFragment?.cutPieceFragmentsOrder?.get(currentWindowIndex)
-                currentPosition = currentPositionInPlaying + (cutFragment?.startTimestampTimeInSelf
+                currentPositionInWholeAudio = currentPositionInPlaying + (cutFragment?.startTimestampTimeInSelf
                     ?: 0)
             }
         }
-        currentPlayingTimeInAudio = currentPosition
+        currentPlayingTimeInAudio = currentPositionInWholeAudio
         if (currentPlayingPosition > ScreenUtil.getScreenWidth(context) || currentPlayingPosition < 0) { //播放条移动到屏幕外  需要移动波形到屏幕中间
             cursorValue += (((ScreenUtil.getScreenWidth(context) / 2).toFloat() - currentPlayingPosition) / unitMsPixel).toLong()
             currentPlayingPosition = (ScreenUtil.getScreenWidth(context) / 2).toFloat()
