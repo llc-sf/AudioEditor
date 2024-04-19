@@ -1,18 +1,26 @@
 package com.san.audioeditor.fragment
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.media.MediaMetadataRetriever
+import android.media.MediaScannerConnection
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.os.Message
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.PlaybackParameters
 import com.google.android.exoplayer2.SimpleExoPlayer
@@ -20,17 +28,21 @@ import com.google.android.exoplayer2.source.MergingMediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
+import com.masoudss.lib.utils.Utils
 import com.masoudss.lib.utils.WaveformOptions
 import com.san.audioeditor.R
 import com.san.audioeditor.activity.AudioCutActivity
 import com.san.audioeditor.activity.AudioCutHandleActivity
 import com.san.audioeditor.databinding.FragmentAudioCutBinding
 import com.san.audioeditor.handler.FFmpegHandler
+import com.san.audioeditor.storage.convertSong
+import com.san.audioeditor.storage.convertSongs
 import dev.audio.timeruler.player.PlayerManager
 import dev.audio.timeruler.player.PlayerProgressCallback
 import com.san.audioeditor.viewmodel.AudioCutViewModel
 import dev.android.player.framework.base.BaseMVVMFragment
 import dev.android.player.framework.data.model.Song
+import dev.android.player.framework.utils.FileUtils
 import dev.android.player.framework.utils.ImmerseDesign
 import dev.audio.ffmpeglib.FFmpegApplication
 import dev.audio.ffmpeglib.tool.FFmpegUtil
@@ -330,12 +342,33 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         }
 
         viewBinding.confirm.setOnClickListener {
+
+
+            // 检查是否已经授予了读取外部存储的权限
+            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) { // 如果权限尚未被授予，请求权限
+                ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE), 10000)
+            } else {
+
+            }
+
             audioDeal(mViewModel.song.path)
+
         }
 
         setData()
 
     }
+
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>,
+                                            grantResults: IntArray) {
+        if (requestCode == 10000) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) { // 已获得权限，可以访问外部存储中的文件
+            } else { // 用户拒绝了权限请求，处理相应逻辑
+            }
+        }
+    }
+
 
     //todo requireContext()
     private fun setData() {
@@ -414,9 +447,8 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
 
 
     var outputPath: String = ""
-    var cutAudioOutPutPath: String = ""
     private val PATH = FFmpegApplication.instance?.getExternalFilesDir(Environment.DIRECTORY_MUSIC)?.absolutePath
-        ?: ""
+        ?: "" //    private val PATH = Environment.getExternalStorageDirectory().absolutePath ?: ""
 
     private fun audioDeal(srcFile: String) {
         var realCutPieceFragments = viewBinding.timeBar.cutPieceFragmentsOrder?.filter { !it.isFake }
@@ -441,8 +473,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         val durationStr = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
         val totalDuration = (durationStr?.toFloat() ?: 0F) / 1000 // 转换为秒
 
-        outputPath = PATH + File.separator + "aaaaaaa" + suffix
-        cutAudioOutPutPath = outputPath
+        outputPath = PATH + File.separator + "cut" + suffix
 
         commandLine = FFmpegUtil.cutMultipleAudioSegments(srcFile, realCutPieceFragments.toSegmentsArray(), outputPath)
 
@@ -479,7 +510,17 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
                 }
 
                 FFmpegHandler.MSG_FINISH -> {
-                    Log.i(BaseAudioEditorView.jni_tag, "finish")
+                    Log.i(BaseAudioEditorView.jni_tag, "finish resultCode=${msg.obj}")
+                    if (msg.obj == 0) {
+                        var uri = Utils.getAudioUriFromPath(requireContext(), outputPath).toString()
+                        Log.i(BaseAudioEditorView.jni_tag, "outputPath=$outputPath,uri=$uri")
+                        var realOutPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).absolutePath + File.separator + "audio_editor.mp3"
+                        if(File(realOutPath).exists()){
+                            File(realOutPath).delete()
+                        }
+                        FileUtils.copyMP3ToFileStore(File(outputPath), requireContext(), "audio_editor.mp3")
+                        notifyMediaScanner(requireContext(), realOutPath)
+                    }
                 }
 
                 FFmpegHandler.MSG_PROGRESS -> {
@@ -495,6 +536,27 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
                 }
             }
         }
+    }
+
+
+    private fun getSongInfo(contentResolver: ContentResolver, songPath: String): Song? {
+        val cursor = contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, MediaStore.Audio.Media.DATA + "=?", arrayOf(songPath), null)
+        if (cursor?.moveToNext() == true) {
+            return cursor.convertSong()
+        }
+        return null
+    }
+
+    fun notifyMediaScanner(context: Context, filePath: String) {
+        Log.i(BaseAudioEditorView.jni_tag, "notifyMediaScanner filePath=$filePath")
+        MediaScannerConnection.scanFile(context, arrayOf(filePath), null) { path, uri ->
+            Log.i(BaseAudioEditorView.jni_tag, "scanFile path=$path, uri=$uri") //            getSongInfo(requireContext().contentResolver, filePath)?.let {
+            getSongInfo(requireContext().contentResolver, filePath)?.let {
+                Log.i(BaseAudioEditorView.jni_tag, "song=${it.title}")
+                AudioCutActivity.open(requireContext(), it)
+            }
+        }
+
     }
 
 }

@@ -1,8 +1,11 @@
 package dev.android.player.framework.utils;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -11,10 +14,12 @@ import androidx.annotation.Nullable;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -217,8 +222,10 @@ public class FileUtils {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                Log.i("FileUtils", "copy: " + e.getMessage());
             }
         }
+
         Log.d("FileUtils", "Copy All Src = " + src.getAbsolutePath() +
                 " Target = " + target.getAbsolutePath());
     }
@@ -311,4 +318,52 @@ public class FileUtils {
         return subFile.equals(parentFile) || subFile.getParentFile().equals(parentFile);
     }
 
+
+
+    public static void copyMP3ToFileStore(File src, Context context, String targetFileName) {
+        if (!src.exists() || !src.canRead()) {
+            Log.d("FileUtils", "Source file not found or not readable");
+            return;
+        }
+
+        if (src.isDirectory()) {
+            Log.d("FileUtils", "Source is a directory, expected a file.");
+            return;
+        }
+
+        // Read source file and write to MediaStore
+        try (InputStream inputStream = new FileInputStream(src)) {
+            saveAudioToPublicMusic(context, inputStream, targetFileName);
+        } catch (FileNotFoundException e) {
+            Log.e("FileUtils", "File not found: " + e.getMessage());
+        } catch (IOException e) {
+            Log.e("FileUtils", "IO Exception: " + e.getMessage());
+        }
+    }
+
+    private static void saveAudioToPublicMusic(Context context, InputStream inputStream, String fileName) {
+        ContentResolver resolver = context.getContentResolver();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
+        contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "audio/mp3");
+        contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_MUSIC);
+
+        Uri audioCollection = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+        Uri uri = resolver.insert(audioCollection, contentValues);
+
+        if (uri != null) {
+            try (OutputStream outputStream = resolver.openOutputStream(uri)) {
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+            } catch (IOException e) {
+                Log.e("FileUtils", "Error writing to MediaStore", e);
+            }
+        } else {
+            Log.e("FileUtils", "Could not insert audio file into MediaStore");
+        }
+    }
 }
