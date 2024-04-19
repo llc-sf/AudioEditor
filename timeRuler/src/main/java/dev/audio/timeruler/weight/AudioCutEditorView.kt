@@ -11,6 +11,7 @@ import android.view.MotionEvent
 import androidx.fragment.app.FragmentManager
 import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.timeruler.R
+import dev.audio.timeruler.bean.AudioFragmentBean
 import dev.audio.timeruler.weight.BaseAudioEditorView.TickMarkStrategy
 import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.player.PlayerManager
@@ -46,6 +47,11 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             return audioFragment?.cutMode ?: 0
         }
 
+    var audioFragmentBean: AudioFragmentBean? = null
+        get() {
+            return audioFragment?.audioFragmentBean
+        }
+
     init {
         init(attrs)
     }
@@ -64,13 +70,14 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
 
     // 设置波形数据的方法
-    fun setWaveform(waveform: Waveform, duration: Long) {
+    fun setWaveform(waveform: Waveform, duration: Long, path: String) {
         audioFragment = AudioFragmentWithCut(this).apply {
             index = 0
             this.duration = duration
             maxWaveHeight = waveHeight
             startTimestamp = startValue
             this.waveform = waveform
+            this.path = path
         }
         currentPlayingTimeInAudio = (audioFragment!!.duration / 3f).toLong()
         currentPlayingPosition = (audioFragment!!.duration / 3f) * unitMsPixel
@@ -731,7 +738,8 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             CutPieceFragment.CUT_MODE_JUMP -> {
                 if (audioFragment?.isPlayingLineInAnyCutPiece(currentPlayingTimeInAudio) == true) {
                     PlayerManager.updateMediaSourceDeleteJump(audioFragment!!.cutPieceFragmentsOrder)
-                    val windowIndex = audioFragment?.playingLineIndexInFragments(currentPlayingTimeInAudio) ?: 0
+                    val windowIndex = audioFragment?.playingLineIndexInFragments(currentPlayingTimeInAudio)
+                        ?: 0
                     PlayerManager.playWithSeek(currentPlayingTimeInAudio - audioFragment!!.cutPieceFragmentsOrder[windowIndex].startTimestampTimeInSelf, windowIndex)
                 } else {
                     if (audioFragment!!.cutPieceFragments.isEmpty()) {
@@ -808,7 +816,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         }
     }
 
-    var cutPieceFragmentsOrder: List<CutPieceFragment>?=null
+    var cutPieceFragmentsOrder: List<CutPieceFragment>? = null
         get() {
             return audioFragment?.cutPieceFragmentsOrder
         }

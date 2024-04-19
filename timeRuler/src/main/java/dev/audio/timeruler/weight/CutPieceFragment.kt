@@ -19,6 +19,7 @@ import androidx.annotation.IntDef
 import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.timeruler.BuildConfig
 import dev.audio.timeruler.R
+import dev.audio.timeruler.bean.CutPieceBean
 import dev.audio.timeruler.bean.Ref
 import dev.audio.timeruler.player.PlayerManager
 import dev.audio.timeruler.utils.isTouch
@@ -37,8 +38,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                        private var index: Int,
                        mode: Int = CUT_MODE_SELECT,
                        var isFake: Boolean = false,
-                       var addTime: Long = System.currentTimeMillis()
-) {
+                       var addTime: Long = System.currentTimeMillis()) {
 
     companion object {
         //裁剪竖线的宽度
@@ -115,6 +115,14 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     private val onCutLineChangeListener by Ref { audio.onCutLineChangeListener }
     private val onTrimAnchorChangeListener by Ref { audio.onTrimAnchorChangeListener }
     private val cutModeChangeButtonEnableListener by Ref { audio.cutModeChangeButtonEnableListener }
+
+    var cutPieceBean = CutPieceBean()
+        get() {
+            field.startTimestampTimeInSelf = startTimestampTimeInTimeline
+            field.endTimestampTimeInSelf = endTimestampTimeInTimeline
+            return field
+        }
+
 
     /**
      * 裁剪选中的起始时间  ms

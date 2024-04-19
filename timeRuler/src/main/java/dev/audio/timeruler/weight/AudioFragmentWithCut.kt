@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import dev.audio.timeruler.bean.AudioFragmentBean
 import dev.audio.timeruler.bean.Ref
 import dev.audio.timeruler.player.PlayerManager
 
@@ -16,6 +17,17 @@ import dev.audio.timeruler.player.PlayerManager
  */
 class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(audioEditorView) {
 
+    var audioFragmentBean: AudioFragmentBean = AudioFragmentBean()
+        get() {
+            field.cutPieces.clear()
+            cutPieceFragments.forEach {
+                field.cutPieces.add(it.cutPieceBean)
+            }
+            field.cursorValue = cursorValue
+            field.playingLine = currentPlayingTimeInAudio
+            field.path = path
+            return field
+        }
 
     var currentCutPieceFragment: CutPieceFragment? = null
         get() {
@@ -57,7 +69,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         cutPieceFragments.add(CutPieceFragment(this, index = cutPieceFragments.size).apply {
             this.initCutFragment(1 / 3f, 2 / 3f)
         })
-        updateMediaSource(getCutLineStartTime(),getCutLineEndTime())
+        updateMediaSource(getCutLineStartTime(), getCutLineEndTime())
     }
 
     /**
@@ -246,22 +258,22 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         cutPieceFragments.remove(currentCutPieceFragment)
         var isPlaying = PlayerManager.isPlaying
         PlayerManager.pause()
-        if (isInFragment) {//播放条在删除的片段内   重新定位 1、后一个（如果有）  2、第一个
-            var index =-1
+        if (isInFragment) { //播放条在删除的片段内   重新定位 1、后一个（如果有）  2、第一个
+            var index = -1
             cutPieceFragmentsOrder.forEachIndexed { i, cutPieceFragment ->
-                if(cutPieceFragment.startTimestampTimeInSelf>currentPlayingTimeInAudio){
+                if (cutPieceFragment.startTimestampTimeInSelf > currentPlayingTimeInAudio) {
                     index = i
                     return@forEachIndexed
                 }
             }
             PlayerManager.updateMediaSourceDeleteJump(cutPieceFragments)
             (audioEditorView as? AudioCutEditorView)?.freshPlayingLinePosition(cutPieceFragmentsOrder[0].startTimestampTimeInSelf)
-            if(index == -1){
+            if (index == -1) {
                 PlayerManager.seekTo(0, 0)
-            }else{
+            } else {
                 PlayerManager.seekTo(0, index)
             }
-        } else {//播放条不在删除的片段内  直接删除，继续播放
+        } else { //播放条不在删除的片段内  直接删除，继续播放
             var index = playingLineIndexInFragments(currentPlayingTimeInAudio)
             PlayerManager.updateMediaSourceDeleteJump(cutPieceFragments)
             PlayerManager.seekTo(currentPlayingTimeInAudio - cutPieceFragments[index].startTimestampTimeInSelf, index)

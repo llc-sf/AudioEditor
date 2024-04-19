@@ -1,5 +1,6 @@
 package dev.audio.timeruler.utils
 
+import dev.audio.timeruler.bean.AudioFragmentBean
 import dev.audio.timeruler.weight.CutPieceFragment
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -58,4 +59,30 @@ fun List<CutPieceFragment>.toSegmentsArray(): Array<FloatArray> { // 创建二�
     }
 
     return segments
+}
+
+fun MutableList<AudioFragmentBean>.lastAudioFragmentBean(currentAudioFragmentBean: AudioFragmentBean): AudioFragmentBean? {
+    forEachIndexed { index, audioFragmentBean ->
+        if (currentAudioFragmentBean == audioFragmentBean) {
+            return if (index > 0) {
+                get(index - 1)
+            } else {
+                null
+            }
+        }
+    }
+    return null
+}
+
+fun  MutableList<AudioFragmentBean>.nextAudioFragmentBean(currentAudioFragmentBean: AudioFragmentBean): AudioFragmentBean? {
+    forEachIndexed { index, audioFragmentBean ->
+        if (currentAudioFragmentBean == audioFragmentBean) {
+            return if (index < size - 1) {
+                get(index + 1)
+            } else {
+                null
+            }
+        }
+    }
+    return null
 }

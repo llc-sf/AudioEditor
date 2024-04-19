@@ -137,6 +137,8 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
             initCutFragment()
         }
 
+    var path: String? = null
+
     open fun initCutFragment() {
     }
 

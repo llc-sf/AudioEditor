@@ -13,6 +13,7 @@ import android.os.Environment
 import android.os.Handler
 import android.os.Message
 import android.provider.MediaStore
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.SeekBar
@@ -32,8 +33,6 @@ import com.san.audioeditor.activity.AudioCutActivity
 import com.san.audioeditor.databinding.FragmentAudioCutBinding
 import com.san.audioeditor.handler.FFmpegHandler
 import com.san.audioeditor.storage.convertSong
-import dev.audio.timeruler.player.PlayerManager
-import dev.audio.timeruler.player.PlayerProgressCallback
 import com.san.audioeditor.viewmodel.AudioCutViewModel
 import dev.android.player.framework.base.BaseMVVMFragment
 import dev.android.player.framework.data.model.Song
@@ -42,14 +41,17 @@ import dev.audio.ffmpeglib.FFmpegApplication
 import dev.audio.ffmpeglib.tool.FFmpegUtil
 import dev.audio.ffmpeglib.tool.FileUtil
 import dev.audio.recorder.utils.Log
-import dev.audio.timeruler.bean.TimeBean
-import dev.audio.timeruler.bean.VideoBean
+import dev.audio.timeruler.bean.AudioFragmentBean
 import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.listener.OnScaleChangeListener
 import dev.audio.timeruler.multitrack.MultiTrackRenderersFactory
 import dev.audio.timeruler.multitrack.MultiTrackSelector
+import dev.audio.timeruler.player.PlayerManager
+import dev.audio.timeruler.player.PlayerProgressCallback
 import dev.audio.timeruler.utils.AudioFileUtils
 import dev.audio.timeruler.utils.format2Duration
+import dev.audio.timeruler.utils.lastAudioFragmentBean
+import dev.audio.timeruler.utils.nextAudioFragmentBean
 import dev.audio.timeruler.utils.toSegmentsArray
 import dev.audio.timeruler.weight.AudioCutEditorView
 import dev.audio.timeruler.weight.AudioEditorConfig
@@ -90,8 +92,17 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
                 mViewModel.song = song
                 PlayerManager.playByPath(mViewModel.song.path)
                 initTimeBar()
-                setData()
+                return
             }
+
+            val audioFragmentBean = intent.getParcelableExtra<AudioFragmentBean>(AudioCutActivity.PARAM_AUDIO)
+            if (audioFragmentBean != null && !TextUtils.isEmpty(audioFragmentBean.path)) {
+                mViewModel.song = getSongInfo(requireContext(), audioFragmentBean.path!!) ?: return
+                PlayerManager.playByPath(mViewModel.song.path)
+                initTimeBar(false)
+                return
+            }
+
         }
 
     }
@@ -118,7 +129,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
 
 
     val cursorDateFormat = SimpleDateFormat("MM月dd日 HH:mm:ss:SSS")
-    private fun initTimeBar() {
+    private fun initTimeBar(isSaveDta: Boolean = true) {
         val calendar = Calendar.getInstance()
 
         // 00:00:00 000
@@ -349,21 +360,59 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         }
 
         viewBinding.confirm.setOnClickListener {
-
-
-            // 检查是否已经授予了读取外部存储的权限
-            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) { // 如果权限尚未被授予，请求权限
-                ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE), 10000)
-            } else {
-
-            }
-
             audioDeal(mViewModel.song.path)
-
         }
 
+        viewBinding.pre.setOnClickListener {
+            if (datas.isNullOrEmpty() || viewBinding.timeBar.audioFragmentBean == null) {
+                Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
+            } else {
+                var last = datas.lastAudioFragmentBean(viewBinding.timeBar.audioFragmentBean!!)
+                if (last == null) {
+                    Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
+                } else {
+                    AudioCutActivity.open(requireContext(), last)
+                }
+                        }
+//            Log.i("llc_action", "current = ${viewBinding.timeBar.audioFragmentBean}")
+//            if (datas.isNullOrEmpty() || viewBinding.timeBar.audioFragmentBean == null) {
+//                Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
+//                Log.i("llc_action", "pre = null}")
+//            } else {
+//                if (viewBinding.timeBar.audioFragmentBean!!.index - 1 < 0) {
+//                    Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
+//                    Log.i("llc_action", "pre = null}")
+//                } else {
+//                    AudioCutActivity.open(requireContext(), datas[viewBinding.timeBar.audioFragmentBean!!.index - 1])
+//                    Log.i("llc_action", "pre =${datas[viewBinding.timeBar.audioFragmentBean!!.index - 1]}")
+//                }
+//            }
+        }
+        viewBinding.next.setOnClickListener {
+                        if (datas.isNullOrEmpty() || viewBinding.timeBar.audioFragmentBean == null) {
+                            Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
+                        } else {
+                            var next = datas.nextAudioFragmentBean(viewBinding.timeBar.audioFragmentBean!!)
+                            if (next == null) {
+                                Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
+                            } else {
+                                AudioCutActivity.open(requireContext(), next)
+                            }
+                        }
+//            if (datas.isNullOrEmpty() || viewBinding.timeBar.audioFragmentBean == null) {
+            //                Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
+            //            } else {
+            //                if (datas.size >= viewBinding.timeBar.audioFragmentBean!!.index + 1) {
+            //                    Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
+            //                } else {
+            //                    AudioCutActivity.open(requireContext(), datas[viewBinding.timeBar.audioFragmentBean!!.index + 1])
+            //                }
+            //            }
+        }
         setData()
-
+        if (isSaveDta) {
+            addData(viewBinding.timeBar.audioFragmentBean)
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int,
@@ -381,7 +430,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
     private fun setData() {
 
         WaveformOptions.getSampleFrom(requireContext(), mViewModel.song.path) {
-            viewBinding.timeBar.setWaveform(Waveform(it.toList()), mViewModel.song.duration.toLong())
+            viewBinding.timeBar.setWaveform(Waveform(it.toList()), mViewModel.song.duration.toLong(), mViewModel.song.path)
         }
 
         viewBinding.timeBar.setOnScaleChangeListener(object : OnScaleChangeListener {
@@ -472,8 +521,8 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         mediaMetadataRetriever.setDataSource(srcFile)
         val durationStr = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
         val totalDuration = (durationStr?.toFloat() ?: 0F) / 1000 // 转换为秒
-
-        outputPath = PATH + File.separator + "cut" + suffix
+        cutFileName = "cut" + (System.currentTimeMillis())
+        outputPath = PATH + File.separator + cutFileName + suffix
 
         commandLine = FFmpegUtil.cutMultipleAudioSegments(srcFile, realCutPieceFragments.toSegmentsArray(), outputPath)
 
@@ -515,7 +564,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
                         var file = AudioFileUtils.copyAudioToFileStore(File(outputPath), requireContext(), cutFileName + suffix)
                         if (file != null) {
                             AudioFileUtils.notifyMediaScanner(requireContext(), file.absolutePath) { path: String, uri: Uri ->
-                                val song = getSongInfo(requireContext().contentResolver, path)
+                                val song = getSongInfo(requireContext(), path)
                                 if (song != null) {
                                     AudioCutActivity.open(requireContext(), song)
                                 }
@@ -542,12 +591,22 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
     }
 
 
-    fun getSongInfo(contentResolver: ContentResolver, songPath: String): Song? {
-        val cursor = contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, MediaStore.Audio.Media.DATA + "=?", arrayOf(songPath), null)
+    fun getSongInfo(context: Context, songPath: String): Song? {
+        val cursor = context.contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, MediaStore.Audio.Media.DATA + "=?", arrayOf(songPath), null)
         if (cursor?.moveToNext() == true) {
             return cursor.convertSong()
         }
         return null
+    }
+
+    private var datas: MutableList<AudioFragmentBean> = mutableListOf()
+
+    //注意调用时机 todo
+    fun addData(audioFragmentBean: AudioFragmentBean?) {
+        audioFragmentBean?.let {
+            Log.i("llc_action", "addData = ${it}")
+            datas.add(it)
+        }
     }
 
 
