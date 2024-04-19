@@ -35,4 +35,9 @@ class AudioCutActivity : BaseFragmentActivity() {
         return AudioCutEditorFragment::class.java.simpleName
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        (fragment as? AudioCutEditorFragment)?.onNewIntent(intent)
+    }
+
 }

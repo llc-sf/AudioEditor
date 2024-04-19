@@ -33,6 +33,7 @@
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <uses-permission android:name="android.permission.WRITE_MEDIA_VIDEOO" />
+
     <application
         android:name=".AudioEditorApplication"
         android:allowBackup="true"
@@ -55,7 +56,9 @@
         </activity>
         <activity android:name=".activity.AudioCutHandleActivity"></activity>
         <activity android:name=".activity.AudioPickActivity"></activity>
-        <activity android:name=".activity.AudioCutActivity"></activity>
+        <activity
+            android:name=".activity.AudioCutActivity"
+            android:launchMode="singleInstance"></activity>
         <activity android:name=".activity.MultiTrackerAudioEditorActivity"></activity>
 
         <!--数据同步服务-->

@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaMetadataRetriever
 import android.net.Uri
@@ -365,15 +366,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
 
     //todo requireContext()
     private fun setData() {
-        var videos = mutableListOf<VideoBean>()
-        var testTime = System.currentTimeMillis()
-        for (i in 1..5) {
-            val video = VideoBean(testTime, testTime + i * 10 * 60 * 1000, i % 2 == 0)
-            videos.add(video)
-            testTime += i * 15 * 60 * 1000
-        }
-        val timeBean = TimeBean(videos)
-        viewBinding.timeBar.setColorScale(timeBean)
 
         WaveformOptions.getSampleFrom(requireContext(), mViewModel.song.path) {
             viewBinding.timeBar.setWaveform(Waveform(it.toList()), mViewModel.song.duration.toLong())
@@ -543,6 +535,20 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
             return cursor.convertSong()
         }
         return null
+    }
+
+    fun onNewIntent(intent: Intent?) {
+        if (intent != null) {
+            val song = intent.getParcelableExtra<Song>(AudioCutActivity.PARAM_SONG)
+            if (song != null) {
+                mViewModel.song = song
+                PlayerManager.playByPath(mViewModel.song.path)
+                initTimeBar()
+                setData()
+            }
+        }
+
+
     }
 
 
