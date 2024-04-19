@@ -1,9 +1,18 @@
 package com.san.audioeditor.fragment
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
+import android.media.MediaMetadataRetriever
+import android.os.Bundle
+import android.os.Environment
+import android.os.Handler
+import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.SeekBar
+import android.widget.TextView
+import android.widget.Toast
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.PlaybackParameters
 import com.google.android.exoplayer2.SimpleExoPlayer
@@ -14,13 +23,18 @@ import com.google.android.exoplayer2.util.Util
 import com.masoudss.lib.utils.WaveformOptions
 import com.san.audioeditor.R
 import com.san.audioeditor.activity.AudioCutActivity
+import com.san.audioeditor.activity.AudioCutHandleActivity
 import com.san.audioeditor.databinding.FragmentAudioCutBinding
+import com.san.audioeditor.handler.FFmpegHandler
 import dev.audio.timeruler.player.PlayerManager
 import dev.audio.timeruler.player.PlayerProgressCallback
 import com.san.audioeditor.viewmodel.AudioCutViewModel
 import dev.android.player.framework.base.BaseMVVMFragment
 import dev.android.player.framework.data.model.Song
 import dev.android.player.framework.utils.ImmerseDesign
+import dev.audio.ffmpeglib.FFmpegApplication
+import dev.audio.ffmpeglib.tool.FFmpegUtil
+import dev.audio.ffmpeglib.tool.FileUtil
 import dev.audio.recorder.utils.Log
 import dev.audio.timeruler.bean.TimeBean
 import dev.audio.timeruler.bean.VideoBean
@@ -33,9 +47,11 @@ import dev.audio.timeruler.weight.AudioCutEditorView
 import dev.audio.timeruler.weight.AudioEditorConfig
 import dev.audio.timeruler.weight.BaseAudioEditorView
 import dev.audio.timeruler.weight.CutPieceFragment
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 
 class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
 
@@ -229,7 +245,9 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         }
 
         PlayerManager.addProgressListener(object : PlayerProgressCallback {
-            override fun onProgressChanged(currentWindowIndex:Int,position: Long, duration: Long) {
+            override fun onProgressChanged(currentWindowIndex: Int,
+                                           position: Long,
+                                           duration: Long) {
                 if (isAdded) {
                     viewBinding.timeBar.onProgressChange(currentWindowIndex, position, duration)
                 }
@@ -310,6 +328,10 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
             viewBinding.timeBar.anchor2CutEndLine()
         }
 
+        viewBinding.confirm.setOnClickListener {
+            audioDeal(mViewModel.song.path)
+        }
+
         setData()
 
     }
@@ -388,4 +410,85 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         player.setPlaybackParameters(PlaybackParameters(1f))
         return player
     }
+
+
+    var outputPath: String = ""
+    var cutAudioOutPutPath: String = ""
+    private val PATH = FFmpegApplication.instance?.getExternalFilesDir(Environment.DIRECTORY_MUSIC)?.absolutePath
+        ?: ""
+
+    private fun audioDeal(srcFile: String) {
+        var commandLine: Array<String>? = null
+        if (!FileUtil.checkFileExist(srcFile)) {
+            return
+        }
+        if (!FileUtil.isAudio(srcFile)) {
+            return
+        }
+        val suffix = FileUtil.getFileSuffix(srcFile)
+        if (suffix.isNullOrEmpty()) {
+            return
+        }
+
+        val mediaMetadataRetriever = MediaMetadataRetriever()
+        mediaMetadataRetriever.setDataSource(srcFile)
+        val durationStr = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
+        val totalDuration = (durationStr?.toFloat() ?: 0F) / 1000 // 转换为秒
+
+        outputPath = PATH + File.separator + "aaaaaaa" + suffix
+        cutAudioOutPutPath = outputPath
+        commandLine = FFmpegUtil.cutMultipleAudioSegments(srcFile, arrayOf(floatArrayOf(10f, 20f), floatArrayOf(30f, 20f)), outputPath)
+//        commandLine = FFmpegUtil.cutAudio(srcFile, 10f,20f,outputPath)
+
+        android.util.Log.i("llc_fuck", "outputPath=${outputPath}") //打印 commandLine
+        var sb = StringBuilder()
+        commandLine?.forEachIndexed { index, s ->
+            sb.append("$s ")
+            android.util.Log.i("llc_fuck", "s=$s")
+        }
+        android.util.Log.i("llc_fuck", "sb=$sb")
+
+
+
+        if (ffmpegHandler != null && commandLine != null) {
+            ffmpegHandler!!.executeFFmpegCmd(commandLine)
+        }
+    }
+
+    private var ffmpegHandler: FFmpegHandler? = null
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        ffmpegHandler = FFmpegHandler(mHandler)
+    }
+
+    @SuppressLint("HandlerLeak")
+    private val mHandler = object : Handler() {
+        override fun handleMessage(msg: Message) {
+            super.handleMessage(msg)
+            when (msg.what) {
+                FFmpegHandler.MSG_BEGIN -> {
+                    Log.i("llc_fuck","begin")
+                }
+
+                FFmpegHandler.MSG_FINISH -> {
+                    Log.i("llc_fuck","finish")
+                }
+
+                FFmpegHandler.MSG_PROGRESS -> {
+                    val progress = msg.arg1
+                    Log.i("llc_fuck","progress=$progress")
+                }
+
+                FFmpegHandler.MSG_INFO -> {
+                    Log.i("llc_fuck","${msg.obj}")
+                }
+
+                else -> {
+                }
+            }
+        }
+    }
+
 }

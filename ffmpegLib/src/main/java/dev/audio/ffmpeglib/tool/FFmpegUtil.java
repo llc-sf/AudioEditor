@@ -3,6 +3,7 @@ package dev.audio.ffmpeglib.tool;
 
 import dev.audio.ffmpeglib.model.VideoLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -22,7 +23,7 @@ public class FFmpegUtil {
     /**
      * insert inputPath and outputPath into target array
      */
-    private static String[]  insert(String[] cmd, int position, String inputPath, String outputPath) {
+    private static String[] insert(String[] cmd, int position, String inputPath, String outputPath) {
         if (cmd == null || inputPath == null || position < 2) {
             return cmd;
         }
@@ -93,10 +94,91 @@ public class FFmpegUtil {
         return insert(cutAudioCmd.split(" "), 2, inputPath, outputPath);
     }
 
+    public static String[] cutMultipleAudioSegments(String inputPath, float[][] segments, String outputPath) {
+        // 构建 filter_complex 字符串
+        StringBuilder filterComplex = new StringBuilder();
+        List<String> cmd = new ArrayList<>();
+        cmd.add("ffmpeg");
+
+        // 为每个时间段生成一个输入
+        for (int i = 0; i < segments.length; i++) {
+            cmd.add("-ss");
+            cmd.add(String.format("%f", segments[i][0]));  // 开始时间
+            cmd.add("-t");
+            cmd.add(String.format("%f", segments[i][1]));  // 持续时间
+            cmd.add("-i");
+            cmd.add(inputPath);
+            filterComplex.append(String.format("[%d:a]", i));  // 添加每个输入片段到 filter_complex
+        }
+
+        // 连接所有输入片段
+        filterComplex.append("concat=n=").append(segments.length).append(":v=0:a=1[outa]");
+
+        // 添加 filter_complex 到命令
+        cmd.add("-filter_complex");
+        cmd.add(filterComplex.toString());
+        cmd.add("-map");
+        cmd.add("[outa]");
+        cmd.add("-y");
+        cmd.add(outputPath);
+
+        // 转换命令列表为数组
+        return cmd.toArray(new String[0]);
+    }
+
+    // 示范调用
+    public static void main(String[] args) {
+        String inputPath = "input.mp3";
+        String outputPath = "output.mp3";
+        float[][] segments = {{0, 10}, {20, 10}, {40, 10}};  // 裁剪从0s开始10s，从20s开始10s，从40s开始10s的片段
+        String[] command = cutMultipleAudioSegments(inputPath, segments, outputPath);
+        // 现在可以将command数组传递到ffmpeg的执行函数中
+    }
+
+
+    public static String[] buildComplexAudioCutCommand(String inputPath, float[][] intervals, String outputPath) {
+        // 创建命令列表
+        List<String> commandList = new ArrayList<>();
+        commandList.add("ffmpeg");
+        commandList.add("-i");
+        commandList.add(inputPath);
+
+        // 构建 filter_complex 参数
+        StringBuilder filterComplex = new StringBuilder();
+        for (int i = 0; i < intervals.length; i++) {
+            float start = intervals[i][0];
+            float duration = intervals[i][1];
+            if (i > 0) filterComplex.append(";");  // 在不是第一个输入的时候添加分号来分隔各部分
+            filterComplex.append(String.format("[0:v]trim=start=%f:duration=%f,setpts=PTS-STARTPTS[%dv]", start, duration, i));
+            filterComplex.append(String.format(";[0:a]atrim=start=%f:duration=%f,asetpts=PTS-STARTPTS[%da]", start, duration, i));
+        }
+
+        // 添加用于合并视频和音频的命令
+        for (int i = 0; i < intervals.length; i++) {
+            if (i > 0) filterComplex.append(";");
+            filterComplex.append(String.format("[%dv][%da]", i, i)); // 添加视频和音频轨道标签
+        }
+        filterComplex.append(String.format("concat=n=%d:v=1:a=1[outv][outa]", intervals.length));
+
+        commandList.add("-filter_complex");
+        commandList.add(filterComplex.toString());
+        commandList.add("-map");
+        commandList.add("[outv]");
+        commandList.add("-map");
+        commandList.add("[outa]");
+        commandList.add("-y");
+        commandList.add(outputPath);
+
+        // 转换命令列表到数组
+        String[] commandArray = new String[commandList.size()];
+        commandArray = commandList.toArray(commandArray);
+        return commandArray;
+    }
+
 
     public static String[] fadeInOutAudio(String inputPath, float fadeInTime, float fadeOutTime, float totalDuration, String outputPath) {
         String fadeInOutCmd = "ffmpeg -i %s -af afade=t=in:ss=0:d=%f,afade=t=out:st=%f:d=%f -y %s";
-        fadeInOutCmd = String.format(Locale.getDefault(), fadeInOutCmd, inputPath, fadeInTime, totalDuration - fadeOutTime-10, fadeOutTime, outputPath);
+        fadeInOutCmd = String.format(Locale.getDefault(), fadeInOutCmd, inputPath, fadeInTime, totalDuration - fadeOutTime - 10, fadeOutTime, outputPath);
         return fadeInOutCmd.split(" ");
     }
 
@@ -108,7 +190,7 @@ public class FFmpegUtil {
         }
 
         String cutAudioCmd = "ffmpeg " + inputs.toString() + "-ss %f -t %f -filter_complex amix=inputs=%d -y %s";
-        cutAudioCmd = String.format(Locale.getDefault(), cutAudioCmd, startTime, duration, inputPaths.size(),outputPath);
+        cutAudioCmd = String.format(Locale.getDefault(), cutAudioCmd, startTime, duration, inputPaths.size(), outputPath);
         return cutAudioCmd.split(" ");
     }
 
@@ -136,7 +218,6 @@ public class FFmpegUtil {
 
     /**
      * mix multiple audio inputs into a single output
-     *
      */
     public static String[] mixAudio(String inputPath, String mixPath, String outputPath) {
         //mixing formula: value = sample1 + sample2 - ((sample1 * sample2) >> 0x10)
@@ -164,13 +245,12 @@ public class FFmpegUtil {
         }
         mixAudioCmd[6] = amix;
         if (disableThumb) mixAudioCmd[7] = "-vn";
-        mixAudioCmd[len-1] = outputPath;
+        mixAudioCmd[len - 1] = outputPath;
         return mixAudioCmd;
     }
 
     /**
      * merge multiple audio streams into a single multi-channel stream
-     *
      */
     public static String[] mergeAudio(String inputPath, String mergePath, String outputPath) {
         String mergeCmd = "ffmpeg -i %s -i %s -filter_complex [0:a][1:a]amerge=inputs=2[aout] -map [aout] -y %s";
@@ -228,7 +308,7 @@ public class FFmpegUtil {
     /**
      * Detect silence of a chunk of audio
      *
-     * @param inputPath  input file
+     * @param inputPath input file
      */
     public static String[] audioSilenceDetect(String inputPath) {
         // silence_start: 268.978
@@ -365,6 +445,7 @@ public class FFmpegUtil {
 
     /**
      * joint every single video together
+     *
      * @param fileListPath the path file list
      * @param outputPath   output path
      * @return joint video success or not
@@ -511,11 +592,11 @@ public class FFmpegUtil {
      * @return convert gif success or not
      */
     public static String[] generateGifByPalette(String inputPath, String palette, int startTime, int duration,
-                                           int frameRate, int width, String outputPath) {
+                                                int frameRate, int width, String outputPath) {
         String paletteGifCmd = "ffmpeg -ss %d -accurate_seek -t %d -i -i -lavfi fps=%d,scale=%d:-1:flags=lanczos[x];[x][1:v]" +
                 "paletteuse=dither=bayer:bayer_scale=3 -y";
         paletteGifCmd = String.format(Locale.getDefault(), paletteGifCmd, startTime,
-                                      duration, frameRate, width);
+                duration, frameRate, width);
         return insert(paletteGifCmd.split(" "), 7, inputPath, 9, palette, outputPath);
     }
 
@@ -538,9 +619,9 @@ public class FFmpegUtil {
     /**
      * convert resolution
      *
-     * @param inputPath   input file
-     * @param resolution  resolution
-     * @param outputPath  output file
+     * @param inputPath  input file
+     * @param resolution resolution
+     * @param outputPath output file
      * @return convert success or not
      */
     public static String[] convertResolution(String inputPath, String resolution, String outputPath) {
@@ -691,7 +772,8 @@ public class FFmpegUtil {
 
     /**
      * Change Video from RGB to gray(black & white)
-     * @param inputPath inputPath
+     *
+     * @param inputPath  inputPath
      * @param outputPath outputPath
      * @return grayCmd
      */
@@ -702,13 +784,14 @@ public class FFmpegUtil {
 
     /**
      * Photo zoom to video
-     * @param inputPath inputPath
-     * @param position position
-     *                 0:center
-     *                 1:left to right
-     *                 2:right to left
-     *                 3:down to up
-     *                 4:up to down
+     *
+     * @param inputPath  inputPath
+     * @param position   position
+     *                   0:center
+     *                   1:left to right
+     *                   2:right to left
+     *                   3:down to up
+     *                   4:up to down
      * @param outputPath outputPath
      * @return zoomCmd
      */
@@ -738,7 +821,7 @@ public class FFmpegUtil {
     /**
      * using FFprobe to parse the media format
      *
-     * @param inputPath  inputFile
+     * @param inputPath inputFile
      * @return probe success or not
      */
     public static String[] probeFormat(String inputPath) {
@@ -750,6 +833,7 @@ public class FFmpegUtil {
     /**
      * Changing the speed of playing, speed range at 0.5-2 in audio-video mode.
      * However, in pure video mode, the speed range at 0.25-4
+     *
      * @param inputPath  the inputFile of normal speed
      * @param outputPath the outputFile which you want to change speed
      * @param speed      speed of playing
@@ -768,7 +852,7 @@ public class FFmpegUtil {
                 throw new IllegalArgumentException("speed range is 0.5--2");
             }
         }
-        float ptsFactor = 1/speed;
+        float ptsFactor = 1 / speed;
         String speedCmd;
         if (pureVideo) {
             speedCmd = "ffmpeg -i -filter_complex [0:v]setpts=%.2f*PTS[v] -map [v] -y";
@@ -782,9 +866,10 @@ public class FFmpegUtil {
 
     /**
      * Changing the speed of playing, speed range at 0.5-2 in audio.
-     * @param inputPath the inputFile of normal speed
+     *
+     * @param inputPath  the inputFile of normal speed
      * @param outputPath the outputFile which you want to change speed
-     * @param speed speed of playing
+     * @param speed      speed of playing
      * @return change speed success or not
      */
     public static String[] changeAudioSpeed(String inputPath, String outputPath, float speed) {
@@ -799,9 +884,10 @@ public class FFmpegUtil {
 
     /**
      * Insert the picture into the header of video, which as a thumbnail
-     * @param inputPath inputFile
+     *
+     * @param inputPath   inputFile
      * @param picturePath the path of thumbnail
-     * @param outputPath targetFile
+     * @param outputPath  targetFile
      * @return command of inserting picture
      */
     public static String[] insertPicIntoVideo(String inputPath, String picturePath, String outputPath) {
@@ -819,8 +905,9 @@ public class FFmpegUtil {
      * After publish the streams, you could use VLC to play it
      * Note: if stream is rtmp protocol, need to start your rtmp server
      * Note: if stream is http protocol, need to start your http server
-     * @param inputPath inputFile
-     * @param duration how long of inputFile you want to publish
+     *
+     * @param inputPath  inputFile
+     * @param duration   how long of inputFile you want to publish
      * @param streamUrl1 the url of stream1
      * @param streamUrl2 the url of stream2
      * @return command of build flv index
@@ -847,6 +934,7 @@ public class FFmpegUtil {
 
     /**
      * Trim one or more segments from a single video
+     *
      * @param inputPath  the path of input file
      * @param start1     start time of the first segment
      * @param end1       end time of the first segment
@@ -874,6 +962,7 @@ public class FFmpegUtil {
 
     /**
      * Convert video into stereo3d mode(VR video)
+     *
      * @param inputPath  inputPath
      * @param outputPath outputPath
      * @return the command of stereo3d
