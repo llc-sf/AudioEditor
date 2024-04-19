@@ -518,7 +518,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
                         if (File(realOutPath).exists()) {
                             File(realOutPath).delete()
                         }
-                        FileUtils.copyMP3ToFileStore(File(outputPath), requireContext(), cutFileName + suffix)
+                        FileUtils.copyAudioToFileStore(File(outputPath), requireContext(), cutFileName + suffix)
                         notifyMediaScanner(requireContext(), realOutPath)
                     }
                 }

@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
+import android.webkit.MimeTypeMap;
 
 import androidx.annotation.Nullable;
 
@@ -320,7 +321,7 @@ public class FileUtils {
 
 
 
-    public static void copyMP3ToFileStore(File src, Context context, String targetFileName) {
+    public static void copyAudioToFileStore(File src, Context context, String targetFileName) {
         if (!src.exists() || !src.canRead()) {
             Log.d("FileUtils", "Source file not found or not readable");
             return;
@@ -331,9 +332,12 @@ public class FileUtils {
             return;
         }
 
+        // Get MIME type based on file extension
+        String mimeType = getMimeType(src.getName());
+
         // Read source file and write to MediaStore
         try (InputStream inputStream = new FileInputStream(src)) {
-            saveAudioToPublicMusic(context, inputStream, targetFileName);
+            saveAudioToPublicMusic(context, inputStream, targetFileName, mimeType);
         } catch (FileNotFoundException e) {
             Log.e("FileUtils", "File not found: " + e.getMessage());
         } catch (IOException e) {
@@ -341,12 +345,12 @@ public class FileUtils {
         }
     }
 
-    private static void saveAudioToPublicMusic(Context context, InputStream inputStream, String fileName) {
+    private static void saveAudioToPublicMusic(Context context, InputStream inputStream, String fileName, String mimeType) {
         ContentResolver resolver = context.getContentResolver();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
-        contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "audio/mp3");
+        contentValues.put(MediaStore.MediaColumns.MIME_TYPE, mimeType);
         contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_MUSIC);
 
         Uri audioCollection = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
@@ -365,5 +369,16 @@ public class FileUtils {
         } else {
             Log.e("FileUtils", "Could not insert audio file into MediaStore");
         }
+    }
+
+    private static String getMimeType(String fileName) {
+        String extension = MimeTypeMap.getFileExtensionFromUrl(fileName);
+        if (extension != null) {
+            String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.toLowerCase());
+            if (mimeType != null) {
+                return mimeType;
+            }
+        }
+        return "audio/*"; // Fallback generic audio MIME type
     }
 }
