@@ -83,6 +83,19 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         }
     }
 
+    fun onNewIntent(intent: Intent?) {
+        if (intent != null) {
+            val song = intent.getParcelableExtra<Song>(AudioCutActivity.PARAM_SONG)
+            if (song != null) {
+                mViewModel.song = song
+                PlayerManager.playByPath(mViewModel.song.path)
+                initTimeBar()
+                setData()
+            }
+        }
+
+    }
+
     override fun initData() {
     }
 
@@ -501,7 +514,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
                     if (msg.obj == 0) {
                         var file = AudioFileUtils.copyAudioToFileStore(File(outputPath), requireContext(), cutFileName + suffix)
                         if (file != null) {
-                            AudioFileUtils.notifyMediaScanner(requireContext(), file.absolutePath){ path: String, uri: Uri ->
+                            AudioFileUtils.notifyMediaScanner(requireContext(), file.absolutePath) { path: String, uri: Uri ->
                                 val song = getSongInfo(requireContext().contentResolver, path)
                                 if (song != null) {
                                     AudioCutActivity.open(requireContext(), song)
@@ -535,20 +548,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
             return cursor.convertSong()
         }
         return null
-    }
-
-    fun onNewIntent(intent: Intent?) {
-        if (intent != null) {
-            val song = intent.getParcelableExtra<Song>(AudioCutActivity.PARAM_SONG)
-            if (song != null) {
-                mViewModel.song = song
-                PlayerManager.playByPath(mViewModel.song.path)
-                initTimeBar()
-                setData()
-            }
-        }
-
-
     }
 
 
