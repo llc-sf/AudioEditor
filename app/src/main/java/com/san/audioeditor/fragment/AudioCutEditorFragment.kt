@@ -447,8 +447,10 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
 
 
     var outputPath: String = ""
+    private var cutFileName = "cut"
+    private var suffix: String? = null
     private val PATH = FFmpegApplication.instance?.getExternalFilesDir(Environment.DIRECTORY_MUSIC)?.absolutePath
-        ?: "" //    private val PATH = Environment.getExternalStorageDirectory().absolutePath ?: ""
+        ?: ""
 
     private fun audioDeal(srcFile: String) {
         var realCutPieceFragments = viewBinding.timeBar.cutPieceFragmentsOrder?.filter { !it.isFake }
@@ -463,7 +465,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         if (!FileUtil.isAudio(srcFile)) {
             return
         }
-        val suffix = FileUtil.getFileSuffix(srcFile)
+        suffix = FileUtil.getFileSuffix(srcFile)
         if (suffix.isNullOrEmpty()) {
             return
         }
@@ -512,13 +514,11 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
                 FFmpegHandler.MSG_FINISH -> {
                     Log.i(BaseAudioEditorView.jni_tag, "finish resultCode=${msg.obj}")
                     if (msg.obj == 0) {
-                        var uri = Utils.getAudioUriFromPath(requireContext(), outputPath).toString()
-                        Log.i(BaseAudioEditorView.jni_tag, "outputPath=$outputPath,uri=$uri")
-                        var realOutPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).absolutePath + File.separator + "audio_editor.mp3"
-                        if(File(realOutPath).exists()){
+                        var realOutPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).absolutePath + File.separator + cutFileName + suffix
+                        if (File(realOutPath).exists()) {
                             File(realOutPath).delete()
                         }
-                        FileUtils.copyMP3ToFileStore(File(outputPath), requireContext(), "audio_editor.mp3")
+                        FileUtils.copyMP3ToFileStore(File(outputPath), requireContext(), cutFileName + suffix)
                         notifyMediaScanner(requireContext(), realOutPath)
                     }
                 }
@@ -548,15 +548,11 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
     }
 
     fun notifyMediaScanner(context: Context, filePath: String) {
-        Log.i(BaseAudioEditorView.jni_tag, "notifyMediaScanner filePath=$filePath")
         MediaScannerConnection.scanFile(context, arrayOf(filePath), null) { path, uri ->
-            Log.i(BaseAudioEditorView.jni_tag, "scanFile path=$path, uri=$uri") //            getSongInfo(requireContext().contentResolver, filePath)?.let {
             getSongInfo(requireContext().contentResolver, filePath)?.let {
-                Log.i(BaseAudioEditorView.jni_tag, "song=${it.title}")
                 AudioCutActivity.open(requireContext(), it)
             }
         }
-
     }
 
 }
