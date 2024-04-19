@@ -43,6 +43,7 @@ import dev.audio.timeruler.listener.OnScaleChangeListener
 import dev.audio.timeruler.multitrack.MultiTrackRenderersFactory
 import dev.audio.timeruler.multitrack.MultiTrackSelector
 import dev.audio.timeruler.utils.format2Duration
+import dev.audio.timeruler.utils.toSegmentsArray
 import dev.audio.timeruler.weight.AudioCutEditorView
 import dev.audio.timeruler.weight.AudioEditorConfig
 import dev.audio.timeruler.weight.BaseAudioEditorView
@@ -418,6 +419,10 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         ?: ""
 
     private fun audioDeal(srcFile: String) {
+        if(viewBinding.timeBar.cutPieceFragmentsOrder.isNullOrEmpty()){
+            Toast.makeText(requireContext(), "请先选择片段", Toast.LENGTH_SHORT).show()
+            return
+        }
         var commandLine: Array<String>? = null
         if (!FileUtil.checkFileExist(srcFile)) {
             return
@@ -437,8 +442,8 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
 
         outputPath = PATH + File.separator + "aaaaaaa" + suffix
         cutAudioOutPutPath = outputPath
-        commandLine = FFmpegUtil.cutMultipleAudioSegments(srcFile, arrayOf(floatArrayOf(10f, 20f), floatArrayOf(30f, 20f)), outputPath)
-//        commandLine = FFmpegUtil.cutAudio(srcFile, 10f,20f,outputPath)
+
+        commandLine = FFmpegUtil.cutMultipleAudioSegments(srcFile, viewBinding.timeBar.cutPieceFragmentsOrder?.toSegmentsArray(), outputPath)
 
         android.util.Log.i(BaseAudioEditorView.jni_tag, "outputPath=${outputPath}") //打印 commandLine
         var sb = StringBuilder()

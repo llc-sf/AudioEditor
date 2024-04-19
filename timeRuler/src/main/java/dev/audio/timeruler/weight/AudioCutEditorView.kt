@@ -807,4 +807,10 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             }
         }
     }
+
+    var cutPieceFragmentsOrder: List<CutPieceFragment>?=null
+        get() {
+            return audioFragment?.cutPieceFragmentsOrder
+        }
+
 }

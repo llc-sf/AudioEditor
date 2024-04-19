@@ -57,6 +57,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         cutPieceFragments.add(CutPieceFragment(this, index = cutPieceFragments.size).apply {
             this.initCutFragment(1 / 3f, 2 / 3f)
         })
+        updateMediaSource(getCutLineStartTime(),getCutLineEndTime())
     }
 
     /**

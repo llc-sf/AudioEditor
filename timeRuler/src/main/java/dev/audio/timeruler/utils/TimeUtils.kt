@@ -1,5 +1,6 @@
 package dev.audio.timeruler.utils
 
+import dev.audio.timeruler.weight.CutPieceFragment
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -41,4 +42,22 @@ fun Long.format2DurationSimple(): String {
         minutes > 0 -> String.format("%02d:%02d.%03d", minutes, seconds, millis)
         else -> String.format("%02d:%03d", seconds, millis)
     }
+}
+
+fun List<CutPieceFragment>.toSegmentsArray(): Array<FloatArray> {
+    // 创建二维数组，第一维是片段数量，第二维是开始时间和结束时间
+    val segments = Array(size) { FloatArray(2) }
+
+    // 遍历每个 CutPieceFragment 对象，将其开始时间和结束时间转换为秒数
+    forEachIndexed { index, cutPiece ->
+        // 获取开始时间和结束时间，转换为秒数
+        val startTime = cutPiece.startTimestampTimeInSelf / 1000.0f // 转换为秒
+        val endTime = cutPiece.endTimestampTimeInSelf / 1000.0f // 转换为秒
+
+        // 存储开始时间和结束时间到二维数组中
+        segments[index][0] = startTime
+        segments[index][1] = endTime
+    }
+
+    return segments
 }
