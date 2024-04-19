@@ -419,7 +419,8 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         ?: ""
 
     private fun audioDeal(srcFile: String) {
-        if(viewBinding.timeBar.cutPieceFragmentsOrder.isNullOrEmpty()){
+        var realCutPieceFragments = viewBinding.timeBar.cutPieceFragmentsOrder?.filter { !it.isFake }
+        if (realCutPieceFragments.isNullOrEmpty()) {
             Toast.makeText(requireContext(), "请先选择片段", Toast.LENGTH_SHORT).show()
             return
         }
@@ -443,7 +444,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         outputPath = PATH + File.separator + "aaaaaaa" + suffix
         cutAudioOutPutPath = outputPath
 
-        commandLine = FFmpegUtil.cutMultipleAudioSegments(srcFile, viewBinding.timeBar.cutPieceFragmentsOrder?.toSegmentsArray(), outputPath)
+        commandLine = FFmpegUtil.cutMultipleAudioSegments(srcFile, realCutPieceFragments.toSegmentsArray(), outputPath)
 
         android.util.Log.i(BaseAudioEditorView.jni_tag, "outputPath=${outputPath}") //打印 commandLine
         var sb = StringBuilder()
@@ -474,20 +475,20 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
             super.handleMessage(msg)
             when (msg.what) {
                 FFmpegHandler.MSG_BEGIN -> {
-                    Log.i(BaseAudioEditorView.jni_tag,"begin")
+                    Log.i(BaseAudioEditorView.jni_tag, "begin")
                 }
 
                 FFmpegHandler.MSG_FINISH -> {
-                    Log.i(BaseAudioEditorView.jni_tag,"finish")
+                    Log.i(BaseAudioEditorView.jni_tag, "finish")
                 }
 
                 FFmpegHandler.MSG_PROGRESS -> {
                     val progress = msg.arg1
-                    Log.i(BaseAudioEditorView.jni_tag,"progress=$progress")
+                    Log.i(BaseAudioEditorView.jni_tag, "progress=$progress")
                 }
 
                 FFmpegHandler.MSG_INFO -> {
-                    Log.i(BaseAudioEditorView.jni_tag,"${msg.obj}")
+                    Log.i(BaseAudioEditorView.jni_tag, "${msg.obj}")
                 }
 
                 else -> {
