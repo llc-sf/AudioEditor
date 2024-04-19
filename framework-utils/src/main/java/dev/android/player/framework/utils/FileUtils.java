@@ -321,28 +321,35 @@ public class FileUtils {
 
 
 
-    public static void copyAudioToFileStore(File src, Context context, String targetFileName) {
+    public static File copyAudioToFileStore(File src, Context context, String targetFileName) {
         if (!src.exists() || !src.canRead()) {
             Log.d("FileUtils", "Source file not found or not readable");
-            return;
+            return null;
         }
 
         if (src.isDirectory()) {
             Log.d("FileUtils", "Source is a directory, expected a file.");
-            return;
+            return null;
         }
 
+        String realOutPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).getAbsolutePath() + File.separator + targetFileName;
+        File targetFile = new File(realOutPath);
+        if (targetFile.exists()) {
+            targetFile.delete();
+        }
         // Get MIME type based on file extension
         String mimeType = getMimeType(src.getName());
 
         // Read source file and write to MediaStore
         try (InputStream inputStream = new FileInputStream(src)) {
             saveAudioToPublicMusic(context, inputStream, targetFileName, mimeType);
+            return targetFile;
         } catch (FileNotFoundException e) {
             Log.e("FileUtils", "File not found: " + e.getMessage());
         } catch (IOException e) {
             Log.e("FileUtils", "IO Exception: " + e.getMessage());
         }
+        return null;
     }
 
     private static void saveAudioToPublicMusic(Context context, InputStream inputStream, String fileName, String mimeType) {

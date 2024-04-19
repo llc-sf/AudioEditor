@@ -514,12 +514,12 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
                 FFmpegHandler.MSG_FINISH -> {
                     Log.i(BaseAudioEditorView.jni_tag, "finish resultCode=${msg.obj}")
                     if (msg.obj == 0) {
-                        var realOutPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).absolutePath + File.separator + cutFileName + suffix
-                        if (File(realOutPath).exists()) {
-                            File(realOutPath).delete()
+                        var file = FileUtils.copyAudioToFileStore(File(outputPath), requireContext(), cutFileName + suffix)
+                        if (file != null) {
+                            notifyMediaScanner(requireContext(), file.absolutePath)
+                        } else {
+                            Toast.makeText(requireContext(), "裁剪失败", Toast.LENGTH_SHORT).show()
                         }
-                        FileUtils.copyAudioToFileStore(File(outputPath), requireContext(), cutFileName + suffix)
-                        notifyMediaScanner(requireContext(), realOutPath)
                     }
                 }
 
