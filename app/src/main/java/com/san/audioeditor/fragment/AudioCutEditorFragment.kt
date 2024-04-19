@@ -4,10 +4,8 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaMetadataRetriever
-import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -17,7 +15,6 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.SeekBar
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -28,21 +25,17 @@ import com.google.android.exoplayer2.source.MergingMediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
-import com.masoudss.lib.utils.Utils
 import com.masoudss.lib.utils.WaveformOptions
 import com.san.audioeditor.R
 import com.san.audioeditor.activity.AudioCutActivity
-import com.san.audioeditor.activity.AudioCutHandleActivity
 import com.san.audioeditor.databinding.FragmentAudioCutBinding
 import com.san.audioeditor.handler.FFmpegHandler
 import com.san.audioeditor.storage.convertSong
-import com.san.audioeditor.storage.convertSongs
 import dev.audio.timeruler.player.PlayerManager
 import dev.audio.timeruler.player.PlayerProgressCallback
 import com.san.audioeditor.viewmodel.AudioCutViewModel
 import dev.android.player.framework.base.BaseMVVMFragment
 import dev.android.player.framework.data.model.Song
-import dev.android.player.framework.utils.FileUtils
 import dev.android.player.framework.utils.ImmerseDesign
 import dev.audio.ffmpeglib.FFmpegApplication
 import dev.audio.ffmpeglib.tool.FFmpegUtil
@@ -54,6 +47,7 @@ import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.listener.OnScaleChangeListener
 import dev.audio.timeruler.multitrack.MultiTrackRenderersFactory
 import dev.audio.timeruler.multitrack.MultiTrackSelector
+import dev.audio.timeruler.utils.AudioFileUtils
 import dev.audio.timeruler.utils.format2Duration
 import dev.audio.timeruler.utils.toSegmentsArray
 import dev.audio.timeruler.weight.AudioCutEditorView
@@ -64,7 +58,6 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
-import java.util.Locale
 
 class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
 
@@ -514,9 +507,14 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
                 FFmpegHandler.MSG_FINISH -> {
                     Log.i(BaseAudioEditorView.jni_tag, "finish resultCode=${msg.obj}")
                     if (msg.obj == 0) {
-                        var file = FileUtils.copyAudioToFileStore(File(outputPath), requireContext(), cutFileName + suffix)
+                        var file = AudioFileUtils.copyAudioToFileStore(File(outputPath), requireContext(), cutFileName + suffix)
                         if (file != null) {
-                            notifyMediaScanner(requireContext(), file.absolutePath)
+                            AudioFileUtils.notifyMediaScanner(requireContext(), file.absolutePath){ path: String, uri: Uri ->
+                                val song = getSongInfo(requireContext().contentResolver, path)
+                                if (song != null) {
+                                    AudioCutActivity.open(requireContext(), song)
+                                }
+                            }
                         } else {
                             Toast.makeText(requireContext(), "裁剪失败", Toast.LENGTH_SHORT).show()
                         }
@@ -539,7 +537,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
     }
 
 
-    private fun getSongInfo(contentResolver: ContentResolver, songPath: String): Song? {
+    fun getSongInfo(contentResolver: ContentResolver, songPath: String): Song? {
         val cursor = contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, MediaStore.Audio.Media.DATA + "=?", arrayOf(songPath), null)
         if (cursor?.moveToNext() == true) {
             return cursor.convertSong()
@@ -547,12 +545,5 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         return null
     }
 
-    fun notifyMediaScanner(context: Context, filePath: String) {
-        MediaScannerConnection.scanFile(context, arrayOf(filePath), null) { path, uri ->
-            getSongInfo(requireContext().contentResolver, filePath)?.let {
-                AudioCutActivity.open(requireContext(), it)
-            }
-        }
-    }
 
 }
