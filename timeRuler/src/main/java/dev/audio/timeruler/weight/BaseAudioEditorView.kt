@@ -52,6 +52,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
         const val init_tag = "init_tag"
         const val wave_tag = "wave_tag"
         const val playline_tag = "playline_tag"
+        const val jni_tag = "jni_tag"
 
         /**
          * updateScaleInfo(500ms, 100ms);

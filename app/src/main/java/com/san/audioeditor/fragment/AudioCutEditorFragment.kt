@@ -440,13 +440,13 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         commandLine = FFmpegUtil.cutMultipleAudioSegments(srcFile, arrayOf(floatArrayOf(10f, 20f), floatArrayOf(30f, 20f)), outputPath)
 //        commandLine = FFmpegUtil.cutAudio(srcFile, 10f,20f,outputPath)
 
-        android.util.Log.i("llc_fuck", "outputPath=${outputPath}") //打印 commandLine
+        android.util.Log.i(BaseAudioEditorView.jni_tag, "outputPath=${outputPath}") //打印 commandLine
         var sb = StringBuilder()
         commandLine?.forEachIndexed { index, s ->
             sb.append("$s ")
-            android.util.Log.i("llc_fuck", "s=$s")
+            android.util.Log.i(BaseAudioEditorView.jni_tag, "s=$s")
         }
-        android.util.Log.i("llc_fuck", "sb=$sb")
+        android.util.Log.i(BaseAudioEditorView.jni_tag, "sb=$sb")
 
 
 
@@ -469,20 +469,20 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
             super.handleMessage(msg)
             when (msg.what) {
                 FFmpegHandler.MSG_BEGIN -> {
-                    Log.i("llc_fuck","begin")
+                    Log.i(BaseAudioEditorView.jni_tag,"begin")
                 }
 
                 FFmpegHandler.MSG_FINISH -> {
-                    Log.i("llc_fuck","finish")
+                    Log.i(BaseAudioEditorView.jni_tag,"finish")
                 }
 
                 FFmpegHandler.MSG_PROGRESS -> {
                     val progress = msg.arg1
-                    Log.i("llc_fuck","progress=$progress")
+                    Log.i(BaseAudioEditorView.jni_tag,"progress=$progress")
                 }
 
                 FFmpegHandler.MSG_INFO -> {
-                    Log.i("llc_fuck","${msg.obj}")
+                    Log.i(BaseAudioEditorView.jni_tag,"${msg.obj}")
                 }
 
                 else -> {
