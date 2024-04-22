@@ -550,6 +550,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                 if (width > 0) {
                     val dx = x - lastTouchXProcess
                     if (isMovingStart) {
+                        onCutLineChangeListener?.onCutLineMove()
                         startTimestampPosition += dx
                         if (startTimestampPosition <= (rect?.left ?: 0)) { //开始小于本身了
                             startTimestampTimeInSelf = 0
@@ -566,6 +567,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                         }
 
                     } else if (isMovingEnd) {
+                        onCutLineChangeListener?.onCutLineMove()
                         if (dx < -10 || event.x <= ScreenUtil.getScreenWidth(context) - 50) {
                             stopMoveRight()
                         }
