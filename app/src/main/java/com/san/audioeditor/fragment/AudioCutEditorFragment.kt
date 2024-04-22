@@ -45,6 +45,7 @@ import dev.audio.timeruler.multitrack.MultiTrackRenderersFactory
 import dev.audio.timeruler.multitrack.MultiTrackSelector
 import dev.audio.timeruler.player.PlayerManager
 import dev.audio.timeruler.player.PlayerProgressCallback
+import dev.audio.timeruler.timer.ExitDialog
 import dev.audio.timeruler.utils.AudioFileUtils
 import dev.audio.timeruler.utils.format2Duration
 import dev.audio.timeruler.utils.lastAudioFragmentBean
@@ -88,7 +89,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
             if (song != null) {
                 mViewModel.song = song
                 initTimeBar()
-                PlayerManager.playWithSeek(0,0)
+                PlayerManager.playWithSeek(0, 0)
                 return
             }
 
@@ -96,7 +97,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
             if (audioFragmentBean != null && !TextUtils.isEmpty(audioFragmentBean.path)) {
                 mViewModel.song = getSongInfo(requireContext(), audioFragmentBean.path!!) ?: return
                 initTimeBar(false)
-                PlayerManager.playWithSeek(0,0)
+                PlayerManager.playWithSeek(0, 0)
                 return
             }
 
@@ -110,9 +111,26 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
 
     override fun initView() {
         super.initView()
+        initToolbar()
         PlayerManager.playByPath(mViewModel.song.path)
         viewBinding.toolbar.ImmerseDesign()
         initTimeBar()
+    }
+
+    private var isConformed = false
+    private var isCutLineMoved = false
+    private fun initToolbar() {
+        viewBinding.toolbar.setNavigationOnClickListener {
+            if (!isCutLineMoved&&!isConformed) {
+                activity?.finish()
+            }else{
+                showExitDialog()
+            }
+        }
+    }
+
+    private fun showExitDialog() {
+        ExitDialog.show(parentFragmentManager)
     }
 
     override fun onDestroyView() {
@@ -304,6 +322,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
                                                            AudioCutEditorView.OnCutLineChangeListener {
 
             override fun onCutLineChange(start: Long, end: Long) {
+                isCutLineMoved = true
                 viewBinding.cutStart.text = "${start.format2Duration()}"
                 viewBinding.cutEnd.text = "${end.format2Duration()}"
                 viewBinding.durationSelected.text = "${(end - start).format2Duration()}"
@@ -357,6 +376,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         }
 
         viewBinding.confirm.setOnClickListener {
+            isConformed = true
             audioDeal(mViewModel.song.path)
         }
 
@@ -370,33 +390,31 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
                 } else {
                     AudioCutActivity.open(requireContext(), last)
                 }
-                        }
-//            Log.i("llc_action", "current = ${viewBinding.timeBar.audioFragmentBean}")
-//            if (datas.isNullOrEmpty() || viewBinding.timeBar.audioFragmentBean == null) {
-//                Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
-//                Log.i("llc_action", "pre = null}")
-//            } else {
-//                if (viewBinding.timeBar.audioFragmentBean!!.index - 1 < 0) {
-//                    Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
-//                    Log.i("llc_action", "pre = null}")
-//                } else {
-//                    AudioCutActivity.open(requireContext(), datas[viewBinding.timeBar.audioFragmentBean!!.index - 1])
-//                    Log.i("llc_action", "pre =${datas[viewBinding.timeBar.audioFragmentBean!!.index - 1]}")
-//                }
-//            }
+            } //            Log.i("llc_action", "current = ${viewBinding.timeBar.audioFragmentBean}")
+            //            if (datas.isNullOrEmpty() || viewBinding.timeBar.audioFragmentBean == null) {
+            //                Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
+            //                Log.i("llc_action", "pre = null}")
+            //            } else {
+            //                if (viewBinding.timeBar.audioFragmentBean!!.index - 1 < 0) {
+            //                    Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
+            //                    Log.i("llc_action", "pre = null}")
+            //                } else {
+            //                    AudioCutActivity.open(requireContext(), datas[viewBinding.timeBar.audioFragmentBean!!.index - 1])
+            //                    Log.i("llc_action", "pre =${datas[viewBinding.timeBar.audioFragmentBean!!.index - 1]}")
+            //                }
+            //            }
         }
         viewBinding.next.setOnClickListener {
-                        if (datas.isNullOrEmpty() || viewBinding.timeBar.audioFragmentBean == null) {
-                            Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
-                        } else {
-                            var next = datas.nextAudioFragmentBean(viewBinding.timeBar.audioFragmentBean!!)
-                            if (next == null) {
-                                Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
-                            } else {
-                                AudioCutActivity.open(requireContext(), next)
-                            }
-                        }
-//            if (datas.isNullOrEmpty() || viewBinding.timeBar.audioFragmentBean == null) {
+            if (datas.isNullOrEmpty() || viewBinding.timeBar.audioFragmentBean == null) {
+                Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
+            } else {
+                var next = datas.nextAudioFragmentBean(viewBinding.timeBar.audioFragmentBean!!)
+                if (next == null) {
+                    Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
+                } else {
+                    AudioCutActivity.open(requireContext(), next)
+                }
+            } //            if (datas.isNullOrEmpty() || viewBinding.timeBar.audioFragmentBean == null) {
             //                Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
             //            } else {
             //                if (datas.size >= viewBinding.timeBar.audioFragmentBean!!.index + 1) {

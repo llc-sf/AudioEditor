@@ -651,4 +651,6 @@
     <string name="trime_start_time_error">开始时间不能晚于结束时间</string>
     <string name="trime_end_time_error">结束时间不能早于开始时间</string>
     <string name="trime_start_end_time_error">开始时间和结束时间不能相等</string>
+    <string name="edit_exit_dialog_title">Discard</string>
+    <string name="edit_exit_dialog_msg">Exit and discard the changes?</string>
 </resources>
