@@ -87,6 +87,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
             if (song != null) {
                 mViewModel.song = song
                 initTimeBar()
+                PlayerManager.playWithSeek(0,0)
                 return
             }
 
@@ -94,6 +95,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
             if (audioFragmentBean != null && !TextUtils.isEmpty(audioFragmentBean.path)) {
                 mViewModel.song = getSongInfo(requireContext(), audioFragmentBean.path!!) ?: return
                 initTimeBar(false)
+                PlayerManager.playWithSeek(0,0)
                 return
             }
 
