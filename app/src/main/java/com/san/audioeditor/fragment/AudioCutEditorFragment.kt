@@ -61,7 +61,8 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 
-class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),EditLoadingDialog.OnCancelListener {
+class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
+    EditLoadingDialog.OnCancelListener {
 
 
     companion object {
@@ -399,19 +400,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),EditL
                 } else {
                     AudioCutActivity.open(requireContext(), last)
                 }
-            } //            Log.i("llc_action", "current = ${viewBinding.timeBar.audioFragmentBean}")
-            //            if (datas.isNullOrEmpty() || viewBinding.timeBar.audioFragmentBean == null) {
-            //                Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
-            //                Log.i("llc_action", "pre = null}")
-            //            } else {
-            //                if (viewBinding.timeBar.audioFragmentBean!!.index - 1 < 0) {
-            //                    Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
-            //                    Log.i("llc_action", "pre = null}")
-            //                } else {
-            //                    AudioCutActivity.open(requireContext(), datas[viewBinding.timeBar.audioFragmentBean!!.index - 1])
-            //                    Log.i("llc_action", "pre =${datas[viewBinding.timeBar.audioFragmentBean!!.index - 1]}")
-            //                }
-            //            }
+            }
         }
         viewBinding.next.setOnClickListener {
             if (datas.isNullOrEmpty() || viewBinding.timeBar.audioFragmentBean == null) {
@@ -423,15 +412,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),EditL
                 } else {
                     AudioCutActivity.open(requireContext(), next)
                 }
-            } //            if (datas.isNullOrEmpty() || viewBinding.timeBar.audioFragmentBean == null) {
-            //                Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
-            //            } else {
-            //                if (datas.size >= viewBinding.timeBar.audioFragmentBean!!.index + 1) {
-            //                    Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
-            //                } else {
-            //                    AudioCutActivity.open(requireContext(), datas[viewBinding.timeBar.audioFragmentBean!!.index + 1])
-            //                }
-            //            }
+            }
         }
         setAudioData()
         if (isSaveDta) {
@@ -452,9 +433,9 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),EditL
 
     //todo requireContext()
     private fun setAudioData() {
-
+        viewBinding.timeBar.setLoadingView(mViewModel.song.duration.toLong(), mViewModel.song.path)
         WaveformOptions.getSampleFrom(requireContext(), mViewModel.song.path) {
-            viewBinding.timeBar.setWaveform(Waveform(it.toList()), mViewModel.song.duration.toLong(), mViewModel.song.path)
+//            viewBinding.timeBar.setWaveform(Waveform(it.toList()), mViewModel.song.duration.toLong(), mViewModel.song.path)
         }
 
         viewBinding.timeBar.setOnScaleChangeListener(object : OnScaleChangeListener {
@@ -582,8 +563,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),EditL
             when (msg.what) {
                 FFmpegHandler.MSG_BEGIN -> {
                     Log.i(BaseAudioEditorView.jni_tag, "begin")
-                    viewBinding.progressLy.isVisible = true
-//                    editLoadingDialog = EditLoadingDialog.show(parentFragmentManager)
+                    viewBinding.progressLy.isVisible = true //                    editLoadingDialog = EditLoadingDialog.show(parentFragmentManager)
                     viewBinding.progressText.text = "0%"
                     editLoadingDialog?.setOnCancelListener(this@AudioCutEditorFragment)
                 }

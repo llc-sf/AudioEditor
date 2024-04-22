@@ -181,9 +181,10 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
     }
 
     open fun onDraw(canvas: Canvas) {
+        val centerY = getTrackYPosition() // 使用新变量设置垂直位置
+        waveRect(centerY, canvas)
         var wf = waveform
         val samples = wf?.amplitudes ?: return
-        val centerY = getTrackYPosition() // 使用新变量设置垂直位置
         val maxAmplitude = (samples.maxOrNull() ?: 1).toFloat()
 
         // 设置固定的矩形宽度和间隙宽度
@@ -215,9 +216,6 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
             val rectF = RectF(xPosition, top, xPosition + fixedBarWidth, bottom)
             canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, mWavePaint)
         }
-
-        waveRect(centerY, canvas)
-
     }
 
 
