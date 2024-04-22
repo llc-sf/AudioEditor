@@ -45,7 +45,8 @@ import dev.audio.timeruler.multitrack.MultiTrackRenderersFactory
 import dev.audio.timeruler.multitrack.MultiTrackSelector
 import dev.audio.timeruler.player.PlayerManager
 import dev.audio.timeruler.player.PlayerProgressCallback
-import dev.audio.timeruler.timer.ExitDialog
+import dev.audio.timeruler.timer.EditExitDialog
+import dev.audio.timeruler.timer.EditLoadingDialog
 import dev.audio.timeruler.utils.AudioFileUtils
 import dev.audio.timeruler.utils.format2Duration
 import dev.audio.timeruler.utils.lastAudioFragmentBean
@@ -60,7 +61,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 
-class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
+class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),EditLoadingDialog.OnCancelListener {
 
 
     companion object {
@@ -121,16 +122,16 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
     private var isCutLineMoved = false
     private fun initToolbar() {
         viewBinding.toolbar.setNavigationOnClickListener {
-            if (!isCutLineMoved&&!isConformed) {
+            if (!isCutLineMoved && !isConformed) {
                 activity?.finish()
-            }else{
+            } else {
                 showExitDialog()
             }
         }
     }
 
     private fun showExitDialog() {
-        ExitDialog.show(parentFragmentManager)
+        EditExitDialog.show(parentFragmentManager)
     }
 
     override fun onDestroyView() {
@@ -380,6 +381,10 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
             audioDeal(mViewModel.song.path)
         }
 
+        viewBinding.btnCancel.setOnClickListener {
+
+        }
+
         viewBinding.pre.setOnClickListener {
             if (datas.isNullOrEmpty() || viewBinding.timeBar.audioFragmentBean == null) {
                 Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
@@ -564,6 +569,8 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
         ffmpegHandler = FFmpegHandler(mHandler)
     }
 
+    var editLoadingDialog: EditLoadingDialog? = null
+
     @SuppressLint("HandlerLeak")
     private val mHandler = object : Handler() {
         override fun handleMessage(msg: Message) {
@@ -572,12 +579,15 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
                 FFmpegHandler.MSG_BEGIN -> {
                     Log.i(BaseAudioEditorView.jni_tag, "begin")
                     viewBinding.progressLy.isVisible = true
+//                    editLoadingDialog = EditLoadingDialog.show(parentFragmentManager)
                     viewBinding.progressText.text = "0%"
+                    editLoadingDialog?.setOnCancelListener(this@AudioCutEditorFragment)
                 }
 
                 FFmpegHandler.MSG_FINISH -> {
                     Log.i(BaseAudioEditorView.jni_tag, "finish resultCode=${msg.obj}")
                     viewBinding.progressLy.isVisible = false
+                    editLoadingDialog?.dismiss()
                     if (msg.obj == 0) {
                         var file = AudioFileUtils.copyAudioToFileStore(File(outputPath), requireContext(), cutFileName + suffix)
                         if (file != null) {
@@ -596,6 +606,8 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
                 FFmpegHandler.MSG_PROGRESS -> {
                     val progress = msg.arg1
                     Log.i(BaseAudioEditorView.jni_tag, "progress=$progress")
+                    editLoadingDialog?.freshProgress(progress)
+                    viewBinding.progress.progress = progress
                     viewBinding.progressText.text = "$progress%"
                 }
 
@@ -626,6 +638,10 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
             Log.i("llc_action", "addData = ${it}")
             datas.add(it)
         }
+    }
+
+    override fun onCancel() {
+
     }
 
 

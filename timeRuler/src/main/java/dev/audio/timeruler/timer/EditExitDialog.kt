@@ -5,22 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
-import dev.audio.timeruler.databinding.DialogSleeptimerSettingBinding
 import dev.audio.timeruler.databinding.EditExitDialogBinding
 
 
-class ExitDialog : BaseBottomTranslucentDialog() {
+class EditExitDialog : BaseBottomTranslucentDialog() {
 
     companion object {
 
 
         fun show(
             manager: FragmentManager?,
-        ): ExitDialog? {
+        ): EditExitDialog? {
             if (manager == null) {
                 return null
             }
-            val fragment = ExitDialog()
+            val fragment = EditExitDialog()
             BottomDialogManager.show(manager, fragment)
             return fragment
         }

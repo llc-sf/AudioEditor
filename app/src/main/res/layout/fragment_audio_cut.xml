@@ -479,29 +479,64 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/progress_ly"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp_20"
+        android:background="@drawable/rectangle_1affffff_radius_all_18_bg"
+        android:paddingHorizontal="@dimen/dp_20"
+        android:paddingVertical="@dimen/dp_20"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/BottomDialog.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/edit_exit_dialog_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <SeekBar
+            android:id="@+id/progress"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_8"
+            android:layout_marginTop="@dimen/dp_20"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:progressDrawable="@drawable/edit_save_progress_drawable"
+            android:thumb="@null"
+            app:layout_constraintEnd_toStartOf="@id/progress_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
         <TextView
-            android:id="@+id/progressText"
+            android:id="@+id/progress_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@id/progressBar"
-            app:layout_constraintStart_toStartOf="@id/progressBar"
-            app:layout_constraintTop_toBottomOf="@id/progressBar" />
+            android:layout_marginStart="@dimen/dp_12"
+            android:text="0%"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/progress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/progress"
+            app:layout_constraintTop_toTopOf="@id/progress" />
+
+        <dev.android.player.widget.text.CornersButton
+            android:id="@+id/btn_cancel"
+            style="@style/BottomDialog.Button.Confirm"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp_20"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/dp_18"
+            android:paddingVertical="@dimen/dp_12"
+            android:text="@string/cancel"
+            app:layout_constraintEnd_toEndOf="@id/progress"
+            app:layout_constraintTop_toBottomOf="@id/progress" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
