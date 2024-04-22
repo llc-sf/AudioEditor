@@ -170,20 +170,20 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         var endTime = calendar.timeInMillis
 
         //一个手机宽度显示多长时间
-        //        viewBinding.timeBar.setScreenSpanValue(TimeRulerBar.VALUE_1000_MS * 8)
-        //        viewBinding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[2])
-        //        viewBinding.timeBar.setRange(startTime, endTime)
+        //        viewBinding.timeLine.setScreenSpanValue(TimeRulerBar.VALUE_1000_MS * 8)
+        //        viewBinding.timeLine.setMode(BaseAudioEditorView.MODE_ARRAY[2])
+        //        viewBinding.timeLine.setRange(startTime, endTime)
 
-        viewBinding.timeBar.initConfig(AudioEditorConfig.Builder()
+        viewBinding.timeLine.initConfig(AudioEditorConfig.Builder()
                                            .mode(BaseAudioEditorView.MODE_ARRAY[2])
                                            .startValue(startTime).endValue(endTime)
                                            .maxScreenSpanValue(mViewModel.song.duration.toLong())
                                            .build())
         viewBinding.durationTime.text = mViewModel.song.duration.toLong().format2Duration()
         viewBinding.durationTime1.text = (mViewModel.song.duration / 1000).toString()
-        viewBinding.scale.text = viewBinding.timeBar.mMode.toString()
+        viewBinding.scale.text = viewBinding.timeLine.mMode.toString()
 
-        viewBinding.timeBar.setOnCursorListener(object : BaseAudioEditorView.OnCursorListener {
+        viewBinding.timeLine.setOnCursorListener(object : BaseAudioEditorView.OnCursorListener {
             override fun onStartTrackingTouch(cursorValue: Long) {
                 viewBinding.tvData.text = cursorDateFormat.format(Date(cursorValue))
             }
@@ -199,7 +199,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
         viewBinding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                viewBinding.timeBar.setScale(progress.toFloat())
+                viewBinding.timeLine.setScale(progress.toFloat())
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -225,22 +225,22 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
         viewBinding.btnDir.setOnClickListener {
             viewBinding.btnDir.isSelected = !viewBinding.btnDir.isSelected
-            viewBinding.timeBar.setTickDirection(viewBinding.btnDir.isSelected)
+            viewBinding.timeLine.setTickDirection(viewBinding.btnDir.isSelected)
         }
 
         viewBinding.btnShowCursor.setOnClickListener {
             viewBinding.btnShowCursor.isSelected = !viewBinding.btnShowCursor.isSelected
-            viewBinding.timeBar.setShowCursor(viewBinding.btnShowCursor.isSelected)
+            viewBinding.timeLine.setShowCursor(viewBinding.btnShowCursor.isSelected)
         }
 
         viewBinding.btnPlay.setOnClickListener {
-            viewBinding.timeBar.setCursorTimeValue(viewBinding.timeBar.getCursorTimeValue() + 1000)
+            viewBinding.timeLine.setCursorTimeValue(viewBinding.timeLine.getCursorTimeValue() + 1000)
         }
         viewBinding.zoomIn.setOnClickListener {
-            viewBinding.timeBar.zoomIn()
+            viewBinding.timeLine.zoomIn()
         }
         viewBinding.zoomOut.setOnClickListener {
-            viewBinding.timeBar.zoomOut()
+            viewBinding.timeLine.zoomOut()
         }
 
 
@@ -249,47 +249,47 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 R.id.model1 -> {
                     viewBinding.cutAdd.visibility = View.INVISIBLE
                     viewBinding.cutRemove.visibility = View.INVISIBLE
-                    viewBinding.timeBar.switchCutMode(CutPieceFragment.CUT_MODE_SELECT)
+                    viewBinding.timeLine.switchCutMode(CutPieceFragment.CUT_MODE_SELECT)
                     viewBinding.trimAnchorLy.visibility = View.VISIBLE
                 }
 
                 R.id.model2 -> {
                     viewBinding.cutAdd.visibility = View.INVISIBLE
                     viewBinding.cutRemove.visibility = View.INVISIBLE
-                    viewBinding.timeBar.switchCutMode(CutPieceFragment.CUT_MODE_DELETE)
+                    viewBinding.timeLine.switchCutMode(CutPieceFragment.CUT_MODE_DELETE)
                     viewBinding.trimAnchorLy.visibility = View.VISIBLE
                 }
 
                 R.id.model3 -> {
                     viewBinding.cutAdd.visibility = View.VISIBLE
                     viewBinding.cutRemove.visibility = View.VISIBLE
-                    viewBinding.timeBar.switchCutMode(CutPieceFragment.CUT_MODE_JUMP)
+                    viewBinding.timeLine.switchCutMode(CutPieceFragment.CUT_MODE_JUMP)
                     viewBinding.trimAnchorLy.visibility = View.INVISIBLE
                 }
             }
         }
 
         viewBinding.cutAdd.setOnClickListener {
-            viewBinding.timeBar.cutAdd()
+            viewBinding.timeLine.cutAdd()
         }
 
         viewBinding.cutRemove.setOnClickListener {
-            viewBinding.timeBar.cutRemove()
+            viewBinding.timeLine.cutRemove()
         }
 
         viewBinding.play.setOnClickListener {
-            viewBinding.timeBar.play()
+            viewBinding.timeLine.play()
         }
         viewBinding.pause.setOnClickListener {
-            viewBinding.timeBar.pause()
+            viewBinding.timeLine.pause()
         }
 
         viewBinding.trimStart.setOnClickListener {
-            viewBinding.timeBar.trimStart()
+            viewBinding.timeLine.trimStart()
         }
 
         viewBinding.trimEnd.setOnClickListener {
-            viewBinding.timeBar.trimEnd()
+            viewBinding.timeLine.trimEnd()
         }
 
         PlayerManager.addProgressListener(object : PlayerProgressCallback {
@@ -297,12 +297,12 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                                            position: Long,
                                            duration: Long) {
                 if (isAdded) {
-                    viewBinding.timeBar.onProgressChange(currentWindowIndex, position, duration)
+                    viewBinding.timeLine.onProgressChange(currentWindowIndex, position, duration)
                 }
             }
         })
 
-        viewBinding.timeBar.addOnCutLineAnchorChangeListener(object :
+        viewBinding.timeLine.addOnCutLineAnchorChangeListener(object :
                                                                  AudioCutEditorView.OnCutLineAnchorChangeListener {
 
             override fun onCutLineChange(start: Boolean, end: Boolean) {
@@ -311,7 +311,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             }
         })
 
-        viewBinding.timeBar.addOnTrimAnchorChangeListener(object :
+        viewBinding.timeLine.addOnTrimAnchorChangeListener(object :
                                                               AudioCutEditorView.OnTrimAnchorChangeListener {
 
             override fun onTrimChange(start: Boolean, end: Boolean) {
@@ -320,7 +320,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             }
         })
 
-        viewBinding.timeBar.addOnCutLineChangeListener(object :
+        viewBinding.timeLine.addOnCutLineChangeListener(object :
                                                            AudioCutEditorView.OnCutLineChangeListener {
 
             override fun onCutLineChange(start: Long, end: Long) {
@@ -335,7 +335,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             }
         })
 
-        viewBinding.timeBar.addCutModeChangeButtonEnableListener(object :
+        viewBinding.timeLine.addCutModeChangeButtonEnableListener(object :
                                                                      AudioCutEditorView.CutModeChangeButtonEnableListener {
 
 
@@ -346,26 +346,26 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         })
 
         viewBinding.cutStartMinus.setOnClickListener {
-            viewBinding.timeBar.startCutMinus()
+            viewBinding.timeLine.startCutMinus()
         }
         viewBinding.cutStartPlus.setOnClickListener {
-            viewBinding.timeBar.startCutPlus()
+            viewBinding.timeLine.startCutPlus()
         }
         viewBinding.cutEndMinus.setOnClickListener {
-            viewBinding.timeBar.startEndMinus()
+            viewBinding.timeLine.startEndMinus()
         }
         viewBinding.cutEndPlus.setOnClickListener {
-            viewBinding.timeBar.startEndPlus()
+            viewBinding.timeLine.startEndPlus()
         }
         viewBinding.cutStart.setOnClickListener {
-            viewBinding.timeBar.editTrimStart(parentFragmentManager)
+            viewBinding.timeLine.editTrimStart(parentFragmentManager)
         }
         viewBinding.cutEnd.setOnClickListener {
-            viewBinding.timeBar.editTrimEnd(parentFragmentManager)
+            viewBinding.timeLine.editTrimEnd(parentFragmentManager)
         }
 
 
-        viewBinding.timeBar.addOnPlayingLineChangeListener(object :
+        viewBinding.timeLine.addOnPlayingLineChangeListener(object :
                                                                AudioCutEditorView.OnPlayingLineChangeListener {
 
             override fun onPlayingLineChange(value: Long) {
@@ -374,11 +374,11 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         })
 
         viewBinding.clpLeft.setOnClickListener {
-            viewBinding.timeBar.anchor2CutStartLine()
+            viewBinding.timeLine.anchor2CutStartLine()
         }
 
         viewBinding.clpRight.setOnClickListener {
-            viewBinding.timeBar.anchor2CutEndLine()
+            viewBinding.timeLine.anchor2CutEndLine()
         }
 
         viewBinding.confirm.setOnClickListener {
@@ -391,10 +391,10 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         }
 
         viewBinding.pre.setOnClickListener {
-            if (datas.isNullOrEmpty() || viewBinding.timeBar.audioFragmentBean == null) {
+            if (datas.isNullOrEmpty() || viewBinding.timeLine.audioFragmentBean == null) {
                 Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
             } else {
-                var last = datas.lastAudioFragmentBean(viewBinding.timeBar.audioFragmentBean!!)
+                var last = datas.lastAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!)
                 if (last == null) {
                     Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
                 } else {
@@ -403,10 +403,10 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             }
         }
         viewBinding.next.setOnClickListener {
-            if (datas.isNullOrEmpty() || viewBinding.timeBar.audioFragmentBean == null) {
+            if (datas.isNullOrEmpty() || viewBinding.timeLine.audioFragmentBean == null) {
                 Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
             } else {
-                var next = datas.nextAudioFragmentBean(viewBinding.timeBar.audioFragmentBean!!)
+                var next = datas.nextAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!)
                 if (next == null) {
                     Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
                 } else {
@@ -416,7 +416,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         }
         setAudioData()
         if (isSaveDta) {
-            addData(viewBinding.timeBar.audioFragmentBean)
+            addData(viewBinding.timeLine.audioFragmentBean)
         }
     }
 
@@ -433,12 +433,14 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
     //todo requireContext()
     private fun setAudioData() {
-        viewBinding.timeBar.setLoadingView(mViewModel.song.duration.toLong(), mViewModel.song.path)
+        viewBinding.timeLine.setLoadingView(mViewModel.song.duration.toLong(), mViewModel.song.path)
         WaveformOptions.getSampleFrom(requireContext(), mViewModel.song.path) {
-//            viewBinding.timeBar.setWaveform(Waveform(it.toList()), mViewModel.song.duration.toLong(), mViewModel.song.path)
+            viewBinding.timeLine.setWaveform(Waveform(it.toList()), mViewModel.song.duration.toLong(), mViewModel.song.path)
+            viewBinding.waveLoading.pauseAnimation()
+            viewBinding.waveLoading.isVisible = false
         }
 
-        viewBinding.timeBar.setOnScaleChangeListener(object : OnScaleChangeListener {
+        viewBinding.timeLine.setOnScaleChangeListener(object : OnScaleChangeListener {
             override fun onScaleChange(mode: Int) {
                 when (mode) {
                     BaseAudioEditorView.MODE_UINT_100_MS -> {
@@ -505,7 +507,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         ?: ""
 
     private fun audioDeal(srcFile: String) {
-        var realCutPieceFragments = viewBinding.timeBar.cutPieceFragmentsOrder?.filter { !it.isFake }
+        var realCutPieceFragments = viewBinding.timeLine.cutPieceFragmentsOrder?.filter { !it.isFake }
         if (realCutPieceFragments.isNullOrEmpty()) {
             Toast.makeText(requireContext(), "请先选择片段", Toast.LENGTH_SHORT).show()
             return

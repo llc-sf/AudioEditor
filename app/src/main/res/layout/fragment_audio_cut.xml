@@ -135,7 +135,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <dev.audio.timeruler.weight.AudioCutEditorView
-        android:id="@+id/timeBar"
+        android:id="@+id/timeLine"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="#141414"
@@ -160,6 +160,21 @@
         app:topPadding="6dp"
         app:triangleSideLength="12dp"
         app:waveHeight="60dp" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/wave_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="@id/timeLine"
+        app:layout_constraintEnd_toEndOf="@id/timeLine"
+        app:layout_constraintStart_toStartOf="@id/timeLine"
+        app:layout_constraintTop_toTopOf="@id/timeLine"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="playing.json"
+        app:lottie_loop="true"
+        app:lottie_repeatMode="restart" />
 
     <LinearLayout
         android:id="@+id/edit_ly"
@@ -257,7 +272,7 @@
         android:padding="@dimen/dp_10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/timeBar">
+        app:layout_constraintTop_toBottomOf="@id/timeLine">
 
         <TextView
             android:id="@+id/current_play_time"

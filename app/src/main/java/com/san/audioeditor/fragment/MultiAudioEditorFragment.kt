@@ -90,12 +90,12 @@ class MultiAudioEditorFragment : BaseMVVMFragment<FragmentMutilAudioEditorBindin
         var endTime = calendar.timeInMillis
 
         //一个手机宽度显示多长时间
-//        viewBinding.timeBar.setScreenSpanValue(TimeRulerBar.VALUE_1000_MS * 8)
+//        viewBinding.timeLine.setScreenSpanValue(TimeRulerBar.VALUE_1000_MS * 8)
         //
-        viewBinding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[2])
-        viewBinding.timeBar.setRange(startTime, endTime)
+        viewBinding.timeLine.setMode(BaseAudioEditorView.MODE_ARRAY[2])
+        viewBinding.timeLine.setRange(startTime, endTime)
 
-        viewBinding.timeBar.setOnCursorListener(object :
+        viewBinding.timeLine.setOnCursorListener(object :
             BaseAudioEditorView.OnCursorListener {
             override fun onStartTrackingTouch(cursorValue: Long) {
 
@@ -112,7 +112,7 @@ class MultiAudioEditorFragment : BaseMVVMFragment<FragmentMutilAudioEditorBindin
 
         viewBinding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                viewBinding.timeBar.setScale(progress.toFloat())
+                viewBinding.timeLine.setScale(progress.toFloat())
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -138,41 +138,41 @@ class MultiAudioEditorFragment : BaseMVVMFragment<FragmentMutilAudioEditorBindin
 
         viewBinding.btnDir.setOnClickListener {
             viewBinding.btnDir.isSelected = !viewBinding.btnDir.isSelected
-            viewBinding.timeBar.setTickDirection(viewBinding.btnDir.isSelected)
+            viewBinding.timeLine.setTickDirection(viewBinding.btnDir.isSelected)
         }
 
         viewBinding.btnShowCursor.setOnClickListener {
             viewBinding.btnShowCursor.isSelected = !viewBinding.btnShowCursor.isSelected
-            viewBinding.timeBar.setShowCursor(viewBinding.btnShowCursor.isSelected);
+            viewBinding.timeLine.setShowCursor(viewBinding.btnShowCursor.isSelected);
         }
 
         viewBinding.btnPlay.setOnClickListener {
-            viewBinding.timeBar.setCursorTimeValue(viewBinding.timeBar.getCursorTimeValue() + 1000)
+            viewBinding.timeLine.setCursorTimeValue(viewBinding.timeLine.getCursorTimeValue() + 1000)
         }
         viewBinding.rgScale.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.scale1 -> {
-                    viewBinding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[0])
+                    viewBinding.timeLine.setMode(BaseAudioEditorView.MODE_ARRAY[0])
                 }
 
                 R.id.scale2 -> {
-                    viewBinding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[1])
+                    viewBinding.timeLine.setMode(BaseAudioEditorView.MODE_ARRAY[1])
                 }
 
                 R.id.scale3 -> {
-                    viewBinding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[2])
+                    viewBinding.timeLine.setMode(BaseAudioEditorView.MODE_ARRAY[2])
                 }
 
                 R.id.scale4 -> {
-                    viewBinding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[3])
+                    viewBinding.timeLine.setMode(BaseAudioEditorView.MODE_ARRAY[3])
                 }
 
                 R.id.scale5 -> {
-                    viewBinding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[4])
+                    viewBinding.timeLine.setMode(BaseAudioEditorView.MODE_ARRAY[4])
                 }
 
                 R.id.scale6 -> {
-                    viewBinding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[5])
+                    viewBinding.timeLine.setMode(BaseAudioEditorView.MODE_ARRAY[5])
                 }
             }
 
@@ -206,16 +206,16 @@ class MultiAudioEditorFragment : BaseMVVMFragment<FragmentMutilAudioEditorBindin
             testTime += i * 15 * 60 * 1000
         }
         val timeBean = TimeBean(videos)
-        viewBinding.timeBar.setColorScale(timeBean)
+        viewBinding.timeLine.setColorScale(timeBean)
 
         WaveformOptions.getSampleFrom(
             requireContext(),
             mViewModel.song.path
         ) {
-            viewBinding.timeBar.setWaveform(Waveform(it.toList()))
+            viewBinding.timeLine.setWaveform(Waveform(it.toList()))
         }
 
-        viewBinding.timeBar.setOnScaleChangeListener(object : OnScaleChangeListener {
+        viewBinding.timeLine.setOnScaleChangeListener(object : OnScaleChangeListener {
             override fun onScaleChange(mode: Int) {
                 when (mode) {
                     BaseAudioEditorView.MODE_UINT_100_MS -> {

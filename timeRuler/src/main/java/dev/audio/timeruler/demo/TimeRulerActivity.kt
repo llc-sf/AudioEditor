@@ -63,12 +63,12 @@ class TimeRulerActivity : AppCompatActivity() {
         var endTime = calendar.timeInMillis
 
         //一个手机宽度显示多长时间
-//        binding.timeBar.setScreenSpanValue(TimeRulerBar.VALUE_1000_MS * 8)
+//        binding.timeLine.setScreenSpanValue(TimeRulerBar.VALUE_1000_MS * 8)
         //
-        binding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[2])
-        binding.timeBar.setRange(startTime, endTime)
+        binding.timeLine.setMode(BaseAudioEditorView.MODE_ARRAY[2])
+        binding.timeLine.setRange(startTime, endTime)
 
-        binding.timeBar.setOnCursorListener(object :
+        binding.timeLine.setOnCursorListener(object :
             BaseAudioEditorView.OnCursorListener {
             override fun onStartTrackingTouch(cursorValue: Long) {
 
@@ -85,7 +85,7 @@ class TimeRulerActivity : AppCompatActivity() {
 
         binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                binding.timeBar.setScale(progress.toFloat())
+                binding.timeLine.setScale(progress.toFloat())
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -110,41 +110,41 @@ class TimeRulerActivity : AppCompatActivity() {
 
         binding.btnDir.setOnClickListener {
             binding.btnDir.isSelected = !binding.btnDir.isSelected
-            binding.timeBar.setTickDirection(binding.btnDir.isSelected)
+            binding.timeLine.setTickDirection(binding.btnDir.isSelected)
         }
 
         binding.btnShowCursor.setOnClickListener {
             binding.btnShowCursor.isSelected = !binding.btnShowCursor.isSelected
-            binding.timeBar.setShowCursor(binding.btnShowCursor.isSelected);
+            binding.timeLine.setShowCursor(binding.btnShowCursor.isSelected);
         }
 
         binding.btnPlay.setOnClickListener {
-            binding.timeBar.setCursorTimeValue(binding.timeBar.getCursorTimeValue() + 1000)
+            binding.timeLine.setCursorTimeValue(binding.timeLine.getCursorTimeValue() + 1000)
         }
         binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.rb1 -> {
-                    binding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[0])
+                    binding.timeLine.setMode(BaseAudioEditorView.MODE_ARRAY[0])
                 }
 
                 R.id.rb2 -> {
-                    binding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[1])
+                    binding.timeLine.setMode(BaseAudioEditorView.MODE_ARRAY[1])
                 }
 
                 R.id.rb3 -> {
-                    binding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[2])
+                    binding.timeLine.setMode(BaseAudioEditorView.MODE_ARRAY[2])
                 }
 
                 R.id.rb4 -> {
-                    binding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[3])
+                    binding.timeLine.setMode(BaseAudioEditorView.MODE_ARRAY[3])
                 }
 
                 R.id.rb5 -> {
-                    binding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[4])
+                    binding.timeLine.setMode(BaseAudioEditorView.MODE_ARRAY[4])
                 }
 
                 R.id.rb6 -> {
-                    binding.timeBar.setMode(BaseAudioEditorView.MODE_ARRAY[5])
+                    binding.timeLine.setMode(BaseAudioEditorView.MODE_ARRAY[5])
                 }
             }
         }
@@ -161,16 +161,16 @@ class TimeRulerActivity : AppCompatActivity() {
             testTime += i * 15 * 60 * 1000
         }
         val timeBean = TimeBean(videos)
-        binding.timeBar.setColorScale(timeBean)
+        binding.timeLine.setColorScale(timeBean)
 
         WaveformOptions.getSampleFrom(
             this,
             "/storage/emulated/0/Music/网易云音乐/暗杠,寅子 - 说书人.mp3"
         ) {
-            binding.timeBar.setWaveform(Waveform(it.toList()))
+            binding.timeLine.setWaveform(Waveform(it.toList()))
         }
 
-        binding.timeBar.setOnScaleChangeListener(object : OnScaleChangeListener {
+        binding.timeLine.setOnScaleChangeListener(object : OnScaleChangeListener {
             override fun onScaleChange(mode: Int) {
                 when (mode) {
                     MODE_UINT_100_MS -> {
