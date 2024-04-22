@@ -16,6 +16,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.SeekBar
 import android.widget.Toast
+import androidx.core.view.isVisible
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.PlaybackParameters
 import com.google.android.exoplayer2.SimpleExoPlayer
@@ -552,10 +553,13 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
             when (msg.what) {
                 FFmpegHandler.MSG_BEGIN -> {
                     Log.i(BaseAudioEditorView.jni_tag, "begin")
+                    viewBinding.progressLy.isVisible = true
+                    viewBinding.progressText.text = "0%"
                 }
 
                 FFmpegHandler.MSG_FINISH -> {
                     Log.i(BaseAudioEditorView.jni_tag, "finish resultCode=${msg.obj}")
+                    viewBinding.progressLy.isVisible = false
                     if (msg.obj == 0) {
                         var file = AudioFileUtils.copyAudioToFileStore(File(outputPath), requireContext(), cutFileName + suffix)
                         if (file != null) {
@@ -574,6 +578,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
                 FFmpegHandler.MSG_PROGRESS -> {
                     val progress = msg.arg1
                     Log.i(BaseAudioEditorView.jni_tag, "progress=$progress")
+                    viewBinding.progressText.text = "$progress%"
                 }
 
                 FFmpegHandler.MSG_INFO -> {

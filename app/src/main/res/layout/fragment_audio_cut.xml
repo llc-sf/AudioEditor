@@ -144,9 +144,11 @@
         app:cursorBackgroundColor="@android:color/holo_red_dark"
         app:cursorPosition="0.5"
         app:drawCursorContent="false"
+        app:keyTickHeight="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cut_ly"
+        app:normalTickRatio="0.67"
         app:playingTextSize="10dp"
         app:showCursorLine="true"
         app:showTickLine="false"
@@ -156,10 +158,8 @@
         app:tickValueOffset="0dp"
         app:tickValueSize="10dp"
         app:topPadding="6dp"
-        app:waveHeight="60dp"
-        app:keyTickHeight="10dp"
-        app:normalTickRatio="0.67"
-        app:triangleSideLength="12dp" />
+        app:triangleSideLength="12dp"
+        app:waveHeight="60dp" />
 
     <LinearLayout
         android:id="@+id/edit_ly"
@@ -476,4 +476,32 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnDir" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/progress_ly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/progressText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@id/progressBar"
+            app:layout_constraintStart_toStartOf="@id/progressBar"
+            app:layout_constraintTop_toBottomOf="@id/progressBar" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
