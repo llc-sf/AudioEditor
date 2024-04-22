@@ -1,8 +1,6 @@
 package com.san.audioeditor.fragment
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -18,8 +16,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.SeekBar
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.PlaybackParameters
 import com.google.android.exoplayer2.SimpleExoPlayer
@@ -90,7 +86,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
             val song = intent.getParcelableExtra<Song>(AudioCutActivity.PARAM_SONG)
             if (song != null) {
                 mViewModel.song = song
-                PlayerManager.playByPath(mViewModel.song.path)
                 initTimeBar()
                 return
             }
@@ -98,7 +93,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
             val audioFragmentBean = intent.getParcelableExtra<AudioFragmentBean>(AudioCutActivity.PARAM_AUDIO)
             if (audioFragmentBean != null && !TextUtils.isEmpty(audioFragmentBean.path)) {
                 mViewModel.song = getSongInfo(requireContext(), audioFragmentBean.path!!) ?: return
-                PlayerManager.playByPath(mViewModel.song.path)
                 initTimeBar(false)
                 return
             }
@@ -409,7 +403,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
             //                }
             //            }
         }
-        setData()
+        setAudioData()
         if (isSaveDta) {
             addData(viewBinding.timeBar.audioFragmentBean)
         }
@@ -427,7 +421,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>() {
 
 
     //todo requireContext()
-    private fun setData() {
+    private fun setAudioData() {
 
         WaveformOptions.getSampleFrom(requireContext(), mViewModel.song.path) {
             viewBinding.timeBar.setWaveform(Waveform(it.toList()), mViewModel.song.duration.toLong(), mViewModel.song.path)
