@@ -19,6 +19,10 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
 
     }
 
+    var isCancel = false
+    var isConformed = false
+    var isCutLineMoved = false
+
     // 定义构造 ViewModel 方法
     class ThemeListViewFactory() : ViewModelProvider.Factory {
         // 构造 数据访问接口实例
@@ -39,10 +43,7 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
     fun initData(context: Context, arguments: Bundle?) {
         viewModelScope.launch(Dispatchers.IO) {
             launchOnUI {
-                refresh(
-                    AudioCutViewModel(
-                    )
-                )
+                refresh(AudioCutViewModel())
 
             }
         }

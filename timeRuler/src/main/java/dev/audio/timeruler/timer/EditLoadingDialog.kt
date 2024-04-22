@@ -61,5 +61,11 @@ class EditLoadingDialog : BaseBottomTranslucentDialog() {
         onCancelListener = listener
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        onCancelListener = null
+    }
+
 
 }
