@@ -79,6 +79,20 @@ object PlayerManager {
                 }
             }
 
+            override fun onIsPlayingChanged(isPlaying: Boolean) {
+                super.onIsPlayingChanged(isPlaying)
+                eventListeners.forEach {
+                    it.onIsPlayingChanged(isPlaying)
+                }
+            }
+
+            override fun onPlaybackStateChanged(state: Int) {
+                super.onPlaybackStateChanged(state)
+                eventListeners.forEach {
+                    it.onPlaybackStateChanged(state)
+                }
+            }
+
             // 添加其他需要监听的事件
         })
         return player
@@ -93,6 +107,10 @@ object PlayerManager {
 
     fun addListener(listener: Player.EventListener) {
         eventListeners.add(listener)
+    }
+
+    fun removeListener(listener: Player.EventListener) {
+        eventListeners.remove(listener)
     }
 
     private var progressListener: PlayerProgressCallback? = null

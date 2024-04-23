@@ -14,11 +14,11 @@ import android.provider.MediaStore
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.SeekBar
 import android.widget.Toast
 import androidx.core.view.isVisible
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.PlaybackParameters
+import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.source.MergingMediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
@@ -62,7 +62,7 @@ import java.util.Calendar
 import java.util.Date
 
 class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
-    EditLoadingDialog.OnCancelListener {
+    EditLoadingDialog.OnCancelListener, Player.EventListener {
 
 
     companion object {
@@ -136,6 +136,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     override fun onDestroyView() {
         super.onDestroyView()
         PlayerManager.releasePlayer()
+        PlayerManager.addListener(this)
     }
 
     override fun startObserve() {
@@ -250,11 +251,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         }
 
         viewBinding.playActions.setOnClickListener {
-            if(!PlayerManager.isPlaying){
-                viewBinding.play.setImageResource(R.drawable.ic_puase)
-            }else{
-                viewBinding.play.setImageResource(R.drawable.ic_play)
-            }
             viewBinding.timeLine.playOrPause()
         }
 
@@ -390,19 +386,23 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 }
             }
         }
+        PlayerManager.addListener(this)
         setAudioData()
         if (isSaveDta) {
             addData(viewBinding.timeLine.audioFragmentBean)
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int,
-                                            permissions: Array<String>,
-                                            grantResults: IntArray) {
-        if (requestCode == 10000) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) { // 已获得权限，可以访问外部存储中的文件
-            } else { // 用户拒绝了权限请求，处理相应逻辑
-            }
+    override fun onPlaybackStateChanged(state: Int) {
+        super.onPlaybackStateChanged(state)
+    }
+
+    override fun onIsPlayingChanged(isPlaying: Boolean) {
+        super.onIsPlayingChanged(isPlaying)
+        if (isPlaying) {
+            viewBinding.play.setImageResource(R.drawable.ic_puase)
+        } else {
+            viewBinding.play.setImageResource(R.drawable.ic_play)
         }
     }
 

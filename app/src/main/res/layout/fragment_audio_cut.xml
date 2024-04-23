@@ -392,7 +392,7 @@
             android:id="@+id/play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_puase" />
+            app:srcCompat="@drawable/ic_play" />
     </LinearLayout>
 
     <LinearLayout
