@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/menu_bottom_index"
-        app:title="@string/cut_editor" />
+        app:title="@string/trim" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
