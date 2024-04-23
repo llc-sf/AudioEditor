@@ -195,20 +195,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             }
         })
 
-
-        viewBinding.btnDir.setOnClickListener {
-            viewBinding.btnDir.isSelected = !viewBinding.btnDir.isSelected
-            viewBinding.timeLine.setTickDirection(viewBinding.btnDir.isSelected)
-        }
-
-        viewBinding.btnShowCursor.setOnClickListener {
-            viewBinding.btnShowCursor.isSelected = !viewBinding.btnShowCursor.isSelected
-            viewBinding.timeLine.setShowCursor(viewBinding.btnShowCursor.isSelected)
-        }
-
-        viewBinding.btnPlay.setOnClickListener {
-            viewBinding.timeLine.setCursorTimeValue(viewBinding.timeLine.getCursorTimeValue() + 1000)
-        }
         viewBinding.zoomIn.setOnClickListener {
             viewBinding.timeLine.zoomIn()
         }
