@@ -379,7 +379,10 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                     AudioCutActivity.open(requireContext(), last)
                 }
             }
+            freshSaveActions()
         }
+
+        freshSaveActions()
         viewBinding.next.setOnClickListener {
             if (datas.isNullOrEmpty() || viewBinding.timeLine.audioFragmentBean == null) {
                 Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
@@ -391,6 +394,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                     AudioCutActivity.open(requireContext(), next)
                 }
             }
+            freshSaveActions()
         }
         PlayerManager.addListener(this)
         setAudioData()
@@ -399,8 +403,14 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         }
     }
 
-    override fun onPlaybackStateChanged(state: Int) {
-        super.onPlaybackStateChanged(state)
+    private fun freshSaveActions() {
+        if(datas.isNullOrEmpty() || viewBinding.timeLine.audioFragmentBean == null) {
+            viewBinding.pre.alpha = 0.5f
+            viewBinding.next.alpha = 0.5f
+            return
+        }
+        viewBinding.pre.alpha = if (datas.lastAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!) == null) 0.5f else 1f
+        viewBinding.next.alpha = if (datas.nextAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!) == null) 0.5f else 1f
     }
 
     override fun onIsPlayingChanged(isPlaying: Boolean) {
