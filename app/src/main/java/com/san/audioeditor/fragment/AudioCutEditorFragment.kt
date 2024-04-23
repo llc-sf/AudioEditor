@@ -249,11 +249,13 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             viewBinding.timeLine.cutRemove()
         }
 
-        viewBinding.play.setOnClickListener {
-            viewBinding.timeLine.play()
-        }
-        viewBinding.pause.setOnClickListener {
-            viewBinding.timeLine.pause()
+        viewBinding.playActions.setOnClickListener {
+            if(!PlayerManager.isPlaying){
+                viewBinding.play.setImageResource(R.drawable.ic_puase)
+            }else{
+                viewBinding.play.setImageResource(R.drawable.ic_play)
+            }
+            viewBinding.timeLine.playOrPause()
         }
 
         viewBinding.trimStart.setOnClickListener {

@@ -780,6 +780,14 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         }
     }
 
+    fun playOrPause() {
+        if (PlayerManager.isPlaying) {
+            pause()
+        } else {
+            play()
+        }
+    }
+
     fun pause() {
         PlayerManager.pause() //删除掉
         audioFragment?.removeFake()
