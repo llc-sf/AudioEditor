@@ -653,4 +653,5 @@
     <string name="trime_start_end_time_error">开始时间和结束时间不能相等</string>
     <string name="edit_exit_dialog_title">Discard</string>
     <string name="edit_exit_dialog_msg">Exit and discard the changes?</string>
+    <string name="selected">Selected</string>
 </resources>

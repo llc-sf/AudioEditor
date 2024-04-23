@@ -48,7 +48,7 @@ import dev.audio.timeruler.player.PlayerProgressCallback
 import dev.audio.timeruler.timer.EditExitDialog
 import dev.audio.timeruler.timer.EditLoadingDialog
 import dev.audio.timeruler.utils.AudioFileUtils
-import dev.audio.timeruler.utils.format2Duration
+import dev.audio.timeruler.utils.format2DurationSimple
 import dev.audio.timeruler.utils.lastAudioFragmentBean
 import dev.audio.timeruler.utils.nextAudioFragmentBean
 import dev.audio.timeruler.utils.toSegmentsArray
@@ -177,7 +177,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                                             .startValue(startTime).endValue(endTime)
                                             .maxScreenSpanValue(mViewModel.song.duration.toLong())
                                             .build())
-        viewBinding.durationTime.text = mViewModel.song.duration.toLong().format2Duration()
+        viewBinding.durationTime.text = mViewModel.song.duration.toLong().format2DurationSimple()
         viewBinding.durationTime1.text = (mViewModel.song.duration / 1000).toString()
         viewBinding.scale.text = viewBinding.timeLine.mMode.toString()
 
@@ -323,9 +323,9 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
             override fun onCutLineChange(start: Long, end: Long) {
 
-                viewBinding.cutStart.text = "${start.format2Duration()}"
-                viewBinding.cutEnd.text = "${end.format2Duration()}"
-                viewBinding.durationSelected.text = "${(end - start).format2Duration()}"
+                viewBinding.cutStart.text = "${start.format2DurationSimple()}"
+                viewBinding.cutEnd.text = "${end.format2DurationSimple()}"
+                viewBinding.durationSelected.text = "${(end - start).format2DurationSimple()}"
             }
 
             override fun onCutLineMove() {
@@ -367,7 +367,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                                                                 AudioCutEditorView.OnPlayingLineChangeListener {
 
             override fun onPlayingLineChange(value: Long) {
-                viewBinding.currentPlayTime.text = value.format2Duration()
+                viewBinding.currentPlayTime.text = value.format2DurationSimple()
             }
         })
 
@@ -387,8 +387,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
         viewBinding.btnCancel.setOnClickListener {
             mViewModel.isCancel = true
-            ffmpegHandler?.cancelExecute(true)
-            //        viewBinding.progressLy.isVisible = false
+            ffmpegHandler?.cancelExecute(true) //        viewBinding.progressLy.isVisible = false
         }
 
         viewBinding.pre.setOnClickListener {
@@ -575,7 +574,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                     Log.i(BaseAudioEditorView.jni_tag, "finish resultCode=${msg.obj}")
                     viewBinding.progressLy.isVisible = false
                     editLoadingDialog?.dismiss()
-                    if(mViewModel.isCancel){
+                    if (mViewModel.isCancel) {
                         return
                     }
                     if (msg.obj == 0) {
@@ -635,8 +634,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     }
 
     override fun onCancel() {
-        ffmpegHandler?.cancelExecute(true)
-//        viewBinding.progressLy.isVisible = false
+        ffmpegHandler?.cancelExecute(true) //        viewBinding.progressLy.isVisible = false
     }
 
 

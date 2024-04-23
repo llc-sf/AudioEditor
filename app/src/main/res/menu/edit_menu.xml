@@ -10,7 +10,7 @@
 
     <item
         android:id="@+id/action_save"
-        android:icon="@drawable/rect_ee294d_corner_100"
+        android:icon="@drawable/rect_ee294d_corner_31"
         android:title="@string/save"
         app:showAsAction="always" />
 
