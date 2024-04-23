@@ -576,7 +576,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_keep_selected" />
+                    app:srcCompat="@drawable/ic_keep_delete" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -603,7 +603,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_keep_selected" />
+                    app:srcCompat="@drawable/ic_keep_jump" />
 
                 <TextView
                     android:layout_width="wrap_content"
