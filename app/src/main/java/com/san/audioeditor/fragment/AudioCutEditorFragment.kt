@@ -177,9 +177,8 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                                             .startValue(startTime).endValue(endTime)
                                             .maxScreenSpanValue(mViewModel.song.duration.toLong())
                                             .build())
-        viewBinding.durationTime.text = mViewModel.song.duration.toLong().format2DurationSimple()
-        viewBinding.durationTime1.text = (mViewModel.song.duration / 1000).toString()
-        viewBinding.scale.text = viewBinding.timeLine.mMode.toString()
+        viewBinding.durationTime.text = mViewModel.song.duration.toLong()
+            .format2DurationSimple() //        viewBinding.scale.text = viewBinding.timeLine.mMode.toString()
 
         viewBinding.timeLine.setOnCursorListener(object : BaseAudioEditorView.OnCursorListener {
             override fun onStartTrackingTouch(cursorValue: Long) {
@@ -195,31 +194,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             }
         })
 
-        viewBinding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                viewBinding.timeLine.setScale(progress.toFloat())
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-            }
-
-        })
-
-        viewBinding.seekAreaOffset.setOnSeekBarChangeListener(object :
-                                                                  SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-            }
-
-        })
 
         viewBinding.btnDir.setOnClickListener {
             viewBinding.btnDir.isSelected = !viewBinding.btnDir.isSelected
@@ -443,28 +417,22 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         viewBinding.timeLine.setOnScaleChangeListener(object : OnScaleChangeListener {
             override fun onScaleChange(mode: Int) {
                 when (mode) {
-                    BaseAudioEditorView.MODE_UINT_100_MS -> {
-                        viewBinding.scale.text = "0"
+                    BaseAudioEditorView.MODE_UINT_100_MS -> { //                        viewBinding.scale.text = "0"
                     }
 
-                    BaseAudioEditorView.MODE_UINT_500_MS -> {
-                        viewBinding.scale.text = "1"
+                    BaseAudioEditorView.MODE_UINT_500_MS -> { //                        viewBinding.scale.text = "1"
                     }
 
-                    BaseAudioEditorView.MODE_UINT_1000_MS -> {
-                        viewBinding.scale.text = "2"
+                    BaseAudioEditorView.MODE_UINT_1000_MS -> { //                        viewBinding.scale.text = "2"
                     }
 
-                    BaseAudioEditorView.MODE_UINT_2000_MS -> {
-                        viewBinding.scale.text = "3"
+                    BaseAudioEditorView.MODE_UINT_2000_MS -> { //                        viewBinding.scale.text = "3"
                     }
 
-                    BaseAudioEditorView.MODE_UINT_3000_MS -> {
-                        viewBinding.scale.text = "4"
+                    BaseAudioEditorView.MODE_UINT_3000_MS -> { //                        viewBinding.scale.text = "4"
                     }
 
-                    BaseAudioEditorView.MODE_UINT_6000_MS -> {
-                        viewBinding.scale.text = "5"
+                    BaseAudioEditorView.MODE_UINT_6000_MS -> { //                        viewBinding.scale.text = "5"
                     }
 
                 }

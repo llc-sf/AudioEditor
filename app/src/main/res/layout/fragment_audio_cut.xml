@@ -237,28 +237,6 @@
         app:lottie_loop="true"
         app:lottie_repeatMode="restart" />
 
-    <LinearLayout
-        android:id="@+id/edit_ly"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rg_model">
-
-        <Button
-            android:id="@+id/pre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="撤销" />
-
-        <Button
-            android:id="@+id/next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="还原" />
-    </LinearLayout>
 
     <Button
         android:id="@+id/confirm"
@@ -269,7 +247,7 @@
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_ly" />
+        app:layout_constraintTop_toBottomOf="@+id/rg_model" />
 
     <TextView
         android:id="@+id/tvData"
@@ -282,100 +260,122 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/confirm" />
 
-    <TextView
-        android:id="@+id/durationTime"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:gravity="center"
-        android:textColor="#ff00"
-        android:textSize="16sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvData" />
-
-    <TextView
-        android:id="@+id/durationTime1"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:gravity="center"
-        android:textColor="#ff00"
-        android:textSize="16sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/durationTime" />
-
-    <TextView
-        android:id="@+id/btnZoom"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:gravity="center"
-        android:text="放大缩小刻度尺"
-        android:visibility="gone"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/durationTime1" />
-
-    <SeekBar
-        android:id="@+id/seekBar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:max="1000"
-        android:progress="500"
-        android:visibility="gone"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnZoom" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/action_ly"
-        android:layout_width="match_parent"
+        android:id="@+id/action_ly_1"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dp_10"
+        android:layout_marginHorizontal="@dimen/dp_20"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/timeLine">
 
-        <TextView
-            android:id="@+id/current_play_time"
+        <LinearLayout
+            android:id="@+id/edit_ly"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/rect_14ffffff_corner_46"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/dp_12"
+            android:paddingVertical="@dimen/dp_5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="00:04" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/pre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="撤销"
+                app:srcCompat="@drawable/ic_action_pre" />
+
+            <View
+                android:layout_width="@dimen/dp_1"
+                android:layout_height="@dimen/dp_14"
+                android:layout_marginHorizontal="@dimen/dp_14"
+                android:textColor="@color/white.alpha.15" />
+
+            <ImageView
+                android:id="@+id/next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="还原"
+                app:srcCompat="@drawable/ic_action_next" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/action_ly_1_mid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@id/edit_ly"
+            app:layout_constraintEnd_toStartOf="@id/rg_scale"
+            app:layout_constraintStart_toEndOf="@id/edit_ly"
+            app:layout_constraintTop_toTopOf="@id/edit_ly">
+
+            <TextView
+                android:id="@+id/current_play_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_11"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="00:04" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_11" />
+
+            <TextView
+                android:id="@+id/durationTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_11"
+                app:layout_constraintTop_toBottomOf="@+id/tvData" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/rg_scale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rect_14ffffff_corner_46"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/dp_12"
+            android:paddingVertical="@dimen/dp_5"
+            app:layout_constraintBottom_toBottomOf="@id/edit_ly"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edit_ly">
+
+            <ImageView
+                android:id="@+id/zoom_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Zoom Out"
+                app:srcCompat="@drawable/ic_zoom_out" />
+
+            <View
+                android:layout_width="@dimen/dp_1"
+                android:layout_height="@dimen/dp_14"
+                android:layout_marginHorizontal="@dimen/dp_14"
+                android:textColor="@color/white.alpha.15" />
+
+            <ImageView
+                android:id="@+id/zoom_in"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Zoom In"
+                app:srcCompat="@drawable/ic_zoom_in" />
+
+        </LinearLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
-        android:id="@+id/rg_scale"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/action_ly">
-
-        <Button
-            android:id="@+id/zoom_out"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Zoom Out" />
-
-        <TextView
-            android:id="@id/scale"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/dp_10"
-            android:textColor="@color/white" />
-
-        <Button
-            android:id="@+id/zoom_in"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Zoom In" />
-
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/play_actions"
@@ -385,7 +385,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rg_scale">
+        app:layout_constraintTop_toBottomOf="@id/action_ly_1">
 
         <Button
             android:id="@+id/play"
