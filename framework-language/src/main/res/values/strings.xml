@@ -657,4 +657,5 @@
     <string name="keep_selected">Keep selected</string>
     <string name="delete_selected">Delete selected</string>
     <string name="jump_selected">Jump selected</string>
+    <string name="set_playback_range">Set playback range</string>
 </resources>
