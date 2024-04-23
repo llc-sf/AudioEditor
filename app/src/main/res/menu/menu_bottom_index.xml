@@ -3,12 +3,12 @@
 
     <item
         android:id="@+id/navigation_create"
-        android:icon="@drawable/ic_bar_library"
+        android:icon="@drawable/ic_tabbar_create"
         android:title="@string/create" />
 
     <item
         android:id="@+id/navigation_output"
-        android:icon="@drawable/ic_bar_library"
+        android:icon="@drawable/ic_tabbar_outputs"
         android:title="@string/output" />
 
 </menu>

@@ -38,7 +38,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_music_banner" />
+                        app:srcCompat="@drawable/ic_autido_editor_logo" />
 
 
                 </androidx.appcompat.widget.Toolbar>
