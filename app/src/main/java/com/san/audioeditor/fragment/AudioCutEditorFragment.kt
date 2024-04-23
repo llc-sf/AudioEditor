@@ -216,31 +216,51 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             viewBinding.timeLine.zoomOut()
         }
 
-
-        viewBinding.rgModel.setOnCheckedChangeListener { group, checkedId ->
-            when (checkedId) {
-                R.id.model1 -> {
-                    viewBinding.cutAdd.visibility = View.INVISIBLE
-                    viewBinding.cutRemove.visibility = View.INVISIBLE
-                    viewBinding.timeLine.switchCutMode(CutPieceFragment.CUT_MODE_SELECT)
-                    viewBinding.trimAnchorLy.visibility = View.VISIBLE
-                }
-
-                R.id.model2 -> {
-                    viewBinding.cutAdd.visibility = View.INVISIBLE
-                    viewBinding.cutRemove.visibility = View.INVISIBLE
-                    viewBinding.timeLine.switchCutMode(CutPieceFragment.CUT_MODE_DELETE)
-                    viewBinding.trimAnchorLy.visibility = View.VISIBLE
-                }
-
-                R.id.model3 -> {
-                    viewBinding.cutAdd.visibility = View.VISIBLE
-                    viewBinding.cutRemove.visibility = View.VISIBLE
-                    viewBinding.timeLine.switchCutMode(CutPieceFragment.CUT_MODE_JUMP)
-                    viewBinding.trimAnchorLy.visibility = View.INVISIBLE
-                }
-            }
+        viewBinding.keepSelected.isSelected = true
+        viewBinding.keepSelected.setOnClickListener {
+            viewBinding.timeLine.switchCutMode(CutPieceFragment.CUT_MODE_SELECT)
+            viewBinding.keepSelected.isSelected = true
+            viewBinding.deleteSelected.isSelected = false
+            viewBinding.jumpSelected.isSelected = false
         }
+        viewBinding.deleteSelected.setOnClickListener {
+            viewBinding.timeLine.switchCutMode(CutPieceFragment.CUT_MODE_DELETE)
+            viewBinding.keepSelected.isSelected = false
+            viewBinding.deleteSelected.isSelected = true
+            viewBinding.jumpSelected.isSelected = false
+        }
+
+        viewBinding.jumpSelected.setOnClickListener {
+            viewBinding.timeLine.switchCutMode(CutPieceFragment.CUT_MODE_JUMP)
+            viewBinding.keepSelected.isSelected = false
+            viewBinding.deleteSelected.isSelected = false
+            viewBinding.jumpSelected.isSelected = true
+        }
+
+        //        viewBinding.rgModel.setOnCheckedChangeListener { group, checkedId ->
+        //            when (checkedId) {
+        //                R.id.model1 -> {
+        //                    viewBinding.cutAdd.visibility = View.INVISIBLE
+        //                    viewBinding.cutRemove.visibility = View.INVISIBLE
+        //                    viewBinding.timeLine.switchCutMode(CutPieceFragment.CUT_MODE_SELECT)
+        //                    viewBinding.trimAnchorLy.visibility = View.VISIBLE
+        //                }
+        //
+        //                R.id.model2 -> {
+        //                    viewBinding.cutAdd.visibility = View.INVISIBLE
+        //                    viewBinding.cutRemove.visibility = View.INVISIBLE
+        //                    viewBinding.timeLine.switchCutMode(CutPieceFragment.CUT_MODE_DELETE)
+        //                    viewBinding.trimAnchorLy.visibility = View.VISIBLE
+        //                }
+        //
+        //                R.id.model3 -> {
+        //                    viewBinding.cutAdd.visibility = View.VISIBLE
+        //                    viewBinding.cutRemove.visibility = View.VISIBLE
+        //                    viewBinding.timeLine.switchCutMode(CutPieceFragment.CUT_MODE_JUMP)
+        //                    viewBinding.trimAnchorLy.visibility = View.INVISIBLE
+        //                }
+        //            }
+        //        }
 
         viewBinding.cutAdd.setOnClickListener {
             viewBinding.timeLine.cutAdd()

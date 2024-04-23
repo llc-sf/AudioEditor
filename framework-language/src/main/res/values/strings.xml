@@ -654,4 +654,7 @@
     <string name="edit_exit_dialog_title">Discard</string>
     <string name="edit_exit_dialog_msg">Exit and discard the changes?</string>
     <string name="selected">Selected</string>
+    <string name="keep_selected">Keep selected</string>
+    <string name="delete_selected">Delete selected</string>
+    <string name="jump_selected">Jump selected</string>
 </resources>
