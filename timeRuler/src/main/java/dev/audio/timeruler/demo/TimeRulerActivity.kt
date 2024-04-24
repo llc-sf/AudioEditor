@@ -63,13 +63,12 @@ class TimeRulerActivity : AppCompatActivity() {
         var endTime = calendar.timeInMillis
 
         //一个手机宽度显示多长时间
-//        binding.timeLine.setScreenSpanValue(TimeRulerBar.VALUE_1000_MS * 8)
+        //        binding.timeLine.setScreenSpanValue(TimeRulerBar.VALUE_1000_MS * 8)
         //
         binding.timeLine.setMode(BaseAudioEditorView.MODE_ARRAY[2])
         binding.timeLine.setRange(startTime, endTime)
 
-        binding.timeLine.setOnCursorListener(object :
-            BaseAudioEditorView.OnCursorListener {
+        binding.timeLine.setOnCursorListener(object : BaseAudioEditorView.OnCursorListener {
             override fun onStartTrackingTouch(cursorValue: Long) {
 
             }
@@ -163,15 +162,12 @@ class TimeRulerActivity : AppCompatActivity() {
         val timeBean = TimeBean(videos)
         binding.timeLine.setColorScale(timeBean)
 
-        WaveformOptions.getSampleFrom(
-            this,
-            "/storage/emulated/0/Music/网易云音乐/暗杠,寅子 - 说书人.mp3"
-        ) {
+        WaveformOptions.getSampleFrom(this, "/storage/emulated/0/Music/网易云音乐/暗杠,寅子 - 说书人.mp3") {
             binding.timeLine.setWaveform(Waveform(it.toList()))
         }
 
         binding.timeLine.setOnScaleChangeListener(object : OnScaleChangeListener {
-            override fun onScaleChange(mode: Int) {
+            override fun onScaleChange(mode: Int, min: Int, max: Int) {
                 when (mode) {
                     MODE_UINT_100_MS -> {
                         binding.radioGroup.check(R.id.rb1)
@@ -206,13 +202,8 @@ class TimeRulerActivity : AppCompatActivity() {
     }
 
     private fun initExoPlayer(mAppContext: Context): SimpleExoPlayer {
-        val player = SimpleExoPlayer.Builder(
-            mAppContext,
-            MultiTrackRenderersFactory(
-                2,
-                mAppContext
-            )
-        ).setTrackSelector(MultiTrackSelector()).build()
+        val player = SimpleExoPlayer.Builder(mAppContext, MultiTrackRenderersFactory(2, mAppContext))
+            .setTrackSelector(MultiTrackSelector()).build()
         player.repeatMode = SimpleExoPlayer.REPEAT_MODE_ALL
         player.playWhenReady = true
         player.setPlaybackParameters(PlaybackParameters(1f))
@@ -225,38 +216,22 @@ class TimeRulerActivity : AppCompatActivity() {
         // 创建 ExoPlayer 实例
         val player: SimpleExoPlayer = initExoPlayer(context)
 
-        var dataSourceFactory = DefaultDataSourceFactory(
-            context,
-            Util.getUserAgent(context, context.packageName)
-        )
-        // 创建多个 MediaSource，分别对应不同的音频文件
-        val audioSource1 = ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(
-            MediaItem.fromUri(
-                "content://media/external/audio/media/5184"
-            )
-        )
-        val audioSource2 = ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(
-            MediaItem.fromUri(
-                "content://media/external/audio/media/3123"
-            )
-        )
+        var dataSourceFactory = DefaultDataSourceFactory(context, Util.getUserAgent(context, context.packageName)) // 创建多个 MediaSource，分别对应不同的音频文件
+        val audioSource1 = ProgressiveMediaSource.Factory(dataSourceFactory)
+            .createMediaSource(MediaItem.fromUri("content://media/external/audio/media/5184"))
+        val audioSource2 = ProgressiveMediaSource.Factory(dataSourceFactory)
+            .createMediaSource(MediaItem.fromUri("content://media/external/audio/media/3123"))
         player.playWhenReady = true
         player.setMediaSource(
 
-            MergingMediaSource(
-                true,
-//                SilenceMediaSource(30 * 1000000),
-                ClippingMediaSource(
-                    audioSource1,
-                    20 * 1000000, 30 * 1000000,
-                ),
-                ClippingMediaSource(
+            MergingMediaSource(true, //                SilenceMediaSource(30 * 1000000),
+                               ClippingMediaSource(
+                                   audioSource1,
+                                   20 * 1000000, 30 * 1000000,
+                               ), ClippingMediaSource(
                     audioSource2,
                     0 * 1000000, 10 * 1000000,
-                )
-            )
-        )
-//        player.prepare()
+                ))) //        player.prepare()
 
     }
 
