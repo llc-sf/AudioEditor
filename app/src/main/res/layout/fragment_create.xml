@@ -6,12 +6,69 @@
     android:clipChildren="false"
     android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/img_cut"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_196"
+        android:layout_marginHorizontal="@dimen/dp_28"
+        android:layout_marginTop="@dimen/dp_20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ic_trim_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_32"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_cut"
+        app:srcCompat="@drawable/ic_trim_audio_icon" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/ic_trim_icon"
+        app:layout_constraintStart_toEndOf="@id/ic_trim_icon"
+        app:layout_constraintTop_toTopOf="@id/ic_trim_icon"
+        app:srcCompat="@drawable/ic_trim_audio_text" />
+
+    <TextView
+        android:id="@+id/cut_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_16"
+        android:text="@string/cut_desc"
+        android:textColor="@color/color_60f7f7f7"
+        android:textSize="@dimen/sp_15"
+        app:layout_constraintEnd_toEndOf="@id/img_cut"
+        app:layout_constraintStart_toStartOf="@id/img_cut"
+        app:layout_constraintTop_toBottomOf="@id/ic_trim_icon" />
+
+
+    <TextView
+        android:id="@+id/trim"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_32"
+        android:background="@drawable/rect_ee294d_corner_14"
+        android:gravity="center"
+        android:paddingVertical="@dimen/dp_14"
+        android:text="@string/start_triming"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cut_desc" />
+
     <TextView
         android:id="@+id/create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/dp_10"
         android:text="@string/cut_editor"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,6 +82,7 @@
         android:layout_marginTop="@dimen/dp_10"
         android:padding="@dimen/dp_10"
         android:text="@string/cut_editor_multi"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/create" />

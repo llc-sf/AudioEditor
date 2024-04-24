@@ -28,11 +28,9 @@ class CreateFragment : BaseFragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
         _binding = FragmentCreateBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -46,6 +44,11 @@ class CreateFragment : BaseFragment() {
             val intent = Intent(context, AudioPickActivity::class.java)
             pickAudioResult.launch(intent)
         }
+        binding.trim.setOnClickListener {
+            isMulti = false
+            val intent = Intent(context, AudioPickActivity::class.java)
+            pickAudioResult.launch(intent)
+        }
 
         binding.createMulti.setOnClickListener {
             isMulti = true
@@ -54,21 +57,20 @@ class CreateFragment : BaseFragment() {
         }
     }
 
-    private val pickAudioResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                var song = result.data?.getParcelableExtra<Song>(AudioPickFragment.PARAM_SONG)
-                Log.i(TAG, "pick song: $song")
-                if (song != null) {
-                    if (isMulti) {
-                        MultiTrackerAudioEditorActivity.open(requireContext(), song)
-                    } else {
-                        AudioCutActivity.open(requireContext(), song!!)
-                    }
-
+    private val pickAudioResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            var song = result.data?.getParcelableExtra<Song>(AudioPickFragment.PARAM_SONG)
+            Log.i(TAG, "pick song: $song")
+            if (song != null) {
+                if (isMulti) {
+                    MultiTrackerAudioEditorActivity.open(requireContext(), song)
+                } else {
+                    AudioCutActivity.open(requireContext(), song!!)
                 }
+
             }
         }
+    }
 
 
     override fun onDestroyView() {
