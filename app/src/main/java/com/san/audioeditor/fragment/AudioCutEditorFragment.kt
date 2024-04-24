@@ -311,6 +311,9 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             override fun onCutLineChange(start: Boolean, end: Boolean) {
                 viewBinding.clpLeft.visibility = if (start) View.VISIBLE else View.INVISIBLE
                 viewBinding.clpRight.visibility = if (end) View.VISIBLE else View.INVISIBLE
+                viewBinding.clStartAncher.visibility = if (start) View.VISIBLE else View.INVISIBLE
+                viewBinding.clEndAncher.visibility = if (end) View.VISIBLE else View.INVISIBLE
+
             }
         })
 
@@ -381,6 +384,13 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         }
 
         viewBinding.clpRight.setOnClickListener {
+            viewBinding.timeLine.anchor2CutEndLine()
+        }
+        viewBinding.clStartAncher.setOnClickListener {
+            viewBinding.timeLine.anchor2CutStartLine()
+        }
+
+        viewBinding.clEndAncher.setOnClickListener {
             viewBinding.timeLine.anchor2CutEndLine()
         }
 
