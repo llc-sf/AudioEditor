@@ -659,4 +659,6 @@
     <string name="delete_selected">Delete selected</string>
     <string name="jump_selected">Jump selected</string>
     <string name="set_playback_range">Set playback range</string>
+    <string name="add_clip_to_the_playback">Add clip to the playback</string>
+    <string name="discard_clip">Discard clip</string>
 </resources>

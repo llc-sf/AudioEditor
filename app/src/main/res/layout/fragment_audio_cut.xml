@@ -506,7 +506,7 @@
                 android:background="@drawable/cut_mode_action_bg_selector"
                 android:paddingHorizontal="@dimen/dp_12"
                 android:paddingVertical="@dimen/dp_10"
-                android:text="add"
+                android:text="@string/add_clip_to_the_playback"
                 android:textColor="@color/white_50white_selector" />
 
             <TextView
@@ -517,7 +517,7 @@
                 android:background="@drawable/cut_mode_action_bg_selector"
                 android:paddingHorizontal="@dimen/dp_12"
                 android:paddingVertical="@dimen/dp_10"
-                android:text="remove"
+                android:text="@string/discard_clip"
                 android:textColor="@color/white_50white_selector" />
 
         </LinearLayout>
