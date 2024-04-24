@@ -31,7 +31,7 @@ fun Long.format2Duration(): String {
 }
 
 /**
- * 输出格式为：mm:ss.S
+ * 输出格式为：mm:ss.S  保留一位小数，向下取整
  */
 fun Long.format2DurationSimple(): String {
     val totalSeconds = this / 1000
