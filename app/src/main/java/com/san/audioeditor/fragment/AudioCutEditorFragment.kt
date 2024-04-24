@@ -92,6 +92,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 mViewModel.song = song
                 initTimeBar()
                 PlayerManager.playWithSeek(0, 0)
+                freshSaveActions()
                 return
             }
 
@@ -100,6 +101,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 mViewModel.song = getSongInfo(requireContext(), audioFragmentBean.path!!) ?: return
                 initTimeBar(false)
                 PlayerManager.playWithSeek(0, 0)
+                freshSaveActions()
                 return
             }
 
@@ -369,32 +371,26 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         }
 
         viewBinding.pre.setOnClickListener {
-            if (datas.isNullOrEmpty() || viewBinding.timeLine.audioFragmentBean == null) {
-                Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
+            if (datas.isNullOrEmpty() || viewBinding.timeLine.audioFragmentBean == null) { //                Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
             } else {
                 var last = datas.lastAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!)
-                if (last == null) {
-                    Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
+                if (last == null) { //                    Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
                 } else {
                     AudioCutActivity.open(requireContext(), last)
                 }
             }
-            freshSaveActions()
         }
 
         freshSaveActions()
         viewBinding.next.setOnClickListener {
-            if (datas.isNullOrEmpty() || viewBinding.timeLine.audioFragmentBean == null) {
-                Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
+            if (datas.isNullOrEmpty() || viewBinding.timeLine.audioFragmentBean == null) { //                Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
             } else {
                 var next = datas.nextAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!)
-                if (next == null) {
-                    Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
+                if (next == null) { //                    Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
                 } else {
                     AudioCutActivity.open(requireContext(), next)
                 }
             }
-            freshSaveActions()
         }
         PlayerManager.addListener(this)
         setAudioData()
@@ -404,13 +400,27 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     }
 
     private fun freshSaveActions() {
-        if(datas.isNullOrEmpty() || viewBinding.timeLine.audioFragmentBean == null) {
+        if (datas.isNullOrEmpty() || viewBinding.timeLine.audioFragmentBean == null) {
             viewBinding.pre.alpha = 0.5f
             viewBinding.next.alpha = 0.5f
+            viewBinding.pre.isEnabled = false
+            viewBinding.next.isEnabled = false
             return
         }
-        viewBinding.pre.alpha = if (datas.lastAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!) == null) 0.5f else 1f
-        viewBinding.next.alpha = if (datas.nextAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!) == null) 0.5f else 1f
+        if (datas.lastAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!) == null) {
+            viewBinding.pre.alpha = 0.5f
+            viewBinding.pre.isEnabled = false
+        } else {
+            viewBinding.pre.alpha = 1f
+            viewBinding.pre.isEnabled = true
+        }
+        if (datas.nextAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!) == null) {
+            viewBinding.next.alpha = 0.5f
+            viewBinding.next.isEnabled = false
+        } else {
+            viewBinding.next.alpha = 1f
+            viewBinding.next.isEnabled = true
+        }
     }
 
     override fun onIsPlayingChanged(isPlaying: Boolean) {
