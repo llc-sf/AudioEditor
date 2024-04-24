@@ -8,6 +8,12 @@
         app:showAsAction="always" />
 
     <item
+        android:id="@+id/action_question"
+        android:icon="@drawable/ic_help"
+        android:title="@string/help"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/action_setting"
         android:icon="@drawable/ic_settings"
         android:title="@string/settings"
