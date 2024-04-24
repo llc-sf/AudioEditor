@@ -176,8 +176,8 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                 var addEnable = true
                 var removeEnable = false
                 audio.cutPieceFragments.forEachIndexed { _, cutPieceFragment ->
-                    removeEnable = removeEnable || (cutPieceFragment.isSelected)
                     addEnable = addEnable && (audio.currentPlayingTimeInAudio < cutPieceFragment.startTimestampTimeInSelf || audio.currentPlayingTimeInAudio > cutPieceFragment.endTimestampTimeInSelf)
+                    removeEnable = removeEnable || (audio.currentPlayingTimeInAudio >= cutPieceFragment.startTimestampTimeInSelf && audio.currentPlayingTimeInAudio <= cutPieceFragment.endTimestampTimeInSelf)
                 }
                 cutModeChangeButtonEnableListener?.onCutModeChange(addEnable, removeEnable)
             }

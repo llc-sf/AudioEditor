@@ -251,6 +251,32 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             }
         })
 
+        viewBinding.timeLine.addOnCutModeChangeListener(object :
+                                                            AudioCutEditorView.CutModeChangeListener {
+
+            override fun onCutModeChange(mode: Int) {
+                when (mode) {
+                    CutPieceFragment.CUT_MODE_SELECT -> {
+                        viewBinding.cutDesc.isVisible = true
+                        viewBinding.trimAnchorLy.isVisible = true
+                        viewBinding.jumpActionLy.isVisible = false
+                    }
+
+                    CutPieceFragment.CUT_MODE_DELETE -> {
+                        viewBinding.cutDesc.isVisible = true
+                        viewBinding.trimAnchorLy.isVisible = true
+                        viewBinding.jumpActionLy.isVisible = false
+                    }
+
+                    CutPieceFragment.CUT_MODE_JUMP -> {
+                        viewBinding.cutDesc.isVisible = false
+                        viewBinding.trimAnchorLy.isVisible = false
+                        viewBinding.jumpActionLy.isVisible = true
+                    }
+                }
+            }
+        })
+
         viewBinding.timeLine.setOnScaleChangeListener(object : OnScaleChangeListener {
 
             override fun onScaleChange(mode: Int, min: Int, max: Int) {
@@ -292,8 +318,8 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                                                                AudioCutEditorView.OnTrimAnchorChangeListener {
 
             override fun onTrimChange(start: Boolean, end: Boolean) {
-                viewBinding.trimStart.visibility = if (start) View.VISIBLE else View.INVISIBLE
-                viewBinding.trimEnd.visibility = if (end) View.VISIBLE else View.INVISIBLE
+                viewBinding.trimStart.isEnabled = start
+                viewBinding.trimEnd.isEnabled = end
             }
         })
 
@@ -317,8 +343,8 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
 
             override fun onCutModeChange(addEnable: Boolean, removeEnable: Boolean) {
-                viewBinding.cutAdd.visibility = if (addEnable) View.VISIBLE else View.INVISIBLE
-                viewBinding.cutRemove.visibility = if (removeEnable) View.VISIBLE else View.INVISIBLE
+                viewBinding.cutAdd.isEnabled = addEnable
+                viewBinding.cutRemove.isEnabled = removeEnable
             }
         })
 

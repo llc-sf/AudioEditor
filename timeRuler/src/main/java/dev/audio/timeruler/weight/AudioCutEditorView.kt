@@ -544,6 +544,21 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         onPlayingLineChangeListener = listener
     } //*************************************播放条位置变化监听 end *************************************//
 
+
+    //*************************************裁剪模式变化 start *************************************//
+    interface CutModeChangeListener {
+        fun onCutModeChange(mode: Int)
+    }
+
+    var onCutModeChangeListener: CutModeChangeListener? = null
+
+    fun addOnCutModeChangeListener(listener: CutModeChangeListener) {
+        onCutModeChangeListener = listener
+    }
+    //*************************************裁剪模式变化 end *************************************//
+
+
+
     fun refreshCutLineAnchor(start: Boolean, end: Boolean) {
         onCutLineAnchorChangeListener?.onCutLineChange(start, end)
     }
@@ -586,6 +601,9 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     }
 
     fun switchCutMode(mode: Int) {
+        if(cutMode == mode) {
+            return
+        }
         audioFragment?.switchCutMode(mode)
         var isPlay = PlayerManager.isPlaying
         PlayerManager.pause()
@@ -620,6 +638,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         } else {
             PlayerManager.seekTo(seekPosition, windowIndex)
         }
+        onCutModeChangeListener?.onCutModeChange(mode)
     }
 
     fun cutRemove() { //todo 增删后，保持之前播放/暂停状态（是播放就继续播放）播放源同步
