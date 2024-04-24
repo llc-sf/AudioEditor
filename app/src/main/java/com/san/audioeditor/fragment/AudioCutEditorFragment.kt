@@ -147,7 +147,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     }
 
 
-    val cursorDateFormat = SimpleDateFormat("MM月dd日 HH:mm:ss:SSS")
     private fun initTimeBar(isSaveDta: Boolean = true) {
         val calendar = Calendar.getInstance()
 
