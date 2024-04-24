@@ -900,6 +900,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
      *  3、unitMsPixel    每毫秒多少像素
      *  4、cursorValue    控制波形图的x坐标以免尾部出现空白现象
      */
+    private var  maxMode = 0
     private fun setMode(@Mode mode: Int,
                         isRefreshUnitPixel: Boolean = true,
                         isWaveFullScreen: Boolean = false) { //计算屏幕显示多少时间
@@ -920,6 +921,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
             cursorValue = startValue.apply {
                 Log.i(wave_tag, "startValue:${startValue.formatToCursorDateString()}")
             }
+            maxMode = index
         }
         if (!isRefreshUnitPixel) { //手势放大缩小
             screeWithDuration = (width / (unitMsPixel)).toLong()
@@ -932,7 +934,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
         }
         if (mMode != index) {
             mMode = index
-            scaleChangeListener?.onScaleChange(mMode)
+            scaleChangeListener?.onScaleChange(mMode,0,maxMode)
         }
         if (!isWaveFullScreen) { //刷新游标位置
             updatePlayingLineByModeChange(index - mode)

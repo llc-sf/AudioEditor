@@ -60,6 +60,7 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
+import kotlin.math.max
 
 class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     EditLoadingDialog.OnCancelListener, Player.EventListener {
@@ -175,11 +176,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         //        viewBinding.timeLine.setMode(BaseAudioEditorView.MODE_ARRAY[2])
         //        viewBinding.timeLine.setRange(startTime, endTime)
 
-        viewBinding.timeLine.initConfig(AudioEditorConfig.Builder()
-                                            .mode(BaseAudioEditorView.MODE_ARRAY[2])
-                                            .startValue(startTime).endValue(endTime)
-                                            .maxScreenSpanValue(mViewModel.song.duration.toLong())
-                                            .build())
         viewBinding.durationTime.text = mViewModel.song.duration.toLong()
             .format2DurationSimple() //        viewBinding.scale.text = viewBinding.timeLine.mMode.toString()
 
@@ -225,31 +221,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             viewBinding.jumpSelected.isSelected = true
         }
 
-        //        viewBinding.rgModel.setOnCheckedChangeListener { group, checkedId ->
-        //            when (checkedId) {
-        //                R.id.model1 -> {
-        //                    viewBinding.cutAdd.visibility = View.INVISIBLE
-        //                    viewBinding.cutRemove.visibility = View.INVISIBLE
-        //                    viewBinding.timeLine.switchCutMode(CutPieceFragment.CUT_MODE_SELECT)
-        //                    viewBinding.trimAnchorLy.visibility = View.VISIBLE
-        //                }
-        //
-        //                R.id.model2 -> {
-        //                    viewBinding.cutAdd.visibility = View.INVISIBLE
-        //                    viewBinding.cutRemove.visibility = View.INVISIBLE
-        //                    viewBinding.timeLine.switchCutMode(CutPieceFragment.CUT_MODE_DELETE)
-        //                    viewBinding.trimAnchorLy.visibility = View.VISIBLE
-        //                }
-        //
-        //                R.id.model3 -> {
-        //                    viewBinding.cutAdd.visibility = View.VISIBLE
-        //                    viewBinding.cutRemove.visibility = View.VISIBLE
-        //                    viewBinding.timeLine.switchCutMode(CutPieceFragment.CUT_MODE_JUMP)
-        //                    viewBinding.trimAnchorLy.visibility = View.INVISIBLE
-        //                }
-        //            }
-        //        }
-
         viewBinding.cutAdd.setOnClickListener {
             viewBinding.timeLine.cutAdd()
         }
@@ -278,6 +249,34 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                     viewBinding.timeLine.onProgressChange(currentWindowIndex, position, duration)
                 }
             }
+        })
+
+        viewBinding.timeLine.setOnScaleChangeListener(object : OnScaleChangeListener {
+
+            override fun onScaleChange(mode: Int, min: Int, max: Int) {
+                freshZoomView(mode, min, max)
+                when (mode) {
+                    BaseAudioEditorView.MODE_UINT_100_MS -> {
+                    }
+
+                    BaseAudioEditorView.MODE_UINT_500_MS -> {
+                    }
+
+                    BaseAudioEditorView.MODE_UINT_1000_MS -> {
+                    }
+
+                    BaseAudioEditorView.MODE_UINT_2000_MS -> {
+                    }
+
+                    BaseAudioEditorView.MODE_UINT_3000_MS -> {
+                    }
+
+                    BaseAudioEditorView.MODE_UINT_6000_MS -> {
+                    }
+
+                }
+            }
+
         })
 
         viewBinding.timeLine.addOnCutLineAnchorChangeListener(object :
@@ -393,10 +392,49 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             }
         }
         PlayerManager.addListener(this)
+
+        viewBinding.timeLine.initConfig(AudioEditorConfig.Builder()
+                                            .mode(BaseAudioEditorView.MODE_ARRAY[2])
+                                            .startValue(startTime).endValue(endTime)
+                                            .maxScreenSpanValue(mViewModel.song.duration.toLong())
+                                            .build())
+
         setAudioData()
         if (isSaveDta) {
             addData(viewBinding.timeLine.audioFragmentBean)
         }
+    }
+
+
+    override fun onIsPlayingChanged(isPlaying: Boolean) {
+        super.onIsPlayingChanged(isPlaying)
+        if (isPlaying) {
+            viewBinding.play.setImageResource(R.drawable.ic_puase)
+        } else {
+            viewBinding.play.setImageResource(R.drawable.ic_play)
+        }
+    }
+
+
+    //todo requireContext()
+    private fun setAudioData() {
+        viewBinding.timeLine.setLoadingView(mViewModel.song.duration.toLong(), mViewModel.song.path)
+        WaveformOptions.getSampleFrom(requireContext(), mViewModel.song.path) {
+            viewBinding.timeLine.setWaveform(Waveform(it.toList()), mViewModel.song.duration.toLong(), mViewModel.song.path)
+            viewBinding.waveLoading.pauseAnimation()
+            viewBinding.waveLoading.isVisible = false
+        }
+        play(requireContext())
+    }
+
+
+    fun freshZoomView(currentMode: Int, minMode: Int, maxMode: Int) {
+        var zoomIn = currentMode > minMode
+        var zoomOut = currentMode < maxMode
+        viewBinding.zoomIn.isEnabled = zoomIn
+        viewBinding.zoomOut.isEnabled = zoomOut
+        viewBinding.zoomIn.alpha = if (zoomIn) 1f else 0.5f
+        viewBinding.zoomOut.alpha = if (zoomOut) 1f else 0.5f
     }
 
     private fun freshSaveActions() {
@@ -421,55 +459,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             viewBinding.next.alpha = 1f
             viewBinding.next.isEnabled = true
         }
-    }
-
-    override fun onIsPlayingChanged(isPlaying: Boolean) {
-        super.onIsPlayingChanged(isPlaying)
-        if (isPlaying) {
-            viewBinding.play.setImageResource(R.drawable.ic_puase)
-        } else {
-            viewBinding.play.setImageResource(R.drawable.ic_play)
-        }
-    }
-
-
-    //todo requireContext()
-    private fun setAudioData() {
-        viewBinding.timeLine.setLoadingView(mViewModel.song.duration.toLong(), mViewModel.song.path)
-        WaveformOptions.getSampleFrom(requireContext(), mViewModel.song.path) {
-            viewBinding.timeLine.setWaveform(Waveform(it.toList()), mViewModel.song.duration.toLong(), mViewModel.song.path)
-            viewBinding.waveLoading.pauseAnimation()
-            viewBinding.waveLoading.isVisible = false
-        }
-
-        viewBinding.timeLine.setOnScaleChangeListener(object : OnScaleChangeListener {
-            override fun onScaleChange(mode: Int) {
-                when (mode) {
-                    BaseAudioEditorView.MODE_UINT_100_MS -> { //                        viewBinding.scale.text = "0"
-                    }
-
-                    BaseAudioEditorView.MODE_UINT_500_MS -> { //                        viewBinding.scale.text = "1"
-                    }
-
-                    BaseAudioEditorView.MODE_UINT_1000_MS -> { //                        viewBinding.scale.text = "2"
-                    }
-
-                    BaseAudioEditorView.MODE_UINT_2000_MS -> { //                        viewBinding.scale.text = "3"
-                    }
-
-                    BaseAudioEditorView.MODE_UINT_3000_MS -> { //                        viewBinding.scale.text = "4"
-                    }
-
-                    BaseAudioEditorView.MODE_UINT_6000_MS -> { //                        viewBinding.scale.text = "5"
-                    }
-
-                }
-            }
-        })
-
-
-
-        play(requireContext())
     }
 
 
