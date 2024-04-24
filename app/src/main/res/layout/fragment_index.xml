@@ -68,7 +68,7 @@
         android:background="@color/black.20"
         app:elevation="0dp"
         app:itemActiveIndicatorStyle="@color/transparent"
-        app:itemIconTint="@color/bottom_nav_colors"
+        app:itemIconTint="@null"
         app:itemTextColor="@color/bottom_nav_colors"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/menu_bottom_index" />

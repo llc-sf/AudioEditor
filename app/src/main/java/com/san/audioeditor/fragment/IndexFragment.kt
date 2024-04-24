@@ -18,6 +18,7 @@ import dev.android.player.framework.base.BaseFragment
 import dev.android.player.framework.utils.ImmerseDesignPadding
 import dev.android.player.framework.utils.PreferencesUtility
 
+
 class IndexFragment : BaseFragment() {
 
     companion object {
@@ -36,11 +37,9 @@ class IndexFragment : BaseFragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
         _binding = FragmentIndexBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -50,12 +49,12 @@ class IndexFragment : BaseFragment() {
         (activity as? AppCompatActivity)?.setSupportActionBar(binding.toolbar)
         (activity as? AppCompatActivity)?.supportActionBar?.setDisplayShowTitleEnabled(false)
 
-//        binding.search.setOnClickListener {
-//            val intent = Intent(context, SearchActivity::class.java)
-//            startActivity(intent)
-//        }
+        //        binding.search.setOnClickListener {
+        //            val intent = Intent(context, SearchActivity::class.java)
+        //            startActivity(intent)
+        //        }
 
-        //设置ViewPager的滑动监听
+        binding.navView.itemIconTintList = null //设置ViewPager的滑动监听
         binding.viewPager.registerOnPageChangeCallback(OnPageChangeListener(binding.navView))
         binding.navView.setOnItemSelectedListener(OnSelectedListener(binding.viewPager))
 
@@ -63,8 +62,7 @@ class IndexFragment : BaseFragment() {
         //设置默认打开的页面
         binding.viewPager.adapter = ContentAdapter(this)
         val index = PreferencesUtility.getInstance(view.context).mainViewPagerIndex
-        binding.viewPager.setCurrentItem(index, false)
-        //沉浸式设计
+        binding.viewPager.setCurrentItem(index, false) //沉浸式设计
         binding.root.ImmerseDesignPadding()
     }
 
@@ -114,11 +112,9 @@ class IndexFragment : BaseFragment() {
      */
     private inner class OnPageChangeListener(private val navView: BottomNavigationView) :
         ViewPager2.OnPageChangeCallback() {
-        override fun onPageScrolled(
-            position: Int,
-            positionOffset: Float,
-            positionOffsetPixels: Int
-        ) {
+        override fun onPageScrolled(position: Int,
+                                    positionOffset: Float,
+                                    positionOffsetPixels: Int) {
         }
 
         override fun onPageSelected(position: Int) {
@@ -128,12 +124,15 @@ class IndexFragment : BaseFragment() {
                 INDEX_FRAGMENT_OUTPUT -> R.id.navigation_output
                 else -> R.id.navigation_create
             }
-//            if (position == INDEX_FRAGMENT_OUTPUT) {
-//                binding.root.background =
-//                    ContextCompat.getDrawable(requireContext(), R.mipmap.bg_video_fragment)
-//            } else {
-//                binding.root.setBackgroundResource(R.color.black)
-//            }
+            if (position == 0) {
+                val menu = navView.menu
+                menu.findItem(R.id.navigation_create).setIcon(R.drawable.ic_tabbar_create_selected)
+                menu.findItem(R.id.navigation_output).setIcon(R.drawable.ic_tabbar_outputs)
+            } else {
+                val menu = navView.menu
+                menu.findItem(R.id.navigation_output).setIcon(R.drawable.ic_tabbar_outputs_selected)
+                menu.findItem(R.id.navigation_create).setIcon(R.drawable.ic_tabbar_create)
+            }
         }
 
         override fun onPageScrollStateChanged(state: Int) {
@@ -147,23 +146,21 @@ class IndexFragment : BaseFragment() {
         BottomNavigationView.OnNavigationItemSelectedListener {
         override fun onNavigationItemSelected(item: MenuItem): Boolean {
             var value = "Bar_Home"
+
             when (item.itemId) {
                 R.id.navigation_create -> {
                     if (viewPager.currentItem != INDEX_FRAGMENT_CREATE) {
-                        viewPager.setCurrentItem(INDEX_FRAGMENT_CREATE, true)
-                        //todo
-//                        TrackerMultiple.onEvent("Home", value)
+                        viewPager.setCurrentItem(INDEX_FRAGMENT_CREATE, true) //todo
+                        //                        TrackerMultiple.onEvent("Home", value)
                     }
                 }
 
                 R.id.navigation_output -> {
                     if (viewPager.currentItem != INDEX_FRAGMENT_OUTPUT) {
                         value = "Bar_Library"
-                        viewPager.setCurrentItem(INDEX_FRAGMENT_OUTPUT, true)
-                        //todo
-//                        TrackerMultiple.onEvent("Home", value)
+                        viewPager.setCurrentItem(INDEX_FRAGMENT_OUTPUT, true) //todo
+                        //                        TrackerMultiple.onEvent("Home", value)
                     }
-
                 }
 
             }
