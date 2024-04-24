@@ -24,12 +24,12 @@ import com.san.audioeditor.handler.FFmpegHandler.MSG_BEGIN
 import com.san.audioeditor.handler.FFmpegHandler.MSG_FINISH
 import com.san.audioeditor.handler.FFmpegHandler.MSG_INFO
 import com.san.audioeditor.handler.FFmpegHandler.MSG_PROGRESS
+import com.san.audioeditor.permission.StoragePermissionManager
 import dev.audio.ffmpeglib.FFmpegApplication
 import dev.audio.ffmpeglib.tool.AndroidUtil
 import dev.audio.ffmpeglib.tool.FFmpegUtil
 import dev.audio.ffmpeglib.tool.FFmpegUtil.fadeInOutAudio
 import dev.audio.ffmpeglib.tool.FileUtil
-import dev.audio.ffmpeglib.tool.StoragePermissionManager
 import dev.audio.timeruler.demo.TimeRulerActivity
 import dev.audio.recorder.demo.RecorderActivity
 import java.io.File
@@ -135,8 +135,10 @@ class AudioHandleActivity : BaseActivity() {
     }
 
     private fun requestPermission() {
-        StoragePermissionManager.onAfterRequestPermission(this) {
-            isPermissionGranted = true
+        StoragePermissionManager.onAfterRequestPermission(supportFragmentManager, AndroidUtil.getStoragePermissionPermissionStringAdapter33(), {
+
+        }) {
+
         }
     }
 

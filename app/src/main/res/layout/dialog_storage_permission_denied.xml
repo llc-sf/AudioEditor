@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/content_container"
+        style="@style/BottomDialog.ParentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/BottomDialog.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pg_permission_dialog_title" />
+
+
+        <TextView
+            android:id="@+id/message"
+            style="@style/BottomDialog.Message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_24" />
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_26"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dp_28"
+                android:layout_marginBottom="@dimen/dp_4"
+                android:clickable="false"
+                android:elevation="0dp"
+                android:enabled="false"
+                app:cardBackgroundColor="@color/black.33"
+                app:cardCornerRadius="@dimen/dp_16"
+                app:cardElevation="0dp"
+                app:cardMaxElevation="0dp"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/dp_32"
+                    android:paddingVertical="@dimen/dp_24">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_storage_icon" />
+
+                    <TextView
+                        android:id="@+id/msgSub"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:text="@string/access_files"
+                        android:textColor="@color/bottom.dialog.title.color"
+                        android:textSize="@dimen/sp_14" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_18"
+                        android:clipChildren="false"
+                        android:clipToPadding="false">
+
+                        <dev.android.player.widget.text.CornersButton
+                            android:id="@+id/allow_button"
+                            style="@style/CornButton.Solid"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_32"
+                            android:clickable="false"
+                            android:enabled="false"
+                            android:text="@string/allow_all_time"
+                            android:textSize="@dimen/sp_14"
+                            app:conner_btn_solid_color="#FF337CFF" />
+
+
+                        <dev.android.player.widget.text.CornersButton
+                            android:id="@+id/deny_button"
+                            style="@style/CornButton.Solid"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_32"
+                            android:layout_below="@id/allow_button"
+                            android:layout_marginTop="@dimen/dp_8"
+                            android:clickable="false"
+                            android:enabled="false"
+                            android:text="@string/vivo_deny"
+                            android:textSize="@dimen/sp_14"
+                            app:conner_btn_solid_color="@color/black.a1.alpha10"
+                          />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@id/allow_button"
+                            android:layout_alignEnd="@id/allow_button"
+                            android:layout_gravity="end|bottom"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:layout_marginTop="@dimen/dp_22"
+                            android:layout_marginEnd="@dimen/dp_16"
+                            android:layout_marginBottom="@dimen/dp_16"
+                            android:src="@mipmap/ic_storage_tap" />
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+        </FrameLayout>
+
+
+        <dev.android.player.widget.text.CornersButton
+            android:id="@+id/btn_open_setting"
+            style="@style/BottomDialog.Button.Confirm"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/ConnerBtnHeight"
+            android:layout_marginTop="@dimen/dp_40"
+            android:gravity="center"
+            android:text="@string/open_settings"
+            android:textAllCaps="true"
+            android:textSize="@dimen/sp_16"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</ScrollView>

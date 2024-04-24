@@ -581,6 +581,27 @@ public class AndroidUtil {
         }
     }
 
+    public static String getStoragePermissionPermissionString() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            return Manifest.permission.READ_MEDIA_AUDIO;
+        } else {
+            return Manifest.permission.WRITE_EXTERNAL_STORAGE;
+        }
+    }
+
+
+    public static boolean hasVideoPermissionAdapter33(Context context) {
+        return hasPermission(context, getVideoPermissionPermissionStringAdapter33());
+    }
+
+    public static String getVideoPermissionPermissionStringAdapter33() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            return Manifest.permission.READ_MEDIA_VIDEO;
+        } else {
+            return Manifest.permission.WRITE_EXTERNAL_STORAGE;
+        }
+    }
+
 }
 
 

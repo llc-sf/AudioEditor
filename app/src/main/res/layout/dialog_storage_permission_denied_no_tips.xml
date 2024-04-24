@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content_container"
+    style="@style/BottomDialog.ParentContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/BottomDialog.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/pg_permission_dialog_title" />
+
+
+    <TextView
+        style="@style/BottomDialog.Message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_24"
+        android:text="@string/music3_guide_enable_description_1" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginTop="@dimen/dp_20"
+        android:gravity="start|center"
+        android:text="@string/open_settings"
+        android:textColor="?attr/bottom.dialog.summary.color"
+        android:textSize="@dimen/sp_14"
+        app:drawableStartCompat="@mipmap/ic_index_01" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginTop="@dimen/dp_4"
+        android:gravity="start|center"
+        android:text="@string/tap_permission"
+        android:textColor="?attr/bottom.dialog.summary.color"
+        android:textSize="@dimen/sp_14"
+        app:drawableStartCompat="@mipmap/ic_index_02" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginTop="@dimen/dp_4"
+        android:gravity="start|center"
+        android:text="@string/turn_storage"
+        android:textColor="?attr/bottom.dialog.summary.color"
+        android:textSize="@dimen/sp_14"
+        app:drawableStartCompat="@mipmap/ic_index_03" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginTop="@dimen/dp_4"
+        android:gravity="start|center"
+        android:text="@string/choose_allow"
+        android:textColor="?attr/bottom.dialog.summary.color"
+        android:textSize="@dimen/sp_14"
+        app:drawableStartCompat="@mipmap/ic_index_04" />
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="26dp"
+        android:clipChildren="false"
+        android:clipToPadding="false">
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginBottom="@dimen/dp_4"
+            android:clickable="false"
+            android:elevation="0dp"
+            android:enabled="false"
+            app:cardBackgroundColor="@color/black.33"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:cardMaxElevation="0dp"
+            app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="true"
+            app:contentPadding="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="24dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="@string/allow_access_storage"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_14" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center"
+                    android:src="@mipmap/ic_storage_switch" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+    </FrameLayout>
+
+    <dev.android.player.widget.text.CornersButton
+        android:id="@+id/btn_open_setting"
+        style="@style/BottomDialog.Button.Confirm"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/ConnerBtnHeight"
+        android:layout_marginTop="@dimen/dp_40"
+        android:gravity="center"
+        android:text="@string/open_settings"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_16"
+        android:textStyle="bold" />
+
+</LinearLayout>

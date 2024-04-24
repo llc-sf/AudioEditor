@@ -65,6 +65,7 @@ dependencies {
     implementation project(":framework-themes-deps")
     implementation project(":app-business-base")
     implementation project(":widget-recyclerview")
+    implementation project(":framework-appprovider")
 
     implementation "com.airbnb.android:lottie:5.0.3"
 
