@@ -138,9 +138,9 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
     override fun onDestroyView() {
         super.onDestroyView()
-        PlayerManager.releasePlayer()
-        PlayerManager.addListener(this)
     }
+
+
 
     override fun startObserve() {
         mViewModel.audioCutState.observe(viewLifecycleOwner) {}
@@ -441,6 +441,9 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
     override fun onIsPlayingChanged(isPlaying: Boolean) {
         super.onIsPlayingChanged(isPlaying)
+        if (!isAdded) {
+            return
+        }
         if (isPlaying) {
             viewBinding.play.setImageResource(R.drawable.ic_puase)
         } else {

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import com.san.audioeditor.fragment.AudioCutEditorFragment
 import dev.android.player.framework.data.model.Song
 import dev.audio.timeruler.bean.AudioFragmentBean
+import dev.audio.timeruler.player.PlayerManager
 import musicplayer.playmusic.audioplayer.base.BaseFragmentActivity
 
 class AudioCutActivity : BaseFragmentActivity() {
@@ -49,6 +50,14 @@ class AudioCutActivity : BaseFragmentActivity() {
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         (fragment as? AudioCutEditorFragment)?.onNewIntent(intent)
+    }
+
+    override fun onDestroy() {
+        PlayerManager.releasePlayer()
+        fragment?.let {
+            PlayerManager.removeListener(it as AudioCutEditorFragment)
+        }
+        super.onDestroy()
     }
 
 }
