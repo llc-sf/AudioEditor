@@ -279,17 +279,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/model_ly" />
 
-    <TextView
-        android:id="@+id/tvData"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:gravity="center"
-        android:textColor="#ff00"
-        android:textSize="16sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirm" />
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/action_ly_1"

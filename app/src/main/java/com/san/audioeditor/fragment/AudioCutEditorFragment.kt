@@ -181,15 +181,12 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
         viewBinding.timeLine.setOnCursorListener(object : BaseAudioEditorView.OnCursorListener {
             override fun onStartTrackingTouch(cursorValue: Long) {
-                viewBinding.tvData.text = cursorDateFormat.format(Date(cursorValue))
             }
 
             override fun onProgressChanged(cursorValue: Long, fromeUser: Boolean) {
-                viewBinding.tvData.text = cursorDateFormat.format(Date(cursorValue))
             }
 
             override fun onStopTrackingTouch(cursorValue: Long) {
-                viewBinding.tvData.text = cursorDateFormat.format(Date(cursorValue))
             }
         })
 
