@@ -1,17 +1,36 @@
 package com.san.audioeditor.viewmodel
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.os.Handler
+import android.os.Message
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.san.audioeditor.activity.AudioCutActivity
+import com.san.audioeditor.handler.FFmpegHandler
 import com.san.audioeditor.viewmodel.pagedata.AudioCutPageData
 import dev.android.player.framework.base.viewmodel.BaseViewModel
 import dev.android.player.framework.data.model.Song
+import dev.audio.ffmpeglib.FFmpegApplication
+import dev.audio.ffmpeglib.tool.FFmpegUtil
+import dev.audio.ffmpeglib.tool.FileUtil
+import dev.audio.recorder.utils.Log
+import dev.audio.timeruler.bean.AudioFragmentBean
+import dev.audio.timeruler.utils.AudioFileUtils
+import dev.audio.timeruler.utils.toSegmentsArray
+import dev.audio.timeruler.weight.BaseAudioEditorView
+import dev.audio.timeruler.weight.CutPieceFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.File
 
 class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
 
@@ -44,14 +63,104 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
         viewModelScope.launch(Dispatchers.IO) {
             launchOnUI {
                 refresh(AudioCutViewModel())
-
             }
         }
+        ffmpegHandler = FFmpegHandler(mHandler)
     }
 
 
     private fun refresh(pageState: AudioCutViewModel) {
         _audioCutViewState.value = pageState
+    }
+
+    fun save(context: Context,
+             realCutPieceFragments: List<CutPieceFragment>?,
+             datas: MutableList<AudioFragmentBean>) {
+
+        viewModelScope.launch(Dispatchers.IO) {
+            var outputPath: String = ""
+            var cutFileName = "cut"
+            var suffix: String? = null
+            val PATH = FFmpegApplication.instance?.getExternalFilesDir(Environment.DIRECTORY_MUSIC)?.absolutePath
+
+            var realCutPieceFragments = realCutPieceFragments?.filter { !it.isFake }
+            if (realCutPieceFragments.isNullOrEmpty()) {
+                Toast.makeText(context, "请先选择片段", Toast.LENGTH_SHORT).show()
+                return@launch
+            }
+            cutFileName = "cut" + (System.currentTimeMillis())
+            outputPath = PATH + File.separator + cutFileName + suffix
+            var commandLine: Array<String>? = null
+            if (!FileUtil.checkFileExist(song.path)) {
+                return@launch
+            }
+            if (!FileUtil.isAudio(song.path)) {
+                return@launch
+            }
+            suffix = FileUtil.getFileSuffix(song.path)
+            if (suffix.isNullOrEmpty()) {
+                return@launch
+            }
+
+
+            commandLine = FFmpegUtil.cutMultipleAudioSegments(song.path, realCutPieceFragments.toSegmentsArray(), outputPath)
+            android.util.Log.i(BaseAudioEditorView.jni_tag, "outputPath=${outputPath}") //打印 commandLine
+            var sb = StringBuilder()
+            commandLine?.forEachIndexed { index, s ->
+                sb.append("$s ")
+                android.util.Log.i(BaseAudioEditorView.jni_tag, "s=$s")
+            }
+            android.util.Log.i(BaseAudioEditorView.jni_tag, "sb=$sb")
+            if (ffmpegHandler != null && commandLine != null) {
+                ffmpegHandler!!.executeFFmpegCmd(commandLine)
+            }
+            mHandler.datas = datas
+        }
+    }
+
+    private var ffmpegHandler: FFmpegHandler? = null
+
+    @SuppressLint("HandlerLeak")
+    private val mHandler = object : Handler() {
+
+        var datas: MutableList<AudioFragmentBean>? = null
+        override fun handleMessage(msg: Message) {
+            super.handleMessage(msg)
+            when (msg.what) {
+                FFmpegHandler.MSG_BEGIN -> {
+                    Log.i(BaseAudioEditorView.jni_tag, "begin")
+                }
+
+                FFmpegHandler.MSG_FINISH -> {
+                    Log.i(BaseAudioEditorView.jni_tag, "finish resultCode=${msg.obj}")
+                    if (msg.obj == 0) {
+                        viewModelScope.launch(Dispatchers.IO) {
+                            datas?.forEachIndexed() { index, audioFragmentBean ->
+                                audioFragmentBean.path?.let {
+                                    FileUtil.deleteFile(it)
+                                }
+                            }
+                        }
+                    }
+                }
+
+                FFmpegHandler.MSG_PROGRESS -> {
+                    val progress = msg.arg1
+                    Log.i(BaseAudioEditorView.jni_tag, "progress=$progress")
+                }
+
+                FFmpegHandler.MSG_INFO -> {
+                    Log.i(BaseAudioEditorView.jni_tag, "${msg.obj}")
+                }
+
+                FFmpegHandler.MSG_CONTINUE -> {
+                    Log.i(BaseAudioEditorView.jni_tag, "continue")
+                }
+
+                else -> {
+                }
+            }
+        }
     }
 
 }

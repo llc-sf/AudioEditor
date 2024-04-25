@@ -411,6 +411,12 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 }
             }
         }
+
+        viewBinding.save.setOnClickListener {
+            var realCutPieceFragments = viewBinding.timeLine.cutPieceFragmentsOrder?.filter { !it.isFake }
+            mViewModel.save(requireContext(),realCutPieceFragments,datas)
+        }
+
         PlayerManager.addListener(this)
 
         viewBinding.timeLine.initConfig(AudioEditorConfig.Builder()
@@ -532,10 +538,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             return
         }
 
-        val mediaMetadataRetriever = MediaMetadataRetriever()
-        mediaMetadataRetriever.setDataSource(srcFile)
-        val durationStr = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
-        val totalDuration = (durationStr?.toFloat() ?: 0F) / 1000 // 转换为秒
         cutFileName = "cut" + (System.currentTimeMillis())
         outputPath = PATH + File.separator + cutFileName + suffix
 
@@ -548,9 +550,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             android.util.Log.i(BaseAudioEditorView.jni_tag, "s=$s")
         }
         android.util.Log.i(BaseAudioEditorView.jni_tag, "sb=$sb")
-
-
-
         if (ffmpegHandler != null && commandLine != null) {
             ffmpegHandler!!.executeFFmpegCmd(commandLine)
         }
