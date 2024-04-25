@@ -2,6 +2,7 @@ package com.san.audioeditor.viewmodel
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -15,6 +16,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.san.audioeditor.activity.AudioCutActivity
+import com.san.audioeditor.activity.AudioSaveActivity
 import com.san.audioeditor.handler.FFmpegHandler
 import com.san.audioeditor.viewmodel.pagedata.AudioCutPageData
 import dev.android.player.framework.base.viewmodel.BaseViewModel
@@ -31,6 +33,7 @@ import dev.audio.timeruler.weight.CutPieceFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
+import java.lang.ref.WeakReference
 
 class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
 
@@ -76,11 +79,10 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
     fun save(context: Context,
              realCutPieceFragments: List<CutPieceFragment>?,
              datas: MutableList<AudioFragmentBean>) {
-
+        mHandler.datas = datas
+        mHandler.context = WeakReference(context)
         viewModelScope.launch(Dispatchers.IO) {
-            var outputPath: String = ""
-            var cutFileName = "cut"
-            var suffix: String? = null
+            var outputPath = ""
             val PATH = FFmpegApplication.instance?.getExternalFilesDir(Environment.DIRECTORY_MUSIC)?.absolutePath
 
             var realCutPieceFragments = realCutPieceFragments?.filter { !it.isFake }
@@ -88,8 +90,6 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
                 Toast.makeText(context, "请先选择片段", Toast.LENGTH_SHORT).show()
                 return@launch
             }
-            cutFileName = "cut" + (System.currentTimeMillis())
-            outputPath = PATH + File.separator + cutFileName + suffix
             var commandLine: Array<String>? = null
             if (!FileUtil.checkFileExist(song.path)) {
                 return@launch
@@ -97,11 +97,7 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
             if (!FileUtil.isAudio(song.path)) {
                 return@launch
             }
-            suffix = FileUtil.getFileSuffix(song.path)
-            if (suffix.isNullOrEmpty()) {
-                return@launch
-            }
-
+            outputPath = AudioFileUtils.generateNewFilePath(PATH + File.separator + AudioFileUtils.getFileName(song.path))
 
             commandLine = FFmpegUtil.cutMultipleAudioSegments(song.path, realCutPieceFragments.toSegmentsArray(), outputPath)
             android.util.Log.i(BaseAudioEditorView.jni_tag, "outputPath=${outputPath}") //打印 commandLine
@@ -114,7 +110,6 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
             if (ffmpegHandler != null && commandLine != null) {
                 ffmpegHandler!!.executeFFmpegCmd(commandLine)
             }
-            mHandler.datas = datas
         }
     }
 
@@ -122,7 +117,7 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
 
     @SuppressLint("HandlerLeak")
     private val mHandler = object : Handler() {
-
+        var context: WeakReference<Context>? = null
         var datas: MutableList<AudioFragmentBean>? = null
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
@@ -134,6 +129,9 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
                 FFmpegHandler.MSG_FINISH -> {
                     Log.i(BaseAudioEditorView.jni_tag, "finish resultCode=${msg.obj}")
                     if (msg.obj == 0) {
+                        context?.get()?.let {
+                            it.startActivity(Intent(it, AudioSaveActivity::class.java))
+                        }
                         viewModelScope.launch(Dispatchers.IO) {
                             datas?.forEachIndexed() { index, audioFragmentBean ->
                                 audioFragmentBean.path?.let {
@@ -142,6 +140,8 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
                             }
                         }
                     }
+
+
                 }
 
                 FFmpegHandler.MSG_PROGRESS -> {

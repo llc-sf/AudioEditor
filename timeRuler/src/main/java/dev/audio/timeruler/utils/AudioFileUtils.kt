@@ -13,6 +13,7 @@ import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.io.InputStream
+import java.nio.file.Paths
 import java.util.Locale
 
 object AudioFileUtils {
@@ -94,5 +95,35 @@ object AudioFileUtils {
                            callback: MediaScannerConnection.OnScanCompletedListener) {
         MediaScannerConnection.scanFile(context, arrayOf(filePath), null, callback)
     }
+
+
+    /**
+     * Generates a new file path with an incremented suffix if the file already exists.
+     *
+     * @param originalPath The original file path as a string.
+     * @return The new file path with an incremented suffix.
+     */
+    fun generateNewFilePath(originalPath: String): String {
+        val file = File(originalPath)
+        val parentPath = file.parent ?: ""
+        val fileNameWithoutExtension = file.nameWithoutExtension
+        val extension = file.extension
+        var counter = 1
+
+        var newPath: String
+        do {
+            newPath = "$parentPath/$fileNameWithoutExtension" + "_$counter.$extension"
+            counter++
+        } while (File(newPath).exists())
+
+        return newPath
+    }
+
+
+    fun getFileName(absolutePath: String): String {
+        val file = File(absolutePath)
+        return file.name // This returns the file name with extension.
+    }
+
 
 }

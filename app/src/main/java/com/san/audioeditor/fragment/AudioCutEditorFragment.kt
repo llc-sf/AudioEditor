@@ -115,6 +115,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         initToolbar()
         PlayerManager.playByPath(mViewModel.song.path)
         viewBinding.toolbar.ImmerseDesign()
+        mViewModel.initData(requireContext(),arguments)
         initTimeBar()
     }
 
