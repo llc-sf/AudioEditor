@@ -774,6 +774,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                     audio.invalidate()
                 }
             }
+            audio.updateMediaSource(startTimestampTimeInSelf, endTimestampTimeInSelf)
         }
     }
 
@@ -798,7 +799,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                     audio.invalidate()
                 }
             }
-
+            audio.updateMediaSource(startTimestampTimeInSelf, endTimestampTimeInSelf)
         }
     }
 

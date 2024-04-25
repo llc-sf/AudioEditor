@@ -554,9 +554,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     fun addOnCutModeChangeListener(listener: CutModeChangeListener) {
         onCutModeChangeListener = listener
-    }
-    //*************************************裁剪模式变化 end *************************************//
-
+    } //*************************************裁剪模式变化 end *************************************//
 
 
     fun refreshCutLineAnchor(start: Boolean, end: Boolean) {
@@ -587,10 +585,16 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         audioFragment?.startEndPlus()
     }
 
+    /**
+     * 播放位置 为裁剪开始时间
+     */
     fun trimStart() {
         audioFragment?.trimStart(currentPlayingTimeInAudio)
     }
 
+    /**
+     * 播放位置 为裁剪结束时间
+     */
     fun trimEnd() {
         audioFragment?.trimEnd(currentPlayingTimeInAudio)
     }
@@ -601,7 +605,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     }
 
     fun switchCutMode(mode: Int) {
-        if(cutMode == mode) {
+        if (cutMode == mode) {
             return
         }
         audioFragment?.switchCutMode(mode)

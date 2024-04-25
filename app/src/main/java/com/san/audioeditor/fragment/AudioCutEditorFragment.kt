@@ -141,7 +141,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     }
 
 
-
     override fun startObserve() {
         mViewModel.audioCutState.observe(viewLifecycleOwner) {}
     }
@@ -375,13 +374,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             }
         })
 
-        viewBinding.clpLeft.setOnClickListener {
-            viewBinding.timeLine.anchor2CutStartLine()
-        }
-
-        viewBinding.clpRight.setOnClickListener {
-            viewBinding.timeLine.anchor2CutEndLine()
-        }
         viewBinding.clStartAncher.setOnClickListener {
             viewBinding.timeLine.anchor2CutStartLine()
         }
