@@ -60,6 +60,24 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
     val onTrimAnchorChangeListener by Ref { audioEditorView.onTrimAnchorChangeListener }
     val cutModeChangeButtonEnableListener by Ref { audioEditorView.cutModeChangeButtonEnableListener }
 
+    var isCutLineStartVisible: Boolean = true
+        get() {
+            var isStartVisible = false
+            cutPieceFragments.forEach {
+                isStartVisible = isStartVisible || it.isCutLineStartVisible()
+            }
+            return isStartVisible
+        }
+
+    var isCutLineEndVisible: Boolean = true
+        get() {
+            var isEndVisible = false
+            cutPieceFragments.forEach {
+                isEndVisible = isEndVisible || it.isCutLineEndVisible()
+            }
+            return isEndVisible
+        }
+
     fun getContext(): Context? {
         return audioEditorView.context
     }

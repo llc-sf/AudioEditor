@@ -870,6 +870,17 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         setWaveform(null, duration, path)
     }
 
+    var isCutLineStartVisible = false
+        get() {
+            return audioFragment?.isCutLineStartVisible ?: false
+        }
+
+    var isCutLineEndVisible = false
+        get() {
+            return audioFragment?.isCutLineEndVisible ?: false
+        }
+
+
     var cutPieceFragmentsOrder: List<CutPieceFragment>? = null
         get() {
             return audioFragment?.cutPieceFragmentsOrder

@@ -115,7 +115,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         initToolbar()
         PlayerManager.playByPath(mViewModel.song.path)
         viewBinding.toolbar.ImmerseDesign()
-        mViewModel.initData(requireContext(),arguments)
+        mViewModel.initData(requireContext(), arguments)
         initTimeBar()
     }
 
@@ -301,6 +301,9 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                                                                   AudioCutEditorView.OnCutLineAnchorChangeListener {
 
             override fun onCutLineChange(start: Boolean, end: Boolean) {
+                if (PlayerManager.isPlaying) {
+                    return
+                }
                 viewBinding.clpLeft.visibility = if (start) View.VISIBLE else View.INVISIBLE
                 viewBinding.clpRight.visibility = if (end) View.VISIBLE else View.INVISIBLE
                 viewBinding.clStartAncher.visibility = if (start) View.VISIBLE else View.INVISIBLE
@@ -371,10 +374,12 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             }
         })
 
+        //开始裁剪线 定位
         viewBinding.clStartAncher.setOnClickListener {
             viewBinding.timeLine.anchor2CutStartLine()
         }
 
+        //结束裁剪线 定位
         viewBinding.clEndAncher.setOnClickListener {
             viewBinding.timeLine.anchor2CutEndLine()
         }
@@ -415,7 +420,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
         viewBinding.save.setOnClickListener {
             var realCutPieceFragments = viewBinding.timeLine.cutPieceFragmentsOrder?.filter { !it.isFake }
-            mViewModel.save(requireContext(),realCutPieceFragments,datas)
+            mViewModel.save(requireContext(), realCutPieceFragments, datas)
         }
 
         PlayerManager.addListener(this)
@@ -440,8 +445,12 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         }
         if (isPlaying) {
             viewBinding.play.setImageResource(R.drawable.ic_puase)
+            viewBinding.clStartAncher.isVisible = false
+            viewBinding.clEndAncher.isVisible = false
         } else {
             viewBinding.play.setImageResource(R.drawable.ic_play)
+            viewBinding.clStartAncher.isVisible = viewBinding.timeLine.isCutLineStartVisible
+            viewBinding.clEndAncher.isVisible = viewBinding.timeLine.isCutLineEndVisible
         }
     }
 

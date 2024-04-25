@@ -278,6 +278,14 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
         }
     }
 
+    fun isCutLineStartVisible(): Boolean {
+        return isSelected && (startTimestampPosition < 0 || startTimestampPosition > ScreenUtil.getScreenWidth(audio.getContext()))
+    }
+
+    fun isCutLineEndVisible(): Boolean {
+        return isSelected && (endTimestampPosition > ScreenUtil.getScreenWidth(audio.getContext()) || endTimestampPosition < 0)
+    }
+
     private var startHandleBitmap: Bitmap? = null
     private var startHandleTouchRect = Rect()
     private var startHandleRealRect = Rect()
