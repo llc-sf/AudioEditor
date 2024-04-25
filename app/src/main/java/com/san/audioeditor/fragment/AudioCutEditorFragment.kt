@@ -457,7 +457,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
     fun freshZoomView(currentMode: Int, minMode: Int, maxMode: Int) {
         var zoomIn = currentMode > minMode
-        var zoomOut = currentMode <= maxMode
+        var zoomOut = currentMode < maxMode
         viewBinding.zoomIn.isEnabled = zoomIn
         viewBinding.zoomOut.isEnabled = zoomOut
         viewBinding.zoomIn.alpha = if (zoomIn) 1f else 0.5f
