@@ -3,7 +3,6 @@ package com.san.audioeditor.fragment
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Bundle
@@ -57,10 +56,7 @@ import dev.audio.timeruler.weight.AudioEditorConfig
 import dev.audio.timeruler.weight.BaseAudioEditorView
 import dev.audio.timeruler.weight.CutPieceFragment
 import java.io.File
-import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
-import kotlin.math.max
 
 class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     EditLoadingDialog.OnCancelListener, Player.EventListener {
@@ -456,8 +452,8 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
 
     fun freshZoomView(currentMode: Int, minMode: Int, maxMode: Int) {
-        var zoomIn = currentMode > minMode
-        var zoomOut = currentMode < maxMode
+        var zoomIn = viewBinding.timeLine.canZoomIn
+        var zoomOut = viewBinding.timeLine.canZoomOut
         viewBinding.zoomIn.isEnabled = zoomIn
         viewBinding.zoomOut.isEnabled = zoomOut
         viewBinding.zoomIn.alpha = if (zoomIn) 1f else 0.5f

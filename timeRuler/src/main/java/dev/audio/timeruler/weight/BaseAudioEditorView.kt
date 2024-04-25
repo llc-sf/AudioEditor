@@ -886,8 +886,8 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
 
     /**
      * @param isRefreshUnitPixel    是否刷新单位像素
-     * 1、isRefreshUnitPixel=true   手势放大缩小 调节unitMsPixel，screeWithDuration由调节unitMsPixel决定
-     * 2、isRefreshUnitPixel=false  直接档位调节 调节screeWithDuration，调节unitMsPixel由调节screeWithDuration决定
+     * 1、isRefreshUnitPixel=false   手势放大缩小 调节unitMsPixel，screeWithDuration由调节unitMsPixel决定
+     * 2、isRefreshUnitPixel=true  直接档位调节 调节screeWithDuration，调节unitMsPixel由调节screeWithDuration决定
      *
      * 调用处：
      * 1、初始化 initConfig
@@ -900,7 +900,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
      *  3、unitMsPixel    每毫秒多少像素
      *  4、cursorValue    控制波形图的x坐标以免尾部出现空白现象
      */
-    private var  maxMode = 0
+    private var maxMode = 0
     private fun setMode(@Mode mode: Int,
                         isRefreshUnitPixel: Boolean = true,
                         isWaveFullScreen: Boolean = false) { //计算屏幕显示多少时间
@@ -932,10 +932,8 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
         if (cursorValue + screeWithDuration > endValue) { //判断是否有 尾部空白没有坐标的情况
             cursorValue = endValue - screeWithDuration
         }
-        if (mMode != index) {
-            mMode = index
-            scaleChangeListener?.onScaleChange(mMode,0,maxMode)
-        }
+        mMode = index
+        scaleChangeListener?.onScaleChange(mMode, 0, maxMode)
         if (!isWaveFullScreen) { //刷新游标位置
             updatePlayingLineByModeChange(index - mode)
         }
