@@ -21,6 +21,7 @@ import dev.audio.timeruler.BuildConfig
 import dev.audio.timeruler.R
 import dev.audio.timeruler.listener.OnScaleChangeListener
 import dev.audio.timeruler.utils.SizeUtils
+import dev.audio.timeruler.utils.dp
 import dev.audio.timeruler.utils.formatToCursorDateString
 import dev.audio.timeruler.utils.getTextHeight
 import dev.audio.timeruler.utils.getTopY
@@ -378,7 +379,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
     private fun init() {
         mScalePaint = Paint()
         mScalePaint!!.isAntiAlias = true
-        mScalePaint!!.strokeWidth = 1.0f
+        mScalePaint!!.strokeWidth = 1.dp.toFloat()
         mScalePaint!!.isDither = true
         mScalePaint!!.style = Paint.Style.FILL_AND_STROKE
         minScreenSpanValue = SCREEN_WIDTH_TIME_VALUE_ARRAY[0]
