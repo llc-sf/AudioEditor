@@ -139,7 +139,16 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
 
     override fun startObserve() {
-        mViewModel.audioCutState.observe(viewLifecycleOwner) {}
+        mViewModel.audioCutState.observe(viewLifecycleOwner) {
+            if (it.isShowEditLoading == true) {
+                viewBinding.progressLy.isVisible = true
+                viewBinding.progressText.text = "${0}%"
+            } else if ((it.progress ?: 0) > 0) {
+                viewBinding.progressText.text = "${it.progress}%"
+            } else if(it.isShowEditLoading == false){
+                viewBinding.progressLy.isVisible = false
+            }
+        }
     }
 
 

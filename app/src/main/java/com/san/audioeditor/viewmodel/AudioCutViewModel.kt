@@ -59,6 +59,8 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
 
     data class AudioCutViewModel(
         var song: Song? = null,
+        var isShowEditLoading: Boolean? = null,
+        var progress: Int? = null,
     )
 
 
@@ -124,11 +126,13 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
             when (msg.what) {
                 FFmpegHandler.MSG_BEGIN -> {
                     Log.i(BaseAudioEditorView.jni_tag, "begin")
+                    refresh(AudioCutViewModel(isShowEditLoading = true))
                 }
 
                 FFmpegHandler.MSG_FINISH -> {
                     Log.i(BaseAudioEditorView.jni_tag, "finish resultCode=${msg.obj}")
                     if (msg.obj == 0) {
+                        refresh(AudioCutViewModel(isShowEditLoading = false))
                         context?.get()?.let {
                             it.startActivity(Intent(it, AudioSaveActivity::class.java))
                         }
@@ -140,13 +144,12 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
                             }
                         }
                     }
-
-
                 }
 
                 FFmpegHandler.MSG_PROGRESS -> {
                     val progress = msg.arg1
                     Log.i(BaseAudioEditorView.jni_tag, "progress=$progress")
+                    refresh(AudioCutViewModel(progress = progress))
                 }
 
                 FFmpegHandler.MSG_INFO -> {
