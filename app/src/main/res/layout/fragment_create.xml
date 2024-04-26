@@ -9,12 +9,14 @@
     <ImageView
         android:id="@+id/img_cut"
         android:layout_width="0dp"
-        android:layout_height="@dimen/dp_196"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dp_28"
         android:layout_marginTop="@dimen/dp_20"
+        android:background="@drawable/ic_trim_audio_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_trim_audio" />
 
     <ImageView
         android:id="@+id/ic_trim_icon"
