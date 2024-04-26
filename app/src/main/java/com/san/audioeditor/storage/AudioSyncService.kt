@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.IBinder
 import android.util.Log
+import com.android.app.AppProvider
 import java.util.concurrent.atomic.AtomicBoolean
 
 
@@ -14,9 +15,11 @@ import java.util.concurrent.atomic.AtomicBoolean
 class AudioSyncService : IntentService(TAG) {
 
     companion object {
-        private const val TAG = "MediaSyncService"
+        const val TAG = "MediaSyncService"
 
         private const val SYNC_ACTION = "MediaSyncService.SYNC"
+
+        var ACTION_SYNC_COMPLETED = "${AppProvider.context.packageName}.SYNC_COMPLETED"
 
         /**
          * 启动同步服务
@@ -46,6 +49,11 @@ class AudioSyncService : IntentService(TAG) {
                     Log.d(TAG, "onHandleIntent() Start Time = " + System.currentTimeMillis())
                     AudioSyncUtil.sync(this)
                     isRunning.set(false)
+
+                    // 同步完成后发送广播
+                    val syncCompletedIntent = Intent(ACTION_SYNC_COMPLETED)
+                    sendBroadcast(syncCompletedIntent)
+
                     stopSelf()
                     Log.d(TAG, "onHandleIntent() End Time = " + System.currentTimeMillis())
                 }

@@ -20,12 +20,25 @@ abstract class BaseMVVMRefreshFragment<T : ViewBinding> : BaseRefreshFragment() 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initData()
+        initViewModel()
     }
 
-    override fun onCreateViewCompat(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    abstract fun initViewModel()
+
+    override fun onCreateViewCompat(inflater: LayoutInflater,
+                                    container: ViewGroup?,
+                                    savedInstanceState: Bundle?): View {
         _binding = initViewBinding(inflater)
         return viewBinding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        startObserve()
+        initView()
+    }
+
+    abstract fun startObserve()
 
     override fun onDestroyView() {
         super.onDestroyView()

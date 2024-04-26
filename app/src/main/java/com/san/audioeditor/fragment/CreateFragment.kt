@@ -12,6 +12,7 @@ import com.san.audioeditor.activity.AudioPickActivity
 import com.san.audioeditor.activity.MultiTrackerAudioEditorActivity
 import com.san.audioeditor.databinding.FragmentCreateBinding
 import com.san.audioeditor.permission.StoragePermissionManager
+import com.san.audioeditor.storage.AudioSyncService
 import dev.android.player.framework.base.BaseFragment
 import dev.android.player.framework.data.model.Song
 import dev.android.player.framework.utils.AndroidUtil
@@ -65,9 +66,10 @@ class CreateFragment : BaseFragment() {
 
     private fun requestPermission() {
         StoragePermissionManager.onAfterRequestPermission(childFragmentManager, AndroidUtil.getStoragePermissionPermissionStringAdapter33(), {
-
+            Log.i(AudioSyncService.TAG, "onDeny")
         }) {
-
+            Log.i(AudioSyncService.TAG, "onGrant")
+            AudioSyncService.sync(requireContext())
         }
     }
 
