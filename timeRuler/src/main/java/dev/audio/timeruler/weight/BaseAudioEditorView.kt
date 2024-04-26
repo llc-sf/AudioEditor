@@ -150,6 +150,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
 
     private var mScaleGestureDetector: ScaleGestureDetector? = null
     private var mScalePaint: Paint? = null
+    private var tickPaint: Paint? = null
 
     /* 普通刻度线与关键刻度线的比 */
     private val mNormalTickAndKeyTickRatio: Float
@@ -379,9 +380,16 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
     private fun init() {
         mScalePaint = Paint()
         mScalePaint!!.isAntiAlias = true
-        mScalePaint!!.strokeWidth = 1.dp.toFloat()
+        mScalePaint!!.strokeWidth = 1f
         mScalePaint!!.isDither = true
         mScalePaint!!.style = Paint.Style.FILL_AND_STROKE
+
+        tickPaint = Paint()
+        tickPaint!!.isAntiAlias = true
+        tickPaint!!.strokeWidth = 1f.dp
+        tickPaint!!.isDither = true
+        tickPaint!!.style = Paint.Style.FILL_AND_STROKE
+
         minScreenSpanValue = SCREEN_WIDTH_TIME_VALUE_ARRAY[0]
         maxScreenSpanValue = SCREEN_WIDTH_TIME_VALUE_ARRAY[SCREEN_WIDTH_TIME_VALUE_ARRAY.size - 1]
 
@@ -475,7 +483,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
 
     override fun onDraw(canvas: Canvas) {
         Log.i(long_press_tag, "onDraw cursorValue=${TimeUtil.getDetailTime(cursorValue)}")
-        mScalePaint!!.color = tickColor
+        tickPaint!!.color = tickColor
         drawKeyValueRange(canvas)
         if (showTickLine) {
             canvas.drawLine(scrollX.toFloat(), baselinePosition, (scrollX + width).toFloat(), baselinePosition, mScalePaint!!)
@@ -495,18 +503,18 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
             onDrawTickPosition = leftNeighborPosition - mTickSpacing * i
             if (tickDirectionUp) {
                 if ((onDrawTickValue - startValue) % keyScaleRange == 0L) {
-                    canvas.drawLine(onDrawTickPosition, baselinePosition, onDrawTickPosition, baselinePosition - keyTickHeight, mScalePaint!!)
+                    canvas.drawLine(onDrawTickPosition, baselinePosition, onDrawTickPosition, baselinePosition - keyTickHeight, tickPaint!!)
                     drawTickValue(canvas, onDrawTickPosition, baselinePosition - keyTickHeight, onDrawTickValue, true)
                 } else {
-                    canvas.drawLine(onDrawTickPosition, baselinePosition - mTickHeight, onDrawTickPosition, baselinePosition, mScalePaint!!)
+                    canvas.drawLine(onDrawTickPosition, baselinePosition - mTickHeight, onDrawTickPosition, baselinePosition, tickPaint!!)
                     drawTickValue(canvas, onDrawTickPosition, baselinePosition - mTickHeight, onDrawTickValue, false)
                 }
             } else {
                 if ((onDrawTickValue - startValue) % keyScaleRange == 0L) {
-                    canvas.drawLine(onDrawTickPosition, baselinePosition, onDrawTickPosition, baselinePosition + keyTickHeight, mScalePaint!!)
+                    canvas.drawLine(onDrawTickPosition, baselinePosition, onDrawTickPosition, baselinePosition + keyTickHeight, tickPaint!!)
                     drawLeftKeyTick(canvas, i, onDrawTickValue, onDrawTickPosition, mScalePaint!!, leftCount)
                 } else {
-                    canvas.drawLine(onDrawTickPosition, baselinePosition, onDrawTickPosition, baselinePosition + mTickHeight, mScalePaint!!)
+                    canvas.drawLine(onDrawTickPosition, baselinePosition, onDrawTickPosition, baselinePosition + mTickHeight, tickPaint!!)
                     drawTickValue(canvas, onDrawTickPosition, baselinePosition - mTickHeight, onDrawTickValue, false)
                 }
             }
@@ -524,18 +532,18 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
             onDrawTickPosition = rightNeighborPosition + mTickSpacing * i
             if (tickDirectionUp) {
                 if ((onDrawTickValue - startValue) % keyScaleRange == 0L) {
-                    canvas.drawLine(onDrawTickPosition, baselinePosition, onDrawTickPosition, baselinePosition - keyTickHeight, mScalePaint!!)
+                    canvas.drawLine(onDrawTickPosition, baselinePosition, onDrawTickPosition, baselinePosition - keyTickHeight, tickPaint!!)
                     drawTickValue(canvas, onDrawTickPosition, baselinePosition - keyTickHeight, onDrawTickValue, true)
                 } else {
-                    canvas.drawLine(onDrawTickPosition, baselinePosition, onDrawTickPosition, baselinePosition - mTickHeight, mScalePaint!!)
+                    canvas.drawLine(onDrawTickPosition, baselinePosition, onDrawTickPosition, baselinePosition - mTickHeight, tickPaint!!)
                     drawTickValue(canvas, onDrawTickPosition, baselinePosition - mTickHeight, onDrawTickValue, false)
                 }
             } else {
                 drawRightKeyTick(canvas, i, onDrawTickValue, onDrawTickPosition, mScalePaint!!, rightCount)
                 if ((onDrawTickValue - startValue) % keyScaleRange == 0L) {
-                    canvas.drawLine(onDrawTickPosition, baselinePosition, onDrawTickPosition, baselinePosition + keyTickHeight, mScalePaint!!)
+                    canvas.drawLine(onDrawTickPosition, baselinePosition, onDrawTickPosition, baselinePosition + keyTickHeight, tickPaint!!)
                 } else {
-                    canvas.drawLine(onDrawTickPosition, baselinePosition, onDrawTickPosition, baselinePosition + mTickHeight, mScalePaint!!)
+                    canvas.drawLine(onDrawTickPosition, baselinePosition, onDrawTickPosition, baselinePosition + mTickHeight, tickPaint!!)
                     drawTickValue(canvas, onDrawTickPosition, baselinePosition - mTickHeight, onDrawTickValue, false)
                 }
             }
