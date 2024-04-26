@@ -290,6 +290,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/timeLine">
 
+        <dev.audio.timeruler.weight.CustomActionView
+            android:id="@+id/action_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bottom_padding="@dimen/dp_5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:leftDrawable="@drawable/ic_action_pre"
+            app:left_icon_left_padding="@dimen/dp_12"
+            app:left_icon_right_padding="@dimen/dp_14"
+            app:rightDrawable="@drawable/ic_action_next"
+            app:right_icon_left_padding="@dimen/dp_14"
+            app:right_icon_right_padding="@dimen/dp_12"
+            app:top_padding="@dimen/dp_5" />
+
+
         <LinearLayout
             android:id="@+id/edit_ly"
             android:layout_width="wrap_content"
@@ -299,6 +315,7 @@
             android:orientation="horizontal"
             android:paddingHorizontal="@dimen/dp_12"
             android:paddingVertical="@dimen/dp_5"
+            android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -328,10 +345,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@id/edit_ly"
-            app:layout_constraintEnd_toStartOf="@id/rg_scale"
-            app:layout_constraintStart_toEndOf="@id/edit_ly"
-            app:layout_constraintTop_toTopOf="@id/edit_ly">
+            app:layout_constraintBottom_toBottomOf="@id/action_edit"
+            app:layout_constraintEnd_toStartOf="@id/action_scale"
+            app:layout_constraintStart_toEndOf="@id/action_edit"
+            app:layout_constraintTop_toTopOf="@id/action_edit">
 
             <TextView
                 android:id="@+id/current_play_time"
@@ -358,6 +375,22 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvData" />
         </LinearLayout>
 
+        <dev.audio.timeruler.weight.CustomActionView
+            android:id="@+id/action_scale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bottom_padding="@dimen/dp_5"
+            app:layout_constraintBottom_toBottomOf="@id/edit_ly"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edit_ly"
+            app:leftDrawable="@drawable/ic_zoom_out"
+            app:left_icon_left_padding="@dimen/dp_12"
+            app:left_icon_right_padding="@dimen/dp_14"
+            app:rightDrawable="@drawable/ic_zoom_in"
+            app:right_icon_left_padding="@dimen/dp_14"
+            app:right_icon_right_padding="@dimen/dp_12"
+            app:top_padding="@dimen/dp_5" />
+
         <LinearLayout
             android:id="@+id/rg_scale"
             android:layout_width="wrap_content"
@@ -367,6 +400,7 @@
             android:orientation="horizontal"
             android:paddingHorizontal="@dimen/dp_12"
             android:paddingVertical="@dimen/dp_5"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@id/edit_ly"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/edit_ly">

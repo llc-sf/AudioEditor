@@ -92,4 +92,17 @@
         <attr name="npv_AlternativeHint" format="reference|string" />
     </declare-styleable>
 
+
+    <declare-styleable name="CustomSearchView">
+        <attr name="leftDrawable" format="reference" />
+        <attr name="rightDrawable" format="reference" />
+        <attr name="left_icon_left_padding" format="dimension" />
+        <attr name="left_icon_right_padding" format="dimension" />
+        <attr name="right_icon_left_padding" format="dimension" />
+        <attr name="right_icon_right_padding" format="dimension" />
+        <attr name="top_padding" format="dimension" />
+        <attr name="bottom_padding" format="dimension" />
+    </declare-styleable>
+
+
 </resources>

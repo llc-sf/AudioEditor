@@ -145,7 +145,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 viewBinding.progressText.text = "${0}%"
             } else if ((it.progress ?: 0) > 0) {
                 viewBinding.progressText.text = "${it.progress}%"
-            } else if(it.isShowEditLoading == false){
+            } else if (it.isShowEditLoading == false) {
                 viewBinding.progressLy.isVisible = false
             }
         }
@@ -194,6 +194,16 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             }
         })
 
+        viewBinding.actionEdit.setActionListener({
+                                                     editPre()
+                                                 }, {
+                                                     editNext()
+                                                 })
+        viewBinding.actionScale.setActionListener({
+                                                      viewBinding.timeLine.zoomOut()
+                                                  }, {
+                                                      viewBinding.timeLine.zoomIn()
+                                                  })
         viewBinding.zoomIn.setOnClickListener {
             viewBinding.timeLine.zoomIn()
         }
@@ -404,27 +414,12 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             ffmpegHandler?.cancelExecute(true) //        viewBinding.progressLy.isVisible = false
         }
 
-        viewBinding.pre.setOnClickListener {
-            if (datas.isNullOrEmpty() || viewBinding.timeLine.audioFragmentBean == null) { //                Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
-            } else {
-                var last = datas.lastAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!)
-                if (last == null) { //                    Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
-                } else {
-                    AudioCutActivity.open(requireContext(), last)
-                }
-            }
-        }
-
         freshSaveActions()
+        viewBinding.pre.setOnClickListener {
+            editPre()
+        }
         viewBinding.next.setOnClickListener {
-            if (datas.isNullOrEmpty() || viewBinding.timeLine.audioFragmentBean == null) { //                Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
-            } else {
-                var next = datas.nextAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!)
-                if (next == null) { //                    Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
-                } else {
-                    AudioCutActivity.open(requireContext(), next)
-                }
-            }
+            editNext()
         }
 
         viewBinding.save.setOnClickListener {
@@ -443,6 +438,28 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         setAudioData()
         if (isSaveDta) {
             addData(viewBinding.timeLine.audioFragmentBean)
+        }
+    }
+
+    private fun editPre() {
+        if (datas.isNullOrEmpty() || viewBinding.timeLine.audioFragmentBean == null) { //                Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
+        } else {
+            var last = datas.lastAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!)
+            if (last == null) { //                    Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
+            } else {
+                AudioCutActivity.open(requireContext(), last)
+            }
+        }
+    }
+
+    private fun editNext() {
+        if (datas.isNullOrEmpty() || viewBinding.timeLine.audioFragmentBean == null) { //                Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
+        } else {
+            var next = datas.nextAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!)
+            if (next == null) { //                    Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
+            } else {
+                AudioCutActivity.open(requireContext(), next)
+            }
         }
     }
 
@@ -483,6 +500,8 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         viewBinding.zoomOut.isEnabled = zoomOut
         viewBinding.zoomIn.alpha = if (zoomIn) 1f else 0.5f
         viewBinding.zoomOut.alpha = if (zoomOut) 1f else 0.5f
+        viewBinding.actionScale.freshLeftIconEnable(zoomOut)
+        viewBinding.actionScale.freshRightIconEnable(zoomIn)
     }
 
     private fun freshSaveActions() {
@@ -491,21 +510,27 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             viewBinding.next.alpha = 0.5f
             viewBinding.pre.isEnabled = false
             viewBinding.next.isEnabled = false
+            viewBinding.actionEdit.freshLeftIconEnable(false)
+            viewBinding.actionEdit.freshRightIconEnable(false)
             return
         }
         if (datas.lastAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!) == null) {
             viewBinding.pre.alpha = 0.5f
             viewBinding.pre.isEnabled = false
+            viewBinding.actionEdit.freshLeftIconEnable(false)
         } else {
             viewBinding.pre.alpha = 1f
             viewBinding.pre.isEnabled = true
+            viewBinding.actionEdit.freshLeftIconEnable(true)
         }
         if (datas.nextAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!) == null) {
             viewBinding.next.alpha = 0.5f
             viewBinding.next.isEnabled = false
+            viewBinding.actionEdit.freshRightIconEnable(false)
         } else {
             viewBinding.next.alpha = 1f
             viewBinding.next.isEnabled = true
+            viewBinding.actionEdit.freshRightIconEnable(true)
         }
     }
 
