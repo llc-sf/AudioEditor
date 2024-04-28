@@ -70,6 +70,8 @@ class CustomActionTextView @JvmOverloads constructor(context: Context,
     private val rippleDuration = 600L // 水波纹动画时长
     private val rippleEffectHandler = Handler(Looper.getMainLooper())
 
+    private var time_gap = GAP_TIME
+
 
     init { // 从XML中加载布局
         LayoutInflater.from(context).inflate(R.layout.custom_action_text_view, this, true)
@@ -89,6 +91,13 @@ class CustomActionTextView @JvmOverloads constructor(context: Context,
         rightIconRightPadding = typedArray.getDimensionPixelSize(R.styleable.CustomActionTextView_text_right_icon_right_padding, 0)
         topPadding = typedArray.getDimensionPixelSize(R.styleable.CustomActionTextView_text_top_padding, 0)
         bottomPadding = typedArray.getDimensionPixelSize(R.styleable.CustomActionTextView_text_bottom_padding, 0)
+        try {
+            time_gap = typedArray.getString(R.styleable.CustomActionTextView_text_click_time_gap)
+                ?.toLong() ?: GAP_TIME
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
         typedArray.recycle()
 
         rippleMaxRadius = leftIcon.drawable.intrinsicWidth / 2 + 10f
@@ -111,13 +120,12 @@ class CustomActionTextView @JvmOverloads constructor(context: Context,
                         return true
                     } //                    setBackgroundResource(R.drawable.bg_left_click)
                     leftDown = true
-                    zoomHandler.sendEmptyMessageDelayed(MESSAGE_LEFT, GAP_TIME)
+                    zoomHandler.sendEmptyMessageDelayed(MESSAGE_LEFT, time_gap)
 
 
                     // 将波纹的中心点设置为 `rightIcon` 的中心
                     rippleX = leftIcon.x + leftIcon.width / 2
-                    rippleY = leftIcon.y + leftIcon.height / 2
-                    // 初始半径设置为rightIcon外部边界加上一个偏移量
+                    rippleY = leftIcon.y + leftIcon.height / 2 // 初始半径设置为rightIcon外部边界加上一个偏移量
                     rippleRadius = maxOf(leftIcon.width, leftIcon.height) / 2f + initialRippleRadiusOffset
                     ripplePaint.alpha = 255 // 初始透明度为完全不透明
                     rippleEffectHandler.removeCallbacks(rippleUpdateRunnable)
@@ -129,14 +137,12 @@ class CustomActionTextView @JvmOverloads constructor(context: Context,
                         return true
                     } //                    setBackgroundResource(R.drawable.bg_right_click)
                     rightDown = true
-                    zoomHandler.sendEmptyMessageDelayed(MESSAGE_RIGHT, GAP_TIME)
-
+                    zoomHandler.sendEmptyMessageDelayed(MESSAGE_RIGHT, time_gap)
 
 
                     // 将波纹的中心点设置为 `rightIcon` 的中心
                     rippleX = rightIcon.x + rightIcon.width / 2
-                    rippleY = rightIcon.y + rightIcon.height / 2
-                    // 初始半径设置为rightIcon外部边界加上一个偏移量
+                    rippleY = rightIcon.y + rightIcon.height / 2 // 初始半径设置为rightIcon外部边界加上一个偏移量
                     rippleRadius = maxOf(rightIcon.width, rightIcon.height) / 2f + initialRippleRadiusOffset
                     ripplePaint.alpha = 255 // 初始透明度为完全不透明
                     rippleEffectHandler.removeCallbacks(rippleUpdateRunnable)
@@ -205,12 +211,12 @@ class CustomActionTextView @JvmOverloads constructor(context: Context,
             when (msg.what) {
                 MESSAGE_LEFT -> {
                     leftAction?.invoke()
-                    sendEmptyMessageDelayed(MESSAGE_LEFT, GAP_TIME)
+                    sendEmptyMessageDelayed(MESSAGE_LEFT, time_gap)
                 }
 
                 MESSAGE_RIGHT -> {
                     rightAction?.invoke()
-                    sendEmptyMessageDelayed(MESSAGE_RIGHT, GAP_TIME)
+                    sendEmptyMessageDelayed(MESSAGE_RIGHT, time_gap)
                 }
             }
         }
@@ -231,7 +237,6 @@ class CustomActionTextView @JvmOverloads constructor(context: Context,
     }
 
 
-
     private val rippleUpdateRunnable = object : Runnable {
         override fun run() {
             if (rippleRadius < rippleMaxRadius && rippleX >= 0 && rippleY >= 0) { // 更新水波纹半径
@@ -245,15 +250,8 @@ class CustomActionTextView @JvmOverloads constructor(context: Context,
 
     // 重写onDraw方法绘制波纹效果
     override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-        // 确定波纹圆环的绘制区域
-        val rippleEffectBounds = RectF(
-            rippleX - rippleRadius,
-            rippleY - rippleRadius,
-            rippleX + rippleRadius,
-            rippleY + rippleRadius
-        )
-        // 只有当圆环半径大于初始半径偏移量时才绘制
+        super.onDraw(canvas) // 确定波纹圆环的绘制区域
+        val rippleEffectBounds = RectF(rippleX - rippleRadius, rippleY - rippleRadius, rippleX + rippleRadius, rippleY + rippleRadius) // 只有当圆环半径大于初始半径偏移量时才绘制
         if (rippleRadius > initialRippleRadiusOffset) {
             canvas.drawOval(rippleEffectBounds, ripplePaint)
         }

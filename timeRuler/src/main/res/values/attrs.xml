@@ -113,6 +113,7 @@
         <attr name="text_right_icon_right_padding" format="dimension" />
         <attr name="text_top_padding" format="dimension" />
         <attr name="text_bottom_padding" format="dimension" />
+        <attr name="text_click_time_gap" format="string" />
     </declare-styleable>
 
 

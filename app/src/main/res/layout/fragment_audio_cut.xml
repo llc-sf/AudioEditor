@@ -75,6 +75,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:text_bottom_padding="@dimen/dp_4"
+            app:text_click_time_gap="200"
             app:text_leftDrawable="@drawable/ic_reduce"
             app:text_left_icon_left_padding="@dimen/dp_4"
             app:text_left_icon_right_padding="@dimen/dp_4"
@@ -90,6 +91,7 @@
             app:layout_constraintStart_toEndOf="@id/duration_selected_ly"
             app:layout_constraintTop_toTopOf="@id/cut_line_start"
             app:text_bottom_padding="@dimen/dp_4"
+            app:text_click_time_gap="200"
             app:text_leftDrawable="@drawable/ic_reduce"
             app:text_left_icon_left_padding="@dimen/dp_4"
             app:text_left_icon_right_padding="@dimen/dp_4"
@@ -98,12 +100,12 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cut_start_ly"
-            android:visibility="invisible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/rect_14ffffff_corner_46"
             android:paddingHorizontal="4dp"
             android:paddingVertical="@dimen/dp_4"
+            android:visibility="invisible"
             app:layout_constraintEnd_toStartOf="@id/duration_selected_ly"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -178,12 +180,12 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cut_end_ly"
-            android:visibility="invisible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/rect_14ffffff_corner_46"
             android:paddingHorizontal="4dp"
             android:paddingVertical="@dimen/dp_4"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@id/cut_start_ly"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/duration_selected_ly"
