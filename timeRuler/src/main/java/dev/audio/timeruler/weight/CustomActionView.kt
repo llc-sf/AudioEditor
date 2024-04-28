@@ -47,15 +47,15 @@ class CustomActionView @JvmOverloads constructor(context: Context,
         rightIcon = findViewById(R.id.right)
 
         // 读取并应用自定义属性
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomSearchView, 0, 0)
-        leftIcon.setImageDrawable(typedArray.getDrawable(R.styleable.CustomSearchView_leftDrawable))
-        rightIcon.setImageDrawable(typedArray.getDrawable(R.styleable.CustomSearchView_rightDrawable))
-        leftIconLeftPadding = typedArray.getDimensionPixelSize(R.styleable.CustomSearchView_left_icon_left_padding, 0)
-        leftIconRightPadding = typedArray.getDimensionPixelSize(R.styleable.CustomSearchView_left_icon_right_padding, 0)
-        rightIconLeftPadding = typedArray.getDimensionPixelSize(R.styleable.CustomSearchView_right_icon_left_padding, 0)
-        rightIconRightPadding = typedArray.getDimensionPixelSize(R.styleable.CustomSearchView_right_icon_right_padding, 0)
-        topPadding = typedArray.getDimensionPixelSize(R.styleable.CustomSearchView_top_padding, 0)
-        bottomPadding = typedArray.getDimensionPixelSize(R.styleable.CustomSearchView_bottom_padding, 0)
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomActionView, 0, 0)
+        leftIcon.setImageDrawable(typedArray.getDrawable(R.styleable.CustomActionView_leftDrawable))
+        rightIcon.setImageDrawable(typedArray.getDrawable(R.styleable.CustomActionView_rightDrawable))
+        leftIconLeftPadding = typedArray.getDimensionPixelSize(R.styleable.CustomActionView_left_icon_left_padding, 0)
+        leftIconRightPadding = typedArray.getDimensionPixelSize(R.styleable.CustomActionView_left_icon_right_padding, 0)
+        rightIconLeftPadding = typedArray.getDimensionPixelSize(R.styleable.CustomActionView_right_icon_left_padding, 0)
+        rightIconRightPadding = typedArray.getDimensionPixelSize(R.styleable.CustomActionView_right_icon_right_padding, 0)
+        topPadding = typedArray.getDimensionPixelSize(R.styleable.CustomActionView_top_padding, 0)
+        bottomPadding = typedArray.getDimensionPixelSize(R.styleable.CustomActionView_bottom_padding, 0)
         typedArray.recycle()
     }
 

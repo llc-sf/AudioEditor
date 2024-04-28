@@ -93,7 +93,7 @@
     </declare-styleable>
 
 
-    <declare-styleable name="CustomSearchView">
+    <declare-styleable name="CustomActionView">
         <attr name="leftDrawable" format="reference" />
         <attr name="rightDrawable" format="reference" />
         <attr name="left_icon_left_padding" format="dimension" />
@@ -102,6 +102,17 @@
         <attr name="right_icon_right_padding" format="dimension" />
         <attr name="top_padding" format="dimension" />
         <attr name="bottom_padding" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomActionTextView" >
+        <attr name="text_leftDrawable" format="reference" />
+        <attr name="text_rightDrawable" format="reference" />
+        <attr name="text_left_icon_left_padding" format="dimension" />
+        <attr name="text_left_icon_right_padding" format="dimension" />
+        <attr name="text_right_icon_left_padding" format="dimension" />
+        <attr name="text_right_icon_right_padding" format="dimension" />
+        <attr name="text_top_padding" format="dimension" />
+        <attr name="text_bottom_padding" format="dimension" />
     </declare-styleable>
 
 
