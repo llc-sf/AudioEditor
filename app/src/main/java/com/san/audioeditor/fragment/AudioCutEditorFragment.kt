@@ -87,6 +87,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             val song = intent.getParcelableExtra<Song>(AudioCutActivity.PARAM_SONG)
             if (song != null) {
                 mViewModel.song = song
+                PlayerManager.playByPath(mViewModel.song.path)
                 initTimeBar()
                 PlayerManager.playWithSeek(0, 0)
                 freshSaveActions()
@@ -96,6 +97,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             val audioFragmentBean = intent.getParcelableExtra<AudioFragmentBean>(AudioCutActivity.PARAM_AUDIO)
             if (audioFragmentBean != null && !TextUtils.isEmpty(audioFragmentBean.path)) {
                 mViewModel.song = getSongInfo(requireContext(), audioFragmentBean.path!!) ?: return
+                PlayerManager.playByPath(mViewModel.song.path)
                 initTimeBar(false)
                 PlayerManager.playWithSeek(0, 0)
                 freshSaveActions()
