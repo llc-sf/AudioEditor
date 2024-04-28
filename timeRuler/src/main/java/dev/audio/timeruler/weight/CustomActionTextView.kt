@@ -120,6 +120,7 @@ class CustomActionTextView @JvmOverloads constructor(context: Context,
                     // 初始半径设置为rightIcon外部边界加上一个偏移量
                     rippleRadius = maxOf(leftIcon.width, leftIcon.height) / 2f + initialRippleRadiusOffset
                     ripplePaint.alpha = 255 // 初始透明度为完全不透明
+                    rippleEffectHandler.removeCallbacks(rippleUpdateRunnable)
                     rippleEffectHandler.post(rippleUpdateRunnable)
 
                 } else {
@@ -138,6 +139,7 @@ class CustomActionTextView @JvmOverloads constructor(context: Context,
                     // 初始半径设置为rightIcon外部边界加上一个偏移量
                     rippleRadius = maxOf(rightIcon.width, rightIcon.height) / 2f + initialRippleRadiusOffset
                     ripplePaint.alpha = 255 // 初始透明度为完全不透明
+                    rippleEffectHandler.removeCallbacks(rippleUpdateRunnable)
                     rippleEffectHandler.post(rippleUpdateRunnable)
                 }
 
