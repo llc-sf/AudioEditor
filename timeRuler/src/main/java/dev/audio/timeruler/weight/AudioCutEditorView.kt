@@ -588,19 +588,31 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     }
 
     fun startCutMinus() {
-        audioFragment?.startCutMinus()
+        audioFragment?.let {
+            it.startCutMinus()
+            updateMediaSource(it.getCutLineStartTime(), it.getCutLineEndTime())
+        }
     }
 
     fun startCutPlus() {
-        audioFragment?.startCutPlus()
+        audioFragment?.let {
+            it.startCutPlus()
+            updateMediaSource(it.getCutLineStartTime(), it.getCutLineEndTime())
+        }
     }
 
     fun startEndMinus() {
-        audioFragment?.startEndMinus()
+        audioFragment?.let {
+            it.startEndMinus()
+            updateMediaSource(it.getCutLineStartTime(), it.getCutLineEndTime())
+        }
     }
 
     fun startEndPlus() {
-        audioFragment?.startEndPlus()
+        audioFragment?.let {
+            it.startEndPlus()
+            updateMediaSource(it.getCutLineStartTime(), it.getCutLineEndTime())
+        }
     }
 
     /**
