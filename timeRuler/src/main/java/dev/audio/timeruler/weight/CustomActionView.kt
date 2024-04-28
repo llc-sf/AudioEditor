@@ -1,6 +1,5 @@
 package dev.audio.timeruler.weight
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
@@ -13,7 +12,6 @@ import android.view.ViewConfiguration
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import dev.audio.timeruler.R
-import kotlin.math.max
 
 class CustomActionView @JvmOverloads constructor(context: Context,
                                                  attrs: AttributeSet? = null,
@@ -59,10 +57,6 @@ class CustomActionView @JvmOverloads constructor(context: Context,
         topPadding = typedArray.getDimensionPixelSize(R.styleable.CustomSearchView_top_padding, 0)
         bottomPadding = typedArray.getDimensionPixelSize(R.styleable.CustomSearchView_bottom_padding, 0)
         typedArray.recycle()
-
-        // Set touch listeners
-        //        setTouchListener(leftIcon, R.drawable.bg_left_click)
-        //        setTouchListener(rightIcon, R.drawable.bg_right_click)
     }
 
     private var lastTouchDown: Long = 0 // 记录按下的时间
@@ -125,51 +119,6 @@ class CustomActionView @JvmOverloads constructor(context: Context,
         }
         return true
     }
-
-
-    //    @SuppressLint("ClickableViewAccessibility")
-    //    private fun setTouchListener(imageView: ImageView, backgroundDrawableId: Int) {
-    //        imageView.setOnTouchListener { view, event ->
-    //            when (event.action) {
-    //                MotionEvent.ACTION_DOWN -> { // 设置背景
-    //                    if (!view.isEnabled) {
-    //                        setBackgroundResource(R.drawable.rect_14ffffff_corner_46)
-    //                        return@setOnTouchListener true
-    //                    }
-    //                    lastTouchDown = System.currentTimeMillis()
-    //                    setBackgroundResource(backgroundDrawableId) // 如果是加号图标，开始放大
-    //                    if (view == leftIcon) {
-    //                        leftDown = true
-    //                        zoomHandler.sendEmptyMessageDelayed(MESSAGE_LEFT, GAP_TIME)
-    //                    } else {
-    //                        rightDown = true
-    //                        zoomHandler.sendEmptyMessageDelayed(MESSAGE_RIGHT, GAP_TIME)
-    //                    }
-    //                }
-    //
-    //                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> { // 清除背景
-    //                    if (!view.isEnabled) {
-    //                        setBackgroundResource(R.drawable.rect_14ffffff_corner_46)
-    //                        return@setOnTouchListener true
-    //                    }
-    //                    clearMsg()
-    //                    setBackgroundResource(R.drawable.rect_14ffffff_corner_46)
-    //                    if (System.currentTimeMillis() - lastTouchDown < ViewConfiguration.getTapTimeout() * 2) {
-    //                        if (leftDown) {
-    //                            Log.i("CustomActionView", "leftAction")
-    //                            leftAction?.invoke()
-    //                        } else if (rightDown) {
-    //                            Log.i("CustomActionView", "rightAction")
-    //                            rightAction?.invoke()
-    //                        }
-    //                    }
-    //                    rightDown = false
-    //                    leftDown = false
-    //                }
-    //            }
-    //            true // 返回 true 表示事件已被处理
-    //        }
-    //    }
 
 
     var leftAction: (() -> Unit)? = null
