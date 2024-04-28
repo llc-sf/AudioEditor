@@ -70,7 +70,7 @@ class CustomActionTextView @JvmOverloads constructor(context: Context,
     private val rippleDuration = 600L // 水波纹动画时长
     private val rippleEffectHandler = Handler(Looper.getMainLooper())
 
-    private var time_gap = GAP_TIME
+    private var time_gap: Long
 
 
     init { // 从XML中加载布局
@@ -96,6 +96,7 @@ class CustomActionTextView @JvmOverloads constructor(context: Context,
                 ?.toLong() ?: GAP_TIME
         } catch (e: Exception) {
             e.printStackTrace()
+            time_gap = GAP_TIME
         }
 
         typedArray.recycle()

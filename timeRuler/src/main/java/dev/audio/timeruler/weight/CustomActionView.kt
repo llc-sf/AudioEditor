@@ -38,6 +38,8 @@ class CustomActionView @JvmOverloads constructor(context: Context,
     private val leftIcon: ImageView
     private val rightIcon: ImageView
 
+    private var time_gap: Long
+
 
     init { // 从XML中加载布局
         LayoutInflater.from(context).inflate(R.layout.custom_action_view, this, true)
@@ -56,6 +58,15 @@ class CustomActionView @JvmOverloads constructor(context: Context,
         rightIconRightPadding = typedArray.getDimensionPixelSize(R.styleable.CustomActionView_right_icon_right_padding, 0)
         topPadding = typedArray.getDimensionPixelSize(R.styleable.CustomActionView_top_padding, 0)
         bottomPadding = typedArray.getDimensionPixelSize(R.styleable.CustomActionView_bottom_padding, 0)
+
+        try {
+            time_gap = typedArray.getString(R.styleable.CustomActionView_click_time_gap)?.toLong()
+                ?: GAP_TIME
+        } catch (e: Exception) {
+            e.printStackTrace()
+            time_gap = GAP_TIME
+        }
+
         typedArray.recycle()
     }
 
@@ -77,7 +88,7 @@ class CustomActionView @JvmOverloads constructor(context: Context,
                     }
                     setBackgroundResource(R.drawable.bg_left_click)
                     leftDown = true
-                    zoomHandler.sendEmptyMessageDelayed(MESSAGE_LEFT, GAP_TIME)
+                    zoomHandler.sendEmptyMessageDelayed(MESSAGE_LEFT, time_gap)
                 } else {
                     if (!rightIcon.isEnabled) {
                         setBackgroundResource(R.drawable.rect_14ffffff_corner_46)
@@ -85,7 +96,7 @@ class CustomActionView @JvmOverloads constructor(context: Context,
                     }
                     setBackgroundResource(R.drawable.bg_right_click)
                     rightDown = true
-                    zoomHandler.sendEmptyMessageDelayed(MESSAGE_RIGHT, GAP_TIME)
+                    zoomHandler.sendEmptyMessageDelayed(MESSAGE_RIGHT, time_gap)
                 }
 
             }
@@ -150,12 +161,12 @@ class CustomActionView @JvmOverloads constructor(context: Context,
             when (msg.what) {
                 MESSAGE_LEFT -> {
                     leftAction?.invoke()
-                    sendEmptyMessageDelayed(MESSAGE_LEFT, GAP_TIME)
+                    sendEmptyMessageDelayed(MESSAGE_LEFT, time_gap)
                 }
 
                 MESSAGE_RIGHT -> {
                     rightAction?.invoke()
-                    sendEmptyMessageDelayed(MESSAGE_RIGHT, GAP_TIME)
+                    sendEmptyMessageDelayed(MESSAGE_RIGHT, time_gap)
                 }
             }
         }
