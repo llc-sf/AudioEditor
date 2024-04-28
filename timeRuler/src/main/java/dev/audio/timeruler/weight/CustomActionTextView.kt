@@ -98,10 +98,10 @@ class CustomActionTextView @JvmOverloads constructor(context: Context,
             e.printStackTrace()
             time_gap = GAP_TIME
         }
-
         typedArray.recycle()
 
         rippleMaxRadius = leftIcon.drawable.intrinsicWidth / 2 + 10f
+        setBackgroundResource(R.drawable.rect_14ffffff_corner_46)
     }
 
     private var lastTouchDown: Long = 0 // 记录按下的时间
@@ -117,7 +117,6 @@ class CustomActionTextView @JvmOverloads constructor(context: Context,
                 val x = event.x
                 if (x < width / 2) {
                     if (!leftIcon.isEnabled) {
-                        setBackgroundResource(R.drawable.rect_14ffffff_corner_46)
                         return true
                     } //                    setBackgroundResource(R.drawable.bg_left_click)
                     leftDown = true
@@ -134,7 +133,6 @@ class CustomActionTextView @JvmOverloads constructor(context: Context,
 
                 } else {
                     if (!rightIcon.isEnabled) {
-                        setBackgroundResource(R.drawable.rect_14ffffff_corner_46)
                         return true
                     } //                    setBackgroundResource(R.drawable.bg_right_click)
                     rightDown = true
@@ -156,16 +154,13 @@ class CustomActionTextView @JvmOverloads constructor(context: Context,
                 clearMsg()
                 if (leftDown) {
                     if (!leftIcon.isEnabled) {
-                        setBackgroundResource(R.drawable.rect_14ffffff_corner_46)
                         return true
                     }
                 } else {
                     if (!rightIcon.isEnabled) {
-                        setBackgroundResource(R.drawable.rect_14ffffff_corner_46)
                         return true
                     }
                 }
-                setBackgroundResource(R.drawable.rect_14ffffff_corner_46)
                 if (System.currentTimeMillis() - lastTouchDown < ViewConfiguration.getTapTimeout() * 2) {
                     if (leftDown) {
                         Log.i("CustomActionView", "leftAction")
@@ -193,17 +188,11 @@ class CustomActionTextView @JvmOverloads constructor(context: Context,
     fun freshLeftIconEnable(enable: Boolean) {
         leftIcon.isEnabled = enable
         leftIcon.alpha = if (enable) 1.0f else 0.5f
-        if (!enable) {
-            setBackgroundResource(R.drawable.rect_14ffffff_corner_46)
-        }
     }
 
     fun freshRightIconEnable(enable: Boolean) {
         rightIcon.isEnabled = enable
         rightIcon.alpha = if (enable) 1.0f else 0.5f
-        if (!enable) {
-            setBackgroundResource(R.drawable.rect_14ffffff_corner_46)
-        }
     }
 
 
