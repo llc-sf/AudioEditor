@@ -372,14 +372,18 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         viewBinding.cutLineStart.setActionListener({
                                                        viewBinding.timeLine.startCutMinus()
                                                    }, {
-                                                       viewBinding.timeLine.startCutPlus()
 
+                                                       viewBinding.timeLine.editTrimStart(parentFragmentManager)
+                                                   }, {
+                                                       viewBinding.timeLine.startCutPlus()
                                                    })
         viewBinding.cutLineEnd.setActionListener({
-                                                       viewBinding.timeLine.startEndMinus()
-                                                   }, {
-                                                       viewBinding.timeLine.startEndPlus()
-                                                   })
+                                                     viewBinding.timeLine.startEndMinus()
+                                                 }, {
+                                                     viewBinding.timeLine.editTrimEnd(parentFragmentManager)
+                                                 }, {
+                                                     viewBinding.timeLine.startEndPlus()
+                                                 })
 
         viewBinding.cutStartMinus.setOnClickListener {
             viewBinding.timeLine.startCutMinus()

@@ -102,6 +102,9 @@ class CustomActionTextView @JvmOverloads constructor(context: Context,
 
         rippleMaxRadius = leftIcon.drawable.intrinsicWidth / 2 + 10f
         setBackgroundResource(R.drawable.rect_14ffffff_corner_46)
+        tv.setOnClickListener {
+            middleAction?.invoke()
+        }
     }
 
     private var lastTouchDown: Long = 0 // 记录按下的时间
@@ -115,6 +118,13 @@ class CustomActionTextView @JvmOverloads constructor(context: Context,
                 lastTouchDown = System.currentTimeMillis()
                 val width = width
                 val x = event.x
+                Log.i("CustomActionView", "x: $x, width: $width , tv.width: ${tv.width}")
+                if (x < (width / 2 + tv.width / 2) && x > (width / 2 - tv.width / 2)) {
+                    Log.i("CustomActionView", "middleAction")
+                    return true
+                } else {
+                    Log.i("CustomActionView", " un middleAction")
+                }
                 if (x < width / 2) {
                     if (!leftIcon.isEnabled) {
                         return true
@@ -180,9 +190,15 @@ class CustomActionTextView @JvmOverloads constructor(context: Context,
 
     var leftAction: (() -> Unit)? = null
     var rightAction: (() -> Unit)? = null
-    fun setActionListener(leftAction: () -> Unit, rightAction: () -> Unit) {
+    var middleAction: (() -> Unit)? = null
+    fun setActionListener(
+        leftAction: () -> Unit,
+        middleAction: () -> Unit,
+        rightAction: () -> Unit,
+    ) {
         this.leftAction = leftAction
         this.rightAction = rightAction
+        this.middleAction = middleAction
     }
 
     fun freshLeftIconEnable(enable: Boolean) {
