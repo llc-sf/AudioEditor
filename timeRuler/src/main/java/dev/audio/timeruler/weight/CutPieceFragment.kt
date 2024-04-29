@@ -265,20 +265,23 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
 
     fun drawCutBg(canvas: Canvas) {
         when (cutMode) {
-            CUT_MODE_SELECT,CUT_MODE_JUMP -> {
+            CUT_MODE_SELECT, CUT_MODE_JUMP -> {
                 var bitmap = BitmapFactory.decodeResource(audio.getContext()?.resources, R.drawable.cut_piece_bg)
-                var rect = Rect(startTimestampPosition.toInt(), baselinePosition.toInt(), endTimestampPosition.toInt(), rect?.bottom?:0)
-                canvas.drawBitmap(bitmap,null,rect,null)
+                var rect = Rect(startTimestampPosition.toInt(), baselinePosition.toInt(), endTimestampPosition.toInt(), rect?.bottom
+                    ?: 0)
+                canvas.drawBitmap(bitmap, null, rect, null)
             }
 
             CUT_MODE_DELETE -> {
                 var bitmap = BitmapFactory.decodeResource(audio.getContext()?.resources, R.drawable.cut_piece_bg)
 
-                var rectStart = Rect(0, baselinePosition.toInt(), startTimestampPosition.toInt(), rect?.bottom?:0)
-                canvas.drawBitmap(bitmap,null,rectStart,null)
+                var rectStart = Rect(0, baselinePosition.toInt(), startTimestampPosition.toInt(), rect?.bottom
+                    ?: 0)
+                canvas.drawBitmap(bitmap, null, rectStart, null)
 
-                var rectEnd = Rect(endTimestampPosition.toInt(), baselinePosition.toInt(), ScreenUtil.getScreenWidth(audio.getContext()), rect?.bottom?:0)
-                canvas.drawBitmap(bitmap,null,rectEnd,null)
+                var rectEnd = Rect(endTimestampPosition.toInt(), baselinePosition.toInt(), ScreenUtil.getScreenWidth(audio.getContext()), rect?.bottom
+                    ?: 0)
+                canvas.drawBitmap(bitmap, null, rectEnd, null)
             }
 
         }
@@ -450,6 +453,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
 
         companion object {
             const val MSG_MOVE = 1
+            const val MSG_MOVE_START = 3
             const val MSG_MOVE_TO_OFFSET = 2
 
             //靠边缘的移动速度有以下两个变量控制
@@ -488,6 +492,14 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                         this.moveRightByPixel(MOVE_INTERVAL_SPACE) //剪切范围也扩大
                         cutPiece?.get()?.expendRightByPixel(MOVE_INTERVAL_SPACE)
                         sendMessageDelayed(obtainMessage(MSG_MOVE), MOVE_INTERVAL_TIME)
+                    }
+                }
+
+                MSG_MOVE_START -> { // 实现移动波形图的逻辑  开始方向
+                    audio?.get()?.apply { //波形移动
+                        this.moveStartByPixel(MOVE_INTERVAL_SPACE) //剪切范围也扩大
+                        cutPiece?.get()?.expendStartByPixel(MOVE_INTERVAL_SPACE)
+                        sendMessageDelayed(obtainMessage(MSG_MOVE_START), MOVE_INTERVAL_TIME)
                     }
                 }
 
@@ -556,6 +568,15 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     /**
      * 裁剪范围向右扩展
      *
+     * 扩展的变量为像素
+     */
+    private fun expendStartByPixel(moveIntervalSpace: Float) {
+        startTimestampTimeInSelf -= (moveIntervalSpace.pixel2Time(unitMsPixel))
+    }
+
+    /**
+     * 裁剪范围向右扩展
+     *
      * 扩展的变量为时间
      */
     private fun expendRightByTime(time: Long) {
@@ -582,6 +603,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                     val dx = x - lastTouchXProcess
                     if (isMovingStart) {
                         onCutLineChangeListener?.onCutLineMove()
+                        if (dx > 10 || event.x >= 50) {
+                            stopMoveStart()
+                        }
                         startTimestampPosition += dx
                         if (startTimestampPosition <= (rect?.left ?: 0)) { //开始小于本身了
                             startTimestampTimeInSelf = 0
@@ -592,6 +616,22 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                                 ?: startTimestampTimeInSelf
                         } else {
                             startTimestampTimeInSelf += dx.pixel2Time(unitMsPixel)
+
+                            val newStartTimestampPosition = startTimestampPosition
+                            val minStartPosition = strokeWidth_cut + endHandleTouchRect.width() // 检查是否到达屏幕边界
+                            Log.i("llc_fuck", "newStartTimestampPosition < minStartPosition = ${newStartTimestampPosition < minStartPosition}")
+                            if (newStartTimestampPosition < minStartPosition) {
+                                if (canLoadMoreWaveDataToStart(context)) {
+                                    moveStart()
+                                    loadMoreWaveData(newStartTimestampPosition) // 更新duration和unitMsPixel
+                                    updateDurationAndUnitPixel()
+                                } else {
+
+                                }
+                            } else {
+                                startTimestampPosition = newStartTimestampPosition
+                            }
+
                         } //容错 开始时间大于结束时间了
                         if (startTimestampPosition > endTimestampPosition) {
                             startTimestampTimeInSelf = endTimestampTimeInSelf
@@ -651,6 +691,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                 isMovingStart = false
                 isMovingEnd = false
                 stopMoveRight()
+                stopMoveStart()
 
             }
         }
@@ -671,13 +712,26 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
         moveHandler.sendMessage(moveHandler.obtainMessage(MoveHandler.MSG_MOVE))
     }
 
+    private fun moveStart() {
+        moveHandler.sendMessage(moveHandler.obtainMessage(MoveHandler.MSG_MOVE_START))
+    }
+
     private fun stopMoveRight() {
         moveHandler.removeMessages(MoveHandler.MSG_MOVE)
+    }
+
+    private fun stopMoveStart() {
+        moveHandler.removeMessages(MoveHandler.MSG_MOVE_START)
     }
 
     private fun canLoadMoreWaveData(context: Context): Boolean { // 实现检查是否有更多波形数据可以加载的逻辑
         // 返回true表示可以加载，返回false表示没有更多数据
         return rect?.right ?: 0 > ScreenUtil.getScreenWidth(context)
+    }
+
+    private fun canLoadMoreWaveDataToStart(context: Context): Boolean { // 实现检查是否有更多波形数据可以加载的逻辑
+        // 返回true表示可以加载，返回false表示没有更多数据
+        return rect?.left ?: 0 < 0
     }
 
     private fun loadMoreWaveData(newEndTimestampPosition: Float) { // 实现加载更多波形数据的逻辑
@@ -885,7 +939,6 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             false
         }
     }
-
 
 
 }

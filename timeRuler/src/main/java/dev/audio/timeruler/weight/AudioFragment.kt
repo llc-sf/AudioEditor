@@ -418,6 +418,10 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
         audioEditorView.moveRightByPixel(distance)
     }
 
+    fun moveStartByPixel(distance: Float) {
+        audioEditorView.moveStartByPixel(distance)
+    }
+
     fun moveRightByTime(time: Long) {
         audioEditorView.moveRightByTime(time)
     }

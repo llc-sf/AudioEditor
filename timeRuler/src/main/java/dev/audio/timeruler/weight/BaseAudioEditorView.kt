@@ -985,6 +985,17 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
         invalidate()
     }
 
+    /**
+     * 裁剪范围向右移动
+     *
+     * 移动的变量为像素
+     */
+    fun moveStartByPixel(distance: Float) {
+        Log.i("llc_fuck","moveStartByPixel distance=$distance")
+        cursorValue -= distance.pixel2Time(unitMsPixel)
+        invalidate()
+    }
+
 
     /**
      * 裁剪范围向右移动
