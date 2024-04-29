@@ -274,6 +274,11 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         }
         var isInFragment = currentCutPieceFragment!!.isInFragment(currentPlayingTimeInAudio)
         cutPieceFragments.remove(currentCutPieceFragment)
+        if(cutPieceFragments.isEmpty()){
+            PlayerManager.pause()
+            audioEditorView.invalidate()
+            return
+        }
         var isPlaying = PlayerManager.isPlaying
         PlayerManager.pause()
         if (isInFragment) { //播放条在删除的片段内   重新定位 1、后一个（如果有）  2、第一个

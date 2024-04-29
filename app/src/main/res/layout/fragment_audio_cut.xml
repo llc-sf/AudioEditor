@@ -519,12 +519,12 @@
                 android:id="@+id/trim_start"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white_50white_selector"
                 app:ripplebutton_annimation_duration="800"
                 app:ripplebutton_padding="@dimen/dp_6"
                 app:ripplebutton_radius="46dp"
                 app:ripplebutton_rippleStrokeWidth="@dimen/dp_6"
                 app:ripplebutton_text_bg="@drawable/rect_14ffffff_corner_46"
+                app:ripplebutton_text_color="@color/white_50white_selector"
                 app:ripplebutton_text_content="Trim start point"
                 app:ripplebutton_text_size="@dimen/sp_12" />
 
@@ -534,12 +534,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_12"
                 android:text="Trim end point"
-                android:textColor="@color/white_50white_selector"
                 app:ripplebutton_annimation_duration="800"
                 app:ripplebutton_padding="@dimen/dp_6"
                 app:ripplebutton_radius="46dp"
                 app:ripplebutton_rippleStrokeWidth="@dimen/dp_6"
                 app:ripplebutton_text_bg="@drawable/rect_14ffffff_corner_46"
+                app:ripplebutton_text_color="@color/white_50white_selector"
                 app:ripplebutton_text_content="Trim end point"
                 app:ripplebutton_text_size="@dimen/sp_12" />
 
@@ -584,26 +584,33 @@
             android:orientation="horizontal"
             android:visibility="gone">
 
-            <TextView
+            <dev.audio.timeruler.weight.RippleButtonView
                 android:id="@+id/cut_add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/cut_mode_action_bg_selector"
-                android:paddingHorizontal="@dimen/dp_12"
-                android:paddingVertical="@dimen/dp_10"
-                android:text="@string/add_clip_to_the_playback"
-                android:textColor="@color/white_50white_selector" />
+                android:layout_marginStart="@dimen/dp_12"
+                app:ripplebutton_annimation_duration="800"
+                app:ripplebutton_padding="@dimen/dp_6"
+                app:ripplebutton_radius="46dp"
+                app:ripplebutton_rippleStrokeWidth="@dimen/dp_6"
+                app:ripplebutton_text_bg="@drawable/rect_14ffffff_corner_46"
+                app:ripplebutton_text_color="@color/white_50white_selector"
+                app:ripplebutton_text_content="@string/add_clip_to_the_playback"
+                app:ripplebutton_text_size="@dimen/sp_12" />
 
-            <TextView
+            <dev.audio.timeruler.weight.RippleButtonView
                 android:id="@+id/cut_remove"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_12"
-                android:background="@drawable/cut_mode_action_bg_selector"
-                android:paddingHorizontal="@dimen/dp_12"
-                android:paddingVertical="@dimen/dp_10"
-                android:text="@string/discard_clip"
-                android:textColor="@color/white_50white_selector" />
+                app:ripplebutton_annimation_duration="800"
+                app:ripplebutton_padding="@dimen/dp_6"
+                app:ripplebutton_radius="46dp"
+                app:ripplebutton_rippleStrokeWidth="@dimen/dp_6"
+                app:ripplebutton_text_bg="@drawable/rect_14ffffff_corner_46"
+                app:ripplebutton_text_color="@color/white_50white_selector"
+                app:ripplebutton_text_content="@string/discard_clip"
+                app:ripplebutton_text_size="@dimen/sp_12" />
 
         </LinearLayout>
 

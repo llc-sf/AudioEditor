@@ -16,7 +16,6 @@
         android:paddingHorizontal="@dimen/dp_14"
         android:paddingVertical="@dimen/dp_10"
         android:text="@string/save"
-        android:textColor="@color/white"
         android:textSize="@dimen/sp_12"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -68,17 +68,14 @@ class RippleButtonView @JvmOverloads constructor(context: Context,
             rippleStrokeWidth = typedArray.getDimensionPixelSize(R.styleable.RippleButton_ripplebutton_rippleStrokeWidth, rippleStrokeWidth.toInt())
                 .toFloat()
             radius = typedArray.getDimensionPixelSize(R.styleable.RippleButton_ripplebutton_radius, radius)
-            var tvBg = typedArray.getResourceId(R.styleable.RippleButton_ripplebutton_text_bg, R.drawable.rect_14ffffff_corner_46)
-            tv.setBackgroundResource(tvBg)
+            tv.setBackgroundResource(typedArray.getResourceId(R.styleable.RippleButton_ripplebutton_text_bg, R.drawable.rect_14ffffff_corner_46))
             var padding = typedArray.getDimensionPixelSize(R.styleable.RippleButton_ripplebutton_padding, 4.dp)
             findViewById<ConstraintLayout>(R.id.container).setPadding(padding, padding, padding, padding)
             rippleDuration = typedArray.getString(R.styleable.RippleButton_ripplebutton_annimation_duration)
                 ?.toLong() ?: rippleDuration
-            var content = typedArray.getString(R.styleable.RippleButton_ripplebutton_text_content)
-                ?: ""
-            tv.text = content
-            var size = typedArray.getFloat(R.styleable.RippleButton_ripplebutton_text_size, 12.sp.toFloat())
-            tv.textSize = size
+            tv.text = typedArray.getString(R.styleable.RippleButton_ripplebutton_text_content) ?: ""
+            tv.textSize = typedArray.getFloat(R.styleable.RippleButton_ripplebutton_text_size, 12.sp.toFloat())
+            tv.setTextColor(typedArray.getColorStateList(R.styleable.RippleButton_ripplebutton_text_color))
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -96,16 +93,18 @@ class RippleButtonView @JvmOverloads constructor(context: Context,
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        when (event.action) {
-            MotionEvent.ACTION_DOWN -> {
-                rippleMaxRadiusX = this.width.toFloat() / 2 // 可以根据需要调整这个值
-                rippleMaxRadiusY = this.height.toFloat() / 2 // 可以根据需要调整这个值
-                rippleX = tv.x + tv.width / 2
-                rippleY = tv.y + tv.height / 2 // 初始半径设置为rightIcon外部边界加上一个偏移量
-                rippleRadiusX = this.tv.width / 2f + rippleStrokeWidth / 2
-                rippleRadiusY = this.tv.height / 2f + rippleStrokeWidth / 2
-                ripplePaint.alpha = 255
-                rippleEffectHandler.post(rippleUpdateRunnable)
+        if (isEnabled) {
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    rippleMaxRadiusX = this.width.toFloat() / 2 // 可以根据需要调整这个值
+                    rippleMaxRadiusY = this.height.toFloat() / 2 // 可以根据需要调整这个值
+                    rippleX = tv.x + tv.width / 2
+                    rippleY = tv.y + tv.height / 2 // 初始半径设置为rightIcon外部边界加上一个偏移量
+                    rippleRadiusX = this.tv.width / 2f + rippleStrokeWidth / 2
+                    rippleRadiusY = this.tv.height / 2f + rippleStrokeWidth / 2
+                    ripplePaint.alpha = 255
+                    rippleEffectHandler.post(rippleUpdateRunnable)
+                }
             }
         }
         return super.onTouchEvent(event)
@@ -120,6 +119,11 @@ class RippleButtonView @JvmOverloads constructor(context: Context,
 
     companion object {
         private const val GAP_TIME_ANIMATION = 1L
+    }
+
+    override fun setEnabled(enabled: Boolean) {
+        super.setEnabled(enabled)
+        tv.isEnabled = enabled
     }
 
 }
