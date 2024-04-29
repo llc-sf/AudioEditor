@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import dev.audio.timeruler.R
 import dev.audio.timeruler.utils.dp
+import dev.audio.timeruler.utils.sp
 
 class RippleButtonView @JvmOverloads constructor(context: Context,
                                                  attrs: AttributeSet? = null,
@@ -63,15 +64,21 @@ class RippleButtonView @JvmOverloads constructor(context: Context,
         tv = findViewById(R.id.tv)
 
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.RippleButton, 0, 0)
-        rippleStrokeWidth = typedArray.getDimensionPixelSize(R.styleable.RippleButton_ripplebutton_rippleStrokeWidth, rippleStrokeWidth.toInt())
-            .toFloat()
-        radius = typedArray.getDimensionPixelSize(R.styleable.RippleButton_ripplebutton_radius, radius)
-        var tvBg = typedArray.getResourceId(R.styleable.RippleButton_ripplebutton_text_bg, R.drawable.rect_14ffffff_corner_46)
-        tv.setBackgroundResource(tvBg)
-        var padding = typedArray.getDimensionPixelSize(R.styleable.RippleButton_ripplebutton_padding, 4.dp)
-        findViewById<ConstraintLayout>(R.id.container).setPadding(padding, padding, padding, padding)
         try {
-            rippleDuration = typedArray.getString(R.styleable.RippleButton_ripplebutton_annimation_duration)?.toLong() ?: rippleDuration
+            rippleStrokeWidth = typedArray.getDimensionPixelSize(R.styleable.RippleButton_ripplebutton_rippleStrokeWidth, rippleStrokeWidth.toInt())
+                .toFloat()
+            radius = typedArray.getDimensionPixelSize(R.styleable.RippleButton_ripplebutton_radius, radius)
+            var tvBg = typedArray.getResourceId(R.styleable.RippleButton_ripplebutton_text_bg, R.drawable.rect_14ffffff_corner_46)
+            tv.setBackgroundResource(tvBg)
+            var padding = typedArray.getDimensionPixelSize(R.styleable.RippleButton_ripplebutton_padding, 4.dp)
+            findViewById<ConstraintLayout>(R.id.container).setPadding(padding, padding, padding, padding)
+            rippleDuration = typedArray.getString(R.styleable.RippleButton_ripplebutton_annimation_duration)
+                ?.toLong() ?: rippleDuration
+            var content = typedArray.getString(R.styleable.RippleButton_ripplebutton_text_content)
+                ?: ""
+            tv.text = content
+            var size = typedArray.getFloat(R.styleable.RippleButton_ripplebutton_text_size, 12.sp.toFloat())
+            tv.textSize = size
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -99,7 +106,6 @@ class RippleButtonView @JvmOverloads constructor(context: Context,
                 rippleRadiusY = this.tv.height / 2f + rippleStrokeWidth / 2
                 ripplePaint.alpha = 255
                 rippleEffectHandler.post(rippleUpdateRunnable)
-                return true
             }
         }
         return super.onTouchEvent(event)

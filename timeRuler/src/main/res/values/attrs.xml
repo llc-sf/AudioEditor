@@ -124,6 +124,8 @@
         <attr name="ripplebutton_text_bg" format="reference" />
         <attr name="ripplebutton_padding" format="dimension" />
         <attr name="ripplebutton_annimation_duration" format="string" />
+        <attr name="ripplebutton_text_content" format="string" />
+        <attr name="ripplebutton_text_size" format="dimension" />
     </declare-styleable>
 
 </resources>
