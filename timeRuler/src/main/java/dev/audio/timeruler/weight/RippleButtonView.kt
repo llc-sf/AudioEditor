@@ -27,9 +27,10 @@ class RippleButtonView @JvmOverloads constructor(context: Context,
     private var rippleRadiusX: Float = 0f
     private var rippleRadiusY: Float = 0f
 
-    private val rippleStrokeWidth = 10f // 波纹圆环的宽度
+    private var rippleStrokeWidth = 10f // 波纹圆环的宽度
+    private var radius = 46.dp
     private val initialRippleRadiusOffset = 0f // 波纹开始扩散时的初始偏移量
-    private val rippleDuration = 600L // 水波纹动画时长
+    private val rippleDuration = 800L // 水波纹动画时长
     private var rippleMaxRadiusX: Float = 0f
     private var rippleMaxRadiusY: Float = 0f
     private val rippleEffectHandler = Handler(android.os.Looper.getMainLooper())
@@ -62,8 +63,13 @@ class RippleButtonView @JvmOverloads constructor(context: Context,
         LayoutInflater.from(context).inflate(R.layout.custom_action_rapple_view, this, true)
         tv = findViewById(R.id.tv)
 
-        // 设置文本视图背景为圆角矩形
-        //        tv.setBackgroundResource(R.drawable.button_default_background)
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.RippleButton, 0, 0)
+        rippleStrokeWidth = typedArray.getDimensionPixelSize(R.styleable.RippleButton_ripplebutton_rippleStrokeWidth, rippleStrokeWidth.toInt())
+            .toFloat()
+        radius = typedArray.getDimensionPixelSize(R.styleable.RippleButton_ripplebutton_radius, radius)
+        var tvBg = typedArray.getResourceId(R.styleable.RippleButton_ripplebutton_text_bg, R.drawable.rect_14ffffff_corner_46)
+        tv.setBackgroundResource(tvBg)
+        ripplePaint.strokeWidth = rippleStrokeWidth
 
     }
 
@@ -82,8 +88,8 @@ class RippleButtonView @JvmOverloads constructor(context: Context,
                 rippleMaxRadiusY = this.height.toFloat() / 2 // 可以根据需要调整这个值
                 rippleX = tv.x + tv.width / 2
                 rippleY = tv.y + tv.height / 2 // 初始半径设置为rightIcon外部边界加上一个偏移量
-                rippleRadiusX = this.tv.width / 2f
-                rippleRadiusY = this.tv.height / 2f
+                rippleRadiusX = this.tv.width / 2f + rippleStrokeWidth / 2
+                rippleRadiusY = this.tv.height / 2f + rippleStrokeWidth / 2
                 ripplePaint.alpha = 255
                 rippleEffectHandler.post(rippleUpdateRunnable)
                 return true
@@ -95,12 +101,12 @@ class RippleButtonView @JvmOverloads constructor(context: Context,
     override fun dispatchDraw(canvas: Canvas?) {
         super.dispatchDraw(canvas)
         val rippleEffectBounds = RectF(rippleX - rippleRadiusX, rippleY - rippleRadiusY, rippleX + rippleRadiusX, rippleY + rippleRadiusY)
-        canvas?.drawRoundRect(rippleEffectBounds, 46.dp.toFloat(), 46.dp.toFloat(), ripplePaint)
+        canvas?.drawRoundRect(rippleEffectBounds, radius.toFloat(), radius.toFloat(), ripplePaint)
     }
 
 
     companion object {
-        private const val GAP_TIME_ANIMATION = 5L
+        private const val GAP_TIME_ANIMATION = 1L
     }
 
 }

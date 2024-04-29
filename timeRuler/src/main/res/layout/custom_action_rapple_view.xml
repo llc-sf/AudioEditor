@@ -11,7 +11,6 @@
         android:id="@+id/tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/rect_14ffffff_corner_46"
         android:gravity="center"
         android:paddingHorizontal="@dimen/dp_14"
         android:paddingVertical="@dimen/dp_10"

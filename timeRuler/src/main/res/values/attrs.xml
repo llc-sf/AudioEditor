@@ -119,8 +119,9 @@
 
 
     <declare-styleable name="RippleButton">
-        <attr name="ripplebutton_cornerradius" format="dimension" />
-        <attr name="ripplebutton_buttonColor" format="color" />
+        <attr name="ripplebutton_rippleStrokeWidth" format="dimension" />
+        <attr name="ripplebutton_radius" format="dimension" />
+        <attr name="ripplebutton_text_bg" format="reference" />
         <attr name="ripplebutton_textColor" format="color" />
         <attr name="ripplebutton_text" format="string" />
     </declare-styleable>

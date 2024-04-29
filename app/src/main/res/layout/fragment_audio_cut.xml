@@ -517,7 +517,11 @@
 
             <dev.audio.timeruler.weight.RippleButtonView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                app:ripplebutton_rippleStrokeWidth="4dp"
+                app:ripplebutton_radius="46dp"
+                app:ripplebutton_text_bg="@drawable/rect_14ffffff_corner_46"
+                />
 
             <TextView
                 android:id="@+id/trim_start"
