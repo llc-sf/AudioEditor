@@ -489,17 +489,21 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             when (msg.what) {
                 MSG_MOVE -> { // 实现移动波形图的逻辑
                     audio?.get()?.apply { //波形移动
-                        this.moveRightByPixel(MOVE_INTERVAL_SPACE) //剪切范围也扩大
-                        cutPiece?.get()?.expendRightByPixel(MOVE_INTERVAL_SPACE)
-                        sendMessageDelayed(obtainMessage(MSG_MOVE), MOVE_INTERVAL_TIME)
+                        if (canLoadMoreWaveDataToEnd()) {
+                            this.moveRightByPixel(MOVE_INTERVAL_SPACE) //剪切范围也扩大
+                            cutPiece?.get()?.expendRightByPixel(MOVE_INTERVAL_SPACE)
+                            sendMessageDelayed(obtainMessage(MSG_MOVE), MOVE_INTERVAL_TIME)
+                        }
                     }
                 }
 
                 MSG_MOVE_START -> { // 实现移动波形图的逻辑  开始方向
                     audio?.get()?.apply { //波形移动
-                        this.moveStartByPixel(MOVE_INTERVAL_SPACE) //剪切范围也扩大
-                        cutPiece?.get()?.expendStartByPixel(MOVE_INTERVAL_SPACE)
-                        sendMessageDelayed(obtainMessage(MSG_MOVE_START), MOVE_INTERVAL_TIME)
+                        if (canLoadMoreWaveDataToStart()) {
+                            this.moveStartByPixel(MOVE_INTERVAL_SPACE) //剪切范围也扩大
+                            cutPiece?.get()?.expendStartByPixel(MOVE_INTERVAL_SPACE)
+                            sendMessageDelayed(obtainMessage(MSG_MOVE_START), MOVE_INTERVAL_TIME)
+                        }
                     }
                 }
 
@@ -619,14 +623,13 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
 
                             val newStartTimestampPosition = startTimestampPosition
                             val minStartPosition = strokeWidth_cut + endHandleTouchRect.width() // 检查是否到达屏幕边界
-                            Log.i("llc_fuck", "newStartTimestampPosition < minStartPosition = ${newStartTimestampPosition < minStartPosition}")
                             if (newStartTimestampPosition < minStartPosition) {
                                 if (canLoadMoreWaveDataToStart(context)) {
                                     moveStart()
                                     loadMoreWaveData(newStartTimestampPosition) // 更新duration和unitMsPixel
                                     updateDurationAndUnitPixel()
                                 } else {
-
+                                    stopMoveStart()
                                 }
                             } else {
                                 startTimestampPosition = newStartTimestampPosition
@@ -661,6 +664,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                                     updateDurationAndUnitPixel()
                                 } else { // 到达最大范围，不再移动
                                     endTimestampPosition = maxEndPosition
+                                    stopMoveRight()
                                 }
                             } else {
                                 endTimestampPosition = newEndTimestampPosition
@@ -726,12 +730,12 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
 
     private fun canLoadMoreWaveData(context: Context): Boolean { // 实现检查是否有更多波形数据可以加载的逻辑
         // 返回true表示可以加载，返回false表示没有更多数据
-        return rect?.right ?: 0 > ScreenUtil.getScreenWidth(context)
+        return audio.canLoadMoreWaveDataToEnd()
     }
 
     private fun canLoadMoreWaveDataToStart(context: Context): Boolean { // 实现检查是否有更多波形数据可以加载的逻辑
         // 返回true表示可以加载，返回false表示没有更多数据
-        return rect?.left ?: 0 < 0
+        return audio.canLoadMoreWaveDataToStart()
     }
 
     private fun loadMoreWaveData(newEndTimestampPosition: Float) { // 实现加载更多波形数据的逻辑

@@ -12,6 +12,7 @@ import dev.audio.timeruler.weight.BaseAudioEditorView.Companion.long_press_tag
 import dev.audio.timeruler.weight.BaseAudioEditorView.Companion.time_line_tag
 import dev.audio.timeruler.bean.Ref
 import dev.audio.timeruler.bean.Waveform
+import dev.audio.timeruler.utils.format2Duration
 import dev.audio.timeruler.weight.BaseAudioEditorView.Companion.wave_tag
 import kotlin.math.roundToInt
 
@@ -424,6 +425,18 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
 
     fun moveRightByTime(time: Long) {
         audioEditorView.moveRightByTime(time)
+    }
+
+    fun canLoadMoreWaveDataToStart(): Boolean {
+        return startTimestamp.apply {
+            Log.i(wave_tag, "canLoadMoreWaveDataToStart startTimestamp=${startTimestamp.format2Duration()}")
+        } <= cursorValue.apply {
+            Log.i(wave_tag, "canLoadMoreWaveDataToStart cursorValue=${cursorValue.format2Duration()}")
+        }
+    }
+
+    fun canLoadMoreWaveDataToEnd(): Boolean {
+        return cursorValue + screenWithDuration <= duration + startTimestamp
     }
 
 
