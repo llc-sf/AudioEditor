@@ -465,6 +465,9 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                     viewBinding.deleteSelectedTv.isEnabled = false
                     viewBinding.jumpSelected.isSelected = false
                     viewBinding.jumpSelectedTv.isEnabled = false
+                    viewBinding.keepSelectedIcon.isVisible = true
+                    viewBinding.deleteSelectedIcon.isVisible = false
+                    viewBinding.jumpSelectedIcon.isVisible = false
                 }
 
                 CutPieceFragment.CUT_MODE_DELETE -> {
@@ -474,6 +477,9 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                     viewBinding.deleteSelectedTv.isEnabled = true
                     viewBinding.jumpSelected.isSelected = false
                     viewBinding.jumpSelectedTv.isEnabled = false
+                    viewBinding.keepSelectedIcon.isVisible = false
+                    viewBinding.deleteSelectedIcon.isVisible = true
+                    viewBinding.jumpSelectedIcon.isVisible = false
                 }
 
                 CutPieceFragment.CUT_MODE_JUMP -> {
@@ -483,6 +489,10 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                     viewBinding.deleteSelectedTv.isEnabled = false
                     viewBinding.jumpSelected.isSelected = true
                     viewBinding.jumpSelectedTv.isEnabled = true
+                    viewBinding.keepSelectedIcon.isVisible = false
+                    viewBinding.deleteSelectedIcon.isVisible = false
+                    viewBinding.jumpSelectedIcon.isVisible = true
+
                 }
             }
     }

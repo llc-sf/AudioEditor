@@ -630,12 +630,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/keep_selected"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/dp_36"
                 android:background="@drawable/cut_mode_bg_selector"
                 android:gravity="center"
                 android:orientation="horizontal"
@@ -643,6 +644,7 @@
                 android:paddingVertical="@dimen/dp_6">
 
                 <ImageView
+                    android:id="@+id/keep_selected_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:srcCompat="@drawable/ic_keep_selected" />
@@ -659,7 +661,7 @@
             <LinearLayout
                 android:id="@+id/delete_selected"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/dp_36"
                 android:layout_marginStart="@dimen/dp_13"
                 android:background="@drawable/cut_mode_bg_selector"
                 android:gravity="center"
@@ -668,8 +670,10 @@
                 android:paddingVertical="@dimen/dp_6">
 
                 <ImageView
+                    android:id="@+id/delete_selected_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/ic_keep_delete" />
 
                 <TextView
@@ -685,7 +689,7 @@
             <LinearLayout
                 android:id="@+id/jump_selected"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/dp_36"
                 android:layout_marginStart="@dimen/dp_13"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/cut_mode_bg_selector"
@@ -695,8 +699,10 @@
                 android:paddingVertical="@dimen/dp_6">
 
                 <ImageView
+                    android:id="@+id/jump_selected_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/ic_keep_jump" />
 
                 <TextView
