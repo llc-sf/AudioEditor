@@ -110,6 +110,9 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
     }
 
     override fun onDraw(canvas: Canvas) { // 开启图层
+        cutPieceFragments.forEach {
+            it.drawCutBg(canvas)
+        } //恢复图层
         val saved = canvas.saveLayer(null, null, Canvas.ALL_SAVE_FLAG) //绘制完整音波
         super.onDraw(canvas) //绘制选中片段
         cutPieceFragments.forEach {

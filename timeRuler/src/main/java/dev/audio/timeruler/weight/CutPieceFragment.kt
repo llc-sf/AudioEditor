@@ -263,6 +263,29 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     //    }
 
 
+    fun drawCutBg(canvas: Canvas) {
+        when (cutMode) {
+            CUT_MODE_SELECT,CUT_MODE_JUMP -> {
+                var bitmap = BitmapFactory.decodeResource(audio.getContext()?.resources, R.drawable.cut_piece_bg)
+                var rect = Rect(startTimestampPosition.toInt(), baselinePosition.toInt(), endTimestampPosition.toInt(), rect?.bottom?:0)
+                canvas.drawBitmap(bitmap,null,rect,null)
+            }
+
+            CUT_MODE_DELETE -> {
+                var bitmap = BitmapFactory.decodeResource(audio.getContext()?.resources, R.drawable.cut_piece_bg)
+
+                var rectStart = Rect(0, baselinePosition.toInt(), startTimestampPosition.toInt(), rect?.bottom?:0)
+                canvas.drawBitmap(bitmap,null,rectStart,null)
+
+                var rectEnd = Rect(endTimestampPosition.toInt(), baselinePosition.toInt(), ScreenUtil.getScreenWidth(audio.getContext()), rect?.bottom?:0)
+                canvas.drawBitmap(bitmap,null,rectEnd,null)
+            }
+
+        }
+
+    }
+
+
     fun drawCutLines(canvas: Canvas) { // 绘制代表开始和结束时间戳的线，线的终止位置应在圆圈的下缘
         if (isFake) {
             return
@@ -862,6 +885,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             false
         }
     }
+
 
 
 }
