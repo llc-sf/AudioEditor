@@ -105,7 +105,7 @@
         <attr name="click_time_gap" format="string" />
     </declare-styleable>
 
-    <declare-styleable name="CustomActionTextView" >
+    <declare-styleable name="CustomActionTextView">
         <attr name="text_leftDrawable" format="reference" />
         <attr name="text_rightDrawable" format="reference" />
         <attr name="text_left_icon_left_padding" format="dimension" />
@@ -122,8 +122,8 @@
         <attr name="ripplebutton_rippleStrokeWidth" format="dimension" />
         <attr name="ripplebutton_radius" format="dimension" />
         <attr name="ripplebutton_text_bg" format="reference" />
-        <attr name="ripplebutton_textColor" format="color" />
-        <attr name="ripplebutton_text" format="string" />
+        <attr name="ripplebutton_padding" format="dimension" />
+        <attr name="ripplebutton_annimation_duration" format="string" />
     </declare-styleable>
 
 </resources>

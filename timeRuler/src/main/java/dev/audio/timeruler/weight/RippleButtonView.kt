@@ -29,8 +29,7 @@ class RippleButtonView @JvmOverloads constructor(context: Context,
 
     private var rippleStrokeWidth = 10f // 波纹圆环的宽度
     private var radius = 46.dp
-    private val initialRippleRadiusOffset = 0f // 波纹开始扩散时的初始偏移量
-    private val rippleDuration = 800L // 水波纹动画时长
+    private var rippleDuration = 800L // 水波纹动画时长
     private var rippleMaxRadiusX: Float = 0f
     private var rippleMaxRadiusY: Float = 0f
     private val rippleEffectHandler = Handler(android.os.Looper.getMainLooper())
@@ -69,6 +68,14 @@ class RippleButtonView @JvmOverloads constructor(context: Context,
         radius = typedArray.getDimensionPixelSize(R.styleable.RippleButton_ripplebutton_radius, radius)
         var tvBg = typedArray.getResourceId(R.styleable.RippleButton_ripplebutton_text_bg, R.drawable.rect_14ffffff_corner_46)
         tv.setBackgroundResource(tvBg)
+        var padding = typedArray.getDimensionPixelSize(R.styleable.RippleButton_ripplebutton_padding, 4.dp)
+        findViewById<ConstraintLayout>(R.id.container).setPadding(padding, padding, padding, padding)
+        try {
+            rippleDuration = typedArray.getString(R.styleable.RippleButton_ripplebutton_annimation_duration)?.toLong() ?: rippleDuration
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        typedArray.recycle()
         ripplePaint.strokeWidth = rippleStrokeWidth
 
     }
