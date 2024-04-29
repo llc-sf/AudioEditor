@@ -613,7 +613,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                         } else {
                             val newEndTimestampPosition = endTimestampPosition + dx
                             val screenWidth = ScreenUtil.getScreenWidth(context)
-                            val maxEndPosition = screenWidth - strokeWidth_cut // 检查是否到达屏幕边界
+                            val maxEndPosition = screenWidth - strokeWidth_cut - endHandleTouchRect.width() // 检查是否到达屏幕边界
                             if (newEndTimestampPosition >= maxEndPosition) { // 检查是否有更多波形数据可以加载
                                 if (canLoadMoreWaveData(context)) {
                                     moveRight() // 加载更多波形数据
