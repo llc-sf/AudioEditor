@@ -217,21 +217,30 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         viewBinding.keepSelected.setOnClickListener {
             viewBinding.timeLine.switchCutMode(CutPieceFragment.CUT_MODE_SELECT)
             viewBinding.keepSelected.isSelected = true
+            viewBinding.keepSelectedTv.isSelected = true
             viewBinding.deleteSelected.isSelected = false
+            viewBinding.deleteSelectedTv.isSelected = false
             viewBinding.jumpSelected.isSelected = false
+            viewBinding.jumpSelectedTv.isSelected = false
         }
         viewBinding.deleteSelected.setOnClickListener {
             viewBinding.timeLine.switchCutMode(CutPieceFragment.CUT_MODE_DELETE)
             viewBinding.keepSelected.isSelected = false
+            viewBinding.keepSelectedTv.isSelected = false
             viewBinding.deleteSelected.isSelected = true
+            viewBinding.deleteSelectedTv.isSelected = true
             viewBinding.jumpSelected.isSelected = false
+            viewBinding.jumpSelectedTv.isSelected = false
         }
 
         viewBinding.jumpSelected.setOnClickListener {
             viewBinding.timeLine.switchCutMode(CutPieceFragment.CUT_MODE_JUMP)
             viewBinding.keepSelected.isSelected = false
+            viewBinding.keepSelectedTv.isSelected = false
             viewBinding.deleteSelected.isSelected = false
+            viewBinding.deleteSelectedTv.isSelected = false
             viewBinding.jumpSelected.isSelected = true
+            viewBinding.jumpSelectedTv.isSelected = true
         }
 
         viewBinding.cutAdd.setOnClickListener {

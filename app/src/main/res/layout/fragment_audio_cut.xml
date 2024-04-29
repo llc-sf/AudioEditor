@@ -524,7 +524,7 @@
                 app:ripplebutton_radius="46dp"
                 app:ripplebutton_rippleStrokeWidth="@dimen/dp_6"
                 app:ripplebutton_text_bg="@drawable/rect_14ffffff_corner_46"
-                app:ripplebutton_text_color="@color/white_50white_selector"
+                app:ripplebutton_text_color="@color/white_white_88_50_selector"
                 app:ripplebutton_text_content="Trim start point"
                 app:ripplebutton_text_size="@dimen/sp_12" />
 
@@ -539,7 +539,7 @@
                 app:ripplebutton_radius="46dp"
                 app:ripplebutton_rippleStrokeWidth="@dimen/dp_6"
                 app:ripplebutton_text_bg="@drawable/rect_14ffffff_corner_46"
-                app:ripplebutton_text_color="@color/white_50white_selector"
+                app:ripplebutton_text_color="@color/white_white_88_50_selector"
                 app:ripplebutton_text_content="Trim end point"
                 app:ripplebutton_text_size="@dimen/sp_12" />
 
@@ -561,7 +561,7 @@
                 android:paddingHorizontal="@dimen/dp_12"
                 android:paddingVertical="@dimen/dp_10"
                 android:text="start"
-                android:textColor="@color/white_50white_selector" />
+                android:textColor="@color/white_white_88_50_selector" />
 
             <TextView
                 android:id="@+id/clp_right"
@@ -572,7 +572,7 @@
                 android:paddingHorizontal="@dimen/dp_12"
                 android:paddingVertical="@dimen/dp_10"
                 android:text="end"
-                android:textColor="@color/white_50white_selector" />
+                android:textColor="@color/white_white_88_50_selector" />
         </LinearLayout>
 
 
@@ -593,7 +593,7 @@
                 app:ripplebutton_radius="46dp"
                 app:ripplebutton_rippleStrokeWidth="@dimen/dp_6"
                 app:ripplebutton_text_bg="@drawable/rect_14ffffff_corner_46"
-                app:ripplebutton_text_color="@color/white_50white_selector"
+                app:ripplebutton_text_color="@color/white_white_88_50_selector"
                 app:ripplebutton_text_content="@string/add_clip_to_the_playback"
                 app:ripplebutton_text_size="@dimen/sp_12" />
 
@@ -607,7 +607,7 @@
                 app:ripplebutton_radius="46dp"
                 app:ripplebutton_rippleStrokeWidth="@dimen/dp_6"
                 app:ripplebutton_text_bg="@drawable/rect_14ffffff_corner_46"
-                app:ripplebutton_text_color="@color/white_50white_selector"
+                app:ripplebutton_text_color="@color/white_white_88_50_selector"
                 app:ripplebutton_text_content="@string/discard_clip"
                 app:ripplebutton_text_size="@dimen/sp_12" />
 
@@ -648,11 +648,12 @@
                     app:srcCompat="@drawable/ic_keep_selected" />
 
                 <TextView
+                    android:id="@+id/keep_selected_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_8"
                     android:text="@string/keep_selected"
-                    android:textColor="@color/white_50white_selector" />
+                    android:textColor="@color/white_white_100_50_selector" />
             </LinearLayout>
 
             <LinearLayout
@@ -672,12 +673,12 @@
                     app:srcCompat="@drawable/ic_keep_delete" />
 
                 <TextView
+                    android:id="@+id/delete_selected_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_8"
                     android:text="@string/delete_selected"
-
-                    android:textColor="@color/white_50white_selector" />
+                    android:textColor="@color/white_white_100_50_selector" />
 
             </LinearLayout>
 
@@ -699,11 +700,12 @@
                     app:srcCompat="@drawable/ic_keep_jump" />
 
                 <TextView
+                    android:id="@+id/jump_selected_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_8"
                     android:text="@string/jump_selected"
-                    android:textColor="@color/white_50white_selector" />
+                    android:textColor="@color/white_white_100_50_selector" />
             </LinearLayout>
         </LinearLayout>
 
