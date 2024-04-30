@@ -711,7 +711,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                                     loadMoreWaveData(newStartTimestampPosition) // 更新duration和unitMsPixel
                                     updateDurationAndUnitPixel()
                                 } else {
-
+                                    stopMoveEndOfStart()
                                 }
                             } else {
                                 startTimestampPosition = newStartTimestampPosition
@@ -826,6 +826,10 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
 
     private fun stopMoveStartOfEnd() {
         moveHandler.removeMessages(MoveHandler.MSG_MOVE_START_OF_END)
+    }
+
+    private fun stopMoveEndOfStart() {
+        moveHandler.removeMessages(MoveHandler.MSG_MOVE_END_OF_START)
     }
 
     private fun stopMoveStart() {
