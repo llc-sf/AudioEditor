@@ -5,6 +5,9 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
@@ -20,6 +23,7 @@ import dev.audio.timeruler.utils.SizeUtils
 import dev.audio.timeruler.utils.format2DurationSimple
 import dev.audio.timeruler.utils.getTextHeight
 import dev.audio.timeruler.utils.getTopY
+import java.lang.ref.WeakReference
 import kotlin.reflect.KProperty
 
 open class AudioCutEditorView @JvmOverloads constructor(context: Context,
@@ -41,6 +45,8 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     //播放条刻度字体大小
     private var playingTextSize = 20f
     private var triangleSideLength = 20f
+
+    private val moveHandler = MoveHandler(WeakReference(this))
 
     var cutMode: Int = CutPieceFragment.CUT_MODE_SELECT
         get() {
@@ -143,6 +149,12 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                 if (touchPlayingLine) {
                     manuallyUpdatePlayingLine(event)
                     invalidate()
+
+                    //移动播放条到屏幕中央
+                    var offsetTimeValue = ((event.x - ScreenUtil.getScreenWidth(context) / 2) / unitMsPixel).toLong()
+                    moveHandler.removeMessages(MoveHandler.MSG_MOVE_TO_OFFSET_PLAYING_LINE)
+                    moveHandler.sendMessage(moveHandler.obtainMessage(MoveHandler.MSG_MOVE_TO_OFFSET_PLAYING_LINE, offsetTimeValue))
+
                 }
                 touchCutLine = false
                 touchPlayingLine = false
@@ -188,38 +200,6 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         } //只需要计算出当前播放条的位置即可，seek 在播放的时候做 todo 其实这里做也行 一会调整吧
         currentPlayingPosition = event.x
         currentPlayingTimeInAudio = cursorValue + (currentPlayingPosition / unitMsPixel).toLong() - startValue //        var seekPosition = when (cutMode) {
-        //            CutPieceFragment.CUT_MODE_SELECT -> {
-        //                var result = currentPlayingTimeInAudio - getCutLineStartTime()
-        //                if (result < 0 || result > PlayerManager.player.duration) { //越界处理
-        //                    0
-        //                } else {
-        //                    result
-        //                }
-        //            }
-        //
-        //            CutPieceFragment.CUT_MODE_DELETE -> {
-        //                if (currentPlayingTimeInAudio in getCutLineStartTime()..getCutLineEndTime()) {
-        //                    0
-        //                } else {
-        //                    currentPlayingTimeInAudio
-        //                }
-        //            }
-        //
-        //            CutPieceFragment.CUT_MODE_JUMP -> {
-        //                if (audioFragment?.isInCut(currentPlayingTimeInAudio) == true) {
-        //                    var windowIndex = audioFragment!!.cutIndex(currentPlayingTimeInAudio)
-        //                    currentPlayingTimeInAudio - audioFragment!!.cutPieceFragmentsOrder[windowIndex].startTimestampTimeInSelf
-        //                } else {
-        //                    //重新设置播放内容
-        //                    currentPlayingTimeInAudio
-        //                }
-        //            }
-        //
-        //            else -> {
-        //                0
-        //            }
-        //        }
-        //        PlayerManager.seekTo(seekPosition) //        freshPlayingLineByAudioProgress(seekPosition)
     }
 
     /**
@@ -387,14 +367,12 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         }
         currentPlayingTimeInAudio = currentPositionInWholeAudio
         if (currentPlayingPosition > ScreenUtil.getScreenWidth(context) || currentPlayingPosition < 0) { //播放条移动到屏幕外  需要移动波形到屏幕中间
-            if (currentPositionInWholeAudio.time2Pixel(unitMsPixel) < ScreenUtil.getScreenWidth(context) / 2) {
-                //播放条太靠start，波形固定，移动播放条
+            if (currentPositionInWholeAudio.time2Pixel(unitMsPixel) < ScreenUtil.getScreenWidth(context) / 2) { //播放条太靠start，波形固定，移动播放条
                 cursorValue = startValue
                 currentPlayingPosition = (currentPlayingTimeInTimeLine - this.cursorValue) * unitMsPixel
             } else if (((audioFragment?.duration
                     ?: 0) - currentPositionInWholeAudio) < ScreenUtil.getScreenWidth(context) / 2
-            ) {
-                //播放条太靠end，波形固定，移动播放条
+            ) { //播放条太靠end，波形固定，移动播放条
                 cursorValue = endValue - screenWithDuration
                 currentPlayingPosition = (currentPlayingTimeInTimeLine - this.cursorValue) * unitMsPixel
             } else {
@@ -910,5 +888,58 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         get() {
             return audioFragment?.cutPieceFragmentsOrder
         }
+
+
+    class MoveHandler(private var audioCutEditor: WeakReference<AudioCutEditorView>? = null) :
+        Handler(Looper.myLooper()!!) {
+        companion object {
+            const val MSG_MOVE_TO_OFFSET_PLAYING_LINE = 100
+
+            //移动波形图的时间间隔
+            const val MOVE_INTERVAL_TIME_DELAY = 6L
+
+            //移动波形图的距离
+            const val MOVE_STEP_TIME = 500L
+        }
+
+        // 新增一个成员变量来存储剩余的偏移量
+        private var remainingOffsetValue = 0L
+
+        //移动波形图的距离
+        private var moveStepTime = MOVE_STEP_TIME
+        private var isMoveByFixedPixel = true
+        override fun handleMessage(msg: Message) {
+            super.handleMessage(msg)
+            when (msg.what) {
+                MSG_MOVE_TO_OFFSET_PLAYING_LINE -> {
+                    if (msg.obj is Long) {
+                        remainingOffsetValue = msg.obj as Long
+                    }
+                    audioCutEditor?.get()?.apply {
+                        if (isMoveByFixedPixel) {
+                            moveStepTime = (CutPieceFragment.MoveHandler.MOVE_STEP_PIXEL / unitMsPixel).toLong()
+                        }
+                        val stepTimeValue = if (Math.abs(remainingOffsetValue) >= moveStepTime) {
+                            moveStepTime
+                        } else {
+                            Math.abs(remainingOffsetValue)
+                        }
+
+                        if (remainingOffsetValue > 0) {
+                            this.audioFragment?.moveWave(-stepTimeValue)
+                            remainingOffsetValue -= stepTimeValue
+                        } else {
+                            this.audioFragment?.moveWave(stepTimeValue)
+                            remainingOffsetValue += stepTimeValue
+                        }
+
+                        if (Math.abs(remainingOffsetValue) > 0) {
+                            sendMessageDelayed(obtainMessage(MSG_MOVE_TO_OFFSET_PLAYING_LINE), MOVE_INTERVAL_TIME_DELAY)
+                        }
+                    }
+                }
+            }
+        }
+    }
 
 }

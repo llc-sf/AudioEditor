@@ -427,4 +427,18 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
         audioEditorView.moveRightByTime(time)
     }
 
+
+    fun moveWave(stepTimeValue: Long) {
+        var tempCursorValue = cursorValue - stepTimeValue
+        if (tempCursorValue <= startTimestamp) {
+            audioEditorView.cursorValue = startTimestamp
+            return
+        }
+        if (tempCursorValue + screenWithDuration >= endTimestamp) {
+            audioEditorView.cursorValue = endTimestamp - screenWithDuration
+            return
+        }
+        audioEditorView.cursorValue = tempCursorValue
+    }
+
 }

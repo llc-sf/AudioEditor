@@ -528,7 +528,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                     }
                 }
 
-                MSG_MOVE_START_OF_END->{
+                MSG_MOVE_START_OF_END -> {
                     audio?.get()?.apply {
                         if (cutPiece?.get()?.endCutLineCanMoveStart(MOVE_INTERVAL_SPACE) == true) {
                             this.moveStartByPixel(MOVE_INTERVAL_SPACE)
@@ -608,18 +608,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
      * @param stepTimeValue 移动的时间
      */
     private fun waveMove(stepTimeValue: Long) {
-        var tempCursorValue = audio.cursorValue - stepTimeValue
-        if (tempCursorValue <= audio.startTimestamp) {
-            moveHandler.removeMessages(MSG_MOVE_TO_OFFSET)
-            audio.audioEditorView.cursorValue = audio.startTimestamp
-            return
-        }
-        if (tempCursorValue + audio.screenWithDuration >= audio.endTimestamp) {
-            moveHandler.removeMessages(MSG_MOVE_TO_OFFSET)
-            audio.audioEditorView.cursorValue = audio.endTimestamp - audio.screenWithDuration
-            return
-        }
-        audio.audioEditorView.cursorValue = tempCursorValue
+       audio?.moveWave(stepTimeValue)
     }
 
     /**
@@ -751,8 +740,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                                     endTimestampPosition = maxEndPosition
                                     stopMoveRight()
                                 }
-                            } else if(newEndTimestampPosition < minStartPosition){
-                                //向左移动到边缘
+                            } else if (newEndTimestampPosition < minStartPosition) { //向左移动到边缘
                                 if (canLoadMoreWaveDataToStart()) {
                                     moveStartOfEnd()
                                 } else {
