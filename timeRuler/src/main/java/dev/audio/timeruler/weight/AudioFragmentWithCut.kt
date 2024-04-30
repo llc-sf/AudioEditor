@@ -433,5 +433,4 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         return cursorValue + screenWithDuration <= duration + startTimestamp
     }
 
-
 }
