@@ -453,7 +453,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
         companion object {
             const val MSG_MOVE_TO_OFFSET = 100
             const val MSG_MOVE_END_OF_END = 1000 //结束裁剪条向右移动
-            const val MSG_MOVE_START = 1001 ////开始裁剪条向做移动
+            const val MSG_MOVE_START_OF_START = 1001 //开始裁剪条向做移动
             const val MSG_MOVE_END_OF_START = 1002 //开始裁剪条向右移动
             const val MSG_MOVE_START_OF_END = 1003 //结束裁剪条向左移动
 
@@ -537,20 +537,20 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                     }
                 }
 
-                MSG_MOVE_START -> { // 实现移动波形图的逻辑  开始方向
+                MSG_MOVE_START_OF_START -> { // 实现移动波形图的逻辑  开始方向
                     audio?.get()?.apply { //波形移动
                         if (canLoadMoreWaveDataToStart()) {
                             when (cutMode) {
                                 CUT_MODE_SELECT -> {
                                     moveStartByPixel(MOVE_INTERVAL_SPACE) //剪切范围也扩大
                                     cutPiece?.get()?.expendStartByPixel(MOVE_INTERVAL_SPACE)
-                                    sendMessageDelayed(obtainMessage(MSG_MOVE_START), MOVE_INTERVAL_TIME)
+                                    sendMessageDelayed(obtainMessage(MSG_MOVE_START_OF_START), MOVE_INTERVAL_TIME)
                                 }
 
                                 CUT_MODE_DELETE -> {
                                     moveStartByPixel(MOVE_INTERVAL_SPACE) //剪切范围也扩大
                                     cutPiece?.get()?.expendStartByPixel(MOVE_INTERVAL_SPACE)
-                                    sendMessageDelayed(obtainMessage(MSG_MOVE_START), MOVE_INTERVAL_TIME)
+                                    sendMessageDelayed(obtainMessage(MSG_MOVE_START_OF_START), MOVE_INTERVAL_TIME)
                                 }
 
                                 CUT_MODE_JUMP -> { //防止交叉
@@ -558,7 +558,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                                             ?.expendStartByPixel(MOVE_INTERVAL_SPACE) == true
                                     ) {
                                         moveStartByPixel(MOVE_INTERVAL_SPACE) //剪切范围也扩大
-                                        sendMessageDelayed(obtainMessage(MSG_MOVE_START), MOVE_INTERVAL_TIME)
+                                        sendMessageDelayed(obtainMessage(MSG_MOVE_START_OF_START), MOVE_INTERVAL_TIME)
                                     }
                                 }
 
@@ -809,7 +809,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     }
 
     private fun moveStart() {
-        moveHandler.sendMessage(moveHandler.obtainMessage(MoveHandler.MSG_MOVE_START))
+        moveHandler.sendMessage(moveHandler.obtainMessage(MoveHandler.MSG_MOVE_START_OF_START))
     }
 
     private fun moveEndOfStart() {
@@ -829,12 +829,12 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     }
 
     private fun stopMoveStart() {
-        moveHandler.removeMessages(MoveHandler.MSG_MOVE_START)
+        moveHandler.removeMessages(MoveHandler.MSG_MOVE_START_OF_START)
     }
 
     private fun stopMove() {
         moveHandler.removeMessages(MoveHandler.MSG_MOVE_END_OF_END)
-        moveHandler.removeMessages(MoveHandler.MSG_MOVE_START)
+        moveHandler.removeMessages(MoveHandler.MSG_MOVE_START_OF_START)
         moveHandler.removeMessages(MoveHandler.MSG_MOVE_END_OF_START)
         moveHandler.removeMessages(MoveHandler.MSG_MOVE_START_OF_END)
     }
