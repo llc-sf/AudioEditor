@@ -497,7 +497,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                                 }
 
                                 CUT_MODE_DELETE -> {
-
+                                    this.moveRightByPixel(MOVE_INTERVAL_SPACE) //剪切范围也扩大
+                                    cutPiece?.get()?.expendRightByPixel(MOVE_INTERVAL_SPACE)
+                                    sendMessageDelayed(obtainMessage(MSG_MOVE), MOVE_INTERVAL_TIME)
                                 }
 
                                 CUT_MODE_JUMP -> { //防止交叉
@@ -526,7 +528,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                                 }
 
                                 CUT_MODE_DELETE -> {
-
+                                    moveStartByPixel(MOVE_INTERVAL_SPACE) //剪切范围也扩大
+                                    cutPiece?.get()?.expendStartByPixel(MOVE_INTERVAL_SPACE)
+                                    sendMessageDelayed(obtainMessage(MSG_MOVE_START), MOVE_INTERVAL_TIME)
                                 }
 
                                 CUT_MODE_JUMP -> { //防止交叉
