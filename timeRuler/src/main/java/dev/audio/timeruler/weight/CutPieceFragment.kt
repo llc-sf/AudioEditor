@@ -608,7 +608,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
      * @param stepTimeValue 移动的时间
      */
     private fun waveMove(stepTimeValue: Long) {
-       audio?.moveWave(stepTimeValue)
+        audio?.moveWave(stepTimeValue)
     }
 
     /**
@@ -893,56 +893,76 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     }
 
 
-    fun startCutMinus() {
+    fun startCutMinus(): Boolean {
         if (isSelected) {
             var temp = startTimestampTimeInSelf - TIME_STEP
+            if (isInOtherFragments(temp)) {
+                return false
+            }
             if (temp <= 0) {
                 startTimestampTimeInSelf = 0
                 audio.invalidate()
-                return
+                return false
             }
             startTimestampTimeInSelf = temp
             audio.invalidate()
+            return true
         }
+        return false
     }
 
-    fun startCutPlus() {
+    fun startCutPlus(): Boolean {
         if (isSelected) {
             var temp = startTimestampTimeInSelf + TIME_STEP
+            if (isInOtherFragments(temp)) {
+                return false
+            }
             if (temp >= endTimestampTimeInSelf) {
                 startTimestampTimeInSelf = endTimestampTimeInSelf - 100
                 audio.invalidate()
-                return
+                return false
             }
             startTimestampTimeInSelf = temp
             audio.invalidate()
+            return true
         }
+        return false
     }
 
-    fun startEndMinus() {
+    fun startEndMinus(): Boolean {
         if (isSelected) {
             var temp = endTimestampTimeInSelf - TIME_STEP
+            if (isInOtherFragments(temp)) {
+                return false
+            }
             if (temp <= startTimestampTimeInSelf) {
                 endTimestampTimeInSelf = startTimestampTimeInSelf + 100
                 audio.invalidate()
-                return
+                return false
             }
             endTimestampTimeInSelf = temp
             audio.invalidate()
+            return true
         }
+        return false
     }
 
-    fun startEndPlus() {
+    fun startEndPlus(): Boolean {
         if (isSelected) {
             var temp = endTimestampTimeInSelf + TIME_STEP
+            if (isInOtherFragments(temp)) {
+                return false
+            }
             if (temp >= duration) {
                 endTimestampTimeInSelf = duration
                 audio.invalidate()
-                return
+                return false
             }
             endTimestampTimeInSelf = temp
             audio.invalidate()
+            return true
         }
+        return false
     }
 
     /**

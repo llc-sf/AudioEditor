@@ -160,32 +160,40 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         }
     }
 
-    fun startCutMinus() {
+    fun startCutMinus():Boolean {
+        var result = false
         cutPieceFragments.forEach {
-            it.startCutMinus()
+            result = result || it.startCutMinus()
         }
+        return result
     }
 
     fun invalidate() {
         audioEditorView.invalidate()
     }
 
-    fun startCutPlus() {
+    fun startCutPlus():Boolean {
+        var result = false
         cutPieceFragments.forEach {
-            it.startCutPlus()
+            result = result || it.startCutPlus()
         }
+        return result
     }
 
-    fun startEndMinus() {
+    fun startEndMinus():Boolean {
+        var result = false
         cutPieceFragments.forEach {
-            it.startEndMinus()
+            result = result || it.startEndMinus()
         }
+        return result
     }
 
-    fun startEndPlus() {
+    fun startEndPlus():Boolean {
+        var result = false
         cutPieceFragments.forEach {
-            it.startEndPlus()
+            result = result || it.startEndPlus()
         }
+        return result
     }
 
     fun trimStart(currentPlayingTimeInAudio: Long) {
