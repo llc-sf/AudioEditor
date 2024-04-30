@@ -991,7 +991,6 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
      * 移动的变量为像素
      */
     fun moveStartByPixel(distance: Float) {
-        Log.i("llc_fuck","moveStartByPixel distance=$distance")
         cursorValue -= distance.pixel2Time(unitMsPixel)
         invalidate()
     }

@@ -20,6 +20,7 @@ import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.player.PlayerManager
 import dev.audio.timeruler.timer.DialogTimerSetting
 import dev.audio.timeruler.utils.SizeUtils
+import dev.audio.timeruler.utils.dp
 import dev.audio.timeruler.utils.format2DurationSimple
 import dev.audio.timeruler.utils.getTextHeight
 import dev.audio.timeruler.utils.getTopY
@@ -115,6 +116,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         return super.onSingleTapUp(e)
     }
 
+    private var lastTouchXProcess: Float = 0f
 
     /**
      * 裁剪拨片的触摸事件
@@ -126,6 +128,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 Log.i(cut_tag, "onTouchEvent: ACTION_DOWN touchCutLine=$touchCutLine")
+                lastTouchXProcess = x
                 var isTargetCut = audioFragment?.isCutLineTarget(event) ?: false
                 if (isTargetCut) {
                     audioFragment?.onTouchEvent(context, this@AudioCutEditorView, event)
@@ -162,14 +165,27 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
             MotionEvent.ACTION_MOVE -> {
                 Log.i(cut_tag, "onTouchEvent: ACTION_MOVE touchCutLine=$touchCutLine")
+                val dx = x - lastTouchXProcess
                 if (touchCutLine) {
                     audioFragment?.onTouchEvent(context, this@AudioCutEditorView, event)
                     return true
                 }
                 if (touchPlayingLine) {
-                    manuallyUpdatePlayingLine(event)
-                    Log.i(playline_tag, "onTouchEvent: ACTION_MOVE currentPlayingPosition=$currentPlayingPosition") //                    cursorValue + (currentPlayingPosition / unitMsPixel).toLong()
-                    invalidate()
+                    if (dx > 10 || event.x >= 50) {
+                        moveHandler.removeMessages(MoveHandler.MSG_MOVE_START)
+                    }
+                    if (dx < -10 || event.x <= ScreenUtil.getScreenWidth(context) - 50) {
+                        moveHandler.removeMessages(MoveHandler.MSG_MOVE_END)
+                    }
+                    if (audioFragment?.canLoadMoreWaveDataToStart() == true && event.x < currentPlayingAutoMoveRang) { //靠左边自由移动
+                        moveHandler.sendEmptyMessage(MoveHandler.MSG_MOVE_START)
+                    } else if (audioFragment?.canLoadMoreWaveDataToEnd() == true && event.x > ScreenUtil.getScreenWidth(context) - currentPlayingAutoMoveRang) { //靠右边自由移动
+                        moveHandler.sendEmptyMessage(MoveHandler.MSG_MOVE_END)
+                    } else {
+                        manuallyUpdatePlayingLine(event)
+                        Log.i(playline_tag, "onTouchEvent: ACTION_MOVE currentPlayingPosition=$currentPlayingPosition") //                    cursorValue + (currentPlayingPosition / unitMsPixel).toLong()
+                        invalidate()
+                    }
                     return true
                 }
             }
@@ -200,6 +216,11 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         } //只需要计算出当前播放条的位置即可，seek 在播放的时候做 todo 其实这里做也行 一会调整吧
         currentPlayingPosition = event.x
         currentPlayingTimeInAudio = cursorValue + (currentPlayingPosition / unitMsPixel).toLong() - startValue //        var seekPosition = when (cutMode) {
+    }
+
+    private fun offsetPlayingLine(offset: Float) {
+        currentPlayingPosition += offset
+        currentPlayingTimeInAudio = cursorValue + (currentPlayingPosition / unitMsPixel).toLong() - startValue
     }
 
     /**
@@ -298,6 +319,8 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
      * 播放条对应的屏幕位置 x坐标
      */
     private var currentPlayingPosition: Float = 0.0f
+
+    private var currentPlayingAutoMoveRang = 10.dp
 
     /**
      * 播放条对应的时间戳  在时间轴上
@@ -894,12 +917,17 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         Handler(Looper.myLooper()!!) {
         companion object {
             const val MSG_MOVE_TO_OFFSET_PLAYING_LINE = 100
+            const val MSG_MOVE_START = 1000
+            const val MSG_MOVE_END = 1001
 
             //移动波形图的时间间隔
             const val MOVE_INTERVAL_TIME_DELAY = 6L
 
             //移动波形图的距离
             const val MOVE_STEP_TIME = 500L
+
+            //移动波形图的时间间隔
+            const val MOVE_INTERVAL_TIME = 30L
         }
 
         // 新增一个成员变量来存储剩余的偏移量
@@ -935,6 +963,26 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
                         if (Math.abs(remainingOffsetValue) > 0) {
                             sendMessageDelayed(obtainMessage(MSG_MOVE_TO_OFFSET_PLAYING_LINE), MOVE_INTERVAL_TIME_DELAY)
+                        }
+                    }
+                }
+
+                MSG_MOVE_START -> {
+                    audioCutEditor?.get()?.let {
+                        if (it.audioFragment?.canLoadMoreWaveDataToStart() == true) {
+                            it.moveStartByPixel(CutPieceFragment.MoveHandler.MOVE_INTERVAL_SPACE)
+                            it.offsetPlayingLine(-CutPieceFragment.MoveHandler.MOVE_INTERVAL_SPACE)
+                            sendMessageDelayed(obtainMessage(MSG_MOVE_START), MoveHandler.MOVE_INTERVAL_TIME)
+                        }
+                    }
+                }
+
+                MSG_MOVE_END -> {
+                    audioCutEditor?.get()?.let {
+                        if (it.audioFragment?.canLoadMoreWaveDataToEnd() == true) {
+                            it.moveRightByPixel(CutPieceFragment.MoveHandler.MOVE_INTERVAL_SPACE)
+                            it.offsetPlayingLine(CutPieceFragment.MoveHandler.MOVE_INTERVAL_SPACE)
+                            sendMessageDelayed(obtainMessage(MSG_MOVE_END), MoveHandler.MOVE_INTERVAL_TIME)
                         }
                     }
                 }
