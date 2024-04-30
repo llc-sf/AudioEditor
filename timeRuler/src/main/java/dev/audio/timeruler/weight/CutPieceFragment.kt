@@ -451,10 +451,11 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
         Handler(Looper.getMainLooper()) {
 
         companion object {
-            const val MSG_MOVE = 1 //结束裁剪条向右移动
-            const val MSG_MOVE_START = 3 ////开始裁剪条向做移动
-            const val MSG_MOVE_TO_OFFSET = 2
-            const val MSG_MOVE_END_OF_START = 4 //开始裁剪条向右移动
+            const val MSG_MOVE_TO_OFFSET = 100
+            const val MSG_MOVE = 1000 //结束裁剪条向右移动
+            const val MSG_MOVE_START = 1001 ////开始裁剪条向做移动
+            const val MSG_MOVE_END_OF_START = 1002 //开始裁剪条向右移动
+            const val MSG_MOVE_START_OF_END = 1003 //结束裁剪条向左移动
 
             //靠边缘的移动速度有以下两个变量控制
             //移动波形图的时间间隔
@@ -523,6 +524,15 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                         if (cutPiece?.get()?.startCutLineCanMoveEnd(MOVE_INTERVAL_SPACE) == true) {
                             this.moveRightByPixel(MOVE_INTERVAL_SPACE)
                             sendMessageDelayed(obtainMessage(MSG_MOVE_END_OF_START), MOVE_INTERVAL_TIME)
+                        }
+                    }
+                }
+
+                MSG_MOVE_START_OF_END->{
+                    audio?.get()?.apply {
+                        if (cutPiece?.get()?.endCutLineCanMoveStart(MOVE_INTERVAL_SPACE) == true) {
+                            this.moveStartByPixel(MOVE_INTERVAL_SPACE)
+                            sendMessageDelayed(obtainMessage(MSG_MOVE_START_OF_END), MOVE_INTERVAL_TIME)
                         }
                     }
                 }
@@ -671,6 +681,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                         onCutLineChangeListener?.onCutLineMove()
                         if (dx > 10 || event.x >= 50) {
                             stopMoveStart()
+                            stopMove()
                         }
                         startTimestampPosition += dx
                         if (startTimestampPosition <= (rect?.left ?: 0)) { //开始小于本身了
@@ -715,6 +726,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                         onCutLineChangeListener?.onCutLineMove()
                         if (dx < -10 || event.x <= ScreenUtil.getScreenWidth(context) - 50) {
                             stopMoveRight()
+                            stopMove()
                         }
                         endTimestampPosition += dx
                         if (endTimestampPosition >= (rect?.right ?: 0)) { //结束大于本身了
@@ -728,7 +740,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                             val newEndTimestampPosition = endTimestampPosition + dx
                             val screenWidth = ScreenUtil.getScreenWidth(context)
                             val maxEndPosition = screenWidth - strokeWidth_cut - endHandleTouchRect.width() // 检查是否到达屏幕边界
+                            val minStartPosition = strokeWidth_cut + endHandleTouchRect.width() // 检查是否到达屏幕边界
                             if (newEndTimestampPosition >= maxEndPosition) { // 检查是否有更多波形数据可以加载
+                                //向右移动到边缘
                                 if (canLoadMoreWaveDataToEnd(context)) {
                                     moveRight() // 加载更多波形数据
                                     loadMoreWaveData(newEndTimestampPosition) // 更新duration和unitMsPixel
@@ -736,6 +750,13 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                                 } else { // 到达最大范围，不再移动
                                     endTimestampPosition = maxEndPosition
                                     stopMoveRight()
+                                }
+                            } else if(newEndTimestampPosition < minStartPosition){
+                                //向左移动到边缘
+                                if (canLoadMoreWaveDataToStart()) {
+                                    moveStartOfEnd()
+                                } else {
+                                    stopMoveStartOfEnd()
                                 }
                             } else {
                                 endTimestampPosition = newEndTimestampPosition
@@ -795,12 +816,27 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
         moveHandler.sendMessage(moveHandler.obtainMessage(MoveHandler.MSG_MOVE_END_OF_START))
     }
 
+    private fun moveStartOfEnd() {
+        moveHandler.sendMessage(moveHandler.obtainMessage(MoveHandler.MSG_MOVE_START_OF_END))
+    }
+
     private fun stopMoveRight() {
         moveHandler.removeMessages(MoveHandler.MSG_MOVE)
     }
 
+    private fun stopMoveStartOfEnd() {
+        moveHandler.removeMessages(MoveHandler.MSG_MOVE_START_OF_END)
+    }
+
     private fun stopMoveStart() {
         moveHandler.removeMessages(MoveHandler.MSG_MOVE_START)
+    }
+
+    private fun stopMove() {
+        moveHandler.removeMessages(MoveHandler.MSG_MOVE)
+        moveHandler.removeMessages(MoveHandler.MSG_MOVE_START)
+        moveHandler.removeMessages(MoveHandler.MSG_MOVE_END_OF_START)
+        moveHandler.removeMessages(MoveHandler.MSG_MOVE_START_OF_END)
     }
 
     private fun canLoadMoreWaveDataToEnd(context: Context): Boolean { // 实现检查是否有更多波形数据可以加载的逻辑
@@ -1020,12 +1056,23 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     }
 
     fun startCutLineCanMoveEnd(moveIntervalSpace: Float): Boolean {
-        var newEndTimestampTimeInSelf = startTimestampTimeInSelf + (moveIntervalSpace.pixel2Time(unitMsPixel))
-        var result = newEndTimestampTimeInSelf < endTimestampTimeInSelf
+        var newStartTimestampTimeInSelf = startTimestampTimeInSelf + (moveIntervalSpace.pixel2Time(unitMsPixel))
+        var result = newStartTimestampTimeInSelf < endTimestampTimeInSelf
         if (result) {
-            startTimestampTimeInSelf = newEndTimestampTimeInSelf
+            startTimestampTimeInSelf = newStartTimestampTimeInSelf
         } else {
             endTimestampTimeInSelf - 0.1
+        }
+        return result
+    }
+
+    fun endCutLineCanMoveStart(moveIntervalSpace: Float): Boolean {
+        var newEndTimestampTimeInSelf = endTimestampTimeInSelf - (moveIntervalSpace.pixel2Time(unitMsPixel))
+        var result = newEndTimestampTimeInSelf > startTimestampTimeInSelf
+        if (result) {
+            endTimestampTimeInSelf = newEndTimestampTimeInSelf
+        } else {
+            startTimestampTimeInSelf + 0.1
         }
         return result
     }
