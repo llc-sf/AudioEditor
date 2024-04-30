@@ -21,7 +21,6 @@ import dev.audio.timeruler.BuildConfig
 import dev.audio.timeruler.R
 import dev.audio.timeruler.bean.CutPieceBean
 import dev.audio.timeruler.bean.Ref
-import dev.audio.timeruler.player.PlayerManager
 import dev.audio.timeruler.utils.isTouch
 import dev.audio.timeruler.weight.CutPieceFragment.MoveHandler.Companion.MSG_MOVE_TO_OFFSET
 import java.lang.ref.WeakReference
@@ -488,11 +487,30 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             super.handleMessage(msg)
             when (msg.what) {
                 MSG_MOVE -> { // 实现移动波形图的逻辑
-                    audio?.get()?.apply { //波形移动
-                        if (canLoadMoreWaveDataToEnd()) {
-                            this.moveRightByPixel(MOVE_INTERVAL_SPACE) //剪切范围也扩大
-                            cutPiece?.get()?.expendRightByPixel(MOVE_INTERVAL_SPACE)
-                            sendMessageDelayed(obtainMessage(MSG_MOVE), MOVE_INTERVAL_TIME)
+                    audio?.get()?.apply {
+                        if (canLoadMoreWaveDataToEnd()) { //波形移动
+                            when (cutMode) {
+                                CUT_MODE_SELECT -> {
+                                    this.moveRightByPixel(MOVE_INTERVAL_SPACE) //剪切范围也扩大
+                                    cutPiece?.get()?.expendRightByPixel(MOVE_INTERVAL_SPACE)
+                                    sendMessageDelayed(obtainMessage(MSG_MOVE), MOVE_INTERVAL_TIME)
+                                }
+
+                                CUT_MODE_DELETE -> {
+
+                                }
+
+                                CUT_MODE_JUMP -> { //防止交叉
+                                    if (cutPiece?.get()
+                                            ?.expendRightByPixel(MOVE_INTERVAL_SPACE) == true
+                                    ) {
+                                        this.moveRightByPixel(MOVE_INTERVAL_SPACE) //剪切范围也扩大
+                                        sendMessageDelayed(obtainMessage(MSG_MOVE), MOVE_INTERVAL_TIME)
+                                    }
+                                }
+                            }
+
+
                         }
                     }
                 }
@@ -500,9 +518,29 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                 MSG_MOVE_START -> { // 实现移动波形图的逻辑  开始方向
                     audio?.get()?.apply { //波形移动
                         if (canLoadMoreWaveDataToStart()) {
-                            this.moveStartByPixel(MOVE_INTERVAL_SPACE) //剪切范围也扩大
-                            cutPiece?.get()?.expendStartByPixel(MOVE_INTERVAL_SPACE)
-                            sendMessageDelayed(obtainMessage(MSG_MOVE_START), MOVE_INTERVAL_TIME)
+                            when (cutMode) {
+                                CUT_MODE_SELECT -> {
+                                    moveStartByPixel(MOVE_INTERVAL_SPACE) //剪切范围也扩大
+                                    cutPiece?.get()?.expendStartByPixel(MOVE_INTERVAL_SPACE)
+                                    sendMessageDelayed(obtainMessage(MSG_MOVE_START), MOVE_INTERVAL_TIME)
+                                }
+
+                                CUT_MODE_DELETE -> {
+
+                                }
+
+                                CUT_MODE_JUMP -> { //防止交叉
+                                    if (cutPiece?.get()
+                                            ?.expendStartByPixel(MOVE_INTERVAL_SPACE) == true
+                                    ) {
+                                        moveStartByPixel(MOVE_INTERVAL_SPACE) //剪切范围也扩大
+                                        sendMessageDelayed(obtainMessage(MSG_MOVE_START), MOVE_INTERVAL_TIME)
+                                    }
+                                }
+
+
+                            }
+
                         }
                     }
                 }
@@ -565,8 +603,13 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
      *
      * 扩展的变量为像素
      */
-    private fun expendRightByPixel(moveIntervalSpace: Float) {
+    private fun expendRightByPixel(moveIntervalSpace: Float): Boolean {
+        var newEndTimestampTimeInSelf = endTimestampTimeInSelf + (moveIntervalSpace.pixel2Time(unitMsPixel))
+        if (isInOtherFragments(newEndTimestampTimeInSelf)) {
+            return false
+        }
         endTimestampTimeInSelf += (moveIntervalSpace.pixel2Time(unitMsPixel))
+        return true
     }
 
     /**
@@ -574,8 +617,13 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
      *
      * 扩展的变量为像素
      */
-    private fun expendStartByPixel(moveIntervalSpace: Float) {
+    private fun expendStartByPixel(moveIntervalSpace: Float): Boolean {
+        var newStartTimestampTimeInSelf = startTimestampTimeInSelf - (moveIntervalSpace.pixel2Time(unitMsPixel))
+        if (isInOtherFragments(newStartTimestampTimeInSelf)) {
+            return false
+        }
         startTimestampTimeInSelf -= (moveIntervalSpace.pixel2Time(unitMsPixel))
+        return true
     }
 
     /**
@@ -624,7 +672,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                             val newStartTimestampPosition = startTimestampPosition
                             val minStartPosition = strokeWidth_cut + endHandleTouchRect.width() // 检查是否到达屏幕边界
                             if (newStartTimestampPosition < minStartPosition) {
-                                if (canLoadMoreWaveDataToStart(context)) {
+                                if (canLoadMoreWaveDataToStart()) {
                                     moveStart()
                                     loadMoreWaveData(newStartTimestampPosition) // 更新duration和unitMsPixel
                                     updateDurationAndUnitPixel()
@@ -733,7 +781,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
         return audio.canLoadMoreWaveDataToEnd()
     }
 
-    private fun canLoadMoreWaveDataToStart(context: Context): Boolean { // 实现检查是否有更多波形数据可以加载的逻辑
+    private fun canLoadMoreWaveDataToStart(): Boolean { // 实现检查是否有更多波形数据可以加载的逻辑
         // 返回true表示可以加载，返回false表示没有更多数据
         return audio.canLoadMoreWaveDataToStart()
     }

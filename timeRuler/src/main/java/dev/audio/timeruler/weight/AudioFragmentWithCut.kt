@@ -277,7 +277,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         }
         var isInFragment = currentCutPieceFragment!!.isInFragment(currentPlayingTimeInAudio)
         cutPieceFragments.remove(currentCutPieceFragment)
-        if(cutPieceFragments.isEmpty()){
+        if (cutPieceFragments.isEmpty()) {
             PlayerManager.pause()
             audioEditorView.invalidate()
             return
@@ -413,6 +413,25 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         get() {
             return cutPieceFragments.sortedBy { it.startTimestampTimeInSelf }.toMutableList()
         }
+
+
+    fun canLoadMoreWaveDataToStart(): Boolean {
+        return when (cutMode) {
+            CutPieceFragment.CUT_MODE_SELECT, CutPieceFragment.CUT_MODE_DELETE -> {
+                startTimestamp <= cursorValue
+            }
+
+            CutPieceFragment.CUT_MODE_JUMP -> {
+                startTimestamp <= cursorValue
+            }
+
+            else -> false
+        }
+    }
+
+    fun canLoadMoreWaveDataToEnd(): Boolean {
+        return cursorValue + screenWithDuration <= duration + startTimestamp
+    }
 
 
 }

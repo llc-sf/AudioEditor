@@ -427,17 +427,4 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
         audioEditorView.moveRightByTime(time)
     }
 
-    fun canLoadMoreWaveDataToStart(): Boolean {
-        return startTimestamp.apply {
-            Log.i(wave_tag, "canLoadMoreWaveDataToStart startTimestamp=${startTimestamp.format2Duration()}")
-        } <= cursorValue.apply {
-            Log.i(wave_tag, "canLoadMoreWaveDataToStart cursorValue=${cursorValue.format2Duration()}")
-        }
-    }
-
-    fun canLoadMoreWaveDataToEnd(): Boolean {
-        return cursorValue + screenWithDuration <= duration + startTimestamp
-    }
-
-
 }
