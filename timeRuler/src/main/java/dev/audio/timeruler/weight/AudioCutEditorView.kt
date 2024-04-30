@@ -388,11 +388,13 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         currentPlayingTimeInAudio = currentPositionInWholeAudio
         if (currentPlayingPosition > ScreenUtil.getScreenWidth(context) || currentPlayingPosition < 0) { //播放条移动到屏幕外  需要移动波形到屏幕中间
             if (currentPositionInWholeAudio.time2Pixel(unitMsPixel) < ScreenUtil.getScreenWidth(context) / 2) {
+                //播放条太靠start，波形固定，移动播放条
                 cursorValue = startValue
                 currentPlayingPosition = (currentPlayingTimeInTimeLine - this.cursorValue) * unitMsPixel
             } else if (((audioFragment?.duration
                     ?: 0) - currentPositionInWholeAudio) < ScreenUtil.getScreenWidth(context) / 2
             ) {
+                //播放条太靠end，波形固定，移动播放条
                 cursorValue = endValue - screenWithDuration
                 currentPlayingPosition = (currentPlayingTimeInTimeLine - this.cursorValue) * unitMsPixel
             } else {
