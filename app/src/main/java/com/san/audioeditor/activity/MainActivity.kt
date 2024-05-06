@@ -1,5 +1,6 @@
 package com.san.audioeditor.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,11 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    companion object{
+        var returnActivityB = false
+    }
+
+
 
     init {
         System.loadLibrary("media-handle")
@@ -25,6 +31,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         AudioSyncService.sync(this)
         showFragment()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(returnActivityB) {
+            returnActivityB = false
+            AudioCutActivity.open(this)
+        }
     }
 
     private fun showFragment() {

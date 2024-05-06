@@ -59,7 +59,9 @@
         <activity android:name=".activity.AudioSaveActivity"></activity>
         <activity
             android:name=".activity.AudioCutActivity"
-            android:launchMode="singleInstance"></activity>
+            android:launchMode="singleInstance"
+            android:taskAffinity=".taskCall"
+            ></activity>
         <activity android:name=".activity.MultiTrackerAudioEditorActivity"></activity>
 
         <!--数据同步服务-->

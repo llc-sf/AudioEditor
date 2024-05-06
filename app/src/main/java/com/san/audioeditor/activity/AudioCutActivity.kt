@@ -17,6 +17,12 @@ class AudioCutActivity : BaseFragmentActivity() {
         const val PARAM_SONG = "param_song"
         const val PARAM_AUDIO = "param_audio"
 
+        fun open(context: Context){
+            val intent = Intent(context, AudioCutActivity::class.java)
+            context.startActivity(intent)
+        }
+
+
 
         fun open(context: Context, song: Song) {
             val intent = Intent(context, AudioCutActivity::class.java).apply {
@@ -37,6 +43,16 @@ class AudioCutActivity : BaseFragmentActivity() {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        MainActivity.returnActivityB = true
+    }
+
+
     override fun generateFragment(): Fragment {
         return AudioCutEditorFragment().apply {
             arguments = intent.extras
@@ -54,6 +70,7 @@ class AudioCutActivity : BaseFragmentActivity() {
 
     override fun onDestroy() {
         PlayerManager.releasePlayer()
+        MainActivity.returnActivityB = false
         fragment?.let {
             PlayerManager.removeListener(it as AudioCutEditorFragment)
         }
