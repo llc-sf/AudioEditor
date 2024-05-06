@@ -254,13 +254,6 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
         endTimestampTimeInSelf = if (end > duration) duration else end
     }
 
-    //    fun drawCutFragment(canvas: Canvas) {
-    //        if (isSelected || cutMode == CUT_MODE_JUMP) {
-    //            drawCutLines(canvas)
-    //        }
-    //        drawCut(canvas)
-    //    }
-
 
     fun drawCutBg(canvas: Canvas) {
         when (cutMode) {

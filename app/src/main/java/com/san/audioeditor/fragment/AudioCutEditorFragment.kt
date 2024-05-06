@@ -454,6 +454,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         if (isSaveDta) {
             addData(viewBinding.timeLine.audioFragmentBean)
         }
+        PlayerManager.play()
     }
 
     private fun freshCutModeView(mode: Int) {
