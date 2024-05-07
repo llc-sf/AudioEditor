@@ -111,6 +111,8 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     }
 
     override fun onSingleTapUp(e: MotionEvent): Boolean {
+        manuallyUpdatePlayingLineCheck(e)
+        invalidate()
         if (audioFragment?.onSingleTapUp(e) == true) {
             return true
         }
@@ -205,28 +207,55 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         refreshPlayingLine() //todo cursor改变引发的一些列变化 总结
     }
 
-    private fun manuallyUpdatePlayingLineCheck(event: MotionEvent){
+    private fun manuallyUpdatePlayingLineCheck(event: MotionEvent) {
         if (audioFragment == null) {
             return
-        } //只需要计算出当前播放条的位置即可，seek 在播放的时候做 todo 其实这里做也行 一会调整吧
-        currentPlayingPosition = event.x
-        currentPlayingTimeInAudio = cursorValue + (currentPlayingPosition / unitMsPixel).toLong() - startValue //        var seekPosition = when (cutMode) {
+        }
+       var tempCurrentPlayingPosition = event.x
+       var tempCurrentPlayingTimeInAudio = cursorValue + (tempCurrentPlayingPosition / unitMsPixel).toLong() - startValue
         when (cutMode) {
             CutPieceFragment.CUT_MODE_SELECT -> {
-                if (currentPlayingTimeInAudio !in getCutLineStartTime()..getCutLineEndTime()) {
-                    currentPlayingTimeInAudio = getCutLineStartTime()
-                    currentPlayingPosition = cursorPosition + getCutLineStartTime() * unitMsPixel
+                if (tempCurrentPlayingTimeInAudio in getCutLineStartTime()..getCutLineEndTime()) {
+                    //只需要计算出当前播放条的位置即可，seek 在播放的时候做
+                    currentPlayingPosition = tempCurrentPlayingPosition
+                    currentPlayingTimeInAudio = tempCurrentPlayingTimeInAudio
+                    PlayerManager.seekTo(currentPlayingTimeInAudio - getCutLineStartTime(), 0)
+                }else{
+                    if(!PlayerManager.isPlaying){
+                        currentPlayingTimeInAudio = PlayerManager.getCurrentPosition() + getCutLineStartTime()
+                        currentPlayingPosition = cursorPosition + currentPlayingTimeInAudio * unitMsPixel
+                    }
                 }
             }
 
             CutPieceFragment.CUT_MODE_DELETE -> {
-                if (currentPlayingTimeInAudio in getCutLineStartTime()..getCutLineEndTime()) {
-                    currentPlayingTimeInAudio = 0
-                    currentPlayingPosition = cursorPosition
+                if (tempCurrentPlayingTimeInAudio in getCutLineStartTime()..getCutLineEndTime()) { //                    currentPlayingTimeInAudio = 0
+                    //只需要计算出当前播放条的位置即可，seek 在播放的时候做
+                    if (!PlayerManager.isPlaying) {
+                        if (PlayerManager.player.currentWindowIndex == 0) {
+                            currentPlayingTimeInAudio = PlayerManager.getCurrentPosition()
+
+                        } else {
+                            currentPlayingTimeInAudio = PlayerManager.getCurrentPosition() + getCutLineEndTime()
+                        }
+                        currentPlayingPosition = cursorPosition + currentPlayingTimeInAudio * unitMsPixel
+                    }
+                } else {
+                    currentPlayingPosition = tempCurrentPlayingPosition
+                    currentPlayingTimeInAudio = tempCurrentPlayingTimeInAudio
+                    if (currentPlayingTimeInAudio < getCutLineStartTime()) {
+                        PlayerManager.seekTo(currentPlayingTimeInAudio, 0)
+                    } else if (currentPlayingTimeInAudio > getCutLineEndTime()) {
+                        PlayerManager.seekTo(currentPlayingTimeInAudio - getCutLineEndTime(), 1)
+                    }
                 }
+
             }
 
             CutPieceFragment.CUT_MODE_JUMP -> {
+                //只需要计算出当前播放条的位置即可，seek 在播放的时候做
+                currentPlayingPosition = event.x
+                currentPlayingTimeInAudio = cursorValue + (currentPlayingPosition / unitMsPixel).toLong() - startValue
             }
         }
     }
@@ -377,6 +406,9 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     fun onProgressChange(currentWindowIndex: Int,
                          positionInCutPiece: Long,
                          durationCutPiece: Long) { //在真个坐标轴中的位置
+        if (touchPlayingLine) {
+            return
+        }
         Log.i(playline_tag, "setPlayerProgress currentPositionInPlaying=$positionInCutPiece duration=$durationCutPiece")
         if (cutMode == CutPieceFragment.CUT_MODE_SELECT && positionInCutPiece >= durationCutPiece) { //判断播放结束
             restart()
