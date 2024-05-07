@@ -176,7 +176,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                     return true
                 }
                 if (touchPlayingLine) {
-                    if(!isWholeScreen){
+                    if (!isWholeScreen) {
                         PlayerManager.pause()
                     }
                     if (dx > 10 || event.x >= 50) {
@@ -543,6 +543,21 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                 currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
             }
         }
+
+        if (PlayerManager.isPlaying) { //播放条居中
+            if (currentPlayingPosition < ScreenUtil.getScreenWidth(context) / 2) {
+                if ((ScreenUtil.getScreenWidth(context) / 2 - currentPlayingPosition) < (cursorValue - startValue) * unitMsPixel) {
+                    cursorValue -= ((ScreenUtil.getScreenWidth(context) / 2f - currentPlayingPosition) / unitMsPixel).toLong()
+                    currentPlayingPosition = ScreenUtil.getScreenWidth(context) / 2f
+                }
+            } else {
+                if ((currentPlayingPosition - ScreenUtil.getScreenWidth(context) / 2) < (endValue - (cursorValue + screenWithDuration)) * unitMsPixel) {
+                    cursorValue += ((currentPlayingPosition - ScreenUtil.getScreenWidth(context) / 2) / unitMsPixel).toLong()
+                    currentPlayingPosition = ScreenUtil.getScreenWidth(context) / 2f
+                }
+            }
+        }
+
     }
 
 
