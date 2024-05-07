@@ -211,17 +211,16 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         if (audioFragment == null) {
             return
         }
-       var tempCurrentPlayingPosition = event.x
-       var tempCurrentPlayingTimeInAudio = cursorValue + (tempCurrentPlayingPosition / unitMsPixel).toLong() - startValue
+        var tempCurrentPlayingPosition = event.x
+        var tempCurrentPlayingTimeInAudio = cursorValue + (tempCurrentPlayingPosition / unitMsPixel).toLong() - startValue
         when (cutMode) {
             CutPieceFragment.CUT_MODE_SELECT -> {
-                if (tempCurrentPlayingTimeInAudio in getCutLineStartTime()..getCutLineEndTime()) {
-                    //只需要计算出当前播放条的位置即可，seek 在播放的时候做
+                if (tempCurrentPlayingTimeInAudio in getCutLineStartTime()..getCutLineEndTime()) { //只需要计算出当前播放条的位置即可，seek 在播放的时候做
                     currentPlayingPosition = tempCurrentPlayingPosition
                     currentPlayingTimeInAudio = tempCurrentPlayingTimeInAudio
                     PlayerManager.seekTo(currentPlayingTimeInAudio - getCutLineStartTime(), 0)
-                }else{
-                    if(!PlayerManager.isPlaying){
+                } else {
+                    if (!PlayerManager.isPlaying) {
                         currentPlayingTimeInAudio = PlayerManager.getCurrentPosition() + getCutLineStartTime()
                         currentPlayingPosition = cursorPosition + currentPlayingTimeInAudio * unitMsPixel
                     }
@@ -253,9 +252,9 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             }
 
             CutPieceFragment.CUT_MODE_JUMP -> {
-                //只需要计算出当前播放条的位置即可，seek 在播放的时候做
-                currentPlayingPosition = event.x
-                currentPlayingTimeInAudio = cursorValue + (currentPlayingPosition / unitMsPixel).toLong() - startValue
+                currentPlayingPosition = tempCurrentPlayingPosition
+                currentPlayingTimeInAudio = tempCurrentPlayingTimeInAudio
+                playJumpSelected(false)
             }
         }
     }
@@ -867,47 +866,60 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             }
 
             CutPieceFragment.CUT_MODE_JUMP -> {
-                if (audioFragment?.isPlayingLineInAnyCutPiece(currentPlayingTimeInAudio) == true) {
-                    PlayerManager.updateMediaSourceDeleteJump(audioFragment!!.cutPieceFragmentsOrder)
-                    val windowIndex = audioFragment?.playingLineIndexInFragments(currentPlayingTimeInAudio)
-                        ?: 0
-                    PlayerManager.playWithSeek(currentPlayingTimeInAudio - audioFragment!!.cutPieceFragmentsOrder[windowIndex].startTimestampTimeInSelf, windowIndex)
-                } else {
-                    if (audioFragment!!.cutPieceFragments.isEmpty()) {
-                        return
-                    }
-                    if (PlayerManager.uri == null) {
-                        return
-                    } //多虑掉CutPieceFragment中 startTimestampTimeInSelf 小于 start 的
-                    val cutPieceFragmentsFilter = audioFragment!!.cutPieceFragmentsOrder.filter { it.startTimestampTimeInSelf >= currentPlayingTimeInAudio }
-                    var end = audioFragment!!.duration
-                    if (cutPieceFragmentsFilter.isEmpty()) {
-                        CutPieceFragment(audioFragment!!, false, 0, CutPieceFragment.CUT_MODE_JUMP, isFake = true).apply {
-                            startTimestampTimeInSelf = currentPlayingTimeInAudio
-                            endTimestampTimeInSelf = end
-                            audioFragment!!.cutPieceFragments.add(this)
-                        }
-                    } else {
-                        end = cutPieceFragmentsFilter[0].startTimestampTimeInSelf
-                        CutPieceFragment(audioFragment!!, false, 0, CutPieceFragment.CUT_MODE_JUMP, isFake = true).apply {
-                            startTimestampTimeInSelf = currentPlayingTimeInAudio
-                            endTimestampTimeInSelf = end
-                            audioFragment!!.cutPieceFragments.add(this)
-                        }
-                    }
-
-                    var windowIndex = 0
-                    audioFragment!!.cutPieceFragmentsOrder.forEachIndexed { index, cutPieceFragment ->
-                        if (cutPieceFragment.startTimestampTimeInSelf == currentPlayingTimeInAudio) {
-                            windowIndex = index
-                            return@forEachIndexed
-                        }
-                    }
-                    PlayerManager.updateMediaSourceDeleteJump(audioFragment!!.cutPieceFragmentsOrder)
-                    PlayerManager.playWithSeek(0, windowIndex)
-                }
+                if (playJumpSelected()) return
             }
         }
+    }
+
+    private fun playJumpSelected(isAutoPlay: Boolean = true): Boolean {
+        if (audioFragment?.isPlayingLineInAnyCutPiece(currentPlayingTimeInAudio) == true) {
+            PlayerManager.updateMediaSourceDeleteJump(audioFragment!!.cutPieceFragmentsOrder)
+            val windowIndex = audioFragment?.playingLineIndexInFragments(currentPlayingTimeInAudio)
+                ?: 0
+            if (isAutoPlay) {
+                PlayerManager.playWithSeek(currentPlayingTimeInAudio - audioFragment!!.cutPieceFragmentsOrder[windowIndex].startTimestampTimeInSelf, windowIndex)
+            } else {
+                PlayerManager.seekTo(currentPlayingTimeInAudio - audioFragment!!.cutPieceFragmentsOrder[windowIndex].startTimestampTimeInSelf, windowIndex)
+            }
+        } else {
+            if (audioFragment!!.cutPieceFragments.isEmpty()) {
+                return true
+            }
+            if (PlayerManager.uri == null) {
+                return true
+            } //多虑掉CutPieceFragment中 startTimestampTimeInSelf 小于 start 的
+            val cutPieceFragmentsFilter = audioFragment!!.cutPieceFragmentsOrder.filter { it.startTimestampTimeInSelf >= currentPlayingTimeInAudio }
+            var end = audioFragment!!.duration
+            if (cutPieceFragmentsFilter.isEmpty()) {
+                CutPieceFragment(audioFragment!!, false, 0, CutPieceFragment.CUT_MODE_JUMP, isFake = true).apply {
+                    startTimestampTimeInSelf = currentPlayingTimeInAudio
+                    endTimestampTimeInSelf = end
+                    audioFragment!!.cutPieceFragments.add(this)
+                }
+            } else {
+                end = cutPieceFragmentsFilter[0].startTimestampTimeInSelf
+                CutPieceFragment(audioFragment!!, false, 0, CutPieceFragment.CUT_MODE_JUMP, isFake = true).apply {
+                    startTimestampTimeInSelf = currentPlayingTimeInAudio
+                    endTimestampTimeInSelf = end
+                    audioFragment!!.cutPieceFragments.add(this)
+                }
+            }
+
+            var windowIndex = 0
+            audioFragment!!.cutPieceFragmentsOrder.forEachIndexed { index, cutPieceFragment ->
+                if (cutPieceFragment.startTimestampTimeInSelf == currentPlayingTimeInAudio) {
+                    windowIndex = index
+                    return@forEachIndexed
+                }
+            }
+            PlayerManager.updateMediaSourceDeleteJump(audioFragment!!.cutPieceFragmentsOrder)
+            if (isAutoPlay) {
+                PlayerManager.playWithSeek(0, windowIndex)
+            } else {
+                PlayerManager.seekTo(0, windowIndex)
+            }
+        }
+        return false
     }
 
     fun playOrPause() {
