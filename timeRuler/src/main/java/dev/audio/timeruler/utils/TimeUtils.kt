@@ -55,8 +55,8 @@ fun Long.format2DurationSimpleInt(): String {
 
     return when {
         hours > 0 -> String.format("%d:%02d:%02d", hours, minutes, seconds)
-        minutes > 0 -> String.format("%d:%02d", minutes, seconds)
-        else -> seconds.toString()
+        minutes > 0 || seconds > 0 -> String.format("%02d:%02d", minutes, seconds)
+        else -> "00:00"
     }
 }
 

@@ -22,6 +22,7 @@ import dev.audio.timeruler.timer.DialogTimerSetting
 import dev.audio.timeruler.utils.SizeUtils
 import dev.audio.timeruler.utils.dp
 import dev.audio.timeruler.utils.format2DurationSimple
+import dev.audio.timeruler.utils.format2DurationSimpleInt
 import dev.audio.timeruler.utils.getTextHeight
 import dev.audio.timeruler.utils.getTopY
 import java.lang.ref.WeakReference
@@ -299,16 +300,16 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                                   rightCount: Int) {
 
         if (index == 0) {
-            var content = (cursorValue - startValue).format2DurationSimple()
+            var content = (cursorValue - startValue).format2DurationSimpleInt()
             drawTickValue(canvas, content, 20f + paint.measureText(content) / 2, topPadding + paint!!.getTopY())
         } else if (index == rightCount / 3) {
-            var content = ((cursorValue - startValue) + screenWithDuration / 3).format2DurationSimple()
+            var content = ((cursorValue - startValue) + screenWithDuration / 3).format2DurationSimpleInt()
             drawTickValue(canvas, content, ScreenUtil.getScreenWidth(context) / 3f, topPadding + paint!!.getTopY())
         } else if (index == rightCount / 3 * 2) {
-            var content = ((cursorValue - startValue) + screenWithDuration / 3 * 2).format2DurationSimple()
+            var content = ((cursorValue - startValue) + screenWithDuration / 3 * 2).format2DurationSimpleInt()
             drawTickValue(canvas, content, ScreenUtil.getScreenWidth(context) / 3f * 2, topPadding + paint!!.getTopY())
         } else if (index == rightCount - 1) {
-            var content = ((cursorValue - startValue) + screenWithDuration).format2DurationSimple()
+            var content = ((cursorValue - startValue) + screenWithDuration).format2DurationSimpleInt()
             drawTickValue(canvas, content, ScreenUtil.getScreenWidth(context)
                 .toFloat() - paint!!.measureText(content) / 2 - 20f, topPadding + paint!!.getTopY())
         }
