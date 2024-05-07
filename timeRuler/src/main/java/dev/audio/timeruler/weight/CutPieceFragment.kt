@@ -653,6 +653,8 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     }
 
 
+    //用于正在播放时候裁剪条拖动后恢复播放
+    private var resumePlaying = false
     fun onTouchEvent(context: Context, view: View, event: MotionEvent?): Boolean {
         Log.i(BaseAudioEditorView.cut_tag, "onTouchEvent: ")
         if (event == null) return false
@@ -660,8 +662,14 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
         val x = event.x
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                isMovingStart = startHandleTouchRect.isTouch(event) && !PlayerManager.isPlaying
-                isMovingEnd = endHandleTouchRect.isTouch(event) && !PlayerManager.isPlaying
+                isMovingStart = startHandleTouchRect.isTouch(event)
+                isMovingEnd = endHandleTouchRect.isTouch(event)
+                if (isMovingStart || isMovingEnd) {
+                    if (PlayerManager.isPlaying) {
+                        resumePlaying = true
+                    }
+                    PlayerManager.pause()
+                }
                 lastTouchXProcess = x
                 Log.i(BaseAudioEditorView.cut_tag, "cut onTouchEvent: ACTION_DOWN isMovingStart=$isMovingStart isMovingEnd=$isMovingEnd")
             }
@@ -774,6 +782,10 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                 if (isMovingEnd || isMovingStart) {
                     cutLineMove2Middle(event)
+                    if (resumePlaying) {
+                        PlayerManager.play()
+                    }
+                    resumePlaying = false
                 }
                 isMovingStart = false
                 isMovingEnd = false
