@@ -21,6 +21,7 @@ import dev.audio.timeruler.BuildConfig
 import dev.audio.timeruler.R
 import dev.audio.timeruler.bean.CutPieceBean
 import dev.audio.timeruler.bean.Ref
+import dev.audio.timeruler.player.PlayerManager
 import dev.audio.timeruler.utils.isTouch
 import dev.audio.timeruler.weight.CutPieceFragment.MoveHandler.Companion.MSG_MOVE_TO_OFFSET
 import java.lang.ref.WeakReference
@@ -179,6 +180,17 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                     removeEnable = removeEnable || (audio.currentPlayingTimeInAudio >= cutPieceFragment.startTimestampTimeInSelf && audio.currentPlayingTimeInAudio <= cutPieceFragment.endTimestampTimeInSelf)
                 }
                 cutModeChangeButtonEnableListener?.onCutModeChange(addEnable, removeEnable)
+                //播放条在裁剪范围，变为选中态，且取消其他范围的选中态
+                if(!PlayerManager.isPlaying){
+                    audio.cutPieceFragments.forEach {
+                        if(audio.currentPlayingTimeInAudio in it.startTimestampTimeInSelf..it.endTimestampTimeInSelf){
+                            it.isSelected = true
+                        }else{
+                            it.isSelected = false
+                        }
+                        audio.invalidate()
+                    }
+                }
             }
         }
     }
