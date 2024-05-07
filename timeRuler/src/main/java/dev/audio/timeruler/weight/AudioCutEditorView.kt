@@ -123,9 +123,6 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
      * 裁剪拨片的触摸事件
      */
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        if (PlayerManager.isPlaying) {
-            return true
-        }
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 Log.i(cut_tag, "onTouchEvent: ACTION_DOWN touchCutLine=$touchCutLine")
@@ -151,7 +148,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                     audioFragment?.onTouchEvent(context, this@AudioCutEditorView, event)
                 }
                 if (touchPlayingLine) {
-                    manuallyUpdatePlayingLine(event)
+                    manuallyUpdatePlayingLineCheck(event)
                     invalidate()
 
                     //移动播放条到屏幕中央
@@ -207,6 +204,33 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         super.cursorValueChange(prop, old, new)
         refreshPlayingLine() //todo cursor改变引发的一些列变化 总结
     }
+
+    private fun manuallyUpdatePlayingLineCheck(event: MotionEvent){
+        if (audioFragment == null) {
+            return
+        } //只需要计算出当前播放条的位置即可，seek 在播放的时候做 todo 其实这里做也行 一会调整吧
+        currentPlayingPosition = event.x
+        currentPlayingTimeInAudio = cursorValue + (currentPlayingPosition / unitMsPixel).toLong() - startValue //        var seekPosition = when (cutMode) {
+        when (cutMode) {
+            CutPieceFragment.CUT_MODE_SELECT -> {
+                if (currentPlayingTimeInAudio !in getCutLineStartTime()..getCutLineEndTime()) {
+                    currentPlayingTimeInAudio = getCutLineStartTime()
+                    currentPlayingPosition = cursorPosition + getCutLineStartTime() * unitMsPixel
+                }
+            }
+
+            CutPieceFragment.CUT_MODE_DELETE -> {
+                if (currentPlayingTimeInAudio in getCutLineStartTime()..getCutLineEndTime()) {
+                    currentPlayingTimeInAudio = 0
+                    currentPlayingPosition = cursorPosition
+                }
+            }
+
+            CutPieceFragment.CUT_MODE_JUMP -> {
+            }
+        }
+    }
+
 
     /**
      * 主动更新播放条
@@ -605,7 +629,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     fun startCutMinus() {
         audioFragment?.let {
-            if(it.startCutMinus()){
+            if (it.startCutMinus()) {
                 updateMediaSource(it.getCutLineStartTime(), it.getCutLineEndTime())
             }
 
@@ -614,7 +638,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     fun startCutPlus() {
         audioFragment?.let {
-            if(it.startCutPlus()){
+            if (it.startCutPlus()) {
                 updateMediaSource(it.getCutLineStartTime(), it.getCutLineEndTime())
             }
         }
@@ -622,7 +646,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     fun startEndMinus() {
         audioFragment?.let {
-            if(it.startEndMinus()){
+            if (it.startEndMinus()) {
                 updateMediaSource(it.getCutLineStartTime(), it.getCutLineEndTime())
             }
         }
@@ -630,7 +654,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     fun startEndPlus() {
         audioFragment?.let {
-            if(it.startEndPlus()){
+            if (it.startEndPlus()) {
                 updateMediaSource(it.getCutLineStartTime(), it.getCutLineEndTime())
             }
         }
