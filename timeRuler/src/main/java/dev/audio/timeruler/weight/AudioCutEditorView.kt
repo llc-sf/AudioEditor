@@ -418,6 +418,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     }
 
     private fun restart() {
+        PlayerManager.pause()
         cursorValue = startValue
         when (cutMode) {
             CutPieceFragment.CUT_MODE_SELECT -> { //定位播放条
