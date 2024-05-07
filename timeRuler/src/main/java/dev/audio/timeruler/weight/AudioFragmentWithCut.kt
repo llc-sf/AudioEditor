@@ -287,6 +287,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         cutPieceFragments.remove(currentCutPieceFragment)
         if (cutPieceFragments.isEmpty()) {
             PlayerManager.pause()
+            cutModeChangeButtonEnableListener?.onCutModeChange(true,false)
             audioEditorView.invalidate()
             return
         }
