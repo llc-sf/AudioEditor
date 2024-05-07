@@ -46,6 +46,19 @@ fun Long.format2DurationSimple(): String {
         else -> String.format("%d.%01d", seconds, millis)
     }
 }
+// 输出格式为：mm:ss
+fun Long.format2DurationSimpleInt(): String {
+    val totalSeconds = this / 1000
+    val hours = totalSeconds / 3600
+    val minutes = (totalSeconds % 3600) / 60
+    val seconds = totalSeconds % 60
+
+    return when {
+        hours > 0 -> String.format("%d:%02d:%02d", hours, minutes, seconds)
+        minutes > 0 -> String.format("%d:%02d", minutes, seconds)
+        else -> seconds.toString()
+    }
+}
 
 // 输出格式为：mm:ss.SSS
 fun Long.format2DurationStander(): String {

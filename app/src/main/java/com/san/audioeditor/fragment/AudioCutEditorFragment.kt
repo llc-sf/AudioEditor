@@ -48,6 +48,7 @@ import dev.audio.timeruler.timer.EditExitDialog
 import dev.audio.timeruler.timer.EditLoadingDialog
 import dev.audio.timeruler.utils.AudioFileUtils
 import dev.audio.timeruler.utils.format2DurationSimple
+import dev.audio.timeruler.utils.format2DurationSimpleInt
 import dev.audio.timeruler.utils.lastAudioFragmentBean
 import dev.audio.timeruler.utils.nextAudioFragmentBean
 import dev.audio.timeruler.utils.toSegmentsArray
@@ -183,7 +184,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         //        viewBinding.timeLine.setRange(startTime, endTime)
 
         viewBinding.durationTime.text = mViewModel.song.duration.toLong()
-            .format2DurationSimple() //        viewBinding.scale.text = viewBinding.timeLine.mMode.toString()
+            .format2DurationSimpleInt() //        viewBinding.scale.text = viewBinding.timeLine.mMode.toString()
 
         viewBinding.timeLine.setOnCursorListener(object : BaseAudioEditorView.OnCursorListener {
             override fun onStartTrackingTouch(cursorValue: Long) {
@@ -404,7 +405,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                                                                 AudioCutEditorView.OnPlayingLineChangeListener {
 
             override fun onPlayingLineChange(value: Long) {
-                viewBinding.currentPlayTime.text = value.format2DurationSimple()
+                viewBinding.currentPlayTime.text = value.format2DurationSimpleInt()
             }
         })
 
