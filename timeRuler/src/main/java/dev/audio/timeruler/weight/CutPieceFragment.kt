@@ -179,13 +179,12 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                     addEnable = addEnable && (audio.currentPlayingTimeInAudio < cutPieceFragment.startTimestampTimeInSelf || audio.currentPlayingTimeInAudio > cutPieceFragment.endTimestampTimeInSelf)
                     removeEnable = removeEnable || (audio.currentPlayingTimeInAudio >= cutPieceFragment.startTimestampTimeInSelf && audio.currentPlayingTimeInAudio <= cutPieceFragment.endTimestampTimeInSelf)
                 }
-                cutModeChangeButtonEnableListener?.onCutModeChange(addEnable, removeEnable)
-                //播放条在裁剪范围，变为选中态，且取消其他范围的选中态
-                if(!PlayerManager.isPlaying){
+                cutModeChangeButtonEnableListener?.onCutModeChange(addEnable, removeEnable) //播放条在裁剪范围，变为选中态，且取消其他范围的选中态
+                if (!PlayerManager.isPlaying) {
                     audio.cutPieceFragments.forEach {
-                        if(audio.currentPlayingTimeInAudio in it.startTimestampTimeInSelf..it.endTimestampTimeInSelf){
+                        if (audio.currentPlayingTimeInAudio in it.startTimestampTimeInSelf..it.endTimestampTimeInSelf) {
                             it.isSelected = true
-                        }else{
+                        } else {
                             it.isSelected = false
                         }
                         audio.invalidate()
@@ -661,8 +660,8 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
         val x = event.x
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                isMovingStart = startHandleTouchRect.isTouch(event)
-                isMovingEnd = endHandleTouchRect.isTouch(event)
+                isMovingStart = startHandleTouchRect.isTouch(event) && !PlayerManager.isPlaying
+                isMovingEnd = endHandleTouchRect.isTouch(event) && !PlayerManager.isPlaying
                 lastTouchXProcess = x
                 Log.i(BaseAudioEditorView.cut_tag, "cut onTouchEvent: ACTION_DOWN isMovingStart=$isMovingStart isMovingEnd=$isMovingEnd")
             }
@@ -775,7 +774,6 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                 if (isMovingEnd || isMovingStart) {
                     cutLineMove2Middle(event)
-                    audio.updateMediaSource(startTimestampTimeInSelf, endTimestampTimeInSelf)
                 }
                 isMovingStart = false
                 isMovingEnd = false
