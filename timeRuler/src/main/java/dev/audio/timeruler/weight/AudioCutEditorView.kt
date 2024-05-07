@@ -78,6 +78,11 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             return screenWithDuration > SCREEN_WIDTH_TIME_VALUE_ARRAY[0]
         }
 
+    var isWholeScreen = false
+        get() {
+            return !canZoomOut
+        }
+
     init {
         init(attrs)
     }
@@ -171,6 +176,9 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                     return true
                 }
                 if (touchPlayingLine) {
+                    if(!isWholeScreen){
+                        PlayerManager.pause()
+                    }
                     if (dx > 10 || event.x >= 50) {
                         moveHandler.removeMessages(MoveHandler.MSG_MOVE_START)
                     }
