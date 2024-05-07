@@ -427,11 +427,11 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
     fun canLoadMoreWaveDataToStart(): Boolean {
         return when (cutMode) {
             CutPieceFragment.CUT_MODE_SELECT, CutPieceFragment.CUT_MODE_DELETE -> {
-                startTimestamp <= cursorValue
+                startTimestamp < cursorValue
             }
 
             CutPieceFragment.CUT_MODE_JUMP -> {
-                startTimestamp <= cursorValue
+                startTimestamp < cursorValue
             }
 
             else -> false
@@ -439,7 +439,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
     }
 
     fun canLoadMoreWaveDataToEnd(): Boolean {
-        return cursorValue + screenWithDuration <= duration + startTimestamp
+        return cursorValue + screenWithDuration < endTimestamp
     }
 
 }
