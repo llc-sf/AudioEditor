@@ -275,7 +275,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             CutPieceFragment.CUT_MODE_JUMP -> {
                 currentPlayingPosition = tempCurrentPlayingPosition
                 currentPlayingTimeInAudio = tempCurrentPlayingTimeInAudio
-                playJumpSelected(isWholeScreen)
+                playJumpSelected(isWholeScreen&&PlayerManager.isPlaying)
             }
         }
         playingLineAuto2Middle(currentPlayingPosition)
