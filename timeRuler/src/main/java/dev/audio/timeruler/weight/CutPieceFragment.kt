@@ -175,18 +175,18 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             CUT_MODE_JUMP -> {
                 var addEnable = true
                 var removeEnable = false
-                audio.cutPieceFragments.forEachIndexed { _, cutPieceFragment ->
-                    addEnable = addEnable && (audio.currentPlayingTimeInAudio < cutPieceFragment.startTimestampTimeInSelf || audio.currentPlayingTimeInAudio > cutPieceFragment.endTimestampTimeInSelf)
-                    removeEnable = removeEnable || (audio.currentPlayingTimeInAudio >= cutPieceFragment.startTimestampTimeInSelf && audio.currentPlayingTimeInAudio <= cutPieceFragment.endTimestampTimeInSelf)
-                }
+                audio.cutPieceFragments.filter { !it.isFake }
+                    .forEachIndexed { _, cutPieceFragment ->
+                        addEnable = addEnable && (audio.currentPlayingTimeInAudio < cutPieceFragment.startTimestampTimeInSelf || audio.currentPlayingTimeInAudio > cutPieceFragment.endTimestampTimeInSelf)
+                        removeEnable = removeEnable || (audio.currentPlayingTimeInAudio >= cutPieceFragment.startTimestampTimeInSelf && audio.currentPlayingTimeInAudio <= cutPieceFragment.endTimestampTimeInSelf)
+                    }
                 cutModeChangeButtonEnableListener?.onCutModeChange(addEnable, removeEnable) //播放条在裁剪范围，变为选中态，且取消其他范围的选中态
                 if (!PlayerManager.isPlaying) {
-                    audio.cutPieceFragments.forEach {
-//                        if (audio.currentPlayingTimeInAudio in it.startTimestampTimeInSelf..it.endTimestampTimeInSelf) {
-//                            it.isSelected = true
-//                        } else {
-//                            it.isSelected = false
-//                        }
+                    audio.cutPieceFragments.forEach { //                        if (audio.currentPlayingTimeInAudio in it.startTimestampTimeInSelf..it.endTimestampTimeInSelf) {
+                        //                            it.isSelected = true
+                        //                        } else {
+                        //                            it.isSelected = false
+                        //                        }
                         audio.invalidate()
                     }
                 }
@@ -814,7 +814,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             }
 
             CUT_MODE_JUMP -> {
-                if(!audio.isPlayingLineInAnyCutPiece(audio.currentPlayingTimeInAudio)){
+                if (!audio.isPlayingLineInAnyCutPiece(audio.currentPlayingTimeInAudio)) {
                     audio.updatePlayingPosition(startTimestampTimeInSelf)
                 }
             }
