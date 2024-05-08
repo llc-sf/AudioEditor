@@ -15,6 +15,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.android.app.AppProvider
 import com.san.audioeditor.activity.AudioCutActivity
 import com.san.audioeditor.activity.AudioSaveActivity
 import com.san.audioeditor.handler.FFmpegHandler
@@ -78,13 +79,13 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
         _audioCutViewState.value = pageState
     }
 
+    var outputPath = ""
     fun save(context: Context,
              realCutPieceFragments: List<CutPieceFragment>?,
              datas: MutableList<AudioFragmentBean>) {
         mHandler.datas = datas
         mHandler.context = WeakReference(context)
         viewModelScope.launch(Dispatchers.IO) {
-            var outputPath = ""
             val PATH = FFmpegApplication.instance?.getExternalFilesDir(Environment.DIRECTORY_MUSIC)?.absolutePath
 
             var realCutPieceFragments = realCutPieceFragments?.filter { !it.isFake }
@@ -142,6 +143,15 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
                                     FileUtil.deleteFile(it)
                                 }
                             }
+                        }
+                        var cutFileName = AudioFileUtils.getFileName(outputPath)
+                        var file = AudioFileUtils.copyAudioToFileStore(File(outputPath), AppProvider.context, cutFileName)
+                        if (file != null) {
+                            AudioFileUtils.notifyMediaScanner(AppProvider.context, file.absolutePath) { path: String, uri: Uri ->
+                            }
+                        } else {
+                            Toast.makeText(AppProvider.context, "裁剪失败", Toast.LENGTH_SHORT)
+                                .show()
                         }
                     }
                 }
