@@ -125,5 +125,11 @@ object AudioFileUtils {
         return file.name // This returns the file name with extension.
     }
 
+    fun getFileNameWithoutExtension(absolutePath: String): String {
+        val file = File(absolutePath)
+        return file.nameWithoutExtension // This returns the file name with extension.
+    }
+
+
 
 }

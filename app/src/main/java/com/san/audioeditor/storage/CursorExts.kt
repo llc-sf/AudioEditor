@@ -3,7 +3,9 @@ package com.san.audioeditor.storage
 import android.database.Cursor
 import android.os.Build
 import android.provider.MediaStore
+import android.text.TextUtils
 import dev.android.player.framework.data.model.Song
+import dev.audio.timeruler.utils.AudioFileUtils
 
 /**
  * 转换单个数据
@@ -11,8 +13,9 @@ import dev.android.player.framework.data.model.Song
 fun Cursor.convertSong(): Song {
     val song = Song()
     song.id = getLong(getColumnIndexOrThrow(MediaStore.Audio.Media._ID))
-    song.title = getString(getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE))
     song.path = getString(getColumnIndexOrThrow(MediaStore.Audio.Media.DATA))
+    var fileName = AudioFileUtils.getFileNameWithoutExtension(song.path)
+    song.title = if (!TextUtils.isEmpty(fileName)) fileName else getString(getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE))
     song.albumId = getLong(getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM_ID))
     song.albumName = getString(getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM))
     song.artistId = getLong(getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST_ID))
