@@ -115,7 +115,13 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         invalidate() // 触发重新绘制
     }
 
+    //解决  戳模裁剪条抬起手，onSingleTapUp还会相应的问题  todo 仅仅是相应播放条的点击
+    private var disableOnSingleTapUp = false
     override fun onSingleTapUp(e: MotionEvent): Boolean {
+        if (disableOnSingleTapUp) {
+            disableOnSingleTapUp = false
+            return false
+        }
         manuallyUpdatePlayingLineCheck(e)
         invalidate()
         if (audioFragment?.onSingleTapUp(e) == true) {
@@ -138,6 +144,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                 if (isTargetCut) {
                     audioFragment?.onTouchEvent(context, this@AudioCutEditorView, event)
                     touchCutLine = true
+                    disableOnSingleTapUp = true
                     return true
                 }
                 var isTargetPlayLine = isPlayingLineTarget(event)
@@ -262,12 +269,8 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             CutPieceFragment.CUT_MODE_JUMP -> {
                 currentPlayingPosition = tempCurrentPlayingPosition
                 currentPlayingTimeInAudio = tempCurrentPlayingTimeInAudio
-                playJumpSelected(false)
+                playJumpSelected(isWholeScreen)
             }
-        }
-
-        if(!isWholeScreen){
-            PlayerManager.pause()
         }
     }
 
@@ -898,7 +901,12 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         }
     }
 
+    /**
+     * 点击play按钮调用
+     * 播放条更新位置调用
+     */
     private fun playJumpSelected(isAutoPlay: Boolean = true): Boolean {
+        audioFragment?.removeFake()
         if (audioFragment?.isPlayingLineInAnyCutPiece(currentPlayingTimeInAudio) == true) {
             PlayerManager.updateMediaSourceDeleteJump(audioFragment!!.cutPieceFragmentsOrder)
             val windowIndex = audioFragment?.playingLineIndexInFragments(currentPlayingTimeInAudio)
@@ -914,7 +922,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             }
             if (PlayerManager.uri == null) {
                 return true
-            } //多虑掉CutPieceFragment中 startTimestampTimeInSelf 小于 start 的
+            } //过虑掉CutPieceFragment中 startTimestampTimeInSelf 小于 start 的
             val cutPieceFragmentsFilter = audioFragment!!.cutPieceFragmentsOrder.filter { it.startTimestampTimeInSelf >= currentPlayingTimeInAudio }
             var end = audioFragment!!.duration
             if (cutPieceFragmentsFilter.isEmpty()) {
@@ -945,6 +953,9 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             } else {
                 PlayerManager.seekTo(0, windowIndex)
             }
+        }
+        if (!isAutoPlay) {
+            audioFragment?.removeFake()
         }
         return false
     }
@@ -996,6 +1007,12 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     fun setLoadingView(duration: Long, path: String) {
         setWaveform(null, duration, path)
+    }
+
+    fun updatePlayingPosition(positionTime: Long) {
+        currentPlayingTimeInAudio = positionTime
+        currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
+        invalidate()
     }
 
     var isCutLineStartVisible = false

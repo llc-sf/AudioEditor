@@ -8,6 +8,7 @@ import android.view.View
 import dev.audio.timeruler.bean.AudioFragmentBean
 import dev.audio.timeruler.bean.Ref
 import dev.audio.timeruler.player.PlayerManager
+import dev.audio.timeruler.utils.format2DurationSimple
 
 
 /**
@@ -260,7 +261,8 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
             it.isSelected = false
         }
         cutPieceFragments.add(CutPieceFragment(this, true, index = cutPieceFragments.size, mode = CutPieceFragment.CUT_MODE_JUMP).apply {
-            var endTemp = audio.currentPlayingTimeInAudio + 1000L * 6 //不能超范围
+            var endTemp = audio.currentPlayingTimeInAudio.apply {
+            } + 1000L * 6 //不能超范围
             if (endTemp > audio.duration) {
                 endTemp = audio.duration
             } //不能重叠
@@ -440,6 +442,10 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
 
     fun canLoadMoreWaveDataToEnd(): Boolean {
         return cursorValue + screenWithDuration < endTimestamp
+    }
+
+    fun updatePlayingPosition(positionTime: Long) {
+        (audioEditorView as? AudioCutEditorView)?.updatePlayingPosition(positionTime)
     }
 
 }

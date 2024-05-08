@@ -182,11 +182,11 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                 cutModeChangeButtonEnableListener?.onCutModeChange(addEnable, removeEnable) //播放条在裁剪范围，变为选中态，且取消其他范围的选中态
                 if (!PlayerManager.isPlaying) {
                     audio.cutPieceFragments.forEach {
-                        if (audio.currentPlayingTimeInAudio in it.startTimestampTimeInSelf..it.endTimestampTimeInSelf) {
-                            it.isSelected = true
-                        } else {
-                            it.isSelected = false
-                        }
+//                        if (audio.currentPlayingTimeInAudio in it.startTimestampTimeInSelf..it.endTimestampTimeInSelf) {
+//                            it.isSelected = true
+//                        } else {
+//                            it.isSelected = false
+//                        }
                         audio.invalidate()
                     }
                 }
@@ -786,6 +786,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                         PlayerManager.play()
                     }
                     resumePlaying = false
+                    checkPlayingLine()
                 }
                 isMovingStart = false
                 isMovingEnd = false
@@ -795,6 +796,29 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             }
         }
         return true
+    }
+
+    private fun checkPlayingLine() {
+        audio.updateMediaSource(startTimestampTimeInSelf, endTimestampTimeInSelf)
+        when (cutMode) {
+            CUT_MODE_SELECT -> {
+                if (audio.currentPlayingTimeInAudio > this.endTimestampTimeInSelf || audio.currentPlayingTimeInAudio < this.startTimestampTimeInSelf) {
+                    audio.updatePlayingPosition(startTimestampTimeInSelf)
+                }
+            }
+
+            CUT_MODE_DELETE -> {
+                if (audio.currentPlayingTimeInAudio < this.endTimestampTimeInSelf && audio.currentPlayingTimeInAudio > this.startTimestampTimeInSelf) {
+                    audio?.updatePlayingPosition(0)
+                }
+            }
+
+            CUT_MODE_JUMP -> {
+                if(!audio.isPlayingLineInAnyCutPiece(audio.currentPlayingTimeInAudio)){
+                    audio.updatePlayingPosition(startTimestampTimeInSelf)
+                }
+            }
+        }
     }
 
 
