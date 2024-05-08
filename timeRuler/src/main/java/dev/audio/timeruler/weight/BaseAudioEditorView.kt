@@ -20,6 +20,7 @@ import dev.audio.ffmpeglib.tool.TimeUtil
 import dev.audio.timeruler.BuildConfig
 import dev.audio.timeruler.R
 import dev.audio.timeruler.listener.OnScaleChangeListener
+import dev.audio.timeruler.player.PlayerManager
 import dev.audio.timeruler.utils.SizeUtils
 import dev.audio.timeruler.utils.dp
 import dev.audio.timeruler.utils.formatToCursorDateString
@@ -768,6 +769,9 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
                           distanceX: Float,
                           distanceY: Float): Boolean {
         Log.i(touch_tag, "onScroll")
+        if (PlayerManager.isPlaying) {
+            return true
+        }
         if (e2.pointerCount > 1) {
             return false
         }
@@ -817,6 +821,9 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
      */
     override fun computeScroll() {
         Log.i(touch_tag, "computeScroll")
+        if(PlayerManager.isPlaying){
+            return
+        }
         if (scroller.computeScrollOffset()) {
             val currX = scroller.currX
             cursorValue = startValue + (currX / unitMsPixel).toLong() //            mCursorValue1 =
@@ -850,6 +857,9 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
                          velocityX: Float,
                          velocityY: Float): Boolean {
         Log.i(touch_tag, "onFling")
+        if(PlayerManager.isPlaying){
+            true
+        }
         status = STATUS_SCROLL_FLING
         val startX = ((cursorValue - startValue) * unitMsPixel).toInt()
         val maX = ((endValue - startValue) * unitMsPixel).toInt()
