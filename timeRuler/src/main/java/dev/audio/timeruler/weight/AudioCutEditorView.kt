@@ -265,6 +265,10 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                 playJumpSelected(false)
             }
         }
+
+        if(!isWholeScreen){
+            PlayerManager.pause()
+        }
     }
 
 
