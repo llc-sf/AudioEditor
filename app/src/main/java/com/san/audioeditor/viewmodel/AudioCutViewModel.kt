@@ -21,6 +21,7 @@ import com.android.app.AppProvider
 import com.san.audioeditor.activity.AudioCutActivity
 import com.san.audioeditor.activity.AudioSaveActivity
 import com.san.audioeditor.handler.FFmpegHandler
+import com.san.audioeditor.storage.AudioSyncService
 import com.san.audioeditor.storage.convertSong
 import com.san.audioeditor.viewmodel.pagedata.AudioCutPageData
 import dev.android.player.framework.base.viewmodel.BaseViewModel
@@ -162,6 +163,7 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
                                         AudioSaveActivity.open(it, song)
                                     }
                                     (it as? Activity)?.finish()
+                                    AudioSyncService.sync(AppProvider.context)
                                 }
                             }
                         } else {

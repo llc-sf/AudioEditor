@@ -38,6 +38,9 @@ class AudioSaveFragment : BaseMVVMFragment<FragmentAudioSaveBinding>() {
     override fun initView() {
         super.initView()
         viewBinding.toolbar.ImmerseDesign()
+        viewBinding.toolbar.setNavigationOnClickListener {
+            mActivity?.finish()
+        }
         mViewModel.initData(requireContext(),arguments)
     }
 

@@ -49,16 +49,11 @@ class AudioPickViewModel : BaseViewModel<AudioPickPageData>() {
     fun initData(context: Context, arguments: Bundle?) {
         viewModelScope.launch(Dispatchers.IO) {
             launchOnUI {
-//                if (AudioSyncUtil.songs.isEmpty()) {
-//                    Log.i(AudioSyncService.TAG, "registerReceiver ACTION_SYNC_COMPLETED")
-//                    registerSy(context)
-//                } else {
-//                    Log.i(AudioSyncService.TAG, "initData songs not empty")
-//                    refresh(MediaPickPageState(songs = AudioSyncUtil.songs))
-//                }
                 registerSy(context)
-                refresh(MediaPickPageState(songs = AudioSyncUtil.songs))
                 AudioSyncService.sync(AppProvider.context)
+                if (AudioSyncUtil.songs.isNotEmpty()) {
+                    refresh(MediaPickPageState(songs = AudioSyncUtil.songs))
+                }
             }
         }
     }
