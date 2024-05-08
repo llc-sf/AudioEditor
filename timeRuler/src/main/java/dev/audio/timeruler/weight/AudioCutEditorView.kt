@@ -165,10 +165,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                     manuallyUpdatePlayingLineCheck(event)
                     invalidate()
 
-                    //移动播放条到屏幕中央
-                    var offsetTimeValue = ((event.x - ScreenUtil.getScreenWidth(context) / 2) / unitMsPixel).toLong()
-                    moveHandler.removeMessages(MoveHandler.MSG_MOVE_TO_OFFSET_PLAYING_LINE)
-                    moveHandler.sendMessage(moveHandler.obtainMessage(MoveHandler.MSG_MOVE_TO_OFFSET_PLAYING_LINE, offsetTimeValue))
+                    playingLineAuto2Middle(event.x)
 
                 }
                 touchCutLine = false
@@ -207,6 +204,15 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         }
         Log.i(cut_tag, "super.onTouchEvent(event)")
         return super.onTouchEvent(event)
+    }
+
+    /**
+     * 播放条自动居中
+     */
+    private fun playingLineAuto2Middle(position: Float) { //移动播放条到屏幕中央
+        var offsetTimeValue = ((position - ScreenUtil.getScreenWidth(context) / 2) / unitMsPixel).toLong()
+        moveHandler.removeMessages(MoveHandler.MSG_MOVE_TO_OFFSET_PLAYING_LINE)
+        moveHandler.sendMessage(moveHandler.obtainMessage(MoveHandler.MSG_MOVE_TO_OFFSET_PLAYING_LINE, offsetTimeValue))
     }
 
     /**
@@ -272,6 +278,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                 playJumpSelected(isWholeScreen)
             }
         }
+        playingLineAuto2Middle(currentPlayingPosition)
     }
 
 
