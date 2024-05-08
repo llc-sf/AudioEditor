@@ -187,7 +187,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                         //                        } else {
                         //                            it.isSelected = false
                         //                        }
-                        audio.invalidate()
+                        //                        audio.invalidate()
                     }
                 }
             }
