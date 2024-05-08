@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.os.Message
+import android.provider.MediaStore
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
@@ -20,6 +21,7 @@ import com.android.app.AppProvider
 import com.san.audioeditor.activity.AudioCutActivity
 import com.san.audioeditor.activity.AudioSaveActivity
 import com.san.audioeditor.handler.FFmpegHandler
+import com.san.audioeditor.storage.convertSong
 import com.san.audioeditor.viewmodel.pagedata.AudioCutPageData
 import dev.android.player.framework.base.viewmodel.BaseViewModel
 import dev.android.player.framework.data.model.Song
@@ -117,6 +119,14 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
         }
     }
 
+    fun getSongInfo(context: Context, songPath: String): Song? {
+        val cursor = context.contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, MediaStore.Audio.Media.DATA + "=?", arrayOf(songPath), null)
+        if (cursor?.moveToNext() == true) {
+            return cursor.convertSong()
+        }
+        return null
+    }
+
     private var ffmpegHandler: FFmpegHandler? = null
 
     @SuppressLint("HandlerLeak")
@@ -135,10 +145,6 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
                     Log.i(BaseAudioEditorView.jni_tag, "finish resultCode=${msg.obj}")
                     if (msg.obj == 0) {
                         refresh(AudioCutViewModel(isShowEditLoading = false))
-                        context?.get()?.let {
-                            it.startActivity(Intent(it, AudioSaveActivity::class.java))
-                            (it as? Activity)?.finish()
-                        }
                         viewModelScope.launch(Dispatchers.IO) {
                             datas?.forEachIndexed() { index, audioFragmentBean ->
                                 audioFragmentBean.path?.let {
@@ -150,6 +156,13 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
                         var file = AudioFileUtils.copyAudioToFileStore(File(outputPath), AppProvider.context, cutFileName)
                         if (file != null) {
                             AudioFileUtils.notifyMediaScanner(AppProvider.context, file.absolutePath) { path: String, uri: Uri ->
+                                context?.get()?.let {
+                                    val song = getSongInfo(it, path)
+                                    if (song != null) {
+                                        AudioSaveActivity.open(it, song)
+                                    }
+                                    (it as? Activity)?.finish()
+                                }
                             }
                         } else {
                             Toast.makeText(AppProvider.context, "裁剪失败", Toast.LENGTH_SHORT)

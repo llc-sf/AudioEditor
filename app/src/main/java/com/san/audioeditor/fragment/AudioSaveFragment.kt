@@ -42,7 +42,11 @@ class AudioSaveFragment : BaseMVVMFragment<FragmentAudioSaveBinding>() {
     }
 
     override fun startObserve() {
-        mViewModel.audioSaveState.observe(viewLifecycleOwner) {}
+        mViewModel.audioSaveState.observe(viewLifecycleOwner) {
+            if(it.song != null){
+                viewBinding.songTitle.text = it.song!!.title
+            }
+        }
     }
 
 }

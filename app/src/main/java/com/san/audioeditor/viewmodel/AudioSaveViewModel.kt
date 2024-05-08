@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.san.audioeditor.activity.AudioCutActivity
 import com.san.audioeditor.viewmodel.pagedata.AudioPickPageData
 import com.san.audioeditor.storage.AudioSyncUtil
 import com.san.audioeditor.viewmodel.pagedata.AudioSavePageData
@@ -33,10 +34,16 @@ class AudioSaveViewModel : BaseViewModel<AudioSavePageData>() {
     var audioSaveState: LiveData<AudioSavePageData> = _audioSaveState
 
 
+    private var song: Song? = null
     fun initData(context: Context, arguments: Bundle?) {
         viewModelScope.launch(Dispatchers.IO) {
             launchOnUI {
-
+                song = arguments?.getSerializable(AudioCutActivity.PARAM_SONG) as Song
+                song?.let {
+                    refresh(AudioSavePageData().apply {
+                        song = it
+                    })
+                }
             }
         }
     }
