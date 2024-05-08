@@ -49,6 +49,7 @@ include ':framework-appprovider'
 include ':framework-simplecache'
 include ':framework-rx' //todo 是否需要
 include ':framework-data' //todo 是否需要
+include ':framework-sort' //todo 是否需要
 
 include ':app-business-base'
 

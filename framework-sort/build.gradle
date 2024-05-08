@@ -1,0 +1,45 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-parcelize'
+}
+
+android {
+    namespace 'dev.android.player.app.business.sort'
+    compileSdk rootProject.ext.COMPILE_SDK_VERSION
+    buildToolsVersion rootProject.ext.BUILD_TOOLS_VERSION
+
+    defaultConfig {
+        minSdk rootProject.ext.MIN_SDK_VERSION
+        targetSdk rootProject.ext.TARGET_SDK_VERSION
+
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
+    implementation rootProject.ext.AndroidX.core, {
+        exclude group: 'org.jetbrains.kotlin'
+    }
+    implementation project(":framework-data")
+    implementation project(":framework-appprovider")
+    implementation project(":framework-utils")
+    implementation project(":framework-rx")
+    implementation project(":framework-language")
+}

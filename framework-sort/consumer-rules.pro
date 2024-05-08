@@ -1,0 +1,1 @@
+-keep class net.sourceforge.pinyin4j.** {*;}
