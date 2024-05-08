@@ -13,6 +13,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.android.app.AppProvider
 import com.san.audioeditor.storage.AudioSyncService
 import com.san.audioeditor.viewmodel.pagedata.AudioPickPageData
 import com.san.audioeditor.storage.AudioSyncUtil
@@ -48,13 +49,16 @@ class AudioPickViewModel : BaseViewModel<AudioPickPageData>() {
     fun initData(context: Context, arguments: Bundle?) {
         viewModelScope.launch(Dispatchers.IO) {
             launchOnUI {
-                if (AudioSyncUtil.songs.isEmpty()) {
-                    Log.i(AudioSyncService.TAG, "registerReceiver ACTION_SYNC_COMPLETED")
-                    registerSy(context)
-                } else {
-                    Log.i(AudioSyncService.TAG, "initData songs not empty")
-                    refresh(MediaPickPageState(songs = AudioSyncUtil.songs))
-                }
+//                if (AudioSyncUtil.songs.isEmpty()) {
+//                    Log.i(AudioSyncService.TAG, "registerReceiver ACTION_SYNC_COMPLETED")
+//                    registerSy(context)
+//                } else {
+//                    Log.i(AudioSyncService.TAG, "initData songs not empty")
+//                    refresh(MediaPickPageState(songs = AudioSyncUtil.songs))
+//                }
+                registerSy(context)
+                refresh(MediaPickPageState(songs = AudioSyncUtil.songs))
+                AudioSyncService.sync(AppProvider.context)
             }
         }
     }

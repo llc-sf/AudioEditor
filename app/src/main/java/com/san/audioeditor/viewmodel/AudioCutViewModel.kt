@@ -1,6 +1,7 @@
 package com.san.audioeditor.viewmodel
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -136,6 +137,7 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
                         refresh(AudioCutViewModel(isShowEditLoading = false))
                         context?.get()?.let {
                             it.startActivity(Intent(it, AudioSaveActivity::class.java))
+                            (it as? Activity)?.finish()
                         }
                         viewModelScope.launch(Dispatchers.IO) {
                             datas?.forEachIndexed() { index, audioFragmentBean ->
