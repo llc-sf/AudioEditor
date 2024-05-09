@@ -460,11 +460,11 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             return
         }
         Log.i(playline_tag, "setPlayerProgress currentPositionInPlaying=$positionInCutPiece duration=$durationCutPiece")
-        if (cutMode == CutPieceFragment.CUT_MODE_SELECT && positionInCutPiece >= durationCutPiece) { //判断播放结束
+        if (cutMode == CutPieceFragment.CUT_MODE_SELECT && positionInCutPiece+1 >= durationCutPiece) { //判断播放结束
             restart()
             return
         }
-        if (cutMode == CutPieceFragment.CUT_MODE_DELETE && currentWindowIndex == 1 && positionInCutPiece >= durationCutPiece) { //判断播放结束
+        if (cutMode == CutPieceFragment.CUT_MODE_DELETE && currentWindowIndex == 1 && positionInCutPiece+1 >= durationCutPiece) { //判断播放结束
             restart()
             return
         }
