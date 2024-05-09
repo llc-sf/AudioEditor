@@ -3,7 +3,11 @@ package com.san.audioeditor.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
+import android.widget.toast.ToastCompat
 import androidx.fragment.app.Fragment
+import com.android.app.AppProvider
+import com.san.audioeditor.R
 import com.san.audioeditor.fragment.AudioCutEditorFragment
 import dev.android.player.framework.data.model.Song
 import dev.audio.timeruler.bean.AudioFragmentBean
@@ -25,6 +29,10 @@ class AudioCutActivity : BaseFragmentActivity() {
 
 
         fun open(context: Context, song: Song) {
+            if(!song.isAvailable) {
+                ToastCompat.makeText(context,context.getText(R.string.song_unavailable)).show()
+                return
+            }
             val intent = Intent(context, AudioCutActivity::class.java).apply {
                 putExtras(Bundle().apply {
                     putParcelable(PARAM_SONG, song)

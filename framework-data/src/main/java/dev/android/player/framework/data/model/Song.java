@@ -2,6 +2,7 @@ package dev.android.player.framework.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 
@@ -266,6 +267,9 @@ public class Song extends IndexModel implements Serializable, Parcelable, IDelet
     }
 
 
+    public boolean isAvailable() {
+        return !TextUtils.isEmpty(path) && duration > 0;
+    }
 }
 
 
