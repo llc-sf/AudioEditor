@@ -183,7 +183,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
     fun startEndMinus():Boolean {
         var result = false
         cutPieceFragments.forEach {
-            result = result || it.startEndMinus()
+            result = result || it.endCutMinus()
         }
         return result
     }
@@ -191,7 +191,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
     fun startEndPlus():Boolean {
         var result = false
         cutPieceFragments.forEach {
-            result = result || it.startEndPlus()
+            result = result || it.endCutPlus()
         }
         return result
     }

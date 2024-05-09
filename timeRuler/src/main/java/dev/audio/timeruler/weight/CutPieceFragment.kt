@@ -41,6 +41,13 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                        var addTime: Long = System.currentTimeMillis()) {
 
     companion object {
+
+        //裁剪片段的最小宽度
+        const val MIN_CUT_GAP = 100
+
+        //相邻裁剪片段的最小间隔
+        const val MIN_CUT_ADJACENT = 100
+
         //裁剪竖线的宽度
         const val strokeWidth_cut = 5f
 
@@ -932,6 +939,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     }
 
 
+    //start 剪切条向左移动
     fun startCutMinus(): Boolean {
         if (isSelected) {
             var temp = startTimestampTimeInSelf - TIME_STEP
@@ -950,9 +958,13 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
         return false
     }
 
+    //start 剪切条向右移动
     fun startCutPlus(): Boolean {
         if (isSelected) {
             var temp = startTimestampTimeInSelf + TIME_STEP
+            if (endTimestampTimeInSelf - temp <= MIN_CUT_GAP) {
+                return false
+            }
             if (isInOtherFragments(temp)) {
                 return false
             }
@@ -968,14 +980,18 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
         return false
     }
 
-    fun startEndMinus(): Boolean {
+    //end 剪切条向左移动
+    fun endCutMinus(): Boolean {
         if (isSelected) {
             var temp = endTimestampTimeInSelf - TIME_STEP
+            if (temp - startTimestampTimeInSelf <= MIN_CUT_GAP) {
+                return false
+            }
             if (isInOtherFragments(temp)) {
                 return false
             }
             if (temp <= startTimestampTimeInSelf) {
-                endTimestampTimeInSelf = startTimestampTimeInSelf + 100
+                endTimestampTimeInSelf = startTimestampTimeInSelf + MIN_CUT_ADJACENT
                 audio.invalidate()
                 return false
             }
@@ -986,7 +1002,8 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
         return false
     }
 
-    fun startEndPlus(): Boolean {
+    //end 剪切条向右移动
+    fun endCutPlus(): Boolean {
         if (isSelected) {
             var temp = endTimestampTimeInSelf + TIME_STEP
             if (isInOtherFragments(temp)) {
