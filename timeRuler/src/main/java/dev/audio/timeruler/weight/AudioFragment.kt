@@ -12,7 +12,6 @@ import dev.audio.timeruler.weight.BaseAudioEditorView.Companion.long_press_tag
 import dev.audio.timeruler.weight.BaseAudioEditorView.Companion.time_line_tag
 import dev.audio.timeruler.bean.Ref
 import dev.audio.timeruler.bean.Waveform
-import dev.audio.timeruler.utils.format2Duration
 import dev.audio.timeruler.weight.BaseAudioEditorView.Companion.wave_tag
 import kotlin.math.roundToInt
 
@@ -58,7 +57,7 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
     var waveform: Waveform? = null
 
     //波形高度的一半
-    var maxWaveHeight: Float = DEFAULT_WAVE_HEIGHT
+    var maxHalfWaveHeight: Float = DEFAULT_WAVE_HEIGHT
 
     private var waveStep = WAVE_STEP
     private var waveStepContinuous = WAVE_STEP_CONTINUOUS
@@ -206,7 +205,7 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
             if (sampleIndex >= samples.size) break
 
             val xPosition = i * totalWidthNeeded + x // 当前矩形的X位置
-            val scaledSampleValue = (samples[sampleIndex] / maxAmplitude) * maxWaveHeight // 根据波形的最大振幅来缩放样本值
+            val scaledSampleValue = (samples[sampleIndex] / maxAmplitude) * maxHalfWaveHeight // 根据波形的最大振幅来缩放样本值
             val barHeight = scaledSampleValue * 2 // 矩形的高度是波峰到波谷的距离
 
             // 计算绘制的顶部和底部位置
@@ -244,7 +243,7 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
             val sampleIndex = i * step
             if (sampleIndex >= samples.size) break
 
-            val scaledSampleValue = (samples[sampleIndex] / maxAmplitude) * maxWaveHeight
+            val scaledSampleValue = (samples[sampleIndex] / maxAmplitude) * maxHalfWaveHeight
             val barHeight = scaledSampleValue * 2
 
             val xPosition = i * (totalWidthNeeded + additionalGap) + x
@@ -260,7 +259,7 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
     }
 
     private fun waveRect(centerY: Float, canvas: Canvas) {
-        rect = Rect((0f + x).toInt(), (centerY - maxWaveHeight).toInt(), ((0f + x) + waveViewWidth).toInt(), (maxWaveHeight + centerY).toInt()).apply {
+        rect = Rect((0f + x).toInt(), (centerY - maxHalfWaveHeight).toInt(), ((0f + x) + waveViewWidth).toInt(), (maxHalfWaveHeight + centerY).toInt()).apply {
             Log.i(long_press_tag, "index:${index} draw: $this")
         }
 
@@ -281,7 +280,7 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
         val maxAmplitude = (samples.maxOrNull() ?: 1).toFloat()
 
         // 使用 maxWaveHeight 变量来控制波形高度
-        val amplitudeScale = maxWaveHeight
+        val amplitudeScale = maxHalfWaveHeight
 
         val path = Path()
         val upperPoints = mutableListOf<Pair<Float, Float>>()
@@ -330,7 +329,7 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
 
         // 绘制路径
         canvas.drawPath(path, mWavePaint)
-        rect = Rect((0f + x).toInt(), (centerY - maxWaveHeight).toInt(), ((0f + x) + waveViewWidth).toInt(), (maxWaveHeight + centerY).toInt()).apply {
+        rect = Rect((0f + x).toInt(), (centerY - maxHalfWaveHeight).toInt(), ((0f + x) + waveViewWidth).toInt(), (maxHalfWaveHeight + centerY).toInt()).apply {
             Log.i(long_press_tag, "index:${index} draw: $this")
         } //画空心rect
         val rectPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {

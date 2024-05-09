@@ -105,7 +105,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         audioFragment = AudioFragmentWithCut(this).apply {
             index = 0
             this.duration = duration
-            maxWaveHeight = waveHeight
+            maxHalfWaveHeight = waveHeight
             startTimestamp = startValue
             this.waveform = waveform
             this.path = path
@@ -117,7 +117,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     fun updateWaveHeight(height: Float) {
         waveHeight = height
-        audioFragment?.maxWaveHeight = waveHeight
+        audioFragment?.maxHalfWaveHeight = waveHeight
         requestLayout()
     }
 

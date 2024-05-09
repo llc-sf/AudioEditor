@@ -8,7 +8,6 @@ import android.view.View
 import dev.audio.timeruler.bean.AudioFragmentBean
 import dev.audio.timeruler.bean.Ref
 import dev.audio.timeruler.player.PlayerManager
-import dev.audio.timeruler.utils.format2DurationSimple
 
 
 /**
@@ -95,7 +94,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
      * 波形中心Y坐标
      */
     override fun getTrackYPosition(): Float {
-        return waveStartYInParent + maxWaveHeight
+        return waveStartYInParent + maxHalfWaveHeight
     }
 
 

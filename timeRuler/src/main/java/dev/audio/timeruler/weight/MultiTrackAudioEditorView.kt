@@ -68,7 +68,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
         audioFragments.add(AudioFragment(this).apply {
             index = 0
             duration = 1000 * 60 * 2
-            maxWaveHeight = 50f
+            maxHalfWaveHeight = 50f
             waveVerticalPosition = 200f
             color = Color.RED
             startTimestamp = startValue ?: 0
@@ -77,7 +77,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
         audioFragments.add(AudioFragment(this).apply {
             index = 1
             duration = 1000 * 60 * 2
-            maxWaveHeight = 50f
+            maxHalfWaveHeight = 50f
             waveVerticalPosition = 400f
             color = Color.RED
             startTimestamp = startValue ?: 0
@@ -86,7 +86,7 @@ open class MultiTrackAudioEditorView @JvmOverloads constructor(
         audioFragments.add(AudioFragment(this).apply {
             index = 2
             duration = 1000 * 60 * 2
-            maxWaveHeight = 50f
+            maxHalfWaveHeight = 50f
             waveVerticalPosition = 600f
             color = Color.RED
             startTimestamp = startValue
