@@ -129,6 +129,9 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         adapterScreenHeight()
     }
 
+    /**
+     * 适配屏幕高度
+     */
     private fun adapterScreenHeight() {
         viewBinding.timeLine.post {
             var rect = viewBinding.confirm.getLocationOnScreen()
