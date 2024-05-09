@@ -71,10 +71,12 @@ class DialogTimerSetting : BaseBottomTranslucentDialog() {
             binding.timePickKb.isVisible = keyboardMode
             binding.timePick.isVisible = !keyboardMode
             if (!keyboardMode) {
-                binding.keyBoard.text = "切换到滚动"
+                binding.keyBoard.text = "键盘"
                 if (binding.timePickKb.getTime().time >= min || binding.timePickKb.getTime().time <= max) {
                     binding.timePick.freshTime(Time(binding.timePickKb.getTime().time))
                 }
+            }else{
+                binding.keyBoard.text = "滚动"
             }
         }
         var time = 0L
