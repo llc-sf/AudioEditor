@@ -537,7 +537,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
                     drawTickValue(canvas, onDrawTickPosition, baselinePosition - mTickHeight, onDrawTickValue, false)
                 }
             } else {
-                drawRightKeyTick(canvas, i, onDrawTickValue, onDrawTickPosition, mScalePaint!!, rightCount)
+                drawRightKeyTick(canvas, i, onDrawTickValue, onDrawTickPosition, mScalePaint!!, rightCount,keyScaleRange)
                 if ((onDrawTickValue - startValue) % keyScaleRange == 0L) {
                     canvas.drawLine(onDrawTickPosition, baselinePosition, onDrawTickPosition, baselinePosition + keyTickHeight, tickPaint!!)
                 } else {
@@ -575,7 +575,8 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
                               onDrawTickValue: Long,
                               onDrawTickPosition: Float,
                               paint: Paint,
-                              rightCount: Int) { //关键刻度绘制刻度值
+                              rightCount: Int,
+                              keyScaleRange:Long) { //关键刻度绘制刻度值
         if ((onDrawTickValue - startValue) % (keyScaleRange * 2) == 0L) {
             drawTickValue(canvas, onDrawTickPosition, baselinePosition + keyTickHeight + mScalePaint!!.getTopY(), onDrawTickValue, true)
         }

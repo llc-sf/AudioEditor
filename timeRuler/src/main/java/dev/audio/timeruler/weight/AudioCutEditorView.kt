@@ -382,7 +382,8 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                                   onDrawTickValue: Long,
                                   onDrawTickPosition: Float,
                                   paint: Paint,
-                                  rightCount: Int) {
+                                  rightCount: Int,
+                                  keyScaleRange: Long) {
 
         if (audioFragment?.duration ?: 0 > MIN_DURATION) {
             if (index == 0) {
@@ -401,13 +402,14 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             }
         } else {
             var time = onDrawTickValue - startValue
+            var oneSecondIndex = 1000 / keyScaleRange.toInt()
             if (index == 0) {
                 var content = (cursorValue - startValue).format2DurationSimpleInt()
                 drawTickValue(canvas, content, 20f + paint.measureText(content) / 2, topPadding + paint!!.getTopY())
-            } else if (time == 1000L) {
+            } else if (index == oneSecondIndex) {
                 var content = ((cursorValue - startValue) + 1000L).format2DurationSimpleInt()
                 drawTickValue(canvas, content, ScreenUtil.getScreenWidth(context) / screenWithDuration.toFloat() * 1000, topPadding + paint!!.getTopY())
-            } else if (time == 2000L) {
+            } else if (index == oneSecondIndex * 2) {
                 var content = ((cursorValue - startValue) + 2000L).format2DurationSimpleInt()
                 drawTickValue(canvas, content, ScreenUtil.getScreenWidth(context) / screenWithDuration.toFloat() * 1000 * 2, topPadding + paint!!.getTopY())
             } else if (time == screenWithDuration) {
