@@ -115,7 +115,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         invalidate() // 触发重新绘制
     }
 
-    fun updateWaveHeight(height:Float){
+    fun updateWaveHeight(height: Float) {
         waveHeight = height
         audioFragment?.maxWaveHeight = waveHeight
         requestLayout()
@@ -281,7 +281,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             CutPieceFragment.CUT_MODE_JUMP -> {
                 currentPlayingPosition = tempCurrentPlayingPosition
                 currentPlayingTimeInAudio = tempCurrentPlayingTimeInAudio
-                playJumpSelected(isWholeScreen&&PlayerManager.isPlaying)
+                playJumpSelected(isWholeScreen && PlayerManager.isPlaying)
             }
         }
         playingLineAuto2Middle(currentPlayingPosition)

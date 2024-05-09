@@ -134,12 +134,15 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
      */
     private fun adapterScreenHeight() {
         viewBinding.timeLine.post {
-            var rect = viewBinding.confirm.getLocationOnScreen()
-            var totalBottomMargin = ScreenUtil.getScreenHeight(requireContext()) - rect.bottom
             var bottomMargin = 24.dp
             var margin = 24.dp
+            var rect = viewBinding.confirm.getLocationOnScreen()
+            var totalBottomMargin = ScreenUtil.getScreenHeight(requireContext()) - rect.bottom
+            if (totalBottomMargin < bottomMargin + margin * 2) {
+                return@post
+            }
             var waveHeightOffset = totalBottomMargin - bottomMargin - margin * 2
-            viewBinding.timeLine.updateWaveHeight(viewBinding.timeLine.waveHeight + waveHeightOffset.toFloat())
+            viewBinding.timeLine.updateWaveHeight(viewBinding.timeLine.waveHeight + waveHeightOffset.toFloat() / 2f)
             viewBinding.cutDesc.updateLayoutParams<ConstraintLayout.LayoutParams> {
                 topMargin += margin
             }
