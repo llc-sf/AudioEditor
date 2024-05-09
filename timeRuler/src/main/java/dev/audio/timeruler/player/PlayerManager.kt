@@ -254,7 +254,6 @@ object PlayerManager {
             .createMediaSource(MediaItem.fromUri(uri!!))
         val s = ConcatenatingMediaSource()
         cutPieceFragments.forEach {
-            Log.i("llc_fuck", "start:${it.startTimestampTimeInSelf * 1000},end=${it.endTimestampTimeInSelf * 1000}")
             s.addMediaSource(ClippingMediaSource(audioSource, it.startTimestampTimeInSelf * 1000, it.endTimestampTimeInSelf * 1000))
         }
         player.setMediaSource(s)

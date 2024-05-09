@@ -319,7 +319,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         viewBinding.timeLine.setOnScaleChangeListener(object : OnScaleChangeListener {
 
             override fun onScaleChange(mode: Int, min: Int, max: Int) {
-                freshZoomView(mode, min, max)
+                freshZoomView()
                 when (mode) {
                     BaseAudioEditorView.MODE_UINT_100_MS -> {
                     }
@@ -576,12 +576,13 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             viewBinding.timeLine.setWaveform(Waveform(it.toList()), mViewModel.song.duration.toLong(), mViewModel.song.path)
             viewBinding.waveLoading.pauseAnimation()
             viewBinding.waveLoading.isVisible = false
+            freshZoomView()
         }
         play(requireContext())
     }
 
 
-    fun freshZoomView(currentMode: Int, minMode: Int, maxMode: Int) {
+    fun freshZoomView() {
         var zoomIn = viewBinding.timeLine.canZoomIn
         var zoomOut = viewBinding.timeLine.canZoomOut
         viewBinding.zoomIn.isEnabled = zoomIn

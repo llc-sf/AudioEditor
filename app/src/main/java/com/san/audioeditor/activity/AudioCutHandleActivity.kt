@@ -779,14 +779,11 @@ class AudioCutHandleActivity : BaseActivity() {
             else -> {
             }
         }
-        Log.i("llc_fuck", "outputPath=$outputPath")
         //打印 commandLine
         var sb = StringBuilder()
         commandLine?.forEachIndexed { index, s ->
             sb.append("$s ")
-            Log.i("llc_fuck", "s=$s")
         }
-        Log.i("llc_fuck", "sb=$sb")
 
 
 

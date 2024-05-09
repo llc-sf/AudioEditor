@@ -78,7 +78,6 @@ public class FFmpegHandler {
 
             @Override
             public void onEnd(int resultCode, String resultMsg) {
-                Log.i("llc_fuck","resultCode="+resultCode);
                 long time = System.currentTimeMillis() - startTimestamp;
                 long seconds = time / 1000;
                 long minute = seconds / 60;
