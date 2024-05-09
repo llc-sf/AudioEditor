@@ -232,7 +232,7 @@
     <dev.audio.timeruler.weight.AudioCutEditorView
         android:id="@+id/timeLine"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:background="@color/black"
         app:baselinePosition="0.1"
         app:colorScaleBackground="#141414"

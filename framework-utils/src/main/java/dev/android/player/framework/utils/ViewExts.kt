@@ -241,3 +241,30 @@ fun View.setSingleClickListener(onClick: (View) -> Unit) {
         }
     }
 }
+
+
+
+
+// 扩展方法，用于获取View的宽高
+fun View.getDimensions(onDimensionsReady: (Int, Int) -> Unit) {
+    if (this.width != 0 && this.height != 0) {
+        // View已经测量完毕，直接返回宽高
+        onDimensionsReady(this.width, this.height)
+    } else {
+        // View尚未测量，设置监听器等待布局完成
+        this.post {
+            onDimensionsReady(this.width, this.height)
+        }
+    }
+}
+
+
+
+// 扩展方法，用于获取View在屏幕上的位置
+fun View.getLocationOnScreen(): Rect {
+    val location = IntArray(2)
+    this.getLocationOnScreen(location)
+    return Rect(location[0], location[1], location[0] + width, location[1] + height)
+}
+
+

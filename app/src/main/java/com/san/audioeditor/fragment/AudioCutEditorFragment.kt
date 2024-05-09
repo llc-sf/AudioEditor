@@ -14,7 +14,9 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.PlaybackParameters
 import com.google.android.exoplayer2.Player
@@ -33,9 +35,12 @@ import com.san.audioeditor.viewmodel.AudioCutViewModel
 import dev.android.player.framework.base.BaseMVVMFragment
 import dev.android.player.framework.data.model.Song
 import dev.android.player.framework.utils.ImmerseDesign
+import dev.android.player.framework.utils.getDimensions
+import dev.android.player.framework.utils.getLocationOnScreen
 import dev.audio.ffmpeglib.FFmpegApplication
 import dev.audio.ffmpeglib.tool.FFmpegUtil
 import dev.audio.ffmpeglib.tool.FileUtil
+import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.recorder.utils.Log
 import dev.audio.timeruler.bean.AudioFragmentBean
 import dev.audio.timeruler.bean.Waveform
@@ -47,6 +52,7 @@ import dev.audio.timeruler.player.PlayerProgressCallback
 import dev.audio.timeruler.timer.EditExitDialog
 import dev.audio.timeruler.timer.EditLoadingDialog
 import dev.audio.timeruler.utils.AudioFileUtils
+import dev.audio.timeruler.utils.dp
 import dev.audio.timeruler.utils.format2DurationSimple
 import dev.audio.timeruler.utils.format2DurationSimpleInt
 import dev.audio.timeruler.utils.lastAudioFragmentBean
@@ -120,6 +126,24 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         viewBinding.toolbar.ImmerseDesign()
         mViewModel.initData(requireContext(), arguments)
         initTimeBar()
+        adapterScreenHeight()
+    }
+
+    private fun adapterScreenHeight() {
+        viewBinding.timeLine.post {
+            var rect = viewBinding.confirm.getLocationOnScreen()
+            var totalBottomMargin = ScreenUtil.getScreenHeight(requireContext()) - rect.bottom
+            var bottomMargin = 24.dp
+            var margin = 24.dp
+            var waveHeightOffset = totalBottomMargin - bottomMargin - margin * 2
+            viewBinding.timeLine.updateWaveHeight(viewBinding.timeLine.waveHeight + waveHeightOffset.toFloat())
+            viewBinding.cutDesc.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                topMargin += margin
+            }
+            viewBinding.playActions.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                topMargin += margin
+            }
+        }
     }
 
     private fun initToolbar() {
@@ -459,44 +483,44 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     }
 
     private fun freshCutModeView(mode: Int) {
-            when (mode) {
-                CutPieceFragment.CUT_MODE_SELECT -> {
-                    viewBinding.keepSelected.isSelected = true
-                    viewBinding.keepSelectedTv.isEnabled = true
-                    viewBinding.deleteSelected.isSelected = false
-                    viewBinding.deleteSelectedTv.isEnabled = false
-                    viewBinding.jumpSelected.isSelected = false
-                    viewBinding.jumpSelectedTv.isEnabled = false
-                    viewBinding.keepSelectedIcon.isVisible = true
-                    viewBinding.deleteSelectedIcon.isVisible = false
-                    viewBinding.jumpSelectedIcon.isVisible = false
-                }
-
-                CutPieceFragment.CUT_MODE_DELETE -> {
-                    viewBinding.keepSelected.isSelected = false
-                    viewBinding.keepSelectedTv.isEnabled = false
-                    viewBinding.deleteSelected.isSelected = true
-                    viewBinding.deleteSelectedTv.isEnabled = true
-                    viewBinding.jumpSelected.isSelected = false
-                    viewBinding.jumpSelectedTv.isEnabled = false
-                    viewBinding.keepSelectedIcon.isVisible = false
-                    viewBinding.deleteSelectedIcon.isVisible = true
-                    viewBinding.jumpSelectedIcon.isVisible = false
-                }
-
-                CutPieceFragment.CUT_MODE_JUMP -> {
-                    viewBinding.keepSelected.isSelected = false
-                    viewBinding.keepSelectedTv.isEnabled = false
-                    viewBinding.deleteSelected.isSelected = false
-                    viewBinding.deleteSelectedTv.isEnabled = false
-                    viewBinding.jumpSelected.isSelected = true
-                    viewBinding.jumpSelectedTv.isEnabled = true
-                    viewBinding.keepSelectedIcon.isVisible = false
-                    viewBinding.deleteSelectedIcon.isVisible = false
-                    viewBinding.jumpSelectedIcon.isVisible = true
-
-                }
+        when (mode) {
+            CutPieceFragment.CUT_MODE_SELECT -> {
+                viewBinding.keepSelected.isSelected = true
+                viewBinding.keepSelectedTv.isEnabled = true
+                viewBinding.deleteSelected.isSelected = false
+                viewBinding.deleteSelectedTv.isEnabled = false
+                viewBinding.jumpSelected.isSelected = false
+                viewBinding.jumpSelectedTv.isEnabled = false
+                viewBinding.keepSelectedIcon.isVisible = true
+                viewBinding.deleteSelectedIcon.isVisible = false
+                viewBinding.jumpSelectedIcon.isVisible = false
             }
+
+            CutPieceFragment.CUT_MODE_DELETE -> {
+                viewBinding.keepSelected.isSelected = false
+                viewBinding.keepSelectedTv.isEnabled = false
+                viewBinding.deleteSelected.isSelected = true
+                viewBinding.deleteSelectedTv.isEnabled = true
+                viewBinding.jumpSelected.isSelected = false
+                viewBinding.jumpSelectedTv.isEnabled = false
+                viewBinding.keepSelectedIcon.isVisible = false
+                viewBinding.deleteSelectedIcon.isVisible = true
+                viewBinding.jumpSelectedIcon.isVisible = false
+            }
+
+            CutPieceFragment.CUT_MODE_JUMP -> {
+                viewBinding.keepSelected.isSelected = false
+                viewBinding.keepSelectedTv.isEnabled = false
+                viewBinding.deleteSelected.isSelected = false
+                viewBinding.deleteSelectedTv.isEnabled = false
+                viewBinding.jumpSelected.isSelected = true
+                viewBinding.jumpSelectedTv.isEnabled = true
+                viewBinding.keepSelectedIcon.isVisible = false
+                viewBinding.deleteSelectedIcon.isVisible = false
+                viewBinding.jumpSelectedIcon.isVisible = true
+
+            }
+        }
     }
 
     private fun editPre() {

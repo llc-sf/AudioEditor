@@ -115,6 +115,12 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         invalidate() // 触发重新绘制
     }
 
+    fun updateWaveHeight(height:Float){
+        waveHeight = height
+        audioFragment?.maxWaveHeight = waveHeight
+        requestLayout()
+    }
+
     //解决  戳模裁剪条抬起手，onSingleTapUp还会相应的问题  todo 仅仅是相应播放条的点击
     private var disableOnSingleTapUp = false
     override fun onSingleTapUp(e: MotionEvent): Boolean {

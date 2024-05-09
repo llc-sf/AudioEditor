@@ -201,7 +201,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
     val bottomPadding: Float
 
     /* 音波高度 */
-    val waveHeight: Float
+    var waveHeight: Float
 
     /* 刻度字体大小 */
     val tickValueSize: Float
@@ -358,7 +358,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
             .toFloat())
         bottomPadding = typedArray.getDimension(R.styleable.BaseScaleBar_bottomPadding, SizeUtils.sp2px(getContext(), 0f)
             .toFloat())
-        waveHeight = typedArray.getDimension(R.styleable.BaseScaleBar_waveHeight, SizeUtils.sp2px(getContext(), 150f)
+        waveHeight = typedArray.getDimension(R.styleable.BaseScaleBar_waveHeight, SizeUtils.sp2px(getContext(), 60.dp.toFloat())
             .toFloat())
         keyTickHeight = typedArray.getDimension(R.styleable.BaseScaleBar_keyTickHeight, SizeUtils.dp2px(getContext(), 10f)
             .toFloat())
@@ -422,9 +422,6 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
             value = newValue
             onChange(property, oldValue, newValue)
         }
-    }
-
-    private fun setScaleRatio(@FloatRange(from = 0.0, to = 1.0, fromInclusive = false) scaleRatio: Float) {
     }
 
 
@@ -821,7 +818,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
      */
     override fun computeScroll() {
         Log.i(touch_tag, "computeScroll")
-        if(PlayerManager.isPlaying){
+        if (PlayerManager.isPlaying) {
             return
         }
         if (scroller.computeScrollOffset()) {
@@ -857,7 +854,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
                          velocityX: Float,
                          velocityY: Float): Boolean {
         Log.i(touch_tag, "onFling")
-        if(PlayerManager.isPlaying){
+        if (PlayerManager.isPlaying) {
             true
         }
         status = STATUS_SCROLL_FLING
