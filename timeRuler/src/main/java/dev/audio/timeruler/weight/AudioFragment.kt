@@ -185,38 +185,39 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
         waveRect(centerY, canvas)
         var wf = waveform
         val samples = wf?.amplitudes ?: return
-        val maxAmplitude = (samples.maxOrNull() ?: 1).toFloat()
+        // 确保最大振幅不为0
+        var maxAmplitude = (samples.maxOrNull() ?: 0).toFloat()
+        if (maxAmplitude == 0f) {
+            maxAmplitude = 1f // 防止除以0，设置一个默认值
+        }
 
-        // 设置固定的矩形宽度和间隙宽度
+        //补充的最小振幅值
+        val minAmplitudeValue = 0.05f * maxAmplitude // 最小振幅值
+
         val fixedBarWidth = 8f // 固定的矩形宽度
         val fixedGapWidth = 8f // 固定的间隙宽度
         val cornerRadius = fixedBarWidth / 2 // 圆角的半径
         val totalWidthNeeded = fixedBarWidth + fixedGapWidth // 每个矩形条加间隙所需的总宽度
 
-        // 计算能够绘制的矩形条数量
         val barsToFit = (waveViewWidth / totalWidthNeeded).toInt()
-
-        // 计算步长，用于在samples中跳过一定数量的样本
         val step = (samples.size / barsToFit).coerceAtLeast(1)
 
-        // 循环遍历并绘制圆角矩形条
-        for (i in 0 until barsToFit) { // 计算当前样本索引
-            val sampleIndex = i * step // 确保不会越界
-            if (sampleIndex >= samples.size) break
+        for (i in 0 until barsToFit) {
+            val sampleIndex = i * step
+            val sampleValue = if (sampleIndex < samples.size) samples[sampleIndex] else minAmplitudeValue
+            val scaledSampleValue = (sampleValue.toInt() / maxAmplitude) * maxHalfWaveHeight // 使用安全的除法
+            val barHeight = scaledSampleValue * 2
 
-            val xPosition = i * totalWidthNeeded + x // 当前矩形的X位置
-            val scaledSampleValue = (samples[sampleIndex] / maxAmplitude) * maxHalfWaveHeight // 根据波形的最大振幅来缩放样本值
-            val barHeight = scaledSampleValue * 2 // 矩形的高度是波峰到波谷的距离
-
-            // 计算绘制的顶部和底部位置
+            val xPosition = i * totalWidthNeeded + x
             val top = centerY - (barHeight / 2)
             val bottom = centerY + (barHeight / 2)
 
-            // 绘制带有圆角的矩形条
             val rectF = RectF(xPosition, top, xPosition + fixedBarWidth, bottom)
             canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, mWavePaint)
         }
     }
+
+
 
 
     open fun onDrawEndDeal(canvas: Canvas) {
