@@ -2,7 +2,7 @@
 <resources>
 
     <!-- 主题，不需要黑色和白色主题切换的设置-->
-    <style name="MusicTheme" parent="BasicMusicThemeDayNight">
+    <style name="AudioEditorTheme" parent="BasicMusicThemeDayNight">
         <item name="android:windowDisablePreview">true</item>
     </style>
 
@@ -21,12 +21,12 @@
     </style>
 
     <!--全屏通用-->
-    <style name="MusicTheme.FullScreen">
+    <style name="AudioEditorTheme.FullScreen">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
-    <style name="MusicTheme.FullScreen.Splash">
+    <style name="AudioEditorTheme.FullScreen.Splash">
         <item name="android:windowBackground">@color/transparent</item>
         <item name="android:windowDisablePreview">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
@@ -36,7 +36,7 @@
     </style>
 
     <!--NowPlaying 从底部弹出-->
-    <style name="MusicTheme.NowPlaying">
+    <style name="AudioEditorTheme.NowPlaying">
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentNavigation">true</item>
@@ -75,11 +75,11 @@
 
 
     <!--EditText View Theme样式-->
-    <style name="DefaultEditTextTheme" parent="MusicTheme">
+    <style name="DefaultEditTextTheme" parent="AudioEditorTheme">
         <item name="colorControlNormal">?attr/EditTextTintColor</item>
     </style>
 
-    <style name="EditTexTheme_a1" parent="MusicTheme">
+    <style name="EditTexTheme_a1" parent="AudioEditorTheme">
         <item name="colorControlNormal">@color/black.a1.alpha20</item>
         <item name="colorControlActivated">@color/black.a1.alpha20</item>
     </style>

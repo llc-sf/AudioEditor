@@ -2,7 +2,7 @@
 <resources>
     <color name="window.bg.color">@color/black</color>
 
-    <color name="colorAccent">#FFEB4E2B</color>
+    <color name="colorAccent">#EE294D</color>
     <color name="colorSecondary">@color/black.20</color>
     <color name="colorRipple">@color/black.a1.alpha80</color>
 

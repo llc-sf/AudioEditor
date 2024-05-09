@@ -84,7 +84,7 @@
     </style>
 
     <!--状态栏不透明-->
-    <style name="MusicTheme.WindowNoTranslucent">
+    <style name="AudioEditorTheme.WindowNoTranslucent">
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowTranslucentStatus">false</item>
     </style>
