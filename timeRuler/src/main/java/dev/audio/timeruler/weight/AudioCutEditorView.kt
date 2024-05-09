@@ -77,7 +77,10 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     var canZoomIn = false
         get() {
             if (screenWithDuration == 0L) {
-                return true
+                audioFragment?.duration?.let {
+                    return it > SCREEN_WIDTH_TIME_VALUE_ARRAY[0]
+                }
+                return false
             }
             Log.i("AudioCutEditorView", "canZoomIn: screenWithDuration=$screenWithDuration SCREEN_WIDTH_TIME_VALUE_ARRAY[0]=${SCREEN_WIDTH_TIME_VALUE_ARRAY[0]}")
             return screenWithDuration > SCREEN_WIDTH_TIME_VALUE_ARRAY[0]
