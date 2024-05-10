@@ -61,6 +61,12 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
         }
     }
 
+    private var oriSong: Song
+
+    init {
+        oriSong = song
+    }
+
     private val _audioCutViewState = MutableLiveData<AudioCutViewModel>()
     var audioCutState: LiveData<AudioCutViewModel> = _audioCutViewState
 
@@ -150,9 +156,11 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
                     if (msg.obj == 0) {
                         refresh(AudioCutViewModel(isShowEditLoading = false))
                         deleteTempFiles()
-                        var cutFileName = AudioFileUtils.getFileName(outputPath)
-                        var file = AudioFileUtils.copyAudioToFileStore(File(outputPath), AppProvider.context, cutFileName)
+                        var resultFilePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).absolutePath + File.separator + AudioFileUtils.getFileName(oriSong.path)
+                        var resultFileName = AudioFileUtils.getFileName(AudioFileUtils.generateNewFilePath(resultFilePath))
+                        var file = AudioFileUtils.copyAudioToFileStore(File(outputPath), AppProvider.context, resultFileName)
                         if (file != null) {
+                            AudioFileUtils.deleteFile(outputPath)
                             AudioFileUtils.notifyMediaScanner(AppProvider.context, file.absolutePath) { path: String, uri: Uri ->
                                 context?.get()?.let {
                                     val song = getSongInfo(it, path)

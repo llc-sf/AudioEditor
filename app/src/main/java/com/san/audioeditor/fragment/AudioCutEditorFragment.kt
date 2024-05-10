@@ -721,6 +721,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                     if (msg.obj == 0) {
                         var file = AudioFileUtils.copyAudioToFileStore(File(outputPath), requireContext(), cutFileName + suffix)
                         if (file != null) {
+                            AudioFileUtils.deleteFile(outputPath)
                             AudioFileUtils.notifyMediaScanner(requireContext(), file.absolutePath) { path: String, uri: Uri ->
                                 val song = getSongInfo(requireContext(), path)
                                 if (song != null) {

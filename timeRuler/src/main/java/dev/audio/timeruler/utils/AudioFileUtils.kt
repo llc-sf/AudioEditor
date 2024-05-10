@@ -8,6 +8,9 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.webkit.MimeTypeMap
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
@@ -130,6 +133,19 @@ object AudioFileUtils {
         return file.nameWithoutExtension // This returns the file name with extension.
     }
 
+    fun deleteFile(path: String) {
+        if (path.isEmpty()) {
+            return
+        }
+        val file = File(path)
+        if (!file.exists()) {
+            return
+        }
+        GlobalScope.launch(Dispatchers.IO) {
+            file.delete()
+        }
+
+    }
 
 
 }
