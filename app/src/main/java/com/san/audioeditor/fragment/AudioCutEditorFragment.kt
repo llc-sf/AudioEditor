@@ -44,6 +44,7 @@ import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.recorder.utils.Log
 import dev.audio.timeruler.bean.AudioFragmentBean
 import dev.audio.timeruler.bean.Waveform
+import dev.audio.timeruler.databinding.RedoConfirmDialogBinding
 import dev.audio.timeruler.listener.OnScaleChangeListener
 import dev.audio.timeruler.multitrack.MultiTrackRenderersFactory
 import dev.audio.timeruler.multitrack.MultiTrackSelector
@@ -51,6 +52,7 @@ import dev.audio.timeruler.player.PlayerManager
 import dev.audio.timeruler.player.PlayerProgressCallback
 import dev.audio.timeruler.timer.EditExitDialog
 import dev.audio.timeruler.timer.EditLoadingDialog
+import dev.audio.timeruler.timer.RedoConfirmDialog
 import dev.audio.timeruler.timer.UndoConfirmDialog
 import dev.audio.timeruler.utils.AudioFileUtils
 import dev.audio.timeruler.utils.dp
@@ -241,7 +243,16 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                                                              }
                                                          })
                                                  }, {
-                                                     editNext()
+                                                     RedoConfirmDialog.show(parentFragmentManager)
+                                                         ?.setOnConfirmListener(object :
+                                                                                    RedoConfirmDialog.OnConfirmListener {
+                                                             override fun onConfirm() {
+                                                                 editNext()
+                                                             }
+
+                                                             override fun onCancel() {
+                                                             }
+                                                         })
                                                  })
         viewBinding.actionScale.setActionListener({
                                                       viewBinding.timeLine.zoomOut()
