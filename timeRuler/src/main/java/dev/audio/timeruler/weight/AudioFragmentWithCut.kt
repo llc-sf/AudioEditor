@@ -82,8 +82,8 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         return audioEditorView.context
     }
 
-    override fun initCutFragment() {
-        super.initCutFragment()
+    override fun initCutFragment(cutMode:Int) {
+        super.initCutFragment(cutMode)
         cutPieceFragments.add(CutPieceFragment(this, index = cutPieceFragments.size).apply {
             this.initCutFragment(1 / 3f, 2 / 3f)
         })
@@ -243,11 +243,8 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
             it.switchCutMode(mode)
         }
         if (cutPieceFragments.isEmpty()) {
-            initCutFragment()
+            initCutFragment(cutMode)
             audioEditorView.invalidate()
-            cutPieceFragments.forEach {
-                it.switchCutMode(mode)
-            }
             return
         }
         if (mode == CutPieceFragment.CUT_MODE_JUMP) { //cutPieceFragments只保留isSelected
