@@ -231,6 +231,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             }
         })
 
+        //撤销 重做
         viewBinding.actionEdit.setActionListener({
                                                      UndoConfirmDialog.show(parentFragmentManager)
                                                          ?.setOnConfirmListener(object :
@@ -253,19 +254,12 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                                                              override fun onCancel() {
                                                              }
                                                          })
-                                                 })
+                                                 }) //放大缩小
         viewBinding.actionScale.setActionListener({
                                                       viewBinding.timeLine.zoomOut()
                                                   }, {
                                                       viewBinding.timeLine.zoomIn()
                                                   })
-        viewBinding.zoomIn.setOnClickListener {
-            viewBinding.timeLine.zoomIn()
-        }
-        viewBinding.zoomOut.setOnClickListener {
-            viewBinding.timeLine.zoomOut()
-        }
-
 
         freshCutModeView(CutPieceFragment.CUT_MODE_SELECT)
         viewBinding.keepSelected.setOnClickListener {
@@ -417,6 +411,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             }
         })
 
+        //裁剪条微调
         viewBinding.cutLineStart.setActionListener({
                                                        viewBinding.timeLine.startCutMinus()
                                                    }, {
@@ -425,6 +420,8 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                                                    }, {
                                                        viewBinding.timeLine.startCutPlus()
                                                    })
+
+        //裁剪条微调
         viewBinding.cutLineEnd.setActionListener({
                                                      viewBinding.timeLine.startEndMinus()
                                                  }, {
@@ -432,6 +429,19 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                                                  }, {
                                                      viewBinding.timeLine.startEndPlus()
                                                  })
+        viewBinding.timeLine.addCutLineFineTuningButtonChangeListener(object :
+                                                                          AudioCutEditorView.CutLineFineTuningButtonChangeListener {
+
+
+            override fun onCutLineFineTuningButtonChange(startMinusEnable: Boolean,
+                                                         startPlusEnable: Boolean,
+                                                         endMinusEnable: Boolean,
+                                                         endPlusEnable: Boolean) {
+                Log.i("llc_cutline", "onCutLineFineTuningButtonChange: $startMinusEnable $startPlusEnable $endMinusEnable $endPlusEnable")
+                viewBinding.cutLineStart.freshButtonEnable(startMinusEnable, startPlusEnable)
+                viewBinding.cutLineEnd.freshButtonEnable(endMinusEnable, endPlusEnable)
+            }
+        })
 
         viewBinding.cutStartMinus.setOnClickListener {
             viewBinding.timeLine.startCutMinus()
@@ -713,6 +723,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
     var editLoadingDialog: EditLoadingDialog? = null
 
+    //todo  封装
     @SuppressLint("HandlerLeak")
     private val mHandler = object : Handler() {
         override fun handleMessage(msg: Message) {
@@ -781,9 +792,8 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
 
     //注意调用时机 todo
-    fun addData(audioFragmentBean: AudioFragmentBean?) {
+    private fun addData(audioFragmentBean: AudioFragmentBean?) {
         audioFragmentBean?.let {
-            Log.i("llc_action", "addData = ${it}")
             mViewModel.datas.add(it)
         }
     }

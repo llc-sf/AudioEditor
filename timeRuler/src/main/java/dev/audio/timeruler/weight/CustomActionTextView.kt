@@ -15,6 +15,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
+import android.view.View
 import android.view.ViewConfiguration
 import android.widget.ImageView
 import android.widget.TextView
@@ -261,6 +262,13 @@ class CustomActionTextView @JvmOverloads constructor(context: Context,
         if (rippleRadius > initialRippleRadiusOffset) {
             canvas.drawOval(rippleEffectBounds, ripplePaint)
         }
+    }
+
+    fun freshButtonEnable(startEnable: Boolean, endEnable: Boolean) {
+        findViewById<View>(R.id.left).isEnabled = startEnable
+        findViewById<View>(R.id.right).isEnabled = endEnable
+        findViewById<View>(R.id.left).alpha = if (startEnable) 1.0f else 0.5f
+        findViewById<View>(R.id.right).alpha = if (endEnable) 1.0f else 0.5f
     }
 
 }

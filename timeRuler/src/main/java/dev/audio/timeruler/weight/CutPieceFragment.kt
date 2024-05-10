@@ -1023,6 +1023,51 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
         return false
     }
 
+    //end 剪切条是否能向右移动
+    fun canEndCutPlus(): Boolean {
+        if (isSelected) {
+            var temp = endTimestampTimeInSelf + TIME_STEP
+            if (isInOtherFragments(temp)) {
+                return false
+            }
+            return temp < duration
+        }
+        return false
+    }
+
+    //start 剪切条是否能向左移动
+    fun canEndCutMinus(): Boolean {
+        if (isSelected) {
+            var temp = endTimestampTimeInSelf - TIME_STEP
+            return temp > startTimestampTimeInSelf + TIME_STEP
+        }
+        return false
+    }
+
+    //start 剪切条是否能向左移动
+    fun canStartCutMinus(): Boolean {
+        if (isSelected) {
+            var temp = startTimestampTimeInSelf - TIME_STEP
+            if (isInOtherFragments(temp)) {
+                return false
+            }
+            return temp > 0
+        }
+        return false
+    }
+
+    //start 剪切条是否能向右移动
+    fun canStartCutPlus(): Boolean {
+        if (isSelected) {
+            var temp = startTimestampTimeInSelf + TIME_STEP
+            if (isInOtherFragments(temp)) {
+                return false
+            }
+            return temp + TIME_STEP < endTimestampTimeInSelf
+        }
+        return false
+    }
+
     /**
      * 设定播放位置为裁剪起点
      */

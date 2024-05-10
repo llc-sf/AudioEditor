@@ -82,7 +82,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         return audioEditorView.context
     }
 
-    override fun initCutFragment(cutMode:Int) {
+    override fun initCutFragment(cutMode: Int) {
         super.initCutFragment(cutMode)
         cutPieceFragments.add(CutPieceFragment(this, index = cutPieceFragments.size).apply {
             this.initCutFragment(1 / 3f, 2 / 3f)
@@ -160,7 +160,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         }
     }
 
-    fun startCutMinus():Boolean {
+    fun startCutMinus(): Boolean {
         var result = false
         cutPieceFragments.forEach {
             result = result || it.startCutMinus()
@@ -172,7 +172,46 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         audioEditorView.invalidate()
     }
 
-    fun startCutPlus():Boolean {
+    //开始裁剪条是否能做移动
+    fun canStartCutMinus(): Boolean {
+        var result = false
+        cutPieceFragments.forEach {
+            result = result || it.canStartCutMinus()
+        }
+        return result
+    }
+
+
+    //开始裁剪条是否能做右移动
+    fun canStartCutPlus(): Boolean {
+        var result = false
+        cutPieceFragments.forEach {
+            result = result || it.canStartCutPlus()
+        }
+        return result
+    }
+
+
+    //结束裁剪条是否能做左移动
+    fun canEndCutMinus(): Boolean {
+        var result = false
+        cutPieceFragments.forEach {
+            result = result || it.canEndCutMinus()
+        }
+        return result
+    }
+
+    //结束裁剪条是否能做右移动
+    fun canEndCutPlus(): Boolean {
+        var result = false
+        cutPieceFragments.forEach {
+            result = result || it.canEndCutPlus()
+        }
+        return result
+    }
+
+
+    fun startCutPlus(): Boolean {
         var result = false
         cutPieceFragments.forEach {
             result = result || it.startCutPlus()
@@ -180,7 +219,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         return result
     }
 
-    fun startEndMinus():Boolean {
+    fun startEndMinus(): Boolean {
         var result = false
         cutPieceFragments.forEach {
             result = result || it.endCutMinus()
@@ -188,7 +227,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         return result
     }
 
-    fun startEndPlus():Boolean {
+    fun startEndPlus(): Boolean {
         var result = false
         cutPieceFragments.forEach {
             result = result || it.endCutPlus()
@@ -262,8 +301,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
             it.isSelected = false
         }
         cutPieceFragments.add(CutPieceFragment(this, true, index = cutPieceFragments.size, mode = CutPieceFragment.CUT_MODE_JUMP).apply {
-            var endTemp = audio.currentPlayingTimeInAudio.apply {
-            } + 1000L * 6 //不能超范围
+            var endTemp = audio.currentPlayingTimeInAudio.apply {} + 1000L * 6 //不能超范围
             if (endTemp > audio.duration) {
                 endTemp = audio.duration
             } //不能重叠
@@ -290,7 +328,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         cutPieceFragments.remove(currentCutPieceFragment)
         if (cutPieceFragments.isEmpty()) {
             PlayerManager.pause()
-            cutModeChangeButtonEnableListener?.onCutModeChange(true,false)
+            cutModeChangeButtonEnableListener?.onCutModeChange(true, false)
             audioEditorView.invalidate()
             return
         }

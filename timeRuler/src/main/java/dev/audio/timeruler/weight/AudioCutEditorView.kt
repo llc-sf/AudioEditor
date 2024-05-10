@@ -23,7 +23,6 @@ import dev.audio.timeruler.utils.SizeUtils
 import dev.audio.timeruler.utils.dp
 import dev.audio.timeruler.utils.format2DurationSimple
 import dev.audio.timeruler.utils.format2DurationSimpleInt
-import dev.audio.timeruler.utils.formatToCursorDateString
 import dev.audio.timeruler.utils.getTextHeight
 import dev.audio.timeruler.utils.getTopY
 import java.lang.ref.WeakReference
@@ -714,6 +713,22 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     } //*************************************裁剪模式变化 end *************************************//
 
 
+    //*************************************裁剪条微调按钮是否可用 start *************************************//
+    interface CutLineFineTuningButtonChangeListener {
+        fun onCutLineFineTuningButtonChange(
+            startMinusEnable: Boolean,
+            startPlusEnable: Boolean,
+            endMinusEnable: Boolean,
+            endPlusEnable: Boolean,
+        )
+    }
+
+    var cutLineFineTuningButtonChangeListener: CutLineFineTuningButtonChangeListener? = null
+
+    fun addCutLineFineTuningButtonChangeListener(listener: CutLineFineTuningButtonChangeListener) {
+        cutLineFineTuningButtonChangeListener = listener
+    }//*************************************裁剪条微调按钮是否可用 end *************************************//
+
     fun refreshCutLineAnchor(start: Boolean, end: Boolean) {
         onCutLineAnchorChangeListener?.onCutLineChange(start, end)
     }
@@ -731,8 +746,8 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             if (it.startCutMinus()) {
                 updateMediaSource(it.getCutLineStartTime(), it.getCutLineEndTime())
             }
-
         }
+        freshCutLineFineTuningButtonEnable()
     }
 
     fun startCutPlus() {
@@ -741,6 +756,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                 updateMediaSource(it.getCutLineStartTime(), it.getCutLineEndTime())
             }
         }
+        freshCutLineFineTuningButtonEnable()
     }
 
     fun startEndMinus() {
@@ -749,6 +765,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                 updateMediaSource(it.getCutLineStartTime(), it.getCutLineEndTime())
             }
         }
+        freshCutLineFineTuningButtonEnable()
     }
 
     fun startEndPlus() {
@@ -757,6 +774,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                 updateMediaSource(it.getCutLineStartTime(), it.getCutLineEndTime())
             }
         }
+        freshCutLineFineTuningButtonEnable()
     }
 
     /**
@@ -1144,6 +1162,27 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                 }
             }
         }
+    }
+
+
+    fun freshCutLineFineTuningButtonEnable() {
+//        when (cutMode) {
+//            CutPieceFragment.CUT_MODE_SELECT, CutPieceFragment.CUT_MODE_DELETE -> {
+//                cutLineFineTuningButtonChangeListener?.onCutLineFineTuningButtonChange(getCutLineStartTime() > 0, getCutLineStartTime() < getCutLineEndTime() - CutPieceFragment.MIN_CUT_GAP, getCutLineEndTime() > getCutLineStartTime() + CutPieceFragment.MIN_CUT_GAP, getCutLineEndTime() < audioFragment?.duration ?: 0)
+//            }
+//
+//            CutPieceFragment.CUT_MODE_JUMP -> {
+//                if (audioFragment?.cutPieceFragments?.isEmpty() == true) {
+//                    cutLineFineTuningButtonChangeListener?.onCutLineFineTuningButtonChange(false, false, false, false)
+//                } else if (audioFragment?.cutPieceFragments?.size == 1) {
+//                    cutLineFineTuningButtonChangeListener?.onCutLineFineTuningButtonChange(getCutLineStartTime() > 0, getCutLineStartTime() < getCutLineEndTime() - CutPieceFragment.MIN_CUT_GAP, getCutLineEndTime() > getCutLineStartTime() + CutPieceFragment.MIN_CUT_GAP, getCutLineEndTime() < audioFragment?.duration ?: 0)
+//                } else {
+//                    cutLineFineTuningButtonChangeListener?.onCutLineFineTuningButtonChange(audioFragment?.canStartEndMinus()==true, audioFragment?.canStartCutPlus()==true, audioFragment?.canEndCutMinus()==true, audioFragment?.canEndCutPlus()==true)
+//                }
+//            }
+//        }
+
+        cutLineFineTuningButtonChangeListener?.onCutLineFineTuningButtonChange(audioFragment?.canStartCutMinus()==true, audioFragment?.canStartCutPlus()==true, audioFragment?.canEndCutMinus()==true, audioFragment?.canEndCutPlus()==true)
     }
 
 }
