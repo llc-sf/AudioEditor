@@ -36,6 +36,7 @@ import dev.audio.timeruler.utils.toSegmentsArray
 import dev.audio.timeruler.weight.BaseAudioEditorView
 import dev.audio.timeruler.weight.CutPieceFragment
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.File
 import java.lang.ref.WeakReference
@@ -49,6 +50,8 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
     var isCancel = false
     var isConformed = false
     var isCutLineMoved = false
+
+    var datas: MutableList<AudioFragmentBean> = mutableListOf()
 
     // 定义构造 ViewModel 方法
     class ThemeListViewFactory() : ViewModelProvider.Factory {
@@ -146,13 +149,7 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
                     Log.i(BaseAudioEditorView.jni_tag, "finish resultCode=${msg.obj}")
                     if (msg.obj == 0) {
                         refresh(AudioCutViewModel(isShowEditLoading = false))
-                        viewModelScope.launch(Dispatchers.IO) {
-                            datas?.forEachIndexed() { index, audioFragmentBean ->
-                                audioFragmentBean.path?.let {
-                                    FileUtil.deleteFile(it)
-                                }
-                            }
-                        }
+                        deleteTempFiles()
                         var cutFileName = AudioFileUtils.getFileName(outputPath)
                         var file = AudioFileUtils.copyAudioToFileStore(File(outputPath), AppProvider.context, cutFileName)
                         if (file != null) {
@@ -191,6 +188,20 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
                 }
             }
         }
+    }
+
+    private fun deleteTempFiles() {
+        GlobalScope.launch(Dispatchers.IO) {
+            datas?.forEachIndexed() { index, audioFragmentBean ->
+                audioFragmentBean.path?.let {
+                    FileUtil.deleteFile(it)
+                }
+            }
+        }
+    }
+
+    fun clearDatas() {
+        deleteTempFiles()
     }
 
 }

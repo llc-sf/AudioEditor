@@ -168,6 +168,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
     override fun onDestroyView() {
         super.onDestroyView()
+        mViewModel.clearDatas()
     }
 
 
@@ -470,7 +471,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
         viewBinding.save.setOnClickListener {
             var realCutPieceFragments = viewBinding.timeLine.cutPieceFragmentsOrder?.filter { !it.isFake }
-            mViewModel.save(requireContext(), realCutPieceFragments, datas)
+            mViewModel.save(requireContext(), realCutPieceFragments, mViewModel.datas)
         }
 
         PlayerManager.addListener(this)
@@ -530,9 +531,9 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     }
 
     private fun editPre() {
-        if (datas.isNullOrEmpty() || viewBinding.timeLine.audioFragmentBean == null) { //                Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
+        if (mViewModel.datas.isNullOrEmpty() || viewBinding.timeLine.audioFragmentBean == null) { //                Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
         } else {
-            var last = datas.lastAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!)
+            var last = mViewModel.datas.lastAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!)
             if (last == null) { //                    Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
             } else {
                 AudioCutActivity.open(requireContext(), last)
@@ -541,9 +542,9 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     }
 
     private fun editNext() {
-        if (datas.isNullOrEmpty() || viewBinding.timeLine.audioFragmentBean == null) { //                Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
+        if (mViewModel.datas.isNullOrEmpty() || viewBinding.timeLine.audioFragmentBean == null) { //                Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
         } else {
-            var next = datas.nextAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!)
+            var next = mViewModel.datas.nextAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!)
             if (next == null) { //                    Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
             } else {
                 AudioCutActivity.open(requireContext(), next)
@@ -594,7 +595,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     }
 
     private fun freshSaveActions() {
-        if (datas.isNullOrEmpty() || viewBinding.timeLine.audioFragmentBean == null) {
+        if (mViewModel.datas.isNullOrEmpty() || viewBinding.timeLine.audioFragmentBean == null) {
             viewBinding.pre.alpha = 0.5f
             viewBinding.next.alpha = 0.5f
             viewBinding.pre.isEnabled = false
@@ -603,7 +604,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             viewBinding.actionEdit.freshRightIconEnable(false)
             return
         }
-        if (datas.lastAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!) == null) {
+        if (mViewModel.datas.lastAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!) == null) {
             viewBinding.pre.alpha = 0.5f
             viewBinding.pre.isEnabled = false
             viewBinding.actionEdit.freshLeftIconEnable(false)
@@ -612,7 +613,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             viewBinding.pre.isEnabled = true
             viewBinding.actionEdit.freshLeftIconEnable(true)
         }
-        if (datas.nextAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!) == null) {
+        if (mViewModel.datas.nextAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!) == null) {
             viewBinding.next.alpha = 0.5f
             viewBinding.next.isEnabled = false
             viewBinding.actionEdit.freshRightIconEnable(false)
@@ -763,13 +764,12 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         return null
     }
 
-    private var datas: MutableList<AudioFragmentBean> = mutableListOf()
 
     //注意调用时机 todo
     fun addData(audioFragmentBean: AudioFragmentBean?) {
         audioFragmentBean?.let {
             Log.i("llc_action", "addData = ${it}")
-            datas.add(it)
+            mViewModel.datas.add(it)
         }
     }
 
