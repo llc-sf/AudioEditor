@@ -779,7 +779,6 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     }
 
     fun switchCutMode(mode: Int) {
-        Log.i("llc_fuck", "mode=$mode,cutMode=$cutMode")
         if (cutMode == mode) {
             return
         }

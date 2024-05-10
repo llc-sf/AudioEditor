@@ -408,7 +408,6 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
         val paint = Paint()
         paint.color = ContextCompat.getColor(AppProvider.context, R.color.color_fe2b54)
         paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
-        Log.i("llc_fuck","drawCut cutMode=$cutMode")
         when (cutMode) {
             CUT_MODE_SELECT -> {
                 if (!isSelected) {
