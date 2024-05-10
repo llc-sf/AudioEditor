@@ -51,6 +51,7 @@ import dev.audio.timeruler.player.PlayerManager
 import dev.audio.timeruler.player.PlayerProgressCallback
 import dev.audio.timeruler.timer.EditExitDialog
 import dev.audio.timeruler.timer.EditLoadingDialog
+import dev.audio.timeruler.timer.UndoConfirmDialog
 import dev.audio.timeruler.utils.AudioFileUtils
 import dev.audio.timeruler.utils.dp
 import dev.audio.timeruler.utils.format2DurationSimple
@@ -229,7 +230,16 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         })
 
         viewBinding.actionEdit.setActionListener({
-                                                     editPre()
+                                                     UndoConfirmDialog.show(parentFragmentManager)
+                                                         ?.setOnConfirmListener(object :
+                                                                                    UndoConfirmDialog.OnConfirmListener {
+                                                             override fun onConfirm() {
+                                                                 editPre()
+                                                             }
+
+                                                             override fun onCancel() {
+                                                             }
+                                                         })
                                                  }, {
                                                      editNext()
                                                  })
@@ -462,13 +472,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         }
 
         freshSaveActions()
-        viewBinding.pre.setOnClickListener {
-            editPre()
-        }
-        viewBinding.next.setOnClickListener {
-            editNext()
-        }
-
         viewBinding.save.setOnClickListener {
             var realCutPieceFragments = viewBinding.timeLine.cutPieceFragmentsOrder?.filter { !it.isFake }
             mViewModel.save(requireContext(), realCutPieceFragments, mViewModel.datas)
