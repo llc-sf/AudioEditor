@@ -238,6 +238,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
      * 切换裁剪模式
      */
     fun switchCutMode(mode: Int) {
+        cutMode = mode
         if (cutPieceFragments.isEmpty()) {
             initCutFragment()
             audioEditorView.invalidate()

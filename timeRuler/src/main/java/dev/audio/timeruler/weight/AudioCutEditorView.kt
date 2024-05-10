@@ -56,9 +56,6 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     private val moveHandler = MoveHandler(WeakReference(this))
 
     var cutMode: Int = CutPieceFragment.CUT_MODE_SELECT
-        get() {
-            return audioFragment?.cutMode ?: 0
-        }
 
     var audioFragmentBean: AudioFragmentBean? = null
         get() {
@@ -782,9 +779,11 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     }
 
     fun switchCutMode(mode: Int) {
+        Log.i("llc_fuck", "mode=$mode,cutMode=$cutMode")
         if (cutMode == mode) {
             return
         }
+        cutMode = mode
         audioFragment?.switchCutMode(mode)
         var isPlay = PlayerManager.isPlaying
         PlayerManager.pause()
