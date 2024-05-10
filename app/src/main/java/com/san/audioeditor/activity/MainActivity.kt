@@ -35,10 +35,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if(returnActivityB) {
-            returnActivityB = false
-            AudioCutActivity.open(this)
-        }
+//        if(returnActivityB) {
+//            returnActivityB = false
+//            AudioCutActivity.open(this)
+//        }
     }
 
     private fun showFragment() {
