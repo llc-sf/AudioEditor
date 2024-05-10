@@ -391,6 +391,8 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 viewBinding.durationSelected.text = "${(end - start).format2DurationSimple()}"
                 viewBinding.cutLineStart.setText("${start.format2DurationSimple()}")
                 viewBinding.cutLineEnd.setText("${end.format2DurationSimple()}")
+                viewBinding.timeLine.freshCutLineFineTuningButtonEnable()
+
             }
 
             override fun onCutLineMove() {
