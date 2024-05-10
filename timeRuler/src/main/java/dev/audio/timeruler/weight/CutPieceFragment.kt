@@ -696,7 +696,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                         startTimestampPosition += dx
                         if (startTimestampPosition <= (rect?.left ?: 0)) { //开始小于本身了
                             startTimestampTimeInSelf = 0
-                        } else if (startTimestampPosition >= endTimestampPosition - MIN_CUT_GAP * unitMsPixel) { //开始大于结束了
+                        } else if (dx > 0 && startTimestampPosition >= endTimestampPosition - MIN_CUT_GAP * unitMsPixel) { //开始大于结束了
                             startTimestampTimeInSelf = endTimestampTimeInSelf - MIN_CUT_GAP
                         } else if (cutMode == CUT_MODE_JUMP && isInOtherFragments(startTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))) {
                             startTimestampTimeInSelf = getFragmentInOtherFragments(endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))?.endTimestampTimeInSelf
@@ -741,7 +741,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                         endTimestampPosition += dx
                         if (endTimestampPosition >= (rect?.right ?: 0)) { //结束大于本身了
                             endTimestampTimeInSelf = duration
-                        } else if (endTimestampPosition <= startTimestampPosition + MIN_CUT_GAP * unitMsPixel) { //结束小于开始了
+                        } else if (dx < 0 && endTimestampPosition <= startTimestampPosition + MIN_CUT_GAP * unitMsPixel) { //结束小于开始了
                             endTimestampTimeInSelf = startTimestampTimeInSelf + MIN_CUT_GAP
                         } else if (cutMode == CUT_MODE_JUMP && isInOtherFragments(endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))) {
                             endTimestampTimeInSelf = getFragmentInOtherFragments(endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))?.startTimestampTimeInSelf
