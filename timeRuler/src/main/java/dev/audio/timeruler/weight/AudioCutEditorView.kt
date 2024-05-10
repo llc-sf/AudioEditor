@@ -804,13 +804,11 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             }
 
             CutPieceFragment.CUT_MODE_JUMP -> {
-                if (audioFragment?.isPlayingLineInAnyCutPiece(currentPlayingTimeInAudio) == true) {
-                    PlayerManager.updateMediaSourceDeleteJump(audioFragment!!.cutPieceFragments)
-                    currentPlayingTimeInAudio = audioFragment!!.cutPieceFragmentsOrder[0].startTimestampTimeInSelf
-                    currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
-                    seekPosition = 0
-                    windowIndex = 0
-                }
+                PlayerManager.updateMediaSourceDeleteJump(audioFragment!!.cutPieceFragments)
+                currentPlayingTimeInAudio = audioFragment!!.cutPieceFragmentsOrder[0].startTimestampTimeInSelf
+                currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
+                seekPosition = 0
+                windowIndex = 0
             }
         }
         if (isPlay) {
