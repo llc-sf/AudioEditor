@@ -759,18 +759,18 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         freshCutLineFineTuningButtonEnable()
     }
 
-    fun startEndMinus() {
+    fun endCutMinus() {
         audioFragment?.let {
-            if (it.startEndMinus()) {
+            if (it.endCutMinus()) {
                 updateMediaSource(it.getCutLineStartTime(), it.getCutLineEndTime())
             }
         }
         freshCutLineFineTuningButtonEnable()
     }
 
-    fun startEndPlus() {
+    fun endCutPlus() {
         audioFragment?.let {
-            if (it.startEndPlus()) {
+            if (it.endCutPlus()) {
                 updateMediaSource(it.getCutLineStartTime(), it.getCutLineEndTime())
             }
         }

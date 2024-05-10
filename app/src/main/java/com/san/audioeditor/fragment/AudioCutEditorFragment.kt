@@ -3,7 +3,6 @@ package com.san.audioeditor.fragment
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -35,7 +34,6 @@ import com.san.audioeditor.viewmodel.AudioCutViewModel
 import dev.android.player.framework.base.BaseMVVMFragment
 import dev.android.player.framework.data.model.Song
 import dev.android.player.framework.utils.ImmerseDesign
-import dev.android.player.framework.utils.getDimensions
 import dev.android.player.framework.utils.getLocationOnScreen
 import dev.audio.ffmpeglib.FFmpegApplication
 import dev.audio.ffmpeglib.tool.FFmpegUtil
@@ -44,7 +42,6 @@ import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.recorder.utils.Log
 import dev.audio.timeruler.bean.AudioFragmentBean
 import dev.audio.timeruler.bean.Waveform
-import dev.audio.timeruler.databinding.RedoConfirmDialogBinding
 import dev.audio.timeruler.listener.OnScaleChangeListener
 import dev.audio.timeruler.multitrack.MultiTrackRenderersFactory
 import dev.audio.timeruler.multitrack.MultiTrackSelector
@@ -423,11 +420,11 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
         //裁剪条微调
         viewBinding.cutLineEnd.setActionListener({
-                                                     viewBinding.timeLine.startEndMinus()
+                                                     viewBinding.timeLine.endCutMinus()
                                                  }, {
                                                      viewBinding.timeLine.editTrimEnd(parentFragmentManager)
                                                  }, {
-                                                     viewBinding.timeLine.startEndPlus()
+                                                     viewBinding.timeLine.endCutPlus()
                                                  })
         viewBinding.timeLine.addCutLineFineTuningButtonChangeListener(object :
                                                                           AudioCutEditorView.CutLineFineTuningButtonChangeListener {
@@ -450,10 +447,10 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             viewBinding.timeLine.startCutPlus()
         }
         viewBinding.cutEndMinus.setOnClickListener {
-            viewBinding.timeLine.startEndMinus()
+            viewBinding.timeLine.endCutMinus()
         }
         viewBinding.cutEndPlus.setOnClickListener {
-            viewBinding.timeLine.startEndPlus()
+            viewBinding.timeLine.endCutPlus()
         }
         viewBinding.cutStart.setOnClickListener {
             viewBinding.timeLine.editTrimStart(parentFragmentManager)

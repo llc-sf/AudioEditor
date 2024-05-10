@@ -219,7 +219,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         return result
     }
 
-    fun startEndMinus(): Boolean {
+    fun endCutMinus(): Boolean {
         var result = false
         cutPieceFragments.forEach {
             result = result || it.endCutMinus()
@@ -227,7 +227,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         return result
     }
 
-    fun startEndPlus(): Boolean {
+    fun endCutPlus(): Boolean {
         var result = false
         cutPieceFragments.forEach {
             result = result || it.endCutPlus()
