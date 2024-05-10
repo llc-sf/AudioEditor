@@ -16,6 +16,8 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.annotation.IntDef
+import androidx.core.content.ContextCompat
+import com.android.app.AppProvider
 import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.timeruler.BuildConfig
 import dev.audio.timeruler.R
@@ -88,8 +90,8 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     /**
      * 剪切模式切换专用
      */
-    fun switchCutMode(@CutMode cutMode: Int) {
-        this.cutMode = cutMode //重点
+    fun switchCutMode(@CutMode mode: Int) {
+        this.cutMode = mode //重点
         if (audio.currentCutPieceFragment == null) {
             isSelected = index == 0
         } //todo  非跳裁剪转跳剪 可能存在重合的情况
@@ -404,8 +406,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             return
         }
         val paint = Paint()
-        paint.color = Color.RED
+        paint.color = ContextCompat.getColor(AppProvider.context, R.color.color_fe2b54)
         paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
+        Log.i("llc_fuck","drawCut cutMode=$cutMode")
         when (cutMode) {
             CUT_MODE_SELECT -> {
                 if (!isSelected) {
