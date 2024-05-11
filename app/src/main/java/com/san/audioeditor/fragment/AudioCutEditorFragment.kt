@@ -695,7 +695,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             return
         }
 
-        cutFileName = "cut" + (System.currentTimeMillis())
+        cutFileName = "cut_" + (System.currentTimeMillis())
         outputPath = PATH + File.separator + cutFileName + suffix
 
         commandLine = FFmpegUtil.cutMultipleAudioSegments(srcFile, realCutPieceFragments.toSegmentsArray(), outputPath)
