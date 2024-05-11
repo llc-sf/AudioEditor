@@ -10,6 +10,7 @@ import android.view.animation.CycleInterpolator
 import android.view.animation.TranslateAnimation
 import android.widget.LinearLayout
 import androidx.core.view.isVisible
+import dev.android.player.framework.utils.KeyboardUtil
 import dev.audio.timeruler.R
 import dev.audio.timeruler.databinding.ViewKeyboardTimerPickBinding
 import dev.audio.timeruler.utils.dp
@@ -56,7 +57,7 @@ class KeyBoardTimerTimePick @JvmOverloads constructor(context: Context,
         initView(cutTime)
     }
 
-    private fun initView(time: DialogTimerSetting.CutTime){
+    private fun initView(time: DialogTimerSetting.CutTime) {
         if (time.maxTime.hours == 0) {
             binding.hour.isVisible = false
             binding.space1.isVisible = false
@@ -142,16 +143,15 @@ class KeyBoardTimerTimePick @JvmOverloads constructor(context: Context,
     }
 
 
-    fun showErrorTip(isStart: Boolean = true) {
-//        var errorTips = if (getTime().time == cutTime.maxTime.time) {
-//            context.resources.getString(R.string.trime_start_end_time_error)
-//        } else {
-//            if (isStart) {
-//                context.resources.getString(R.string.trime_start_time_error)
-//            } else {
-//                context.resources.getString(R.string.trime_end_time_error)
-//            }
-//        }
+    fun showErrorTip(isStart: Boolean = true) { //        var errorTips = if (getTime().time == cutTime.maxTime.time) {
+        //            context.resources.getString(R.string.trime_start_end_time_error)
+        //        } else {
+        //            if (isStart) {
+        //                context.resources.getString(R.string.trime_start_time_error)
+        //            } else {
+        //                context.resources.getString(R.string.trime_end_time_error)
+        //            }
+        //        }
         var errorTips = if (isStart) {
             if (getTime().time == cutTime.maxTime.time) {
                 context.resources.getString(R.string.trime_start_end_time_error)
@@ -182,6 +182,26 @@ class KeyBoardTimerTimePick @JvmOverloads constructor(context: Context,
             binding.errorTips.startAnimation(anim)
         } else {
             binding.errorTips.visibility = View.VISIBLE
+        }
+    }
+
+    fun focous() {
+        if (binding.hour.isVisible) {
+            binding.hour.requestFocus()
+            KeyboardUtil.showKeyBoard(binding.hour)
+            binding.hour.setSelection(binding.hour.text.length)
+        } else if (binding.minute.isVisible) {
+            binding.minute.requestFocus()
+            KeyboardUtil.showKeyBoard(binding.minute)
+            binding.minute.setSelection(binding.minute.text.length)
+        } else if (binding.second.isVisible) {
+            binding.second.requestFocus()
+            KeyboardUtil.showKeyBoard(binding.second)
+            binding.second.setSelection(binding.second.text.length)
+        } else {
+            binding.secondDecimal.requestFocus()
+            KeyboardUtil.showKeyBoard(binding.secondDecimal)
+            binding.secondDecimal.setSelection(binding.secondDecimal.text.length)
         }
     }
 

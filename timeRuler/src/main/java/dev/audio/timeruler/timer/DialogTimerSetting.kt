@@ -70,6 +70,7 @@ class DialogTimerSetting : BaseBottomTranslucentDialog() {
             keyboardMode = !keyboardMode
             binding.timePickKb.isVisible = keyboardMode
             binding.timePick.isVisible = !keyboardMode
+            binding.timePickKb.focous()
             if (!keyboardMode) {
                 binding.keyBoard.text = "键盘"
                 if (binding.timePickKb.getTime().time >= min || binding.timePickKb.getTime().time <= max) {
