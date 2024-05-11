@@ -224,5 +224,9 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
         }
     }
 
+    fun setData(time: DialogTimerSetting.Time) {
+
+    }
+
 
 }

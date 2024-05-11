@@ -75,7 +75,7 @@ class DialogTimerSetting : BaseBottomTranslucentDialog() {
                 if (binding.timePickKb.getTime().time >= min || binding.timePickKb.getTime().time <= max) {
                     binding.timePick.freshTime(Time(binding.timePickKb.getTime().time))
                 }
-            }else{
+            } else {
                 binding.keyBoard.text = "滚动"
             }
         }
@@ -94,17 +94,28 @@ class DialogTimerSetting : BaseBottomTranslucentDialog() {
                 binding.timePickKb.setData(time)
             }
         })
+        binding.timePickKb.setTimeSelectionListener(object : TimerTimePick.OnTimeSelectionListener {
+            override fun onSelection(time: Time) {
+                binding.timePick.freshTime(time)
+            }
+        })
         binding.btnOk.setOnClickListener {
             if (keyboardMode && (binding.timePickKb.getTime().time < min || binding.timePickKb.getTime().time > max)) {
                 binding.timePickKb.showErrorTip(start != -1L)
                 return@setOnClickListener
             }
-            mListener?.onSelection(binding.timePick.getTimeBean())
+            mListener?.onSelection(if (keyboardMode) binding.timePickKb.getTime() else binding.timePick.getTimeBean())
             dismiss()
         }
         binding.btnCancel.setOnClickListener {
 
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        mListener = null
     }
 
     interface OnTimeSelectionListener {
