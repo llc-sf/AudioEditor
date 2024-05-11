@@ -436,9 +436,13 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                                                          startPlusEnable: Boolean,
                                                          endMinusEnable: Boolean,
                                                          endPlusEnable: Boolean) {
-                Log.i("llc_cutline", "onCutLineFineTuningButtonChange: $startMinusEnable $startPlusEnable $endMinusEnable $endPlusEnable")
                 viewBinding.cutLineStart.freshButtonEnable(startMinusEnable, startPlusEnable)
                 viewBinding.cutLineEnd.freshButtonEnable(endMinusEnable, endPlusEnable)
+            }
+
+            override fun onCutLineFineTuningEnable(isEnable: Boolean) {
+                viewBinding.cutLineStart.fineTuningEnable(isEnable)
+                viewBinding.cutLineEnd.fineTuningEnable(isEnable)
             }
         })
 

@@ -733,6 +733,8 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             endMinusEnable: Boolean,
             endPlusEnable: Boolean,
         )
+
+        fun onCutLineFineTuningEnable(isEnable:Boolean)
     }
 
     var cutLineFineTuningButtonChangeListener: CutLineFineTuningButtonChangeListener? = null
@@ -836,6 +838,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                 windowIndex = 0
             }
         }
+        fineTuningEnable(true)
         if (isPlay) {
             PlayerManager.playWithSeek(seekPosition, windowIndex)
         } else {
@@ -1176,6 +1179,11 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     //裁剪条微调按钮状态刷新
     fun freshCutLineFineTuningButtonEnable() {
         cutLineFineTuningButtonChangeListener?.onCutLineFineTuningButtonChange(audioFragment?.canStartCutMinus() == true, audioFragment?.canStartCutPlus() == true, audioFragment?.canEndCutMinus() == true, audioFragment?.canEndCutPlus() == true)
+    }
+
+
+    fun fineTuningEnable(isEnable: Boolean) {
+        cutLineFineTuningButtonChangeListener?.onCutLineFineTuningEnable(isEnable)
     }
 
 }

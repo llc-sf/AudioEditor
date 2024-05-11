@@ -262,11 +262,15 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
      */
     fun onSingleTapUp(event: MotionEvent): Boolean {
         if (cutMode == CutPieceFragment.CUT_MODE_JUMP) {
+            var allUnSelected = true
             cutPieceFragments.forEachIndexed { _, cutPieceFragment ->
                 cutPieceFragment.onSingleTapUp(event)
+                allUnSelected = (!cutPieceFragment.isSelected||cutPieceFragment.isFake) && allUnSelected
             }
+            (audioEditorView as? AudioCutEditorView)?.fineTuningEnable(!allUnSelected)
             return true
         } else {
+            (audioEditorView as? AudioCutEditorView)?.fineTuningEnable(true)
             return false
         }
 

@@ -21,6 +21,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import dev.audio.timeruler.R
 import org.w3c.dom.Text
 
@@ -265,10 +266,23 @@ class CustomActionTextView @JvmOverloads constructor(context: Context,
     }
 
     fun freshButtonEnable(startEnable: Boolean, endEnable: Boolean) {
+        if(!isEnabled){
+            return
+        }
         findViewById<View>(R.id.left).isEnabled = startEnable
         findViewById<View>(R.id.right).isEnabled = endEnable
         findViewById<View>(R.id.left).alpha = if (startEnable) 1.0f else 0.5f
         findViewById<View>(R.id.right).alpha = if (endEnable) 1.0f else 0.5f
+    }
+
+    fun fineTuningEnable(enable: Boolean) {
+        isEnabled = enable
+        findViewById<View>(R.id.left).isEnabled = isEnabled
+        findViewById<View>(R.id.right).isEnabled = isEnabled
+        findViewById<View>(R.id.left).alpha = if (isEnabled) 1.0f else 0.5f
+        findViewById<View>(R.id.right).alpha = if (isEnabled) 1.0f else 0.5f
+        findViewById<View>(R.id.middle_tv).visibility = if (isEnabled) View.VISIBLE else View.INVISIBLE
+
     }
 
 }
