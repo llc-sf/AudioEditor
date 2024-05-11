@@ -86,6 +86,30 @@ class KeyBoardTimerTimePick @JvmOverloads constructor(context: Context,
         }
 
         binding.secondDecimal.setText(time.time.secondDecimalStr)
+
+
+        binding.hour.setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                if(binding.hour.text.length==1){
+                    binding.hour.setText("0"+binding.hour.text)
+                }
+            }
+        }
+        binding.minute.setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                if(binding.minute.text.length==1){
+                    binding.minute.setText("0"+binding.minute.text)
+                }
+            }
+        }
+        binding.second.setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                if(binding.second.text.length==1){
+                    binding.second.setText("0"+binding.second.text)
+                }
+            }
+        }
+
     }
 
     private fun freshView(time: DialogTimerSetting.Time) {
