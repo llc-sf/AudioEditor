@@ -53,8 +53,38 @@ class KeyBoardTimerTimePick @JvmOverloads constructor(context: Context,
     lateinit var cutTime: DialogTimerSetting.CutTime
     fun setTime(cutTime: DialogTimerSetting.CutTime) {
         this.cutTime = cutTime
-        freshView(cutTime.time)
+        initView(cutTime)
+    }
 
+    private fun initView(time: DialogTimerSetting.CutTime){
+        if (time.maxTime.hours == 0) {
+            binding.hour.isVisible = false
+            binding.space1.isVisible = false
+        } else {
+            binding.hour.isVisible = true
+            binding.space1.isVisible = true
+            binding.hour.setText(time.time.hoursStr)
+        }
+
+        if (time.maxTime.minutes == 0) {
+            binding.minute.isVisible = false
+            binding.space2.isVisible = false
+        } else {
+            binding.minute.isVisible = true
+            binding.space2.isVisible = true
+            binding.minute.setText(time.time.minutesStr)
+        }
+
+        if (time.maxTime.second == 0) {
+            binding.second.isVisible = false
+            binding.space3.isVisible = false
+        } else {
+            binding.second.isVisible = true
+            binding.space3.isVisible = true
+            binding.second.setText(time.time.secondStr)
+        }
+
+        binding.secondDecimal.setText(time.time.secondDecimalStr)
     }
 
     private fun freshView(time: DialogTimerSetting.Time) {
