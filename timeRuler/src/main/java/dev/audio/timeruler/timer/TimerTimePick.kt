@@ -107,8 +107,8 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
             if (cutTime.minTime.hours == binding.hour.value && cutTime.minTime.minutes == binding.minute.value && oldSecond < cutTime.minTime.second) { //策略1：上一位超过  下一位置0
                 oldSecond = binding.second.maxValue
             } else if (oldSecond < cutTime.minTime.second) { //策略2：下一位超过  上一位置最小加一
-//                binding.minute.minValue = cutTime.minTime.minutes + 1
-//                binding.minute.value = oldMinute
+                //                binding.minute.minValue = cutTime.minTime.minutes + 1
+                //                binding.minute.value = oldMinute
             } else if (oldSecond == cutTime.minTime.second) {
                 if (cutTime.minTime.minutes == binding.minute.value && (binding.msecond.value < cutTime.minTime.secondDecimal)) { //秒等于最大，分数秒大于最大  分数秒归0
                     binding.msecond.value = cutTime.minTime.secondDecimal
@@ -195,6 +195,10 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
         binding.minute.value = time.minutes
         binding.second.value = time.second
         binding.msecond.value = time.secondDecimal
+        if (cutTime.maxTime.hours == 0) {
+            binding.hour.visibility = View.GONE
+            binding.space1.visibility = View.GONE
+        }
     }
 
 
