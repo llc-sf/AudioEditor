@@ -526,7 +526,6 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     private fun restart() {
         PlayerManager.pause()
-        cursorValue = startValue
         when (cutMode) {
             CutPieceFragment.CUT_MODE_SELECT -> { //定位播放条
                 currentPlayingTimeInAudio = getCutLineStartTime()
@@ -542,8 +541,22 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                     ?: 0
             }
         }
-        currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
+        //播放条定位
+        if (currentPlayingTimeInAudio.time2Pixel(unitMsPixel) <= ScreenUtil.getScreenWidth(context) / 2) {
+            cursorValue = startValue
+            currentPlayingPosition = (currentPlayingTimeInTimeLine - this.cursorValue) * unitMsPixel
+        } else if (((audioFragment?.duration
+                ?: 0) - currentPlayingTimeInAudio)*unitMsPixel < ScreenUtil.getScreenWidth(context) / 2
+        ) {
+            cursorValue = endValue - screenWithDuration
+            currentPlayingPosition = (currentPlayingTimeInTimeLine - this.cursorValue) * unitMsPixel
+        } else {
+            currentPlayingPosition = (ScreenUtil.getScreenWidth(context) / 2).toFloat()
+            cursorValue = (currentPlayingTimeInTimeLine - (currentPlayingPosition / unitMsPixel).toLong())
+        }
         invalidate()
+
+
     }
 
     override fun waveScrollNotify() {
@@ -727,7 +740,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     fun addCutLineFineTuningButtonChangeListener(listener: CutLineFineTuningButtonChangeListener) {
         cutLineFineTuningButtonChangeListener = listener
-    }//*************************************裁剪条微调按钮是否可用 end *************************************//
+    } //*************************************裁剪条微调按钮是否可用 end *************************************//
 
     fun refreshCutLineAnchor(start: Boolean, end: Boolean) {
         onCutLineAnchorChangeListener?.onCutLineChange(start, end)
@@ -1163,7 +1176,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     //裁剪条微调按钮状态刷新
     fun freshCutLineFineTuningButtonEnable() {
-        cutLineFineTuningButtonChangeListener?.onCutLineFineTuningButtonChange(audioFragment?.canStartCutMinus()==true, audioFragment?.canStartCutPlus()==true, audioFragment?.canEndCutMinus()==true, audioFragment?.canEndCutPlus()==true)
+        cutLineFineTuningButtonChangeListener?.onCutLineFineTuningButtonChange(audioFragment?.canStartCutMinus() == true, audioFragment?.canStartCutPlus() == true, audioFragment?.canEndCutMinus() == true, audioFragment?.canEndCutPlus() == true)
     }
 
 }
