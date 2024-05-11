@@ -469,8 +469,8 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             restart()
             return
         }
-        if (cutMode == CutPieceFragment.CUT_MODE_JUMP && (currentWindowIndex + 10) == (audioFragment?.cutPieceFragments?.size
-                ?: 0) && positionInCutPiece >= durationCutPiece
+        if (cutMode == CutPieceFragment.CUT_MODE_JUMP && (currentWindowIndex + 1) == (audioFragment?.cutPieceFragments?.size
+                ?: 0) && positionInCutPiece + 10 >= durationCutPiece
         ) { //判断播放结束
             restart()
             return
@@ -502,13 +502,13 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                 cursorValue = startValue
                 currentPlayingPosition = (currentPlayingTimeInTimeLine - this.cursorValue) * unitMsPixel
             } else if (((audioFragment?.duration
-                    ?: 0) - currentPositionInWholeAudio) < ScreenUtil.getScreenWidth(context) / 2
+                    ?: 0) - currentPositionInWholeAudio) * unitMsPixel < ScreenUtil.getScreenWidth(context) / 2
             ) { //播放条太靠end，波形固定，移动播放条
                 cursorValue = endValue - screenWithDuration
                 currentPlayingPosition = (currentPlayingTimeInTimeLine - this.cursorValue) * unitMsPixel
             } else {
-                cursorValue += (((ScreenUtil.getScreenWidth(context) / 2).toFloat() - currentPlayingPosition) / unitMsPixel).toLong()
                 currentPlayingPosition = (ScreenUtil.getScreenWidth(context) / 2).toFloat()
+                cursorValue += (((ScreenUtil.getScreenWidth(context) / 2).toFloat() - currentPlayingPosition) / unitMsPixel).toLong()
             }
             invalidate()
             return
@@ -540,13 +540,12 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                 currentPlayingTimeInAudio = audioFragment?.cutPieceFragmentsOrder?.get(0)?.startTimestampTimeInSelf
                     ?: 0
             }
-        }
-        //播放条定位
+        } //播放条定位
         if (currentPlayingTimeInAudio.time2Pixel(unitMsPixel) <= ScreenUtil.getScreenWidth(context) / 2) {
             cursorValue = startValue
             currentPlayingPosition = (currentPlayingTimeInTimeLine - this.cursorValue) * unitMsPixel
         } else if (((audioFragment?.duration
-                ?: 0) - currentPlayingTimeInAudio)*unitMsPixel < ScreenUtil.getScreenWidth(context) / 2
+                ?: 0) - currentPlayingTimeInAudio) * unitMsPixel < ScreenUtil.getScreenWidth(context) / 2
         ) {
             cursorValue = endValue - screenWithDuration
             currentPlayingPosition = (currentPlayingTimeInTimeLine - this.cursorValue) * unitMsPixel
