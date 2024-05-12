@@ -276,6 +276,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
 
 
     fun drawCutBg(canvas: Canvas) {
+        if(isFake){
+            return
+        }
         when (cutMode) {
             CUT_MODE_SELECT, CUT_MODE_JUMP -> {
                 var bitmap = BitmapFactory.decodeResource(audio.getContext()?.resources, R.drawable.cut_piece_bg)
