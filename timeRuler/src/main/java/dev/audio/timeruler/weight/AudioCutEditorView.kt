@@ -508,7 +508,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                 currentPlayingPosition = (currentPlayingTimeInTimeLine - this.cursorValue) * unitMsPixel
             } else {
                 currentPlayingPosition = (ScreenUtil.getScreenWidth(context) / 2).toFloat()
-                cursorValue += (((ScreenUtil.getScreenWidth(context) / 2).toFloat() - currentPlayingPosition) / unitMsPixel).toLong()
+                cursorValue = currentPlayingTimeInTimeLine -  ((ScreenUtil.getScreenWidth(context) / 2).toFloat()/unitMsPixel).toLong()
             }
             invalidate()
             return
