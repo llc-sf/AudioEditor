@@ -185,6 +185,8 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         }
     }
 
+    private var cutAddEnable = false
+    private var cutRemoveEnable = false
 
     private fun initTimeBar(isSaveDta: Boolean = true) {
         val calendar = Calendar.getInstance()
@@ -405,8 +407,15 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
 
             override fun onCutModeChange(addEnable: Boolean, removeEnable: Boolean) {
-                viewBinding.cutAdd.isEnabled = addEnable
-                viewBinding.cutRemove.isEnabled = removeEnable
+                cutAddEnable = addEnable
+                cutRemoveEnable = removeEnable
+                if(PlayerManager.isPlaying){
+                    viewBinding.cutAdd.isEnabled = false
+                    viewBinding.cutRemove.isEnabled = false
+                }else{
+                    viewBinding.cutAdd.isEnabled = addEnable
+                    viewBinding.cutRemove.isEnabled = removeEnable
+                }
             }
         })
 
@@ -593,6 +602,9 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             viewBinding.play.setImageResource(R.drawable.ic_play)
             viewBinding.clStartAncher.isVisible = viewBinding.timeLine.isCutLineStartVisible
             viewBinding.clEndAncher.isVisible = viewBinding.timeLine.isCutLineEndVisible
+            viewBinding.cutAdd.isEnabled = cutAddEnable
+            viewBinding.cutRemove.isEnabled = cutRemoveEnable
+
         }
     }
 
