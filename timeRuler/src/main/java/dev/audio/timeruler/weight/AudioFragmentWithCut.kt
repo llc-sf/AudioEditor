@@ -265,7 +265,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
             var allUnSelected = true
             cutPieceFragments.forEachIndexed { _, cutPieceFragment ->
                 cutPieceFragment.onSingleTapUp(event)
-                allUnSelected = (!cutPieceFragment.isSelected||cutPieceFragment.isFake) && allUnSelected
+                allUnSelected = (!cutPieceFragment.isSelected || cutPieceFragment.isFake) && allUnSelected
             }
             (audioEditorView as? AudioCutEditorView)?.fineTuningEnable(!allUnSelected)
             return true
@@ -285,16 +285,12 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         cutPieceFragments.forEach {
             it.switchCutMode(mode)
         }
+        cutPieceFragments = cutPieceFragments.filter { it.isSelected }.toMutableList()
         if (cutPieceFragments.isEmpty()) {
             initCutFragment(cutMode)
             audioEditorView.invalidate()
             return
         }
-        if (mode == CutPieceFragment.CUT_MODE_JUMP) { //cutPieceFragments只保留isSelected
-            //其他模式转跳剪辑  只保留当前选中的
-            cutPieceFragments = cutPieceFragments.filter { it.isSelected }.toMutableList()
-        }
-
     }
 
     /**
