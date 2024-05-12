@@ -244,16 +244,21 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         }
         var tempCurrentPlayingPosition = event.x
         var tempCurrentPlayingTimeInAudio = cursorValue + (tempCurrentPlayingPosition / unitMsPixel).toLong() - startValue
+        var isNeedPosition2Middle = false
         when (cutMode) {
             CutPieceFragment.CUT_MODE_SELECT -> {
                 if (tempCurrentPlayingTimeInAudio in getCutLineStartTime()..getCutLineEndTime()) { //只需要计算出当前播放条的位置即可，seek 在播放的时候做
                     currentPlayingPosition = tempCurrentPlayingPosition
                     currentPlayingTimeInAudio = tempCurrentPlayingTimeInAudio
                     PlayerManager.seekTo(currentPlayingTimeInAudio - getCutLineStartTime(), 0)
-                } else {
+                    isNeedPosition2Middle = true
+                } else { //                    if (!PlayerManager.isPlaying) {
+                    //                        currentPlayingTimeInAudio = PlayerManager.getCurrentPosition() + getCutLineStartTime()
+                    //                        currentPlayingPosition = cursorPosition + (startValue + currentPlayingTimeInAudio - cursorValue) * unitMsPixel
+                    //                    }
                     if (!PlayerManager.isPlaying) {
-                        currentPlayingTimeInAudio = PlayerManager.getCurrentPosition() + getCutLineStartTime()
-                        currentPlayingPosition = cursorPosition + currentPlayingTimeInAudio * unitMsPixel
+                        currentPlayingTimeInAudio = getCutLineStartTime()
+                        currentPlayingPosition = cursorPosition + (startValue + currentPlayingTimeInAudio - cursorValue) * unitMsPixel
                     }
                 }
             }
@@ -261,14 +266,18 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             CutPieceFragment.CUT_MODE_DELETE -> {
                 if (tempCurrentPlayingTimeInAudio in getCutLineStartTime()..getCutLineEndTime()) { //                    currentPlayingTimeInAudio = 0
                     //只需要计算出当前播放条的位置即可，seek 在播放的时候做
+                    //                    if (!PlayerManager.isPlaying) {
+                    //                        if (PlayerManager.player.currentWindowIndex == 0) {
+                    //                            currentPlayingTimeInAudio = PlayerManager.getCurrentPosition()
+                    //
+                    //                        } else {
+                    //                            currentPlayingTimeInAudio = PlayerManager.getCurrentPosition() + getCutLineEndTime()
+                    //                        }
+                    //                        currentPlayingPosition = cursorPosition + (startValue + currentPlayingTimeInAudio - cursorValue) * unitMsPixel
+                    //                    }
                     if (!PlayerManager.isPlaying) {
-                        if (PlayerManager.player.currentWindowIndex == 0) {
-                            currentPlayingTimeInAudio = PlayerManager.getCurrentPosition()
-
-                        } else {
-                            currentPlayingTimeInAudio = PlayerManager.getCurrentPosition() + getCutLineEndTime()
-                        }
-                        currentPlayingPosition = cursorPosition + currentPlayingTimeInAudio * unitMsPixel
+                        currentPlayingTimeInAudio = 0
+                        currentPlayingPosition = cursorPosition + (startValue + currentPlayingTimeInAudio - cursorValue) * unitMsPixel
                     }
                 } else {
                     currentPlayingPosition = tempCurrentPlayingPosition
@@ -278,6 +287,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                     } else if (currentPlayingTimeInAudio > getCutLineEndTime()) {
                         PlayerManager.seekTo(currentPlayingTimeInAudio - getCutLineEndTime(), 1)
                     }
+                    isNeedPosition2Middle = true
                 }
 
             }
@@ -286,9 +296,13 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                 currentPlayingPosition = tempCurrentPlayingPosition
                 currentPlayingTimeInAudio = tempCurrentPlayingTimeInAudio
                 playJumpSelected(isWholeScreen && PlayerManager.isPlaying)
+                isNeedPosition2Middle = true
             }
         }
-        playingLineAuto2Middle(currentPlayingPosition)
+        if (isNeedPosition2Middle) {
+            playingLineAuto2Middle(currentPlayingPosition)
+        }
+        invalidate()
     }
 
 
@@ -508,7 +522,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                 currentPlayingPosition = (currentPlayingTimeInTimeLine - this.cursorValue) * unitMsPixel
             } else {
                 currentPlayingPosition = (ScreenUtil.getScreenWidth(context) / 2).toFloat()
-                cursorValue = currentPlayingTimeInTimeLine -  ((ScreenUtil.getScreenWidth(context) / 2).toFloat()/unitMsPixel).toLong()
+                cursorValue = currentPlayingTimeInTimeLine - ((ScreenUtil.getScreenWidth(context) / 2).toFloat() / unitMsPixel).toLong()
             }
             invalidate()
             return
@@ -734,7 +748,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             endPlusEnable: Boolean,
         )
 
-        fun onCutLineFineTuningEnable(isEnable:Boolean)
+        fun onCutLineFineTuningEnable(isEnable: Boolean)
     }
 
     var cutLineFineTuningButtonChangeListener: CutLineFineTuningButtonChangeListener? = null
