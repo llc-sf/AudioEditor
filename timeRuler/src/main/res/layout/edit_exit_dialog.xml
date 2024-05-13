@@ -39,7 +39,7 @@
 
         <dev.android.player.widget.text.CornersButton
             android:id="@+id/btn_cancel"
-            style="@style/BottomDialog.Button.Cancel"
+            style="@style/BottomDialog.Button.Cancel_14"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -52,7 +52,7 @@
 
         <dev.android.player.widget.text.CornersButton
             android:id="@+id/btn_discard"
-            style="@style/BottomDialog.Button.Confirm"
+            style="@style/BottomDialog.Button.Confirm_14"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

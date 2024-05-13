@@ -665,7 +665,7 @@
     <string name="start_triming">Start trimming</string>
     <string name="audio_saved">Audio saved</string>
     <string name="song_unavailable">song unAvailable</string>
-    <string name="undo_confrim">Undo Confirm?</string>
+    <string name="undo_confrim">Undo ‘Confirm’?</string>
     <string name="undo">UNDO</string>
     <string name="redo_confrim">Redo Confirm?</string>
     <string name="redo">REDO</string>
