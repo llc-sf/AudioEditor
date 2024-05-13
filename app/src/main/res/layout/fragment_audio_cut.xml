@@ -723,7 +723,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dp_20"
-        android:background="@drawable/rectangle_1affffff_radius_all_18_bg"
+        android:background="@drawable/rectangle_1e1c1c_radius_all_18_bg"
         android:paddingHorizontal="@dimen/dp_20"
         android:paddingVertical="@dimen/dp_20"
         android:visibility="gone"
@@ -731,52 +731,56 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="gone">
+        tools:visibility="visible"
+
+        >
 
         <TextView
             android:id="@+id/tv_title"
             style="@style/BottomDialog.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/edit_exit_dialog_title"
+            android:text="@string/cropping_audio"
+            android:textSize="@dimen/sp_15"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
         <SeekBar
             android:id="@+id/progress"
             android:layout_width="0dp"
-            android:layout_height="@dimen/dp_8"
+            android:layout_height="@dimen/dp_4"
             android:layout_marginTop="@dimen/dp_20"
             android:paddingStart="0dp"
             android:paddingEnd="0dp"
             android:progressDrawable="@drawable/edit_save_progress_drawable"
             android:thumb="@null"
-            app:layout_constraintEnd_toStartOf="@id/progress_text"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
         <TextView
             android:id="@+id/progress_text"
+            style="@style/BottomDialog.Title"
             android:layout_width="@dimen/dp_40"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_12"
-            android:text="0%"
+            android:text="(0%)"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@id/progress"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/progress"
-            app:layout_constraintTop_toTopOf="@id/progress" />
+            android:textSize="@dimen/sp_15"
+            app:layout_constraintBottom_toBottomOf="@id/tv_title"
+            app:layout_constraintStart_toEndOf="@id/tv_title"
+            app:layout_constraintTop_toTopOf="@id/tv_title" />
 
-        <dev.android.player.widget.text.CornersButton
+        <TextView
             android:id="@+id/btn_cancel"
             style="@style/BottomDialog.Button.Confirm"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/dp_20"
             android:gravity="center"
-            android:paddingHorizontal="@dimen/dp_18"
-            android:paddingVertical="@dimen/dp_12"
             android:text="@string/cancel"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/white.alpha.60"
             app:layout_constraintEnd_toEndOf="@id/progress"
             app:layout_constraintTop_toBottomOf="@id/progress" />
     </androidx.constraintlayout.widget.ConstraintLayout>

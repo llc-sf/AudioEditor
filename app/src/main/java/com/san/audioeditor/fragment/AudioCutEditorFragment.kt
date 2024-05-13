@@ -176,7 +176,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         mViewModel.audioCutState.observe(viewLifecycleOwner) {
             if (it.isShowEditLoading == true) {
                 viewBinding.progressLy.isVisible = true
-                viewBinding.progressText.text = "${0}%"
+                viewBinding.progressText.text = "(${0}%)"
             } else if ((it.progress ?: 0) > 0) {
                 viewBinding.progressText.text = "${it.progress}%"
             } else if (it.isShowEditLoading == false) {

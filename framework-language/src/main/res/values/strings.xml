@@ -669,4 +669,5 @@
     <string name="undo">UNDO</string>
     <string name="redo_confrim">Redo Confirm?</string>
     <string name="redo">REDO</string>
+    <string name="cropping_audio">Cropping audio...</string>
 </resources>
