@@ -132,7 +132,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             disableOnSingleTapUp = false
             return false
         }
-        manuallyUpdatePlayingLineCheck(e)
+        manuallyUpdatePlayingLineCheck(e, true)
         invalidate()
         if (audioFragment?.onSingleTapUp(e) == true) {
             return true
@@ -149,7 +149,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 Log.i(cut_tag, "onTouchEvent: ACTION_DOWN touchCutLine=$touchCutLine")
-                lastTouchXProcess = x
+                lastTouchXProcess = event.x
                 var isTargetCut = audioFragment?.isCutLineTarget(event) ?: false
                 if (isTargetCut) {
                     audioFragment?.onTouchEvent(context, this@AudioCutEditorView, event)
@@ -172,7 +172,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                     audioFragment?.onTouchEvent(context, this@AudioCutEditorView, event)
                 }
                 if (touchPlayingLine) {
-                    manuallyUpdatePlayingLineCheck(event)
+                    manuallyUpdatePlayingLineCheck(event, false)
                     invalidate()
 
                     playingLineAuto2Middle(event.x)
@@ -180,6 +180,9 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                 }
                 touchCutLine = false
                 touchPlayingLine = false
+                if (Math.abs(event.x - lastTouchXProcess) > 30) {
+                    disableOnSingleTapUp = true
+                }
             }
 
             MotionEvent.ACTION_MOVE -> {
@@ -238,7 +241,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         refreshPlayingLine() //todo cursor改变引发的一些列变化 总结
     }
 
-    private fun manuallyUpdatePlayingLineCheck(event: MotionEvent) {
+    private fun manuallyUpdatePlayingLineCheck(event: MotionEvent, isClick: Boolean = false) {
         if (audioFragment == null) {
             return
         }
@@ -253,9 +256,15 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                     PlayerManager.seekTo(currentPlayingTimeInAudio - getCutLineStartTime(), 0)
                     isNeedPosition2Middle = true
                 } else {
-                    PlayerManager.seekTo(0, 0)
-                    currentPlayingTimeInAudio = getCutLineStartTime()
-                    currentPlayingPosition = cursorPosition + (startValue + currentPlayingTimeInAudio - cursorValue) * unitMsPixel
+                    if (isClick) {
+                        PlayerManager.seekTo(0, 0)
+                        currentPlayingTimeInAudio = getCutLineStartTime()
+                        currentPlayingPosition = cursorPosition + (startValue + currentPlayingTimeInAudio - cursorValue) * unitMsPixel
+                    } else {
+                        currentPlayingTimeInAudio = PlayerManager.getCurrentPosition() + getCutLineStartTime()
+                        currentPlayingPosition = cursorPosition + currentPlayingTimeInAudio * unitMsPixel
+                    }
+
                 }
             }
 
@@ -275,9 +284,20 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                     //                        currentPlayingTimeInAudio = 0
                     //                        currentPlayingPosition = cursorPosition + (startValue + currentPlayingTimeInAudio - cursorValue) * unitMsPixel
                     //                    }
-                    PlayerManager.seekTo(0, 0)
-                    currentPlayingTimeInAudio = 0
-                    currentPlayingPosition = cursorPosition + (startValue + currentPlayingTimeInAudio - cursorValue) * unitMsPixel
+                    if (isClick) {
+                        PlayerManager.seekTo(0, 0)
+                        currentPlayingTimeInAudio = 0
+                        currentPlayingPosition = cursorPosition + (startValue + currentPlayingTimeInAudio - cursorValue) * unitMsPixel
+                    } else {
+                        if (PlayerManager.player.currentWindowIndex == 0) {
+                            currentPlayingTimeInAudio = PlayerManager.getCurrentPosition()
+
+                        } else {
+                            currentPlayingTimeInAudio = PlayerManager.getCurrentPosition() + getCutLineEndTime()
+                        }
+                        currentPlayingPosition = cursorPosition + currentPlayingTimeInAudio * unitMsPixel
+                    }
+
                 } else {
                     currentPlayingPosition = tempCurrentPlayingPosition
                     currentPlayingTimeInAudio = tempCurrentPlayingTimeInAudio
