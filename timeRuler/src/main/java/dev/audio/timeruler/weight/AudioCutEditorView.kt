@@ -252,14 +252,10 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                     currentPlayingTimeInAudio = tempCurrentPlayingTimeInAudio
                     PlayerManager.seekTo(currentPlayingTimeInAudio - getCutLineStartTime(), 0)
                     isNeedPosition2Middle = true
-                } else { //                    if (!PlayerManager.isPlaying) {
-                    //                        currentPlayingTimeInAudio = PlayerManager.getCurrentPosition() + getCutLineStartTime()
-                    //                        currentPlayingPosition = cursorPosition + (startValue + currentPlayingTimeInAudio - cursorValue) * unitMsPixel
-                    //                    }
-                    if (!PlayerManager.isPlaying) {
-                        currentPlayingTimeInAudio = getCutLineStartTime()
-                        currentPlayingPosition = cursorPosition + (startValue + currentPlayingTimeInAudio - cursorValue) * unitMsPixel
-                    }
+                } else {
+                    PlayerManager.seekTo(0, 0)
+                    currentPlayingTimeInAudio = getCutLineStartTime()
+                    currentPlayingPosition = cursorPosition + (startValue + currentPlayingTimeInAudio - cursorValue) * unitMsPixel
                 }
             }
 
@@ -275,10 +271,13 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                     //                        }
                     //                        currentPlayingPosition = cursorPosition + (startValue + currentPlayingTimeInAudio - cursorValue) * unitMsPixel
                     //                    }
-                    if (!PlayerManager.isPlaying) {
-                        currentPlayingTimeInAudio = 0
-                        currentPlayingPosition = cursorPosition + (startValue + currentPlayingTimeInAudio - cursorValue) * unitMsPixel
-                    }
+                    //                    if (!PlayerManager.isPlaying) {
+                    //                        currentPlayingTimeInAudio = 0
+                    //                        currentPlayingPosition = cursorPosition + (startValue + currentPlayingTimeInAudio - cursorValue) * unitMsPixel
+                    //                    }
+                    PlayerManager.seekTo(0, 0)
+                    currentPlayingTimeInAudio = 0
+                    currentPlayingPosition = cursorPosition + (startValue + currentPlayingTimeInAudio - cursorValue) * unitMsPixel
                 } else {
                     currentPlayingPosition = tempCurrentPlayingPosition
                     currentPlayingTimeInAudio = tempCurrentPlayingTimeInAudio
