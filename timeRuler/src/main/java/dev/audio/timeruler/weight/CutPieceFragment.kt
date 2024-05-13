@@ -119,7 +119,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     private val rect by Ref { audio.rect }
     private val unitMsPixel by Ref { audio.unitMsPixel }
     private val baselinePosition by Ref { audio.baselinePosition }
-
+    private val isWholeScreen by Ref { audio.isWholeScreen }
 
     private val onCutLineChangeListener by Ref { audio.onCutLineChangeListener }
     private val onTrimAnchorChangeListener by Ref { audio.onTrimAnchorChangeListener }
@@ -276,7 +276,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
 
 
     fun drawCutBg(canvas: Canvas) {
-        if(isFake){
+        if (isFake) {
             return
         }
         when (cutMode) {
@@ -795,7 +795,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                 if (isMovingEnd || isMovingStart) {
                     cutLineMove2Middle(event)
                     if (resumePlaying) {
-                        PlayerManager.play()
+                        if (isWholeScreen == true) {
+                            PlayerManager.play()
+                        }
                     }
                     resumePlaying = false
                     checkPlayingLine()
@@ -1124,7 +1126,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
 
     fun onSingleTapUp(event: MotionEvent): Boolean {
         isSelected = event.x in startTimestampPosition..endTimestampPosition
-        if(isSelected){
+        if (isSelected) {
             onCutLineChangeListener?.onCutLineChange(startTimestampTimeInSelf, endTimestampTimeInSelf)
         }
         audio.invalidate()

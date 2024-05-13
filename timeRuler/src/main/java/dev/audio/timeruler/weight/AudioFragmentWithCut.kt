@@ -47,6 +47,8 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
 
     val currentPlayingTimeInAudio by Ref { audioEditorView.currentPlayingTimeInAudio }
 
+    val isWholeScreen by Ref { (audioEditorView as? AudioCutEditorView)?.isWholeScreen }
+
     var cutPieceFragments = mutableListOf<CutPieceFragment>()
 
     val onCutLineChangeListener by Ref { audioEditorView.onCutLineChangeListener }
