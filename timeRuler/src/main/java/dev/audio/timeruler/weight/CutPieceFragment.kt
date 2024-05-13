@@ -1124,6 +1124,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
 
     fun onSingleTapUp(event: MotionEvent): Boolean {
         isSelected = event.x in startTimestampPosition..endTimestampPosition
+        if(isSelected){
+            onCutLineChangeListener?.onCutLineChange(startTimestampTimeInSelf, endTimestampTimeInSelf)
+        }
         audio.invalidate()
         return isSelected
     }
