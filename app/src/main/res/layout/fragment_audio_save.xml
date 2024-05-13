@@ -38,6 +38,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginTop="-2dp"
         android:layout_marginEnd="@dimen/dp_8"
         android:ellipsize="end"
         android:gravity="start"
@@ -53,12 +54,12 @@
         android:id="@+id/audio_info"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginBottom="-4dp"
         android:textColor="@color/white.alpha.50"
         android:textSize="@dimen/sp_13"
+        app:layout_constraintBottom_toBottomOf="@id/audio_img"
         app:layout_constraintEnd_toEndOf="@id/audio_title"
-        app:layout_constraintStart_toStartOf="@id/audio_title"
-        app:layout_constraintTop_toBottomOf="@id/audio_title" />
+        app:layout_constraintStart_toStartOf="@id/audio_title" />
 
     <ImageView
         android:id="@+id/rename"
