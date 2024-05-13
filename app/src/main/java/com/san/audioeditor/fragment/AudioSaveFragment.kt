@@ -41,13 +41,13 @@ class AudioSaveFragment : BaseMVVMFragment<FragmentAudioSaveBinding>() {
         viewBinding.toolbar.setNavigationOnClickListener {
             mActivity?.finish()
         }
-        mViewModel.initData(requireContext(),arguments)
+        mViewModel.initData(requireContext(), arguments)
     }
 
     override fun startObserve() {
         mViewModel.audioSaveState.observe(viewLifecycleOwner) {
-            if(it.song != null){
-                viewBinding.songTitle.text = it.song!!.title
+            if (it.song != null) {
+                viewBinding.audioTitle.text = it.song!!.title
             }
         }
     }

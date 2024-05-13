@@ -1,5 +1,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -18,17 +19,162 @@
         app:title="@string/audio_save" />
 
 
+    <ImageView
+        android:id="@+id/audio_img"
+        android:layout_width="@dimen/dp_48"
+        android:layout_height="@dimen/dp_48"
+        android:layout_marginStart="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_40"
+        android:background="@drawable/rectangle_8white_radius_all_8_bg"
+        android:paddingHorizontal="@dimen/dp_12"
+        android:paddingVertical="@dimen/dp_12"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:srcCompat="@drawable/ic_audio_frame" />
+
     <TextView
-        android:id="@+id/song_title"
+        android:id="@+id/audio_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_20"
-        android:gravity="center"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:ellipsize="end"
+        android:gravity="start"
+        android:maxLines="2"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="@dimen/sp_15"
+        app:layout_constraintEnd_toStartOf="@id/rename"
+        app:layout_constraintStart_toEndOf="@id/audio_img"
+        app:layout_constraintTop_toTopOf="@id/audio_img"
+        tools:text="audio title" />
+
+    <TextView
+        android:id="@+id/audio_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:textColor="@color/white.alpha.50"
+        android:textSize="@dimen/sp_13"
+        app:layout_constraintEnd_toEndOf="@id/audio_title"
+        app:layout_constraintStart_toStartOf="@id/audio_title"
+        app:layout_constraintTop_toBottomOf="@id/audio_title" />
+
+    <ImageView
+        android:id="@+id/rename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_34"
+        app:layout_constraintBottom_toBottomOf="@id/audio_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/audio_title"
+        app:srcCompat="@drawable/ic_rename" />
+
+    <View
+        android:id="@+id/audio_bg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="-20dp"
+        android:layout_marginTop="-24dp"
+        android:layout_marginEnd="-20dp"
+        android:layout_marginBottom="-24dp"
+        android:background="@drawable/rectangle_5white_radius_all_14_bg"
+        app:layout_constraintBottom_toBottomOf="@id/audio_info"
+        app:layout_constraintEnd_toEndOf="@id/rename"
+        app:layout_constraintStart_toStartOf="@id/audio_img"
+        app:layout_constraintTop_toTopOf="@id/audio_title" />
+
+    <TextView
+        android:id="@+id/output"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_26"
+        android:background="@drawable/rect_ee294d_corner_14"
+        android:gravity="center"
+        android:paddingVertical="@dimen/dp_14"
+        android:text="@string/enter_outputs"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/audio_bg" />
+
+
+    <TextView
+        android:id="@+id/share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_40"
+        android:gravity="center"
+        android:text="@string/share"
+        android:textColor="@color/white.alpha.40"
+        android:textSize="@dimen/sp_13"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/output" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/white.alpha.10"
+        app:layout_constraintBottom_toBottomOf="@id/share"
+        app:layout_constraintEnd_toStartOf="@id/share"
+        app:layout_constraintStart_toStartOf="@id/output"
+        app:layout_constraintTop_toTopOf="@id/share" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/white.alpha.10"
+        app:layout_constraintBottom_toBottomOf="@id/share"
+        app:layout_constraintEnd_toEndOf="@id/output"
+        app:layout_constraintStart_toEndOf="@id/share"
+        app:layout_constraintTop_toTopOf="@id/share" />
+
+
+    <ImageView
+        android:id="@+id/share_whatsapp"
+        android:layout_width="@dimen/dp_52"
+        android:layout_height="@dimen/dp_52"
+        android:layout_marginTop="@dimen/dp_24"
+        app:layout_constraintEnd_toStartOf="@id/share_drive"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/share"
+        app:srcCompat="@mipmap/img_share_whatsapp" />
+
+    <ImageView
+        android:id="@+id/share_drive"
+        android:layout_width="@dimen/dp_52"
+        android:layout_height="@dimen/dp_52"
+        app:layout_constraintBottom_toBottomOf="@id/share_whatsapp"
+        app:layout_constraintEnd_toStartOf="@id/share_gmail"
+        app:layout_constraintStart_toEndOf="@id/share_whatsapp"
+        app:layout_constraintTop_toTopOf="@id/share_whatsapp"
+        app:srcCompat="@mipmap/img_share_drive"
+
+        />
+
+    <ImageView
+        android:id="@+id/share_gmail"
+        android:layout_width="@dimen/dp_52"
+        android:layout_height="@dimen/dp_52"
+        app:layout_constraintBottom_toBottomOf="@id/share_whatsapp"
+        app:layout_constraintEnd_toStartOf="@id/share_more"
+        app:layout_constraintStart_toEndOf="@id/share_drive"
+        app:layout_constraintTop_toTopOf="@id/share_whatsapp"
+        app:srcCompat="@mipmap/img_share_gmail" />
+
+    <ImageView
+        android:id="@+id/share_more"
+        android:layout_width="@dimen/dp_52"
+        android:layout_height="@dimen/dp_52"
+        app:layout_constraintBottom_toBottomOf="@id/share_whatsapp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/share_gmail"
+        app:layout_constraintTop_toTopOf="@id/share_whatsapp"
+        app:srcCompat="@mipmap/img_share_more" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
