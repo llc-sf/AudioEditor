@@ -383,6 +383,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             }
         })
 
+        //裁剪微调
         viewBinding.timeLine.addOnCutLineChangeListener(object :
                                                             AudioCutEditorView.OnCutLineChangeListener {
 

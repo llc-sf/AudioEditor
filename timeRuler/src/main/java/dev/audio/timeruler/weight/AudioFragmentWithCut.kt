@@ -44,13 +44,6 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         }
 
     var cutMode: Int = CutPieceFragment.CUT_MODE_SELECT
-        get() {
-            cutPieceFragments?.forEach {
-                return it.cutMode
-            }
-            return CutPieceFragment.CUT_MODE_SELECT
-        }
-
 
     val currentPlayingTimeInAudio by Ref { audioEditorView.currentPlayingTimeInAudio }
 
@@ -59,6 +52,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
     val onCutLineChangeListener by Ref { audioEditorView.onCutLineChangeListener }
     val onTrimAnchorChangeListener by Ref { audioEditorView.onTrimAnchorChangeListener }
     val cutModeChangeButtonEnableListener by Ref { audioEditorView.cutModeChangeButtonEnableListener }
+    val cutLineFineTuningButtonChangeListener by Ref { audioEditorView.cutLineFineTuningButtonChangeListener }
 
     var isCutLineStartVisible: Boolean = true
         get() {
@@ -262,6 +256,10 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
      */
     fun onSingleTapUp(event: MotionEvent): Boolean {
         if (cutMode == CutPieceFragment.CUT_MODE_JUMP) {
+            if(cutPieceFragments.isEmpty()){
+                (audioEditorView as? AudioCutEditorView)?.fineTuningEnable(false)
+                return true
+            }
             var allUnSelected = true
             cutPieceFragments.forEachIndexed { _, cutPieceFragment ->
                 cutPieceFragment.onSingleTapUp(event)
@@ -329,6 +327,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         if (cutPieceFragments.isEmpty()) {
             PlayerManager.pause()
             cutModeChangeButtonEnableListener?.onCutModeChange(true, false)
+            cutLineFineTuningButtonChangeListener?.onCutLineFineTuningEnable(false)
             audioEditorView.invalidate()
             return
         }
