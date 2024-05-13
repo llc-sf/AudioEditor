@@ -186,9 +186,10 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         }
     }
 
+    //todo  封装到控件内
     private var cutAddEnable = false
     private var cutRemoveEnable = false
-
+    //todo  封装到控件内
     private var startMinusEnable = false
     private var startPlusEnable = false
     private var endMinusEnable = false
