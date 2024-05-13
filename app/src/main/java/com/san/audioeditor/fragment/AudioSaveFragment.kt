@@ -1,6 +1,13 @@
 package com.san.audioeditor.fragment
 
+import android.os.Bundle
+import android.view.ContextMenu
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import com.san.audioeditor.R
 import com.san.audioeditor.cell.CellAudioItemView
 import com.san.audioeditor.databinding.FragmentAudioSaveBinding
 import com.san.audioeditor.databinding.FragmentMediaPickBinding
@@ -29,6 +36,11 @@ class AudioSaveFragment : BaseMVVMFragment<FragmentAudioSaveBinding>() {
         MultiTypeFastScrollAdapter()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
 
     override fun initViewBinding(inflater: LayoutInflater): FragmentAudioSaveBinding {
         return FragmentAudioSaveBinding.inflate(inflater)
@@ -39,9 +51,15 @@ class AudioSaveFragment : BaseMVVMFragment<FragmentAudioSaveBinding>() {
         mViewModel = AudioSaveViewModel()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_audio_save, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
 
     override fun initView() {
         super.initView()
+        (activity as? AppCompatActivity)?.setSupportActionBar(viewBinding.toolbar)
         viewBinding.toolbar.ImmerseDesign()
         viewBinding.toolbar.setNavigationOnClickListener {
             mActivity?.finish()
