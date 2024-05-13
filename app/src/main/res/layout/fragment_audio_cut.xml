@@ -276,24 +276,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_40"
-        android:scaleX="3"
-        android:scaleY="3"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="@id/timeLine"
         app:layout_constraintTop_toTopOf="@id/timeLine"
-        app:srcCompat="@mipmap/ic_bar_left" />
+        app:srcCompat="@drawable/ic_bar_jumptoleft" />
 
     <ImageView
         android:id="@+id/cl_end_ancher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp_30"
-        android:scaleX="3"
-        android:scaleY="3"
+        android:layout_marginBottom="@dimen/dp_40"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/timeLine"
         app:layout_constraintEnd_toEndOf="@id/timeLine"
-        app:srcCompat="@mipmap/ic_bar_right" />
+        app:srcCompat="@drawable/ic_bar_jumptoright" />
 
     <TextView
         android:id="@+id/confirm"
