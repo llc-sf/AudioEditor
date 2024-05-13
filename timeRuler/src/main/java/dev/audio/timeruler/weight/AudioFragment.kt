@@ -8,6 +8,7 @@ import android.graphics.Rect
 import android.graphics.RectF
 import android.util.Log
 import dev.audio.ffmpeglib.tool.TimeUtil
+import dev.audio.timeruler.BuildConfig
 import dev.audio.timeruler.weight.BaseAudioEditorView.Companion.long_press_tag
 import dev.audio.timeruler.weight.BaseAudioEditorView.Companion.time_line_tag
 import dev.audio.timeruler.bean.Ref
@@ -139,7 +140,7 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
 
     var path: String? = null
 
-    open fun initCutFragment(cutMode:Int=CutPieceFragment.CUT_MODE_SELECT) {
+    open fun initCutFragment(cutMode: Int = CutPieceFragment.CUT_MODE_SELECT) {
     }
 
     //颜色
@@ -184,8 +185,7 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
         val centerY = getTrackYPosition() // 使用新变量设置垂直位置
         waveRect(centerY, canvas)
         var wf = waveform
-        val samples = wf?.amplitudes ?: return
-        // 确保最大振幅不为0
+        val samples = wf?.amplitudes ?: return // 确保最大振幅不为0
         var maxAmplitude = (samples.maxOrNull() ?: 0).toFloat()
         if (maxAmplitude == 0f) {
             maxAmplitude = 1f // 防止除以0，设置一个默认值
@@ -216,8 +216,6 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
             canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, mWavePaint)
         }
     }
-
-
 
 
     open fun onDrawEndDeal(canvas: Canvas) {
@@ -270,7 +268,9 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
             this.style = Paint.Style.STROKE
             this.strokeWidth = strokeWidth
         }
-        canvas.drawRect(rect!!, rectPaint)
+        if (BuildConfig.DEBUG) {
+            canvas.drawRect(rect!!, rectPaint)
+        }
     }
 
 
