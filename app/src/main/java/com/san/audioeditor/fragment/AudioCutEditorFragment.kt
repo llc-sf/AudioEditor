@@ -178,7 +178,8 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 viewBinding.progressLy.isVisible = true
                 viewBinding.progressText.text = "(${0}%)"
             } else if ((it.progress ?: 0) > 0) {
-                viewBinding.progressText.text = "${it.progress}%"
+                viewBinding.progressText.text = "(${it.progress}%)"
+                viewBinding.progress.progress = it.progress ?: 0
             } else if (it.isShowEditLoading == false) {
                 viewBinding.progressLy.isVisible = false
             }
@@ -782,7 +783,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                     Log.i(BaseAudioEditorView.jni_tag, "progress=$progress")
                     editLoadingDialog?.freshProgress(progress)
                     viewBinding.progress.progress = progress
-                    viewBinding.progressText.text = "$progress%"
+                    viewBinding.progressText.text = "($progress%)"
                 }
 
                 FFmpegHandler.MSG_INFO -> {
