@@ -369,9 +369,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                                                                   AudioCutEditorView.OnCutLineAnchorChangeListener {
 
             override fun onCutLineChange(start: Boolean, end: Boolean) {
-                if (PlayerManager.isPlaying) {
-                    return
-                }
                 viewBinding.clpLeft.visibility = if (start) View.VISIBLE else View.INVISIBLE
                 viewBinding.clpRight.visibility = if (end) View.VISIBLE else View.INVISIBLE
                 viewBinding.clStartAncher.visibility = if (start) View.VISIBLE else View.INVISIBLE
@@ -612,15 +609,15 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         }
         if (isPlaying) {
             viewBinding.play.setImageResource(R.drawable.ic_puase)
-            viewBinding.clStartAncher.isVisible = false
-            viewBinding.clEndAncher.isVisible = false
+//            viewBinding.clStartAncher.isVisible = false
+//            viewBinding.clEndAncher.isVisible = false
 
             viewBinding.cutLineStart.freshButtonEnable(false, false)
             viewBinding.cutLineEnd.freshButtonEnable(false, false)
         } else {
             viewBinding.play.setImageResource(R.drawable.ic_play)
-            viewBinding.clStartAncher.isVisible = viewBinding.timeLine.isCutLineStartVisible
-            viewBinding.clEndAncher.isVisible = viewBinding.timeLine.isCutLineEndVisible
+//            viewBinding.clStartAncher.isVisible = viewBinding.timeLine.isCutLineStartVisible
+//            viewBinding.clEndAncher.isVisible = viewBinding.timeLine.isCutLineEndVisible
             viewBinding.cutAdd.isEnabled = cutAddEnable
             viewBinding.cutRemove.isEnabled = cutRemoveEnable
 

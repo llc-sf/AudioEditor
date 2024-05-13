@@ -923,6 +923,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
 
     fun anchor2CutEndLine() {
         if (isSelected) {
+            PlayerManager.pause()
             var offsetTimeValue = ((ScreenUtil.getScreenWidth(audio.getContext())
                 .toFloat() / 2 - endTimestampPosition) / unitMsPixel).toLong()
             var tempCursor = audio.cursorValue - offsetTimeValue
@@ -935,6 +936,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
 
     fun anchor2CutStartLine() {
         if (isSelected) {
+            PlayerManager.pause()
             var offsetTimeValue = ((ScreenUtil.getScreenWidth(audio.getContext())
                 .toFloat() / 2 - startTimestampPosition) / unitMsPixel).toLong()
             var tempCursor = audio.cursorValue - offsetTimeValue
