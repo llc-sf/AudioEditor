@@ -267,7 +267,7 @@
         app:layout_constraintStart_toStartOf="@id/timeLine"
         app:layout_constraintTop_toTopOf="@id/timeLine"
         app:lottie_autoPlay="true"
-        app:lottie_fileName="playing.json"
+        app:lottie_fileName="trimloading.json"
         app:lottie_loop="true"
         app:lottie_repeatMode="restart" />
 
