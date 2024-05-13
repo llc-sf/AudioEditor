@@ -19,3 +19,22 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+
+-keepclasseswithmembers class * {
+    native <methods>;
+}
+
+
+-keepclassmembers class linc.com.amplituda.Amplituda {
+    native <methods>;
+}
+-keepclassmembers class dev.audio.ffmpeglib.FFmpegCmd {
+    native <methods>;
+}
