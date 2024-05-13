@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color.101010">
+    android:background="@color/color_101010">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -120,6 +120,7 @@
     <View
         android:layout_width="0dp"
         android:layout_height="@dimen/dp_1"
+        android:layout_marginEnd="@dimen/dp_12"
         android:background="@color/white.alpha.10"
         app:layout_constraintBottom_toBottomOf="@id/share"
         app:layout_constraintEnd_toStartOf="@id/share"
@@ -129,6 +130,7 @@
     <View
         android:layout_width="0dp"
         android:layout_height="@dimen/dp_1"
+        android:layout_marginStart="@dimen/dp_12"
         android:background="@color/white.alpha.10"
         app:layout_constraintBottom_toBottomOf="@id/share"
         app:layout_constraintEnd_toEndOf="@id/output"
