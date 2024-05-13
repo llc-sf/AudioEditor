@@ -62,7 +62,7 @@ class UndoConfirmDialog : BaseBottomTranslucentDialog() {
         try { // 假设你已经有一个 TextView 实例叫 textView
             val text = context?.resources?.getString(R.string.undo_confrim)
                 ?: "" // 创建一个 SpannableString
-            var keyText = "‘Confirm’"
+            var keyText = "'Confirm'"
             val spannable = SpannableString(text) // 查找 "Confirm" 单词在字符串中的位置
             val start = text.indexOf(keyText)
             val end = start + keyText.length // 创建一个颜色 span 来改变文本颜色
