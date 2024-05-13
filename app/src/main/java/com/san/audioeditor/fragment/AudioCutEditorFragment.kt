@@ -447,11 +447,13 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                                                          endPlusEnable: Boolean) {
                 viewBinding.cutLineStart.freshButtonEnable(startMinusEnable, startPlusEnable)
                 viewBinding.cutLineEnd.freshButtonEnable(endMinusEnable, endPlusEnable)
+
             }
 
             override fun onCutLineFineTuningEnable(isEnable: Boolean) {
                 viewBinding.cutLineStart.fineTuningEnable(isEnable)
                 viewBinding.cutLineEnd.fineTuningEnable(isEnable)
+                viewBinding.durationSelected.visibility = if (isEnable) View.VISIBLE else View.INVISIBLE
             }
         })
 
