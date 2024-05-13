@@ -21,18 +21,18 @@ object AudioSyncUtil {
     private fun AudioSyncUtil.getSystemSongs(context: Context): List<Song> {
         val result: MutableList<Song> = ArrayList()
         try {
-            context.contentResolver.query(
-                android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                null, null, null, null
-            )?.use { cursor ->
-                result.addAll(cursor.convertSongs())
-                DataSortHelper.sort(result, Song::class.java, SortBusiness.getAllSongsSortByAddTimeStatus(), SortBusiness.getAllSongsSortByAddTimeStatus())
-            }
+            context.contentResolver.query(android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, null, null, null)
+                ?.use { cursor ->
+                    result.addAll(cursor.convertSongs())
+                    DataSortHelper.sort(result, Song::class.java, SortBusiness.getAllSongsSortByAddTimeStatus(), SortBusiness.getAllSongsSortByAddTimeStatus())
+                }
         } catch (e: Exception) {
             e.printStackTrace()
             android.util.Log.e(TAG, "getSystemSongs: " + android.util.Log.getStackTraceString(e))
         }
-        return result.apply {
+
+        //todo
+        return result.filter { !it.title.startsWith("cut_") }.apply {
             Log.i(TAG, "getSystemSongs: size = $size")
         }
     }
