@@ -72,33 +72,9 @@ class DialogTimerSetting : BaseBottomTranslucentDialog() {
     }
 
 
-    private fun hideKeyboard() {
-        val activity: Activity? = activity
-        if (activity != null) {
-            val inputMethodManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            var view = activity.currentFocus
-            if (view == null) {
-                view = View(activity)
-            }
-
-            val result = inputMethodManager.hideSoftInputFromWindow(view.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
-            Log.d("DialogTimerSetting", "hideKeyboard result: $result")
-
-            if (!result) {
-                inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
-                Log.d("DialogTimerSetting", "toggleSoftInput called to hide keyboard")
-            }
-        } else {
-            Log.d("DialogTimerSetting", "activity is null")
-        }
-    }
-
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        // 设置对话框的软键盘模式
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog { // 设置对话框的软键盘模式
         dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         return super.onCreateDialog(savedInstanceState)
-
     }
 
 
@@ -149,7 +125,7 @@ class DialogTimerSetting : BaseBottomTranslucentDialog() {
             dismiss()
         }
         binding.btnCancel.setOnClickListener {
-                dismiss()
+            dismiss()
         }
     }
 
@@ -266,6 +242,10 @@ class DialogTimerSetting : BaseBottomTranslucentDialog() {
             }
         }
 
+    }
 
+
+    override fun getSoftInputMode(): Int {
+        return WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
     }
 }
