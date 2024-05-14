@@ -228,7 +228,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 marginStart = ScreenUtil.getScreenWidth(requireContext()) - tipsView.measuredWidth - margin
             }
             tipsView.topArrow().updateLayoutParams<ConstraintLayout.LayoutParams> {
-                marginStart = tipsView.measuredWidth - tipsView.topArrow().measuredWidth/2  - viewBinding.save.width / 2
+                marginStart = tipsView.measuredWidth - tipsView.topArrow().measuredWidth / 2 - viewBinding.save.width / 2
             }
             tipsView.setAction {
                 (rootView as? FrameLayout)?.removeView(tipsView)
@@ -239,6 +239,44 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     }
 
     private fun showEditTips() {
+        var x = 0
+        var y = 0
+        val location = IntArray(2)
+        var ancherView = viewBinding.actionEdit
+        ancherView.getLocationOnScreen(location)
+        activity?.window?.decorView?.let { rootView ->
+            val layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
+            var img = ImageView(requireContext()).apply {
+                setImageBitmap(onDraw(ancherView))
+            }
+            (rootView as? FrameLayout)?.addView(img, layoutParams)
+            img.updateLayoutParams<FrameLayout.LayoutParams> {
+                topMargin = location[1]
+                marginStart = location[0]
+            }
+
+            var tipsView = CutPipsView(requireContext(), isTopArrow = true, content = getString(R.string.redo_undo_tips))
+            val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+            val heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+            tipsView.measure(widthMeasureSpec, heightMeasureSpec)
+            (rootView as? FrameLayout)?.addView(tipsView, FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT))
+            tipsView.updateLayoutParams<FrameLayout.LayoutParams> {
+                var margin = 20.dp
+                topMargin = location[1] + ancherView.measuredHeight + margin
+                marginStart = location[0]
+            }
+            tipsView.topArrow().updateLayoutParams<ConstraintLayout.LayoutParams> {
+                marginStart = ancherView.width / 2 - tipsView.topArrow().measuredWidth / 2
+            }
+            tipsView.setAction {
+                (rootView as? FrameLayout)?.removeView(tipsView)
+                (rootView as? FrameLayout)?.removeView(img)
+                showCutLineTips()
+            }
+        }
+    }
+
+    private fun showCutLineTips() {
 
     }
 

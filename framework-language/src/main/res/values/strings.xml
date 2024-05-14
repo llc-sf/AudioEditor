@@ -675,4 +675,5 @@
     <string name="drag_to_trim_or_cut">Drag to trim or cut</string>
     <string name="choose_trim_method">Choose trim method</string>
     <string name="confirm_this_trimming">Confirm this trimming</string>
+    <string name="redo_undo_tips">Redo / Undo \'Confirm\'</string>
 </resources>
