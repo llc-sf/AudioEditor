@@ -9,7 +9,7 @@
     <dev.audio.timeruler.timer.NumberPickerView
         android:id="@+id/hour"
         android:layout_width="@dimen/dp_60"
-        android:layout_height="@dimen/dp_120"
+        android:layout_height="@dimen/dp_126"
         app:npv_SelectedItemBackground="@drawable/rectangle_1e1c1c_radius_all_8_bg"
         app:npv_ShowDivider="false"
         app:npv_ShownCount="3"
@@ -17,7 +17,7 @@
         app:npv_TextColorSelected="?attr/textColorPrimary"
         app:npv_TextSizeHint="@dimen/sp_40"
         app:npv_TextSizeNormal="@dimen/sp_28"
-        app:npv_TextSizeSelected="@dimen/sp_40"
+        app:npv_TextSizeSelected="@dimen/sp_32"
         app:npv_WrapSelectorWheel="false" />
 
     <TextView
@@ -35,7 +35,7 @@
     <dev.audio.timeruler.timer.NumberPickerView
         android:id="@+id/minute"
         android:layout_width="@dimen/dp_60"
-        android:layout_height="@dimen/dp_120"
+        android:layout_height="@dimen/dp_126"
         android:minHeight="@dimen/dp_100"
         app:npv_SelectedItemBackground="@drawable/rectangle_1e1c1c_radius_all_8_bg"
         app:npv_ShowDivider="false"
@@ -44,7 +44,7 @@
         app:npv_TextColorSelected="?attr/textColorPrimary"
         app:npv_TextSizeHint="@dimen/sp_40"
         app:npv_TextSizeNormal="@dimen/sp_28"
-        app:npv_TextSizeSelected="@dimen/sp_40"
+        app:npv_TextSizeSelected="@dimen/sp_32"
         app:npv_WrapSelectorWheel="true" />
 
     <TextView
@@ -62,7 +62,7 @@
     <dev.audio.timeruler.timer.NumberPickerView
         android:id="@+id/second"
         android:layout_width="@dimen/dp_60"
-        android:layout_height="@dimen/dp_120"
+        android:layout_height="@dimen/dp_126"
         android:minHeight="@dimen/dp_100"
         app:npv_SelectedItemBackground="@drawable/rectangle_1e1c1c_radius_all_8_bg"
         app:npv_ShowDivider="false"
@@ -70,7 +70,7 @@
         app:npv_TextColorHint="?attr/textColorSecondary"
         app:npv_TextColorSelected="?attr/textColorPrimary"
         app:npv_TextSizeNormal="@dimen/sp_28"
-        app:npv_TextSizeSelected="@dimen/sp_40"
+        app:npv_TextSizeSelected="@dimen/sp_32"
         app:npv_WrapSelectorWheel="true" />
 
     <TextView
@@ -88,7 +88,7 @@
     <dev.audio.timeruler.timer.NumberPickerView
         android:id="@+id/msecond"
         android:layout_width="@dimen/dp_60"
-        android:layout_height="@dimen/dp_120"
+        android:layout_height="@dimen/dp_126"
         android:minHeight="@dimen/dp_100"
         app:npv_SelectedItemBackground="@drawable/rectangle_1e1c1c_radius_all_8_bg"
         app:npv_ShowDivider="false"
@@ -96,6 +96,6 @@
         app:npv_TextColorHint="?attr/textColorSecondary"
         app:npv_TextColorSelected="?attr/textColorPrimary"
         app:npv_TextSizeNormal="@dimen/sp_28"
-        app:npv_TextSizeSelected="@dimen/sp_40"
+        app:npv_TextSizeSelected="@dimen/sp_32"
         app:npv_WrapSelectorWheel="true" />
 </merge>
