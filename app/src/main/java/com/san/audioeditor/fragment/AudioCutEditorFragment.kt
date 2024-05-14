@@ -3,6 +3,8 @@ package com.san.audioeditor.fragment
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -12,7 +14,10 @@ import android.provider.MediaStore
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
@@ -30,6 +35,7 @@ import com.san.audioeditor.activity.AudioCutActivity
 import com.san.audioeditor.databinding.FragmentAudioCutBinding
 import com.san.audioeditor.handler.FFmpegHandler
 import com.san.audioeditor.storage.convertSong
+import com.san.audioeditor.view.tips.CutPipsView
 import com.san.audioeditor.viewmodel.AudioCutViewModel
 import dev.android.player.framework.base.BaseMVVMFragment
 import dev.android.player.framework.data.model.Song
@@ -127,6 +133,177 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         mViewModel.initData(requireContext(), arguments)
         initTimeBar()
         adapterScreenHeight()
+        showTips()
+    }
+
+    private fun showTips() {
+        viewBinding.timeLine.post {
+            if (activity == null) {
+                return@post
+            }
+            if (activity?.isFinishing == true) {
+                return@post
+            }
+            if (!isAdded) {
+                return@post
+            }
+            val callback: OnBackPressedCallback = object :
+                OnBackPressedCallback(true /* enabled by default */) {
+                override fun handleOnBackPressed() { // 在这里处理返回逻辑
+                }
+            }
+            showDragTips()
+        }
+    }
+
+    //裁剪模式提示
+    fun showCutModeTips() {
+        var x = 0
+        var y = 0
+        val location = IntArray(2)
+        var ancherView = viewBinding.modelLy
+        ancherView.getLocationOnScreen(location)
+        activity?.window?.decorView?.let { rootView ->
+            val layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
+            var bg = ImageView(requireContext()).apply {
+                setBackgroundColor(requireContext().resources.getColor(R.color.black_alpha_70))
+            }
+            var img = ImageView(requireContext()).apply {
+                setImageBitmap(onDraw(ancherView))
+            }
+            (rootView as? FrameLayout)?.addView(bg, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
+            (rootView as? FrameLayout)?.addView(img, layoutParams)
+            img.updateLayoutParams<FrameLayout.LayoutParams> {
+                topMargin = location[1]
+                marginStart = 20.dp
+            }
+
+            var tipsView = CutPipsView(requireContext(), isBottomArrow = true, content = getString(R.string.choose_trim_method))
+            val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+            val heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+            tipsView.measure(widthMeasureSpec, heightMeasureSpec)
+            (rootView as? FrameLayout)?.addView(tipsView, FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT))
+            tipsView.updateLayoutParams<FrameLayout.LayoutParams> {
+                var margin = 20.dp
+                topMargin = location[1] - tipsView.measuredHeight - margin
+                marginStart = 20.dp
+            }
+            tipsView.bottomArrow().updateLayoutParams<ConstraintLayout.LayoutParams> {
+                marginStart = viewBinding.keepSelected.measuredWidth / 2 - tipsView.bottomArrow().width / 2
+            }
+            tipsView.setAction {
+                (rootView as? FrameLayout)?.removeView(tipsView)
+                (rootView as? FrameLayout)?.removeView(img)
+                showConfirmTips()
+            }
+        }
+    }
+
+    //确认提示
+    private fun showConfirmTips() {
+        var x = 0
+        var y = 0
+        val location = IntArray(2)
+        var ancherView = viewBinding.confirm
+        ancherView.getLocationOnScreen(location)
+        activity?.window?.decorView?.let { rootView ->
+            val layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
+            var img = ImageView(requireContext()).apply {
+                setImageBitmap(onDraw(ancherView))
+            }
+            (rootView as? FrameLayout)?.addView(img, layoutParams)
+            img.updateLayoutParams<FrameLayout.LayoutParams> {
+                topMargin = location[1]
+                marginStart = 20.dp
+            }
+
+            var tipsView = CutPipsView(requireContext(), isBottomArrow = true, content = getString(R.string.confirm_this_trimming))
+            val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+            val heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+            tipsView.measure(widthMeasureSpec, heightMeasureSpec)
+            (rootView as? FrameLayout)?.addView(tipsView, FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT))
+            tipsView.updateLayoutParams<FrameLayout.LayoutParams> {
+                var margin = 20.dp
+                topMargin = location[1] - tipsView.measuredHeight - margin
+                marginStart = ScreenUtil.getScreenWidth(requireContext()) / 2 - tipsView.measuredWidth / 2
+            }
+            tipsView.bottomArrow().updateLayoutParams<ConstraintLayout.LayoutParams> {
+                marginStart = tipsView.measuredWidth / 2 - tipsView.bottomArrow().width / 2
+            }
+            tipsView.setAction {
+                (rootView as? FrameLayout)?.removeView(tipsView)
+                (rootView as? FrameLayout)?.removeView(img)
+                showSaveTips()
+            }
+        }
+    }
+
+    private fun showSaveTips() {
+
+    }
+
+
+    fun showDragTips() {
+        var x = 0
+        var y = 0
+        val location = IntArray(2)
+        var ancherview = viewBinding.timeLine
+        ancherview.getLocationOnScreen(location)
+        activity?.window?.decorView?.let { rootView ->
+            val layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
+            var bg = ImageView(requireContext()).apply {
+                setBackgroundColor(requireContext().resources.getColor(R.color.black_alpha_70))
+            }
+            var img = ImageView(requireContext()).apply {
+                setImageBitmap(cropMiddleThirdWidth(onDraw(ancherview)))
+            }
+            (rootView as? FrameLayout)?.addView(bg, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
+            (rootView as? FrameLayout)?.addView(img, layoutParams)
+            img.updateLayoutParams<FrameLayout.LayoutParams> {
+                topMargin = location[1]
+                marginStart = ScreenUtil.getScreenWidth(requireContext()) / 3 - 30
+            }
+
+            var tipsView = CutPipsView(requireContext(), isTopArrow = true, content = getString(R.string.drag_to_trim_or_cut))
+            val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+            val heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+            tipsView.measure(widthMeasureSpec, heightMeasureSpec)
+            (rootView as? FrameLayout)?.addView(tipsView, FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT))
+            tipsView.updateLayoutParams<FrameLayout.LayoutParams> {
+                topMargin = location[1] + ancherview.measuredHeight
+                marginStart = ScreenUtil.getScreenWidth(requireContext()) / 2 - tipsView.measuredWidth / 2
+            }
+            tipsView.topArrow().updateLayoutParams<ConstraintLayout.LayoutParams> {
+                marginStart = tipsView.measuredWidth / 2 - tipsView.topArrow().width / 2
+            }
+            tipsView.setAction {
+                (rootView as? FrameLayout)?.removeView(tipsView)
+                (rootView as? FrameLayout)?.removeView(img)
+                showCutModeTips()
+            }
+        }
+    }
+
+    fun onDraw(view: View): Bitmap {
+        val bitmap = Bitmap.createBitmap(view.measuredWidth, view.measuredHeight, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        canvas.setBitmap(bitmap)
+        val drawable = view.background
+        drawable?.draw(canvas)
+        view.draw(canvas)
+        return bitmap
+    }
+
+    fun cropMiddleThirdWidth(bitmap: Bitmap): Bitmap {
+        val width = bitmap.width
+        val height = bitmap.height
+
+        // 计算从中间开始截取的区域
+        val startX = width / 3 - 30
+        val cropWidth = width / 3 + 60
+
+        // 创建新的位图
+        return Bitmap.createBitmap(bitmap, startX, 0, cropWidth, height)
     }
 
     /**
@@ -189,6 +366,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     //todo  封装到控件内
     private var cutAddEnable = false
     private var cutRemoveEnable = false
+
     //todo  封装到控件内
     private var startMinusEnable = false
     private var startPlusEnable = false
@@ -609,16 +787,14 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             return
         }
         if (isPlaying) {
-            viewBinding.play.setImageResource(R.drawable.ic_puase)
-//            viewBinding.clStartAncher.isVisible = false
-//            viewBinding.clEndAncher.isVisible = false
+            viewBinding.play.setImageResource(R.drawable.ic_puase) //            viewBinding.clStartAncher.isVisible = false
+            //            viewBinding.clEndAncher.isVisible = false
 
             viewBinding.cutLineStart.freshButtonEnable(false, false)
             viewBinding.cutLineEnd.freshButtonEnable(false, false)
         } else {
-            viewBinding.play.setImageResource(R.drawable.ic_play)
-//            viewBinding.clStartAncher.isVisible = viewBinding.timeLine.isCutLineStartVisible
-//            viewBinding.clEndAncher.isVisible = viewBinding.timeLine.isCutLineEndVisible
+            viewBinding.play.setImageResource(R.drawable.ic_play) //            viewBinding.clStartAncher.isVisible = viewBinding.timeLine.isCutLineStartVisible
+            //            viewBinding.clEndAncher.isVisible = viewBinding.timeLine.isCutLineEndVisible
             viewBinding.cutAdd.isEnabled = cutAddEnable
             viewBinding.cutRemove.isEnabled = cutRemoveEnable
 

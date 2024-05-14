@@ -12,6 +12,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import androidx.fragment.app.FragmentManager
+import dev.android.player.framework.utils.OncePreferencesUtil
 import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.timeruler.R
 import dev.audio.timeruler.bean.AudioFragmentBean
@@ -91,6 +92,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         init(attrs)
     }
 
+    private var needShowTips = false
     private fun init(attrs: AttributeSet?) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.BaseScaleBar)
         playingTextSize = typedArray.getDimension(R.styleable.BaseScaleBar_playingTextSize, SizeUtils.sp2px(context, 8f)
@@ -101,6 +103,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
         setTickMarkStrategy(this)
         mCursorPositionProportion = 0.0f
+        needShowTips = !OncePreferencesUtil.get(OncePreferencesUtil.key_cut_tips)
     }
 
 
@@ -371,10 +374,12 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
 
     private fun drawPlayingLine(canvas: Canvas) {
-        canvas.drawLine(currentPlayingPosition, baselinePosition, currentPlayingPosition, audioFragment?.rect?.bottom?.toFloat()
-            ?: 0f, playingLinePaint)
-        var y = drawTriangle(canvas, audioFragment?.rect?.bottom?.toFloat() ?: 0f)
-        drawText(canvas, y, currentPlayingTimeInAudio.format2DurationSimple())
+        if (!needShowTips) {
+            canvas.drawLine(currentPlayingPosition, baselinePosition, currentPlayingPosition, audioFragment?.rect?.bottom?.toFloat()
+                ?: 0f, playingLinePaint)
+            var y = drawTriangle(canvas, audioFragment?.rect?.bottom?.toFloat() ?: 0f)
+            drawText(canvas, y, currentPlayingTimeInAudio.format2DurationSimple())
+        }
     }
 
     //播放条 播放条与三角的间距

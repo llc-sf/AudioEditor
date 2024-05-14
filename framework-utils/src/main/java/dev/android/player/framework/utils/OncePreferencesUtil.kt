@@ -9,6 +9,8 @@ object OncePreferencesUtil {
 
     const val key = "once_preferences"
 
+    const val key_cut_tips = "cut_tips"
+
 
     var mPreferences: SharedPreferences = SharedPreferenceV2(AppProvider.context.getSharedPreferences(key, Context.MODE_PRIVATE))
 
