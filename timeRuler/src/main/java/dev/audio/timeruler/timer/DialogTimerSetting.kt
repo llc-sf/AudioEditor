@@ -1,13 +1,20 @@
 package dev.audio.timeruler.timer
 
+import android.app.Activity
+import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
+import dev.android.player.framework.utils.KeyboardUtil
 import dev.audio.timeruler.R
 import dev.audio.timeruler.databinding.DialogSleeptimerSettingBinding
 
@@ -64,6 +71,37 @@ class DialogTimerSetting : BaseBottomTranslucentDialog() {
         return binding.root
     }
 
+
+    private fun hideKeyboard() {
+        val activity: Activity? = activity
+        if (activity != null) {
+            val inputMethodManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            var view = activity.currentFocus
+            if (view == null) {
+                view = View(activity)
+            }
+
+            val result = inputMethodManager.hideSoftInputFromWindow(view.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+            Log.d("DialogTimerSetting", "hideKeyboard result: $result")
+
+            if (!result) {
+                inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
+                Log.d("DialogTimerSetting", "toggleSoftInput called to hide keyboard")
+            }
+        } else {
+            Log.d("DialogTimerSetting", "activity is null")
+        }
+    }
+
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        // 设置对话框的软键盘模式
+        dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        return super.onCreateDialog(savedInstanceState)
+
+    }
+
+
     private var keyboardMode = false
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -77,6 +115,7 @@ class DialogTimerSetting : BaseBottomTranslucentDialog() {
                 if (binding.timePickKb.getTime().time >= min || binding.timePickKb.getTime().time <= max) {
                     binding.timePick.freshTime(Time(binding.timePickKb.getTime().time))
                 }
+                KeyboardUtil.hideKeyboard(activity)
             } else {
                 binding.keyBoard.setImageResource(R.drawable.ic_roll)
             }

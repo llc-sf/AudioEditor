@@ -19,6 +19,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
@@ -107,12 +108,30 @@ public class KeyboardUtil {
      *
      * @param act
      */
-    public static void hideKeyboard(Activity act) {
-        if (act != null && act.getCurrentFocus() != null) {
-            InputMethodManager inputMethodManager = (InputMethodManager) act.getSystemService(Activity.INPUT_METHOD_SERVICE);
-            inputMethodManager.hideSoftInputFromWindow(act.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    public static void hideKeyboard(Activity activity) {
+        try {
+            if (activity != null) {
+                InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+                View view = activity.getCurrentFocus();
+                if (view == null) {
+                    view = new View(activity);
+                }
+
+                boolean result = inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                Log.d("KeyboardUtil", "hideKeyboard result: " + result);
+
+                if (!result) {
+                    inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                    Log.d("KeyboardUtil", "toggleSoftInput called to hide keyboard");
+                }
+            } else {
+                Log.d("KeyboardUtil", "activity is null");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+
 
     public static void hideKeyboard(Context context) {
         if (context instanceof Activity) {
