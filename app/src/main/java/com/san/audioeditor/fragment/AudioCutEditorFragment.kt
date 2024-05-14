@@ -277,7 +277,40 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     }
 
     private fun showCutLineTips() {
+        var x = 0
+        var y = 0
+        val location = IntArray(2)
+        var ancherView = viewBinding.trimAnchorLy
+        ancherView.getLocationOnScreen(location)
+        activity?.window?.decorView?.let { rootView ->
+            val layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
+            var img = ImageView(requireContext()).apply {
+                setImageBitmap(onDraw(ancherView))
+            }
+            (rootView as? FrameLayout)?.addView(img, layoutParams)
+            img.updateLayoutParams<FrameLayout.LayoutParams> {
+                topMargin = location[1]
+                marginStart = location[0]
+            }
 
+            var tipsView = CutPipsView(requireContext(), isBottomArrow = true, content = getString(R.string.confirm_this_trimming))
+            val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+            val heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+            tipsView.measure(widthMeasureSpec, heightMeasureSpec)
+            (rootView as? FrameLayout)?.addView(tipsView, FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT))
+            tipsView.updateLayoutParams<FrameLayout.LayoutParams> {
+                var margin = 20.dp
+                topMargin = location[1] - tipsView.measuredHeight - margin
+                marginStart = location[0]
+            }
+            tipsView.bottomArrow().updateLayoutParams<ConstraintLayout.LayoutParams> {
+                marginStart = tipsView.measuredWidth / 2 - tipsView.bottomArrow().width / 2
+            }
+            tipsView.setAction {
+                (rootView as? FrameLayout)?.removeView(tipsView)
+                (rootView as? FrameLayout)?.removeView(img)
+            }
+        }
     }
 
     //确认提示
@@ -295,7 +328,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             (rootView as? FrameLayout)?.addView(img, layoutParams)
             img.updateLayoutParams<FrameLayout.LayoutParams> {
                 topMargin = location[1]
-                marginStart = 20.dp
+                marginStart = location[0]
             }
 
             var tipsView = CutPipsView(requireContext(), isBottomArrow = true, content = getString(R.string.confirm_this_trimming))
