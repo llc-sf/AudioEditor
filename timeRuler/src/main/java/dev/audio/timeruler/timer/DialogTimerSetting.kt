@@ -110,7 +110,7 @@ class DialogTimerSetting : BaseBottomTranslucentDialog() {
             dismiss()
         }
         binding.btnCancel.setOnClickListener {
-
+                dismiss()
         }
     }
 
@@ -161,7 +161,7 @@ class DialogTimerSetting : BaseBottomTranslucentDialog() {
     class Time(var time: Long) : Parcelable {
 
         //时间戳
-        private val totalSeconds = time / 1000.0
+        val totalSeconds = time / 1000.0
         var hours: Int = 0
             get() {
                 return (totalSeconds / 3600).toInt()

@@ -195,14 +195,20 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
         freshTime(cutTime.time)
     }
 
+    fun timeAvi(time: DialogTimerSetting.Time): Boolean {
+        return time.time >= cutTime.minTime.time && time.time <= cutTime.maxTime.time
+    }
+
     fun freshTime(time: DialogTimerSetting.Time) {
-        binding.hour.value = time.hours
-        binding.minute.value = time.minutes
-        binding.second.value = time.second
-        binding.msecond.value = time.secondDecimal
-        if (cutTime.maxTime.hours == 0) {
-            binding.hour.visibility = View.GONE
-            binding.space1.visibility = View.GONE
+        if (timeAvi(time)) {
+            binding.hour.value = time.hours
+            binding.minute.value = time.minutes
+            binding.second.value = time.second
+            binding.msecond.value = time.secondDecimal
+            if (cutTime.maxTime.hours == 0) {
+                binding.hour.visibility = View.GONE
+                binding.space1.visibility = View.GONE
+            }
         }
     }
 
