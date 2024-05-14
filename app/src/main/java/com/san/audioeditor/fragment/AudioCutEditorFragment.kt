@@ -165,20 +165,16 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         ancherView.getLocationOnScreen(location)
         activity?.window?.decorView?.let { rootView ->
             val layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
-            var bg = ImageView(requireContext()).apply {
-                setBackgroundColor(requireContext().resources.getColor(R.color.black_alpha_70))
-            }
             var img = ImageView(requireContext()).apply {
                 setImageBitmap(onDraw(ancherView))
             }
-            (rootView as? FrameLayout)?.addView(bg, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
             (rootView as? FrameLayout)?.addView(img, layoutParams)
             img.updateLayoutParams<FrameLayout.LayoutParams> {
                 topMargin = location[1]
                 marginStart = 20.dp
             }
 
-            var tipsView = CutPipsView(requireContext(), isBottomArrow = true, content = getString(R.string.choose_trim_method))
+            var tipsView = CutPipsView(requireContext(), isBottomArrow = true, content = getString(R.string.choose_trim_method), actionMsg = getString(R.string.next))
             val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
             val heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
             tipsView.measure(widthMeasureSpec, heightMeasureSpec)
@@ -217,7 +213,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 marginStart = location[0]
             }
 
-            var tipsView = CutPipsView(requireContext(), isTopArrow = true, content = getString(R.string.confirm_this_trimming))
+            var tipsView = CutPipsView(requireContext(), isTopArrow = true, content = getString(R.string.confirm_this_trimming), actionMsg = getString(R.string.got_it))
             val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
             val heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
             tipsView.measure(widthMeasureSpec, heightMeasureSpec)
@@ -255,7 +251,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 marginStart = location[0]
             }
 
-            var tipsView = CutPipsView(requireContext(), isTopArrow = true, content = getString(R.string.redo_undo_tips))
+            var tipsView = CutPipsView(requireContext(), isTopArrow = true, content = getString(R.string.redo_undo_tips), actionMsg = getString(R.string.got_it))
             val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
             val heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
             tipsView.measure(widthMeasureSpec, heightMeasureSpec)
@@ -293,7 +289,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 marginStart = location[0]
             }
 
-            var tipsView = CutPipsView(requireContext(), isBottomArrow = true, content = getString(R.string.confirm_this_trimming))
+            var tipsView = CutPipsView(requireContext(), isBottomArrow = true, content = getString(R.string.confirm_this_trimming), actionMsg = getString(R.string.got_it))
             val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
             val heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
             tipsView.measure(widthMeasureSpec, heightMeasureSpec)
@@ -309,6 +305,9 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             tipsView.setAction {
                 (rootView as? FrameLayout)?.removeView(tipsView)
                 (rootView as? FrameLayout)?.removeView(img)
+                (rootView as? FrameLayout)?.findViewById<View>(R.id.tips_bg)?.let {
+                    (rootView as? FrameLayout)?.removeView(it)
+                }
             }
         }
     }
@@ -331,7 +330,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 marginStart = location[0]
             }
 
-            var tipsView = CutPipsView(requireContext(), isBottomArrow = true, content = getString(R.string.confirm_this_trimming))
+            var tipsView = CutPipsView(requireContext(), isBottomArrow = true, content = getString(R.string.confirm_this_trimming), actionMsg = getString(R.string.next))
             val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
             val heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
             tipsView.measure(widthMeasureSpec, heightMeasureSpec)
@@ -362,7 +361,8 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         activity?.window?.decorView?.let { rootView ->
             val layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
             var bg = ImageView(requireContext()).apply {
-                setBackgroundColor(requireContext().resources.getColor(R.color.black_alpha_70))
+                setBackgroundColor(requireContext().resources.getColor(R.color.black_alpha_85))
+                id = R.id.tips_bg
             }
             var img = ImageView(requireContext()).apply {
                 setImageBitmap(cropMiddleThirdWidth(onDraw(ancherview)))
@@ -374,7 +374,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 marginStart = ScreenUtil.getScreenWidth(requireContext()) / 3 - 30
             }
 
-            var tipsView = CutPipsView(requireContext(), isTopArrow = true, content = getString(R.string.drag_to_trim_or_cut))
+            var tipsView = CutPipsView(requireContext(), isTopArrow = true, content = getString(R.string.drag_to_trim_or_cut), actionMsg = getString(R.string.next))
             val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
             val heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
             tipsView.measure(widthMeasureSpec, heightMeasureSpec)

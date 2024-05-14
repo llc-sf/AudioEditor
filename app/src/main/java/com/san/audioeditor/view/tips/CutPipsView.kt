@@ -18,7 +18,9 @@ class CutPipsView @JvmOverloads constructor(context: Context,
                                             defStyleAttr: Int = 0,
                                             isTopArrow: Boolean = false,
                                             isBottomArrow: Boolean = false,
-                                            content: String) :
+                                            content: String,
+                                            actionMsg:String
+                                            ) :
     LinearLayout(context, attrs, defStyleAttr) {
 
     init { // 从XML布局文件中加载布局
@@ -26,6 +28,7 @@ class CutPipsView @JvmOverloads constructor(context: Context,
         findViewById<ImageView>(R.id.arrow_top).isVisible = isTopArrow
         findViewById<ImageView>(R.id.arrow_bottom).isVisible = isBottomArrow
         findViewById<TextView>(R.id.title).text = content
+        findViewById<TextView>(R.id.action).text = actionMsg
     }
 
     fun topArrow(): ImageView {
