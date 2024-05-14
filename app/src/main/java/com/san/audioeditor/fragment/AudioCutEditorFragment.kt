@@ -40,6 +40,7 @@ import com.san.audioeditor.viewmodel.AudioCutViewModel
 import dev.android.player.framework.base.BaseMVVMFragment
 import dev.android.player.framework.data.model.Song
 import dev.android.player.framework.utils.ImmerseDesign
+import dev.android.player.framework.utils.OncePreferencesUtil
 import dev.android.player.framework.utils.getLocationOnScreen
 import dev.audio.ffmpeglib.FFmpegApplication
 import dev.audio.ffmpeglib.tool.FFmpegUtil
@@ -133,7 +134,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         mViewModel.initData(requireContext(), arguments)
         initTimeBar()
         adapterScreenHeight()
-        showTips()
     }
 
     private fun showTips() {
@@ -346,7 +346,12 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             tipsView.setAction {
                 (rootView as? FrameLayout)?.removeView(tipsView)
                 (rootView as? FrameLayout)?.removeView(img)
-                showSaveTips()
+                (rootView as? FrameLayout)?.findViewById<View>(R.id.tips_bg)?.let {
+                    (rootView as? FrameLayout)?.removeView(it)
+                }
+                OncePreferencesUtil.set(OncePreferencesUtil.key_cut_tips)
+                viewBinding.timeLine.needShowTips = false
+                PlayerManager.play()
             }
         }
     }
@@ -824,7 +829,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         if (isSaveDta) {
             addData(viewBinding.timeLine.audioFragmentBean)
         }
-        PlayerManager.play()
+
     }
 
     private fun freshCutModeView(mode: Int) {
@@ -923,8 +928,17 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             viewBinding.waveLoading.pauseAnimation()
             viewBinding.waveLoading.isVisible = false
             freshZoomView()
+            waveDataLoaded()
         }
         play(requireContext())
+    }
+
+    private fun waveDataLoaded() {
+        if(!OncePreferencesUtil.get(OncePreferencesUtil.key_cut_tips)){
+            showTips()
+        }else{
+            PlayerManager.play()
+        }
     }
 
 

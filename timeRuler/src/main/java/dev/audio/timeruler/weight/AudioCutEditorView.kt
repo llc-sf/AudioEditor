@@ -92,7 +92,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         init(attrs)
     }
 
-    private var needShowTips = false
+    var needShowTips = false
     private fun init(attrs: AttributeSet?) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.BaseScaleBar)
         playingTextSize = typedArray.getDimension(R.styleable.BaseScaleBar_playingTextSize, SizeUtils.sp2px(context, 8f)
