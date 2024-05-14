@@ -147,11 +147,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             if (!isAdded) {
                 return@post
             }
-            val callback: OnBackPressedCallback = object :
-                OnBackPressedCallback(true /* enabled by default */) {
-                override fun handleOnBackPressed() { // 在这里处理返回逻辑
-                }
-            }
             showDragTips()
         }
     }
@@ -236,6 +231,8 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 OncePreferencesUtil.set(OncePreferencesUtil.key_cut_tips)
                 viewBinding.timeLine.needShowTips = false
                 PlayerManager.play()
+
+                callback.remove()
             }
         }
     }
@@ -244,6 +241,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         if (OncePreferencesUtil.get(OncePreferencesUtil.key_confirm_tips)) {
             return
         }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback!!)
         var x = 0
         var y = 0
         val location = IntArray(2)
@@ -254,6 +252,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             var bg = ImageView(requireContext()).apply {
                 setBackgroundColor(requireContext().resources.getColor(R.color.black_alpha_85))
                 id = R.id.tips_bg
+                setOnClickListener {  }
             }
             var img = ImageView(requireContext()).apply {
                 setImageBitmap(onDraw(ancherView))
@@ -284,6 +283,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 (rootView as? FrameLayout)?.removeView(bg)
 
                 OncePreferencesUtil.set(OncePreferencesUtil.key_confirm_tips)
+                callback.remove()
             }
         }
     }
@@ -292,6 +292,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         if (OncePreferencesUtil.get(OncePreferencesUtil.key_switch_mode_tips)) {
             return
         }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback!!)
         var x = 0
         var y = 0
         val location = IntArray(2)
@@ -302,6 +303,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             var bg = ImageView(requireContext()).apply {
                 setBackgroundColor(requireContext().resources.getColor(R.color.black_alpha_85))
                 id = R.id.tips_bg
+                setOnClickListener {  }
             }
             var img = ImageView(requireContext()).apply {
                 setImageBitmap(onDraw(ancherView))
@@ -332,8 +334,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 (rootView as? FrameLayout)?.removeView(bg)
 
                 OncePreferencesUtil.set(OncePreferencesUtil.key_cut_tips)
-
-
+                callback.remove()
             }
         }
     }
@@ -378,9 +379,16 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     }
 
 
+    var callback = object : OnBackPressedCallback(true /* enabled by default */) {
+        override fun handleOnBackPressed() { // 在这里处理返回逻辑
+        }
+    } // 将回调添加到OnBackPressedDispatcher
+
     fun showDragTips() {
         var x = 0
         var y = 0
+
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback!!)
         val location = IntArray(2)
         var ancherview = viewBinding.timeLine
         ancherview.getLocationOnScreen(location)
@@ -389,6 +397,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             var bg = ImageView(requireContext()).apply {
                 setBackgroundColor(requireContext().resources.getColor(R.color.black_alpha_85))
                 id = R.id.tips_bg
+                setOnClickListener {  }
             }
             var img = ImageView(requireContext()).apply {
                 setImageBitmap(cropMiddleThirdWidth(onDraw(ancherview)))
