@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
+import dev.audio.timeruler.R
 import dev.audio.timeruler.databinding.DialogSleeptimerSettingBinding
 
 
@@ -72,12 +73,12 @@ class DialogTimerSetting : BaseBottomTranslucentDialog() {
             binding.timePick.isVisible = !keyboardMode
             binding.timePickKb.focous()
             if (!keyboardMode) {
-                binding.keyBoard.text = "键盘"
+                binding.keyBoard.setImageResource(R.drawable.ic_keyboard)
                 if (binding.timePickKb.getTime().time >= min || binding.timePickKb.getTime().time <= max) {
                     binding.timePick.freshTime(Time(binding.timePickKb.getTime().time))
                 }
             } else {
-                binding.keyBoard.text = "滚动"
+                binding.keyBoard.setImageResource(R.drawable.ic_roll)
             }
         }
         var time = 0L
