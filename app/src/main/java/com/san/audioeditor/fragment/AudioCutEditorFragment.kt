@@ -229,12 +229,21 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             tipsView.setAction {
                 (rootView as? FrameLayout)?.removeView(tipsView)
                 (rootView as? FrameLayout)?.removeView(img)
-                showEditTips()
+
+                (rootView as? FrameLayout)?.findViewById<View>(R.id.tips_bg)?.let {
+                    (rootView as? FrameLayout)?.removeView(it)
+                }
+                OncePreferencesUtil.set(OncePreferencesUtil.key_cut_tips)
+                viewBinding.timeLine.needShowTips = false
+                PlayerManager.play()
             }
         }
     }
 
     private fun showEditTips() {
+        if (OncePreferencesUtil.get(OncePreferencesUtil.key_confirm_tips)) {
+            return
+        }
         var x = 0
         var y = 0
         val location = IntArray(2)
@@ -242,9 +251,14 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         ancherView.getLocationOnScreen(location)
         activity?.window?.decorView?.let { rootView ->
             val layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
+            var bg = ImageView(requireContext()).apply {
+                setBackgroundColor(requireContext().resources.getColor(R.color.black_alpha_85))
+                id = R.id.tips_bg
+            }
             var img = ImageView(requireContext()).apply {
                 setImageBitmap(onDraw(ancherView))
             }
+            (rootView as? FrameLayout)?.addView(bg, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
             (rootView as? FrameLayout)?.addView(img, layoutParams)
             img.updateLayoutParams<FrameLayout.LayoutParams> {
                 topMargin = location[1]
@@ -267,12 +281,17 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             tipsView.setAction {
                 (rootView as? FrameLayout)?.removeView(tipsView)
                 (rootView as? FrameLayout)?.removeView(img)
-                showCutLineTips()
+                (rootView as? FrameLayout)?.removeView(bg)
+
+                OncePreferencesUtil.set(OncePreferencesUtil.key_confirm_tips)
             }
         }
     }
 
     private fun showCutLineTips() {
+        if (OncePreferencesUtil.get(OncePreferencesUtil.key_switch_mode_tips)) {
+            return
+        }
         var x = 0
         var y = 0
         val location = IntArray(2)
@@ -280,9 +299,14 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         ancherView.getLocationOnScreen(location)
         activity?.window?.decorView?.let { rootView ->
             val layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
+            var bg = ImageView(requireContext()).apply {
+                setBackgroundColor(requireContext().resources.getColor(R.color.black_alpha_85))
+                id = R.id.tips_bg
+            }
             var img = ImageView(requireContext()).apply {
                 setImageBitmap(onDraw(ancherView))
             }
+            (rootView as? FrameLayout)?.addView(bg, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
             (rootView as? FrameLayout)?.addView(img, layoutParams)
             img.updateLayoutParams<FrameLayout.LayoutParams> {
                 topMargin = location[1]
@@ -305,9 +329,11 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             tipsView.setAction {
                 (rootView as? FrameLayout)?.removeView(tipsView)
                 (rootView as? FrameLayout)?.removeView(img)
-                (rootView as? FrameLayout)?.findViewById<View>(R.id.tips_bg)?.let {
-                    (rootView as? FrameLayout)?.removeView(it)
-                }
+                (rootView as? FrameLayout)?.removeView(bg)
+
+                OncePreferencesUtil.set(OncePreferencesUtil.key_cut_tips)
+
+
             }
         }
     }
@@ -346,12 +372,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             tipsView.setAction {
                 (rootView as? FrameLayout)?.removeView(tipsView)
                 (rootView as? FrameLayout)?.removeView(img)
-                (rootView as? FrameLayout)?.findViewById<View>(R.id.tips_bg)?.let {
-                    (rootView as? FrameLayout)?.removeView(it)
-                }
-                OncePreferencesUtil.set(OncePreferencesUtil.key_cut_tips)
-                viewBinding.timeLine.needShowTips = false
-                PlayerManager.play()
+                showSaveTips()
             }
         }
     }
@@ -573,6 +594,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         viewBinding.jumpSelected.setOnClickListener {
             viewBinding.timeLine.switchCutMode(CutPieceFragment.CUT_MODE_JUMP)
             freshCutModeView(CutPieceFragment.CUT_MODE_JUMP)
+            showCutLineTips()
         }
 
         viewBinding.cutAdd.setOnClickListener {
@@ -934,9 +956,9 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     }
 
     private fun waveDataLoaded() {
-        if(!OncePreferencesUtil.get(OncePreferencesUtil.key_cut_tips)){
+        if (!OncePreferencesUtil.get(OncePreferencesUtil.key_cut_tips)) {
             showTips()
-        }else{
+        } else {
             PlayerManager.play()
         }
     }
@@ -1091,6 +1113,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                         } else {
                             Toast.makeText(requireContext(), "裁剪失败", Toast.LENGTH_SHORT).show()
                         }
+                        showEditTips()
                     }
                 }
 
