@@ -1324,7 +1324,9 @@ public class NumberPickerView extends View {
             int top = (int) dividerY0;
             int right = mViewWidth - getPaddingRight() - mDividerMarginR;
             int bottom = (int) dividerY1;
-            mSelectedItemBackground.setBounds(left, top, right, bottom);
+            int paddingH = 10;
+            int paddingV = 20;
+            mSelectedItemBackground.setBounds(left - paddingH, top - paddingV, right + paddingH, bottom + paddingV);
             mSelectedItemBackground.draw(canvas);
             canvas.restore();
         }
