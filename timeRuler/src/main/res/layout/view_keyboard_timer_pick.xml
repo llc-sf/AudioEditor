@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
@@ -104,11 +105,12 @@
         android:id="@+id/error_tips"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/dp_14"
+        android:layout_marginTop="@dimen/dp_12"
         android:drawablePadding="@dimen/dp_2"
         android:textColor="?attr/colorAccent"
         android:textSize="@dimen/sp_12"
         android:visibility="invisible"
-        app:drawableStartCompat="@drawable/ic_notice" />
+        app:drawableStartCompat="@drawable/ic_notice"
+        tools:visibility="visible" />
 
 </merge>

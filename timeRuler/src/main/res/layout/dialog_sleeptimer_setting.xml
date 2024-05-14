@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clipChildren="false"
-    android:clipToPadding="false"
-    android:orientation="vertical">
+    android:clipToPadding="false">
 
 
     <TextView
@@ -32,7 +31,7 @@
         android:id="@+id/time_ly"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_40"
         android:clipChildren="false"
         android:clipToPadding="false"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,6 +52,7 @@
     </FrameLayout>
 
     <LinearLayout
+        android:id="@+id/action_ly"
         style="@style/BottomDialog.ButtonContainer"
         android:layout_width="0dp"
         android:layout_height="match_parent"
