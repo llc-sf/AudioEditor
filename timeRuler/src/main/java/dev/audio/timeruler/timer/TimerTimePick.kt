@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import dev.audio.timeruler.databinding.ViewSleepTimerPickBinding
+import dev.audio.timeruler.utils.dp
 
 
 /**
@@ -40,6 +41,7 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
         binding.hour.setContentTextTypeface(Typeface.DEFAULT_BOLD)
         binding.hour.setOnValueChangedListener(this)
         binding.hour.setOnValueChangeListenerInScrolling(this)
+        binding.hour.setItemVerticalSpacing(22.dp)
 
         binding.minute.setDisplayedValues(getMinuteDisplayValue())
         binding.minute.minValue = if (cutTime.minTime.hours == cutTime.time.hours) cutTime.minTime.minutes else 0
@@ -47,6 +49,7 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
         binding.minute.setContentTextTypeface(Typeface.DEFAULT_BOLD)
         binding.minute.setOnValueChangedListener(this)
         binding.minute.setOnValueChangeListenerInScrolling(this)
+        binding.minute.setItemVerticalSpacing(10.dp)
 
         binding.second.setDisplayedValues(getMinuteDisplayValue())
         binding.second.minValue = if (cutTime.minTime.hours == cutTime.time.hours && cutTime.minTime.minutes == cutTime.time.minutes) cutTime.minTime.second else 0
@@ -54,6 +57,7 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
         binding.second.setContentTextTypeface(Typeface.DEFAULT_BOLD)
         binding.second.setOnValueChangedListener(this)
         binding.second.setOnValueChangeListenerInScrolling(this)
+        binding.second.setItemVerticalSpacing(10.dp)
 
 
         binding.msecond.setDisplayedValues(getMsSecondDisplayValue())
@@ -62,6 +66,7 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
         binding.msecond.setContentTextTypeface(Typeface.DEFAULT_BOLD)
         binding.msecond.setOnValueChangedListener(this)
         binding.msecond.setOnValueChangeListenerInScrolling(this)
+        binding.msecond.setItemVerticalSpacing(10.dp)
     }
 
 

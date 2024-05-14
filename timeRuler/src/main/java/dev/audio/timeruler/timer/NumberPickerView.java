@@ -1298,7 +1298,7 @@ public class NumberPickerView extends View {
         if (specMode == MeasureSpec.EXACTLY) {
             result = specSize;
         } else {
-            int maxHeight = mShownCount * (mMaxHeightOfDisplayedValues + 2 * mItemPaddingVertical);
+            int maxHeight = mShownCount * (mMaxHeightOfDisplayedValues + 2 * mItemPaddingVertical) + (mShownCount - 1) * mItemVerticalSpacing;
             result = this.getPaddingTop() + this.getPaddingBottom() + maxHeight;//MeasureSpec.UNSPECIFIED
             if (specMode == MeasureSpec.AT_MOST) {
                 result = Math.min(result, specSize);
@@ -1306,6 +1306,7 @@ public class NumberPickerView extends View {
         }
         return result;
     }
+
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -1329,6 +1330,19 @@ public class NumberPickerView extends View {
         }
     }
 
+    // 默认间距
+    private static final int DEFAULT_ITEM_VERTICAL_SPACING_DP = 30;
+    private int mItemVerticalSpacing = DEFAULT_ITEM_VERTICAL_SPACING_DP;
+
+
+    public void setItemVerticalSpacing(int itemVerticalSpacing) {
+        if (mItemVerticalSpacing == itemVerticalSpacing) {
+            return;
+        }
+        mItemVerticalSpacing = itemVerticalSpacing;
+        mHandlerInMainThread.sendEmptyMessage(HANDLER_WHAT_REQUEST_LAYOUT);
+    }
+
     private void drawContent(Canvas canvas) {
         int index;
         int textColor;
@@ -1336,8 +1350,12 @@ public class NumberPickerView extends View {
         float fraction = 0f;// fraction of the item in state between normal and selected, in[0, 1]
         float textSizeCenterYOffset;
 
+        // 修正总高度以适应间距
+        float totalHeight = mShownCount * mItemHeight + (mShownCount - 1) * mItemVerticalSpacing;
+
         for (int i = 0; i < mShownCount + 1; i++) {
-            float y = mCurrDrawFirstItemY + mItemHeight * i;
+            float y = mCurrDrawFirstItemY + mItemHeight * i + mItemVerticalSpacing * i;
+            y = y + (mViewHeight - totalHeight) / 2; // 调整Y以使内容居中
             index = getIndexByRawIndex(mCurrDrawFirstItemIndex + i, getOneRecycleSize(), mWrapSelectorWheel && mWrapSelectorWheelCheck);
             if (i == mShownCount / 2) {//this will be picked
                 fraction = (float) (mItemHeight + mCurrDrawFirstItemY) / mItemHeight;
@@ -1371,6 +1389,7 @@ public class NumberPickerView extends View {
             }
         }
     }
+
 
     private TextUtils.TruncateAt getEllipsizeType() {
         switch (mTextEllipsize) {
