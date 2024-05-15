@@ -307,6 +307,8 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         var x = 0
         var y = 0
         val location = IntArray(2)
+        viewBinding.cutAdd.isEnabled = true
+        viewBinding.cutRemove.isEnabled = true
         var ancherView = viewBinding.jumpActionLy
         ancherView.getLocationOnScreen(location)
         activity?.window?.decorView?.let { rootView ->
@@ -340,12 +342,17 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 marginStart = tipsView.measuredWidth / 2 - tipsView.bottomArrow().width / 2
             }
             tipsView.setAction {
+
+                viewBinding.cutAdd.isEnabled = cutAddEnable
+                viewBinding.cutRemove.isEnabled = cutRemoveEnable
+
                 (rootView as? FrameLayout)?.removeView(tipsView)
                 (rootView as? FrameLayout)?.removeView(img)
                 (rootView as? FrameLayout)?.removeView(bg)
-
                 OncePreferencesUtil.set(OncePreferencesUtil.key_cut_tips)
                 callback.remove()
+
+
             }
         }
     }
