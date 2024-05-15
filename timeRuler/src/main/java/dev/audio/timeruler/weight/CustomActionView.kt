@@ -139,7 +139,11 @@ class CustomActionView @JvmOverloads constructor(context: Context,
         this.rightAction = rightAction
     }
 
-    fun freshLeftIconEnable(enable: Boolean) {
+    private var leftIconEnable = true
+    fun freshLeftIconEnable(enable: Boolean, isFake: Boolean = false) {
+        if (!isFake) {
+            leftIconEnable = enable
+        }
         leftIcon.isEnabled = enable
         leftIcon.alpha = if (enable) 1.0f else 0.5f
         if (!enable) {
@@ -147,12 +151,22 @@ class CustomActionView @JvmOverloads constructor(context: Context,
         }
     }
 
-    fun freshRightIconEnable(enable: Boolean) {
+
+    private var rightIconEnable = true
+    fun freshRightIconEnable(enable: Boolean, isFake: Boolean = false) {
+        if (!isFake) {
+            rightIconEnable = enable
+        }
         rightIcon.isEnabled = enable
         rightIcon.alpha = if (enable) 1.0f else 0.5f
         if (!enable) {
             setBackgroundResource(R.drawable.rect_14ffffff_corner_46)
         }
+    }
+
+    fun reSotore() {
+        freshRightIconEnable(rightIconEnable)
+        freshLeftIconEnable(leftIconEnable)
     }
 
 

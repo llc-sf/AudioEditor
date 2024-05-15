@@ -245,6 +245,8 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         var x = 0
         var y = 0
         val location = IntArray(2)
+        viewBinding.actionEdit.freshRightIconEnable(true,true)
+        viewBinding.actionEdit.freshLeftIconEnable(true,true)
         var ancherView = viewBinding.actionEdit
         ancherView.getLocationOnScreen(location)
         activity?.window?.decorView?.let { rootView ->
@@ -281,7 +283,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 (rootView as? FrameLayout)?.removeView(tipsView)
                 (rootView as? FrameLayout)?.removeView(img)
                 (rootView as? FrameLayout)?.removeView(bg)
-
+                viewBinding.actionEdit.reSotore()
                 OncePreferencesUtil.set(OncePreferencesUtil.key_confirm_tips)
                 callback.remove()
             }
