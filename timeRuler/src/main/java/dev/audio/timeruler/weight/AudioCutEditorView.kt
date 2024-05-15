@@ -701,6 +701,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     interface OnCutLineChangeListener {
         fun onCutLineChange(startTimeStep: Long, endTimeStep: Long)
         fun onCutLineMove()
+        fun onCutLineLight(startLight:Boolean,endLight:Boolean)
     }
 
     var onCutLineChangeListener: OnCutLineChangeListener? = null

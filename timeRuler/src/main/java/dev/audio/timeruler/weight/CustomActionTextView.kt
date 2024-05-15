@@ -266,7 +266,7 @@ class CustomActionTextView @JvmOverloads constructor(context: Context,
     }
 
     fun freshButtonEnable(startEnable: Boolean, endEnable: Boolean) {
-        if(!isEnabled){
+        if (!isEnabled) {
             return
         }
         findViewById<View>(R.id.left).isEnabled = startEnable
@@ -282,7 +282,10 @@ class CustomActionTextView @JvmOverloads constructor(context: Context,
         findViewById<View>(R.id.left).alpha = if (isEnabled) 1.0f else 0.5f
         findViewById<View>(R.id.right).alpha = if (isEnabled) 1.0f else 0.5f
         findViewById<View>(R.id.middle_tv).visibility = if (isEnabled) View.VISIBLE else View.INVISIBLE
+    }
 
+    fun light(light: Boolean) {
+        setBackgroundResource(if (light) R.drawable.rect_fe2b54_corner_46 else R.drawable.rect_14ffffff_corner_46)
     }
 
 }

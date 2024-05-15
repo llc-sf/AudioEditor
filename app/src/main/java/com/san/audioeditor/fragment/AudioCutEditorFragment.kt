@@ -727,19 +727,24 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         viewBinding.timeLine.addOnCutLineChangeListener(object :
                                                             AudioCutEditorView.OnCutLineChangeListener {
 
-            override fun onCutLineChange(start: Long, end: Long) {
 
+
+            override fun onCutLineChange(start: Long, end: Long) {
                 viewBinding.cutStart.text = "${start.format2DurationSimple()}"
                 viewBinding.cutEnd.text = "${end.format2DurationSimple()}"
                 viewBinding.durationSelected.text = "${(end - start).format2DurationSimple()}"
                 viewBinding.cutLineStart.setText("${start.format2DurationSimple()}")
                 viewBinding.cutLineEnd.setText("${end.format2DurationSimple()}")
                 viewBinding.timeLine.freshCutLineFineTuningButtonEnable()
-
             }
 
             override fun onCutLineMove() {
                 mViewModel.isCutLineMoved = true
+            }
+
+            override fun onCutLineLight(startLight: Boolean, endLight: Boolean) {
+                viewBinding.cutLineStart.light(startLight)
+                viewBinding.cutLineEnd.light(endLight)
             }
         })
 

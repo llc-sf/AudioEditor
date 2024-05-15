@@ -676,6 +676,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             MotionEvent.ACTION_DOWN -> {
                 isMovingStart = startHandleTouchRect.isTouch(event)
                 isMovingEnd = endHandleTouchRect.isTouch(event)
+                onCutLineChangeListener?.onCutLineLight(isMovingStart, isMovingEnd)
                 if (isMovingStart || isMovingEnd) {
                     if (PlayerManager.isPlaying) {
                         resumePlaying = true
@@ -806,7 +807,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                 isMovingEnd = false
                 stopMoveRight()
                 stopMoveStart()
-
+                onCutLineChangeListener?.onCutLineLight(isMovingStart, isMovingEnd)
             }
         }
         return true
