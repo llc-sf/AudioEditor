@@ -232,7 +232,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 viewBinding.timeLine.needShowTips = false
                 PlayerManager.play()
 
-                callback.remove()
+                enableBack()
             }
         }
     }
@@ -241,12 +241,12 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         if (OncePreferencesUtil.get(OncePreferencesUtil.key_confirm_tips)) {
             return
         }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback!!)
+        disableBack()
         var x = 0
         var y = 0
         val location = IntArray(2)
-        viewBinding.actionEdit.freshRightIconEnable(true,true)
-        viewBinding.actionEdit.freshLeftIconEnable(true,true)
+        viewBinding.actionEdit.freshRightIconEnable(true, true)
+        viewBinding.actionEdit.freshLeftIconEnable(true, true)
         var ancherView = viewBinding.actionEdit
         ancherView.getLocationOnScreen(location)
         activity?.window?.decorView?.let { rootView ->
@@ -285,7 +285,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 (rootView as? FrameLayout)?.removeView(bg)
                 viewBinding.actionEdit.reSotore()
                 OncePreferencesUtil.set(OncePreferencesUtil.key_confirm_tips)
-                callback.remove()
+                enableBack()
             }
         }
     }
@@ -303,7 +303,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         if (OncePreferencesUtil.get(OncePreferencesUtil.key_switch_mode_tips)) {
             return
         }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback!!)
+        disableBack()
         var x = 0
         var y = 0
         val location = IntArray(2)
@@ -350,7 +350,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 (rootView as? FrameLayout)?.removeView(img)
                 (rootView as? FrameLayout)?.removeView(bg)
                 OncePreferencesUtil.set(OncePreferencesUtil.key_cut_tips)
-                callback.remove()
+                enableBack()
 
 
             }
@@ -405,8 +405,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     fun showDragTips() {
         var x = 0
         var y = 0
-
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback!!)
+        disableBack()
         val location = IntArray(2)
         var ancherview = viewBinding.timeLine
         ancherview.getLocationOnScreen(location)
@@ -1043,10 +1042,8 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         ?: ""
 
 
-
     private fun audioDeal(srcFile: String) {
-
-
+        PlayerManager.pause()
         var realCutPieceFragments = viewBinding.timeLine.cutPieceFragmentsOrder?.filter { !it.isFake }
         if (realCutPieceFragments.isNullOrEmpty()) {
             Toast.makeText(requireContext(), "请先选择片段", Toast.LENGTH_SHORT).show()
@@ -1089,6 +1086,14 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         ffmpegHandler = FFmpegHandler(mHandler)
     }
 
+    private fun disableBack() {
+        requireActivity().onBackPressedDispatcher.addCallback(this@AudioCutEditorFragment, callback!!)
+    }
+
+    private fun enableBack() {
+        callback.remove()
+    }
+
     var editLoadingDialog: EditLoadingDialog? = null
 
     //todo  封装
@@ -1102,6 +1107,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                     viewBinding.progressLy.isVisible = true //                    editLoadingDialog = EditLoadingDialog.show(parentFragmentManager)
                     viewBinding.progressText.text = "0%"
                     editLoadingDialog?.setOnCancelListener(this@AudioCutEditorFragment)
+                    disableBack()
                 }
 
                 FFmpegHandler.MSG_FINISH -> {
@@ -1126,6 +1132,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                         }
                         showEditTips()
                     }
+                    enableBack()
                 }
 
                 FFmpegHandler.MSG_PROGRESS -> {
