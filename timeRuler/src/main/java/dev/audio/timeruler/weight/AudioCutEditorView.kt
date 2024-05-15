@@ -421,7 +421,9 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                                   paint: Paint,
                                   rightCount: Int,
                                   keyScaleRange: Long) {
-
+        if(needShowTips){
+            return
+        }
         if (audioFragment?.duration ?: 0 > MIN_DURATION) {
             if (index == 0) {
                 var content = (cursorValue - startValue).format2DurationSimpleInt()

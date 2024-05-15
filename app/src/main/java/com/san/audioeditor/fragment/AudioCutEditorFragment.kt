@@ -1042,7 +1042,11 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     private val PATH = FFmpegApplication.instance?.getExternalFilesDir(Environment.DIRECTORY_MUSIC)?.absolutePath
         ?: ""
 
+
+
     private fun audioDeal(srcFile: String) {
+
+
         var realCutPieceFragments = viewBinding.timeLine.cutPieceFragmentsOrder?.filter { !it.isFake }
         if (realCutPieceFragments.isNullOrEmpty()) {
             Toast.makeText(requireContext(), "请先选择片段", Toast.LENGTH_SHORT).show()
