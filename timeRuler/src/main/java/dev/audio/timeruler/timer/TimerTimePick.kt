@@ -84,7 +84,8 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
         var oldMinute = binding.minute.value
         binding.minute.setDisplayedValues(getMinuteDisplayValue())
         binding.minute.minValue = if (cutTime.minTime.hours == binding.hour.value) cutTime.minTime.minutes else 0
-        binding.minute.maxValue = if (cutTime.maxTime.hours == binding.hour.value) cutTime.maxTime.minutes else 59
+        var tempMinuteMaxValue = if (cutTime.maxTime.hours == binding.hour.value) cutTime.maxTime.minutes else 59
+        binding.minute.maxValue = maxOf(tempMinuteMaxValue, binding.minute.minValue)
         binding.minute.setContentTextTypeface(Typeface.DEFAULT_BOLD)
         binding.minute.setOnValueChangedListener(this)
         binding.minute.setOnValueChangeListenerInScrolling(this)
@@ -94,7 +95,8 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
         var oldSecond = binding.second.value
         binding.second.setDisplayedValues(getMinuteDisplayValue())
         binding.second.minValue = if (cutTime.minTime.hours == binding.hour.value && cutTime.minTime.minutes == binding.minute.value) cutTime.minTime.second else 0
-        binding.second.maxValue = if (cutTime.maxTime.hours == binding.hour.value && cutTime.maxTime.minutes == binding.minute.value) cutTime.maxTime.second else 59
+        var tempMaxSecondValue = if (cutTime.maxTime.hours == binding.hour.value && cutTime.maxTime.minutes == binding.minute.value) cutTime.maxTime.second else 59
+        binding.second.maxValue = maxOf(tempMaxSecondValue, binding.second.minValue)
         if (binding.hour.value == cutTime.maxTime.hours) { //最大值处理
             if (cutTime.maxTime.hours == binding.hour.value && cutTime.maxTime.minutes == binding.minute.value && oldSecond > cutTime.maxTime.second) { //策略1：上一位超过  下一位置0
                 oldSecond = binding.second.minValue
@@ -129,7 +131,8 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
         var oldMsecond = binding.msecond.value
         binding.msecond.setDisplayedValues(getMsSecondDisplayValue())
         binding.msecond.minValue = if (cutTime.minTime.hours == binding.hour.value && cutTime.minTime.minutes == binding.minute.value && cutTime.minTime.second == binding.second.value) cutTime.minTime.secondDecimal else 0
-        binding.msecond.maxValue = if (cutTime.maxTime.hours == binding.hour.value && cutTime.maxTime.minutes == binding.minute.value && cutTime.maxTime.second == binding.second.value) cutTime.maxTime.secondDecimal else 9
+        var tempMaxValue = if (cutTime.maxTime.hours == binding.hour.value && cutTime.maxTime.minutes == binding.minute.value && cutTime.maxTime.second == binding.second.value) cutTime.maxTime.secondDecimal else 9
+        binding.msecond.maxValue = maxOf(binding.msecond.minValue,tempMaxValue)
         binding.msecond.setContentTextTypeface(Typeface.DEFAULT_BOLD)
         binding.msecond.setOnValueChangedListener(this)
         binding.msecond.setOnValueChangeListenerInScrolling(this)
