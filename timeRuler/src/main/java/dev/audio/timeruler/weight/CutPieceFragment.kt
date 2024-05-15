@@ -190,13 +190,18 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                         removeEnable = removeEnable || (audio.currentPlayingTimeInAudio >= cutPieceFragment.startTimestampTimeInSelf && audio.currentPlayingTimeInAudio <= cutPieceFragment.endTimestampTimeInSelf)
                     }
                 cutModeChangeButtonEnableListener?.onCutModeChange(addEnable, removeEnable) //播放条在裁剪范围，变为选中态，且取消其他范围的选中态
-                if (!PlayerManager.isPlaying) {
-                    audio.cutPieceFragments.forEach { //                        if (audio.currentPlayingTimeInAudio in it.startTimestampTimeInSelf..it.endTimestampTimeInSelf) {
-                        //                            it.isSelected = true
-                        //                        } else {
-                        //                            it.isSelected = false
-                        //                        }
-                        //                        audio.invalidate()
+                audio.cutPieceFragments.forEach {
+                    if (audio.currentPlayingTimeInAudio in it.startTimestampTimeInSelf..it.endTimestampTimeInSelf) {
+                        if (!it.isSelected) {
+                            it.isSelected = true
+                            audio.invalidate()
+                        }
+
+                    } else {
+                        if (it.isSelected) {
+                            it.isSelected = false
+                            audio.invalidate()
+                        }
                     }
                 }
             }
