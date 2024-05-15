@@ -69,6 +69,9 @@ import dev.audio.timeruler.weight.AudioCutEditorView
 import dev.audio.timeruler.weight.AudioEditorConfig
 import dev.audio.timeruler.weight.BaseAudioEditorView
 import dev.audio.timeruler.weight.CutPieceFragment
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.io.File
 import java.util.Calendar
 
@@ -728,14 +731,13 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                                                             AudioCutEditorView.OnCutLineChangeListener {
 
 
-
             override fun onCutLineChange(start: Long, end: Long) {
                 viewBinding.cutStart.text = "${start.format2DurationSimple()}"
                 viewBinding.cutEnd.text = "${end.format2DurationSimple()}"
                 viewBinding.cutLineStart.setText("${start.format2DurationSimple()}")
                 viewBinding.cutLineEnd.setText("${end.format2DurationSimple()}")
                 viewBinding.timeLine.freshCutLineFineTuningButtonEnable()
-                viewBinding.durationSelected.text = "${(  viewBinding.timeLine.selectedTime ).format2DurationSimple()}"
+                viewBinding.durationSelected.text = "${(viewBinding.timeLine.selectedTime).format2DurationSimple()}"
 
             }
 
@@ -956,15 +958,29 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
     //todo requireContext()
     private fun setAudioData() {
-        viewBinding.timeLine.setLoadingView(mViewModel.song.duration.toLong(), mViewModel.song.path)
-        WaveformOptions.getSampleFrom(requireContext(), mViewModel.song.path) {
-            viewBinding.timeLine.setWaveform(Waveform(it.toList()), mViewModel.song.duration.toLong(), mViewModel.song.path)
-            viewBinding.waveLoading.pauseAnimation()
-            viewBinding.waveLoading.isVisible = false
-            freshZoomView()
-            waveDataLoaded()
+        var bg = ImageView(requireContext()).apply {
+            setBackgroundColor(requireContext().resources.getColor(R.color.transparent))
+            id = R.id.tips_bg
+            setOnClickListener { }
         }
-        play(requireContext())
+        activity?.window?.decorView?.let { rootView ->
+            (rootView as? FrameLayout)?.addView(bg, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
+            viewBinding.timeLine.setLoadingView(mViewModel.song.duration.toLong(), mViewModel.song.path)
+            GlobalScope.launch(Dispatchers.IO) {
+                WaveformOptions.getSampleFrom(requireContext(), mViewModel.song.path) {
+                    viewBinding.timeLine.post {
+                        viewBinding.timeLine.setWaveform(Waveform(it.toList()), mViewModel.song.duration.toLong(), mViewModel.song.path)
+                        viewBinding.waveLoading.pauseAnimation()
+                        viewBinding.waveLoading.isVisible = false
+                        freshZoomView()
+                        waveDataLoaded()
+                        (rootView as? FrameLayout)?.removeView(bg)
+                    }
+                }
+            }
+            play(requireContext())
+        }
+
     }
 
     private fun waveDataLoaded() {

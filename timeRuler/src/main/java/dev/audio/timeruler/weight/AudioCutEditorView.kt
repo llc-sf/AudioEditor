@@ -102,6 +102,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     }
 
     var needShowTips = false
+    var isWaveDataLoaded = false
     private fun init(attrs: AttributeSet?) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.BaseScaleBar)
         playingTextSize = typedArray.getDimension(R.styleable.BaseScaleBar_playingTextSize, SizeUtils.sp2px(context, 8f)
@@ -128,6 +129,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         }
         currentPlayingTimeInAudio = (audioFragment!!.duration / 3f).toLong()
         currentPlayingPosition = (audioFragment!!.duration / 3f) * unitMsPixel
+        isWaveDataLoaded = waveform != null
         invalidate() // 触发重新绘制
     }
 
@@ -158,6 +160,9 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
      * 裁剪拨片的触摸事件
      */
     override fun onTouchEvent(event: MotionEvent): Boolean {
+        if(!isWaveDataLoaded){
+            return true
+        }
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 Log.i(cut_tag, "onTouchEvent: ACTION_DOWN touchCutLine=$touchCutLine")
@@ -383,7 +388,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
 
     private fun drawPlayingLine(canvas: Canvas) {
-        if (!needShowTips) {
+        if (!needShowTips && isWaveDataLoaded) {
             canvas.drawLine(currentPlayingPosition, baselinePosition, currentPlayingPosition, audioFragment?.rect?.bottom?.toFloat()
                 ?: 0f, playingLinePaint)
             var y = drawTriangle(canvas, audioFragment?.rect?.bottom?.toFloat() ?: 0f)
