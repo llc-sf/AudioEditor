@@ -349,7 +349,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 (rootView as? FrameLayout)?.removeView(tipsView)
                 (rootView as? FrameLayout)?.removeView(img)
                 (rootView as? FrameLayout)?.removeView(bg)
-                OncePreferencesUtil.set(OncePreferencesUtil.key_cut_tips)
+                OncePreferencesUtil.set(OncePreferencesUtil.key_switch_mode_tips)
                 enableBack()
 
 
