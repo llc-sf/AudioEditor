@@ -252,7 +252,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             var bg = ImageView(requireContext()).apply {
                 setBackgroundColor(requireContext().resources.getColor(R.color.black_alpha_85))
                 id = R.id.tips_bg
-                setOnClickListener {  }
+                setOnClickListener { }
             }
             var img = ImageView(requireContext()).apply {
                 setImageBitmap(onDraw(ancherView))
@@ -303,7 +303,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             var bg = ImageView(requireContext()).apply {
                 setBackgroundColor(requireContext().resources.getColor(R.color.black_alpha_85))
                 id = R.id.tips_bg
-                setOnClickListener {  }
+                setOnClickListener { }
             }
             var img = ImageView(requireContext()).apply {
                 setImageBitmap(onDraw(ancherView))
@@ -397,7 +397,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             var bg = ImageView(requireContext()).apply {
                 setBackgroundColor(requireContext().resources.getColor(R.color.black_alpha_85))
                 id = R.id.tips_bg
-                setOnClickListener {  }
+                setOnClickListener { }
             }
             var img = ImageView(requireContext()).apply {
                 setImageBitmap(cropMiddleThirdWidth(onDraw(ancherview)))
@@ -512,11 +512,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     private var cutAddEnable = false
     private var cutRemoveEnable = false
 
-    //todo  封装到控件内
-    private var startMinusEnable = false
-    private var startPlusEnable = false
-    private var endMinusEnable = false
-    private var endPlusEnable = false
 
     private fun initTimeBar(isSaveDta: Boolean = true) {
         val calendar = Calendar.getInstance()
@@ -752,9 +747,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         viewBinding.cutLineStart.setActionListener({
                                                        viewBinding.timeLine.startCutMinus()
                                                    }, {
-                                                       if (!PlayerManager.isPlaying) {
-                                                           viewBinding.timeLine.editTrimStart(parentFragmentManager)
-                                                       }
+                                                       viewBinding.timeLine.editTrimStart(parentFragmentManager)
                                                    }, {
                                                        viewBinding.timeLine.startCutPlus()
                                                    })
@@ -763,9 +756,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         viewBinding.cutLineEnd.setActionListener({
                                                      viewBinding.timeLine.endCutMinus()
                                                  }, {
-                                                     if (!PlayerManager.isPlaying) {
-                                                         viewBinding.timeLine.editTrimEnd(parentFragmentManager)
-                                                     }
+                                                     viewBinding.timeLine.editTrimEnd(parentFragmentManager)
                                                  }, {
                                                      viewBinding.timeLine.endCutPlus()
                                                  })
@@ -777,10 +768,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                                                          startPlusEnable: Boolean,
                                                          endMinusEnable: Boolean,
                                                          endPlusEnable: Boolean) {
-                this@AudioCutEditorFragment.startMinusEnable = startMinusEnable
-                this@AudioCutEditorFragment.startPlusEnable = startMinusEnable
-                this@AudioCutEditorFragment.endMinusEnable = startMinusEnable
-                this@AudioCutEditorFragment.endPlusEnable = startMinusEnable
                 viewBinding.cutLineStart.freshButtonEnable(startMinusEnable, startPlusEnable)
                 viewBinding.cutLineEnd.freshButtonEnable(endMinusEnable, endPlusEnable)
 
@@ -935,18 +922,11 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         if (isPlaying) {
             viewBinding.play.setImageResource(R.drawable.ic_puase) //            viewBinding.clStartAncher.isVisible = false
             //            viewBinding.clEndAncher.isVisible = false
-
-            viewBinding.cutLineStart.freshButtonEnable(false, false)
-            viewBinding.cutLineEnd.freshButtonEnable(false, false)
         } else {
             viewBinding.play.setImageResource(R.drawable.ic_play) //            viewBinding.clStartAncher.isVisible = viewBinding.timeLine.isCutLineStartVisible
             //            viewBinding.clEndAncher.isVisible = viewBinding.timeLine.isCutLineEndVisible
             viewBinding.cutAdd.isEnabled = cutAddEnable
             viewBinding.cutRemove.isEnabled = cutRemoveEnable
-
-            viewBinding.cutLineStart.freshButtonEnable(startMinusEnable, startPlusEnable)
-            viewBinding.cutLineEnd.freshButtonEnable(endMinusEnable, endPlusEnable)
-
         }
     }
 

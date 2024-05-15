@@ -898,10 +898,12 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     }
 
     fun setCutLineStartTime(time: Long) {
+        updateMediaSource(time, getCutLineEndTime())
         audioFragment?.setCutLineStartTime(time)
     }
 
     fun setCutLineEndTime(time: Long) {
+        updateMediaSource(getCutLineStartTime(), time)
         audioFragment?.setCutLineEndTime(time)
     }
 
