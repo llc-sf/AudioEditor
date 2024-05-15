@@ -289,6 +289,15 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     }
 
     private fun showCutLineTips() {
+        if (activity == null) {
+            return
+        }
+        if (activity?.isFinishing == true) {
+            return
+        }
+        if (!isAdded) {
+            return
+        }
         if (OncePreferencesUtil.get(OncePreferencesUtil.key_switch_mode_tips)) {
             return
         }
@@ -296,7 +305,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         var x = 0
         var y = 0
         val location = IntArray(2)
-        var ancherView = viewBinding.trimAnchorLy
+        var ancherView = viewBinding.jumpActionLy
         ancherView.getLocationOnScreen(location)
         activity?.window?.decorView?.let { rootView ->
             val layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
@@ -598,7 +607,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         viewBinding.jumpSelected.setOnClickListener {
             viewBinding.timeLine.switchCutMode(CutPieceFragment.CUT_MODE_JUMP)
             freshCutModeView(CutPieceFragment.CUT_MODE_JUMP)
-            showCutLineTips()
         }
 
         viewBinding.cutAdd.setOnClickListener {
@@ -652,6 +660,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                         viewBinding.cutDesc.visibility = View.INVISIBLE
                         viewBinding.trimAnchorLy.isVisible = false
                         viewBinding.jumpActionLy.isVisible = true
+                        viewBinding.jumpActionLy.postDelayed({ showCutLineTips() }, 80)
                     }
                 }
             }
