@@ -37,6 +37,15 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         const val MIN_DURATION = 3000
     }
 
+    var selectedTime: Long = 0L
+        get() {
+            var time = 0L
+            audioFragment?.cutPieceFragments?.forEachIndexed { index, cutPieceFragment ->
+                time += (cutPieceFragment.endTimestampTimeInSelf - cutPieceFragment.startTimestampTimeInSelf)
+            }
+            return time
+        }
+
     /**
      * 波形数据
      */
@@ -421,7 +430,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                                   paint: Paint,
                                   rightCount: Int,
                                   keyScaleRange: Long) {
-        if(needShowTips){
+        if (needShowTips) {
             return
         }
         if (audioFragment?.duration ?: 0 > MIN_DURATION) {
@@ -701,7 +710,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     interface OnCutLineChangeListener {
         fun onCutLineChange(startTimeStep: Long, endTimeStep: Long)
         fun onCutLineMove()
-        fun onCutLineLight(startLight:Boolean,endLight:Boolean)
+        fun onCutLineLight(startLight: Boolean, endLight: Boolean)
     }
 
     var onCutLineChangeListener: OnCutLineChangeListener? = null
