@@ -41,11 +41,11 @@ fun Long.format2DurationSimple(): String {
     val millis = this % 1000 / 100 // 将毫秒数除以100，取整
 
     return when {
-        hours > 0 -> String.format("%d:%d:%d.%01d", hours, minutes, seconds, millis)
-        minutes > 0 -> String.format("%d:%d.%01d", minutes, seconds, millis)
-        else -> String.format("%d.%01d", seconds, millis)
+        hours > 0 -> String.format("%02d:%02d:%02d.%01d", hours, minutes, seconds, millis)
+        else -> String.format("%02d:%02d.%01d", minutes, seconds, millis)
     }
 }
+
 // 输出格式为：mm:ss
 fun Long.format2DurationSimpleInt(): String {
     val totalSeconds = this / 1000
