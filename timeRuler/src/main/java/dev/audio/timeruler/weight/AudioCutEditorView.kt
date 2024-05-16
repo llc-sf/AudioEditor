@@ -1041,6 +1041,16 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             }
         } else {
             if (audioFragment!!.cutPieceFragments.isEmpty()) {
+                //可以播放整个歌曲
+                audioFragment!!.cutPieceFragments.add(CutPieceFragment(audioFragment!!, index = 0, isFake = true).apply {
+                    this.initCutFragment(0f, 1f)
+                })
+                PlayerManager.updateMediaSourceDeleteJump(audioFragment!!.cutPieceFragments)
+                if(isAutoPlay){
+                    PlayerManager.playWithSeek(currentPlayingTimeInAudio,0)
+                }else{
+                    PlayerManager.seekTo(currentPlayingTimeInAudio,0)
+                }
                 return true
             }
             if (PlayerManager.uri == null) {

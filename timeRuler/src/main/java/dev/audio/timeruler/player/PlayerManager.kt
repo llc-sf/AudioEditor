@@ -169,6 +169,16 @@ object PlayerManager {
         player.play()
     }
 
+    fun updateMediaSourceWholeAudio(){
+        if (uri == null) {
+            return
+        }
+        var dataSourceFactory = DefaultDataSourceFactory(AppProvider.context, Util.getUserAgent(AppProvider.context, AppProvider.context.packageName))
+        val audioSource = ProgressiveMediaSource.Factory(dataSourceFactory)
+            .createMediaSource(MediaItem.fromUri(uri!!))
+        player.setMediaSource(audioSource)
+    }
+
     fun updateMediaSource(start: Long, end: Long) {
         if (uri == null) {
             return
