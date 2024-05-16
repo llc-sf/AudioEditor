@@ -813,7 +813,11 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             override fun onCutLineFineTuningEnable(isEnable: Boolean) {
                 viewBinding.cutLineStart.fineTuningEnable(isEnable)
                 viewBinding.cutLineEnd.fineTuningEnable(isEnable)
-                viewBinding.durationSelected.visibility = if (isEnable) View.VISIBLE else View.INVISIBLE
+                if (isEnable) {
+                    viewBinding.durationSelected.text = "${(viewBinding.timeLine.selectedTime).format2DurationSimple()}"
+                } else {
+                    viewBinding.durationSelected.text = "00:00.0"
+                }
             }
         })
 
