@@ -406,7 +406,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     private var canCallBack = true
     private var callback = object : OnBackPressedCallback(true /* enabled by default */) {
         override fun handleOnBackPressed() { // 在这里处理返回逻辑
-            if(canCallBack){
+            if (canCallBack) {
                 backDeal()
             }
         }
@@ -868,6 +868,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
         freshSaveActions()
         viewBinding.save.setOnClickListener {
+            PlayerManager.pause()
             var realCutPieceFragments = viewBinding.timeLine.cutPieceFragmentsOrder?.filter { !it.isFake }
             mViewModel.save(requireContext(), realCutPieceFragments, mViewModel.datas)
         }
@@ -999,8 +1000,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         if (!OncePreferencesUtil.get(OncePreferencesUtil.key_cut_tips)) {
             showTips()
         } else {
-            var isAutoPlaying = OncePreferencesUtil.get(OncePreferencesUtil.key_confirm_tips)
-            if (isAutoPlaying) {
+            if (canCallBack) {
                 PlayerManager.play()
             } else {
                 PlayerManager.pause()
@@ -1161,6 +1161,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                         return
                     }
                     if (msg.obj == 0) {
+                        showEditTips()
                         var file = AudioFileUtils.copyAudioToFileStore(File(outputPath), requireContext(), cutFileName + suffix)
                         if (file != null) {
                             AudioFileUtils.deleteFile(outputPath)
@@ -1173,9 +1174,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                         } else {
                             Toast.makeText(requireContext(), "裁剪失败", Toast.LENGTH_SHORT).show()
                         }
-                        showEditTips()
                     }
-                    enableBack()
                 }
 
                 FFmpegHandler.MSG_PROGRESS -> {
