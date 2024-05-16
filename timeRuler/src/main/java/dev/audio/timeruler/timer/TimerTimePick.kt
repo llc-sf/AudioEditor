@@ -3,7 +3,6 @@ package dev.audio.timeruler.timer
 import android.content.Context
 import android.graphics.Typeface
 import android.util.AttributeSet
-import android.util.Log
 import android.view.Gravity
 import android.view.HapticFeedbackConstants
 import android.view.LayoutInflater
@@ -59,7 +58,7 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
         binding.second.setOnValueChangeListenerInScrolling(this)
         binding.second.setItemVerticalSpacing(10.dp)
 
-
+        binding.msecond.is02dDisplay(false)
         binding.msecond.setDisplayedValues(getMsSecondDisplayValue())
         binding.msecond.minValue = if (cutTime.minTime.hours == cutTime.time.hours && cutTime.minTime.minutes == cutTime.time.minutes && cutTime.minTime.second == cutTime.time.second) cutTime.minTime.secondDecimal else 0
         binding.msecond.maxValue = if (cutTime.maxTime.hours == cutTime.time.hours && cutTime.maxTime.minutes == cutTime.time.minutes && cutTime.maxTime.second == cutTime.time.second) cutTime.maxTime.secondDecimal else 9
@@ -158,7 +157,7 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
     private fun getMsSecondDisplayValue(): Array<String> {
         return mutableListOf<String>().apply {
             for (i in 0 until 10) {
-                add(i.toString())
+                add(String.format("%d", i))
             }
         }.toTypedArray()
     }

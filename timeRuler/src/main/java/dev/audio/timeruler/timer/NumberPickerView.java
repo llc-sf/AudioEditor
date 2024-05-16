@@ -775,6 +775,12 @@ public class NumberPickerView extends View {
         updateDisplayedValues();
     }
 
+    private boolean is02dDisplay = true;
+
+    public void is02dDisplay(boolean is02dDisplay) {
+        this.is02dDisplay = is02dDisplay;
+    }
+
     // 更新显示的值数组
     private void updateDisplayedValues() {
         int count = mMaxValue - mMinValue + 1;
@@ -783,7 +789,7 @@ public class NumberPickerView extends View {
         } else {
             mDisplayedValues = new String[count];
             for (int i = 0; i < count; i++) {
-                mDisplayedValues[i] = String.format("%02d", mMinValue + i);
+                mDisplayedValues[i] = is02dDisplay ? String.format("%02d", mMinValue + i) : String.valueOf(mMinValue + i);
             }
         }
         mMaxShowIndex = count - 1;
