@@ -211,7 +211,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 marginStart = location[0]
             }
 
-            var tipsView = CutPipsView(requireContext(), isTopArrow = true, content = getString(R.string.confirm_this_trimming), actionMsg = getString(R.string.got_it))
+            var tipsView = CutPipsView(requireContext(), isTopArrow = true, content = getString(R.string.tap_to_save), actionMsg = getString(R.string.got_it))
             val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
             val heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
             tipsView.measure(widthMeasureSpec, heightMeasureSpec)
@@ -331,7 +331,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 marginStart = location[0]
             }
 
-            var tipsView = CutPipsView(requireContext(), isBottomArrow = true, content = getString(R.string.confirm_this_trimming), actionMsg = getString(R.string.got_it))
+            var tipsView = CutPipsView(requireContext(), isBottomArrow = true, content = getString(R.string.jump_tips), actionMsg = getString(R.string.got_it))
             val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
             val heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
             tipsView.measure(widthMeasureSpec, heightMeasureSpec)
