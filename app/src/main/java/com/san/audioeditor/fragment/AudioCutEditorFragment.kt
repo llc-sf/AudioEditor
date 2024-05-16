@@ -161,6 +161,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         val location = IntArray(2)
         var ancherView = viewBinding.modelLy
         ancherView.getLocationOnScreen(location)
+        disableBack()
         activity?.window?.decorView?.let { rootView ->
             val layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
             var img = ImageView(requireContext()).apply {
@@ -189,6 +190,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 (rootView as? FrameLayout)?.removeView(tipsView)
                 (rootView as? FrameLayout)?.removeView(img)
                 showConfirmTips()
+                enableBack()
             }
         }
     }
@@ -289,6 +291,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 viewBinding.actionEdit.reSotore()
                 OncePreferencesUtil.set(OncePreferencesUtil.key_confirm_tips)
                 enableBack()
+                PlayerManager.play()
             }
         }
     }
@@ -987,7 +990,12 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         if (!OncePreferencesUtil.get(OncePreferencesUtil.key_cut_tips)) {
             showTips()
         } else {
-            PlayerManager.play()
+            var isAutoPlaying = OncePreferencesUtil.get(OncePreferencesUtil.key_confirm_tips)
+            if (isAutoPlaying) {
+                PlayerManager.play()
+            }else{
+                PlayerManager.pause()
+            }
         }
     }
 
