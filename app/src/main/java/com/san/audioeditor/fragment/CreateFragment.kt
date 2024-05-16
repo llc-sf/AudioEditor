@@ -46,12 +46,14 @@ class CreateFragment : BaseFragment() {
         binding.create.setOnClickListener {
             isMulti = false
             val intent = Intent(context, AudioPickActivity::class.java)
-            pickAudioResult.launch(intent)
+//            pickAudioResult.launch(intent)
+            activity?.startActivity(intent)
         }
         binding.trim.setOnClickListener {
             isMulti = false
             val intent = Intent(context, AudioPickActivity::class.java)
-            pickAudioResult.launch(intent)
+            //            pickAudioResult.launch(intent)
+            activity?.startActivity(intent)
         }
 
         binding.createMulti.setOnClickListener {
@@ -83,7 +85,6 @@ class CreateFragment : BaseFragment() {
                 } else {
                     AudioCutActivity.open(requireContext(), song!!)
                 }
-
             }
         }
     }

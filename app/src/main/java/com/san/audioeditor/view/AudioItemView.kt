@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import com.san.audioeditor.activity.AudioCutActivity
 import com.san.audioeditor.databinding.ItemSongViewBinding
 import com.san.audioeditor.fragment.AudioPickFragment
 import dev.android.player.framework.data.model.Song
@@ -91,12 +92,14 @@ class AudioItemView @JvmOverloads constructor(
 //            mBinding.cover.load(song)
             setShowExtensionInfo(song, key)
             mBinding.root.setOnClickListener {
-                (mBinding.root.context as? Activity)?.setResult(Activity.RESULT_OK, Intent().apply {
-                    putExtras(Bundle().apply {
-                        putParcelable(AudioPickFragment.PARAM_SONG, song)
-                    })
-                })
-                (mBinding.root.context as? Activity)?.finish()
+//                (mBinding.root.context as? Activity)?.setResult(Activity.RESULT_OK, Intent().apply {
+//                    putExtras(Bundle().apply {
+//                        putParcelable(AudioPickFragment.PARAM_SONG, song)
+//                    })
+//                })
+//                (mBinding.root.context as? Activity)?.finish()
+
+                AudioCutActivity.open(context, song!!)
             }
         } catch (e: Exception) {
             e.printStackTrace()
