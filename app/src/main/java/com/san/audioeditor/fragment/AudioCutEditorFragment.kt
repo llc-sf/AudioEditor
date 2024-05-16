@@ -131,6 +131,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
     override fun initView() {
         super.initView()
+        registerBack()
         initToolbar()
         PlayerManager.playByPath(mViewModel.song.path)
         viewBinding.toolbar.ImmerseDesign()
@@ -190,7 +191,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 (rootView as? FrameLayout)?.removeView(tipsView)
                 (rootView as? FrameLayout)?.removeView(img)
                 showConfirmTips()
-                enableBack()
             }
         }
     }
@@ -403,8 +403,12 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     }
 
 
-    var callback = object : OnBackPressedCallback(true /* enabled by default */) {
+    private var canCallBack = true
+    private var callback = object : OnBackPressedCallback(true /* enabled by default */) {
         override fun handleOnBackPressed() { // 在这里处理返回逻辑
+            if(canCallBack){
+                backDeal()
+            }
         }
     } // 将回调添加到OnBackPressedDispatcher
 
@@ -499,11 +503,16 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
     private fun initToolbar() {
         viewBinding.toolbar.setNavigationOnClickListener {
-            if (!mViewModel.isCutLineMoved && !mViewModel.isConformed) {
-                activity?.finish()
-            } else {
-                showExitDialog()
-            }
+            backDeal()
+        }
+    }
+
+
+    private fun backDeal() {
+        if (!mViewModel.isCutLineMoved && !mViewModel.isConformed) {
+            activity?.finish()
+        } else {
+            showExitDialog()
         }
     }
 
@@ -993,7 +1002,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             var isAutoPlaying = OncePreferencesUtil.get(OncePreferencesUtil.key_confirm_tips)
             if (isAutoPlaying) {
                 PlayerManager.play()
-            }else{
+            } else {
                 PlayerManager.pause()
             }
         }
@@ -1117,11 +1126,15 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     }
 
     private fun disableBack() {
+        canCallBack = false
+    }
+
+    private fun registerBack() {
         requireActivity().onBackPressedDispatcher.addCallback(this@AudioCutEditorFragment, callback!!)
     }
 
     private fun enableBack() {
-        callback.remove()
+        canCallBack = true
     }
 
     var editLoadingDialog: EditLoadingDialog? = null
