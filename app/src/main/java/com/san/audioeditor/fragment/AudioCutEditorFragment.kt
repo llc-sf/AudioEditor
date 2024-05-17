@@ -244,7 +244,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
     private fun showEditTips() {
         if (OncePreferencesUtil.get(OncePreferencesUtil.key_confirm_tips)) {
-
             return
         }
         disableBack()
@@ -1160,6 +1159,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
                 FFmpegHandler.MSG_FINISH -> {
                     Log.i(BaseAudioEditorView.jni_tag, "finish resultCode=${msg.obj}")
+                    enableBack()
                     viewBinding.progressLy.isVisible = false
                     editLoadingDialog?.dismiss()
                     if (mViewModel.isCancel) {
