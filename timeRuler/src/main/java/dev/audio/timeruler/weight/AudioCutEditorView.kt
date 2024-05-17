@@ -1137,9 +1137,10 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                     PlayerManager.updateMediaSourceDeleteJump(it.cutPieceFragments)
                     val index = it.playingLineIndexInFragments(currentPlayingTimeInAudio)
                     if (index == -1) {
-                        PlayerManager.seekTo(currentPlayingTimeInAudio)
+                        PlayerManager.seekTo(0)
                     } else {
-                        PlayerManager.seekTo(currentPlayingTimeInAudio - it.cutPieceFragments[index].startTimestampTimeInSelf, index)
+                        var progress  = currentPlayingTimeInAudio - it.cutPieceFragmentsOrder[index].startTimestampTimeInSelf
+                        PlayerManager.seekTo(progress, index)
                     }
                 }
             }

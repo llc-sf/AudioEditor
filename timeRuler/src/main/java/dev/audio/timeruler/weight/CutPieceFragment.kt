@@ -838,8 +838,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             CUT_MODE_JUMP -> {
                 if (!audio.isPlayingLineInAnyCutPiece(audio.currentPlayingTimeInAudio)) {
                     audio.updatePlayingPosition(startTimestampTimeInSelf)
+                    var indexOrder = audio.playingLineIndexInFragments(startTimestampTimeInSelf)
+                    PlayerManager.seekTo(0,index = indexOrder)
                 }
-
             }
         }
     }
