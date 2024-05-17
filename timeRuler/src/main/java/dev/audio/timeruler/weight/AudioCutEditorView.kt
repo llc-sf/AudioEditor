@@ -119,7 +119,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     // 设置波形数据的方法
     fun setWaveform(waveform: Waveform?, duration: Long, path: String) {
-        audioFragment = AudioFragmentWithCut(this).apply {
+        audioFragment = AudioFragmentWithCut(this,this@AudioCutEditorView.cutMode).apply {
             index = 0
             this.duration = duration
             maxHalfWaveHeight = waveHeight

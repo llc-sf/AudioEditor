@@ -617,7 +617,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                                                       viewBinding.timeLine.zoomIn()
                                                   })
 
-        freshCutModeView(CutPieceFragment.CUT_MODE_SELECT)
+        freshCutModeView(viewBinding.timeLine.cutMode)
         viewBinding.keepSelected.setOnClickListener {
             viewBinding.timeLine.switchCutMode(CutPieceFragment.CUT_MODE_SELECT)
             freshCutModeView(CutPieceFragment.CUT_MODE_SELECT)

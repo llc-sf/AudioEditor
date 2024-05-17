@@ -140,7 +140,7 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
 
     var path: String? = null
 
-    open fun initCutFragment(cutMode: Int = CutPieceFragment.CUT_MODE_SELECT) {
+    open fun initCutFragment() {
     }
 
     //颜色

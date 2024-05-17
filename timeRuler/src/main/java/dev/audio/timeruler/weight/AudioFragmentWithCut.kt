@@ -15,7 +15,7 @@ import dev.audio.timeruler.player.PlayerManager
  *
  * 带裁剪模式
  */
-class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(audioEditorView) {
+class AudioFragmentWithCut(audioEditorView: AudioCutEditorView,var cutMode: Int = CutPieceFragment.CUT_MODE_SELECT) : AudioFragment(audioEditorView) {
 
     var audioFragmentBean: AudioFragmentBean = AudioFragmentBean()
         get() {
@@ -43,7 +43,6 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
             return null
         }
 
-    var cutMode: Int = CutPieceFragment.CUT_MODE_SELECT
 
     val currentPlayingTimeInAudio by Ref { audioEditorView.currentPlayingTimeInAudio }
 
@@ -78,9 +77,9 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         return audioEditorView.context
     }
 
-    override fun initCutFragment(cutMode: Int) {
-        super.initCutFragment(cutMode)
-        cutPieceFragments.add(CutPieceFragment(this, index = cutPieceFragments.size).apply {
+    override fun initCutFragment() {
+        super.initCutFragment()
+        cutPieceFragments.add(CutPieceFragment(audio = this, index = cutPieceFragments.size, mode = cutMode).apply {
             this.initCutFragment(1 / 3f, 2 / 3f)
         })
         updateMediaSource(getCutLineStartTime(), getCutLineEndTime())
@@ -287,7 +286,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView) : AudioFragment(
         }
         cutPieceFragments = cutPieceFragments.filter { it.isSelected }.toMutableList()
         if (cutPieceFragments.isEmpty()) {
-            initCutFragment(cutMode)
+            initCutFragment()
             audioEditorView.invalidate()
             return
         }
