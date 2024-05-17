@@ -1110,6 +1110,10 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         audioFragment?.removeFake()
     }
 
+
+    /**
+     * 更新播放源
+     */
     fun updateMediaSource(startTimestampTimeInSelf: Long, endTimestampTimeInSelf: Long) {
         when (cutMode) {
             CutPieceFragment.CUT_MODE_SELECT -> {

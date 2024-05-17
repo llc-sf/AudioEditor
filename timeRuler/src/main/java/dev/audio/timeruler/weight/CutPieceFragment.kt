@@ -800,13 +800,13 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                 if (isMovingEnd || isMovingStart) {
                     cutLineMove2Middle(event)
+                    checkPlayingLine()
                     if (resumePlaying) {
                         if (isWholeScreen == true) {
                             PlayerManager.play()
                         }
                     }
                     resumePlaying = false
-                    checkPlayingLine()
                 }
                 isMovingStart = false
                 isMovingEnd = false
@@ -823,14 +823,14 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
         when (cutMode) {
             CUT_MODE_SELECT -> {
                 if (audio.currentPlayingTimeInAudio > this.endTimestampTimeInSelf || audio.currentPlayingTimeInAudio < this.startTimestampTimeInSelf) {
-                    PlayerManager.updateMediaSource(startTimestampTimeInSelf, endTimestampTimeInSelf)
                     audio.updatePlayingPosition(startTimestampTimeInSelf)
+                    PlayerManager.seekTo(0)
                 }
             }
 
             CUT_MODE_DELETE -> {
                 if (audio.currentPlayingTimeInAudio < this.endTimestampTimeInSelf && audio.currentPlayingTimeInAudio > this.startTimestampTimeInSelf) {
-                    PlayerManager.updateMediaSourceDelete(startTimestampTimeInSelf, endTimestampTimeInSelf,audio.duration)
+                    PlayerManager.seekTo(0)
                     audio?.updatePlayingPosition(0)
                 }
             }
@@ -839,6 +839,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                 if (!audio.isPlayingLineInAnyCutPiece(audio.currentPlayingTimeInAudio)) {
                     audio.updatePlayingPosition(startTimestampTimeInSelf)
                 }
+
             }
         }
     }
