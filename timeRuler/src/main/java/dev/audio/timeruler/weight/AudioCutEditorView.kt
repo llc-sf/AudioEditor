@@ -119,7 +119,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     // 设置波形数据的方法
     fun setWaveform(waveform: Waveform?, duration: Long, path: String) {
-        audioFragment = AudioFragmentWithCut(this,this@AudioCutEditorView.cutMode).apply {
+        audioFragment = AudioFragmentWithCut(this, this@AudioCutEditorView.cutMode).apply {
             index = 0
             this.duration = duration
             maxHalfWaveHeight = waveHeight
@@ -127,8 +127,13 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             this.waveform = waveform
             this.path = path
         }
-        currentPlayingTimeInAudio = (audioFragment!!.duration / 3f).toLong()
-        currentPlayingPosition = (audioFragment!!.duration / 3f) * unitMsPixel
+        if (cutMode == CutPieceFragment.CUT_MODE_SELECT || cutMode == CutPieceFragment.CUT_MODE_JUMP) {
+            currentPlayingTimeInAudio = (audioFragment!!.duration / 3f).toLong()
+            currentPlayingPosition = (audioFragment!!.duration / 3f) * unitMsPixel
+        } else if (cutMode == CutPieceFragment.CUT_MODE_DELETE) {
+            currentPlayingTimeInAudio = 0
+            currentPlayingPosition = 0f
+        }
         isWaveDataLoaded = waveform != null
         invalidate() // 触发重新绘制
     }
@@ -160,7 +165,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
      * 裁剪拨片的触摸事件
      */
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        if(!isWaveDataLoaded){
+        if (!isWaveDataLoaded) {
             return true
         }
         when (event.action) {
@@ -1040,16 +1045,15 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                 PlayerManager.seekTo(currentPlayingTimeInAudio - audioFragment!!.cutPieceFragmentsOrder[windowIndex].startTimestampTimeInSelf, windowIndex)
             }
         } else {
-            if (audioFragment!!.cutPieceFragments.isEmpty()) {
-                //可以播放整个歌曲
+            if (audioFragment!!.cutPieceFragments.isEmpty()) { //可以播放整个歌曲
                 audioFragment!!.cutPieceFragments.add(CutPieceFragment(audioFragment!!, index = 0, isFake = true).apply {
                     this.initCutFragment(0f, 1f)
                 })
                 PlayerManager.updateMediaSourceDeleteJump(audioFragment!!.cutPieceFragments)
-                if(isAutoPlay){
-                    PlayerManager.playWithSeek(currentPlayingTimeInAudio,0)
-                }else{
-                    PlayerManager.seekTo(currentPlayingTimeInAudio,0)
+                if (isAutoPlay) {
+                    PlayerManager.playWithSeek(currentPlayingTimeInAudio, 0)
+                } else {
+                    PlayerManager.seekTo(currentPlayingTimeInAudio, 0)
                 }
                 return true
             }

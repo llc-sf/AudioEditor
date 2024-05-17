@@ -244,6 +244,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
     private fun showEditTips() {
         if (OncePreferencesUtil.get(OncePreferencesUtil.key_confirm_tips)) {
+
             return
         }
         disableBack()
