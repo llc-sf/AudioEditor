@@ -823,12 +823,14 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
         when (cutMode) {
             CUT_MODE_SELECT -> {
                 if (audio.currentPlayingTimeInAudio > this.endTimestampTimeInSelf || audio.currentPlayingTimeInAudio < this.startTimestampTimeInSelf) {
+                    PlayerManager.updateMediaSource(startTimestampTimeInSelf, endTimestampTimeInSelf)
                     audio.updatePlayingPosition(startTimestampTimeInSelf)
                 }
             }
 
             CUT_MODE_DELETE -> {
                 if (audio.currentPlayingTimeInAudio < this.endTimestampTimeInSelf && audio.currentPlayingTimeInAudio > this.startTimestampTimeInSelf) {
+                    PlayerManager.updateMediaSourceDelete(startTimestampTimeInSelf, endTimestampTimeInSelf,audio.duration)
                     audio?.updatePlayingPosition(0)
                 }
             }
