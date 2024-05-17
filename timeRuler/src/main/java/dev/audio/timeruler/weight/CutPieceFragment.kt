@@ -169,13 +169,13 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
      */
     fun linesChangeNotify() {
         if (isSelected) {
-            if(cutMode == CUT_MODE_DELETE){
+            if (cutMode == CUT_MODE_DELETE) {
                 if (audio.currentPlayingTimeInAudio < this.endTimestampTimeInSelf && audio.currentPlayingTimeInAudio > this.startTimestampTimeInSelf) {
                     onTrimAnchorChangeListener?.onTrimChange(start = true, end = true)
                 } else {
                     onTrimAnchorChangeListener?.onTrimChange(audio.currentPlayingTimeInAudio < this.startTimestampTimeInSelf, audio.currentPlayingTimeInAudio > this.endTimestampTimeInSelf)
                 }
-            }else if(cutMode == CUT_MODE_SELECT){
+            } else if (cutMode == CUT_MODE_SELECT) {
                 onTrimAnchorChangeListener?.onTrimChange(start = true, end = true)
             }
         }
@@ -194,20 +194,20 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                         removeEnable = removeEnable || (audio.currentPlayingTimeInAudio >= cutPieceFragment.startTimestampTimeInSelf && audio.currentPlayingTimeInAudio <= cutPieceFragment.endTimestampTimeInSelf)
                     }
                 cutModeChangeButtonEnableListener?.onCutModeChange(addEnable, removeEnable) //播放条在裁剪范围，变为选中态，且取消其他范围的选中态
-//                audio.cutPieceFragments.forEach {
-//                    if (audio.currentPlayingTimeInAudio in it.startTimestampTimeInSelf..it.endTimestampTimeInSelf) {
-//                        if (!it.isSelected) {
-//                            it.isSelected = true
-//                            audio.invalidate()
-//                        }
-//
-//                    } else {
-//                        if (it.isSelected) {
-//                            it.isSelected = false
-//                            audio.invalidate()
-//                        }
-//                    }
-//                }
+                //                audio.cutPieceFragments.forEach {
+                //                    if (audio.currentPlayingTimeInAudio in it.startTimestampTimeInSelf..it.endTimestampTimeInSelf) {
+                //                        if (!it.isSelected) {
+                //                            it.isSelected = true
+                //                            audio.invalidate()
+                //                        }
+                //
+                //                    } else {
+                //                        if (it.isSelected) {
+                //                            it.isSelected = false
+                //                            audio.invalidate()
+                //                        }
+                //                    }
+                //                }
             }
         }
     }
@@ -843,7 +843,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                 if (!audio.isPlayingLineInAnyCutPiece(audio.currentPlayingTimeInAudio)) {
                     audio.updatePlayingPosition(startTimestampTimeInSelf)
                     var indexOrder = audio.playingLineIndexInFragments(startTimestampTimeInSelf)
-                    PlayerManager.seekTo(0,index = indexOrder)
+                    PlayerManager.seekTo(0, index = indexOrder)
                 }
             }
         }
@@ -1126,6 +1126,10 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                     } else { //                startTimestampTimeInSelf = currentPlayingTimeInAudio
                         endTimestampTimeInSelf = currentPlayingTimeInAudio
                         startTimestampTimeInSelf = (endTimestampTimeInSelf - 10000L).coerceAtLeast(0)
+                    }
+                    if (PlayerManager.isPlaying) {
+                        audio.updateMediaSource(startTimestampTimeInSelf, endTimestampTimeInSelf)
+                        audio.updatePlayingPosition(startTimestampTimeInSelf)
                     }
                     audio.invalidate()
                 }
