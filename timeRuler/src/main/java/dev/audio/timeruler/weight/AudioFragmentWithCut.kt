@@ -296,6 +296,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView,var cutMode: Int 
      * 增加裁剪片段
      */
     fun cutAdd() {
+        removeFake()
         cutPieceFragments.forEach {
             it.isSelected = false
         }
@@ -314,6 +315,9 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView,var cutMode: Int 
         })
         audioEditorView.invalidate()
         freshTrimAnchor()
+        PlayerManager.updateMediaSourceDeleteJump(cutPieceFragments)
+        var index = playingLineIndexInFragments(currentPlayingTimeInAudio)
+        PlayerManager.seekTo(0,index)
     }
 
     /**

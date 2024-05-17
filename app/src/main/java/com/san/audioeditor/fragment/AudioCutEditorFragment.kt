@@ -348,10 +348,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 marginStart = tipsView.measuredWidth / 2 - tipsView.bottomArrow().width / 2
             }
             tipsView.setAction {
-
-                viewBinding.cutAdd.isEnabled = cutAddEnable
-                viewBinding.cutRemove.isEnabled = cutRemoveEnable
-
                 (rootView as? FrameLayout)?.removeView(tipsView)
                 (rootView as? FrameLayout)?.removeView(img)
                 (rootView as? FrameLayout)?.removeView(bg)
@@ -539,11 +535,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             }
         }
     }
-
-    //todo  封装到控件内
-    private var cutAddEnable = false
-    private var cutRemoveEnable = false
-
 
     private fun initTimeBar(isSaveDta: Boolean = true) {
         val calendar = Calendar.getInstance()
@@ -768,15 +759,8 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
 
             override fun onCutModeChange(addEnable: Boolean, removeEnable: Boolean) {
-                cutAddEnable = addEnable
-                cutRemoveEnable = removeEnable
-                if (PlayerManager.isPlaying) {
-                    viewBinding.cutAdd.isEnabled = false
-                    viewBinding.cutRemove.isEnabled = false
-                } else {
-                    viewBinding.cutAdd.isEnabled = addEnable
-                    viewBinding.cutRemove.isEnabled = removeEnable
-                }
+                viewBinding.cutAdd.isEnabled = addEnable
+                viewBinding.cutRemove.isEnabled = removeEnable
             }
         })
 
@@ -962,13 +946,9 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             return
         }
         if (isPlaying) {
-            viewBinding.play.setImageResource(R.drawable.ic_puase) //            viewBinding.clStartAncher.isVisible = false
-            //            viewBinding.clEndAncher.isVisible = false
+            viewBinding.play.setImageResource(R.drawable.ic_puase)
         } else {
-            viewBinding.play.setImageResource(R.drawable.ic_play) //            viewBinding.clStartAncher.isVisible = viewBinding.timeLine.isCutLineStartVisible
-            //            viewBinding.clEndAncher.isVisible = viewBinding.timeLine.isCutLineEndVisible
-            viewBinding.cutAdd.isEnabled = cutAddEnable
-            viewBinding.cutRemove.isEnabled = cutRemoveEnable
+            viewBinding.play.setImageResource(R.drawable.ic_play)
         }
     }
 

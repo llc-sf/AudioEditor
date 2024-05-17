@@ -863,7 +863,11 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     fun cutAdd() {
         audioFragment?.cutAdd()
-        PlayerManager.updateMediaSourceDeleteJump(audioFragment!!.cutPieceFragments)
+    }
+
+
+    fun cutRemove() { //todo 增删后，保持之前播放/暂停状态（是播放就继续播放）播放源同步
+        audioFragment?.cutRemove()
     }
 
     fun switchCutMode(mode: Int) {
@@ -905,10 +909,6 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             PlayerManager.seekTo(seekPosition, windowIndex)
         }
         onCutModeChangeListener?.onCutModeChange(mode)
-    }
-
-    fun cutRemove() { //todo 增删后，保持之前播放/暂停状态（是播放就继续播放）播放源同步
-        audioFragment?.cutRemove()
     }
 
     private fun getCutLineStartTime(): Long {
@@ -1139,7 +1139,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                     if (index == -1) {
                         PlayerManager.seekTo(0)
                     } else {
-                        var progress  = currentPlayingTimeInAudio - it.cutPieceFragmentsOrder[index].startTimestampTimeInSelf
+                        var progress = currentPlayingTimeInAudio - it.cutPieceFragmentsOrder[index].startTimestampTimeInSelf
                         PlayerManager.seekTo(progress, index)
                     }
                 }
