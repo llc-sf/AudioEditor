@@ -800,6 +800,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                     endTimestampPosition.apply {
                         Log.i(BaseAudioEditorView.cut_tag, "endTimestampPosition: $this")
                     }
+                    checkPlayingLine()
                     view.invalidate()
                 }
             }
@@ -825,6 +826,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
         return true
     }
 
+    /**
+     * 裁剪条松手检查
+     */
     private fun checkPlayingLine() {
         audio.updateMediaSource(startTimestampTimeInSelf, endTimestampTimeInSelf)
         when (cutMode) {

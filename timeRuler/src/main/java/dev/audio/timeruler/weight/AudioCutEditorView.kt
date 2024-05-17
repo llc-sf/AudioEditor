@@ -1099,13 +1099,15 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     /**
      * 更新播放源
+     * 1、裁剪条开始结束微调
+     * 2、设定裁剪起点、终点
+     * 3、
      */
     fun updateMediaSource(startTimestampTimeInSelf: Long, endTimestampTimeInSelf: Long) {
         when (cutMode) {
             CutPieceFragment.CUT_MODE_SELECT -> {
                 PlayerManager.updateMediaSource(startTimestampTimeInSelf, endTimestampTimeInSelf)
                 PlayerManager.seekTo(currentPlayingTimeInAudio - getCutLineStartTime())
-
             }
 
             CutPieceFragment.CUT_MODE_DELETE -> {
