@@ -195,18 +195,20 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                     }
                 cutModeChangeButtonEnableListener?.onCutModeChange(addEnable, removeEnable) //播放条在裁剪范围，变为选中态，且取消其他范围的选中态
                 //动态更新选中态
-                audio.cutPieceFragments.forEach {
-                    if (audio.currentPlayingTimeInAudio in it.startTimestampTimeInSelf..it.endTimestampTimeInSelf) {
-                        if (!it.isSelected) {
-                            it.isSelected = true
-                            audio.cutLineFineTuningButtonChangeListener?.onCutLineFineTuningEnable(true)
-                            onCutLineChangeListener?.onCutLineChange(it.startTimestampTimeInSelf, it.endTimestampTimeInSelf)
-                            audio.invalidate()
-                        }
-                    } else {
-                        if (it.isSelected) {
-                            it.isSelected = false
-                            audio.invalidate()
+                if (isSelected && !isMovingStart && !isMovingEnd) {
+                    audio.cutPieceFragments.forEach {
+                        if (audio.currentPlayingTimeInAudio in it.startTimestampTimeInSelf..it.endTimestampTimeInSelf) {
+                            if (!it.isSelected) {
+                                it.isSelected = true
+                                audio.cutLineFineTuningButtonChangeListener?.onCutLineFineTuningEnable(true)
+                                onCutLineChangeListener?.onCutLineChange(it.startTimestampTimeInSelf, it.endTimestampTimeInSelf)
+                                audio.invalidate()
+                            }
+                        } else {
+                            if (it.isSelected) {
+                                it.isSelected = false
+                                audio.invalidate()
+                            }
                         }
                     }
                 }
@@ -691,8 +693,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                 if (isMovingStart || isMovingEnd) {
                     if (PlayerManager.isPlaying) {
                         resumePlaying = true
-                    }
-//                    PlayerManager.pause()
+                    } //                    PlayerManager.pause()
                 }
                 lastTouchXProcess = x
                 Log.i(BaseAudioEditorView.cut_tag, "cut onTouchEvent: ACTION_DOWN isMovingStart=$isMovingStart isMovingEnd=$isMovingEnd")
