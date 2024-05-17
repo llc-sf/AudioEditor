@@ -15,7 +15,9 @@ import dev.audio.timeruler.player.PlayerManager
  *
  * 带裁剪模式
  */
-class AudioFragmentWithCut(audioEditorView: AudioCutEditorView,var cutMode: Int = CutPieceFragment.CUT_MODE_SELECT) : AudioFragment(audioEditorView) {
+class AudioFragmentWithCut(audioEditorView: AudioCutEditorView,
+                           var cutMode: Int = CutPieceFragment.CUT_MODE_SELECT) :
+    AudioFragment(audioEditorView) {
 
     var audioFragmentBean: AudioFragmentBean = AudioFragmentBean()
         get() {
@@ -257,7 +259,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView,var cutMode: Int 
      */
     fun onSingleTapUp(event: MotionEvent): Boolean {
         if (cutMode == CutPieceFragment.CUT_MODE_JUMP) {
-            if(cutPieceFragments.isEmpty()){
+            if (cutPieceFragments.isEmpty()) {
                 (audioEditorView as? AudioCutEditorView)?.fineTuningEnable(false)
                 return true
             }
@@ -281,10 +283,10 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView,var cutMode: Int 
      */
     fun switchCutMode(mode: Int) {
         cutMode = mode
+        cutPieceFragments = cutPieceFragments.filter { it.index == 0 }.toMutableList()
         cutPieceFragments.forEach {
             it.switchCutMode(mode)
         }
-        cutPieceFragments = cutPieceFragments.filter { it.isSelected }.toMutableList()
         if (cutPieceFragments.isEmpty()) {
             initCutFragment()
             audioEditorView.invalidate()
@@ -311,8 +313,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView,var cutMode: Int 
                     return@forEachIndexed
                 }
             }
-            this.initCutFragment(audio.currentPlayingTimeInAudio, endTemp)
-            //开始 结束裁剪条微调控件更新
+            this.initCutFragment(audio.currentPlayingTimeInAudio, endTemp) //开始 结束裁剪条微调控件更新
             audio.cutLineFineTuningButtonChangeListener?.onCutLineFineTuningEnable(true)
             onCutLineChangeListener?.onCutLineChange(startTimestampTimeInSelf, endTimestampTimeInSelf)
         })
@@ -320,7 +321,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView,var cutMode: Int 
         freshTrimAnchor()
         PlayerManager.updateMediaSourceDeleteJump(cutPieceFragments)
         var index = playingLineIndexInFragments(currentPlayingTimeInAudio)
-        PlayerManager.seekTo(0,index)
+        PlayerManager.seekTo(0, index)
     }
 
     /**
@@ -492,6 +493,10 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView,var cutMode: Int 
 
     fun updatePlayingPosition(positionTime: Long) {
         (audioEditorView as? AudioCutEditorView)?.updatePlayingPosition(positionTime)
+    }
+
+    fun resetCurrentFragment() {
+        cutPieceFragments = cutPieceFragments.filter { it.index == 0 }.toMutableList()
     }
 
 }
