@@ -690,7 +690,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                     if (PlayerManager.isPlaying) {
                         resumePlaying = true
                     }
-                    PlayerManager.pause()
+//                    PlayerManager.pause()
                 }
                 lastTouchXProcess = x
                 Log.i(BaseAudioEditorView.cut_tag, "cut onTouchEvent: ACTION_DOWN isMovingStart=$isMovingStart isMovingEnd=$isMovingEnd")
