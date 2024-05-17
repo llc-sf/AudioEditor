@@ -292,20 +292,6 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
             CutPieceFragment.CUT_MODE_DELETE -> {
                 if (tempCurrentPlayingTimeInAudio in getCutLineStartTime()..getCutLineEndTime()) { //                    currentPlayingTimeInAudio = 0
-                    //只需要计算出当前播放条的位置即可，seek 在播放的时候做
-                    //                    if (!PlayerManager.isPlaying) {
-                    //                        if (PlayerManager.player.currentWindowIndex == 0) {
-                    //                            currentPlayingTimeInAudio = PlayerManager.getCurrentPosition()
-                    //
-                    //                        } else {
-                    //                            currentPlayingTimeInAudio = PlayerManager.getCurrentPosition() + getCutLineEndTime()
-                    //                        }
-                    //                        currentPlayingPosition = cursorPosition + (startValue + currentPlayingTimeInAudio - cursorValue) * unitMsPixel
-                    //                    }
-                    //                    if (!PlayerManager.isPlaying) {
-                    //                        currentPlayingTimeInAudio = 0
-                    //                        currentPlayingPosition = cursorPosition + (startValue + currentPlayingTimeInAudio - cursorValue) * unitMsPixel
-                    //                    }
                     if (isClick) {
                         PlayerManager.seekTo(0, 0)
                         currentPlayingTimeInAudio = 0

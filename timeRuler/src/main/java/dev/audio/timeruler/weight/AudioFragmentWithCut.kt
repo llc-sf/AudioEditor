@@ -312,6 +312,9 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView,var cutMode: Int 
                 }
             }
             this.initCutFragment(audio.currentPlayingTimeInAudio, endTemp)
+            //开始 结束裁剪条微调控件更新
+            audio.cutLineFineTuningButtonChangeListener?.onCutLineFineTuningEnable(true)
+            onCutLineChangeListener?.onCutLineChange(startTimestampTimeInSelf, endTimestampTimeInSelf)
         })
         audioEditorView.invalidate()
         freshTrimAnchor()
