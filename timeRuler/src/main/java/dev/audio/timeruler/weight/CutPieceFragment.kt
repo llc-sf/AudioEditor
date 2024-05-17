@@ -168,11 +168,15 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
      * 3、裁剪条移动
      */
     fun linesChangeNotify() {
-        if (isSelected && cutMode == CUT_MODE_DELETE) {
-            if (audio.currentPlayingTimeInAudio < this.endTimestampTimeInSelf && audio.currentPlayingTimeInAudio > this.startTimestampTimeInSelf) {
+        if (isSelected) {
+            if(cutMode == CUT_MODE_DELETE){
+                if (audio.currentPlayingTimeInAudio < this.endTimestampTimeInSelf && audio.currentPlayingTimeInAudio > this.startTimestampTimeInSelf) {
+                    onTrimAnchorChangeListener?.onTrimChange(start = true, end = true)
+                } else {
+                    onTrimAnchorChangeListener?.onTrimChange(audio.currentPlayingTimeInAudio < this.startTimestampTimeInSelf, audio.currentPlayingTimeInAudio > this.endTimestampTimeInSelf)
+                }
+            }else if(cutMode == CUT_MODE_SELECT){
                 onTrimAnchorChangeListener?.onTrimChange(start = true, end = true)
-            } else {
-                onTrimAnchorChangeListener?.onTrimChange(audio.currentPlayingTimeInAudio < this.startTimestampTimeInSelf, audio.currentPlayingTimeInAudio > this.endTimestampTimeInSelf)
             }
         }
 
