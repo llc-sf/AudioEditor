@@ -3,16 +3,16 @@
 
 
     <style name="ToastCompatStyle">
-        <item name="toast_error_drawable">@mipmap/ic_default_toast_error</item>
+        <item name="toast_error_drawable">@drawable/ic_toast_warning</item>
         <item name="toast_success_drawable">@mipmap/ic_default_toast_success</item>
         <item name="toast_radius">12dp</item>
-        <item name="toast_solid_color">#FF333333</item>
+        <item name="toast_solid_color">#952337</item>
         <item name="toast_text_color">#FFFFFFFF</item>
         <item name="toast_text_size">16sp</item>
         <item name="toast_text_appearance">@style/ToastCompatStyleTexAppearance</item>
         <item name="toast_margin">20dp</item>
         <!--距离1/5,默认位置-->
-        <item name="toast_screen_position">0.2</item>
+        <item name="toast_screen_position">0.00</item>
     </style>
 
     <attr name="CustomToastCompatStyle" format="reference" />

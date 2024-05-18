@@ -679,4 +679,5 @@
     <string name="redo_undo_tips">Redo / Undo \'Confirm\'</string>
     <string name="jump_tips">Add / Discard audio segments</string>
     <string name="got_it">Got it</string>
+    <string name="error_save">Trim failed, min duration: 0.1s.</string>
 </resources>

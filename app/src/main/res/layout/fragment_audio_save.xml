@@ -80,7 +80,7 @@
         android:layout_marginTop="-24dp"
         android:layout_marginEnd="-20dp"
         android:layout_marginBottom="-24dp"
-        android:background="@drawable/rectangle_5white_radius_all_14_bg"
+        android:background="@drawable/rectangle_952337_radius_all_14_bg"
         app:layout_constraintBottom_toBottomOf="@id/audio_info"
         app:layout_constraintEnd_toEndOf="@id/rename"
         app:layout_constraintStart_toStartOf="@id/audio_img"

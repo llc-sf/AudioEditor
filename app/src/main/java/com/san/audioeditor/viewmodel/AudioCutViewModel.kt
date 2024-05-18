@@ -11,6 +11,7 @@ import android.os.Handler
 import android.os.Message
 import android.provider.MediaStore
 import android.widget.Toast
+import android.widget.toast.ToastCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,6 +19,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.android.app.AppProvider
+import com.san.audioeditor.R
 import com.san.audioeditor.activity.AudioCutActivity
 import com.san.audioeditor.activity.AudioSaveActivity
 import com.san.audioeditor.handler.FFmpegHandler
@@ -93,17 +95,24 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
     }
 
     var outputPath = ""
-    fun save(context: Context,
-             realCutPieceFragments: List<CutPieceFragment>?,
-             datas: MutableList<AudioFragmentBean>) {
+    fun save(
+        context: Context,
+        realCutPieceFragments: List<CutPieceFragment>?,
+        datas: MutableList<AudioFragmentBean>
+    ) {
+        if (realCutPieceFragments.isNullOrEmpty()) {
+            ToastCompat.makeText(context, false,context.getString(R.string.error_save)).show()
+            return
+        }
         mHandler.datas = datas
         mHandler.context = WeakReference(context)
         viewModelScope.launch(Dispatchers.IO) {
-            val PATH = FFmpegApplication.instance?.getExternalFilesDir(Environment.DIRECTORY_MUSIC)?.absolutePath
+            val PATH =
+                FFmpegApplication.instance?.getExternalFilesDir(Environment.DIRECTORY_MUSIC)?.absolutePath
 
             var realCutPieceFragments = realCutPieceFragments?.filter { !it.isFake }
             if (realCutPieceFragments.isNullOrEmpty()) {
-                Toast.makeText(context, "请先选择片段", Toast.LENGTH_SHORT).show()
+                ToastCompat.makeText(context, context.getString(R.string.error_save)).show()
                 return@launch
             }
             var commandLine: Array<String>? = null
@@ -113,10 +122,19 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
             if (!FileUtil.isAudio(song.path)) {
                 return@launch
             }
-            outputPath = AudioFileUtils.generateNewFilePath(PATH + File.separator + AudioFileUtils.getFileName(song.path))
+            outputPath = AudioFileUtils.generateNewFilePath(
+                PATH + File.separator + AudioFileUtils.getFileName(song.path)
+            )
 
-            commandLine = FFmpegUtil.cutMultipleAudioSegments(song.path, realCutPieceFragments.toSegmentsArray(), outputPath)
-            android.util.Log.i(BaseAudioEditorView.jni_tag, "outputPath=${outputPath}") //打印 commandLine
+            commandLine = FFmpegUtil.cutMultipleAudioSegments(
+                song.path,
+                realCutPieceFragments.toSegmentsArray(),
+                outputPath
+            )
+            android.util.Log.i(
+                BaseAudioEditorView.jni_tag,
+                "outputPath=${outputPath}"
+            ) //打印 commandLine
             var sb = StringBuilder()
             commandLine?.forEachIndexed { index, s ->
                 sb.append("$s ")
@@ -130,7 +148,13 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
     }
 
     fun getSongInfo(context: Context, songPath: String): Song? {
-        val cursor = context.contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, MediaStore.Audio.Media.DATA + "=?", arrayOf(songPath), null)
+        val cursor = context.contentResolver.query(
+            MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+            null,
+            MediaStore.Audio.Media.DATA + "=?",
+            arrayOf(songPath),
+            null
+        )
         if (cursor?.moveToNext() == true) {
             return cursor.convertSong()
         }
@@ -156,12 +180,24 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
                     if (msg.obj == 0) {
                         refresh(AudioCutViewModel(isShowEditLoading = false))
                         deleteTempFiles()
-                        var resultFilePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).absolutePath + File.separator + AudioFileUtils.getFileName(oriSong.path)
-                        var resultFileName = AudioFileUtils.getFileName(AudioFileUtils.generateNewFilePath(resultFilePath))
-                        var file = AudioFileUtils.copyAudioToFileStore(File(outputPath), AppProvider.context, resultFileName)
+                        var resultFilePath =
+                            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).absolutePath + File.separator + AudioFileUtils.getFileName(
+                                oriSong.path
+                            )
+                        var resultFileName = AudioFileUtils.getFileName(
+                            AudioFileUtils.generateNewFilePath(resultFilePath)
+                        )
+                        var file = AudioFileUtils.copyAudioToFileStore(
+                            File(outputPath),
+                            AppProvider.context,
+                            resultFileName
+                        )
                         if (file != null) {
                             AudioFileUtils.deleteFile(outputPath)
-                            AudioFileUtils.notifyMediaScanner(AppProvider.context, file.absolutePath) { path: String, uri: Uri ->
+                            AudioFileUtils.notifyMediaScanner(
+                                AppProvider.context,
+                                file.absolutePath
+                            ) { path: String, uri: Uri ->
                                 context?.get()?.let {
                                     val song = getSongInfo(it, path)
                                     if (song != null) {

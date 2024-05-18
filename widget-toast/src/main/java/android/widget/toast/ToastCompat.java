@@ -122,7 +122,7 @@ public class ToastCompat implements Runnable {
         ToastWrapper wrapper = ToastWrapper.makeText(context, text, duration);
         wrapper.setView(view);
         int y = getDefaultPosition(context);
-        wrapper.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, y);
+        wrapper.setGravity(Gravity.TOP | Gravity.CENTER, 0, y);
         sLastToast = new WeakReference<ToastWrapper>(wrapper);
         return new ToastCompat(wrapper);
     }
