@@ -103,6 +103,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         if (intent != null) {
             val song = intent.getParcelableExtra<Song>(AudioCutActivity.PARAM_SONG)
             if (song != null) {
+                showWaveLoadingView()
                 mViewModel.song = song
                 PlayerManager.playByPath(mViewModel.song.path)
                 initTimeBar()
@@ -113,6 +114,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
             val audioFragmentBean = intent.getParcelableExtra<AudioFragmentBean>(AudioCutActivity.PARAM_AUDIO)
             if (audioFragmentBean != null && !TextUtils.isEmpty(audioFragmentBean.path)) {
+                showWaveLoadingView()
                 mViewModel.song = getSongInfo(requireContext(), audioFragmentBean.path!!) ?: return
                 PlayerManager.playByPath(mViewModel.song.path)
                 initTimeBar(false)
@@ -967,8 +969,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 WaveformOptions.getSampleFrom(requireContext(), mViewModel.song.path) {
                     viewBinding.timeLine.post {
                         viewBinding.timeLine.setWaveform(Waveform(it.toList()), mViewModel.song.duration.toLong(), mViewModel.song.path)
-                        viewBinding.waveLoading.pauseAnimation()
-                        viewBinding.waveLoading.isVisible = false
+                        hideWaveLoadingView()
                         freshZoomView()
                         waveDataLoaded()
                         (rootView as? FrameLayout)?.removeView(bg)
@@ -977,7 +978,16 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             }
             play(requireContext())
         }
+    }
 
+    private fun  showWaveLoadingView(){
+        viewBinding.waveLoading.playAnimation()
+        viewBinding.waveLoading.isVisible = true
+    }
+
+    private fun hideWaveLoadingView(){
+        viewBinding.waveLoading.pauseAnimation()
+        viewBinding.waveLoading.isVisible = false
     }
 
     private fun waveDataLoaded() {
