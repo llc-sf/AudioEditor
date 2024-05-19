@@ -1134,15 +1134,12 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                         endTimestampTimeInSelf = currentPlayingTimeInAudio
                         startTimestampTimeInSelf = (endTimestampTimeInSelf - 10000L).coerceAtLeast(0)
                     }
-                    if (PlayerManager.isPlaying) {
-                        audio.updateMediaSource(startTimestampTimeInSelf, endTimestampTimeInSelf)
-                        audio.updatePlayingPosition(startTimestampTimeInSelf)
-                    }
                     audio.invalidate()
                 }
 
                 CUT_MODE_DELETE -> {
                     endTimestampTimeInSelf = currentPlayingTimeInAudio
+                    audio.updateMediaSource(startTimestampTimeInSelf, endTimestampTimeInSelf)
                     audio.invalidate()
                 }
             }
