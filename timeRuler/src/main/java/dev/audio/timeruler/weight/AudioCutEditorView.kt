@@ -41,7 +41,9 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         get() {
             var time = 0L
             audioFragment?.cutPieceFragments?.forEachIndexed { index, cutPieceFragment ->
-                time += (cutPieceFragment.endTimestampTimeInSelf - cutPieceFragment.startTimestampTimeInSelf)
+                if (!cutPieceFragment.isFake) {
+                    time += (cutPieceFragment.endTimestampTimeInSelf - cutPieceFragment.startTimestampTimeInSelf)
+                }
             }
             return time
         }

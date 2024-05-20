@@ -327,6 +327,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView,
         freshTrimAnchor()
         PlayerManager.updateMediaSourceDeleteJump(cutPieceFragments)
         var index = playingLineIndexInFragments(currentPlayingTimeInAudio)
+        cutLineFineTuningButtonChangeListener?.onCutLineFineTuningEnable(true)
         PlayerManager.seekTo(0, index)
     }
 
@@ -376,7 +377,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView,
         }
         audioEditorView.invalidate()
         freshTrimAnchor()
-
+        cutLineFineTuningButtonChangeListener?.onCutLineFineTuningEnable(false)
     }
 
     fun getCutLineStartTime(): Long {

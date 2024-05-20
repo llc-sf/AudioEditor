@@ -654,7 +654,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         viewBinding.timeLine.addOnCutModeChangeListener(object :
                                                             AudioCutEditorView.CutModeChangeListener {
 
-            override fun onCutModeChange(mode: Int,isPlay:Boolean) {
+            override fun onCutModeChange(mode: Int, isPlay: Boolean) {
                 when (mode) {
                     CutPieceFragment.CUT_MODE_SELECT -> {
                         viewBinding.cutDesc.visibility = View.VISIBLE
@@ -795,11 +795,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             override fun onCutLineFineTuningEnable(isEnable: Boolean) {
                 viewBinding.cutLineStart.fineTuningEnable(isEnable)
                 viewBinding.cutLineEnd.fineTuningEnable(isEnable)
-                if (isEnable) {
-                    viewBinding.durationSelected.text = "${(viewBinding.timeLine.selectedTime).format2DurationSimple()}"
-                } else {
-                    viewBinding.durationSelected.text = "00:00.0"
-                }
+                viewBinding.durationSelected.text = "${(viewBinding.timeLine.selectedTime).format2DurationSimple()}"
             }
         })
 
