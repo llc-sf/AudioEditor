@@ -885,7 +885,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
 
     //*************************************裁剪模式变化 start *************************************//
     interface CutModeChangeListener {
-        fun onCutModeChange(mode: Int)
+        fun onCutModeChange(mode: Int,isPlay:Boolean)
     }
 
     var onCutModeChangeListener: CutModeChangeListener? = null
@@ -1021,7 +1021,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
         } else {
             PlayerManager.seekTo(seekPosition, windowIndex)
         }
-        onCutModeChangeListener?.onCutModeChange(mode)
+        onCutModeChangeListener?.onCutModeChange(mode,isPlay)
     }
 
     private fun getCutLineStartTime(): Long {

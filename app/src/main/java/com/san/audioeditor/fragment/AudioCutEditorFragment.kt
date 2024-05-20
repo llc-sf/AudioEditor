@@ -251,8 +251,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             return
         }
         disableBack()
-        var x = 0
-        var y = 0
         val location = IntArray(2)
         viewBinding.actionEdit.freshRightIconEnable(true, true)
         viewBinding.actionEdit.freshLeftIconEnable(true, true)
@@ -300,7 +298,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         }
     }
 
-    private fun showCutLineTips() {
+    private fun showCutLineTips(isPlay: Boolean) {
         if (activity == null) {
             return
         }
@@ -314,8 +312,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             return
         }
         disableBack()
-        var x = 0
-        var y = 0
+        PlayerManager.pause()
         val location = IntArray(2)
         viewBinding.cutAdd.isEnabled = true
         viewBinding.cutRemove.isEnabled = true
@@ -357,16 +354,15 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 (rootView as? FrameLayout)?.removeView(bg)
                 OncePreferencesUtil.set(OncePreferencesUtil.key_switch_mode_tips)
                 enableBack()
-
-
+                if (isPlay) {
+                    PlayerManager.play()
+                }
             }
         }
     }
 
     //确认提示
     private fun showConfirmTips() {
-        var x = 0
-        var y = 0
         val location = IntArray(2)
         var ancherView = viewBinding.confirm
         ancherView.getLocationOnScreen(location)
@@ -413,8 +409,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     } // 将回调添加到OnBackPressedDispatcher
 
     fun showDragTips() {
-        var x = 0
-        var y = 0
         disableBack()
         val location = IntArray(2)
         var ancherview = viewBinding.timeLine
@@ -660,7 +654,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         viewBinding.timeLine.addOnCutModeChangeListener(object :
                                                             AudioCutEditorView.CutModeChangeListener {
 
-            override fun onCutModeChange(mode: Int) {
+            override fun onCutModeChange(mode: Int,isPlay:Boolean) {
                 when (mode) {
                     CutPieceFragment.CUT_MODE_SELECT -> {
                         viewBinding.cutDesc.visibility = View.VISIBLE
@@ -678,7 +672,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                         viewBinding.cutDesc.visibility = View.INVISIBLE
                         viewBinding.trimAnchorLy.isVisible = false
                         viewBinding.jumpActionLy.isVisible = true
-                        viewBinding.jumpActionLy.postDelayed({ showCutLineTips() }, 80)
+                        viewBinding.jumpActionLy.postDelayed({ showCutLineTips(isPlay) }, 80)
                     }
                 }
             }
@@ -958,14 +952,12 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
 
     //todo requireContext()
-    private fun setAudioData() {
-//        var bg = ImageView(requireContext()).apply {
-//            setBackgroundColor(requireContext().resources.getColor(R.color.transparent))
-//            id = R.id.tips_bg
-//            setOnClickListener { }
-//        }
-        activity?.window?.decorView?.let { rootView ->
-//            (rootView as? FrameLayout)?.addView(bg, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
+    private fun setAudioData() { //        var bg = ImageView(requireContext()).apply {
+        //            setBackgroundColor(requireContext().resources.getColor(R.color.transparent))
+        //            id = R.id.tips_bg
+        //            setOnClickListener { }
+        //        }
+        activity?.window?.decorView?.let { rootView -> //            (rootView as? FrameLayout)?.addView(bg, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
             viewBinding.timeLine.setLoadingView(mViewModel.song.duration.toLong(), mViewModel.song.path)
             GlobalScope.launch(Dispatchers.IO) {
                 WaveformOptions.getSampleFrom(requireContext(), mViewModel.song.path) {
@@ -973,8 +965,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                         viewBinding.timeLine.setWaveform(Waveform(it.toList()), mViewModel.song.duration.toLong(), mViewModel.song.path)
                         hideWaveLoadingView()
                         freshZoomView()
-                        waveDataLoaded()
-//                        (rootView as? FrameLayout)?.removeView(bg)
+                        waveDataLoaded() //                        (rootView as? FrameLayout)?.removeView(bg)
                     }
                 }
             }
@@ -982,12 +973,12 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         }
     }
 
-    private fun  showWaveLoadingView(){
+    private fun showWaveLoadingView() {
         viewBinding.waveLoading.playAnimation()
         viewBinding.waveLoading.isVisible = true
     }
 
-    private fun hideWaveLoadingView(){
+    private fun hideWaveLoadingView() {
         viewBinding.waveLoading.pauseAnimation()
         viewBinding.waveLoading.isVisible = false
     }
@@ -1081,7 +1072,8 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         PlayerManager.pause()
         var realCutPieceFragments = viewBinding.timeLine.cutPieceFragmentsOrder?.filter { !it.isFake }
         if (realCutPieceFragments.isNullOrEmpty()) {
-            ToastCompat.makeText(AppProvider.context, false,AppProvider.context.getString(R.string.error_save)).show()
+            ToastCompat.makeText(AppProvider.context, false, AppProvider.context.getString(R.string.error_save))
+                .show()
             return
         }
         var commandLine: Array<String>? = null
