@@ -283,9 +283,14 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView,
      */
     fun switchCutMode(mode: Int) {
         cutMode = mode
-        cutPieceFragments = cutPieceFragments.filter { it.index == 0 }.toMutableList()
+        cutPieceFragments = cutPieceFragments.sortedBy { it.startTimestampTimeInSelf } .toMutableList()
+        if (cutPieceFragments.isNotEmpty()) {
+            // 只保留第一个元素
+            cutPieceFragments = mutableListOf(cutPieceFragments.first())
+        }
         cutPieceFragments.forEach {
             it.switchCutMode(mode)
+            it.isSelected = true
         }
         if (cutPieceFragments.isEmpty()) {
             initCutFragment()
