@@ -8,7 +8,7 @@
         <item name="toast_radius">12dp</item>
         <item name="toast_solid_color">#952337</item>
         <item name="toast_text_color">#FFFFFFFF</item>
-        <item name="toast_text_size">16sp</item>
+        <item name="toast_text_size">14sp</item>
         <item name="toast_text_appearance">@style/ToastCompatStyleTexAppearance</item>
         <item name="toast_margin">20dp</item>
         <!--距离1/5,默认位置-->
