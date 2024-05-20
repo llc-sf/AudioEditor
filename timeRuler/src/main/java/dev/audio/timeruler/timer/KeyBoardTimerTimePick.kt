@@ -170,15 +170,15 @@ class KeyBoardTimerTimePick @JvmOverloads constructor(context: Context,
             if (getTime().time == cutTime.maxTime.time) {
                 context.resources.getString(R.string.trime_start_end_time_error)
             } else if (getTime().time > cutTime.maxTime.time) {
-                "开始时间过小"
-            } else if (getTime().time < cutTime.minTime.time) {
                 context.resources.getString(R.string.trime_start_time_error)
+            } else if (getTime().time < cutTime.minTime.time) {
+                "开始时间过小"
             } else {
                 ""
             }
 
         } else {
-            if (getTime().time == cutTime.maxTime.time) {
+            if (getTime().time == cutTime.minTime.time) {
                 context.resources.getString(R.string.trime_start_end_time_error)
             } else if (getTime().time > cutTime.maxTime.time) {
                 "结束时间过大"
