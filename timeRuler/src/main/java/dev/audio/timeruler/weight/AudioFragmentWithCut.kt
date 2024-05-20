@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.timeruler.bean.AudioFragmentBean
 import dev.audio.timeruler.bean.Ref
 import dev.audio.timeruler.player.PlayerManager
@@ -116,9 +117,14 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView,
             it.drawCut(canvas)
         } //恢复图层
         canvas.restoreToCount(saved)
-        cutPieceFragments.forEach {
-            it.drawCutLines(canvas)
-        } //绘制剪切条
+        //前后裁剪条定位
+        if(cutPieceFragments.isNullOrEmpty()){
+            refreshCutLineAnchor(start = false, end = false)
+        }else{
+            cutPieceFragments.forEach {
+                it.drawCutLines(canvas)
+            } //绘制剪切条
+        }
     }
 
 
@@ -284,9 +290,9 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView,
     fun switchCutMode(mode: Int) {
         cutMode = mode
 
-        cutPieceFragments = cutPieceFragments.filter { !it.isFake }.sortedBy { it.startTimestampTimeInSelf } .toMutableList()
-        if (cutPieceFragments.isNotEmpty()) {
-            // 只保留第一个元素
+        cutPieceFragments = cutPieceFragments.filter { !it.isFake }
+            .sortedBy { it.startTimestampTimeInSelf }.toMutableList()
+        if (cutPieceFragments.isNotEmpty()) { // 只保留第一个元素
             cutPieceFragments = mutableListOf(cutPieceFragments.first())
         }
         cutPieceFragments.forEach {
@@ -345,6 +351,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView,
             cutModeChangeButtonEnableListener?.onCutModeChange(true, false)
             cutLineFineTuningButtonChangeListener?.onCutLineFineTuningEnable(false)
             audioEditorView.invalidate()
+            refreshCutLineAnchor(start = false, end = false)
             return
         }
         var isPlaying = PlayerManager.isPlaying
