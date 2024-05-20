@@ -412,7 +412,7 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView,
 
     fun getNextCutPieceFragment(): CutPieceFragment? {
         if (cutPieceFragments.size <= 1) {
-            return currentCutPieceFragment
+            return null
         }
         val sortedList = cutPieceFragments.sortedBy { it.startTimestampTimeInSelf }
         val index = sortedList.indexOf(currentCutPieceFragment)
@@ -423,11 +423,37 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView,
         }
     }
 
+    fun getNextCutPieceFragmentWithReal(): CutPieceFragment? {
+        if (cutPieceFragments.size <= 1) {
+            return null
+        }
+        val sortedList = cutPieceFragments.filter { !it.isFake }.sortedBy { it.startTimestampTimeInSelf }
+        val index = sortedList.indexOf(currentCutPieceFragment)
+        return if (index == cutPieceFragments.size - 1) {
+            null
+        } else {
+            sortedList[index + 1]
+        }
+    }
+
     fun getPreCutPieceFragment(): CutPieceFragment? {
         if (cutPieceFragments.size <= 1) {
-            return currentCutPieceFragment
+            return null
         }
         val sortedList = cutPieceFragments.sortedBy { it.startTimestampTimeInSelf }
+        val index = sortedList.indexOf(currentCutPieceFragment)
+        return if (index == 0) {
+            null
+        } else {
+            sortedList[index - 1]
+        }
+    }
+
+    fun getPreCutPieceFragmentWithReal(): CutPieceFragment? {
+        if (cutPieceFragments.size <= 1) {
+            return null
+        }
+        val sortedList = cutPieceFragments.filter { !it.isFake }.sortedBy { it.startTimestampTimeInSelf }
         val index = sortedList.indexOf(currentCutPieceFragment)
         return if (index == 0) {
             null

@@ -931,7 +931,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             }
 
             CutPieceFragment.CUT_MODE_JUMP -> {
-                var preCutPieceFragment = audioFragment?.getPreCutPieceFragment()
+                var preCutPieceFragment = audioFragment?.getPreCutPieceFragmentWithReal()
                 if (preCutPieceFragment != null) {
                     min = preCutPieceFragment.endTimestampTimeInSelf
                 } else {
@@ -962,7 +962,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
             CutPieceFragment.CUT_MODE_JUMP -> {
                 min = getCutLineStartTime() + 100
-                var nextCutPieceFragment = audioFragment?.getNextCutPieceFragment()
+                var nextCutPieceFragment = audioFragment?.getNextCutPieceFragmentWithReal()
                 if (nextCutPieceFragment != null) {
                     max = nextCutPieceFragment.startTimestampTimeInSelf
                 } else {
