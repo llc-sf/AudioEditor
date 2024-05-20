@@ -122,9 +122,15 @@ class KeyBoardTimerTimePick @JvmOverloads constructor(context: Context,
             binding.hour.setText(time.hoursStr)
         }
 
-        binding.minute.isVisible = true
-        binding.space2.isVisible = true
-        binding.minute.setText(time.minutesStr)
+        if (time.hours == 0 && time.minutes == 0) {
+            binding.minute.isVisible = false
+            binding.space2.isVisible = false
+        } else {
+            binding.minute.isVisible = true
+            binding.space2.isVisible = true
+            binding.minute.setText(time.minutesStr)
+        }
+
 
         binding.second.isVisible = true
         binding.space3.isVisible = true
