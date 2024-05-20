@@ -29,10 +29,8 @@ import dev.audio.timeruler.utils.getTopY
 import java.lang.ref.WeakReference
 import kotlin.reflect.KProperty
 
-open class AudioCutEditorView @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null
-) :
+open class AudioCutEditorView @JvmOverloads constructor(context: Context,
+                                                        attrs: AttributeSet? = null) :
     BaseAudioEditorView(context, attrs), TickMarkStrategy {
 
     companion object {
@@ -78,10 +76,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
             if (screenWithDuration == 0L) {
                 return false
             }
-            Log.i(
-                "AudioCutEditorView",
-                "canZoomOut: screenWithDuration=$screenWithDuration audioFragment?.duration=${audioFragment?.duration}"
-            )
+            Log.i("AudioCutEditorView", "canZoomOut: screenWithDuration=$screenWithDuration audioFragment?.duration=${audioFragment?.duration}")
             return screenWithDuration + 1 < audioFragment?.duration ?: 0
         }
 
@@ -93,10 +88,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
                 }
                 return false
             }
-            Log.i(
-                "AudioCutEditorView",
-                "canZoomIn: screenWithDuration=$screenWithDuration SCREEN_WIDTH_TIME_VALUE_ARRAY[0]=${SCREEN_WIDTH_TIME_VALUE_ARRAY[0]}"
-            )
+            Log.i("AudioCutEditorView", "canZoomIn: screenWithDuration=$screenWithDuration SCREEN_WIDTH_TIME_VALUE_ARRAY[0]=${SCREEN_WIDTH_TIME_VALUE_ARRAY[0]}")
             return screenWithDuration > SCREEN_WIDTH_TIME_VALUE_ARRAY[0]
         }
 
@@ -113,14 +105,10 @@ open class AudioCutEditorView @JvmOverloads constructor(
     var isWaveDataLoaded = false
     private fun init(attrs: AttributeSet?) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.BaseScaleBar)
-        playingTextSize = typedArray.getDimension(
-            R.styleable.BaseScaleBar_playingTextSize, SizeUtils.sp2px(context, 8f)
-                .toFloat()
-        )
-        triangleSideLength = typedArray.getDimension(
-            R.styleable.BaseScaleBar_triangleSideLength, SizeUtils.sp2px(context, 20f)
-                .toFloat()
-        )
+        playingTextSize = typedArray.getDimension(R.styleable.BaseScaleBar_playingTextSize, SizeUtils.sp2px(context, 8f)
+            .toFloat())
+        triangleSideLength = typedArray.getDimension(R.styleable.BaseScaleBar_triangleSideLength, SizeUtils.sp2px(context, 20f)
+            .toFloat())
         typedArray.recycle()
 
         setTickMarkStrategy(this)
@@ -176,10 +164,9 @@ open class AudioCutEditorView @JvmOverloads constructor(
     /**
      * 裁剪拨片的触摸事件
      */
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-//        if (!isWaveDataLoaded) {
-//            return true
-//        }
+    override fun onTouchEvent(event: MotionEvent): Boolean { //        if (!isWaveDataLoaded) {
+        //            return true
+        //        }
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 Log.i(cut_tag, "onTouchEvent: ACTION_DOWN touchCutLine=$touchCutLine")
@@ -238,17 +225,11 @@ open class AudioCutEditorView @JvmOverloads constructor(
                     }
                     if (audioFragment?.canLoadMoreWaveDataToStart() == true && event.x < currentPlayingAutoMoveRang) { //靠左边自由移动
                         moveHandler.sendEmptyMessage(MoveHandler.MSG_MOVE_START)
-                    } else if (audioFragment?.canLoadMoreWaveDataToEnd() == true && event.x > ScreenUtil.getScreenWidth(
-                            context
-                        ) - currentPlayingAutoMoveRang
-                    ) { //靠右边自由移动
+                    } else if (audioFragment?.canLoadMoreWaveDataToEnd() == true && event.x > ScreenUtil.getScreenWidth(context) - currentPlayingAutoMoveRang) { //靠右边自由移动
                         moveHandler.sendEmptyMessage(MoveHandler.MSG_MOVE_END)
                     } else {
                         manuallyUpdatePlayingLine(event)
-                        Log.i(
-                            playline_tag,
-                            "onTouchEvent: ACTION_MOVE currentPlayingPosition=$currentPlayingPosition"
-                        ) //                    cursorValue + (currentPlayingPosition / unitMsPixel).toLong()
+                        Log.i(playline_tag, "onTouchEvent: ACTION_MOVE currentPlayingPosition=$currentPlayingPosition") //                    cursorValue + (currentPlayingPosition / unitMsPixel).toLong()
                         invalidate()
                     }
                     return true
@@ -263,15 +244,9 @@ open class AudioCutEditorView @JvmOverloads constructor(
      * 播放条自动居中
      */
     private fun playingLineAuto2Middle(position: Float) { //移动播放条到屏幕中央
-        var offsetTimeValue =
-            ((position - ScreenUtil.getScreenWidth(context) / 2) / unitMsPixel).toLong()
+        var offsetTimeValue = ((position - ScreenUtil.getScreenWidth(context) / 2) / unitMsPixel).toLong()
         moveHandler.removeMessages(MoveHandler.MSG_MOVE_TO_OFFSET_PLAYING_LINE)
-        moveHandler.sendMessage(
-            moveHandler.obtainMessage(
-                MoveHandler.MSG_MOVE_TO_OFFSET_PLAYING_LINE,
-                offsetTimeValue
-            )
-        )
+        moveHandler.sendMessage(moveHandler.obtainMessage(MoveHandler.MSG_MOVE_TO_OFFSET_PLAYING_LINE, offsetTimeValue))
     }
 
     /**
@@ -292,8 +267,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
             return
         }
         var tempCurrentPlayingPosition = event.x
-        var tempCurrentPlayingTimeInAudio =
-            cursorValue + (tempCurrentPlayingPosition / unitMsPixel).toLong() - startValue
+        var tempCurrentPlayingTimeInAudio = cursorValue + (tempCurrentPlayingPosition / unitMsPixel).toLong() - startValue
         var isNeedPosition2Middle = false
         when (cutMode) {
             CutPieceFragment.CUT_MODE_SELECT -> {
@@ -306,13 +280,10 @@ open class AudioCutEditorView @JvmOverloads constructor(
                     if (isClick) {
                         PlayerManager.seekTo(0, 0)
                         currentPlayingTimeInAudio = getCutLineStartTime()
-                        currentPlayingPosition =
-                            cursorPosition + (startValue + currentPlayingTimeInAudio - cursorValue) * unitMsPixel
+                        currentPlayingPosition = cursorPosition + (startValue + currentPlayingTimeInAudio - cursorValue) * unitMsPixel
                     } else {
-                        currentPlayingTimeInAudio =
-                            PlayerManager.getCurrentPosition() + getCutLineStartTime()
-                        currentPlayingPosition =
-                            cursorPosition + currentPlayingTimeInAudio * unitMsPixel
+                        currentPlayingTimeInAudio = PlayerManager.getCurrentPosition() + getCutLineStartTime()
+                        currentPlayingPosition = cursorPosition + currentPlayingTimeInAudio * unitMsPixel
                     }
 
                 }
@@ -323,18 +294,15 @@ open class AudioCutEditorView @JvmOverloads constructor(
                     if (isClick) {
                         PlayerManager.seekTo(0, 0)
                         currentPlayingTimeInAudio = 0
-                        currentPlayingPosition =
-                            cursorPosition + (startValue + currentPlayingTimeInAudio - cursorValue) * unitMsPixel
+                        currentPlayingPosition = cursorPosition + (startValue + currentPlayingTimeInAudio - cursorValue) * unitMsPixel
                     } else {
                         if (PlayerManager.player.currentWindowIndex == 0) {
                             currentPlayingTimeInAudio = PlayerManager.getCurrentPosition()
 
                         } else {
-                            currentPlayingTimeInAudio =
-                                PlayerManager.getCurrentPosition() + getCutLineEndTime()
+                            currentPlayingTimeInAudio = PlayerManager.getCurrentPosition() + getCutLineEndTime()
                         }
-                        currentPlayingPosition =
-                            cursorPosition + currentPlayingTimeInAudio * unitMsPixel
+                        currentPlayingPosition = cursorPosition + currentPlayingTimeInAudio * unitMsPixel
                     }
 
                 } else {
@@ -372,14 +340,12 @@ open class AudioCutEditorView @JvmOverloads constructor(
             return
         } //只需要计算出当前播放条的位置即可，seek 在播放的时候做 todo 其实这里做也行 一会调整吧
         currentPlayingPosition = event.x
-        currentPlayingTimeInAudio =
-            cursorValue + (currentPlayingPosition / unitMsPixel).toLong() - startValue //        var seekPosition = when (cutMode) {
+        currentPlayingTimeInAudio = cursorValue + (currentPlayingPosition / unitMsPixel).toLong() - startValue //        var seekPosition = when (cutMode) {
     }
 
     private fun offsetPlayingLine(offset: Float) {
         currentPlayingPosition += offset
-        currentPlayingTimeInAudio =
-            cursorValue + (currentPlayingPosition / unitMsPixel).toLong() - startValue
+        currentPlayingTimeInAudio = cursorValue + (currentPlayingPosition / unitMsPixel).toLong() - startValue
     }
 
     /**
@@ -413,14 +379,8 @@ open class AudioCutEditorView @JvmOverloads constructor(
 
     private fun drawPlayingLine(canvas: Canvas) {
         if (!needShowTips && isWaveDataLoaded) {
-            canvas.drawLine(
-                currentPlayingPosition,
-                baselinePosition,
-                currentPlayingPosition,
-                audioFragment?.rect?.bottom?.toFloat()
-                    ?: 0f,
-                playingLinePaint
-            )
+            canvas.drawLine(currentPlayingPosition, baselinePosition, currentPlayingPosition, audioFragment?.rect?.bottom?.toFloat()
+                ?: 0f, playingLinePaint)
             var y = drawTriangle(canvas, audioFragment?.rect?.bottom?.toFloat() ?: 0f)
             drawText(canvas, y, currentPlayingTimeInAudio.format2DurationSimple())
         }
@@ -431,14 +391,8 @@ open class AudioCutEditorView @JvmOverloads constructor(
     private fun drawTriangle(canvas: Canvas, y: Float): Float {
         val path = Path()
         path.moveTo(currentPlayingPosition, y + margin1)
-        path.lineTo(
-            currentPlayingPosition - triangleSideLength / 2,
-            y + margin1 + triangleSideLength / 2
-        )
-        path.lineTo(
-            currentPlayingPosition + triangleSideLength / 2,
-            y + margin1 + triangleSideLength / 2
-        )
+        path.lineTo(currentPlayingPosition - triangleSideLength / 2, y + margin1 + triangleSideLength / 2)
+        path.lineTo(currentPlayingPosition + triangleSideLength / 2, y + margin1 + triangleSideLength / 2)
         path.close()
         val paint = Paint()
         paint.color = Color.WHITE
@@ -456,12 +410,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
     private var margin2 = 10f
     private fun drawText(canvas: Canvas, y: Float, text: String) {
         val textWidth = textPaint.measureText(text)
-        canvas.drawText(
-            text,
-            currentPlayingPosition - textWidth / 2,
-            y + textPaint.getTopY() + margin2,
-            textPaint
-        )
+        canvas.drawText(text, currentPlayingPosition - textWidth / 2, y + textPaint.getTopY() + margin2, textPaint)
     }
 
     override fun calcContentHeight(): Int {
@@ -469,93 +418,47 @@ open class AudioCutEditorView @JvmOverloads constructor(
     }
 
     //分三份
-    override fun drawRightKeyTick(
-        canvas: Canvas,
-        index: Int,
-        onDrawTickValue: Long,
-        onDrawTickPosition: Float,
-        paint: Paint,
-        rightCount: Int,
-        keyScaleRange: Long
-    ) {
+    override fun drawRightKeyTick(canvas: Canvas,
+                                  index: Int,
+                                  onDrawTickValue: Long,
+                                  onDrawTickPosition: Float,
+                                  paint: Paint,
+                                  rightCount: Int,
+                                  keyScaleRange: Long) {
         if (needShowTips) {
             return
         }
         if (audioFragment?.duration ?: 0 > MIN_DURATION) {
             if (index == 0) {
                 var content = (cursorValue - startValue).format2DurationSimpleInt()
-                drawTickValue(
-                    canvas,
-                    content,
-                    20f + paint.measureText(content) / 2,
-                    topPadding + paint!!.getTopY()
-                )
+                drawTickValue(canvas, content, 20f + paint.measureText(content) / 2, topPadding + paint!!.getTopY())
             } else if (index == rightCount / 3) {
-                var content =
-                    ((cursorValue - startValue) + screenWithDuration / 3).format2DurationSimpleInt()
-                drawTickValue(
-                    canvas,
-                    content,
-                    ScreenUtil.getScreenWidth(context) / 3f,
-                    topPadding + paint!!.getTopY()
-                )
+                var content = ((cursorValue - startValue) + screenWithDuration / 3).format2DurationSimpleInt()
+                drawTickValue(canvas, content, ScreenUtil.getScreenWidth(context) / 3f, topPadding + paint!!.getTopY())
             } else if (index == rightCount / 3 * 2) {
-                var content =
-                    ((cursorValue - startValue) + screenWithDuration / 3 * 2).format2DurationSimpleInt()
-                drawTickValue(
-                    canvas,
-                    content,
-                    ScreenUtil.getScreenWidth(context) / 3f * 2,
-                    topPadding + paint!!.getTopY()
-                )
+                var content = ((cursorValue - startValue) + screenWithDuration / 3 * 2).format2DurationSimpleInt()
+                drawTickValue(canvas, content, ScreenUtil.getScreenWidth(context) / 3f * 2, topPadding + paint!!.getTopY())
             } else if (index == rightCount - 1) {
-                var content =
-                    ((cursorValue - startValue) + screenWithDuration).format2DurationSimpleInt()
-                drawTickValue(
-                    canvas,
-                    content,
-                    ScreenUtil.getScreenWidth(context)
-                        .toFloat() - paint!!.measureText(content) / 2 - 20f,
-                    topPadding + paint!!.getTopY()
-                )
+                var content = ((cursorValue - startValue) + screenWithDuration).format2DurationSimpleInt()
+                drawTickValue(canvas, content, ScreenUtil.getScreenWidth(context)
+                    .toFloat() - paint!!.measureText(content) / 2 - 20f, topPadding + paint!!.getTopY())
             }
         } else {
             var time = onDrawTickValue - startValue
             var oneSecondIndex = 1000 / keyScaleRange.toInt()
             if (index == 0) {
                 var content = (cursorValue - startValue).format2DurationSimpleInt()
-                drawTickValue(
-                    canvas,
-                    content,
-                    20f + paint.measureText(content) / 2,
-                    topPadding + paint!!.getTopY()
-                )
+                drawTickValue(canvas, content, 20f + paint.measureText(content) / 2, topPadding + paint!!.getTopY())
             } else if (index == oneSecondIndex) {
                 var content = ((cursorValue - startValue) + 1000L).format2DurationSimpleInt()
-                drawTickValue(
-                    canvas,
-                    content,
-                    ScreenUtil.getScreenWidth(context) / screenWithDuration.toFloat() * 1000,
-                    topPadding + paint!!.getTopY()
-                )
+                drawTickValue(canvas, content, ScreenUtil.getScreenWidth(context) / screenWithDuration.toFloat() * 1000, topPadding + paint!!.getTopY())
             } else if (index == oneSecondIndex * 2) {
                 var content = ((cursorValue - startValue) + 2000L).format2DurationSimpleInt()
-                drawTickValue(
-                    canvas,
-                    content,
-                    ScreenUtil.getScreenWidth(context) / screenWithDuration.toFloat() * 1000 * 2,
-                    topPadding + paint!!.getTopY()
-                )
+                drawTickValue(canvas, content, ScreenUtil.getScreenWidth(context) / screenWithDuration.toFloat() * 1000 * 2, topPadding + paint!!.getTopY())
             } else if (time == screenWithDuration) {
-                var content =
-                    ((cursorValue - startValue) + screenWithDuration).format2DurationSimpleInt()
-                drawTickValue(
-                    canvas,
-                    content,
-                    ScreenUtil.getScreenWidth(context)
-                        .toFloat() - paint!!.measureText(content) / 2 - 20f,
-                    topPadding + paint!!.getTopY()
-                )
+                var content = ((cursorValue - startValue) + screenWithDuration).format2DurationSimpleInt()
+                drawTickValue(canvas, content, ScreenUtil.getScreenWidth(context)
+                    .toFloat() - paint!!.measureText(content) / 2 - 20f, topPadding + paint!!.getTopY())
             }
         }
     }
@@ -595,18 +498,13 @@ open class AudioCutEditorView @JvmOverloads constructor(
      *
      * 定位，以播放线定位 此时前提：播放线位置是正确的   随着播放进度，要么移动波形，要么移动播放条，使播放进度正确
      */
-    fun onProgressChange(
-        currentWindowIndex: Int,
-        positionInCutPiece: Long,
-        durationCutPiece: Long
-    ) { //在真个坐标轴中的位置
+    fun onProgressChange(currentWindowIndex: Int,
+                         positionInCutPiece: Long,
+                         durationCutPiece: Long) { //在真个坐标轴中的位置
         if (touchPlayingLine) {
             return
         }
-        Log.i(
-            playline_tag,
-            "setPlayerProgress currentPositionInPlaying=$positionInCutPiece duration=$durationCutPiece"
-        )
+        Log.i(playline_tag, "setPlayerProgress currentPositionInPlaying=$positionInCutPiece duration=$durationCutPiece")
         if (cutMode == CutPieceFragment.CUT_MODE_SELECT && positionInCutPiece + 10 >= durationCutPiece) { //判断播放结束
             restart()
             return
@@ -624,9 +522,8 @@ open class AudioCutEditorView @JvmOverloads constructor(
         var currentPositionInWholeAudio: Long = 0
         when (cutMode) {
             CutPieceFragment.CUT_MODE_SELECT -> {
-                currentPositionInWholeAudio =
-                    positionInCutPiece + (audioFragment?.getCutLineStartTime()
-                        ?: 0)
+                currentPositionInWholeAudio = positionInCutPiece + (audioFragment?.getCutLineStartTime()
+                    ?: 0)
             }
 
             CutPieceFragment.CUT_MODE_DELETE -> {
@@ -639,40 +536,32 @@ open class AudioCutEditorView @JvmOverloads constructor(
 
             CutPieceFragment.CUT_MODE_JUMP -> {
                 val cutFragment = audioFragment?.cutPieceFragmentsOrder?.get(currentWindowIndex)
-                currentPositionInWholeAudio =
-                    positionInCutPiece + (cutFragment?.startTimestampTimeInSelf
-                        ?: 0)
+                currentPositionInWholeAudio = positionInCutPiece + (cutFragment?.startTimestampTimeInSelf
+                    ?: 0)
             }
         }
         currentPlayingTimeInAudio = currentPositionInWholeAudio
         if (currentPlayingPosition > ScreenUtil.getScreenWidth(context) || currentPlayingPosition < 0) { //播放条移动到屏幕外  需要移动波形到屏幕中间
-            if (currentPositionInWholeAudio.time2Pixel(unitMsPixel) < ScreenUtil.getScreenWidth(
-                    context
-                ) / 2
-            ) { //播放条太靠start，波形固定，移动播放条
+            if (currentPositionInWholeAudio.time2Pixel(unitMsPixel) < ScreenUtil.getScreenWidth(context) / 2) { //播放条太靠start，波形固定，移动播放条
                 cursorValue = startValue
-                currentPlayingPosition =
-                    (currentPlayingTimeInTimeLine - this.cursorValue) * unitMsPixel
+                currentPlayingPosition = (currentPlayingTimeInTimeLine - this.cursorValue) * unitMsPixel
             } else if (((audioFragment?.duration
-                    ?: 0) - currentPositionInWholeAudio) * unitMsPixel < ScreenUtil.getScreenWidth(
-                    context
-                ) / 2
+                    ?: 0) - currentPositionInWholeAudio) * unitMsPixel < ScreenUtil.getScreenWidth(context) / 2
             ) { //播放条太靠end，波形固定，移动播放条
                 cursorValue = endValue - screenWithDuration
-                currentPlayingPosition =
-                    (currentPlayingTimeInTimeLine - this.cursorValue) * unitMsPixel
+                currentPlayingPosition = (currentPlayingTimeInTimeLine - this.cursorValue) * unitMsPixel
             } else {
                 currentPlayingPosition = (ScreenUtil.getScreenWidth(context) / 2).toFloat()
-                cursorValue =
-                    currentPlayingTimeInTimeLine - ((ScreenUtil.getScreenWidth(context) / 2).toFloat() / unitMsPixel).toLong()
+                cursorValue = currentPlayingTimeInTimeLine - ((ScreenUtil.getScreenWidth(context) / 2).toFloat() / unitMsPixel).toLong()
             }
             invalidate()
             return
         }
 
-        var tempCursorValue =
-            (currentPlayingTimeInTimeLine - (currentPlayingPosition / unitMsPixel).toLong()) //波形移动优先，如果不能移动，再去移动播放条
-        if (tempCursorValue + screenWithDuration >= endValue) { //播放条移动
+        var tempCursorValue = (currentPlayingTimeInTimeLine - (currentPlayingPosition / unitMsPixel).toLong()) //波形移动优先，如果不能移动，再去移动播放条
+        if (currentPlayingPosition < ScreenUtil.getScreenWidth(context) / 2f) {
+            currentPlayingPosition = (currentPlayingTimeInTimeLine - this.cursorValue) * unitMsPixel
+        } else if (tempCursorValue + screenWithDuration >= endValue) { //播放条移动
             this.cursorValue = endValue - screenWithDuration
             currentPlayingPosition = (currentPlayingTimeInTimeLine - this.cursorValue) * unitMsPixel
         } else { //音波移动
@@ -694,12 +583,11 @@ open class AudioCutEditorView @JvmOverloads constructor(
 
             CutPieceFragment.CUT_MODE_JUMP -> { //定位播放条
                 audioFragment?.removeFake()
-                if(audioFragment?.cutPieceFragments?.size ?: 0 == 0) {
-                    audioFragment!!.cutPieceFragments.add(CutPieceFragment(audio = audioFragment!!,isSelected = true, index = 0, isFake = true))
+                if (audioFragment?.cutPieceFragments?.size ?: 0 == 0) {
+                    audioFragment!!.cutPieceFragments.add(CutPieceFragment(audio = audioFragment!!, isSelected = true, index = 0, isFake = true))
                 }
-                currentPlayingTimeInAudio =
-                    audioFragment?.cutPieceFragmentsOrder?.get(0)?.startTimestampTimeInSelf
-                        ?: 0
+                currentPlayingTimeInAudio = audioFragment?.cutPieceFragmentsOrder?.get(0)?.startTimestampTimeInSelf
+                    ?: 0
             }
         } //播放条定位
         if (currentPlayingTimeInAudio.time2Pixel(unitMsPixel) <= ScreenUtil.getScreenWidth(context) / 2) {
@@ -712,8 +600,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
             currentPlayingPosition = (currentPlayingTimeInTimeLine - this.cursorValue) * unitMsPixel
         } else {
             currentPlayingPosition = (ScreenUtil.getScreenWidth(context) / 2).toFloat()
-            cursorValue =
-                (currentPlayingTimeInTimeLine - (currentPlayingPosition / unitMsPixel).toLong())
+            cursorValue = (currentPlayingTimeInTimeLine - (currentPlayingPosition / unitMsPixel).toLong())
         }
         invalidate()
 
@@ -740,8 +627,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
         if (cursorValue < startValue) { //左边有空白
             Log.i(playline_tag, "左边有空白")
             cursorValue = startValue
-            currentPlayingPosition =
-                (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel //避免播放条太靠左
+            currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel //避免播放条太靠左
         } else if (cursorValue + screenWithDuration > endValue) { //右边有空白
             Log.i(playline_tag, "右边有空白")
             cursorValue = endValue - screenWithDuration
@@ -751,19 +637,13 @@ open class AudioCutEditorView @JvmOverloads constructor(
 
         //避免播放条太靠左
         if (time2PositionInTimeline(startValue) < 0) { //右移动波形不会导致播放条向右超出屏幕
-            if (currentPlayingPosition + (cursorValue - startValue).time2Pixel(unitMsPixel) < ScreenUtil.getScreenWidth(
-                    context
-                )
-            ) {
+            if (currentPlayingPosition + (cursorValue - startValue).time2Pixel(unitMsPixel) < ScreenUtil.getScreenWidth(context)) {
                 cursorValue = startValue
                 currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
             }
         } //避免播放条太靠右
         if (time2PositionInTimeline(endValue) > ScreenUtil.getScreenWidth(context)) {
-            if (currentPlayingPosition - (time2PositionInTimeline(endValue) - ScreenUtil.getScreenWidth(
-                    context
-                )) > 0
-            ) { //左移动波形不会导致播放条向左超出屏幕
+            if (currentPlayingPosition - (time2PositionInTimeline(endValue) - ScreenUtil.getScreenWidth(context)) > 0) { //左移动波形不会导致播放条向左超出屏幕
                 cursorValue = endValue - screenWithDuration
                 currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
             }
@@ -885,7 +765,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
 
     //*************************************裁剪模式变化 start *************************************//
     interface CutModeChangeListener {
-        fun onCutModeChange(mode: Int,isPlay:Boolean)
+        fun onCutModeChange(mode: Int, isPlay: Boolean)
     }
 
     var onCutModeChangeListener: CutModeChangeListener? = null
@@ -998,18 +878,15 @@ open class AudioCutEditorView @JvmOverloads constructor(
             }
 
             CutPieceFragment.CUT_MODE_DELETE -> {
-                PlayerManager.updateMediaSourceDelete(
-                    getCutLineStartTime(), getCutLineEndTime(), audioFragment?.duration
-                        ?: 0
-                )
+                PlayerManager.updateMediaSourceDelete(getCutLineStartTime(), getCutLineEndTime(), audioFragment?.duration
+                    ?: 0)
                 currentPlayingTimeInAudio = 0
                 currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
             }
 
             CutPieceFragment.CUT_MODE_JUMP -> {
                 PlayerManager.updateMediaSourceDeleteJump(audioFragment!!.cutPieceFragments)
-                currentPlayingTimeInAudio =
-                    audioFragment!!.cutPieceFragmentsOrder[0].startTimestampTimeInSelf
+                currentPlayingTimeInAudio = audioFragment!!.cutPieceFragmentsOrder[0].startTimestampTimeInSelf
                 currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
                 seekPosition = 0
                 windowIndex = 0
@@ -1021,7 +898,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
         } else {
             PlayerManager.seekTo(seekPosition, windowIndex)
         }
-        onCutModeChangeListener?.onCutModeChange(mode,isPlay)
+        onCutModeChangeListener?.onCutModeChange(mode, isPlay)
     }
 
     private fun getCutLineStartTime(): Long {
@@ -1115,8 +992,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
                         PlayerManager.play()
                     } else {
                         currentPlayingTimeInAudio = getCutLineStartTime()
-                        currentPlayingPosition =
-                            (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
+                        currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
                         PlayerManager.playWithSeek(0)
                     }
                 }
@@ -1125,17 +1001,13 @@ open class AudioCutEditorView @JvmOverloads constructor(
             CutPieceFragment.CUT_MODE_DELETE -> {
                 if (currentPlayingTimeInAudio < getCutLineEndTime() && currentPlayingTimeInAudio > getCutLineStartTime()) {
                     currentPlayingTimeInAudio = 0
-                    currentPlayingPosition =
-                        (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
+                    currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
                     PlayerManager.playWithSeek(0)
                 } else {
                     if (currentPlayingTimeInAudio <= getCutLineStartTime()) {
                         PlayerManager.playWithSeek(currentPlayingTimeInAudio)
                     } else {
-                        PlayerManager.playWithSeek(
-                            currentPlayingTimeInAudio - getCutLineEndTime(),
-                            1
-                        )
+                        PlayerManager.playWithSeek(currentPlayingTimeInAudio - getCutLineEndTime(), 1)
                     }
 
                 }
@@ -1158,26 +1030,15 @@ open class AudioCutEditorView @JvmOverloads constructor(
             val windowIndex = audioFragment?.playingLineIndexInFragments(currentPlayingTimeInAudio)
                 ?: 0
             if (isAutoPlay) {
-                PlayerManager.playWithSeek(
-                    currentPlayingTimeInAudio - audioFragment!!.cutPieceFragmentsOrder[windowIndex].startTimestampTimeInSelf,
-                    windowIndex
-                )
+                PlayerManager.playWithSeek(currentPlayingTimeInAudio - audioFragment!!.cutPieceFragmentsOrder[windowIndex].startTimestampTimeInSelf, windowIndex)
             } else {
-                PlayerManager.seekTo(
-                    currentPlayingTimeInAudio - audioFragment!!.cutPieceFragmentsOrder[windowIndex].startTimestampTimeInSelf,
-                    windowIndex
-                )
+                PlayerManager.seekTo(currentPlayingTimeInAudio - audioFragment!!.cutPieceFragmentsOrder[windowIndex].startTimestampTimeInSelf, windowIndex)
             }
         } else {
             if (audioFragment!!.cutPieceFragments.isEmpty()) { //可以播放整个歌曲
-                audioFragment!!.cutPieceFragments.add(
-                    CutPieceFragment(
-                        audioFragment!!,
-                        index = 0,
-                        isFake = true
-                    ).apply {
-                        this.initCutFragment(0f, 1f)
-                    })
+                audioFragment!!.cutPieceFragments.add(CutPieceFragment(audioFragment!!, index = 0, isFake = true).apply {
+                    this.initCutFragment(0f, 1f)
+                })
                 PlayerManager.updateMediaSourceDeleteJump(audioFragment!!.cutPieceFragments)
                 if (isAutoPlay) {
                     PlayerManager.playWithSeek(currentPlayingTimeInAudio, 0)
@@ -1189,30 +1050,17 @@ open class AudioCutEditorView @JvmOverloads constructor(
             if (PlayerManager.uri == null) {
                 return true
             } //过虑掉CutPieceFragment中 startTimestampTimeInSelf 小于 start 的
-            val cutPieceFragmentsFilter =
-                audioFragment!!.cutPieceFragmentsOrder.filter { it.startTimestampTimeInSelf >= currentPlayingTimeInAudio }
+            val cutPieceFragmentsFilter = audioFragment!!.cutPieceFragmentsOrder.filter { it.startTimestampTimeInSelf >= currentPlayingTimeInAudio }
             var end = audioFragment!!.duration
             if (cutPieceFragmentsFilter.isEmpty()) {
-                CutPieceFragment(
-                    audioFragment!!,
-                    false,
-                    0,
-                    CutPieceFragment.CUT_MODE_JUMP,
-                    isFake = true
-                ).apply {
+                CutPieceFragment(audioFragment!!, false, 0, CutPieceFragment.CUT_MODE_JUMP, isFake = true).apply {
                     startTimestampTimeInSelf = currentPlayingTimeInAudio
                     endTimestampTimeInSelf = end
                     audioFragment!!.cutPieceFragments.add(this)
                 }
             } else {
                 end = cutPieceFragmentsFilter[0].startTimestampTimeInSelf
-                CutPieceFragment(
-                    audioFragment!!,
-                    false,
-                    0,
-                    CutPieceFragment.CUT_MODE_JUMP,
-                    isFake = true
-                ).apply {
+                CutPieceFragment(audioFragment!!, false, 0, CutPieceFragment.CUT_MODE_JUMP, isFake = true).apply {
                     startTimestampTimeInSelf = currentPlayingTimeInAudio
                     endTimestampTimeInSelf = end
                     audioFragment!!.cutPieceFragments.add(this)
@@ -1267,10 +1115,8 @@ open class AudioCutEditorView @JvmOverloads constructor(
             }
 
             CutPieceFragment.CUT_MODE_DELETE -> {
-                PlayerManager.updateMediaSourceDelete(
-                    startTimestampTimeInSelf, endTimestampTimeInSelf, audioFragment?.duration
-                        ?: 0
-                )
+                PlayerManager.updateMediaSourceDelete(startTimestampTimeInSelf, endTimestampTimeInSelf, audioFragment?.duration
+                    ?: 0)
                 if (currentPlayingTimeInAudio >= getCutLineEndTime()) {
                     PlayerManager.seekTo(currentPlayingTimeInAudio - getCutLineEndTime(), 1)
                 } else {
@@ -1285,8 +1131,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
                     if (index == -1) {
                         PlayerManager.seekTo(0)
                     } else {
-                        var progress =
-                            currentPlayingTimeInAudio - it.cutPieceFragmentsOrder[index].startTimestampTimeInSelf
+                        var progress = currentPlayingTimeInAudio - it.cutPieceFragmentsOrder[index].startTimestampTimeInSelf
                         PlayerManager.seekTo(progress, index)
                     }
                 }
@@ -1353,8 +1198,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
                     }
                     audioCutEditor?.get()?.apply {
                         if (isMoveByFixedPixel) {
-                            moveStepTime =
-                                (CutPieceFragment.MoveHandler.MOVE_STEP_PIXEL / unitMsPixel).toLong()
+                            moveStepTime = (CutPieceFragment.MoveHandler.MOVE_STEP_PIXEL / unitMsPixel).toLong()
                         }
                         val stepTimeValue = if (Math.abs(remainingOffsetValue) >= moveStepTime) {
                             moveStepTime
@@ -1371,10 +1215,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
                         }
 
                         if (Math.abs(remainingOffsetValue) > 0) {
-                            sendMessageDelayed(
-                                obtainMessage(MSG_MOVE_TO_OFFSET_PLAYING_LINE),
-                                MOVE_INTERVAL_TIME_DELAY
-                            )
+                            sendMessageDelayed(obtainMessage(MSG_MOVE_TO_OFFSET_PLAYING_LINE), MOVE_INTERVAL_TIME_DELAY)
                         }
                     }
                 }
@@ -1384,10 +1225,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
                         if (it.audioFragment?.canLoadMoreWaveDataToStart() == true) {
                             it.moveStartByPixel(CutPieceFragment.MoveHandler.MOVE_INTERVAL_SPACE)
                             it.offsetPlayingLine(-CutPieceFragment.MoveHandler.MOVE_INTERVAL_SPACE)
-                            sendMessageDelayed(
-                                obtainMessage(MSG_MOVE_START),
-                                MoveHandler.MOVE_INTERVAL_TIME
-                            )
+                            sendMessageDelayed(obtainMessage(MSG_MOVE_START), MoveHandler.MOVE_INTERVAL_TIME)
                         }
                     }
                 }
@@ -1397,10 +1235,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
                         if (it.audioFragment?.canLoadMoreWaveDataToEnd() == true) {
                             it.moveRightByPixel(CutPieceFragment.MoveHandler.MOVE_INTERVAL_SPACE)
                             it.offsetPlayingLine(CutPieceFragment.MoveHandler.MOVE_INTERVAL_SPACE)
-                            sendMessageDelayed(
-                                obtainMessage(MSG_MOVE_END),
-                                MoveHandler.MOVE_INTERVAL_TIME
-                            )
+                            sendMessageDelayed(obtainMessage(MSG_MOVE_END), MoveHandler.MOVE_INTERVAL_TIME)
                         }
                     }
                 }
@@ -1411,12 +1246,7 @@ open class AudioCutEditorView @JvmOverloads constructor(
 
     //裁剪条微调按钮状态刷新
     fun freshCutLineFineTuningButtonEnable() {
-        cutLineFineTuningButtonChangeListener?.onCutLineFineTuningButtonChange(
-            audioFragment?.canStartCutMinus() == true,
-            audioFragment?.canStartCutPlus() == true,
-            audioFragment?.canEndCutMinus() == true,
-            audioFragment?.canEndCutPlus() == true
-        )
+        cutLineFineTuningButtonChangeListener?.onCutLineFineTuningButtonChange(audioFragment?.canStartCutMinus() == true, audioFragment?.canStartCutPlus() == true, audioFragment?.canEndCutMinus() == true, audioFragment?.canEndCutPlus() == true)
     }
 
 
