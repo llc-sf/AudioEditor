@@ -351,7 +351,6 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView,
             cutModeChangeButtonEnableListener?.onCutModeChange(true, false)
             cutLineFineTuningButtonChangeListener?.onCutLineFineTuningEnable(false)
             audioEditorView.invalidate()
-            refreshCutLineAnchor(start = false, end = false)
             return
         }
         var isPlaying = PlayerManager.isPlaying
