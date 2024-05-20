@@ -215,7 +215,7 @@ class CutPieceFragment(
                     removeEnable
                 ) //播放条在裁剪范围，变为选中态，且取消其他范围的选中态
                 //动态更新选中态
-                if (isSelected && !isMovingStart && !isMovingEnd) {
+                if (!isMovingStart && !isMovingEnd) {
                     audio.cutPieceFragments.forEach {
                         if (audio.currentPlayingTimeInAudio in it.startTimestampTimeInSelf..it.endTimestampTimeInSelf) {
                             if (!it.isSelected) {
