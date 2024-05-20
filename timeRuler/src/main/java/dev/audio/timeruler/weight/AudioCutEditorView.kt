@@ -1038,7 +1038,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
             }
         } else {
             if (audioFragment!!.cutPieceFragments.isEmpty()) { //可以播放整个歌曲
-                audioFragment!!.cutPieceFragments.add(CutPieceFragment(audioFragment!!, index = 0, isFake = true).apply {
+                audioFragment!!.cutPieceFragments.add(CutPieceFragment(audioFragment!!, index = 0, isFake = true, mode = CutPieceFragment.CUT_MODE_JUMP).apply {
                     this.initCutFragment(0f, 1f)
                 })
                 PlayerManager.updateMediaSourceDeleteJump(audioFragment!!.cutPieceFragments)
