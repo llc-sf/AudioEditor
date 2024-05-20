@@ -283,7 +283,8 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView,
      */
     fun switchCutMode(mode: Int) {
         cutMode = mode
-        cutPieceFragments = cutPieceFragments.sortedBy { it.startTimestampTimeInSelf } .toMutableList()
+
+        cutPieceFragments = cutPieceFragments.filter { !it.isFake }.sortedBy { it.startTimestampTimeInSelf } .toMutableList()
         if (cutPieceFragments.isNotEmpty()) {
             // 只保留第一个元素
             cutPieceFragments = mutableListOf(cutPieceFragments.first())
