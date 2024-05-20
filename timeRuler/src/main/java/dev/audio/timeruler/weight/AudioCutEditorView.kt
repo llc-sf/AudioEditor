@@ -177,9 +177,9 @@ open class AudioCutEditorView @JvmOverloads constructor(
      * 裁剪拨片的触摸事件
      */
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        if (!isWaveDataLoaded) {
-            return true
-        }
+//        if (!isWaveDataLoaded) {
+//            return true
+//        }
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 Log.i(cut_tag, "onTouchEvent: ACTION_DOWN touchCutLine=$touchCutLine")

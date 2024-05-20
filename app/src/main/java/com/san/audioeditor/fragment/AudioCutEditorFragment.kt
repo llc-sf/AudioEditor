@@ -959,13 +959,13 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
     //todo requireContext()
     private fun setAudioData() {
-        var bg = ImageView(requireContext()).apply {
-            setBackgroundColor(requireContext().resources.getColor(R.color.transparent))
-            id = R.id.tips_bg
-            setOnClickListener { }
-        }
+//        var bg = ImageView(requireContext()).apply {
+//            setBackgroundColor(requireContext().resources.getColor(R.color.transparent))
+//            id = R.id.tips_bg
+//            setOnClickListener { }
+//        }
         activity?.window?.decorView?.let { rootView ->
-            (rootView as? FrameLayout)?.addView(bg, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
+//            (rootView as? FrameLayout)?.addView(bg, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
             viewBinding.timeLine.setLoadingView(mViewModel.song.duration.toLong(), mViewModel.song.path)
             GlobalScope.launch(Dispatchers.IO) {
                 WaveformOptions.getSampleFrom(requireContext(), mViewModel.song.path) {
@@ -974,7 +974,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                         hideWaveLoadingView()
                         freshZoomView()
                         waveDataLoaded()
-                        (rootView as? FrameLayout)?.removeView(bg)
+//                        (rootView as? FrameLayout)?.removeView(bg)
                     }
                 }
             }
