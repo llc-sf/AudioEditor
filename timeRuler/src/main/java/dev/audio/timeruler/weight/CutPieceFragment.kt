@@ -1312,16 +1312,22 @@ class CutPieceFragment(
                             (endTimestampTimeInSelf - 10000L).coerceAtLeast(0)
                     }
                     audio.invalidate()
+                    audio.updateMediaSource(startTimestampTimeInSelf, endTimestampTimeInSelf)
+                    PlayerManager.seekTo(0,0)
+                    audio.updatePlayingPosition(startTimestampTimeInSelf)
+                    if (isResumePlaying) {
+                        PlayerManager.play()
+                    }
                 }
 
                 CUT_MODE_DELETE -> {
                     endTimestampTimeInSelf = currentPlayingTimeInAudio
                     audio.invalidate()
+                    audio.updateMediaSource(startTimestampTimeInSelf, endTimestampTimeInSelf)
+                    if (isResumePlaying) {
+                        PlayerManager.play()
+                    }
                 }
-            }
-            audio.updateMediaSource(startTimestampTimeInSelf, endTimestampTimeInSelf)
-            if (isResumePlaying) {
-                PlayerManager.play()
             }
         }
 
