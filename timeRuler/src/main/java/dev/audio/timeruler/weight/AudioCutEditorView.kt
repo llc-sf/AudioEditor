@@ -694,6 +694,9 @@ open class AudioCutEditorView @JvmOverloads constructor(
 
             CutPieceFragment.CUT_MODE_JUMP -> { //定位播放条
                 audioFragment?.removeFake()
+                if(audioFragment?.cutPieceFragments?.size ?: 0 == 0) {
+                    audioFragment!!.cutPieceFragments.add(CutPieceFragment(audio = audioFragment!!,isSelected = true, index = 0, isFake = true))
+                }
                 currentPlayingTimeInAudio =
                     audioFragment?.cutPieceFragmentsOrder?.get(0)?.startTimestampTimeInSelf
                         ?: 0
