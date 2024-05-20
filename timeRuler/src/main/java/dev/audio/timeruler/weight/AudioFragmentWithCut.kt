@@ -347,10 +347,14 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView,
         var isInFragment = currentCutPieceFragment!!.isInFragment(currentPlayingTimeInAudio)
         cutPieceFragments.remove(currentCutPieceFragment)
         if (cutPieceFragments.isEmpty()) {
+            var isResumePlaying = PlayerManager.isPlaying
             PlayerManager.pause()
             cutModeChangeButtonEnableListener?.onCutModeChange(true, false)
             cutLineFineTuningButtonChangeListener?.onCutLineFineTuningEnable(false)
             audioEditorView.invalidate()
+            if(isResumePlaying){
+                (audioEditorView as? AudioCutEditorView)?.play()
+            }
             return
         }
         var isPlaying = PlayerManager.isPlaying
