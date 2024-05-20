@@ -90,22 +90,22 @@ class KeyBoardTimerTimePick @JvmOverloads constructor(context: Context,
 
         binding.hour.setOnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {
-                if(binding.hour.text.length==1){
-                    binding.hour.setText("0"+binding.hour.text)
+                if (binding.hour.text.length == 1) {
+                    binding.hour.setText("0" + binding.hour.text)
                 }
             }
         }
         binding.minute.setOnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {
-                if(binding.minute.text.length==1){
-                    binding.minute.setText("0"+binding.minute.text)
+                if (binding.minute.text.length == 1) {
+                    binding.minute.setText("0" + binding.minute.text)
                 }
             }
         }
         binding.second.setOnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {
-                if(binding.second.text.length==1){
-                    binding.second.setText("0"+binding.second.text)
+                if (binding.second.text.length == 1) {
+                    binding.second.setText("0" + binding.second.text)
                 }
             }
         }
@@ -122,23 +122,13 @@ class KeyBoardTimerTimePick @JvmOverloads constructor(context: Context,
             binding.hour.setText(time.hoursStr)
         }
 
-        if (time.minutes == 0) {
-            binding.minute.isVisible = false
-            binding.space2.isVisible = false
-        } else {
-            binding.minute.isVisible = true
-            binding.space2.isVisible = true
-            binding.minute.setText(time.minutesStr)
-        }
+        binding.minute.isVisible = true
+        binding.space2.isVisible = true
+        binding.minute.setText(time.minutesStr)
 
-        if (time.second == 0) {
-            binding.second.isVisible = false
-            binding.space3.isVisible = false
-        } else {
-            binding.second.isVisible = true
-            binding.space3.isVisible = true
-            binding.second.setText(time.secondStr)
-        }
+        binding.second.isVisible = true
+        binding.space3.isVisible = true
+        binding.second.setText(time.secondStr)
 
         binding.secondDecimal.setText(time.secondDecimalStr)
     }
