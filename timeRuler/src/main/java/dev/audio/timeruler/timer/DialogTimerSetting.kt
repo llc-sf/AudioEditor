@@ -103,6 +103,7 @@ class DialogTimerSetting : BaseBottomTranslucentDialog() {
                 binding.actionLy.updateLayoutParams<ConstraintLayout.LayoutParams> {
                     topMargin = 22.dp
                 }
+                binding.timePickKb.setData( binding.timePick.getTimeBean())
             }
         }
         var time = 0L
