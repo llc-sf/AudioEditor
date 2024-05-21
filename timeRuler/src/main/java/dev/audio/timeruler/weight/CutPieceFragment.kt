@@ -1066,6 +1066,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             if (isInOtherFragments(temp)) {
                 return false
             }
+            if(cutMode == CUT_MODE_DELETE){
+                return audio.selectedTime-TIME_STEP >= MIN_CUT_GAP
+            }
             return temp < duration
         }
         return false
@@ -1086,6 +1089,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             var temp = startTimestampTimeInSelf - TIME_STEP
             if (isInOtherFragments(temp)) {
                 return false
+            }
+            if(cutMode == CUT_MODE_DELETE){
+                return audio.selectedTime-TIME_STEP >= MIN_CUT_GAP
             }
             return temp > 0
         }

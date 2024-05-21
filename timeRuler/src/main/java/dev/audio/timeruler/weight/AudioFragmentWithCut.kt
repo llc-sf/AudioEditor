@@ -47,6 +47,25 @@ class AudioFragmentWithCut(audioEditorView: AudioCutEditorView,
         }
 
 
+    var selectedTime: Long = 0L
+        get() {
+            var time = 0L
+            cutPieceFragments?.forEachIndexed { index, cutPieceFragment ->
+                if (!cutPieceFragment.isFake) {
+                    time += (cutPieceFragment.endTimestampTimeInSelf - cutPieceFragment.startTimestampTimeInSelf)
+                }
+            }
+            when (cutMode) {
+                CutPieceFragment.CUT_MODE_SELECT, CutPieceFragment.CUT_MODE_JUMP -> {
+                }
+
+                CutPieceFragment.CUT_MODE_DELETE -> {
+                    time = (duration ?: 0) - time
+                }
+            }
+            return time
+        }
+
     val currentPlayingTimeInAudio by Ref { audioEditorView.currentPlayingTimeInAudio }
 
     val isWholeScreen by Ref { (audioEditorView as? AudioCutEditorView)?.isWholeScreen }

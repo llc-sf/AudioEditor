@@ -39,21 +39,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     var selectedTime: Long = 0L
         get() {
-            var time = 0L
-            audioFragment?.cutPieceFragments?.forEachIndexed { index, cutPieceFragment ->
-                if (!cutPieceFragment.isFake) {
-                    time += (cutPieceFragment.endTimestampTimeInSelf - cutPieceFragment.startTimestampTimeInSelf)
-                }
-            }
-            when (cutMode) {
-                CutPieceFragment.CUT_MODE_SELECT, CutPieceFragment.CUT_MODE_JUMP -> {
-                }
-
-                CutPieceFragment.CUT_MODE_DELETE -> {
-                    time = (audioFragment?.duration ?: 0) - time
-                }
-            }
-            return time
+          return  audioFragment?.selectedTime?:0L
         }
 
     /**
