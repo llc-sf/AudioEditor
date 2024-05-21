@@ -922,14 +922,15 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     fun setCutLineEndTime(time: Long) {
         var isResumePlaying = PlayerManager.isPlaying
-        updateMediaSource(getCutLineStartTime(), time)
-        PlayerManager.seekTo(0, 0)
+        PlayerManager.pause()
         when (cutMode) {
             CutPieceFragment.CUT_MODE_SELECT -> {
                 if (currentPlayingTimeInTimeLine >= time) { //需要重新播放
                     currentPlayingTimeInTimeLine = getCutLineStartTime()
                     currentPlayingPosition = (currentPlayingTimeInTimeLine - (cursorValue - startValue)) * unitMsPixel
                     audioFragment?.setCutLineEndTime(time)
+                    updateMediaSource(getCutLineStartTime(), time)
+                    PlayerManager.seekTo(0, 0)
                 }
             }
 
@@ -938,6 +939,8 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                     currentPlayingTimeInTimeLine = 0
                     currentPlayingPosition = (currentPlayingTimeInTimeLine - (cursorValue - startValue)) * unitMsPixel
                     audioFragment?.setCutLineEndTime(time)
+                    updateMediaSource(getCutLineStartTime(), time)
+                    PlayerManager.seekTo(0, 1)
                 }
             }
 
@@ -946,6 +949,8 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                     currentPlayingTimeInTimeLine = getCutLineStartTime()
                     currentPlayingPosition = (currentPlayingTimeInTimeLine - (cursorValue - startValue)) * unitMsPixel
                     audioFragment?.setCutLineEndTime(time)
+                    updateMediaSource(getCutLineStartTime(), time)
+                    PlayerManager.seekTo(0, audioFragment?.playingLineIndexInFragments(currentPlayingTimeInTimeLine)?:0)
                 }
             }
         }
