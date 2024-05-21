@@ -120,8 +120,8 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
 
     // 设置波形数据的方法
-    fun setWaveform(waveform: Waveform?, duration: Long, path: String) {
-        audioFragment = AudioFragmentWithCut(this, this@AudioCutEditorView.cutMode).apply {
+    fun setWaveform(waveform: Waveform?, duration: Long, path: String,cutMode:Int) {
+        audioFragment = AudioFragmentWithCut(this, cutMode).apply {
             index = 0
             this.duration = duration
             maxHalfWaveHeight = waveHeight
@@ -1226,8 +1226,8 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         }
     }
 
-    fun setLoadingView(duration: Long, path: String) {
-        setWaveform(null, duration, path)
+    fun setLoadingView(duration: Long, path: String,cutMode: Int) {
+        setWaveform(null, duration, path,cutMode)
     }
 
     fun updatePlayingPosition(positionTime: Long) {

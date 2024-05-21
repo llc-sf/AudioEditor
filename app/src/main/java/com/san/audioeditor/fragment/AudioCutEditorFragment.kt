@@ -606,7 +606,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                                                       viewBinding.timeLine.zoomIn()
                                                   })
 
-        freshCutModeView(viewBinding.timeLine.cutMode)
+        freshCutModeView(if(isSaveDta) CutPieceFragment.CUT_MODE_SELECT else  viewBinding.timeLine.cutMode)
         viewBinding.keepSelected.setOnClickListener {
             viewBinding.timeLine.switchCutMode(CutPieceFragment.CUT_MODE_SELECT)
             freshCutModeView(CutPieceFragment.CUT_MODE_SELECT)
@@ -864,7 +864,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                                             .maxScreenSpanValue(mViewModel.song.duration.toLong())
                                             .build())
 
-        setAudioData()
+        setAudioData(if(isSaveDta) CutPieceFragment.CUT_MODE_SELECT else  viewBinding.timeLine.cutMode)
         if (isSaveDta) {
             addData(viewBinding.timeLine.audioFragmentBean)
         }
@@ -949,17 +949,18 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
 
     //todo requireContext()
-    private fun setAudioData() { //        var bg = ImageView(requireContext()).apply {
+    private fun setAudioData(cutMode:Int) { //        var bg = ImageView(requireContext()).apply {
         //            setBackgroundColor(requireContext().resources.getColor(R.color.transparent))
         //            id = R.id.tips_bg
         //            setOnClickListener { }
         //        }
         activity?.window?.decorView?.let { rootView -> //            (rootView as? FrameLayout)?.addView(bg, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
-            viewBinding.timeLine.setLoadingView(mViewModel.song.duration.toLong(), mViewModel.song.path)
+            viewBinding.timeLine.switchCutMode(cutMode)
+            viewBinding.timeLine.setLoadingView(mViewModel.song.duration.toLong(), mViewModel.song.path,cutMode)
             GlobalScope.launch(Dispatchers.IO) {
                 WaveformOptions.getSampleFrom(requireContext(), mViewModel.song.path) {
                     viewBinding.timeLine.post {
-                        viewBinding.timeLine.setWaveform(Waveform(it.toList()), mViewModel.song.duration.toLong(), mViewModel.song.path)
+                        viewBinding.timeLine.setWaveform(Waveform(it.toList()), mViewModel.song.duration.toLong(), mViewModel.song.path,cutMode)
                         hideWaveLoadingView()
                         freshZoomView()
                         waveDataLoaded() //                        (rootView as? FrameLayout)?.removeView(bg)
