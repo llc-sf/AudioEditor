@@ -16,6 +16,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.HorizontalScrollView
 import android.widget.ImageView
 import android.widget.Toast
 import android.widget.toast.ToastCompat
@@ -80,6 +81,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.File
 import java.util.Calendar
+
 
 class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     EditLoadingDialog.OnCancelListener, Player.EventListener {
@@ -912,10 +914,21 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             addData(viewBinding.timeLine.audioFragmentBean)
         }
 
+
+
+
     }
 
     private fun checkDealDuration(): Boolean {
         return viewBinding.timeLine.selectedTime >= 100
+    }
+
+    private fun scrollToCenter(scrollView: HorizontalScrollView, view: View) {
+        val scrollViewWidth = scrollView.width
+        val viewWidth = view.width
+        val viewLeft = view.left
+        val scrollX = viewLeft + viewWidth / 2 - scrollViewWidth / 2
+        scrollView.smoothScrollTo(scrollX, 0)
     }
 
     private fun freshCutModeView(mode: Int) {
@@ -930,6 +943,9 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 viewBinding.keepSelectedIcon.isVisible = true
                 viewBinding.deleteSelectedIcon.isVisible = false
                 viewBinding.jumpSelectedIcon.isVisible = false
+
+                scrollToCenter(viewBinding.modelLy, viewBinding.keepSelected);
+//                viewBinding.modelLy.smoothScrollTo(viewBinding.keepSelected.left, 0);
             }
 
             CutPieceFragment.CUT_MODE_DELETE -> {
@@ -942,6 +958,9 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 viewBinding.keepSelectedIcon.isVisible = false
                 viewBinding.deleteSelectedIcon.isVisible = true
                 viewBinding.jumpSelectedIcon.isVisible = false
+
+                scrollToCenter(viewBinding.modelLy, viewBinding.deleteSelected);
+//                viewBinding.modelLy.smoothScrollTo(viewBinding.deleteSelected.left, 0);
             }
 
             CutPieceFragment.CUT_MODE_JUMP -> {
@@ -954,6 +973,9 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 viewBinding.keepSelectedIcon.isVisible = false
                 viewBinding.deleteSelectedIcon.isVisible = false
                 viewBinding.jumpSelectedIcon.isVisible = true
+
+                scrollToCenter(viewBinding.modelLy, viewBinding.jumpSelected);
+//                viewBinding.modelLy.smoothScrollTo(viewBinding.jumpSelected.left, 0);
 
             }
         }
