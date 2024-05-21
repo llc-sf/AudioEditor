@@ -850,6 +850,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
         freshSaveActions()
         viewBinding.save.setOnClickListener {
+            disableBack()
             PlayerManager.pause()
             var realCutPieceFragments = viewBinding.timeLine.cutPieceFragmentsOrder?.filter { !it.isFake }
             mViewModel.save(requireContext(), realCutPieceFragments, mViewModel.datas)
