@@ -63,6 +63,7 @@ import dev.audio.timeruler.timer.EditLoadingDialog
 import dev.audio.timeruler.timer.RedoConfirmDialog
 import dev.audio.timeruler.timer.UndoConfirmDialog
 import dev.audio.timeruler.utils.AudioFileUtils
+import dev.audio.timeruler.utils.cropMiddleThirdWidth
 import dev.audio.timeruler.utils.dp
 import dev.audio.timeruler.utils.format2DurationSimple
 import dev.audio.timeruler.utils.format2DurationSimpleInt
@@ -419,7 +420,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                     container.removeView(it)
                 }
                 rootView.findViewById<ImageView>(R.id.tips_wave_wave)?.let {
-                    it.setImageBitmap(cropMiddleThirdWidth(onDraw(viewBinding.timeLine)))
+                    it.setImageBitmap(onDraw(viewBinding.timeLine).cropMiddleThirdWidth())
                 }
             }
         }
@@ -452,7 +453,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 id = R.id.tips_wave_loading
             }
             var img = ImageView(requireContext()).apply {
-                setImageBitmap(cropMiddleThirdWidth(onDraw(ancherview)))
+                setImageBitmap(onDraw(ancherview).cropMiddleThirdWidth())
                 id = R.id.tips_wave_wave
             }
             (rootView as? FrameLayout)?.addView(bg, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
@@ -491,18 +492,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         drawable?.draw(canvas)
         view.draw(canvas)
         return bitmap
-    }
-
-    fun cropMiddleThirdWidth(bitmap: Bitmap): Bitmap {
-        val width = bitmap.width
-        val height = bitmap.height
-
-        // 计算从中间开始截取的区域
-        val startX = width / 3 - 30
-        val cropWidth = width / 3 + 60
-
-        // 创建新的位图
-        return Bitmap.createBitmap(bitmap, startX, 0, cropWidth, height)
     }
 
     /**
