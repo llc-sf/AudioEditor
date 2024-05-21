@@ -912,13 +912,47 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     }
 
     fun setCutLineStartTime(time: Long) {
+        var isResumePlaying = PlayerManager.isPlaying
         updateMediaSource(time, getCutLineEndTime())
         audioFragment?.setCutLineStartTime(time)
+        if (isResumePlaying) {
+            PlayerManager.play()
+        }
     }
 
     fun setCutLineEndTime(time: Long) {
+        var isResumePlaying = PlayerManager.isPlaying
         updateMediaSource(getCutLineStartTime(), time)
-        audioFragment?.setCutLineEndTime(time)
+        PlayerManager.seekTo(0, 0)
+        when (cutMode) {
+            CutPieceFragment.CUT_MODE_SELECT -> {
+                if (currentPlayingTimeInTimeLine >= time) { //需要重新播放
+                    currentPlayingTimeInTimeLine = getCutLineStartTime()
+                    currentPlayingPosition = (currentPlayingTimeInTimeLine - (cursorValue - startValue)) * unitMsPixel
+                    audioFragment?.setCutLineEndTime(time)
+                }
+            }
+
+            CutPieceFragment.CUT_MODE_DELETE -> {
+                if (currentPlayingTimeInTimeLine >= time) { //需要重新播放
+                    currentPlayingTimeInTimeLine = 0
+                    currentPlayingPosition = (currentPlayingTimeInTimeLine - (cursorValue - startValue)) * unitMsPixel
+                    audioFragment?.setCutLineEndTime(time)
+                }
+            }
+
+            CutPieceFragment.CUT_MODE_JUMP -> {
+                if (currentPlayingTimeInTimeLine >= time) { //需要重新播放
+                    currentPlayingTimeInTimeLine = getCutLineStartTime()
+                    currentPlayingPosition = (currentPlayingTimeInTimeLine - (cursorValue - startValue)) * unitMsPixel
+                    audioFragment?.setCutLineEndTime(time)
+                }
+            }
+        }
+
+        if (isResumePlaying) {
+            PlayerManager.play()
+        }
     }
 
     fun editTrimStart(parentFragmentManager: FragmentManager) {
