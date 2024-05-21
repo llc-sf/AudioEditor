@@ -983,6 +983,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                 audio.invalidate()
                 return false
             }
+            if (temp + audio.duration - endTimestampTimeInSelf < MIN_CUT_GAP) {
+                return false
+            }
             startTimestampTimeInSelf = temp
             audio.invalidate()
             return true
@@ -1044,6 +1047,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             if (temp >= duration) {
                 endTimestampTimeInSelf = duration
                 audio.invalidate()
+                return false
+            }
+            if (startTimestampTimeInSelf + audio.duration - temp < MIN_CUT_GAP) {
                 return false
             }
             endTimestampTimeInSelf = temp
