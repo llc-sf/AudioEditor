@@ -2,4 +2,7 @@
 <resources>
 
     <item name="tips_bg" type="id" />
+    <item name="tips_wave_container" type="id" />
+    <item name="tips_wave_loading" type="id" />
+    <item name="tips_wave_wave" type="id" />
 </resources>

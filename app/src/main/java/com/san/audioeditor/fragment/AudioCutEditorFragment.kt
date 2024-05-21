@@ -12,6 +12,7 @@ import android.os.Handler
 import android.os.Message
 import android.provider.MediaStore
 import android.text.TextUtils
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
@@ -22,6 +23,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
+import com.airbnb.lottie.LottieAnimationView
 import com.android.app.AppProvider
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.PlaybackParameters
@@ -145,17 +147,19 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     }
 
     private fun showTips() {
-        viewBinding.timeLine.post {
-            if (activity == null) {
-                return@post
+        if (!OncePreferencesUtil.get(OncePreferencesUtil.key_cut_tips)) {
+            viewBinding.timeLine.post {
+                if (activity == null) {
+                    return@post
+                }
+                if (activity?.isFinishing == true) {
+                    return@post
+                }
+                if (!isAdded) {
+                    return@post
+                }
+                showDragTips()
             }
-            if (activity?.isFinishing == true) {
-                return@post
-            }
-            if (!isAdded) {
-                return@post
-            }
-            showDragTips()
         }
     }
 
@@ -240,7 +244,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 OncePreferencesUtil.set(OncePreferencesUtil.key_cut_tips)
                 viewBinding.timeLine.needShowTips = false
                 PlayerManager.play()
-
                 enableBack()
             }
         }
@@ -408,28 +411,58 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         }
     } // 将回调添加到OnBackPressedDispatcher
 
-    fun showDragTips() {
+    private fun freshDragTips() {
+        activity?.window?.decorView?.let { rootView ->
+            var container = rootView.findViewById<FrameLayout>(R.id.tips_wave_container)
+            if (container != null) {
+                rootView.findViewById<View>(R.id.tips_wave_loading)?.let {
+                    container.removeView(it)
+                }
+                rootView.findViewById<ImageView>(R.id.tips_wave_wave)?.let {
+                    it.setImageBitmap(cropMiddleThirdWidth(onDraw(viewBinding.timeLine)))
+                }
+            }
+        }
+    }
+
+    private fun showDragTips() {
         disableBack()
         val location = IntArray(2)
         var ancherview = viewBinding.timeLine
         ancherview.getLocationOnScreen(location)
         activity?.window?.decorView?.let { rootView ->
             val layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
+            val layoutParamsContainer = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
             var bg = ImageView(requireContext()).apply {
                 setBackgroundColor(requireContext().resources.getColor(R.color.black_alpha_85))
                 id = R.id.tips_bg
                 setOnClickListener { }
             }
+            val container = FrameLayout(requireContext()).apply {
+                id = R.id.tips_wave_container
+            }
+            val layoutParamsLoading = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
+                .apply {
+                    gravity = Gravity.CENTER
+                }
+            var loading = LottieAnimationView(requireContext()).apply {
+                setAnimation("trimloading.json") // 设置循环播放
+                repeatCount = -1
+                playAnimation()
+                id = R.id.tips_wave_loading
+            }
             var img = ImageView(requireContext()).apply {
                 setImageBitmap(cropMiddleThirdWidth(onDraw(ancherview)))
+                id = R.id.tips_wave_wave
             }
             (rootView as? FrameLayout)?.addView(bg, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
-            (rootView as? FrameLayout)?.addView(img, layoutParams)
-            img.updateLayoutParams<FrameLayout.LayoutParams> {
+            container.addView(img, layoutParams)
+            container.addView(loading, layoutParamsLoading)
+            (rootView as? FrameLayout)?.addView(container, layoutParamsContainer)
+            container.updateLayoutParams<FrameLayout.LayoutParams> {
                 topMargin = location[1]
                 marginStart = ScreenUtil.getScreenWidth(requireContext()) / 3 - 30
             }
-
             var tipsView = CutPipsView(requireContext(), isTopArrow = true, content = getString(R.string.drag_to_trim_or_cut), actionMsg = getString(R.string.next))
             val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
             val heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
@@ -444,7 +477,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             }
             tipsView.setAction {
                 (rootView as? FrameLayout)?.removeView(tipsView)
-                (rootView as? FrameLayout)?.removeView(img)
+                (rootView as? FrameLayout)?.removeView(container)
                 showCutModeTips()
             }
         }
@@ -535,6 +568,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     }
 
     private fun initTimeBar(isSaveDta: Boolean = true) {
+        showTips()
         val calendar = Calendar.getInstance()
 
         // 00:00:00 000
@@ -606,7 +640,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                                                       viewBinding.timeLine.zoomIn()
                                                   })
 
-        freshCutModeView(if(isSaveDta) CutPieceFragment.CUT_MODE_SELECT else  viewBinding.timeLine.cutMode)
+        freshCutModeView(if (isSaveDta) CutPieceFragment.CUT_MODE_SELECT else viewBinding.timeLine.cutMode)
         viewBinding.keepSelected.setOnClickListener {
             viewBinding.timeLine.switchCutMode(CutPieceFragment.CUT_MODE_SELECT)
             freshCutModeView(CutPieceFragment.CUT_MODE_SELECT)
@@ -864,7 +898,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                                             .maxScreenSpanValue(mViewModel.song.duration.toLong())
                                             .build())
 
-        setAudioData(if(isSaveDta) CutPieceFragment.CUT_MODE_SELECT else  viewBinding.timeLine.cutMode)
+        setAudioData(if (isSaveDta) CutPieceFragment.CUT_MODE_SELECT else viewBinding.timeLine.cutMode)
         if (isSaveDta) {
             addData(viewBinding.timeLine.audioFragmentBean)
         }
@@ -949,18 +983,18 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
 
     //todo requireContext()
-    private fun setAudioData(cutMode:Int) { //        var bg = ImageView(requireContext()).apply {
+    private fun setAudioData(cutMode: Int) { //        var bg = ImageView(requireContext()).apply {
         //            setBackgroundColor(requireContext().resources.getColor(R.color.transparent))
         //            id = R.id.tips_bg
         //            setOnClickListener { }
         //        }
         activity?.window?.decorView?.let { rootView -> //            (rootView as? FrameLayout)?.addView(bg, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
             viewBinding.timeLine.switchCutMode(cutMode)
-            viewBinding.timeLine.setLoadingView(mViewModel.song.duration.toLong(), mViewModel.song.path,cutMode)
+            viewBinding.timeLine.setLoadingView(mViewModel.song.duration.toLong(), mViewModel.song.path, cutMode)
             GlobalScope.launch(Dispatchers.IO) {
                 WaveformOptions.getSampleFrom(requireContext(), mViewModel.song.path) {
                     viewBinding.timeLine.post {
-                        viewBinding.timeLine.setWaveform(Waveform(it.toList()), mViewModel.song.duration.toLong(), mViewModel.song.path,cutMode)
+                        viewBinding.timeLine.setWaveform(Waveform(it.toList()), mViewModel.song.duration.toLong(), mViewModel.song.path, cutMode)
                         hideWaveLoadingView()
                         freshZoomView()
                         waveDataLoaded() //                        (rootView as? FrameLayout)?.removeView(bg)
@@ -982,8 +1016,8 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     }
 
     private fun waveDataLoaded() {
-        if (!OncePreferencesUtil.get(OncePreferencesUtil.key_cut_tips)) {
-            showTips()
+        if (!OncePreferencesUtil.get(OncePreferencesUtil.key_cut_tips)) { //            showTips()
+            freshDragTips()
         } else {
             if (canCallBack) {
                 PlayerManager.play()
