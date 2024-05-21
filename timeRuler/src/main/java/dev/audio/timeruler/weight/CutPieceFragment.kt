@@ -36,14 +36,12 @@ import java.lang.ref.WeakReference
  * @param isSelected 是否选中
  * @param index 第几个裁剪片段
  */
-class CutPieceFragment(
-    var audio: AudioFragmentWithCut,
-    var isSelected: Boolean = true,
-    var index: Int,
-    mode: Int = CUT_MODE_SELECT,
-    var isFake: Boolean = false,
-    var addTime: Long = System.currentTimeMillis()
-) {
+class CutPieceFragment(var audio: AudioFragmentWithCut,
+                       var isSelected: Boolean = true,
+                       var index: Int,
+                       mode: Int = CUT_MODE_SELECT,
+                       var isFake: Boolean = false,
+                       var addTime: Long = System.currentTimeMillis()) {
 
     companion object {
 
@@ -145,10 +143,7 @@ class CutPieceFragment(
         set(value) {
             field = value
             if (isSelected) {
-                onCutLineChangeListener?.onCutLineChange(
-                    startTimestampTimeInSelf,
-                    endTimestampTimeInSelf
-                )
+                onCutLineChangeListener?.onCutLineChange(startTimestampTimeInSelf, endTimestampTimeInSelf)
                 linesChangeNotify()
             }
         }
@@ -162,10 +157,7 @@ class CutPieceFragment(
         set(value) {
             field = value
             if (isSelected) {
-                onCutLineChangeListener?.onCutLineChange(
-                    startTimestampTimeInSelf,
-                    endTimestampTimeInSelf
-                )
+                onCutLineChangeListener?.onCutLineChange(startTimestampTimeInSelf, endTimestampTimeInSelf)
                 linesChangeNotify()
             }
         }
@@ -182,10 +174,7 @@ class CutPieceFragment(
                 if (audio.currentPlayingTimeInAudio < this.endTimestampTimeInSelf && audio.currentPlayingTimeInAudio > this.startTimestampTimeInSelf) {
                     onTrimAnchorChangeListener?.onTrimChange(start = true, end = true)
                 } else {
-                    onTrimAnchorChangeListener?.onTrimChange(
-                        audio.currentPlayingTimeInAudio < this.startTimestampTimeInSelf,
-                        audio.currentPlayingTimeInAudio > this.endTimestampTimeInSelf
-                    )
+                    onTrimAnchorChangeListener?.onTrimChange(audio.currentPlayingTimeInAudio < this.startTimestampTimeInSelf, audio.currentPlayingTimeInAudio > this.endTimestampTimeInSelf)
                 }
             } else if (cutMode == CUT_MODE_SELECT) {
                 onTrimAnchorChangeListener?.onTrimChange(start = true, end = true)
@@ -194,10 +183,7 @@ class CutPieceFragment(
 
         when (cutMode) {
             CUT_MODE_SELECT, CUT_MODE_DELETE -> {
-                cutModeChangeButtonEnableListener?.onCutModeChange(
-                    addEnable = false,
-                    removeEnable = false
-                )
+                cutModeChangeButtonEnableListener?.onCutModeChange(addEnable = false, removeEnable = false)
             }
 
             CUT_MODE_JUMP -> {
@@ -205,28 +191,18 @@ class CutPieceFragment(
                 var removeEnable = false
                 audio.cutPieceFragments.filter { !it.isFake }
                     .forEachIndexed { _, cutPieceFragment ->
-                        addEnable =
-                            addEnable && (audio.currentPlayingTimeInAudio < cutPieceFragment.startTimestampTimeInSelf || audio.currentPlayingTimeInAudio > cutPieceFragment.endTimestampTimeInSelf)
-                        removeEnable =
-                            removeEnable || (audio.currentPlayingTimeInAudio >= cutPieceFragment.startTimestampTimeInSelf && audio.currentPlayingTimeInAudio <= cutPieceFragment.endTimestampTimeInSelf)
+                        addEnable = addEnable && (audio.currentPlayingTimeInAudio < cutPieceFragment.startTimestampTimeInSelf || audio.currentPlayingTimeInAudio > cutPieceFragment.endTimestampTimeInSelf)
+                        removeEnable = removeEnable || (audio.currentPlayingTimeInAudio >= cutPieceFragment.startTimestampTimeInSelf && audio.currentPlayingTimeInAudio <= cutPieceFragment.endTimestampTimeInSelf)
                     }
-                cutModeChangeButtonEnableListener?.onCutModeChange(
-                    addEnable,
-                    removeEnable
-                ) //播放条在裁剪范围，变为选中态，且取消其他范围的选中态
+                cutModeChangeButtonEnableListener?.onCutModeChange(addEnable, removeEnable) //播放条在裁剪范围，变为选中态，且取消其他范围的选中态
                 //动态更新选中态
                 if (!isMovingStart && !isMovingEnd) {
                     audio.cutPieceFragments.forEach {
                         if (audio.currentPlayingTimeInAudio in it.startTimestampTimeInSelf..it.endTimestampTimeInSelf) {
                             if (!it.isSelected) {
                                 it.isSelected = true
-                                audio.cutLineFineTuningButtonChangeListener?.onCutLineFineTuningEnable(
-                                    true
-                                )
-                                onCutLineChangeListener?.onCutLineChange(
-                                    it.startTimestampTimeInSelf,
-                                    it.endTimestampTimeInSelf
-                                )
+                                audio.cutLineFineTuningButtonChangeListener?.onCutLineFineTuningEnable(true)
+                                onCutLineChangeListener?.onCutLineChange(it.startTimestampTimeInSelf, it.endTimestampTimeInSelf)
                                 audio.invalidate()
                             }
                         } else {
@@ -319,39 +295,21 @@ class CutPieceFragment(
         }
         when (cutMode) {
             CUT_MODE_SELECT, CUT_MODE_JUMP -> {
-                var bitmap = BitmapFactory.decodeResource(
-                    audio.getContext()?.resources,
-                    R.drawable.cut_piece_bg
-                )
-                var rect = Rect(
-                    startTimestampPosition.toInt(),
-                    baselinePosition.toInt(),
-                    endTimestampPosition.toInt(),
-                    rect?.bottom
-                        ?: 0
-                )
+                var bitmap = BitmapFactory.decodeResource(audio.getContext()?.resources, R.drawable.cut_piece_bg)
+                var rect = Rect(startTimestampPosition.toInt(), baselinePosition.toInt(), endTimestampPosition.toInt(), rect?.bottom
+                    ?: 0)
                 canvas.drawBitmap(bitmap, null, rect, null)
             }
 
             CUT_MODE_DELETE -> {
-                var bitmap = BitmapFactory.decodeResource(
-                    audio.getContext()?.resources,
-                    R.drawable.cut_piece_bg
-                )
+                var bitmap = BitmapFactory.decodeResource(audio.getContext()?.resources, R.drawable.cut_piece_bg)
 
-                var rectStart = Rect(
-                    0, baselinePosition.toInt(), startTimestampPosition.toInt(), rect?.bottom
-                        ?: 0
-                )
+                var rectStart = Rect(0, baselinePosition.toInt(), startTimestampPosition.toInt(), rect?.bottom
+                    ?: 0)
                 canvas.drawBitmap(bitmap, null, rectStart, null)
 
-                var rectEnd = Rect(
-                    endTimestampPosition.toInt(),
-                    baselinePosition.toInt(),
-                    ScreenUtil.getScreenWidth(audio.getContext()),
-                    rect?.bottom
-                        ?: 0
-                )
+                var rectEnd = Rect(endTimestampPosition.toInt(), baselinePosition.toInt(), ScreenUtil.getScreenWidth(audio.getContext()), rect?.bottom
+                    ?: 0)
                 canvas.drawBitmap(bitmap, null, rectEnd, null)
             }
 
@@ -365,35 +323,18 @@ class CutPieceFragment(
             return
         }
         if (isSelected || cutMode == CUT_MODE_JUMP) {
-            canvas.drawLine(
-                startTimestampPosition,
-                baselinePosition,
-                startTimestampPosition, //            height.toFloat(),
-                rect?.bottom?.toFloat() ?: 0f,
-                timestampLinePaint
-            )
-            canvas.drawLine(
-                endTimestampPosition,
-                baselinePosition,
-                endTimestampPosition, //            height.toFloat(),
-                rect?.bottom?.toFloat() ?: 0f,
-                timestampLinePaint
-            )
-            audio.refreshCutLineAnchor(
-                isSelected && (startTimestampPosition < 0 || startTimestampPosition > ScreenUtil.getScreenWidth(
-                    audio.getContext()
-                )),
-                isSelected && (endTimestampPosition > ScreenUtil.getScreenWidth(audio.getContext()) || endTimestampPosition < 0)
-            ) // 绘制圆圈标记在直线的顶端
+            canvas.drawLine(startTimestampPosition, baselinePosition, startTimestampPosition, //            height.toFloat(),
+                            rect?.bottom?.toFloat() ?: 0f, timestampLinePaint)
+            canvas.drawLine(endTimestampPosition, baselinePosition, endTimestampPosition, //            height.toFloat(),
+                            rect?.bottom?.toFloat() ?: 0f, timestampLinePaint)
+            audio.refreshCutLineAnchor(isSelected && (startTimestampPosition < 0 || startTimestampPosition > ScreenUtil.getScreenWidth(audio.getContext())), isSelected && (endTimestampPosition > ScreenUtil.getScreenWidth(audio.getContext()) || endTimestampPosition < 0)) // 绘制圆圈标记在直线的顶端
             drawStartHandle(canvas)
             drawEndHandle(canvas)
         }
     }
 
     fun isCutLineStartVisible(): Boolean {
-        return isSelected && (startTimestampPosition < 0 || startTimestampPosition > ScreenUtil.getScreenWidth(
-            audio.getContext()
-        ))
+        return isSelected && (startTimestampPosition < 0 || startTimestampPosition > ScreenUtil.getScreenWidth(audio.getContext()))
     }
 
     fun isCutLineEndVisible(): Boolean {
@@ -412,18 +353,8 @@ class CutPieceFragment(
             val handleXStart = startTimestampPosition - startHandleBitmap!!.width / 2
             val handleYStart = baselinePosition + startMargin
             var clickPadding = ScreenUtil.dp2px(audio.getContext(), 5)
-            startHandleTouchRect = Rect(
-                handleXStart.toInt() - clickPadding,
-                handleYStart.toInt() - clickPadding,
-                (handleXStart + startHandleBitmap!!.width).toInt() + clickPadding,
-                (handleYStart + startHandleBitmap!!.height).toInt() + clickPadding
-            )
-            startHandleRealRect = Rect(
-                handleXStart.toInt(),
-                handleYStart.toInt(),
-                (handleXStart + startHandleBitmap!!.width).toInt(),
-                (handleYStart + startHandleBitmap!!.height).toInt()
-            )
+            startHandleTouchRect = Rect(handleXStart.toInt() - clickPadding, handleYStart.toInt() - clickPadding, (handleXStart + startHandleBitmap!!.width).toInt() + clickPadding, (handleYStart + startHandleBitmap!!.height).toInt() + clickPadding)
+            startHandleRealRect = Rect(handleXStart.toInt(), handleYStart.toInt(), (handleXStart + startHandleBitmap!!.width).toInt(), (handleYStart + startHandleBitmap!!.height).toInt())
             canvas.drawBitmap(startHandleBitmap!!, handleXStart, handleYStart, null)
             if (BuildConfig.DEBUG) { //画空心rect
                 val rectPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -440,16 +371,8 @@ class CutPieceFragment(
 
     private fun initStartHandleBitmap(forceInit: Boolean = false) {
         if (startHandleBitmap == null || forceInit) {
-            startHandleBitmap = BitmapFactory.decodeResource(
-                audio.getContext()?.resources,
-                if (cutMode == CUT_MODE_DELETE) R.mipmap.ic_bar_right else R.mipmap.ic_bar_left
-            )
-            startHandleBitmap = Bitmap.createScaledBitmap(
-                startHandleBitmap!!,
-                startHandleBitmap!!.width * 2,
-                startHandleBitmap!!.height * 2,
-                true
-            )
+            startHandleBitmap = BitmapFactory.decodeResource(audio.getContext()?.resources, if (cutMode == CUT_MODE_DELETE) R.mipmap.ic_bar_right else R.mipmap.ic_bar_left)
+            startHandleBitmap = Bitmap.createScaledBitmap(startHandleBitmap!!, startHandleBitmap!!.width * 2, startHandleBitmap!!.height * 2, true)
         }
     }
 
@@ -468,18 +391,8 @@ class CutPieceFragment(
             val handleXEnd = endTimestampPosition - endHandleBitmap!!.width / 2
             val handleYEnd = ((rect?.bottom ?: 0) - endHandleBitmap!!.height - endMargin).toFloat()
             var clickPadding = ScreenUtil.dp2px(audio.getContext(), 5)
-            endHandleTouchRect = Rect(
-                handleXEnd.toInt() - clickPadding,
-                handleYEnd.toInt() - clickPadding,
-                (handleXEnd + endHandleBitmap!!.width).toInt() + clickPadding,
-                (handleYEnd + endHandleBitmap!!.height).toInt() + clickPadding
-            ) // 绘制把手Bitmap在开始位置
-            endHandleRealRect = Rect(
-                handleXEnd.toInt(),
-                handleYEnd.toInt(),
-                (handleXEnd + endHandleBitmap!!.width).toInt(),
-                (handleYEnd + endHandleBitmap!!.height).toInt()
-            ) // 绘制把手Bitmap在开始位置
+            endHandleTouchRect = Rect(handleXEnd.toInt() - clickPadding, handleYEnd.toInt() - clickPadding, (handleXEnd + endHandleBitmap!!.width).toInt() + clickPadding, (handleYEnd + endHandleBitmap!!.height).toInt() + clickPadding) // 绘制把手Bitmap在开始位置
+            endHandleRealRect = Rect(handleXEnd.toInt(), handleYEnd.toInt(), (handleXEnd + endHandleBitmap!!.width).toInt(), (handleYEnd + endHandleBitmap!!.height).toInt()) // 绘制把手Bitmap在开始位置
             canvas.drawBitmap(endHandleBitmap!!, handleXEnd, handleYEnd, null)
             if (BuildConfig.DEBUG) { //画空心rect
                 val rectPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -499,16 +412,8 @@ class CutPieceFragment(
      */
     private fun initEndHandleBitmap(forceInit: Boolean = false) {
         if (endHandleBitmap == null || forceInit) {
-            endHandleBitmap = BitmapFactory.decodeResource(
-                audio.getContext()?.resources,
-                if (cutMode == CUT_MODE_DELETE) R.mipmap.ic_bar_left else R.mipmap.ic_bar_right
-            )
-            endHandleBitmap = Bitmap.createScaledBitmap(
-                endHandleBitmap!!,
-                endHandleBitmap!!.width * 2,
-                endHandleBitmap!!.height * 2,
-                true
-            )
+            endHandleBitmap = BitmapFactory.decodeResource(audio.getContext()?.resources, if (cutMode == CUT_MODE_DELETE) R.mipmap.ic_bar_left else R.mipmap.ic_bar_right)
+            endHandleBitmap = Bitmap.createScaledBitmap(endHandleBitmap!!, endHandleBitmap!!.width * 2, endHandleBitmap!!.height * 2, true)
         }
     }
 
@@ -525,14 +430,9 @@ class CutPieceFragment(
                 if (!isSelected) {
                     return
                 } // 创建覆盖两条竖线中间区域的矩形
-                val rect = Rect(
-                    startTimestampPosition.toInt() + strokeWidth_cut.toInt(),
-                    (rect?.top
-                        ?: 0) + strokeWidth.toInt(),
-                    endTimestampPosition.toInt() - strokeWidth_cut.toInt(),
-                    ((rect?.bottom
-                        ?: 0) - strokeWidth.toInt())
-                )
+                val rect = Rect(startTimestampPosition.toInt() + strokeWidth_cut.toInt(), (rect?.top
+                    ?: 0) + strokeWidth.toInt(), endTimestampPosition.toInt() - strokeWidth_cut.toInt(), ((rect?.bottom
+                    ?: 0) - strokeWidth.toInt()))
 
                 // 在波形图上绘制这个矩形
                 canvas.drawRect(rect, paint)
@@ -542,35 +442,23 @@ class CutPieceFragment(
                 if (!isSelected) {
                     return
                 }
-                val rectLeft = Rect(
-                    0,
-                    (rect?.top
-                        ?: 0) + strokeWidth.toInt(),
-                    startTimestampPosition.toInt() - strokeWidth_cut.toInt(),
-                    ((rect?.bottom
-                        ?: 0) - strokeWidth.toInt())
-                )
+                val rectLeft = Rect(0, (rect?.top
+                    ?: 0) + strokeWidth.toInt(), startTimestampPosition.toInt() - strokeWidth_cut.toInt(), ((rect?.bottom
+                    ?: 0) - strokeWidth.toInt()))
                 canvas.drawRect(rectLeft, paint)
 
 
-                val rectRight = Rect(
-                    endTimestampPosition.toInt() + strokeWidth_cut.toInt(), (rect?.top
-                        ?: 0) + strokeWidth.toInt(), endPositionOfAudio.toInt(), ((rect?.bottom
-                        ?: 0) - strokeWidth.toInt())
-                )
+                val rectRight = Rect(endTimestampPosition.toInt() + strokeWidth_cut.toInt(), (rect?.top
+                    ?: 0) + strokeWidth.toInt(), endPositionOfAudio.toInt(), ((rect?.bottom
+                    ?: 0) - strokeWidth.toInt()))
                 canvas.drawRect(rectRight, paint)
 
             }
 
             CUT_MODE_JUMP -> { // 创建覆盖两条竖线中间区域的矩形
-                val rect = Rect(
-                    startTimestampPosition.toInt() + strokeWidth_cut.toInt(),
-                    (rect?.top
-                        ?: 0) + strokeWidth.toInt(),
-                    endTimestampPosition.toInt() - strokeWidth_cut.toInt(),
-                    ((rect?.bottom
-                        ?: 0) - strokeWidth.toInt())
-                )
+                val rect = Rect(startTimestampPosition.toInt() + strokeWidth_cut.toInt(), (rect?.top
+                    ?: 0) + strokeWidth.toInt(), endTimestampPosition.toInt() - strokeWidth_cut.toInt(), ((rect?.bottom
+                    ?: 0) - strokeWidth.toInt()))
 
                 // 在波形图上绘制这个矩形
                 canvas.drawRect(rect, paint)
@@ -586,13 +474,10 @@ class CutPieceFragment(
     private var isMovingEnd: Boolean = false
     private var lastTouchXProcess: Float = 0f
 
-    private val moveHandler =
-        MoveHandler(audio = WeakReference(audio), cutPiece = WeakReference(this))
+    private val moveHandler = MoveHandler(audio = WeakReference(audio), cutPiece = WeakReference(this))
 
-    class MoveHandler(
-        private var audio: WeakReference<AudioFragmentWithCut>? = null,
-        private var cutPiece: WeakReference<CutPieceFragment>? = null
-    ) :
+    class MoveHandler(private var audio: WeakReference<AudioFragmentWithCut>? = null,
+                      private var cutPiece: WeakReference<CutPieceFragment>? = null) :
         Handler(Looper.getMainLooper()) {
 
         companion object {
@@ -640,19 +525,13 @@ class CutPieceFragment(
                                 CUT_MODE_SELECT -> {
                                     this.moveRightByPixel(MOVE_INTERVAL_SPACE) //剪切范围也扩大
                                     cutPiece?.get()?.expendRightByPixel(MOVE_INTERVAL_SPACE)
-                                    sendMessageDelayed(
-                                        obtainMessage(MSG_MOVE_END_OF_END),
-                                        MOVE_INTERVAL_TIME
-                                    )
+                                    sendMessageDelayed(obtainMessage(MSG_MOVE_END_OF_END), MOVE_INTERVAL_TIME)
                                 }
 
                                 CUT_MODE_DELETE -> {
                                     this.moveRightByPixel(MOVE_INTERVAL_SPACE) //剪切范围也扩大
                                     cutPiece?.get()?.expendRightByPixel(MOVE_INTERVAL_SPACE)
-                                    sendMessageDelayed(
-                                        obtainMessage(MSG_MOVE_END_OF_END),
-                                        MOVE_INTERVAL_TIME
-                                    )
+                                    sendMessageDelayed(obtainMessage(MSG_MOVE_END_OF_END), MOVE_INTERVAL_TIME)
                                 }
 
                                 CUT_MODE_JUMP -> { //防止交叉
@@ -660,10 +539,7 @@ class CutPieceFragment(
                                             ?.expendRightByPixel(MOVE_INTERVAL_SPACE) == true
                                     ) {
                                         this.moveRightByPixel(MOVE_INTERVAL_SPACE) //剪切范围也扩大
-                                        sendMessageDelayed(
-                                            obtainMessage(MSG_MOVE_END_OF_END),
-                                            MOVE_INTERVAL_TIME
-                                        )
+                                        sendMessageDelayed(obtainMessage(MSG_MOVE_END_OF_END), MOVE_INTERVAL_TIME)
                                     }
                                 }
                             }
@@ -677,10 +553,7 @@ class CutPieceFragment(
                     audio?.get()?.apply {
                         if (cutPiece?.get()?.startCutLineCanMoveEnd(MOVE_INTERVAL_SPACE) == true) {
                             this.moveRightByPixel(MOVE_INTERVAL_SPACE)
-                            sendMessageDelayed(
-                                obtainMessage(MSG_MOVE_END_OF_START),
-                                MOVE_INTERVAL_TIME
-                            )
+                            sendMessageDelayed(obtainMessage(MSG_MOVE_END_OF_START), MOVE_INTERVAL_TIME)
                         }
                     }
                 }
@@ -689,10 +562,7 @@ class CutPieceFragment(
                     audio?.get()?.apply {
                         if (cutPiece?.get()?.endCutLineCanMoveStart(MOVE_INTERVAL_SPACE) == true) {
                             this.moveStartByPixel(MOVE_INTERVAL_SPACE)
-                            sendMessageDelayed(
-                                obtainMessage(MSG_MOVE_START_OF_END),
-                                MOVE_INTERVAL_TIME
-                            )
+                            sendMessageDelayed(obtainMessage(MSG_MOVE_START_OF_END), MOVE_INTERVAL_TIME)
                         }
                     }
                 }
@@ -704,19 +574,13 @@ class CutPieceFragment(
                                 CUT_MODE_SELECT -> {
                                     moveStartByPixel(MOVE_INTERVAL_SPACE) //剪切范围也扩大
                                     cutPiece?.get()?.expendStartByPixel(MOVE_INTERVAL_SPACE)
-                                    sendMessageDelayed(
-                                        obtainMessage(MSG_MOVE_START_OF_START),
-                                        MOVE_INTERVAL_TIME
-                                    )
+                                    sendMessageDelayed(obtainMessage(MSG_MOVE_START_OF_START), MOVE_INTERVAL_TIME)
                                 }
 
                                 CUT_MODE_DELETE -> {
                                     moveStartByPixel(MOVE_INTERVAL_SPACE) //剪切范围也扩大
                                     cutPiece?.get()?.expendStartByPixel(MOVE_INTERVAL_SPACE)
-                                    sendMessageDelayed(
-                                        obtainMessage(MSG_MOVE_START_OF_START),
-                                        MOVE_INTERVAL_TIME
-                                    )
+                                    sendMessageDelayed(obtainMessage(MSG_MOVE_START_OF_START), MOVE_INTERVAL_TIME)
                                 }
 
                                 CUT_MODE_JUMP -> { //防止交叉
@@ -724,10 +588,7 @@ class CutPieceFragment(
                                             ?.expendStartByPixel(MOVE_INTERVAL_SPACE) == true
                                     ) {
                                         moveStartByPixel(MOVE_INTERVAL_SPACE) //剪切范围也扩大
-                                        sendMessageDelayed(
-                                            obtainMessage(MSG_MOVE_START_OF_START),
-                                            MOVE_INTERVAL_TIME
-                                        )
+                                        sendMessageDelayed(obtainMessage(MSG_MOVE_START_OF_START), MOVE_INTERVAL_TIME)
                                     }
                                 }
 
@@ -762,10 +623,7 @@ class CutPieceFragment(
                         }
 
                         if (Math.abs(remainingOffsetValue) > 0) {
-                            sendMessageDelayed(
-                                obtainMessage(MSG_MOVE_TO_OFFSET),
-                                MOVE_INTERVAL_TIME_DELAY
-                            )
+                            sendMessageDelayed(obtainMessage(MSG_MOVE_TO_OFFSET), MOVE_INTERVAL_TIME_DELAY)
                         }
                     }
                 }
@@ -789,8 +647,7 @@ class CutPieceFragment(
      * 扩展的变量为像素
      */
     private fun expendRightByPixel(moveIntervalSpace: Float): Boolean {
-        var newEndTimestampTimeInSelf =
-            endTimestampTimeInSelf + (moveIntervalSpace.pixel2Time(unitMsPixel))
+        var newEndTimestampTimeInSelf = endTimestampTimeInSelf + (moveIntervalSpace.pixel2Time(unitMsPixel))
         if (isInOtherFragments(newEndTimestampTimeInSelf)) {
             return false
         }
@@ -804,8 +661,7 @@ class CutPieceFragment(
      * 扩展的变量为像素
      */
     private fun expendStartByPixel(moveIntervalSpace: Float): Boolean {
-        var newStartTimestampTimeInSelf =
-            startTimestampTimeInSelf - (moveIntervalSpace.pixel2Time(unitMsPixel))
+        var newStartTimestampTimeInSelf = startTimestampTimeInSelf - (moveIntervalSpace.pixel2Time(unitMsPixel))
         if (isInOtherFragments(newStartTimestampTimeInSelf)) {
             return false
         }
@@ -836,15 +692,15 @@ class CutPieceFragment(
                 isMovingEnd = endHandleTouchRect.isTouch(event)
                 onCutLineChangeListener?.onCutLineLight(isMovingStart, isMovingEnd)
                 if (isMovingStart || isMovingEnd) {
-                    if (PlayerManager.isPlaying) {
+                    if (PlayerManager.isPlaying && isWholeScreen == true) {
                         resumePlaying = true
-                    } //                    PlayerManager.pause()
+                    }
+                    if (isWholeScreen == false) {
+                        PlayerManager.pause()
+                    }
                 }
                 lastTouchXProcess = x
-                Log.i(
-                    BaseAudioEditorView.cut_tag,
-                    "cut onTouchEvent: ACTION_DOWN isMovingStart=$isMovingStart isMovingEnd=$isMovingEnd"
-                )
+                Log.i(BaseAudioEditorView.cut_tag, "cut onTouchEvent: ACTION_DOWN isMovingStart=$isMovingStart isMovingEnd=$isMovingEnd")
             }
 
             MotionEvent.ACTION_MOVE -> {
@@ -862,22 +718,15 @@ class CutPieceFragment(
                             startTimestampTimeInSelf = 0
                         } else if (dx > 0 && startTimestampPosition >= endTimestampPosition - MIN_CUT_GAP * unitMsPixel) { //开始大于结束了
                             startTimestampTimeInSelf = endTimestampTimeInSelf - MIN_CUT_GAP
-                        } else if (cutMode == CUT_MODE_JUMP && isInOtherFragments(
-                                startTimestampTimeInSelf + dx.pixel2Time(unitMsPixel)
-                            )
-                        ) {
-                            startTimestampTimeInSelf = getFragmentInOtherFragments(
-                                endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel)
-                            )?.endTimestampTimeInSelf
+                        } else if (cutMode == CUT_MODE_JUMP && isInOtherFragments(startTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))) {
+                            startTimestampTimeInSelf = getFragmentInOtherFragments(endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))?.endTimestampTimeInSelf
                                 ?: startTimestampTimeInSelf
                         } else {
                             startTimestampTimeInSelf += dx.pixel2Time(unitMsPixel)
 
                             val newStartTimestampPosition = startTimestampPosition
-                            val minStartPosition =
-                                strokeWidth_cut + endHandleTouchRect.width() // 检查是否到达屏幕边界
-                            val maxEndPosition =
-                                ScreenUtil.getScreenWidth(context) - strokeWidth_cut - endHandleTouchRect.width() // 检查是否到达屏幕边界
+                            val minStartPosition = strokeWidth_cut + endHandleTouchRect.width() // 检查是否到达屏幕边界
+                            val maxEndPosition = ScreenUtil.getScreenWidth(context) - strokeWidth_cut - endHandleTouchRect.width() // 检查是否到达屏幕边界
                             if (newStartTimestampPosition < minStartPosition) { //做移动到边缘
                                 if (canLoadMoreWaveDataToStart()) {
                                     moveStart()
@@ -914,21 +763,14 @@ class CutPieceFragment(
                             endTimestampTimeInSelf = duration
                         } else if (dx < 0 && endTimestampPosition <= startTimestampPosition + MIN_CUT_GAP * unitMsPixel) { //结束小于开始了
                             endTimestampTimeInSelf = startTimestampTimeInSelf + MIN_CUT_GAP
-                        } else if (cutMode == CUT_MODE_JUMP && isInOtherFragments(
-                                endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel)
-                            )
-                        ) {
-                            endTimestampTimeInSelf = getFragmentInOtherFragments(
-                                endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel)
-                            )?.startTimestampTimeInSelf
+                        } else if (cutMode == CUT_MODE_JUMP && isInOtherFragments(endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))) {
+                            endTimestampTimeInSelf = getFragmentInOtherFragments(endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))?.startTimestampTimeInSelf
                                 ?: endTimestampTimeInSelf
                         } else {
                             val newEndTimestampPosition = endTimestampPosition + dx
                             val screenWidth = ScreenUtil.getScreenWidth(context)
-                            val maxEndPosition =
-                                screenWidth - strokeWidth_cut - endHandleTouchRect.width() // 检查是否到达屏幕边界
-                            val minStartPosition =
-                                strokeWidth_cut + endHandleTouchRect.width() // 检查是否到达屏幕边界
+                            val maxEndPosition = screenWidth - strokeWidth_cut - endHandleTouchRect.width() // 检查是否到达屏幕边界
+                            val minStartPosition = strokeWidth_cut + endHandleTouchRect.width() // 检查是否到达屏幕边界
                             if (newEndTimestampPosition >= maxEndPosition) { // 检查是否有更多波形数据可以加载
                                 //向右移动到边缘
                                 if (canLoadMoreWaveDataToEnd(context)) {
@@ -972,9 +814,7 @@ class CutPieceFragment(
                     cutLineMove2Middle(event)
                     checkPlayingLine()
                     if (resumePlaying) {
-                        if (isWholeScreen == true) {
-                            PlayerManager.play()
-                        }
+                        PlayerManager.play()
                     }
                     resumePlaying = false
                 }
@@ -1023,8 +863,7 @@ class CutPieceFragment(
      * 移动裁剪线到中间
      */
     private fun cutLineMove2Middle(event: MotionEvent) {
-        var offsetTimeValue =
-            ((event.x - ScreenUtil.getScreenWidth(audio.getContext()) / 2) / unitMsPixel).toLong()
+        var offsetTimeValue = ((event.x - ScreenUtil.getScreenWidth(audio.getContext()) / 2) / unitMsPixel).toLong()
         moveHandler.removeMessages(MSG_MOVE_TO_OFFSET)
         moveHandler.sendMessage(moveHandler.obtainMessage(MSG_MOVE_TO_OFFSET, offsetTimeValue))
     }
@@ -1089,24 +928,14 @@ class CutPieceFragment(
     // 为开始时间戳的圆球创建一个矩形
     private var startRect: Rect = Rect()
         get() {
-            return Rect(
-                startTimestampPosition.toInt(),
-                timestampHandlerRadius.toInt(),
-                startTimestampPosition.toInt() + (timestampHandlerRadius * 2).toInt(),
-                timestampHandlerRadius.toInt() + 200
-            )
+            return Rect(startTimestampPosition.toInt(), timestampHandlerRadius.toInt(), startTimestampPosition.toInt() + (timestampHandlerRadius * 2).toInt(), timestampHandlerRadius.toInt() + 200)
         }
 
 
     // 为结束时间戳的圆球创建一个矩形
     private var endRect: Rect = Rect()
         get() {
-            return Rect(
-                endTimestampPosition.toInt(),
-                timestampHandlerRadius.toInt(),
-                endTimestampPosition.toInt() + (timestampHandlerRadius * 2).toInt(),
-                timestampHandlerRadius.toInt() + 200
-            )
+            return Rect(endTimestampPosition.toInt(), timestampHandlerRadius.toInt(), endTimestampPosition.toInt() + (timestampHandlerRadius * 2).toInt(), timestampHandlerRadius.toInt() + 200)
         }
 
     fun isTarget(event: MotionEvent?): Boolean {
@@ -1280,8 +1109,7 @@ class CutPieceFragment(
                         startTimestampTimeInSelf = currentPlayingTimeInAudio
                     } else { //                endTimestampTimeInSelf = currentPlayingTimeInAudio
                         startTimestampTimeInSelf = currentPlayingTimeInAudio
-                        endTimestampTimeInSelf =
-                            (startTimestampTimeInSelf + 10000L).coerceAtMost(duration)
+                        endTimestampTimeInSelf = (startTimestampTimeInSelf + 10000L).coerceAtMost(duration)
                     }
                     audio.invalidate()
                 }
@@ -1308,12 +1136,11 @@ class CutPieceFragment(
                         endTimestampTimeInSelf = currentPlayingTimeInAudio
                     } else { //                startTimestampTimeInSelf = currentPlayingTimeInAudio
                         endTimestampTimeInSelf = currentPlayingTimeInAudio
-                        startTimestampTimeInSelf =
-                            (endTimestampTimeInSelf - 10000L).coerceAtLeast(0)
+                        startTimestampTimeInSelf = (endTimestampTimeInSelf - 10000L).coerceAtLeast(0)
                     }
                     audio.invalidate()
                     audio.updateMediaSource(startTimestampTimeInSelf, endTimestampTimeInSelf)
-                    PlayerManager.seekTo(0,0)
+                    PlayerManager.seekTo(0, 0)
                     audio.updatePlayingPosition(startTimestampTimeInSelf)
                     if (isResumePlaying) {
                         PlayerManager.play()
@@ -1337,10 +1164,7 @@ class CutPieceFragment(
     fun onSingleTapUp(event: MotionEvent): Boolean {
         isSelected = event.x in startTimestampPosition..endTimestampPosition
         if (isSelected) {
-            onCutLineChangeListener?.onCutLineChange(
-                startTimestampTimeInSelf,
-                endTimestampTimeInSelf
-            )
+            onCutLineChangeListener?.onCutLineChange(startTimestampTimeInSelf, endTimestampTimeInSelf)
         }
         audio.invalidate()
         return isSelected
@@ -1392,8 +1216,7 @@ class CutPieceFragment(
     }
 
     fun startCutLineCanMoveEnd(moveIntervalSpace: Float): Boolean {
-        var newStartTimestampTimeInSelf =
-            startTimestampTimeInSelf + (moveIntervalSpace.pixel2Time(unitMsPixel))
+        var newStartTimestampTimeInSelf = startTimestampTimeInSelf + (moveIntervalSpace.pixel2Time(unitMsPixel))
         var result = newStartTimestampTimeInSelf < endTimestampTimeInSelf
         if (result) {
             startTimestampTimeInSelf = newStartTimestampTimeInSelf
@@ -1404,8 +1227,7 @@ class CutPieceFragment(
     }
 
     fun endCutLineCanMoveStart(moveIntervalSpace: Float): Boolean {
-        var newEndTimestampTimeInSelf =
-            endTimestampTimeInSelf - (moveIntervalSpace.pixel2Time(unitMsPixel))
+        var newEndTimestampTimeInSelf = endTimestampTimeInSelf - (moveIntervalSpace.pixel2Time(unitMsPixel))
         var result = newEndTimestampTimeInSelf > startTimestampTimeInSelf
         if (result) {
             endTimestampTimeInSelf = newEndTimestampTimeInSelf
