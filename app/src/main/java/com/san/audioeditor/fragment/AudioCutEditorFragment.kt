@@ -871,6 +871,11 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         }
 
         viewBinding.confirm.setOnClickListener {
+            if (!checkDealDuration()) {
+                ToastCompat.makeText(context, false, requireContext().getString(R.string.error_save))
+                    .show()
+                return@setOnClickListener
+            }
             mViewModel.isConformed = true
             mViewModel.isCancel = false
             audioDeal(mViewModel.song.path)
@@ -883,10 +888,15 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
         freshSaveActions()
         viewBinding.save.setOnClickListener {
+            if (!checkDealDuration()) {
+                ToastCompat.makeText(context, false, requireContext().getString(R.string.error_save))
+                    .show()
+                return@setOnClickListener
+            }
             disableBack()
             PlayerManager.pause()
             var realCutPieceFragments = viewBinding.timeLine.cutPieceFragmentsOrder?.filter { !it.isFake }
-            mViewModel.save(requireContext(),viewBinding.timeLine.cutMode,mViewModel.song.duration, realCutPieceFragments, mViewModel.datas)
+            mViewModel.save(requireContext(), viewBinding.timeLine.cutMode, mViewModel.song.duration, realCutPieceFragments, mViewModel.datas)
         }
 
         PlayerManager.addListener(this)
@@ -902,6 +912,10 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             addData(viewBinding.timeLine.audioFragmentBean)
         }
 
+    }
+
+    private fun checkDealDuration(): Boolean {
+        return viewBinding.timeLine.selectedTime >= 100
     }
 
     private fun freshCutModeView(mode: Int) {
@@ -1116,7 +1130,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         cutFileName = "cut_" + (System.currentTimeMillis())
         outputPath = PATH + File.separator + cutFileName + suffix
 
-        commandLine = FFmpegUtil.cutMultipleAudioSegments(srcFile,if(viewBinding.timeLine.cutMode ==  CutPieceFragment.CUT_MODE_DELETE)  realCutPieceFragments.toInverseSegmentsArray(mViewModel.song.duration.toFloat()) else   realCutPieceFragments.toSegmentsArray(), outputPath)
+        commandLine = FFmpegUtil.cutMultipleAudioSegments(srcFile, if (viewBinding.timeLine.cutMode == CutPieceFragment.CUT_MODE_DELETE) realCutPieceFragments.toInverseSegmentsArray(mViewModel.song.duration.toFloat()) else realCutPieceFragments.toSegmentsArray(), outputPath)
 
         android.util.Log.i(BaseAudioEditorView.jni_tag, "outputPath=${outputPath}") //打印 commandLine
         var sb = StringBuilder()
