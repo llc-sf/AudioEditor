@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/color_101010">
 
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         style="@style/MusicTheme.AppBarVideo"
@@ -18,6 +19,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/audio_saved" />
+
+    <View
+        android:id="@+id/audio_bg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="-20dp"
+        android:layout_marginTop="-24dp"
+        android:layout_marginEnd="-20dp"
+        android:layout_marginBottom="-24dp"
+        android:background="@drawable/rectangle_1e1c1c_radius_all_18_bg"
+        app:layout_constraintBottom_toBottomOf="@id/audio_info"
+        app:layout_constraintEnd_toEndOf="@id/rename"
+        app:layout_constraintStart_toStartOf="@id/audio_img"
+        app:layout_constraintTop_toTopOf="@id/audio_title" />
 
 
     <ImageView
@@ -60,7 +75,8 @@
         android:textSize="@dimen/sp_13"
         app:layout_constraintBottom_toBottomOf="@id/audio_img"
         app:layout_constraintEnd_toEndOf="@id/audio_title"
-        app:layout_constraintStart_toStartOf="@id/audio_title" />
+        app:layout_constraintStart_toStartOf="@id/audio_title"
+        tools:text="ssssssssssssssssssss" />
 
     <ImageView
         android:id="@+id/rename"
@@ -72,19 +88,6 @@
         app:layout_constraintTop_toTopOf="@id/audio_title"
         app:srcCompat="@drawable/ic_rename" />
 
-    <View
-        android:id="@+id/audio_bg"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="-20dp"
-        android:layout_marginTop="-24dp"
-        android:layout_marginEnd="-20dp"
-        android:layout_marginBottom="-24dp"
-        android:background="@drawable/rectangle_952337_radius_all_14_bg"
-        app:layout_constraintBottom_toBottomOf="@id/audio_info"
-        app:layout_constraintEnd_toEndOf="@id/rename"
-        app:layout_constraintStart_toStartOf="@id/audio_img"
-        app:layout_constraintTop_toTopOf="@id/audio_title" />
 
     <TextView
         android:id="@+id/output"
