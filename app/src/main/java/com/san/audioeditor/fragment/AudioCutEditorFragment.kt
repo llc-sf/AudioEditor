@@ -69,6 +69,7 @@ import dev.audio.timeruler.utils.format2DurationSimple
 import dev.audio.timeruler.utils.format2DurationSimpleInt
 import dev.audio.timeruler.utils.lastAudioFragmentBean
 import dev.audio.timeruler.utils.nextAudioFragmentBean
+import dev.audio.timeruler.utils.toInverseSegmentsArray
 import dev.audio.timeruler.utils.toSegmentsArray
 import dev.audio.timeruler.weight.AudioCutEditorView
 import dev.audio.timeruler.weight.AudioEditorConfig
@@ -885,7 +886,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             disableBack()
             PlayerManager.pause()
             var realCutPieceFragments = viewBinding.timeLine.cutPieceFragmentsOrder?.filter { !it.isFake }
-            mViewModel.save(requireContext(), realCutPieceFragments, mViewModel.datas)
+            mViewModel.save(requireContext(),viewBinding.timeLine.cutMode,mViewModel.song.duration, realCutPieceFragments, mViewModel.datas)
         }
 
         PlayerManager.addListener(this)
@@ -1115,7 +1116,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         cutFileName = "cut_" + (System.currentTimeMillis())
         outputPath = PATH + File.separator + cutFileName + suffix
 
-        commandLine = FFmpegUtil.cutMultipleAudioSegments(srcFile, realCutPieceFragments.toSegmentsArray(), outputPath)
+        commandLine = FFmpegUtil.cutMultipleAudioSegments(srcFile,if(viewBinding.timeLine.cutMode ==  CutPieceFragment.CUT_MODE_DELETE)  realCutPieceFragments.toInverseSegmentsArray(mViewModel.song.duration.toFloat()) else   realCutPieceFragments.toSegmentsArray(), outputPath)
 
         android.util.Log.i(BaseAudioEditorView.jni_tag, "outputPath=${outputPath}") //打印 commandLine
         var sb = StringBuilder()

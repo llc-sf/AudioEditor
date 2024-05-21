@@ -34,6 +34,7 @@ import dev.audio.ffmpeglib.tool.FileUtil
 import dev.audio.recorder.utils.Log
 import dev.audio.timeruler.bean.AudioFragmentBean
 import dev.audio.timeruler.utils.AudioFileUtils
+import dev.audio.timeruler.utils.toInverseSegmentsArray
 import dev.audio.timeruler.utils.toSegmentsArray
 import dev.audio.timeruler.weight.BaseAudioEditorView
 import dev.audio.timeruler.weight.CutPieceFragment
@@ -97,6 +98,8 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
 
     var outputPath = ""
     fun save(context: Context,
+             cutMode:Int,
+             duration:Int,
              realCutPieceFragments: List<CutPieceFragment>?,
              datas: MutableList<AudioFragmentBean>) {
         isCancel = false
@@ -126,7 +129,8 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutPageData>() {
             }
             outputPath = AudioFileUtils.generateNewFilePath(PATH + File.separator + AudioFileUtils.getFileName(song.path))
 
-            commandLine = FFmpegUtil.cutMultipleAudioSegments(song.path, realCutPieceFragments.toSegmentsArray(), outputPath)
+            commandLine = FFmpegUtil.cutMultipleAudioSegments(song.path, if(cutMode ==  CutPieceFragment.CUT_MODE_DELETE) realCutPieceFragments.toInverseSegmentsArray(duration.toFloat()) else realCutPieceFragments.toSegmentsArray(), outputPath)
+
             android.util.Log.i(BaseAudioEditorView.jni_tag, "outputPath=${outputPath}") //打印 commandLine
             var sb = StringBuilder()
             commandLine?.forEachIndexed { index, s ->

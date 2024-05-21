@@ -2,6 +2,7 @@ package dev.audio.timeruler.utils
 
 import dev.audio.timeruler.bean.AudioFragmentBean
 import dev.audio.timeruler.weight.CutPieceFragment
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -87,7 +88,25 @@ fun List<CutPieceFragment>.toSegmentsArray(): Array<FloatArray> { // 创建二�
         segments[index][0] = startTime
         segments[index][1] = endTime - startTime
     }
+    return segments
+}
 
+fun List<CutPieceFragment>.toInverseSegmentsArray(songLength: Float): Array<FloatArray> {
+    val segments = Array(2) { FloatArray(2) }
+    try {
+        val startTime1 = 0f
+        val endTime1 = get(0).startTimestampTimeInSelf / 1000.0f
+        segments[0][0] = startTime1
+        segments[0][1] = endTime1
+
+
+        val startTime2 = get(0).endTimestampTimeInSelf / 1000.0f // 转换为秒
+        val endTime2 = songLength / 1000.0f
+        segments[1][0] = startTime2
+        segments[1][1] = endTime2
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
     return segments
 }
 
