@@ -187,11 +187,12 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
         var wf = waveform
         val samples = wf?.amplitudes ?: return // 确保最大振幅不为0
         var maxAmplitude = (samples.maxOrNull() ?: 0).toFloat()
-        if (maxAmplitude == 0f) {
-            maxAmplitude = 1f // 防止除以0，设置一个默认值
+        Log.i("llc_wave", "maxAmplitude:$maxAmplitude")
+        if (maxAmplitude < 5f) {
+            maxAmplitude = 5f // 防止除以0，设置一个默认值
         }
 
-        //补充的最小振幅值
+        // 补充的最小振幅值
         val minAmplitudeValue = 0.05f * maxAmplitude // 最小振幅值
 
         val fixedBarWidth = 8f // 固定的矩形宽度
@@ -202,9 +203,25 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
         val barsToFit = (waveViewWidth / totalWidthNeeded).toInt()
         val step = (samples.size / barsToFit).coerceAtLeast(1)
 
+        // 如果数据点不足，补全最小值
+        val paddedSamples = if (samples.size < barsToFit) {
+            samples.toMutableList().apply {
+                while (size < barsToFit) {
+                    add(if (minAmplitudeValue < 1) 1 else minAmplitudeValue.toInt())
+                }
+            }
+        } else {
+            samples
+        }
+
         for (i in 0 until barsToFit) {
             val sampleIndex = i * step
-            val sampleValue = if (sampleIndex < samples.size) samples[sampleIndex] else minAmplitudeValue
+            var sampleValue = if (sampleIndex < paddedSamples.size) paddedSamples[sampleIndex] else minAmplitudeValue
+            Log.i("llc_wave", "before sampleValue:$sampleValue")
+            if (sampleValue == 0) {
+                sampleValue = minAmplitudeValue
+            }
+            Log.i("llc_wave", "after sampleValue:$sampleValue")
             val scaledSampleValue = (sampleValue.toInt() / maxAmplitude) * maxHalfWaveHeight // 使用安全的除法
             val barHeight = scaledSampleValue * 2
 
@@ -216,7 +233,6 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
             canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, mWavePaint)
         }
     }
-
 
     open fun onDrawEndDeal(canvas: Canvas) {
         var wf = waveform
