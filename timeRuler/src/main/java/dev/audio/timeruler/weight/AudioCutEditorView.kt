@@ -380,7 +380,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
 
     private fun drawPlayingLine(canvas: Canvas) {
-        if (!needShowTips && isWaveDataLoaded) {
+        if (!needShowTips) {
             canvas.drawLine(currentPlayingPosition, baselinePosition, currentPlayingPosition, audioFragment?.rect?.bottom?.toFloat()
                 ?: 0f, playingLinePaint)
             var y = drawTriangle(canvas, audioFragment?.rect?.bottom?.toFloat() ?: 0f)

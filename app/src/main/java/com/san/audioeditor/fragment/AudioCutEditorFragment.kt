@@ -145,6 +145,15 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         mViewModel.initData(requireContext(), arguments)
         initTimeBar()
         adapterScreenHeight()
+        autoPlay()
+    }
+
+    private fun autoPlay() {
+        if (canCallBack) {
+            PlayerManager.play()
+        } else {
+            PlayerManager.pause()
+        }
     }
 
     private fun showTips() {
@@ -1007,12 +1016,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     private fun waveDataLoaded() {
         if (!OncePreferencesUtil.get(OncePreferencesUtil.key_cut_tips)) { //            showTips()
             freshDragTips()
-        } else {
-            if (canCallBack) {
-                PlayerManager.play()
-            } else {
-                PlayerManager.pause()
-            }
         }
     }
 
