@@ -913,24 +913,17 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
     fun setCutLineStartTime(time: Long) {
         var isResumePlaying = PlayerManager.isPlaying
-        updateMediaSource(time, getCutLineEndTime())
-        audioFragment?.setCutLineStartTime(time)
-        if (isResumePlaying) {
-            PlayerManager.play()
-        }
-    }
-
-    fun setCutLineEndTime(time: Long) {
-        var isResumePlaying = PlayerManager.isPlaying
-        PlayerManager.pause()
         when (cutMode) {
             CutPieceFragment.CUT_MODE_SELECT -> {
-                if (currentPlayingTimeInTimeLine >= time) { //需要重新播放
+                if (currentPlayingTimeInTimeLine <= time) { //需要重新播放
                     currentPlayingTimeInTimeLine = getCutLineStartTime()
                     currentPlayingPosition = (currentPlayingTimeInTimeLine - (cursorValue - startValue)) * unitMsPixel
                     audioFragment?.setCutLineEndTime(time)
                     updateMediaSource(getCutLineStartTime(), time)
                     PlayerManager.seekTo(0, 0)
+                }else{
+                    updateMediaSource(time, getCutLineEndTime())
+                    audioFragment?.setCutLineStartTime(time)
                 }
             }
 
@@ -941,6 +934,8 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                     audioFragment?.setCutLineEndTime(time)
                     updateMediaSource(getCutLineStartTime(), time)
                     PlayerManager.seekTo(0, 1)
+                }else{
+
                 }
             }
 
@@ -951,6 +946,56 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                     audioFragment?.setCutLineEndTime(time)
                     updateMediaSource(getCutLineStartTime(), time)
                     PlayerManager.seekTo(0, audioFragment?.playingLineIndexInFragments(currentPlayingTimeInTimeLine)?:0)
+                }else{
+                    
+                }
+            }
+        }
+        if (isResumePlaying) {
+            PlayerManager.play()
+        }
+    }
+
+    fun setCutLineEndTime(time: Long) {
+        var isResumePlaying = PlayerManager.isPlaying
+        PlayerManager.pause()
+        when (cutMode) {
+            CutPieceFragment.CUT_MODE_SELECT -> {
+                if (currentPlayingTimeInAudio >= time) { //需要重新播放
+                    currentPlayingTimeInAudio = getCutLineStartTime()
+                    currentPlayingPosition = (currentPlayingTimeInTimeLine - (cursorValue - startValue)) * unitMsPixel
+                    audioFragment?.setCutLineEndTime(time)
+                    updateMediaSource(getCutLineStartTime(), time)
+                    PlayerManager.seekTo(0, 0)
+                }else{
+                    audioFragment?.setCutLineEndTime(time)
+                    updateMediaSource(getCutLineStartTime(), time)
+                }
+            }
+
+            CutPieceFragment.CUT_MODE_DELETE -> {
+                if (currentPlayingTimeInAudio <= time) { //需要重新播放
+                    currentPlayingTimeInAudio = 0
+                    currentPlayingPosition = (currentPlayingTimeInTimeLine - (cursorValue - startValue)) * unitMsPixel
+                    audioFragment?.setCutLineEndTime(time)
+                    updateMediaSource(getCutLineStartTime(), time)
+                    PlayerManager.seekTo(0, 1)
+                }else{
+                    audioFragment?.setCutLineEndTime(time)
+                    updateMediaSource(getCutLineStartTime(), time)
+                }
+            }
+
+            CutPieceFragment.CUT_MODE_JUMP -> {
+                if (currentPlayingTimeInAudio >=  time) { //需要重新播放
+                    currentPlayingTimeInAudio = getCutLineStartTime()
+                    currentPlayingPosition = (currentPlayingTimeInTimeLine - (cursorValue - startValue)) * unitMsPixel
+                    audioFragment?.setCutLineEndTime(time)
+                    updateMediaSource(getCutLineStartTime(), time)
+                    PlayerManager.seekTo(0, audioFragment?.playingLineIndexInFragments(currentPlayingTimeInAudio)?:0)
+                }else{
+                    audioFragment?.setCutLineEndTime(time)
+                    updateMediaSource(getCutLineStartTime(), time)
                 }
             }
         }
