@@ -7,6 +7,7 @@ import android.graphics.Path
 import android.graphics.Rect
 import android.graphics.RectF
 import android.util.Log
+import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.ffmpeglib.tool.TimeUtil
 import dev.audio.timeruler.BuildConfig
 import dev.audio.timeruler.weight.BaseAudioEditorView.Companion.long_press_tag
@@ -213,8 +214,13 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
         } else {
             samples
         }
-
+        // 获取屏幕宽度
+        val screenWidth = ScreenUtil.getScreenWidth(audioEditorView.context)
         for (i in 0 until barsToFit) {
+            val xPosition = i * totalWidthNeeded + x
+            if(xPosition<0){
+                continue
+            }
             val sampleIndex = i * step
             var sampleValue = if (sampleIndex < paddedSamples.size) paddedSamples[sampleIndex] else minAmplitudeValue
             Log.i("llc_wave", "before sampleValue:$sampleValue")
@@ -225,12 +231,19 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
             val scaledSampleValue = (sampleValue.toInt() / maxAmplitude) * maxHalfWaveHeight // 使用安全的除法
             val barHeight = scaledSampleValue * 2
 
-            val xPosition = i * totalWidthNeeded + x
+
             val top = centerY - (barHeight / 2)
             val bottom = centerY + (barHeight / 2)
 
             val rectF = RectF(xPosition, top, xPosition + fixedBarWidth, bottom)
-            canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, mWavePaint)
+            Log.i("llc_wave", "xPosition:$xPosition")
+            // 如果 xPosition 超过屏幕宽度，就结束循环
+            if (xPosition > screenWidth) {
+                break
+            }
+            if(xPosition>0&&xPosition<ScreenUtil.getScreenWidth(audioEditorView.context)){
+                canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, mWavePaint)
+            }
         }
     }
 
