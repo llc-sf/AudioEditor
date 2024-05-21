@@ -595,7 +595,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         //        viewBinding.timeLine.setRange(startTime, endTime)
 
         viewBinding.durationTime.text = mViewModel.song.duration.toLong()
-            .format2DurationSimpleInt() //        viewBinding.scale.text = viewBinding.timeLine.mMode.toString()
+            .format2DurationSimple() //        viewBinding.scale.text = viewBinding.timeLine.mMode.toString()
 
         viewBinding.timeLine.setOnCursorListener(object : BaseAudioEditorView.OnCursorListener {
             override fun onStartTrackingTouch(cursorValue: Long) {

@@ -45,6 +45,14 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
                     time += (cutPieceFragment.endTimestampTimeInSelf - cutPieceFragment.startTimestampTimeInSelf)
                 }
             }
+            when (cutMode) {
+                CutPieceFragment.CUT_MODE_SELECT, CutPieceFragment.CUT_MODE_JUMP -> {
+                }
+
+                CutPieceFragment.CUT_MODE_DELETE -> {
+                    time = (audioFragment?.duration ?: 0) - time
+                }
+            }
             return time
         }
 
@@ -120,7 +128,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
 
 
     // 设置波形数据的方法
-    fun setWaveform(waveform: Waveform?, duration: Long, path: String,cutMode:Int) {
+    fun setWaveform(waveform: Waveform?, duration: Long, path: String, cutMode: Int) {
         audioFragment = AudioFragmentWithCut(this, cutMode).apply {
             index = 0
             this.duration = duration
@@ -1226,8 +1234,8 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         }
     }
 
-    fun setLoadingView(duration: Long, path: String,cutMode: Int) {
-        setWaveform(null, duration, path,cutMode)
+    fun setLoadingView(duration: Long, path: String, cutMode: Int) {
+        setWaveform(null, duration, path, cutMode)
     }
 
     fun updatePlayingPosition(positionTime: Long) {
