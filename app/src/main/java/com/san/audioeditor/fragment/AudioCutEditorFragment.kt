@@ -83,7 +83,6 @@ import dev.audio.timeruler.weight.CutPieceFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.jetbrains.anko.withAlpha
 import java.io.File
 import java.util.Calendar
 
@@ -1056,12 +1055,12 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
     private fun showWaveLoadingView() {
         viewBinding.waveLoading.playAnimation()
-        viewBinding.waveLoading.isVisible = true
+        viewBinding.waveLoadingRoot.isVisible = true
     }
 
     private fun hideWaveLoadingView() {
         viewBinding.waveLoading.pauseAnimation()
-        viewBinding.waveLoading.isVisible = false
+        viewBinding.waveLoadingRoot.isVisible = false
     }
 
     private fun waveDataLoaded() {

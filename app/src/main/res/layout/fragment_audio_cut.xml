@@ -258,20 +258,37 @@
         app:triangleSideLength="12dp"
         app:waveHeight="60dp" />
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/wave_loading"
+    <LinearLayout
+        android:id="@+id/wave_loading_root"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:scaleType="centerInside"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@id/timeLine"
         app:layout_constraintEnd_toEndOf="@id/timeLine"
         app:layout_constraintStart_toStartOf="@id/timeLine"
-        app:layout_constraintTop_toTopOf="@id/timeLine"
-        app:lottie_autoPlay="true"
-        app:lottie_fileName="trimloading.json"
-        app:lottie_loop="true"
-        app:lottie_repeatMode="restart" />
+        app:layout_constraintTop_toTopOf="@id/timeLine">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/wave_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="trimloading.json"
+            app:lottie_loop="true"
+            app:lottie_repeatMode="restart" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loading"
+            android:textColor="@color/white.alpha.40"
+            android:textSize="@dimen/sp_11" />
+
+    </LinearLayout>
+
 
     <ImageView
         android:id="@+id/cl_start_ancher"
