@@ -11,7 +11,10 @@ import android.os.Message
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
+import com.music.font.Poppins
+import com.music.font.PoppinsLight
 import dev.android.player.framework.utils.OncePreferencesUtil
 import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.timeruler.R
@@ -418,8 +421,9 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     }
 
     private var textPaint = Paint().apply {
-        color = Color.WHITE
+        color = ContextCompat.getColor(context, R.color.white_alpha_40)
         textSize = playingTextSize
+        typeface = PoppinsLight.getTypefaceFromCache(PoppinsLight.PoppinsLight)
     }
 
     //播放条三角与文字的间距
