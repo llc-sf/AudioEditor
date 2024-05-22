@@ -295,6 +295,7 @@
 
     <TextView
         android:id="@+id/confirm"
+        style="@style/CustomButton.FullScreen"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dp_20"
@@ -304,7 +305,6 @@
         android:paddingVertical="@dimen/dp_14"
         android:text="confirm"
         android:textColor="@color/white"
-        style="@style/CustomButton.FullScreen"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -646,13 +646,13 @@
                     android:id="@+id/keep_selected_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_8"
                     app:srcCompat="@drawable/ic_keep_selected" />
 
                 <TextView
                     android:id="@+id/keep_selected_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_8"
                     android:text="@string/keep_selected"
                     android:textColor="@color/white_white_100_50_selector"
                     app:fontFamily="@font/poppins_semibold" />
@@ -673,6 +673,7 @@
                     android:id="@+id/delete_selected_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_8"
                     android:visibility="gone"
                     app:srcCompat="@drawable/ic_keep_delete" />
 
@@ -680,7 +681,6 @@
                     android:id="@+id/delete_selected_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_8"
                     android:text="@string/delete_selected"
                     android:textColor="@color/white_white_100_50_selector"
                     app:fontFamily="@font/poppins_semibold" />
@@ -703,6 +703,7 @@
                     android:id="@+id/jump_selected_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_8"
                     android:visibility="gone"
                     app:srcCompat="@drawable/ic_keep_jump" />
 
@@ -710,7 +711,6 @@
                     android:id="@+id/jump_selected_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_8"
                     android:text="@string/jump_selected"
                     android:textColor="@color/white_white_100_50_selector"
                     app:fontFamily="@font/poppins_semibold" />
