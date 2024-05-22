@@ -682,4 +682,7 @@
     <string name="error_save">Trim failed, min duration: 0.1s.</string>
     <string name="trim_start_time">Trim start time</string>
     <string name="trim_end_time">Trim end time</string>
+    <string name="what_issues_did_you_face">What issues did you face?</string>
+    <string name="click_to">Click to </string>
+    <string name="send_feedback">Send feedback > </string>
 </resources>

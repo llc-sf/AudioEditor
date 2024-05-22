@@ -43,25 +43,11 @@ class CreateFragment : BaseFragment() {
     override fun onViewCreatedCompat(view: View, savedInstanceState: Bundle?) {
         super.onViewCreatedCompat(view, savedInstanceState)
 
-        binding.create.setOnClickListener {
-            isMulti = false
-            val intent = Intent(context, AudioPickActivity::class.java)
-//            pickAudioResult.launch(intent)
-            activity?.startActivity(intent)
-        }
         binding.trim.setOnClickListener {
             isMulti = false
-            val intent = Intent(context, AudioPickActivity::class.java)
-            //            pickAudioResult.launch(intent)
+            val intent = Intent(context, AudioPickActivity::class.java) //            pickAudioResult.launch(intent)
             activity?.startActivity(intent)
         }
-
-        binding.createMulti.setOnClickListener {
-            isMulti = true
-            val intent = Intent(context, AudioPickActivity::class.java)
-            pickAudioResult.launch(intent)
-        }
-
         requestPermission()
     }
 
