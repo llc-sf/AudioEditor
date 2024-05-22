@@ -41,8 +41,8 @@
             android:paddingHorizontal="@dimen/dp_18"
             android:paddingVertical="@dimen/dp_6"
             android:text="@string/save"
-            android:textFontWeight="@integer/poppins_semibold"
             android:textColor="@color/white"
+            app:fontFamily="@font/poppins_semibold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -160,9 +160,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/selected"
-                android:textFontWeight="@integer/poppins_light"
                 android:textColor="@color/white.alpha.40"
                 android:textSize="@dimen/sp_11"
+                app:fontFamily="@font/poppins_light"
                 app:layout_constraintEnd_toEndOf="@id/duration_selected"
                 app:layout_constraintStart_toStartOf="@id/duration_selected"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -304,6 +304,7 @@
         android:paddingVertical="@dimen/dp_14"
         android:text="confirm"
         android:textColor="@color/white"
+        style="@style/CustomButton.FullScreen"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -653,7 +654,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_8"
                     android:text="@string/keep_selected"
-                    android:textColor="@color/white_white_100_50_selector" />
+                    android:textColor="@color/white_white_100_50_selector"
+                    app:fontFamily="@font/poppins_semibold" />
             </LinearLayout>
 
             <LinearLayout
@@ -680,7 +682,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_8"
                     android:text="@string/delete_selected"
-                    android:textColor="@color/white_white_100_50_selector" />
+                    android:textColor="@color/white_white_100_50_selector"
+                    app:fontFamily="@font/poppins_semibold" />
 
             </LinearLayout>
 
@@ -709,7 +712,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_8"
                     android:text="@string/jump_selected"
-                    android:textColor="@color/white_white_100_50_selector" />
+                    android:textColor="@color/white_white_100_50_selector"
+                    app:fontFamily="@font/poppins_semibold" />
             </LinearLayout>
         </LinearLayout>
 
@@ -729,8 +733,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="invisible"
-        >
+        tools:visibility="invisible">
 
         <TextView
             android:id="@+id/tv_title"
@@ -776,8 +779,8 @@
             android:layout_marginTop="@dimen/dp_20"
             android:gravity="center"
             android:text="@string/cancel"
-            android:textSize="@dimen/sp_14"
             android:textColor="@color/white.alpha.60"
+            android:textSize="@dimen/sp_14"
             app:layout_constraintEnd_toEndOf="@id/progress"
             app:layout_constraintTop_toBottomOf="@id/progress" />
     </androidx.constraintlayout.widget.ConstraintLayout>

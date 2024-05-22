@@ -69,6 +69,7 @@ class RippleButtonView @JvmOverloads constructor(context: Context,
                 .toFloat()
             radius = typedArray.getDimensionPixelSize(R.styleable.RippleButton_ripplebutton_radius, radius)
             tv.setBackgroundResource(typedArray.getResourceId(R.styleable.RippleButton_ripplebutton_text_bg, R.drawable.rect_14ffffff_corner_46))
+            tv.setTextColor(typedArray.getColorStateList(R.styleable.RippleButton_ripplebutton_text_color))
             var padding = typedArray.getDimensionPixelSize(R.styleable.RippleButton_ripplebutton_padding, 4.dp)
             findViewById<ConstraintLayout>(R.id.container).setPadding(padding, padding, padding, padding)
             rippleDuration = typedArray.getString(R.styleable.RippleButton_ripplebutton_annimation_duration)
