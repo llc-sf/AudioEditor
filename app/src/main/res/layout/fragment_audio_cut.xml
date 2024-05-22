@@ -258,16 +258,44 @@
         app:triangleSideLength="12dp"
         app:waveHeight="60dp" />
 
-    <LinearLayout
-        android:id="@+id/wave_loading_root"
+    <!-- 左边三分之一的指南线 -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.33" />
+
+    <!-- 右边三分之一的指南线 -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.66" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/dp_32"
+        android:background="@drawable/cut_piece_bg"
+        app:layout_constraintBottom_toBottomOf="@id/wave_loading_root"
+        app:layout_constraintEnd_toEndOf="@id/wave_loading_root"
+        app:layout_constraintStart_toStartOf="@id/wave_loading_root"
+        app:layout_constraintTop_toTopOf="@id/wave_loading_root"
+        />
+
+    <LinearLayout
+        android:id="@+id/wave_loading_root"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@id/timeLine"
-        app:layout_constraintEnd_toEndOf="@id/timeLine"
-        app:layout_constraintStart_toStartOf="@id/timeLine"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
         app:layout_constraintTop_toTopOf="@id/timeLine">
+
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/wave_loading"
