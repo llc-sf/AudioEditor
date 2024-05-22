@@ -141,8 +141,8 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     }
 
     override fun zoomIn() {
-        if (mMode == MODE_UINT_6000_MS && screenWithDuration == audioFragment?.duration ?: 0) {
-            setMode(MODE_UINT_6000_MS)
+        if (screenWithDuration == audioFragment?.duration ?: 0) {
+            setMode(mMode)
             return
         }
         if (mMode > 0) {
