@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/rect_14ffffff_corner_46"
-    android:paddingHorizontal="@dimen/dp_12"
+    android:paddingHorizontal="@dimen/dp_4"
     android:paddingVertical="@dimen/dp_5">
 
 
