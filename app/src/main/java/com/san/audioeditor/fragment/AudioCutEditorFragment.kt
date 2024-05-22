@@ -537,10 +537,12 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
 
     private fun backDeal() {
-        if (!mViewModel.isCutLineMoved && !mViewModel.isConformed) {
-            activity?.finish()
-        } else {
-            showExitDialog()
+        if (canCallBack) {
+            if (!mViewModel.isCutLineMoved && !mViewModel.isConformed) {
+                activity?.finish()
+            } else {
+                showExitDialog()
+            }
         }
     }
 
@@ -915,8 +917,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         }
 
 
-
-
     }
 
     private fun checkDealDuration(): Boolean {
@@ -944,8 +944,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 viewBinding.deleteSelectedIcon.isVisible = false
                 viewBinding.jumpSelectedIcon.isVisible = false
 
-                scrollToCenter(viewBinding.modelLy, viewBinding.keepSelected);
-//                viewBinding.modelLy.smoothScrollTo(viewBinding.keepSelected.left, 0);
+                scrollToCenter(viewBinding.modelLy, viewBinding.keepSelected); //                viewBinding.modelLy.smoothScrollTo(viewBinding.keepSelected.left, 0);
             }
 
             CutPieceFragment.CUT_MODE_DELETE -> {
@@ -959,8 +958,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 viewBinding.deleteSelectedIcon.isVisible = true
                 viewBinding.jumpSelectedIcon.isVisible = false
 
-                scrollToCenter(viewBinding.modelLy, viewBinding.deleteSelected);
-//                viewBinding.modelLy.smoothScrollTo(viewBinding.deleteSelected.left, 0);
+                scrollToCenter(viewBinding.modelLy, viewBinding.deleteSelected); //                viewBinding.modelLy.smoothScrollTo(viewBinding.deleteSelected.left, 0);
             }
 
             CutPieceFragment.CUT_MODE_JUMP -> {
@@ -974,8 +972,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 viewBinding.deleteSelectedIcon.isVisible = false
                 viewBinding.jumpSelectedIcon.isVisible = true
 
-                scrollToCenter(viewBinding.modelLy, viewBinding.jumpSelected);
-//                viewBinding.modelLy.smoothScrollTo(viewBinding.jumpSelected.left, 0);
+                scrollToCenter(viewBinding.modelLy, viewBinding.jumpSelected); //                viewBinding.modelLy.smoothScrollTo(viewBinding.jumpSelected.left, 0);
 
             }
         }
