@@ -129,6 +129,11 @@
         <item name="android:ellipsize">end</item>
     </style>
 
+    <style name="CustomButton" />
+    <style name="CustomButton.FullScreen">
+        <item name="fontFamily">@font/poppins_bold</item>
+    </style>
+
     <!--底部弹窗主题   Begin-->
     <style name="BottomDialog" />
 
