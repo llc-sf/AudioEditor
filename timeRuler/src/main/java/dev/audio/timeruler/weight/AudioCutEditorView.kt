@@ -575,10 +575,11 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         }
 
         var tempCursorValue = (currentPlayingTimeInTimeLine - (currentPlayingPosition / unitMsPixel).toLong()) //波形移动优先，如果不能移动，再去移动播放条
-        if (currentPlayingPosition < ScreenUtil.getScreenWidth(context) / 2f) {
+        if (screenWithDuration == audioFragment?.duration) {
+            currentPlayingPosition = (currentPlayingTimeInTimeLine - this.cursorValue) * unitMsPixel
+        } else if (currentPlayingPosition < ScreenUtil.getScreenWidth(context) / 2f) {
             currentPlayingPosition = (currentPlayingTimeInTimeLine - this.cursorValue) * unitMsPixel
         } else if (tempCursorValue + screenWithDuration >= endValue) { //播放条移动
-            this.cursorValue = endValue - screenWithDuration
             currentPlayingPosition = (currentPlayingTimeInTimeLine - this.cursorValue) * unitMsPixel
         } else { //音波移动
             cursorValue = tempCursorValue
