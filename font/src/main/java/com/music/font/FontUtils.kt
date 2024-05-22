@@ -23,7 +23,7 @@ object FontUtils {
 
     fun init() { //Request Regular Font
         FontsContractCompat.requestFont(AppProvider.get(), PoppinsRequests.Regular()
-            .getRequests(), PoppinsRequestCallBack(Poppins.Poppins), mLoaderHandler)
+            .getRequests(), PoppinsRequestCallBack(Poppins.Regular), mLoaderHandler)
         FontsContractCompat.requestFont(AppProvider.get(), PoppinsLightRequests.Light()
             .getRequests(), PoppinsLightRequestCallBack(PoppinsLight.PoppinsLight), mLoaderHandler)
         FontsContractCompat.requestFont(AppProvider.get(), PoppinsMediumRequests.Medium()
@@ -38,7 +38,7 @@ object FontUtils {
      * 通过字体名称获取字体
      */
     sealed class PoppinsRequests(val key: String, val query: String) {
-        class Regular : PoppinsRequests(Poppins.Poppins, "name=Poppins")
+        class Regular : PoppinsRequests(Poppins.Regular, "name=Poppins")
 
         fun getRequests(): FontRequest {
             return FontRequest("com.google.android.gms.fonts", "com.google.android.gms", query, R.array.com_google_android_gms_fonts_certs)

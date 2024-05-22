@@ -8,7 +8,7 @@ import androidx.annotation.StringDef
  */
 class Poppins {
 
-    @StringDef(Poppins)
+    @StringDef(Regular)
     annotation class FontFamily
 
     companion object {
@@ -16,7 +16,7 @@ class Poppins {
         private val Cache = mutableMapOf<String, Typeface>()
 
 
-        const val Poppins = "Poppins"
+        const val Regular = "Regular"
 
 
         @JvmStatic

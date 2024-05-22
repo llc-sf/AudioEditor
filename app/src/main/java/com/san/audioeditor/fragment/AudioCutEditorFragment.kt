@@ -18,10 +18,13 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.HorizontalScrollView
 import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import android.widget.toast.ToastCompat
 import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.graphics.alpha
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import com.airbnb.lottie.LottieAnimationView
@@ -35,6 +38,7 @@ import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import com.masoudss.lib.utils.WaveformOptions
+import com.music.font.Poppins
 import com.san.audioeditor.R
 import com.san.audioeditor.activity.AudioCutActivity
 import com.san.audioeditor.databinding.FragmentAudioCutBinding
@@ -79,6 +83,7 @@ import dev.audio.timeruler.weight.CutPieceFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.jetbrains.anko.withAlpha
 import java.io.File
 import java.util.Calendar
 
@@ -428,7 +433,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         activity?.window?.decorView?.let { rootView ->
             var container = rootView.findViewById<FrameLayout>(R.id.tips_wave_container)
             if (container != null) {
-                rootView.findViewById<View>(R.id.tips_wave_loading)?.let {
+                rootView.findViewById<View>(R.id.tips_wave_loading_root)?.let {
                     container.removeView(it)
                 }
                 rootView.findViewById<ImageView>(R.id.tips_wave_wave)?.let {
@@ -454,23 +459,35 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             val container = FrameLayout(requireContext()).apply {
                 id = R.id.tips_wave_container
             }
-            val layoutParamsLoading = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
+            val layoutParamsLoadingRoot = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
                 .apply {
                     gravity = Gravity.CENTER
                 }
+            var loadingRootLinearLayout = LinearLayout(requireContext()).apply {
+                orientation = LinearLayout.VERTICAL
+                gravity = Gravity.CENTER_HORIZONTAL
+                id = R.id.tips_wave_loading_root
+            }
             var loading = LottieAnimationView(requireContext()).apply {
                 setAnimation("trimloading.json") // 设置循环播放
                 repeatCount = -1
                 playAnimation()
-                id = R.id.tips_wave_loading
             }
+            var loadingText = TextView(requireContext()).apply {
+                text = getString(R.string.loading)
+                textSize = 11f
+                setTextColor(requireContext().resources.getColor(R.color.white_alpha_40))
+                typeface = Poppins.getTypefaceFromCache(Poppins.Regular)
+            }
+            loadingRootLinearLayout.addView(loading, LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT))
+            loadingRootLinearLayout.addView(loadingText, LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT))
             var img = ImageView(requireContext()).apply {
                 setImageBitmap(onDraw(ancherview).cropMiddleThirdWidth())
                 id = R.id.tips_wave_wave
             }
             (rootView as? FrameLayout)?.addView(bg, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
             container.addView(img, layoutParams)
-            container.addView(loading, layoutParamsLoading)
+            container.addView(loadingRootLinearLayout, layoutParamsLoadingRoot)
             (rootView as? FrameLayout)?.addView(container, layoutParamsContainer)
             container.updateLayoutParams<FrameLayout.LayoutParams> {
                 topMargin = location[1]
