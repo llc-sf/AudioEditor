@@ -14,6 +14,8 @@ import dev.android.player.framework.utils.KeyboardUtil
 import dev.audio.timeruler.R
 import dev.audio.timeruler.databinding.ViewKeyboardTimerPickBinding
 import dev.audio.timeruler.utils.dp
+import dev.audio.timeruler.utils.format2DurationSimple
+import dev.audio.timeruler.weight.CutPieceFragment.Companion.MIN_CUT_GAP
 
 
 /**
@@ -173,7 +175,7 @@ class KeyBoardTimerTimePick @JvmOverloads constructor(context: Context,
         //            }
         //        }
         var errorTips = if (isStart) {
-            if (getTime().time == cutTime.maxTime.time) {
+            if (TextUtils.equals(getTime().time.format2DurationSimple(), (cutTime.maxTime.time + MIN_CUT_GAP).format2DurationSimple())) {
                 context.resources.getString(R.string.trime_start_end_time_error)
             } else if (getTime().time > cutTime.maxTime.time) {
                 context.resources.getString(R.string.trime_start_time_error)
@@ -184,7 +186,7 @@ class KeyBoardTimerTimePick @JvmOverloads constructor(context: Context,
             }
 
         } else {
-            if (getTime().time == cutTime.minTime.time) {
+            if (TextUtils.equals(getTime().time.format2DurationSimple(), (cutTime.minTime.time - MIN_CUT_GAP).format2DurationSimple())) {
                 context.resources.getString(R.string.trime_start_end_time_error)
             } else if (getTime().time > cutTime.maxTime.time) {
                 "结束时间过大"

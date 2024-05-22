@@ -137,6 +137,11 @@ class DialogTimerSetting : BaseBottomTranslucentDialog() {
         binding.btnCancel.setOnClickListener {
             dismiss()
         }
+        if(start != -1L){
+            binding.tvTitle.text  = resources.getString(R.string.trim_start_time)
+        }else{
+            binding.tvTitle.text  = resources.getString(R.string.trim_end_time)
+        }
     }
 
     override fun onDestroyView() {
