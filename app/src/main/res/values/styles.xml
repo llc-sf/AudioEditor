@@ -36,13 +36,13 @@
 
     <style name="MusicBottomNavigationView.TextActive">
         <item name="android:textSize">@dimen/sp_12</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
         <item name="android:textColor">?attr/colorAccent</item>
     </style>
 
     <style name="MusicBottomNavigationView.TextInactive">
         <item name="android:textSize">@dimen/sp_12</item>
-        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">@font/poppins</item>
         <item name="android:textColor">@color/black.a1</item>
     </style>
 
