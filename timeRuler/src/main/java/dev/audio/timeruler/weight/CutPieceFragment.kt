@@ -716,7 +716,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                         startTimestampPosition += dx
                         if (startTimestampPosition <= (rect?.left ?: 0)) { //开始小于本身了
                             startTimestampTimeInSelf = 0
-                        } else if (dx > 0 && startTimestampPosition >= endTimestampPosition - MIN_CUT_GAP * unitMsPixel) { //开始大于结束了
+                        } else if (dx > 0 && startTimestampPosition >= endTimestampPosition - MIN_CUT_GAP * unitMsPixel - 1) { //开始大于结束了
                             startTimestampTimeInSelf = endTimestampTimeInSelf - MIN_CUT_GAP
                         } else if (cutMode == CUT_MODE_JUMP && isInOtherFragments(startTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))) {
                             startTimestampTimeInSelf = getFragmentInOtherFragments(endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))?.endTimestampTimeInSelf
@@ -761,7 +761,7 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
                         endTimestampPosition += dx
                         if (endTimestampPosition >= (rect?.right ?: 0)) { //结束大于本身了
                             endTimestampTimeInSelf = duration
-                        } else if (dx < 0 && endTimestampPosition <= startTimestampPosition + MIN_CUT_GAP * unitMsPixel) { //结束小于开始了
+                        } else if (dx < 0 && endTimestampPosition <= startTimestampPosition + MIN_CUT_GAP * unitMsPixel + 1) { //结束小于开始了
                             endTimestampTimeInSelf = startTimestampTimeInSelf + MIN_CUT_GAP
                         } else if (cutMode == CUT_MODE_JUMP && isInOtherFragments(endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))) {
                             endTimestampTimeInSelf = getFragmentInOtherFragments(endTimestampTimeInSelf + dx.pixel2Time(unitMsPixel))?.startTimestampTimeInSelf
@@ -1066,8 +1066,8 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             if (isInOtherFragments(temp)) {
                 return false
             }
-            if(cutMode == CUT_MODE_DELETE){
-                return audio.selectedTime-TIME_STEP >= MIN_CUT_GAP
+            if (cutMode == CUT_MODE_DELETE) {
+                return audio.selectedTime - TIME_STEP >= MIN_CUT_GAP
             }
             return temp < duration
         }
@@ -1090,8 +1090,8 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
             if (isInOtherFragments(temp)) {
                 return false
             }
-            if(cutMode == CUT_MODE_DELETE){
-                return audio.selectedTime-TIME_STEP >= MIN_CUT_GAP
+            if (cutMode == CUT_MODE_DELETE) {
+                return audio.selectedTime - TIME_STEP >= MIN_CUT_GAP
             }
             return temp > 0
         }
