@@ -185,7 +185,7 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
     open fun onDraw(canvas: Canvas) {
         val centerY = getTrackYPosition() // 使用新变量设置垂直位置
         waveRect(centerY, canvas)
-        var wf = waveform
+        val wf = waveform
         val samples = wf?.amplitudes ?: return // 确保最大振幅不为0
         var maxAmplitude = (samples.maxOrNull() ?: 0).toFloat()
         Log.i("llc_wave", "maxAmplitude:$maxAmplitude")
@@ -206,19 +206,28 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
 
         // 如果数据点不足，补全最小值
         val paddedSamples = if (samples.size < barsToFit) {
-            samples.toMutableList().apply {
-                while (size < barsToFit) {
-                    add(if (minAmplitudeValue < 1) 1 else minAmplitudeValue.toInt())
+            val newSamples = mutableListOf<Int>()
+            val repeats = barsToFit / samples.size
+            for (sample in samples) {
+                for (i in 0 until repeats) {
+                    newSamples.add(sample)
                 }
             }
+            // 处理余数部分
+            val remaining = barsToFit - newSamples.size
+            if (remaining > 0) {
+                newSamples.addAll(samples.take(remaining))
+            }
+            newSamples
         } else {
             samples
         }
+
         // 获取屏幕宽度
         val screenWidth = ScreenUtil.getScreenWidth(audioEditorView.context)
         for (i in 0 until barsToFit) {
             val xPosition = i * totalWidthNeeded + x
-            if(xPosition<0){
+            if (xPosition < 0) {
                 continue
             }
             val sampleIndex = i * step
@@ -231,7 +240,6 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
             val scaledSampleValue = (sampleValue.toInt() / maxAmplitude) * maxHalfWaveHeight // 使用安全的除法
             val barHeight = scaledSampleValue * 2
 
-
             val top = centerY - (barHeight / 2)
             val bottom = centerY + (barHeight / 2)
 
@@ -241,7 +249,7 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
             if (xPosition > screenWidth) {
                 break
             }
-            if(xPosition>0&&xPosition<ScreenUtil.getScreenWidth(audioEditorView.context)){
+            if (xPosition > 0 && xPosition < ScreenUtil.getScreenWidth(audioEditorView.context)) {
                 canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, mWavePaint)
             }
         }
