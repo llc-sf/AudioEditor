@@ -742,6 +742,7 @@
             android:layout_height="wrap_content"
             android:text="@string/cropping_audio"
             android:textSize="@dimen/sp_15"
+            app:fontFamily="@font/poppins_bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
