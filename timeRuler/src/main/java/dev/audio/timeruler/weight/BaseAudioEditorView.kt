@@ -933,6 +933,9 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
                     return@forEachReversedWithIndex
                 }
             }
+            if(SCREEN_WIDTH_TIME_VALUE_ARRAY[MODE_UINT_6000_MS]<maxScreenSpanValue){
+                index = MODE_UINT_6000_MS
+            }
             this.unitValue = maxScreenSpanValue / SCREEN_SECTIONS
             updateScaleInfo(this.unitValue * 5, this.unitValue) //audio显示完全
             cursorValue = startValue.apply {
@@ -1031,7 +1034,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
     /**
      * 放大
      */
-    fun zoomIn() {
+    open fun zoomIn() {
         if (mMode > 0) {
             setMode(MODE_ARRAY[mMode - 1])
         }

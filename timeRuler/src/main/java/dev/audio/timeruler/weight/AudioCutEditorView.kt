@@ -140,12 +140,22 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         requestLayout()
     }
 
+    override fun zoomIn() {
+        if (mMode == MODE_UINT_6000_MS && screenWithDuration == audioFragment?.duration ?: 0) {
+            setMode(MODE_UINT_6000_MS)
+            return
+        }
+        if (mMode > 0) {
+            setMode(MODE_ARRAY[mMode - 1])
+        }
+    }
+
     override fun zoomOut() {
         if (mMode < MODE_ARRAY.size - 1) {
             setMode(MODE_ARRAY[mMode + 1])
-        }else{
-            if(screenWithDuration<audioFragment?.duration?:0){
-               setMode(MODE_ARRAY.size - 1,isWaveFullScreen=true)
+        } else {
+            if (screenWithDuration < audioFragment?.duration ?: 0) {
+                setMode(MODE_ARRAY.size - 1, isWaveFullScreen = true)
             }
         }
     }
