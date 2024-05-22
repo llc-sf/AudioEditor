@@ -23,7 +23,7 @@
         android:layout_width="@dimen/dp_1"
         android:layout_height="@dimen/dp_14"
         android:layout_marginHorizontal="@dimen/dp_14"
-        android:textColor="@color/white.alpha.15"
+        android:background="@color/white.alpha.15"
         app:layout_constraintBottom_toBottomOf="@id/left"
         app:layout_constraintEnd_toStartOf="@id/right"
         app:layout_constraintStart_toEndOf="@id/left"

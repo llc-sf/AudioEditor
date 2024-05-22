@@ -160,6 +160,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/selected"
+                android:textFontWeight="@integer/poppins_light"
                 android:textColor="@color/white.alpha.40"
                 android:textSize="@dimen/sp_11"
                 app:layout_constraintEnd_toEndOf="@id/duration_selected"
@@ -359,7 +360,7 @@
                 android:layout_width="@dimen/dp_1"
                 android:layout_height="@dimen/dp_14"
                 android:layout_marginHorizontal="@dimen/dp_14"
-                android:textColor="@color/white.alpha.15" />
+                android:textColor="@color/red" />
 
             <ImageView
                 android:id="@+id/next"
