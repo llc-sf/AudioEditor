@@ -179,14 +179,19 @@ object PlayerManager {
         player.setMediaSource(audioSource)
     }
 
-    fun updateMediaSource(start: Long, end: Long) {
+    fun updateMediaSource(start: Long, end: Long,duration: Long) {
         if (uri == null) {
             return
         }
         var dataSourceFactory = DefaultDataSourceFactory(AppProvider.context, Util.getUserAgent(AppProvider.context, AppProvider.context.packageName))
         val audioSource = ProgressiveMediaSource.Factory(dataSourceFactory)
             .createMediaSource(MediaItem.fromUri(uri!!))
+        if(end-start>duration){
+            player.setMediaSource(ClippingMediaSource(audioSource, 0 * 1000, duration * 1000))
+            return
+        }
         player.setMediaSource(ClippingMediaSource(audioSource, start * 1000, end * 1000))
+        Log.i("llc_fuck","start=$start,end=$end")
     }
 
     fun updateMediaSourceDelete(start: Long, end: Long, duration: Long) {

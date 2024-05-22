@@ -975,6 +975,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     fun startCutMinus(): Boolean {
         if (isSelected) {
             var temp = startTimestampTimeInSelf - TIME_STEP
+            if(temp < 0) {
+                return false
+            }
             if (isInOtherFragments(temp)) {
                 return false
             }
@@ -1041,6 +1044,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     fun endCutPlus(): Boolean {
         if (isSelected) {
             var temp = endTimestampTimeInSelf + TIME_STEP
+            if(temp > duration) {
+                return false
+            }
             if (isInOtherFragments(temp)) {
                 return false
             }
@@ -1063,6 +1069,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     fun canEndCutPlus(): Boolean {
         if (isSelected) {
             var temp = endTimestampTimeInSelf + TIME_STEP
+            if (temp > duration) {
+                return false
+            }
             if (isInOtherFragments(temp)) {
                 return false
             }
@@ -1087,6 +1096,9 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
     fun canStartCutMinus(): Boolean {
         if (isSelected) {
             var temp = startTimestampTimeInSelf - TIME_STEP
+            if (temp < 0) {
+                return false
+            }
             if (isInOtherFragments(temp)) {
                 return false
             }

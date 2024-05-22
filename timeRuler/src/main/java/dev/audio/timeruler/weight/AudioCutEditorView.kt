@@ -887,7 +887,7 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         var windowIndex = 0
         when (mode) {
             CutPieceFragment.CUT_MODE_SELECT -> {
-                PlayerManager.updateMediaSource(getCutLineStartTime(), getCutLineEndTime())
+                PlayerManager.updateMediaSource(getCutLineStartTime(), getCutLineEndTime(),audioFragment?.duration?:0)
                 currentPlayingTimeInAudio = getCutLineStartTime()
                 currentPlayingPosition = (currentPlayingTimeInTimeLine - cursorValue) * unitMsPixel
             }
@@ -1210,7 +1210,8 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
     fun updateMediaSource(startTimestampTimeInSelf: Long, endTimestampTimeInSelf: Long) {
         when (cutMode) {
             CutPieceFragment.CUT_MODE_SELECT -> {
-                PlayerManager.updateMediaSource(startTimestampTimeInSelf, endTimestampTimeInSelf)
+                PlayerManager.updateMediaSource(startTimestampTimeInSelf, endTimestampTimeInSelf, audioFragment?.duration
+                    ?: 0)
                 PlayerManager.seekTo(currentPlayingTimeInAudio - getCutLineStartTime())
             }
 
