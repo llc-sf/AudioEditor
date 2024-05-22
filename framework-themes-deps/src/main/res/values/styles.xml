@@ -13,6 +13,7 @@
         <item name="contentInsetStartWithNavigation">0dp</item>
         <item name="contentInsetStart">@dimen/dp_10</item>
         <item name="android:paddingEnd">@dimen/dp_10</item>
+
     </style>
 
     <style name="MusicTheme.AppBarVideo" parent="MusicTheme.AppBar">
@@ -37,6 +38,7 @@
     <style name="MusicTheme.AppBar.Title24" parent="android:TextAppearance">
         <item name="android:textSize">@dimen/sp_24</item>
         <item name="android:textColor">?attr/textColorPrimary</item>
+        <item name="fontFamily">@font/poppins_semibold</item>
         <item name="android:fontFamily">@font/poppins_semibold</item>
     </style>
 

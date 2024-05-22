@@ -41,6 +41,7 @@
             android:paddingHorizontal="@dimen/dp_18"
             android:paddingVertical="@dimen/dp_6"
             android:text="@string/save"
+            android:textFontWeight="@integer/poppins_semibold"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
