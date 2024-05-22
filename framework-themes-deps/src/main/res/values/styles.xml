@@ -37,7 +37,7 @@
     <style name="MusicTheme.AppBar.Title24" parent="android:TextAppearance">
         <item name="android:textSize">@dimen/sp_24</item>
         <item name="android:textColor">?attr/textColorPrimary</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/poppins_semibold</item>
     </style>
 
     <style name="MusicTheme.AppBar.SubTitle" parent="android:TextAppearance">

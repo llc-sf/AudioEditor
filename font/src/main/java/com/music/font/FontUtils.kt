@@ -46,7 +46,7 @@ object FontUtils {
     }
 
     sealed class PoppinsLightRequests(val key: String, val query: String) {
-        class Black : PoppinsRequests(Poppins.Poppins, "name=Poppins&amp;weight=300")
+        class Black : PoppinsRequests(PoppinsLight.PoppinsLight, "name=Poppins&amp;weight=300")
 
         fun getRequests(): FontRequest {
             return FontRequest("com.google.android.gms.fonts", "com.google.android.gms", query, R.array.com_google_android_gms_fonts_certs)
@@ -54,7 +54,7 @@ object FontUtils {
     }
 
     sealed class PoppinsMediumRequests(val key: String, val query: String) {
-        class Black : PoppinsRequests(Poppins.Poppins, "name=Poppins&amp;weight=500")
+        class Black : PoppinsRequests(PoppinsMedium.PoppinsMedium, "name=Poppins&amp;weight=500")
 
         fun getRequests(): FontRequest {
             return FontRequest("com.google.android.gms.fonts", "com.google.android.gms", query, R.array.com_google_android_gms_fonts_certs)
@@ -62,7 +62,7 @@ object FontUtils {
     }
 
     sealed class PoppinsSemiBoldRequests(val key: String, val query: String) {
-        class Black : PoppinsRequests(Poppins.Poppins, "name=Poppins&amp;weight=600")
+        class Black : PoppinsRequests(PoppinsSemiBold.PoppinsSemiBold, "name=Poppins&amp;weight=600")
 
         fun getRequests(): FontRequest {
             return FontRequest("com.google.android.gms.fonts", "com.google.android.gms", query, R.array.com_google_android_gms_fonts_certs)
@@ -70,7 +70,7 @@ object FontUtils {
     }
 
     sealed class PoppinsBoldRequests(val key: String, val query: String) {
-        class Black : PoppinsRequests(Poppins.Poppins, "name=Poppins&amp;weight=700")
+        class Black : PoppinsRequests(PoppinsBold.PoppinsBold, "name=Poppins&amp;weight=700")
 
         fun getRequests(): FontRequest {
             return FontRequest("com.google.android.gms.fonts", "com.google.android.gms", query, R.array.com_google_android_gms_fonts_certs)
