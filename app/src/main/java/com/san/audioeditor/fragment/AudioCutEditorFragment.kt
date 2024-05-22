@@ -575,13 +575,13 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     override fun startObserve() {
         mViewModel.audioCutState.observe(viewLifecycleOwner) {
             if (it.isShowEditLoading == true) {
-                viewBinding.progressLy.isVisible = true
+                showAudioDealLoadingView()
                 viewBinding.progressText.text = "(${0}%)"
             } else if ((it.progress ?: 0) > 0) {
                 viewBinding.progressText.text = "(${it.progress}%)"
                 viewBinding.progress.progress = it.progress ?: 0
             } else if (it.isShowEditLoading == false) {
-                viewBinding.progressLy.isVisible = false
+                hideAudioDealLoadingView()
             }
         }
     }
@@ -1201,6 +1201,17 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
     var editLoadingDialog: EditLoadingDialog? = null
 
+
+    private fun showAudioDealLoadingView() {
+        viewBinding.cover.isVisible = true
+        viewBinding.progressLy.isVisible = true //
+    }
+
+    private fun hideAudioDealLoadingView() {
+        viewBinding.cover.isVisible = false
+        viewBinding.progressLy.isVisible = false //
+    }
+
     //todo  封装
     @SuppressLint("HandlerLeak")
     private val mHandler = object : Handler() {
@@ -1209,7 +1220,8 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             when (msg.what) {
                 FFmpegHandler.MSG_BEGIN -> {
                     Log.i(BaseAudioEditorView.jni_tag, "begin")
-                    viewBinding.progressLy.isVisible = true //                    editLoadingDialog = EditLoadingDialog.show(parentFragmentManager)
+                    showAudioDealLoadingView()
+//                    editLoadingDialog = EditLoadingDialog.show(parentFragmentManager)
                     viewBinding.progressText.text = "0%"
                     editLoadingDialog?.setOnCancelListener(this@AudioCutEditorFragment)
                     disableBack()
@@ -1218,7 +1230,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 FFmpegHandler.MSG_FINISH -> {
                     Log.i(BaseAudioEditorView.jni_tag, "finish resultCode=${msg.obj}")
                     enableBack()
-                    viewBinding.progressLy.isVisible = false
+                    hideAudioDealLoadingView()
                     editLoadingDialog?.dismiss()
                     if (mViewModel.isCancel) {
                         return

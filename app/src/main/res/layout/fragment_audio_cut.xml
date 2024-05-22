@@ -282,8 +282,7 @@
         app:layout_constraintBottom_toBottomOf="@id/wave_loading_root"
         app:layout_constraintEnd_toEndOf="@id/wave_loading_root"
         app:layout_constraintStart_toStartOf="@id/wave_loading_root"
-        app:layout_constraintTop_toTopOf="@id/wave_loading_root"
-        />
+        app:layout_constraintTop_toTopOf="@id/wave_loading_root" />
 
     <LinearLayout
         android:id="@+id/wave_loading_root"
@@ -764,6 +763,17 @@
 
 
     </HorizontalScrollView>
+
+    <View
+        android:id="@+id/cover"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/black.alpha.70"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/progress_ly"
