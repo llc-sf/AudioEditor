@@ -537,7 +537,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
                     drawTickValue(canvas, onDrawTickPosition, baselinePosition - mTickHeight, onDrawTickValue, false)
                 }
             } else {
-                drawRightKeyTick(canvas, i, onDrawTickValue, onDrawTickPosition, mScalePaint!!, rightCount,keyScaleRange)
+                drawRightKeyTick(canvas, i, onDrawTickValue, onDrawTickPosition, mScalePaint!!, rightCount, keyScaleRange)
                 if ((onDrawTickValue - startValue) % keyScaleRange == 0L) {
                     canvas.drawLine(onDrawTickPosition, baselinePosition, onDrawTickPosition, baselinePosition + keyTickHeight, tickPaint!!)
                 } else {
@@ -576,7 +576,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
                               onDrawTickPosition: Float,
                               paint: Paint,
                               rightCount: Int,
-                              keyScaleRange:Long) { //关键刻度绘制刻度值
+                              keyScaleRange: Long) { //关键刻度绘制刻度值
         if ((onDrawTickValue - startValue) % (keyScaleRange * 2) == 0L) {
             drawTickValue(canvas, onDrawTickPosition, baselinePosition + keyTickHeight + mScalePaint!!.getTopY(), onDrawTickValue, true)
         }
@@ -918,9 +918,9 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
      *  4、cursorValue    控制波形图的x坐标以免尾部出现空白现象
      */
     private var maxMode = 0
-    private fun setMode(@Mode mode: Int,
-                        isRefreshUnitPixel: Boolean = true,
-                        isWaveFullScreen: Boolean = false) { //计算屏幕显示多少时间
+    fun setMode(@Mode mode: Int,
+                isRefreshUnitPixel: Boolean = true,
+                isWaveFullScreen: Boolean = false) { //计算屏幕显示多少时间
         var screeWithDuration: Long
         var index = mode
         updateScaleInfo(5 * VALUE_ARRAY[index], VALUE_ARRAY[index])
@@ -1040,7 +1040,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
     /**
      * 缩小
      */
-    fun zoomOut() {
+    open fun zoomOut() {
         if (mMode < MODE_ARRAY.size - 1) {
             setMode(MODE_ARRAY[mMode + 1])
         }

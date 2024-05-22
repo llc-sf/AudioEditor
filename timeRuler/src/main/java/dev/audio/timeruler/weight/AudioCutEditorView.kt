@@ -140,6 +140,16 @@ open class AudioCutEditorView @JvmOverloads constructor(context: Context,
         requestLayout()
     }
 
+    override fun zoomOut() {
+        if (mMode < MODE_ARRAY.size - 1) {
+            setMode(MODE_ARRAY[mMode + 1])
+        }else{
+            if(screenWithDuration<audioFragment?.duration?:0){
+               setMode(MODE_ARRAY.size - 1,isWaveFullScreen=true)
+            }
+        }
+    }
+
     //解决  戳模裁剪条抬起手，onSingleTapUp还会相应的问题  todo 仅仅是相应播放条的点击
     private var disableOnSingleTapUp = false
     override fun onSingleTapUp(e: MotionEvent): Boolean {
