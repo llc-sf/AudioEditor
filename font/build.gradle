@@ -1,16 +1,15 @@
-plugins {
-    id 'com.android.library'
-    id 'org.jetbrains.kotlin.android'
-}
-
+apply plugin: 'com.android.library'
+apply from: file('../deps/deps-kotlin.gradle')//Kotlin 相关依赖
 android {
-    namespace 'musicplayer.playmusic.audioplayer.themes'
+    namespace 'com.music.font'
     compileSdk rootProject.ext.COMPILE_SDK_VERSION
     buildToolsVersion rootProject.ext.BUILD_TOOLS_VERSION
 
     defaultConfig {
         minSdk rootProject.ext.MIN_SDK_VERSION
         targetSdk rootProject.ext.TARGET_SDK_VERSION
+        versionCode 1
+        versionName "1.0"
 
         consumerProguardFiles "consumer-rules.pro"
     }
@@ -25,23 +24,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
 }
 
 dependencies {
-
-    rootProject.ext.AndroidX.each {
-        api(it.value)
-    }
-
-   api rootProject.ext.UI.material
-
-    api project(":widget-text")
-    api project(":widget-toast")
-    api project(":widget-link")
-    api project(":font")
-
-    implementation project(':framework-dimens-375')
+    implementation 'androidx.core:core:1.0.0'
+    //扩展Android Application获取
+    implementation project(":framework-appprovider")
 }

@@ -2,6 +2,7 @@ package com.san.audioeditor
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
+import com.music.font.FontUtils
 import com.san.audioeditor.setting.UIModeSettings
 import dev.audio.ffmpeglib.FFmpegApplication
 
@@ -23,5 +24,6 @@ class AudioEditorApplication : Application() {
         super.onCreate()
         mAppContext = this
         FFmpegApplication.onCreate(this)
+        FontUtils.init()
     }
 }

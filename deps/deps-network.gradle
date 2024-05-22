@@ -1,0 +1,21 @@
+//网络库依赖
+
+dependencies {
+
+    implementation('com.squareup.retrofit2:retrofit:2.4.0') {
+        exclude group: 'com.android.support'
+    }
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+
+    implementation("com.google.code.gson:gson:$gson_version") {
+        exclude group: 'com.android.support'
+    }
+    //如果不升级MinTarget 不要修改这个版本，Android 4.4 会崩溃
+    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
+
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+
+//    //Chrome调试工具
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
+}

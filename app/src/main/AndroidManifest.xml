@@ -66,6 +66,9 @@
 
         <!--数据同步服务-->
         <service android:name=".storage.AudioSyncService" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

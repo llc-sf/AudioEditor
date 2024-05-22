@@ -24,6 +24,8 @@ ext {
 
     CLIENT_GIT_SHA_VERSION = getGitSha()//当前提交的Git 版本号，用于追溯提交的版本
 
+    kotlin_version = '1.7.0'
+
 
     //Base
     AndroidX = [

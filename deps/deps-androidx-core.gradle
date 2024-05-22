@@ -1,0 +1,14 @@
+dependencies {
+    //Base
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+
+    implementation('androidx.core:core-ktx:1.7.0') {
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib'
+    }
+
+    implementation 'androidx.fragment:fragment-ktx:1.5.5'
+    //Support
+    implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+}
