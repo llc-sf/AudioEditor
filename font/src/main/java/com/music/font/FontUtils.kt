@@ -22,15 +22,15 @@ object FontUtils {
 
 
     fun init() { //Request Regular Font
-        FontsContractCompat.requestFont(AppProvider.get(), PoppinsRequests.Black()
+        FontsContractCompat.requestFont(AppProvider.get(), PoppinsRequests.Regular()
             .getRequests(), PoppinsRequestCallBack(Poppins.Poppins), mLoaderHandler)
-        FontsContractCompat.requestFont(AppProvider.get(), PoppinsLightRequests.Black()
+        FontsContractCompat.requestFont(AppProvider.get(), PoppinsLightRequests.Light()
             .getRequests(), PoppinsLightRequestCallBack(PoppinsLight.PoppinsLight), mLoaderHandler)
-        FontsContractCompat.requestFont(AppProvider.get(), PoppinsMediumRequests.Black()
+        FontsContractCompat.requestFont(AppProvider.get(), PoppinsMediumRequests.Medium()
             .getRequests(), PoppinsMediumRequestCallBack(PoppinsMedium.PoppinsMedium), mLoaderHandler)
-        FontsContractCompat.requestFont(AppProvider.get(), PoppinsSemiBoldRequests.Black()
+        FontsContractCompat.requestFont(AppProvider.get(), PoppinsSemiBoldRequests.SemiBold()
             .getRequests(), PoppinsSemiBoldRequestCallBack(PoppinsSemiBold.PoppinsSemiBold), mLoaderHandler)
-        FontsContractCompat.requestFont(AppProvider.get(), PoppinsBoldRequests.Black()
+        FontsContractCompat.requestFont(AppProvider.get(), PoppinsBoldRequests.Bold()
             .getRequests(), PoppinsBoldRequestCallBack(PoppinsBold.PoppinsBold), mLoaderHandler)
     }
 
@@ -38,7 +38,7 @@ object FontUtils {
      * 通过字体名称获取字体
      */
     sealed class PoppinsRequests(val key: String, val query: String) {
-        class Black : PoppinsRequests(Poppins.Poppins, "name=Poppins")
+        class Regular : PoppinsRequests(Poppins.Poppins, "name=Poppins")
 
         fun getRequests(): FontRequest {
             return FontRequest("com.google.android.gms.fonts", "com.google.android.gms", query, R.array.com_google_android_gms_fonts_certs)
@@ -46,7 +46,7 @@ object FontUtils {
     }
 
     sealed class PoppinsLightRequests(val key: String, val query: String) {
-        class Black : PoppinsRequests(PoppinsLight.PoppinsLight, "name=Poppins&amp;weight=300")
+        class Light : PoppinsLightRequests(PoppinsLight.PoppinsLight, "name=Poppins&amp;weight=300")
 
         fun getRequests(): FontRequest {
             return FontRequest("com.google.android.gms.fonts", "com.google.android.gms", query, R.array.com_google_android_gms_fonts_certs)
@@ -54,7 +54,7 @@ object FontUtils {
     }
 
     sealed class PoppinsMediumRequests(val key: String, val query: String) {
-        class Black : PoppinsRequests(PoppinsMedium.PoppinsMedium, "name=Poppins&amp;weight=500")
+        class Medium : PoppinsMediumRequests(PoppinsMedium.PoppinsMedium, "name=Poppins&amp;weight=500")
 
         fun getRequests(): FontRequest {
             return FontRequest("com.google.android.gms.fonts", "com.google.android.gms", query, R.array.com_google_android_gms_fonts_certs)
@@ -62,7 +62,7 @@ object FontUtils {
     }
 
     sealed class PoppinsSemiBoldRequests(val key: String, val query: String) {
-        class Black : PoppinsRequests(PoppinsSemiBold.PoppinsSemiBold, "name=Poppins&amp;weight=600")
+        class SemiBold : PoppinsSemiBoldRequests(PoppinsSemiBold.PoppinsSemiBold, "name=Poppins&amp;weight=600")
 
         fun getRequests(): FontRequest {
             return FontRequest("com.google.android.gms.fonts", "com.google.android.gms", query, R.array.com_google_android_gms_fonts_certs)
@@ -70,7 +70,7 @@ object FontUtils {
     }
 
     sealed class PoppinsBoldRequests(val key: String, val query: String) {
-        class Black : PoppinsRequests(PoppinsBold.PoppinsBold, "name=Poppins&amp;weight=700")
+        class Bold : PoppinsBoldRequests(PoppinsBold.PoppinsBold, "name=Poppins&amp;weight=700")
 
         fun getRequests(): FontRequest {
             return FontRequest("com.google.android.gms.fonts", "com.google.android.gms", query, R.array.com_google_android_gms_fonts_certs)
