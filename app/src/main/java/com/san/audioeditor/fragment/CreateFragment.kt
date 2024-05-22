@@ -70,19 +70,17 @@ class CreateFragment : BaseFragment() {
             }
             var rectBottom = binding.des21.getLocationOnScreen()
             var rectRoot = binding.root.getLocationOnScreen()
-            var remainHeight = rectRoot.bottom - rectBottom.bottom - 23.dp
-            if (rectRoot.bottom - rectBottom.bottom > 23.dp) {
-                binding.imgCut.updateLayoutParams<ConstraintLayout.LayoutParams> {
-                    topMargin = (remainHeight / (24f + 14f + 28f) * 24).toInt()
-                }
+            var remainHeight = rectRoot.bottom - rectBottom.bottom
+            binding.imgCut.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                topMargin = (remainHeight / (24f + 14f + 28f + 23) * 24).toInt()
+            }
 
-                binding.icTrimIcon.updateLayoutParams<ConstraintLayout.LayoutParams> {
-                    topMargin = (remainHeight / (24f + 14f + 28f) * 14).toInt()
-                }
+            binding.icTrimIcon.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                topMargin = (remainHeight / (24f + 14f + 28f + 23) * 14).toInt()
+            }
 
-                binding.des1.updateLayoutParams<ConstraintLayout.LayoutParams> {
-                    topMargin = (remainHeight / (24f + 14f + 28f) * 28).toInt()
-                }
+            binding.des1.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                topMargin = (remainHeight / (24f + 14f + 28f + 23) * 28).toInt()
             }
         }
     }
