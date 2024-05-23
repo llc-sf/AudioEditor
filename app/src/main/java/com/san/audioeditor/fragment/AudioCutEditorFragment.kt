@@ -206,7 +206,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             (rootView as? FrameLayout)?.addView(tipsView, FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT))
             tipsView.updateLayoutParams<FrameLayout.LayoutParams> {
                 var margin = 0.dp
-                topMargin = location[1] - tipsView.measuredHeight - margin
+                topMargin = location[1] - tipsView.measuredHeight - margin +10.dp
                 marginStart = 20.dp
             }
             tipsView.bottomArrow().updateLayoutParams<ConstraintLayout.LayoutParams> {
@@ -404,7 +404,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             (rootView as? FrameLayout)?.addView(tipsView, FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT))
             tipsView.updateLayoutParams<FrameLayout.LayoutParams> {
                 var margin = 0.dp
-                topMargin = location[1] - tipsView.measuredHeight - margin
+                topMargin = location[1] - tipsView.measuredHeight - margin + 10.dp
                 marginStart = ScreenUtil.getScreenWidth(requireContext()) / 2 - tipsView.measuredWidth / 2
             }
             tipsView.bottomArrow().updateLayoutParams<ConstraintLayout.LayoutParams> {
@@ -498,7 +498,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             tipsView.measure(widthMeasureSpec, heightMeasureSpec)
             (rootView as? FrameLayout)?.addView(tipsView, FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT))
             tipsView.updateLayoutParams<FrameLayout.LayoutParams> {
-                topMargin = location[1] + ancherview.measuredHeight
+                topMargin = location[1] + ancherview.measuredHeight - 20.dp
                 marginStart = ScreenUtil.getScreenWidth(requireContext()) / 2 - tipsView.measuredWidth / 2
             }
             tipsView.topArrow().updateLayoutParams<ConstraintLayout.LayoutParams> {
