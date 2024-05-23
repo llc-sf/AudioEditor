@@ -12,9 +12,9 @@ import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import android.view.View
 import android.widget.Scroller
-import androidx.annotation.FloatRange
 import androidx.annotation.IntDef
 import androidx.core.view.GestureDetectorCompat
+import com.music.font.PoppinsLight
 import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.ffmpeglib.tool.TimeUtil
 import dev.audio.timeruler.BuildConfig
@@ -29,7 +29,6 @@ import dev.audio.timeruler.utils.getTopY
 import org.jetbrains.anko.collections.forEachReversedWithIndex
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Locale
 import kotlin.reflect.KProperty
 
 /**
@@ -384,6 +383,7 @@ abstract class BaseAudioEditorView @JvmOverloads constructor(context: Context,
         mScalePaint!!.strokeWidth = 1f
         mScalePaint!!.isDither = true
         mScalePaint!!.style = Paint.Style.FILL_AND_STROKE
+        mScalePaint!!.typeface = PoppinsLight.getTypefaceFromCache(PoppinsLight.PoppinsLight)
 
         tickPaint = Paint()
         tickPaint!!.isAntiAlias = true
