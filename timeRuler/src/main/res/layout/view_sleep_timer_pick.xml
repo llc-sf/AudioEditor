@@ -6,19 +6,33 @@
     android:gravity="center"
     android:orientation="horizontal">
 
-    <dev.audio.timeruler.timer.NumberPickerView
-        android:id="@+id/hour"
-        android:layout_width="@dimen/dp_60"
-        android:layout_height="@dimen/dp_126"
-        app:npv_SelectedItemBackground="@drawable/rectangle_1e1c1c_radius_all_8_bg"
-        app:npv_ShowDivider="false"
-        app:npv_ShownCount="3"
-        app:npv_TextColorHint="?attr/textColorSecondary"
-        app:npv_TextColorSelected="?attr/textColorPrimary"
-        app:npv_TextSizeHint="@dimen/sp_40"
-        app:npv_TextSizeNormal="@dimen/sp_28"
-        app:npv_TextSizeSelected="@dimen/sp_32"
-        app:npv_WrapSelectorWheel="false" />
+    <FrameLayout
+        android:id="@+id/hour_fl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <View
+            android:layout_width="@dimen/dp_62"
+            android:layout_height="@dimen/dp_52"
+            android:layout_gravity="center"
+            android:background="@drawable/rectangle_1e1c1c_radius_all_8_bg" />
+
+        <dev.audio.timeruler.timer.NumberPickerView
+            android:id="@+id/hour"
+            android:layout_width="@dimen/dp_62"
+            android:layout_height="@dimen/dp_126"
+            app:npv_ShowDivider="false"
+            app:npv_ShownCount="3"
+            app:npv_TextColorHint="?attr/textColorSecondary"
+            app:npv_TextColorSelected="?attr/textColorPrimary"
+            app:npv_TextSizeHint="@dimen/sp_40"
+            app:npv_TextSizeNormal="@dimen/sp_28"
+            app:npv_TextSizeSelected="@dimen/sp_32"
+            app:npv_WrapSelectorWheel="false" />
+
+    </FrameLayout>
+
 
     <TextView
         android:id="@+id/space_1"
@@ -31,21 +45,33 @@
         android:textSize="@dimen/sp_40"
         android:textStyle="bold" />
 
+    <FrameLayout
+        android:id="@+id/minute_fl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
 
-    <dev.audio.timeruler.timer.NumberPickerView
-        android:id="@+id/minute"
-        android:layout_width="@dimen/dp_60"
-        android:layout_height="@dimen/dp_126"
-        android:minHeight="@dimen/dp_100"
-        app:npv_SelectedItemBackground="@drawable/rectangle_1e1c1c_radius_all_8_bg"
-        app:npv_ShowDivider="false"
-        app:npv_ShownCount="3"
-        app:npv_TextColorHint="?attr/textColorSecondary"
-        app:npv_TextColorSelected="?attr/textColorPrimary"
-        app:npv_TextSizeHint="@dimen/sp_40"
-        app:npv_TextSizeNormal="@dimen/sp_28"
-        app:npv_TextSizeSelected="@dimen/sp_32"
-        app:npv_WrapSelectorWheel="true" />
+        <View
+            android:layout_width="@dimen/dp_62"
+            android:layout_height="@dimen/dp_52"
+            android:layout_gravity="center"
+            android:background="@drawable/rectangle_1e1c1c_radius_all_8_bg" />
+
+        <dev.audio.timeruler.timer.NumberPickerView
+            android:id="@+id/minute"
+            android:layout_width="@dimen/dp_62"
+            android:layout_height="@dimen/dp_126"
+            app:npv_ShowDivider="false"
+            app:npv_ShownCount="3"
+            app:npv_TextColorHint="?attr/textColorSecondary"
+            app:npv_TextColorSelected="?attr/textColorPrimary"
+            app:npv_TextSizeHint="@dimen/sp_40"
+            app:npv_TextSizeNormal="@dimen/sp_28"
+            app:npv_TextSizeSelected="@dimen/sp_32"
+            app:npv_WrapSelectorWheel="false" />
+
+    </FrameLayout>
+
 
     <TextView
         android:id="@+id/space_2"
@@ -59,19 +85,32 @@
         android:textSize="@dimen/sp_40"
         android:textStyle="bold" />
 
-    <dev.audio.timeruler.timer.NumberPickerView
-        android:id="@+id/second"
-        android:layout_width="@dimen/dp_60"
-        android:layout_height="@dimen/dp_126"
-        android:minHeight="@dimen/dp_100"
-        app:npv_SelectedItemBackground="@drawable/rectangle_1e1c1c_radius_all_8_bg"
-        app:npv_ShowDivider="false"
-        app:npv_ShownCount="3"
-        app:npv_TextColorHint="?attr/textColorSecondary"
-        app:npv_TextColorSelected="?attr/textColorPrimary"
-        app:npv_TextSizeNormal="@dimen/sp_28"
-        app:npv_TextSizeSelected="@dimen/sp_32"
-        app:npv_WrapSelectorWheel="true" />
+    <FrameLayout
+        android:id="@+id/second_fl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <View
+            android:layout_width="@dimen/dp_62"
+            android:layout_height="@dimen/dp_52"
+            android:layout_gravity="center"
+            android:background="@drawable/rectangle_1e1c1c_radius_all_8_bg" />
+
+        <dev.audio.timeruler.timer.NumberPickerView
+            android:id="@+id/second"
+            android:layout_width="@dimen/dp_62"
+            android:layout_height="@dimen/dp_126"
+            app:npv_ShowDivider="false"
+            app:npv_ShownCount="3"
+            app:npv_TextColorHint="?attr/textColorSecondary"
+            app:npv_TextColorSelected="?attr/textColorPrimary"
+            app:npv_TextSizeHint="@dimen/sp_40"
+            app:npv_TextSizeNormal="@dimen/sp_28"
+            app:npv_TextSizeSelected="@dimen/sp_32"
+            app:npv_WrapSelectorWheel="false" />
+
+    </FrameLayout>
 
     <TextView
         android:id="@+id/space_3"
@@ -85,17 +124,30 @@
         android:textSize="@dimen/sp_40"
         android:textStyle="bold" />
 
-    <dev.audio.timeruler.timer.NumberPickerView
-        android:id="@+id/msecond"
-        android:layout_width="@dimen/dp_50"
-        android:layout_height="@dimen/dp_126"
-        android:minHeight="@dimen/dp_100"
-        app:npv_SelectedItemBackground="@drawable/rectangle_1e1c1c_radius_all_8_bg"
-        app:npv_ShowDivider="false"
-        app:npv_ShownCount="3"
-        app:npv_TextColorHint="?attr/textColorSecondary"
-        app:npv_TextColorSelected="?attr/textColorPrimary"
-        app:npv_TextSizeNormal="@dimen/sp_28"
-        app:npv_TextSizeSelected="@dimen/sp_32"
-        app:npv_WrapSelectorWheel="true" />
+    <FrameLayout
+        android:id="@+id/msecond_fl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <View
+            android:layout_width="@dimen/dp_52"
+            android:layout_height="@dimen/dp_52"
+            android:layout_gravity="center"
+            android:background="@drawable/rectangle_1e1c1c_radius_all_8_bg" />
+
+        <dev.audio.timeruler.timer.NumberPickerView
+            android:id="@+id/msecond"
+            android:layout_width="@dimen/dp_52"
+            android:layout_height="@dimen/dp_126"
+            app:npv_ShowDivider="false"
+            app:npv_ShownCount="3"
+            app:npv_TextColorHint="?attr/textColorSecondary"
+            app:npv_TextColorSelected="?attr/textColorPrimary"
+            app:npv_TextSizeHint="@dimen/sp_40"
+            app:npv_TextSizeNormal="@dimen/sp_28"
+            app:npv_TextSizeSelected="@dimen/sp_32"
+            app:npv_WrapSelectorWheel="false" />
+
+    </FrameLayout>
 </merge>

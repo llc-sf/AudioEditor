@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/app-business-base" />
             <option value="$PROJECT_DIR$/ffmpegLib" />
+            <option value="$PROJECT_DIR$/font" />
             <option value="$PROJECT_DIR$/framework-appprovider" />
             <option value="$PROJECT_DIR$/framework-base" />
             <option value="$PROJECT_DIR$/framework-data" />
@@ -19,6 +20,7 @@
             <option value="$PROJECT_DIR$/framework-language" />
             <option value="$PROJECT_DIR$/framework-rx" />
             <option value="$PROJECT_DIR$/framework-simplecache" />
+            <option value="$PROJECT_DIR$/framework-sort" />
             <option value="$PROJECT_DIR$/framework-themes-deps" />
             <option value="$PROJECT_DIR$/framework-utils" />
             <option value="$PROJECT_DIR$/recorderLib" />

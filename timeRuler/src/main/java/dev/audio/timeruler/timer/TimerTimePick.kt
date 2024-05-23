@@ -131,7 +131,7 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
         binding.msecond.setDisplayedValues(getMsSecondDisplayValue())
         binding.msecond.minValue = if (cutTime.minTime.hours == binding.hour.value && cutTime.minTime.minutes == binding.minute.value && cutTime.minTime.second == binding.second.value) cutTime.minTime.secondDecimal else 0
         var tempMaxValue = if (cutTime.maxTime.hours == binding.hour.value && cutTime.maxTime.minutes == binding.minute.value && cutTime.maxTime.second == binding.second.value) cutTime.maxTime.secondDecimal else 9
-        binding.msecond.maxValue = maxOf(binding.msecond.minValue,tempMaxValue)
+        binding.msecond.maxValue = maxOf(binding.msecond.minValue, tempMaxValue)
         binding.msecond.setContentTextTypeface(Typeface.DEFAULT_BOLD)
         binding.msecond.setOnValueChangedListener(this)
         binding.msecond.setOnValueChangeListenerInScrolling(this)
@@ -208,8 +208,16 @@ class TimerTimePick @JvmOverloads constructor(context: Context, attrs: Attribute
             binding.second.value = time.second
             binding.msecond.value = time.secondDecimal
             if (cutTime.maxTime.hours == 0) {
-                binding.hour.visibility = View.GONE
+                binding.hourFl.visibility = View.GONE
                 binding.space1.visibility = View.GONE
+            }
+            if (cutTime.maxTime.minutes == 0) {
+                binding.minuteFl.visibility = View.GONE
+                binding.space2.visibility = View.GONE
+            }
+            if (cutTime.maxTime.second == 0) {
+                binding.secondFl.visibility = View.GONE
+                binding.space3.visibility = View.GONE
             }
         }
     }

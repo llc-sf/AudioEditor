@@ -65,7 +65,7 @@
         <item name="popupMenuStyle">@style/MusicTheme.PopupMenu</item>
         <item name="popupMenuBackground">@drawable/default_popup_background</item>
         <!--弹窗Button高度-->
-        <item name="ConnerBtnHeight">@dimen/dp_50</item>
+        <item name="ConnerBtnHeight">@dimen/dp_52</item>
         <!--按钮Padding设置-->
         <item name="IconButtonPadding">@dimen/dp_4</item>
         <!--按钮均边界设置-->
