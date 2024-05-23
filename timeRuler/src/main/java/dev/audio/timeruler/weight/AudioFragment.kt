@@ -7,9 +7,12 @@ import android.graphics.Path
 import android.graphics.Rect
 import android.graphics.RectF
 import android.util.Log
+import androidx.core.content.ContextCompat
+import com.android.app.AppProvider
 import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.ffmpeglib.tool.TimeUtil
 import dev.audio.timeruler.BuildConfig
+import dev.audio.timeruler.R
 import dev.audio.timeruler.weight.BaseAudioEditorView.Companion.long_press_tag
 import dev.audio.timeruler.weight.BaseAudioEditorView.Companion.time_line_tag
 import dev.audio.timeruler.bean.Ref
@@ -165,7 +168,7 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
 
 
     private val mWavePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        this.color = Color.GRAY
+        this.color = ContextCompat.getColor(AppProvider.context,R.color.color_333333)
         this.style = Paint.Style.FILL
     }
 
