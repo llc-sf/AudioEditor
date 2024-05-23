@@ -4,6 +4,6 @@
     <size android:width="@dimen/dp_2" />
     <solid android:color="@color/colorAccent" />
     <padding
-        android:bottom="-8dp"
-        android:top="-8dp" />
+        android:bottom="-10dp"
+        android:top="-10dp" />
 </shape>
