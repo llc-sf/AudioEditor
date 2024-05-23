@@ -186,6 +186,7 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
     }
 
     open fun onDraw(canvas: Canvas) {
+        var customWaveHeightScale = 0.8
         val centerY = getTrackYPosition() // 使用新变量设置垂直位置
         waveRect(centerY, canvas)
         val wf = waveform
@@ -240,7 +241,7 @@ open class AudioFragment(var audioEditorView: BaseAudioEditorView) {
                 sampleValue = minAmplitudeValue
             }
             Log.i("llc_wave", "after sampleValue:$sampleValue")
-            val scaledSampleValue = (sampleValue.toInt() / maxAmplitude) * maxHalfWaveHeight // 使用安全的除法
+            val scaledSampleValue = ((sampleValue.toInt() / maxAmplitude) * maxHalfWaveHeight*customWaveHeightScale).toInt() // 使用安全的除法
             val barHeight = scaledSampleValue * 2
 
             val top = centerY - (barHeight / 2)

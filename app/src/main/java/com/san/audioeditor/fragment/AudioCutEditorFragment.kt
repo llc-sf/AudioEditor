@@ -527,20 +527,30 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
      */
     private fun adapterScreenHeight() {
         viewBinding.timeLine.post {
-            var bottomMargin = 24.dp
-            var margin = 24.dp
-            var rect = viewBinding.confirm.getLocationOnScreen()
-            var totalBottomMargin = ScreenUtil.getScreenHeight(requireContext()) - rect.bottom
-            if (totalBottomMargin < bottomMargin + margin * 2) {
+            var waveHeightInt = 114
+            var cutDescInt = 8
+            var playActionsInt = 8
+            var cutLyInt = 28
+            var totalInt = cutLyInt + waveHeightInt + cutDescInt + playActionsInt
+            var bottomMarginConfirm = 0.dp
+            var rectConfirm = viewBinding.confirm.getLocationOnScreen()
+            var totalBottomMargin = ScreenUtil.getScreenHeight(requireContext()) - rectConfirm.bottom - bottomMarginConfirm
+            var cutDescTopMargin = 8.dp
+            var cutLyTopMargin = 28.dp
+            var playActionsMargin = 8.dp
+            var total = viewBinding.timeLine.waveHeight * 2 + totalBottomMargin + cutDescTopMargin + cutLyTopMargin + playActionsMargin
+            if (totalBottomMargin <= 0) {
                 return@post
             }
-            var waveHeightOffset = totalBottomMargin - bottomMargin - margin * 2
-            viewBinding.timeLine.updateWaveHeight(viewBinding.timeLine.waveHeight + waveHeightOffset.toFloat() / 2f)
+            viewBinding.timeLine.updateWaveHeight(total / totalInt * waveHeightInt / 2)
             viewBinding.cutDesc.updateLayoutParams<ConstraintLayout.LayoutParams> {
-                topMargin += margin
+                topMargin = (total / totalInt * cutDescInt).toInt()
             }
             viewBinding.playActions.updateLayoutParams<ConstraintLayout.LayoutParams> {
-                topMargin += margin
+                topMargin = (total / totalInt * playActionsInt).toInt()
+            }
+            viewBinding.cutLy.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                topMargin = (total / totalInt * cutLyInt).toInt()
             }
         }
     }
@@ -1220,8 +1230,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             when (msg.what) {
                 FFmpegHandler.MSG_BEGIN -> {
                     Log.i(BaseAudioEditorView.jni_tag, "begin")
-                    showAudioDealLoadingView()
-//                    editLoadingDialog = EditLoadingDialog.show(parentFragmentManager)
+                    showAudioDealLoadingView() //                    editLoadingDialog = EditLoadingDialog.show(parentFragmentManager)
                     viewBinding.progressText.text = "0%"
                     editLoadingDialog?.setOnCancelListener(this@AudioCutEditorFragment)
                     disableBack()
