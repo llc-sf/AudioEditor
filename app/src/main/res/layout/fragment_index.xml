@@ -65,7 +65,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
         android:background="@drawable/rectangle_181818_radius_top_24_bg"
-        android:paddingVertical="@dimen/dp_20"
+        android:paddingVertical="@dimen/dp_12"
         app:elevation="0dp"
         app:itemActiveIndicatorStyle="@color/transparent"
         app:itemIconTint="@null"
