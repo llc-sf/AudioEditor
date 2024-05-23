@@ -95,7 +95,7 @@
 
         <EditText
             android:id="@+id/secondDecimal"
-            android:layout_width="@dimen/dp_62"
+            android:layout_width="@dimen/dp_52"
             android:layout_height="@dimen/dp_52"
             android:background="@drawable/rectangle_1e1c1c_radius_all_8_bg"
             android:gravity="center"
