@@ -552,6 +552,8 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             viewBinding.cutLy.updateLayoutParams<ConstraintLayout.LayoutParams> {
                 topMargin = (total / totalInt * cutLyInt).toInt()
             }
+
+            showTips()
         }
     }
 
@@ -597,7 +599,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     }
 
     private fun initTimeBar(isSaveDta: Boolean = true) {
-        showTips()
         val calendar = Calendar.getInstance()
 
         // 00:00:00 000
