@@ -366,7 +366,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                 marginStart = location[0]
             }
             tipsView.bottomArrow().updateLayoutParams<ConstraintLayout.LayoutParams> {
-                marginStart = tipsView.measuredWidth / 2 - tipsView.bottomArrow().width / 2
+                marginStart = viewBinding.cutAdd.measuredWidth / 2 - tipsView.bottomArrow().width / 2
             }
             tipsView.setAction {
                 (rootView as? FrameLayout)?.removeView(tipsView)
