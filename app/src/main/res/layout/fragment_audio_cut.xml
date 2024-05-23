@@ -347,7 +347,7 @@
         android:background="@drawable/rect_ee294d_corner_14"
         android:gravity="center"
         android:paddingVertical="@dimen/dp_14"
-        android:text="confirm"
+        android:text="Confirm"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -679,12 +679,11 @@
             <LinearLayout
                 android:id="@+id/keep_selected"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_36"
+                android:layout_height="wrap_content"
                 android:background="@drawable/cut_mode_bg_selector"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:paddingHorizontal="@dimen/dp_12"
-                android:paddingVertical="@dimen/dp_6">
+                android:paddingHorizontal="@dimen/dp_12">
 
                 <ImageView
                     android:id="@+id/keep_selected_icon"
@@ -697,6 +696,7 @@
                     android:id="@+id/keep_selected_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/dp_12"
                     android:text="@string/keep_selected"
                     android:textColor="@color/white_white_100_50_selector"
                     app:fontFamily="@font/poppins_semibold" />
@@ -705,13 +705,12 @@
             <LinearLayout
                 android:id="@+id/delete_selected"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_36"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_13"
                 android:background="@drawable/cut_mode_bg_selector"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:paddingHorizontal="@dimen/dp_12"
-                android:paddingVertical="@dimen/dp_6">
+                android:paddingHorizontal="@dimen/dp_12">
 
                 <ImageView
                     android:id="@+id/delete_selected_icon"
@@ -725,6 +724,7 @@
                     android:id="@+id/delete_selected_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/dp_12"
                     android:text="@string/delete_selected"
                     android:textColor="@color/white_white_100_50_selector"
                     app:fontFamily="@font/poppins_semibold" />
@@ -734,14 +734,13 @@
             <LinearLayout
                 android:id="@+id/jump_selected"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_36"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_13"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/cut_mode_bg_selector"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:paddingHorizontal="@dimen/dp_12"
-                android:paddingVertical="@dimen/dp_6">
+                android:paddingHorizontal="@dimen/dp_12">
 
                 <ImageView
                     android:id="@+id/jump_selected_icon"
@@ -755,6 +754,7 @@
                     android:id="@+id/jump_selected_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/dp_12"
                     android:text="@string/jump_selected"
                     android:textColor="@color/white_white_100_50_selector"
                     app:fontFamily="@font/poppins_semibold" />
