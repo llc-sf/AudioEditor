@@ -371,8 +371,8 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
 
     private fun initStartHandleBitmap(forceInit: Boolean = false) {
         if (startHandleBitmap == null || forceInit) {
-            startHandleBitmap = BitmapFactory.decodeResource(audio.getContext()?.resources, if (cutMode == CUT_MODE_DELETE) R.mipmap.ic_bar_right else R.mipmap.ic_bar_left)
-            startHandleBitmap = Bitmap.createScaledBitmap(startHandleBitmap!!, startHandleBitmap!!.width * 2, startHandleBitmap!!.height * 2, true)
+            startHandleBitmap = BitmapFactory.decodeResource(audio.getContext()?.resources, if (cutMode == CUT_MODE_DELETE) R.drawable.ic_bar_right else R.drawable.ic_bar_left)
+            startHandleBitmap = Bitmap.createScaledBitmap(startHandleBitmap!!, (startHandleBitmap!!.width * 1.2).toInt(), (startHandleBitmap!!.height * 1.2).toInt(), true)
         }
     }
 
@@ -412,8 +412,8 @@ class CutPieceFragment(var audio: AudioFragmentWithCut,
      */
     private fun initEndHandleBitmap(forceInit: Boolean = false) {
         if (endHandleBitmap == null || forceInit) {
-            endHandleBitmap = BitmapFactory.decodeResource(audio.getContext()?.resources, if (cutMode == CUT_MODE_DELETE) R.mipmap.ic_bar_left else R.mipmap.ic_bar_right)
-            endHandleBitmap = Bitmap.createScaledBitmap(endHandleBitmap!!, endHandleBitmap!!.width * 2, endHandleBitmap!!.height * 2, true)
+            endHandleBitmap = BitmapFactory.decodeResource(audio.getContext()?.resources, if (cutMode == CUT_MODE_DELETE) R.drawable.ic_bar_left else R.drawable.ic_bar_left)
+            endHandleBitmap = Bitmap.createScaledBitmap(endHandleBitmap!!, (endHandleBitmap!!.width * 1.2).toInt(), (endHandleBitmap!!.height * 1.2).toInt(), true)
         }
     }
 
