@@ -88,7 +88,6 @@ class DialogTimerSetting : BaseBottomTranslucentDialog() {
             keyboardMode = !keyboardMode
             binding.timePickKb.isVisible = keyboardMode
             binding.timePick.isVisible = !keyboardMode
-            binding.timePickKb.focous()
             if (!keyboardMode) {
                 binding.keyBoard.setImageResource(R.drawable.ic_keyboard)
                 if (binding.timePickKb.getTime().time >= min || binding.timePickKb.getTime().time <= max) {
@@ -99,6 +98,7 @@ class DialogTimerSetting : BaseBottomTranslucentDialog() {
                     topMargin = 50.dp
                 }
             } else {
+                binding.timePickKb.focous()
                 binding.keyBoard.setImageResource(R.drawable.ic_roll)
                 binding.actionLy.updateLayoutParams<ConstraintLayout.LayoutParams> {
                     topMargin = 22.dp

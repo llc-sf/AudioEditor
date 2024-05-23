@@ -139,6 +139,8 @@ class KeyBoardTimerTimePick @JvmOverloads constructor(context: Context,
         binding.second.setText(time.secondStr)
 
         binding.secondDecimal.setText(time.secondDecimalStr)
+
+        selectionFresh()
     }
 
     fun getTime(): DialogTimerSetting.Time {
@@ -223,6 +225,18 @@ class KeyBoardTimerTimePick @JvmOverloads constructor(context: Context,
         } else {
             binding.secondDecimal.requestFocus()
             KeyboardUtil.showKeyBoard(binding.secondDecimal)
+            binding.secondDecimal.setSelection(binding.secondDecimal.text.length)
+        }
+    }
+
+    fun selectionFresh() {
+        if (binding.hour.isFocused) {
+            binding.hour.setSelection(binding.hour.text.length)
+        } else if (binding.minute.isFocused) {
+            binding.minute.setSelection(binding.minute.text.length)
+        }else if (binding.second.isFocused) {
+            binding.second.setSelection(binding.second.text.length)
+        } else {
             binding.secondDecimal.setSelection(binding.secondDecimal.text.length)
         }
     }

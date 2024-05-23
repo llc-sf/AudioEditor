@@ -19,11 +19,14 @@
             android:layout_height="@dimen/dp_52"
             android:background="@drawable/rectangle_1e1c1c_radius_all_8_bg"
             android:gravity="center"
+            android:includeFontPadding="false"
             android:inputType="number"
             android:maxEms="2"
             android:maxLength="2"
+            android:textCursorDrawable="@drawable/custom_cursor"
             android:textSize="@dimen/sp_40"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:fontFamily="@font/poppins_semibold" />
 
         <TextView
             android:id="@+id/space_1"
@@ -43,12 +46,14 @@
             android:layout_height="@dimen/dp_52"
             android:background="@drawable/rectangle_1e1c1c_radius_all_8_bg"
             android:gravity="center"
+            android:includeFontPadding="false"
             android:inputType="number"
             android:maxEms="2"
             android:maxLength="2"
             android:minHeight="@dimen/dp_100"
+            android:textCursorDrawable="@drawable/custom_cursor"
             android:textSize="@dimen/sp_40"
-            android:textStyle="bold" />
+            app:fontFamily="@font/poppins_semibold" />
 
         <TextView
             android:id="@+id/space_2"
@@ -68,12 +73,14 @@
             android:layout_height="@dimen/dp_52"
             android:background="@drawable/rectangle_1e1c1c_radius_all_8_bg"
             android:gravity="center"
+            android:includeFontPadding="false"
             android:inputType="number"
             android:maxEms="2"
             android:maxLength="2"
             android:minHeight="@dimen/dp_100"
+            android:textCursorDrawable="@drawable/custom_cursor"
             android:textSize="@dimen/sp_40"
-            android:textStyle="bold" />
+            app:fontFamily="@font/poppins_semibold" />
 
         <TextView
             android:id="@+id/space_3"
@@ -84,8 +91,7 @@
             android:paddingBottom="@dimen/dp_3"
             android:text="."
             android:textColor="?attr/textColorPrimary"
-            android:textSize="@dimen/sp_40"
-            android:textStyle="bold" />
+            android:textSize="@dimen/sp_40" />
 
         <EditText
             android:id="@+id/secondDecimal"
@@ -93,12 +99,14 @@
             android:layout_height="@dimen/dp_52"
             android:background="@drawable/rectangle_1e1c1c_radius_all_8_bg"
             android:gravity="center"
+            android:includeFontPadding="false"
             android:inputType="number"
             android:maxEms="1"
             android:maxLength="1"
             android:minHeight="@dimen/dp_100"
+            android:textCursorDrawable="@drawable/custom_cursor"
             android:textSize="@dimen/sp_40"
-            android:textStyle="bold" />
+            app:fontFamily="@font/poppins_semibold" />
     </LinearLayout>
 
     <TextView
