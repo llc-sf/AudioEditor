@@ -244,7 +244,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             tipsView.measure(widthMeasureSpec, heightMeasureSpec)
             (rootView as? FrameLayout)?.addView(tipsView, FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT))
             tipsView.updateLayoutParams<FrameLayout.LayoutParams> {
-                var margin = 0.dp
+                var margin = 20.dp
                 topMargin = location[1] + ancherView.measuredHeight + margin
                 marginStart = ScreenUtil.getScreenWidth(requireContext()) - tipsView.measuredWidth - margin
             }
