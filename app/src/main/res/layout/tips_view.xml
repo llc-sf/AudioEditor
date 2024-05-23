@@ -16,21 +16,18 @@
         app:srcCompat="@drawable/img_bubble_triangle"
         tools:visibility="visible" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dp_16"
         android:background="@drawable/rectangle_d31f3f_radius_all_14_bg"
         android:minWidth="@dimen/dp_266"
-        android:paddingStart="@dimen/dp_20"
-        android:paddingEnd="@dimen/dp_40"
         android:paddingVertical="@dimen/dp_16"
-        app:layout_constraintTop_toBottomOf="@id/arrow_top"
+        android:paddingStart="@dimen/dp_20"
         app:layout_constraintStart_toStartOf="parent"
-        >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/arrow_top">
 
         <TextView
             android:id="@+id/title"
@@ -38,12 +35,13 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_16"
-            app:fontFamily="@font/poppins_semibold"
             android:textStyle="bold"
+            android:layout_marginEnd="@dimen/dp_40"
+            app:fontFamily="@font/poppins_semibold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Drag trim or cut " />
+            tools:text="Drag trim or cutDrag trim or cut" />
 
         <TextView
             android:id="@+id/action"
@@ -54,9 +52,10 @@
             android:paddingHorizontal="@dimen/dp_18"
             android:paddingVertical="@dimen/dp_7"
             android:text="@string/next"
-            app:fontFamily="@font/poppins_medium"
+            android:layout_marginEnd="@dimen/dp_20"
             android:textColor="@color/color.d31f3f"
             android:textSize="@dimen/sp_17"
+            app:fontFamily="@font/poppins_medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title" />
 
