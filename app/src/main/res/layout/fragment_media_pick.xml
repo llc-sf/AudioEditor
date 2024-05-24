@@ -17,6 +17,41 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/audio_pick" />
 
+    <TextView
+        android:id="@+id/all_audio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        android:text=""
+        />
+
+    <ImageView
+        android:id="@+id/recent_folder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/all_audio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/all_audio" />
+
+    <ImageView
+        android:id="@+id/sort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/all_audio"
+        app:layout_constraintEnd_toStartOf="@id/recent_folder"
+        app:layout_constraintStart_toEndOf="@id/search"
+        app:layout_constraintTop_toTopOf="@id/all_audio" />
+
+    <ImageView
+        android:id="@+id/search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/all_audio"
+        app:layout_constraintEnd_toStartOf="@id/sort"
+        app:layout_constraintTop_toTopOf="@id/all_audio" />
+
+
     <dev.android.player.widget.index.IndexFastScrollRecyclerView
         android:id="@+id/recycleview"
         style="@style/DefaultIndexFastRecyclerviewStyle"
@@ -29,7 +64,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@id/all_audio" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

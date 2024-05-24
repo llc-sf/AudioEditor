@@ -1053,6 +1053,11 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             GlobalScope.launch(Dispatchers.IO) {
                 WaveformOptions.getSampleFrom(requireContext(), mViewModel.song.path) {
                     viewBinding.timeLine.post {
+                        if(it==null|| it.isEmpty()){
+                            ToastCompat.makeText(AppProvider.context, false, AppProvider.context.getString(R.string.song_unavailable)).show()
+                            mActivity?.finish()
+                            return@post
+                        }
                         viewBinding.timeLine.setWaveform(Waveform(it.toList()), mViewModel.song.duration.toLong(), mViewModel.song.path, cutMode)
                         hideWaveLoadingView()
                         freshZoomView()
