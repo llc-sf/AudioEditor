@@ -29,9 +29,9 @@ class FolderItemView @JvmOverloads constructor(context: Context, attrs: Attribut
     }
 
 
-    @JvmOverloads
     fun setData(directory: Directory) {
-
+        mBinding.title.text = directory.name
+        mBinding.audioCount.text = directory.songCount.toString()
     }
 
 

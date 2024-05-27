@@ -3,25 +3,30 @@ package com.san.audioeditor.viewmodel
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Context.RECEIVER_EXPORTED
-import android.content.Context.RECEIVER_NOT_EXPORTED
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.android.app.AppProvider
+import com.san.audioeditor.R
 import com.san.audioeditor.storage.AudioSyncService
-import com.san.audioeditor.viewmodel.pagedata.AudioPickPageData
 import com.san.audioeditor.storage.AudioSyncUtil
+import com.san.audioeditor.viewmodel.pagedata.AudioPickPageData
 import dev.android.player.framework.base.viewmodel.BaseViewModel
+import dev.android.player.framework.data.model.Directory
 import dev.android.player.framework.data.model.Song
 import dev.audio.recorder.utils.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.File
+import java.util.function.Function
+import java.util.stream.Collectors
 
 class AudioPickViewModel : BaseViewModel<AudioPickPageData>() {
 
@@ -53,6 +58,7 @@ class AudioPickViewModel : BaseViewModel<AudioPickPageData>() {
                 AudioSyncService.sync(AppProvider.context)
                 refresh(MediaPickPageState(songs = AudioSyncUtil.songs))
             }
+            dirList = getDirectoriesBySongs()
         }
     }
 
@@ -72,6 +78,36 @@ class AudioPickViewModel : BaseViewModel<AudioPickPageData>() {
             Log.i(AudioSyncService.TAG, "syncCompletedReceiver")
             refresh(MediaPickPageState(songs = AudioSyncUtil.songs))
         }
+    }
+
+
+    private var dirList: List<Directory>? = null
+    fun getDirectoriesBySongs(): List<Directory> {
+        if (dirList != null && dirList!!.isNotEmpty()) {
+            return dirList!!
+        }
+        if(AudioSyncUtil.songs.isEmpty()){
+            return emptyList()
+        }
+        var songs = AudioSyncUtil.songs
+        val mapping = songs.stream().collect(Collectors.groupingBy(Function { song: Song ->
+            File(song.path).parent
+        })).entries
+        var result = mapping.stream().map { (path, value): Map.Entry<String, List<Song>> ->
+            val file = File(path)
+            val directory = Directory()
+            directory.name = file.name
+            directory.path = path
+            directory.songCount = value.size
+            directory
+        }.filter { it: Directory -> it.songCount > 0 }.collect(Collectors.toList())
+        if(result.isNotEmpty()){
+            result.add(0, Directory().apply {
+                name = AppProvider.context.getString(R.string.all_audio)
+                songCount = songs.size
+            })
+        }
+        return result
     }
 
 

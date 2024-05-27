@@ -1,9 +1,11 @@
 package com.san.audioeditor.fragment
 
+import android.os.Build
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.PopupWindow
 import android.widget.toast.ToastCompat
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import com.san.audioeditor.R
 import com.san.audioeditor.cell.CellAudioItemView
@@ -72,6 +74,7 @@ class AudioPickFragment : BaseMVVMRefreshFragment<FragmentMediaPickBinding>() {
         if (mPopupWindow != null) mPopupWindow!!.dismiss()
         val popup = CustomPopupWindow(requireContext())
         val contentView = FolderSelectedView(requireContext())
+        contentView.setData(mViewModel.getDirectoriesBySongs())
         popup.contentView = contentView
         popup.setBackgroundDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.rectangle_222020_radius_all_16_bg))
         popup.isOutsideTouchable = true

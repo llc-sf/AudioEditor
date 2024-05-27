@@ -686,4 +686,5 @@
     <string name="click_to">Click to </string>
     <string name="send_feedback">Send feedback > </string>
     <string name="loading">loading...</string>
+    <string name="all_audio">All audio</string>
 </resources>
