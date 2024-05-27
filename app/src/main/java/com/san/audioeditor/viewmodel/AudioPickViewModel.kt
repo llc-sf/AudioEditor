@@ -51,9 +51,7 @@ class AudioPickViewModel : BaseViewModel<AudioPickPageData>() {
             launchOnUI {
                 registerSy(context)
                 AudioSyncService.sync(AppProvider.context)
-                if (AudioSyncUtil.songs.isNotEmpty()) {
-                    refresh(MediaPickPageState(songs = AudioSyncUtil.songs))
-                }
+                refresh(MediaPickPageState(songs = AudioSyncUtil.songs))
             }
         }
     }

@@ -5,6 +5,7 @@ import dev.android.player.app.business.DataSortHelper
 import dev.android.player.app.business.SortBusiness
 import dev.android.player.framework.data.model.Song
 import dev.audio.recorder.utils.Log
+import java.io.File
 import java.util.*
 
 object AudioSyncUtil {
@@ -32,7 +33,8 @@ object AudioSyncUtil {
         }
 
         //todo
-        return result.filter { !it.title.startsWith("cut_") }.apply {
+        return result.filter { !it.title.startsWith("cut_") }.filter { it.duration > 0 }
+            .filter { (File(it.path).exists()) }.apply {
             Log.i(TAG, "getSystemSongs: size = $size")
         }
     }

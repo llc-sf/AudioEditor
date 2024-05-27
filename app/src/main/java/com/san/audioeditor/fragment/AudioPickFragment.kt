@@ -1,6 +1,7 @@
 package com.san.audioeditor.fragment
 
 import android.view.LayoutInflater
+import android.widget.toast.ToastCompat
 import com.san.audioeditor.cell.CellAudioItemView
 import com.san.audioeditor.databinding.FragmentMediaPickBinding
 import com.san.audioeditor.viewmodel.AudioPickViewModel
@@ -54,6 +55,9 @@ class AudioPickFragment : BaseMVVMRefreshFragment<FragmentMediaPickBinding>() {
             if (it.songs?.isNotEmpty() == true) {
                 mAdapter.items = it.songs!!
                 mAdapter.notifyDataSetChanged()
+                stopRefresh()
+            }else{
+                ToastCompat.makeText(requireContext(),false, "没有找到音频文件").show()
                 stopRefresh()
             }
         }
