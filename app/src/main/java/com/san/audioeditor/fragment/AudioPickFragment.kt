@@ -58,10 +58,10 @@ class AudioPickFragment : BaseMVVMRefreshFragment<FragmentMediaPickBinding>() {
             mViewModel.initData(it, arguments)
         }
         viewBinding.folderSelected.setOnClickListener {
-            folderSelectedClick()
+            pop()
         }
         viewBinding.arrow.setOnClickListener {
-            folderSelectedClick()
+            pop()
         }
 
     }
@@ -89,9 +89,21 @@ class AudioPickFragment : BaseMVVMRefreshFragment<FragmentMediaPickBinding>() {
 
     private fun onPopDismiss() {
         mPopupWindow = null
+        viewBinding.arrow.isSelected = !viewBinding.arrow.isSelected
+        if (viewBinding.arrow.isSelected) {
+            viewBinding.arrow.rotate(0f, 180f, 300)
+        } else {
+            viewBinding.arrow.rotate(180f, 0f, 300)
+        }
     }
 
     private fun onPopShow() {
+        viewBinding.arrow.isSelected = !viewBinding.arrow.isSelected
+        if (viewBinding.arrow.isSelected) {
+            viewBinding.arrow.rotate(0f, 180f, 300)
+        } else {
+            viewBinding.arrow.rotate(180f, 0f, 300)
+        }
     }
 
     fun showFolderSelected() {
@@ -107,13 +119,8 @@ class AudioPickFragment : BaseMVVMRefreshFragment<FragmentMediaPickBinding>() {
     }
 
     private fun folderSelectedClick() {
-        viewBinding.arrow.isSelected = !viewBinding.arrow.isSelected
-        if (viewBinding.arrow.isSelected) {
-            viewBinding.arrow.rotate(0f, 180f, 300)
-        } else {
-            viewBinding.arrow.rotate(180f, 0f, 300)
-        }
-        pop()
+
+
     }
 
     override fun startObserve() {
