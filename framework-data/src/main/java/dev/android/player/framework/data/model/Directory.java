@@ -21,6 +21,8 @@ public class Directory extends IndexModel implements Parcelable, Serializable {
 
     public int songCount;
 
+    public long updateTime;
+
     public Directory() {
 
     }

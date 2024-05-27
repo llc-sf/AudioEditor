@@ -82,6 +82,7 @@ class AudioPickViewModel : BaseViewModel<AudioPickPageData>() {
 
 
     private var dirList: List<Directory>? = null
+    private var currentDir: Directory? = null
     fun getDirectoriesBySongs(): List<Directory> {
         if (dirList != null && dirList!!.isNotEmpty()) {
             return dirList!!
@@ -90,14 +91,15 @@ class AudioPickViewModel : BaseViewModel<AudioPickPageData>() {
             return emptyList()
         }
         var songs = AudioSyncUtil.songs
-        val mapping = songs.stream().collect(Collectors.groupingBy(Function { song: Song ->
+        val mapping = songs.stream().collect(Collectors.groupingBy { song: Song ->
             File(song.path).parent
-        })).entries
+        }).entries
         var result = mapping.stream().map { (path, value): Map.Entry<String, List<Song>> ->
             val file = File(path)
             val directory = Directory()
             directory.name = file.name
             directory.path = path
+            directory.updateTime = file.lastModified()
             directory.songCount = value.size
             directory
         }.filter { it: Directory -> it.songCount > 0 }.collect(Collectors.toList())

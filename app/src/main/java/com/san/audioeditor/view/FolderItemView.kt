@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import com.san.audioeditor.databinding.ItemFolderViewBinding
 import dev.android.player.framework.data.model.Directory
+import dev.audio.timeruler.utils.toFormattedDateString
 
 /**
  * AudioItem
@@ -32,6 +33,7 @@ class FolderItemView @JvmOverloads constructor(context: Context, attrs: Attribut
     fun setData(directory: Directory) {
         mBinding.title.text = directory.name
         mBinding.audioCount.text = directory.songCount.toString()
+        mBinding.updateTime.text = directory.updateTime.toFormattedDateString()
     }
 
 

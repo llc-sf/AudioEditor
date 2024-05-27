@@ -4,7 +4,9 @@ import dev.audio.timeruler.bean.AudioFragmentBean
 import dev.audio.timeruler.weight.CutPieceFragment
 import java.lang.Exception
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 
 
 // 扩展Long类型，添加转换为特定时区时间字符串的方法
@@ -134,4 +136,12 @@ fun MutableList<AudioFragmentBean>.nextAudioFragmentBean(currentAudioFragmentBea
         }
     }
     return null
+}
+
+
+fun Long.toFormattedDateString(): String {
+    val temp = Calendar.getInstance()
+    val date = Date(this)
+    temp.time = date
+    return SimpleDateFormat("MM/dd/yyyy", Locale.getDefault()).format(date)
 }
