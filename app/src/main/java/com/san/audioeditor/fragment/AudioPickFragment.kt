@@ -8,6 +8,7 @@ import com.san.audioeditor.viewmodel.AudioPickViewModel
 import dev.android.player.framework.base.BaseMVVMRefreshFragment
 import dev.android.player.framework.utils.ImmerseDesign
 import dev.android.player.widget.cell.MultiTypeFastScrollAdapter
+import dev.audio.timeruler.utils.rotate
 
 /**
  * 媒体选择页
@@ -48,6 +49,34 @@ class AudioPickFragment : BaseMVVMRefreshFragment<FragmentMediaPickBinding>() {
         mActivity?.let {
             mViewModel.initData(it, arguments)
         }
+        viewBinding.folderSelected.setOnClickListener {
+            folderSelectedClick()
+        }
+        viewBinding.arrow.setOnClickListener {
+            folderSelectedClick()
+        }
+
+    }
+
+    fun showFolderSelected() {
+        folderSelectedClick()
+    }
+
+    fun hideFolderSelected() {
+        folderSelectedClick()
+    }
+
+    fun folderSelectedText(text: String) {
+        viewBinding.folderSelected.text = text
+    }
+
+    private fun folderSelectedClick() {
+        viewBinding.arrow.isSelected = !viewBinding.arrow.isSelected
+        if (viewBinding.arrow.isSelected) {
+            viewBinding.arrow.rotate(0f, 180f, 300)
+        } else {
+            viewBinding.arrow.rotate(180f, 0f, 300)
+        }
     }
 
     override fun startObserve() {
@@ -56,8 +85,8 @@ class AudioPickFragment : BaseMVVMRefreshFragment<FragmentMediaPickBinding>() {
                 mAdapter.items = it.songs!!
                 mAdapter.notifyDataSetChanged()
                 stopRefresh()
-            }else{
-                ToastCompat.makeText(requireContext(),false, "没有找到音频文件").show()
+            } else {
+                ToastCompat.makeText(requireContext(), false, "没有找到音频文件").show()
                 stopRefresh()
             }
         }

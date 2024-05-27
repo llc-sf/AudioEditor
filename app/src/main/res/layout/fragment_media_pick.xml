@@ -18,38 +18,76 @@
         app:title="@string/audio_pick" />
 
     <TextView
-        android:id="@+id/all_audio"
+        android:id="@+id/folder_selected"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_20"
+        android:text="All audio"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_17"
+        app:fontFamily="@font/poppins_semibold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        android:text=""
-        />
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <ImageView
+        android:id="@+id/arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_6"
+        app:layout_constraintBottom_toBottomOf="@id/folder_selected"
+        app:layout_constraintStart_toEndOf="@id/folder_selected"
+        app:layout_constraintTop_toTopOf="@id/folder_selected"
+        app:srcCompat="@drawable/ic_arrow_top" />
 
     <ImageView
         android:id="@+id/recent_folder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/all_audio"
+        android:layout_marginEnd="@dimen/dp_20"
+        app:layout_constraintBottom_toBottomOf="@id/folder_selected"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/all_audio" />
+        app:layout_constraintTop_toTopOf="@id/folder_selected"
+        app:srcCompat="@drawable/icon_recent_folder" />
+
+    <View
+        android:id="@+id/space_1"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/dp_14"
+        android:background="@color/white.alpha.10"
+        app:layout_constraintBottom_toBottomOf="@id/folder_selected"
+        app:layout_constraintEnd_toStartOf="@id/recent_folder"
+        app:layout_constraintTop_toTopOf="@id/folder_selected" />
 
     <ImageView
         android:id="@+id/sort"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/all_audio"
-        app:layout_constraintEnd_toStartOf="@id/recent_folder"
-        app:layout_constraintStart_toEndOf="@id/search"
-        app:layout_constraintTop_toTopOf="@id/all_audio" />
+        android:layout_marginHorizontal="@dimen/dp_14"
+        app:layout_constraintBottom_toBottomOf="@id/folder_selected"
+        app:layout_constraintEnd_toStartOf="@id/space_1"
+        app:layout_constraintTop_toTopOf="@id/folder_selected"
+        app:srcCompat="@drawable/icon_sort" />
+
+    <View
+        android:id="@+id/space_2"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/dp_14"
+        android:background="@color/white.alpha.10"
+        app:layout_constraintBottom_toBottomOf="@id/folder_selected"
+        app:layout_constraintEnd_toStartOf="@id/sort"
+        app:layout_constraintTop_toTopOf="@id/folder_selected" />
 
     <ImageView
         android:id="@+id/search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/all_audio"
-        app:layout_constraintEnd_toStartOf="@id/sort"
-        app:layout_constraintTop_toTopOf="@id/all_audio" />
+        android:layout_marginHorizontal="@dimen/dp_14"
+        app:layout_constraintBottom_toBottomOf="@id/folder_selected"
+        app:layout_constraintEnd_toStartOf="@id/space_2"
+        app:layout_constraintTop_toTopOf="@id/folder_selected"
+        app:srcCompat="@drawable/ic_search" />
 
 
     <dev.android.player.widget.index.IndexFastScrollRecyclerView
@@ -64,7 +102,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/all_audio" />
+        app:layout_constraintTop_toBottomOf="@id/folder_selected" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

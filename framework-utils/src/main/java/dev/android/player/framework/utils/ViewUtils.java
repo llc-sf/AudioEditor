@@ -14,6 +14,7 @@ import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
 
@@ -68,8 +69,8 @@ public class ViewUtils {
     public static void setTranslucent(Activity activity) {
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = activity.getWindow().getDecorView();
-            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            int option = android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
             decorView.setSystemUiVisibility(option);
             activity.getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
@@ -99,7 +100,7 @@ public class ViewUtils {
      * @return
      */
     public static int[] onMeasure(View view) {
-        int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        int widthMeasureSpec = android.view.View.MeasureSpec.makeMeasureSpec(0, android.view.View.MeasureSpec.UNSPECIFIED);
         int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         view.measure(widthMeasureSpec, heightMeasureSpec);
         return new int[]{view.getMeasuredWidth(), view.getMeasuredHeight()};
@@ -142,4 +143,5 @@ public class ViewUtils {
         return new RippleDrawable(colors, normal, ripple);
 
     }
+
 }
