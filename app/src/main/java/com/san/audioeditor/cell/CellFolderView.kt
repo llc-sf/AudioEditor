@@ -1,13 +1,14 @@
 package com.san.audioeditor.cell
 
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.san.audioeditor.view.FolderItemView
 import dev.android.player.framework.data.model.Directory
 import dev.android.player.widget.cell.ItemViewBinder
 
-class CellFolderView : ItemViewBinder<Directory, CellFolderView.CellFolderItemViewHolder>() {
+class CellFolderView(private var currentDirectory: (() -> Directory?)) : ItemViewBinder<Directory, CellFolderView.CellFolderItemViewHolder>() {
     override fun onCreateViewHolder(
         inflater: LayoutInflater,
         parent: ViewGroup
@@ -16,7 +17,7 @@ class CellFolderView : ItemViewBinder<Directory, CellFolderView.CellFolderItemVi
     }
 
     override fun onBindViewHolder(holder: CellFolderItemViewHolder, item: Directory) {
-        (holder.itemView as? FolderItemView)?.setData(item)
+        (holder.itemView as? FolderItemView)?.setData(item,currentDirectory)
     }
 
     class CellFolderItemViewHolder(itemView: FolderItemView?) : RecyclerView.ViewHolder(itemView!!)

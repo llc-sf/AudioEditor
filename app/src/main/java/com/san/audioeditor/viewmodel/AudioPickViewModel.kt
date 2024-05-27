@@ -81,13 +81,13 @@ class AudioPickViewModel : BaseViewModel<AudioPickPageData>() {
     }
 
 
-    private var dirList: List<Directory>? = null
-    private var currentDir: Directory? = null
+    var dirList: List<Directory>? = null
+    var currentDir: Directory? = null
     fun getDirectoriesBySongs(): List<Directory> {
         if (dirList != null && dirList!!.isNotEmpty()) {
             return dirList!!
         }
-        if(AudioSyncUtil.songs.isEmpty()){
+        if (AudioSyncUtil.songs.isEmpty()) {
             return emptyList()
         }
         var songs = AudioSyncUtil.songs
@@ -103,11 +103,15 @@ class AudioPickViewModel : BaseViewModel<AudioPickPageData>() {
             directory.songCount = value.size
             directory
         }.filter { it: Directory -> it.songCount > 0 }.collect(Collectors.toList())
-        if(result.isNotEmpty()){
+        if (result.isNotEmpty()) {
             result.add(0, Directory().apply {
                 name = AppProvider.context.getString(R.string.all_audio)
                 songCount = songs.size
+                path = "all/audio"
             })
+        }
+        if (currentDir == null) {
+            currentDir = result[0]
         }
         return result
     }
