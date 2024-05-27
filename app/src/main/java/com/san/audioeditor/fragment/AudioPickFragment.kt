@@ -74,7 +74,10 @@ class AudioPickFragment : BaseMVVMRefreshFragment<FragmentMediaPickBinding>() {
         if (mPopupWindow != null) mPopupWindow!!.dismiss()
         val popup = CustomPopupWindow(requireContext())
         val contentView = FolderSelectedView(requireContext())
-        contentView.setData(mViewModel.getDirectoriesBySongs(),mViewModel.currentDir)
+        contentView.setData(mViewModel.getDirectoriesBySongs(),mViewModel.currentDir,{
+            mViewModel.onFolderSelected(it)
+            mPopupWindow?.dismiss()
+        })
         popup.contentView = contentView
         popup.setBackgroundDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.rectangle_222020_radius_all_16_bg))
         popup.isOutsideTouchable = true

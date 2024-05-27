@@ -31,17 +31,23 @@ class FolderSelectedView @JvmOverloads constructor(context: Context, attrs: Attr
         mRecyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         mRecyclerView.adapter = mAdapter
         addView(mRecyclerView, LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT))
-        mAdapter.register(CellFolderView {
-            currentDirectory
-        })
+        mAdapter.register(CellFolderView({
+                                             currentDirectory
+                                         }, {
+                                             this.onClick?.invoke(it)
+                                         }))
     }
 
 
-    fun setData(directoryList: List<Directory>, currentDirectory: Directory?) {
+    private var onClick: (Directory) -> Unit = {}
+    fun setData(directoryList: List<Directory>,
+                currentDirectory: Directory?,
+                onClick: (Directory) -> Unit) {
         mAdapter.items = mutableListOf<Directory>().apply {
             addAll(directoryList)
         }
         this.currentDirectory = currentDirectory
+        this.onClick = onClick
     }
 
 

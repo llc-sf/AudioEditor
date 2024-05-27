@@ -32,6 +32,7 @@ class AudioPickViewModel : BaseViewModel<AudioPickPageData>() {
 
     companion object {
 
+        const val ALL_AUDIO = "all/audio"
     }
 
     // 定义构造 ViewModel 方法
@@ -107,7 +108,7 @@ class AudioPickViewModel : BaseViewModel<AudioPickPageData>() {
             result.add(0, Directory().apply {
                 name = AppProvider.context.getString(R.string.all_audio)
                 songCount = songs.size
-                path = "all/audio"
+                path = ALL_AUDIO
             })
         }
         if (currentDir == null) {
@@ -124,6 +125,13 @@ class AudioPickViewModel : BaseViewModel<AudioPickPageData>() {
     fun onRefresh(context: Context) {
         registerSy(context)
         AudioSyncService.sync(context)
+    }
+
+    fun onFolderSelected(it: Directory) {
+        currentDir = it
+        refresh(MediaPickPageState(songs = AudioSyncUtil.songs.filter {
+            File(it.path).parent.equals(currentDir?.path) || ALL_AUDIO == currentDir?.path
+        }))
     }
 
 }
