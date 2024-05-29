@@ -1,53 +1,59 @@
 package com.san.audioeditor.view
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
-import android.os.Bundle
 import android.util.AttributeSet
-import android.util.Pair
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
-import androidx.core.view.isInvisible
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import com.san.audioeditor.R
 import com.san.audioeditor.activity.AudioCutActivity
 import com.san.audioeditor.databinding.ItemSongViewBinding
-import com.san.audioeditor.fragment.AudioPickFragment
 import dev.android.player.framework.data.model.Song
 import dev.android.player.framework.utils.DateUtil
 import dev.android.player.framework.utils.FileUtils
-import dev.android.player.framework.utils.StringsUtils
-import java.io.Serializable
+import dev.audio.timeruler.player.PlayerManager
+import dev.audio.timeruler.player.PlayerProgressCallback
+import dev.audio.timeruler.utils.AudioFileUtils
+import musicplayer.playmusic.audioplayer.base.loader.load
 
 /**
  * AudioItem
  */
-class AudioItemView @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null
-) : RelativeLayout(context, attrs) {
+class AudioItemView @JvmOverloads constructor(var source: Source = Source.SOURCE_OUTPUT,
+                                              context: Context,
+                                              attrs: AttributeSet? = null) :
+    RelativeLayout(context, attrs), PlayerProgressCallback {
 
-    private val mBinding =
-        ItemSongViewBinding.inflate(LayoutInflater.from(getContext()), this, true)
+    private val mBinding = ItemSongViewBinding.inflate(LayoutInflater.from(getContext()), this, true)
 
     private var mCurrentSong: Song? = null
 
-    private var isShowTrackNumber: Boolean = false
-
-    private var isPlaying: Pair<Long, Boolean>? = null
-
-    private var mFromSource: Serializable? = null
+    // 定义一个枚举类来表示跳转来源
+    enum class Source {
+        SOURCE_OUTPUT, SOURCE_SEARCH, SOURCE_MUTIMANAGER, SOURCE_PICK
+    }
 
 
     init {
+        when (source) {
+            Source.SOURCE_OUTPUT -> {
+                mBinding.more.setImageResource(R.drawable.ic_more)
+            }
 
-        onCreateDisposeIfNeed()
-        mBinding.more.setOnClickListener {
+            Source.SOURCE_SEARCH -> {
+                mBinding.more.setImageResource(R.drawable.ic_more)
+            }
 
+            Source.SOURCE_MUTIMANAGER -> {
+                mBinding.more.setImageResource(R.drawable.song_muti_selected_bg_selector)
+            }
 
+            Source.SOURCE_PICK -> {
+                mBinding.more.setImageResource(R.drawable.ic_more)
+
+            }
         }
-    }
-
-    private fun onCreateDisposeIfNeed() {
     }
 
     override fun onAttachedToWindow() {
@@ -56,105 +62,89 @@ class AudioItemView @JvmOverloads constructor(
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
+        PlayerManager.removeProgressListener()
     }
 
-    /**
-     * 设置是否显示拖动排序图标
-     * 播放列表里可用
-     */
-    fun setIsCanDrag(isCanDrag: Boolean) {
-        mBinding.drag.isVisible = isCanDrag
-    }
+    private var song: Song? = null
 
-    /**
-     * 设置拖动按钮的Touch事件
-     */
-    fun setDragTouchListener(listener: OnTouchListener) {
-        mBinding.drag.setOnTouchListener(listener)
-    }
-
-    /**
-     * 设置是否显示TrackNumber 数字
-     */
-    fun setShowTrackNumber(isShow: Boolean) {
-        isShowTrackNumber = isShow
-    }
 
     @JvmOverloads
-    fun setData(song: Song, key: String? = null) {
+    fun setData(song: Song,
+                adapterPosition: Int,
+                itemClickNotify: (Int) -> Unit,
+                playingPosition: () -> Int,
+                selectCallBack: (Song, Boolean) -> Unit = { _, _ -> }) {
         try {
+            this.song = song
             this.mCurrentSong = song
             mBinding.title.text = song.title
-            mBinding.description.text = song.artistName
-
-            mBinding.track.isInvisible = !isShowTrackNumber
+            mBinding.description.text = "${DateUtil.formatTime((song!!.duration).toLong())} | ${FileUtils.getFileSize(song!!.size)} | ${
+                AudioFileUtils.getExtension(song!!.path).uppercase()
+            }"
             mBinding.cover.isVisible = true
-//            mBinding.cover.load(song)
-            setShowExtensionInfo(song, key)
+            mBinding.cover.load(song)
             mBinding.root.setOnClickListener {
-//                (mBinding.root.context as? Activity)?.setResult(Activity.RESULT_OK, Intent().apply {
-//                    putExtras(Bundle().apply {
-//                        putParcelable(AudioPickFragment.PARAM_SONG, song)
-//                    })
-//                })
-//                (mBinding.root.context as? Activity)?.finish()
+                when (source) {
+                    Source.SOURCE_OUTPUT -> {
+                    }
 
-                AudioCutActivity.open(context, song!!)
+                    Source.SOURCE_SEARCH -> {
+                    }
+
+                    Source.SOURCE_MUTIMANAGER -> {
+                        onMoreClickDeal(selectCallBack, song)
+                    }
+
+                    Source.SOURCE_PICK -> {
+                        AudioCutActivity.open(context, song)
+                    }
+                }
             }
+            mBinding.progressContainer.setData(song)
+            freshPlayStateView(adapterPosition == playingPosition())
+            mBinding.more.setOnClickListener {
+                when (source) {
+                    Source.SOURCE_OUTPUT -> {
+                        SongMoreBottomDialog.show(context, mCurrentSong)
+                    }
+
+                    Source.SOURCE_SEARCH -> {
+                        SongMoreBottomDialog.show(context, mCurrentSong)
+                    }
+
+                    Source.SOURCE_MUTIMANAGER -> {
+                        onMoreClickDeal(selectCallBack, song)
+                    }
+
+                    Source.SOURCE_PICK -> {
+                        SongMoreBottomDialog.show(context, mCurrentSong)
+                    }
+                }
+            }
+            mBinding.more.isSelected = song.isSelected
+
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
-    /**
-     * 更新播放状态
-     */
-
-    fun setFromSource(source: Serializable?) {
-        this.mFromSource = source
+    private fun onMoreClickDeal(selectCallBack: (Song, Boolean) -> Unit, song: Song) {
+        mBinding.more.isSelected = !mBinding.more.isSelected
+        selectCallBack(song, mBinding.more.isSelected)
     }
 
-    private fun setShowExtensionInfo(song: Song, key: String?) {
-        when (key) {
-            Song.DURATION -> {
-                mBinding.extentsInfo.visibility = VISIBLE
-                //歌曲时长
-                mBinding.extentsInfo.text = DateUtil.formatTime((song.duration).toLong())
-            }
-
-            Song.SIZE -> {
-                mBinding.extentsInfo.visibility = VISIBLE
-                //文件大小
-                mBinding.extentsInfo.text = FileUtils.getFileSize(song.size)
-            }
-
-            Song.TIME_ADD -> {
-                mBinding.extentsInfo.visibility = VISIBLE
-                //添加时间
-                mBinding.extentsInfo.text = DateUtil.makeDateString(song.dateAdded)
-            }
-
-            Song.TIME_ADD_PLAYLIST -> {
-                mBinding.extentsInfo.visibility = VISIBLE
-                //添加到播放列表时间
-                mBinding.extentsInfo.text =
-                    DateUtil.makeDateString(song.add_time / 1000)//这里数据库保存的是毫秒，需要转换为秒
-            }
-
-            Song.ORDER, Song.ARTIST_NAME, Song.TITLE, Song.ALBUM_NAME -> {
-                mBinding.extentsInfo.visibility = GONE
-            }
-
-            Song.COUNT -> {   //播放次数
-                mBinding.count.visibility = VISIBLE
-                mBinding.count.text = StringsUtils.formatNumber(song.count)
-            }
-
-            else -> {
-                mBinding.count.visibility = GONE
-                mBinding.extentsInfo.visibility = GONE
-            }
+    private fun freshPlayStateView(isPlaying: Boolean) {
+        if (isPlaying) {
+            mBinding.progressContainer.isVisible = true
+            mBinding.progressContainer.addProgressListener()
+        } else {
+            mBinding.progressContainer.isVisible = false
         }
     }
+
+    override fun onProgressChanged(currentWindowIndex: Int, position: Long, duration: Long) {
+        mBinding.progressContainer.onProgressChanged(currentWindowIndex, position, duration)
+    }
+
 
 }

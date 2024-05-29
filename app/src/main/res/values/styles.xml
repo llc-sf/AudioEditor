@@ -47,4 +47,17 @@
     </style>
 
 
+    <!--Seekbar-->
+    <style name="ColorAccentSeekBarStyleTheme" parent="Theme.Material3.DayNight">
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/white.alpha.15</item>
+    </style>
+
+    <declare-styleable name="MoreActionItem">
+        <attr name="icon" />
+        <attr name="title" />
+        <attr name="More_TitleTextSize" format="dimension" />
+    </declare-styleable>
+
+
 </resources>

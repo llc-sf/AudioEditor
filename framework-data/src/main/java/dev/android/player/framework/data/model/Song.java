@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -37,6 +38,8 @@ public class Song extends IndexModel implements Serializable, Parcelable, IDelet
     public String mimeType;
 
     public String cover;
+
+    public boolean isSelected;
 
 
     public int order;//播放列表的位置
@@ -268,7 +271,7 @@ public class Song extends IndexModel implements Serializable, Parcelable, IDelet
 
 
     public boolean isAvailable() {
-        return !TextUtils.isEmpty(path) && duration > 0;
+        return !TextUtils.isEmpty(path) && (new File(path)).exists() && duration > 0;
     }
 }
 

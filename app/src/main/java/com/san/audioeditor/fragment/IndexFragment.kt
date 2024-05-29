@@ -1,5 +1,6 @@
 package com.san.audioeditor.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -13,6 +14,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.san.audioeditor.R
+import com.san.audioeditor.activity.SettingsActivity
 import com.san.audioeditor.databinding.FragmentIndexBinding
 import dev.android.player.framework.base.BaseFragment
 import dev.android.player.framework.utils.ImmerseDesignPadding
@@ -93,6 +95,7 @@ class IndexFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_setting -> {
+                startActivity(Intent(requireContext(), SettingsActivity::class.java))
             }
         }
         return super.onOptionsItemSelected(item)
@@ -179,6 +182,14 @@ class IndexFragment : BaseFragment() {
                 else -> CreateFragment()
             }
         }
+    }
+
+
+    fun index2Fragment(index: Int) {
+        if (index > 1 || index < 0) {
+            return
+        }
+        binding.viewPager.currentItem = index
     }
 
 

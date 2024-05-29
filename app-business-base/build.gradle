@@ -38,7 +38,7 @@ android {
 
 dependencies {
 
-    implementation rootProject.ext.Image.glide
+    api rootProject.ext.Image.glide
 
 
     implementation project(':framework-rx')

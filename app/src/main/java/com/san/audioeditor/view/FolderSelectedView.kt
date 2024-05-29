@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.core.view.marginTop
 import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,7 +31,9 @@ class FolderSelectedView @JvmOverloads constructor(context: Context, attrs: Attr
         mRecyclerView = RecyclerView(context)
         mRecyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         mRecyclerView.adapter = mAdapter
-        addView(mRecyclerView, LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT))
+        addView(mRecyclerView, LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { //            topMargin = 8.dp
+            //            marginStart = 8.dp
+        })
         mAdapter.register(CellFolderView({
                                              currentDirectory
                                          }, {
@@ -57,7 +60,7 @@ class FolderSelectedView @JvmOverloads constructor(context: Context, attrs: Attr
         if (measuredHeight > maxHeightPx) {
             setMeasuredDimension(measuredWidth, maxHeightPx)
             mRecyclerView.updateLayoutParams<LinearLayout.LayoutParams> {
-                height = maxHeightPx
+                height = maxHeightPx - 16.dp
             }
         }
     }

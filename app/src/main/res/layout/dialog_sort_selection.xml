@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            style="@style/BottomDialog.ParentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/BottomDialog.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sort_by" />
+
+            <LinearLayout
+                android:id="@+id/sort_by"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/sp_24"
+                android:orientation="vertical" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginVertical="@dimen/sp_20"
+                android:background="?attr/divider.color" />
+
+            <LinearLayout
+                android:id="@+id/sort_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <com.san.audioeditor.sort.SortSelectionItemView
+                    android:id="@+id/sort_order_asc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.san.audioeditor.sort.SortSelectionItemView
+                    android:id="@+id/sort_order_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <!--排序确认按钮-->
+            <LinearLayout
+                style="@style/BottomDialog.ButtonContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_36">
+
+                <dev.android.player.widget.text.CornersButton
+                    android:id="@+id/btn_cancel"
+                    style="@style/BottomDialog.Button.Cancel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/cancel" />
+
+                <Space
+                    android:layout_width="18dp"
+                    android:layout_height="wrap_content" />
+
+                <dev.android.player.widget.text.CornersButton
+                    android:id="@+id/btn_ok"
+                    style="@style/BottomDialog.Button.Confirm"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/action_ok" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</FrameLayout>

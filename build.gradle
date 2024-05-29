@@ -20,7 +20,7 @@ ext {
 
     VERSION_CODE = 4
 
-    APPLICATION_ID = "musicplayer.musicapp.playmusic.mp3player"
+    APPLICATION_ID = "com.san.audioeditor"
 
     CLIENT_GIT_SHA_VERSION = getGitSha()//当前提交的Git 版本号，用于追溯提交的版本
 

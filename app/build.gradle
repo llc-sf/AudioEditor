@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -13,6 +14,10 @@ android {
         targetSdk 34
         versionCode 1
         versionName "1.0"
+
+        buildConfigField "String", "APPLICATION_ID", "\"${rootProject.ext.APPLICATION_ID}\""
+        buildConfigField "String", "VERSION_NAME", "\"${rootProject.ext.VERSION_NAME}\""
+        buildConfigField "int", "VERSION_CODE", "${rootProject.ext.VERSION_CODE}"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -59,6 +64,9 @@ dependencies {
     implementation project(":timeRuler")
     implementation project(":recorderLib")
 
+    //Glide
+    implementation rootProject.ext.Image.glide
+    kapt rootProject.ext.Image.compiler
 
     implementation project(":framework-base")
     implementation project(":framework-data")

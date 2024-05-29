@@ -29,7 +29,7 @@
         android:layout_marginEnd="-20dp"
         android:layout_marginBottom="-24dp"
         android:background="@drawable/rectangle_1e1c1c_radius_all_18_bg"
-        app:layout_constraintBottom_toBottomOf="@id/audio_info"
+        app:layout_constraintBottom_toBottomOf="@id/progress_container"
         app:layout_constraintEnd_toEndOf="@id/rename"
         app:layout_constraintStart_toStartOf="@id/audio_img"
         app:layout_constraintTop_toTopOf="@id/audio_title" />
@@ -44,7 +44,6 @@
         android:background="@drawable/rectangle_8white_radius_all_8_bg"
         android:paddingHorizontal="@dimen/dp_12"
         android:paddingVertical="@dimen/dp_12"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:srcCompat="@drawable/ic_audio_frame" />
@@ -54,7 +53,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_16"
-        android:layout_marginTop="-2dp"
+        android:layout_marginTop="-6dp"
         android:layout_marginEnd="@dimen/dp_8"
         android:ellipsize="end"
         android:gravity="start"
@@ -70,7 +69,7 @@
         android:id="@+id/audio_info"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="-4dp"
+        android:layout_marginBottom="-6dp"
         android:textColor="@color/white.alpha.50"
         android:textSize="@dimen/sp_13"
         app:layout_constraintBottom_toBottomOf="@id/audio_img"
@@ -88,6 +87,25 @@
         app:layout_constraintTop_toTopOf="@id/audio_title"
         app:srcCompat="@drawable/ic_rename" />
 
+
+    <ImageView
+        android:id="@+id/play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_28"
+        app:layout_constraintStart_toStartOf="@id/audio_img"
+        app:layout_constraintTop_toBottomOf="@id/audio_img"
+        app:srcCompat="@drawable/ic_save_play" />
+
+    <com.san.audioeditor.view.ProgressVView
+        android:id="@+id/progress_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_14"
+        app:layout_constraintBottom_toBottomOf="@id/play"
+        app:layout_constraintEnd_toEndOf="@id/rename"
+        app:layout_constraintStart_toEndOf="@id/play"
+        app:layout_constraintTop_toTopOf="@id/play" />
 
     <TextView
         android:id="@+id/output"
@@ -116,6 +134,7 @@
         android:text="@string/share"
         android:textColor="@color/white.alpha.40"
         android:textSize="@dimen/sp_13"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/output" />
@@ -125,6 +144,7 @@
         android:layout_height="@dimen/dp_1"
         android:layout_marginEnd="@dimen/dp_12"
         android:background="@color/white.alpha.10"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/share"
         app:layout_constraintEnd_toStartOf="@id/share"
         app:layout_constraintStart_toStartOf="@id/output"
@@ -135,6 +155,7 @@
         android:layout_height="@dimen/dp_1"
         android:layout_marginStart="@dimen/dp_12"
         android:background="@color/white.alpha.10"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/share"
         app:layout_constraintEnd_toEndOf="@id/output"
         app:layout_constraintStart_toEndOf="@id/share"
@@ -146,6 +167,7 @@
         android:layout_width="@dimen/dp_52"
         android:layout_height="@dimen/dp_52"
         android:layout_marginTop="@dimen/dp_24"
+        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@id/share_drive"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/share"
@@ -155,6 +177,7 @@
         android:id="@+id/share_drive"
         android:layout_width="@dimen/dp_52"
         android:layout_height="@dimen/dp_52"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/share_whatsapp"
         app:layout_constraintEnd_toStartOf="@id/share_gmail"
         app:layout_constraintStart_toEndOf="@id/share_whatsapp"
@@ -167,6 +190,7 @@
         android:id="@+id/share_gmail"
         android:layout_width="@dimen/dp_52"
         android:layout_height="@dimen/dp_52"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/share_whatsapp"
         app:layout_constraintEnd_toStartOf="@id/share_more"
         app:layout_constraintStart_toEndOf="@id/share_drive"
@@ -177,6 +201,7 @@
         android:id="@+id/share_more"
         android:layout_width="@dimen/dp_52"
         android:layout_height="@dimen/dp_52"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/share_whatsapp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/share_gmail"

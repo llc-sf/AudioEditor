@@ -13,7 +13,7 @@
     <string name="image_description" translatable="false" />
     <string name="music_download_link" translatable="false">https://musicplayer.page.link/download</string>
     <!--<string name="music3_download_link" translatable="false">https://amusic.page.link/download</string>-->
-    <string name="music3_download_link" translatable="false">https://st.inston.ltd/uY7NJj</string>
+    <string name="audio_download_link" translatable="false">https://st.inston.ltd/uY7NJj</string>
 
 
     <!--均衡器相关-->

@@ -12,12 +12,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import com.android.app.AppProvider
 import com.san.audioeditor.R
 import com.san.audioeditor.storage.AudioSyncService
 import com.san.audioeditor.storage.AudioSyncUtil
 import com.san.audioeditor.viewmodel.pagedata.AudioPickPageData
+import dev.android.player.app.business.SortBusiness
+import dev.android.player.app.business.data.SortStatus
 import dev.android.player.framework.base.viewmodel.BaseViewModel
 import dev.android.player.framework.data.model.Directory
 import dev.android.player.framework.data.model.Song
@@ -35,8 +38,12 @@ class AudioPickViewModel : BaseViewModel<AudioPickPageData>() {
         const val ALL_AUDIO = "all/audio"
     }
 
+    var playingPosition: Int = -1
+
+    lateinit var mCurrentSort: SortStatus
+
     // 定义构造 ViewModel 方法
-    class ThemeListViewFactory() : ViewModelProvider.Factory {
+    class AudioPickViewFactory() : ViewModelProvider.Factory {
         // 构造 数据访问接口实例
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return AudioPickViewModel() as T
@@ -54,6 +61,7 @@ class AudioPickViewModel : BaseViewModel<AudioPickPageData>() {
 
     fun initData(context: Context, arguments: Bundle?) {
         viewModelScope.launch(Dispatchers.IO) {
+            mCurrentSort = SortBusiness.getAllSongsSortStatus()
             launchOnUI {
                 registerSy(context)
                 AudioSyncService.sync(AppProvider.context)
@@ -100,7 +108,7 @@ class AudioPickViewModel : BaseViewModel<AudioPickPageData>() {
             val directory = Directory()
             directory.name = file.name
             directory.path = path
-            directory.updateTime = file.lastModified()
+            directory.updateTime = value.maxByOrNull { it.dateAdded }?.dateAdded ?: 0
             directory.songCount = value.size
             directory
         }.filter { it: Directory -> it.songCount > 0 }.collect(Collectors.toList())
@@ -109,6 +117,7 @@ class AudioPickViewModel : BaseViewModel<AudioPickPageData>() {
                 name = AppProvider.context.getString(R.string.all_audio)
                 songCount = songs.size
                 path = ALL_AUDIO
+                updateTime = songs.maxByOrNull { it.dateAdded }?.dateAdded ?: 0
             })
         }
         if (currentDir == null) {

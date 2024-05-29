@@ -16,6 +16,9 @@ class MainActivity : AppCompatActivity() {
 
     companion object{
         var returnActivityB = false
+
+        const val PARAM_INDEX = "param_index"
+        const val INDEX_FRAGMENT_OUTPUT = 1
     }
 
 
@@ -77,6 +80,15 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        var index = intent?.getIntExtra(PARAM_INDEX, -1) ?: -1
+        if(index!=-1){
+            (supportFragmentManager.findFragmentByTag(IndexFragment::class.java.simpleName) as? IndexFragment)?.index2Fragment(index)
+        }
+
     }
 
     /**

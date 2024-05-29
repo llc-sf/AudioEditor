@@ -141,7 +141,7 @@ fun MutableList<AudioFragmentBean>.nextAudioFragmentBean(currentAudioFragmentBea
 
 fun Long.toFormattedDateString(): String {
     val temp = Calendar.getInstance()
-    val date = Date(this)
+    val date = Date(this*1000)
     temp.time = date
     return SimpleDateFormat("MM/dd/yyyy", Locale.getDefault()).format(date)
 }

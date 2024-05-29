@@ -7,8 +7,8 @@
     <color name="colorRipple">@color/black.a1.alpha80</color>
 
 
-    <color name="txt.color.primary">@color/white</color>
-    <color name="txt.color.secondary">@color/black.a1</color>
+    <color name="txt.color.primary">@color/white.alpha.90</color>
+    <color name="txt.color.secondary">@color/white.alpha.50</color>
 
     <color name="divider.color">@color/black.a1.alpha20</color>
 

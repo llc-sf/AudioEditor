@@ -1,6 +1,5 @@
 package dev.audio.timeruler.utils
 
-import android.content.ContentResolver
 import android.content.ContentValues
 import android.content.Context
 import android.media.MediaScannerConnection
@@ -16,10 +15,12 @@ import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.io.InputStream
-import java.nio.file.Paths
 import java.util.Locale
 
 object AudioFileUtils {
+
+    const val AUDIO_FOLDER = "AudioEditor338"
+    val OUTPUT_FOLDER = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).absolutePath + File.separator + AUDIO_FOLDER
 
 
     fun copyAudioToFileStore(src: File, context: Context, targetFileName: String): File? {
@@ -31,7 +32,7 @@ object AudioFileUtils {
             Log.d("FileUtils", "Source is a directory, expected a file.")
             return null
         }
-        val realOutPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).absolutePath + File.separator + targetFileName
+        val realOutPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).absolutePath + File.separator + AUDIO_FOLDER + File.separator + targetFileName
         val targetFile = File(realOutPath)
         if (targetFile.exists()) {
             targetFile.delete()
@@ -46,7 +47,7 @@ object AudioFileUtils {
             }
         } catch (e: FileNotFoundException) {
             Log.e("FileUtils", "File not found: " + e.message)
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             Log.e("FileUtils", "IO Exception: " + e.message)
         }
         return null
@@ -60,9 +61,11 @@ object AudioFileUtils {
         val contentValues = ContentValues()
         contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
         contentValues.put(MediaStore.MediaColumns.MIME_TYPE, mimeType)
-        contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_MUSIC)
+        contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_MUSIC + File.separator + AUDIO_FOLDER)
+
         val audioCollection = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
         val uri = resolver.insert(audioCollection, contentValues)
+
         if (uri != null) {
             try {
                 resolver.openOutputStream(uri).use { outputStream ->

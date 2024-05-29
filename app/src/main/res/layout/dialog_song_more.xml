@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/dp_20">
+        <!--封面图片-->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/cover"
+            android:layout_width="@dimen/dp_52"
+            android:layout_height="@dimen/dp_52"
+            android:layout_marginVertical="@dimen/dp_20"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ShapeableImageView.Circle" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginVertical="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_toStartOf="@id/info"
+            android:layout_toEndOf="@id/cover"
+            android:orientation="vertical">
+            <!--歌曲标题-->
+            <TextView
+                android:id="@+id/title"
+                style="@style/Item.NormalTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Set Fire to the Rain" />
+
+
+            <!--歌曲描述-->
+            <TextView
+                android:id="@+id/description"
+                style="@style/Item.NormalDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_2"
+                tools:text="Set Fire to the Rain" />
+
+        </LinearLayout>
+
+
+        <!--歌曲信息-->
+        <ImageView
+            android:id="@+id/info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginHorizontal="@dimen/dp_16"
+            android:layout_toStartOf="@id/share"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:padding="?attr/IconButtonPadding"
+            app:icon="@drawable/icon_sort" />
+
+
+        <!--分享-->
+        <ImageView
+            android:id="@+id/share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:padding="?attr/IconButtonPadding"
+            android:src="@drawable/ic_more_share" />
+
+    </RelativeLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginBottom="@dimen/dp_6"
+        android:background="?attr/divider.color" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/dp_4"
+            android:paddingBottom="@dimen/dp_18">
+
+            <com.san.audioeditor.view.MoreActionItem
+                android:id="@+id/action_rename"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/icon_sort"
+                app:title="@string/rename" />
+
+
+            <com.san.audioeditor.view.MoreActionItem
+                android:id="@+id/action_trim"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/icon_sort"
+                app:title="@string/trim" />
+
+            <com.san.audioeditor.view.MoreActionItem
+                android:id="@+id/action_delete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/icon_sort"
+                app:title="@string/delete" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginHorizontal="@dimen/dp_20"
+                android:layout_marginVertical="@dimen/dp_6"
+                android:background="?attr/divider.color" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</LinearLayout>

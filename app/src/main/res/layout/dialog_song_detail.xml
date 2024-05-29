@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/BottomDialog.ParentContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/BottomDialog.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/details" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_24">
+
+            <!--标题-->
+            <TableRow android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/song_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="@string/song_title"
+                    android:textColor="?attr/textColorPrimary"
+                    android:textSize="@dimen/sp_16" />
+
+                <TextView
+                    android:id="@+id/song_title_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_weight="1"
+                    android:textColor="?attr/textColorSecondary"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/sp_13" />
+            </TableRow>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_18" />
+
+            <!--专辑-->
+            <TableRow android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/song_album"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="@string/album_title"
+                    android:textColor="?attr/textColorPrimary"
+                    android:textSize="@dimen/sp_16" />
+
+                <TextView
+                    android:id="@+id/song_album_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_weight="1"
+                    android:textColor="?attr/textColorSecondary"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/sp_13" />
+            </TableRow>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_18" />
+            <!--歌手-->
+            <TableRow android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/song_artist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="@string/artist_title"
+                    android:textColor="?attr/textColorPrimary"
+                    android:textSize="@dimen/sp_16" />
+
+                <TextView
+                    android:id="@+id/song_artist_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_weight="1"
+                    android:textColor="?attr/textColorSecondary"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/sp_13" />
+            </TableRow>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_18" />
+
+            <!--曲风-->
+            <TableRow android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/song_genre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="@string/genre_title"
+                    android:textColor="?attr/textColorPrimary"
+                    android:textSize="@dimen/sp_16" />
+
+                <TextView
+                    android:id="@+id/song_genre_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_weight="1"
+                    android:textColor="?attr/textColorSecondary"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/sp_13" />
+            </TableRow>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_18" />
+            <!--时长-->
+            <TableRow android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/song_duration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="@string/duration"
+                    android:textColor="?attr/textColorPrimary"
+                    android:textSize="@dimen/sp_16" />
+
+                <TextView
+                    android:id="@+id/song_duration_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_weight="1"
+                    android:textColor="?attr/textColorSecondary"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/sp_13" />
+            </TableRow>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_18" />
+            <!--歌曲大小-->
+            <TableRow android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/song_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="@string/size"
+                    android:textColor="?attr/textColorPrimary"
+                    android:textSize="@dimen/sp_16" />
+
+                <TextView
+                    android:id="@+id/song_size_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_weight="1"
+                    android:textColor="?attr/textColorSecondary"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/sp_13" />
+            </TableRow>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_18" />
+            <!--歌曲位置-->
+            <TableRow android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/song_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="@string/location"
+                    android:textColor="?attr/textColorPrimary"
+                    android:textSize="@dimen/sp_16" />
+
+                <TextView
+                    android:id="@+id/song_location_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_weight="1"
+                    android:textColor="?attr/textColorSecondary"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/sp_13" />
+            </TableRow>
+
+
+        </TableLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/BottomDialog.ButtonContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_36">
+
+            <dev.android.player.widget.text.AutoFitCornersButton
+                android:id="@+id/btn_edit"
+                style="@style/BottomDialog.Button.Cancel"
+                android:layout_width="0dp"
+                android:layout_height="?attr/ConnerBtnHeight"
+                android:layout_marginEnd="@dimen/dp_18"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/dp_12"
+                android:text="@string/edit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btn_confirm_ok"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <dev.android.player.widget.text.AutoFitCornersButton
+                android:id="@+id/btn_confirm_ok"
+                style="@style/BottomDialog.Button.Confirm"
+                android:layout_width="0dp"
+                android:layout_height="?attr/ConnerBtnHeight"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/dp_12"
+                android:text="@string/action_ok"
+                app:layout_constraintBottom_toBottomOf="@id/btn_edit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btn_edit"
+                app:layout_constraintTop_toTopOf="@id/btn_edit" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

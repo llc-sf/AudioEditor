@@ -1,26 +1,22 @@
 package com.san.audioeditor.fragment
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.san.audioeditor.R
-import com.san.audioeditor.cell.CellAudioItemView
+import com.san.audioeditor.activity.MainActivity
 import com.san.audioeditor.databinding.FragmentAudioSaveBinding
-import com.san.audioeditor.databinding.FragmentMediaPickBinding
-import com.san.audioeditor.viewmodel.AudioPickViewModel
 import com.san.audioeditor.viewmodel.AudioSaveViewModel
 import dev.android.player.framework.base.BaseMVVMFragment
 import dev.android.player.framework.utils.DateUtil
 import dev.android.player.framework.utils.FileUtils
 import dev.android.player.framework.utils.ImmerseDesign
 import dev.android.player.widget.cell.MultiTypeFastScrollAdapter
+import dev.audio.timeruler.player.PlayerManager
 import dev.audio.timeruler.utils.AudioFileUtils
-import dev.audio.timeruler.utils.format2DurationStander
-import java.io.File
 
 /**
  * 媒体选择页
@@ -65,6 +61,19 @@ class AudioSaveFragment : BaseMVVMFragment<FragmentAudioSaveBinding>() {
             mActivity?.finish()
         }
         mViewModel.initData(requireContext(), arguments)
+        viewBinding.play.setOnClickListener {
+            if(PlayerManager.isPlaying){
+                PlayerManager.pause()
+            }else{
+                PlayerManager.playByPathWithProgress(mViewModel.song?.path ?: "",true)
+            }
+        }
+        viewBinding.progressContainer.addProgressListener()
+        viewBinding.output.setOnClickListener {
+            it.context.startActivity(Intent(it.context,MainActivity::class.java).apply {
+                putExtra(MainActivity.PARAM_INDEX,MainActivity.INDEX_FRAGMENT_OUTPUT)
+            })
+        }
     }
 
     override fun startObserve() {
@@ -72,8 +81,14 @@ class AudioSaveFragment : BaseMVVMFragment<FragmentAudioSaveBinding>() {
             if (it.song != null) {
                 viewBinding.audioTitle.text = it.song!!.title
                 viewBinding.audioInfo.text = "${DateUtil.formatTime((it.song!!.duration).toLong())} | ${FileUtils.getFileSize(it.song!!.size)} | ${AudioFileUtils.getExtension(it.song!!.path).uppercase()}"
+                viewBinding.progressContainer.setData(it.song!!)
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        PlayerManager.stop()
     }
 
 }

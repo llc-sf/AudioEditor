@@ -25,7 +25,7 @@ object AudioSyncUtil {
             context.contentResolver.query(android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, null, null, null)
                 ?.use { cursor ->
                     result.addAll(cursor.convertSongs())
-                    DataSortHelper.sort(result, Song::class.java, SortBusiness.getAllSongsSortByAddTimeStatus(), SortBusiness.getAllSongsSortByAddTimeStatus())
+                    DataSortHelper.sort(result, Song::class.java, SortBusiness.getAllSongsSortStatus(), SortBusiness.getAllSongsSortByAddTimeStatus())
                 }
         } catch (e: Exception) {
             e.printStackTrace()

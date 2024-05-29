@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/BottomDialog.ParentContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/BottomDialog.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rename" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_32"
+        android:background="@drawable/default_black_a1_radius_8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/edit"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_48"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="@string/enter_name"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:paddingStart="@dimen/dp_16"
+            android:paddingEnd="@dimen/dp_15"
+            android:singleLine="true"
+            android:textColorHint="@color/black.a1.alpha50"
+            android:textCursorDrawable="@drawable/custom_cursor"
+            android:textSize="@dimen/sp_16"
+            tools:text="12345678901234567890123456789012345678901234567890" />
+
+        <ImageView
+            android:id="@+id/clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/dp_4"
+            android:layout_toStartOf="@id/edit_count"
+            app:srcCompat="@drawable/ic_search_delete" />
+
+        <TextView
+            android:id="@+id/edit_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/dp_12"
+            android:textColor="?attr/textColorSecondary"
+            android:textSize="@dimen/sp_14" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <!--播放列表已经存在的提示-->
+    <TextView
+        android:id="@+id/exist_tips"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/dp_14"
+        android:drawablePadding="@dimen/dp_2"
+        android:text="@string/entered_same_name"
+        android:textColor="?attr/colorAccent"
+        android:textSize="@dimen/sp_12"
+        android:visibility="invisible"
+        app:drawableStartCompat="@drawable/ic_notice" />
+
+
+    <LinearLayout
+        style="@style/BottomDialog.ButtonContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <dev.android.player.widget.text.CornersButton
+            android:id="@+id/btn_cancel"
+            style="@style/BottomDialog.Button.Cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/cancel"
+            android:textSize="@dimen/sp_16" />
+
+        <Space
+            android:layout_width="@dimen/dp_18"
+            android:layout_height="wrap_content" />
+
+        <dev.android.player.widget.text.CornersButton
+            android:id="@+id/btn_create"
+            style="@style/BottomDialog.Button.Confirm"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/create"
+            android:textSize="@dimen/sp_16" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

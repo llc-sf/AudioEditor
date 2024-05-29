@@ -34,7 +34,7 @@ class AudioSaveViewModel : BaseViewModel<AudioSavePageData>() {
     var audioSaveState: LiveData<AudioSavePageData> = _audioSaveState
 
 
-    private var song: Song? = null
+    var song: Song? = null
     fun initData(context: Context, arguments: Bundle?) {
         viewModelScope.launch(Dispatchers.IO) {
             launchOnUI {

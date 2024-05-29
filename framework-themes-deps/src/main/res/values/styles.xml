@@ -94,7 +94,7 @@
 
     <style name="Item.NormalTitle" parent="android:TextAppearance">
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">@dimen/sp_16</item>
+        <item name="android:textSize">@dimen/sp_15</item>
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">end</item>
         <item name="android:includeFontPadding">false</item>

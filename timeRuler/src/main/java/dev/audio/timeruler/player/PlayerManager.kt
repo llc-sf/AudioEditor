@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.os.Handler
 import android.os.Looper
+import android.text.TextUtils
 import android.util.Log
 import com.android.app.AppProvider
 import com.google.android.exoplayer2.DefaultLoadControl
@@ -25,12 +26,15 @@ import dev.audio.timeruler.multitrack.MultiTrackSelector
 import dev.audio.timeruler.weight.AudioFragmentWithCut
 import dev.audio.timeruler.weight.BaseAudioEditorView.Companion.playline_tag
 import dev.audio.timeruler.weight.CutPieceFragment
+import java.util.Collections
 
 object PlayerManager {
 
     const val TAG = "PlayerManager"
 
     var player: SimpleExoPlayer
+
+    private val progressMap = HashMap<String, Long>()
 
     init {
         player = initExoPlayer(AppProvider.context)
@@ -47,6 +51,9 @@ object PlayerManager {
                 val duration = player.duration
                 val currentWindowIndex = player.currentWindowIndex
                 progressListener?.onProgressChanged(currentWindowIndex, position, duration)
+                if (isSaveProgress) {
+                    progressMap[path!!] = position
+                }
                 handler.postDelayed(this, PROGRESS_UPDATE_INTERVAL)
             }
         }
@@ -115,7 +122,11 @@ object PlayerManager {
 
     private var progressListener: PlayerProgressCallback? = null
     fun addProgressListener(listener: PlayerProgressCallback) {
-        progressListener = listener
+        this.progressListener = listener
+    }
+
+    fun removeProgressListener() { //        progressListeners.remove(listener)
+        this.progressListener = null
     }
 
     fun playByMediaSource(mediaSource: MediaSource, autoPlay: Boolean = false) {
@@ -125,12 +136,29 @@ object PlayerManager {
     }
 
     var uri: Uri? = null
+    var path: String? = null
     fun playByPath(path: String, autoPlay: Boolean = false) { //path 转 uri
+        Log.i(TAG, "path=$path,autoPlay=$autoPlay")
+        isSaveProgress = false
+        this.path = path
         uri = Utils.getAudioUriFromPath(AppProvider.context, path) ?: return
         var dataSourceFactory = DefaultDataSourceFactory(AppProvider.context, Util.getUserAgent(AppProvider.context, AppProvider.context.packageName)) // 创建多个 MediaSource，分别对应不同的音频文件
         val audioSource = ProgressiveMediaSource.Factory(dataSourceFactory)
             .createMediaSource(MediaItem.fromUri(uri!!.apply {}))
         playByMediaSource(audioSource, autoPlay)
+    }
+
+    private var isSaveProgress = false
+    fun playByPathWithProgress(path: String, autoPlay: Boolean = false) { //path 转 uri
+        playByPath(path, autoPlay)
+        isSaveProgress = true
+        if (progressMap.containsKey(path)) {
+            player.seekTo(progressMap[path]!!)
+        }
+    }
+
+    fun clearProgress() {
+        progressMap.clear()
     }
 
     fun playByUri(uri: Uri, autoPlay: Boolean = false) {
@@ -286,5 +314,16 @@ object PlayerManager {
 
     var isPlaying: Boolean = false
         get() = player.isPlaying
+
+
+    fun isCurrentPathPlaying(path: String?): Boolean {
+        return TextUtils.equals(path, this.path) && !TextUtils.isEmpty(path)
+    }
+
+    fun stop() {
+        player.stop()
+        path = null
+        progressListener = null
+    }
 
 }

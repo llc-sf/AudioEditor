@@ -687,4 +687,7 @@
     <string name="send_feedback">Send feedback > </string>
     <string name="loading">loading...</string>
     <string name="all_audio">All audio</string>
+    <string name="select_audio">Select audio</string>
+    <string name="settings_save_path">Storage path</string>
+    <string name="settings_faq">FAQ</string>
 </resources>

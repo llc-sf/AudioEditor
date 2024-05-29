@@ -3,8 +3,6 @@ package dev.android.player.framework.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import androidx.annotation.Nullable;
-
 import java.io.Serializable;
 
 /**
@@ -58,10 +56,5 @@ public class Directory extends IndexModel implements Parcelable, Serializable {
             return new Directory[size];
         }
     };
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        return obj instanceof Directory && path.equals(((Directory) obj).path);
-    }
 }
 
