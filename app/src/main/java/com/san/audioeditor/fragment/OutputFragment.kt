@@ -14,6 +14,7 @@ import com.san.audioeditor.cell.CellAudioItemView
 import com.san.audioeditor.databinding.FragmentOutputBinding
 import com.san.audioeditor.sort.AudioSortAdapter
 import com.san.audioeditor.sort.SortSelectDialogFragment
+import com.san.audioeditor.view.AudioItemView
 import com.san.audioeditor.viewmodel.AudioOutputViewModel
 import com.san.audioeditor.viewmodel.AudioPickViewModel
 import dev.android.player.framework.base.BaseMVVMRefreshFragment
@@ -58,7 +59,7 @@ class OutputFragment : BaseMVVMRefreshFragment<FragmentOutputBinding>() {
                                                 mAdapter.notifyDataSetChanged()
                                             }, {
                                                 mViewModel.playingPosition
-                                            }))
+                                            }, source = AudioItemView.Source.SOURCE_OUTPUT))
         viewBinding.recycleview.adapter = mAdapter
         mAdapter.notifyDataSetChanged()
 

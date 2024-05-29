@@ -24,6 +24,7 @@ import dev.audio.timeruler.player.PlayerProgressCallback
 import dev.audio.timeruler.utils.rotate
 import dev.audio.timeruler.weight.CustomPopupWindow
 import com.san.audioeditor.sort.SortSelectDialogFragment
+import com.san.audioeditor.view.AudioItemView
 import dev.android.player.app.business.SortBusiness
 import dev.android.player.app.business.data.SortStatus
 import dev.android.player.framework.utils.TrackerMultiple
@@ -69,7 +70,7 @@ class AudioPickFragment : BaseMVVMRefreshFragment<FragmentMediaPickBinding>(),
                                                 mAdapter.notifyDataSetChanged()
                                             }, {
                                                 mViewModel.playingPosition
-                                            }))
+                                            },source = AudioItemView.Source.SOURCE_PICK))
         viewBinding.recycleview.adapter = mAdapter
         mAdapter.notifyDataSetChanged()
         mActivity?.let {
