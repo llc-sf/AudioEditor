@@ -213,7 +213,7 @@ class AudioCutViewModel(var song: Song) : BaseViewModel<AudioCutViewModel.AudioC
                         if (msg.obj == 0) {
                             if (!isCover) {
                                 isCover = true
-                                var commandLine = FFmpegUtil.addCoverToAudioStep2(song.path, editorAssetsPathTempWithoutCover, editorAssetsPathWithCover)
+                                var commandLine = FFmpegUtil.addCoverToAudioStep2(oriSong.path, editorAssetsPathTempWithoutCover, editorAssetsPathWithCover)
                                 ffmpegHandler!!.executeFFmpegCmd(commandLine)
                             } else {
                                 var file = AudioFileUtils.copyAudioToFileStore(File(editorAssetsPathWithCover), AppProvider.context, saveFileName)
