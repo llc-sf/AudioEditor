@@ -102,8 +102,8 @@ eac3,flac,mp2,opus,pcm_alaw,pcm_mulaw,pcm_f32le,pcm_f64le,pcm_s16be,pcm_s16le,\
 pcm_s32be,pcm_s32le,pcm_s64be,pcm_s64le,pcm_s8,pcm_u16le,pcm_u32le,pcm_u8,sonic,\
 truehd,tta,vorbis,wavpack,wmav1,wmav2,ssa,ass,dvbsub,dvdsub,mov_text,srt,subrip,ttml,webvtt \
   --disable-decoders \
-  --enable-decoder=av1,gif,mjpeg,\
-msmpeg4v2,msmpeg4v3,png,tscc,tscc2,vc1,vp8,vp9,webp,wmv3,zlib,\
+  --enable-decoder=gif,mjpeg,\
+png,webp,zlib,\
 aac,aac_latm,ac3,adpcm_ima_qt,adpcm_ima_wav,adpcm_ms,alac,amrnb,amrwb,ape,dolby_e,\
 eac3,flac,g722,g726,g729,m4a,mp3float,mp3,mp3adufloat,mp3adu,mp3on4,opus,pcm_alaw,\
 pcm_mulaw,pcm_dvd,pcm_f16le,pcm_f24le,pcm_f32be,pcm_f32le,pcm_f64be,pcm_f64le,pcm_s16be,pcm_s16le,\
@@ -117,10 +117,10 @@ ssa,ass,dvbsub,dvdsub,pgssub,mov_text,sami,srt,subrip,text,webvtt \
   --enable-nonfree \
   --enable-protocols \
   --disable-demuxers \
-  --enable-demuxer=aac,ac3,alaw,amr,amrnb,amrwb,ape,asf,asf_o,ass,av1,avi,codec2,concat,dash,dnxhd,eac3,flac,\
-g722,g726,g729,gif,gif_pipe,hls,image2,image2pipe,jpeg_pipe,lrc,m4v,matroska,webm,mjpeg,mov,m4a,3gp,mp3,mpeg,\
+  --enable-demuxer=aac,ac3,alaw,amr,amrnb,amrwb,ape,asf,asf_o,ass,codec2,concat,dash,eac3,flac,\
+g722,g726,g729,gif,gif_pipe,hls,image2,image2pipe,jpeg_pipe,lrc,matroska,webm,mjpeg,mov,m4a,3gp,mp3,\
 mpegts,mv,mulaw,manifest,ogg,pcm_s16be,pcm_s16le,pcm_s32be,pcm_s32le,pcm_f32be,pcm_f32le,pcm_f64be,pcm_f64le,\
-png_pipe,realtext,rm,rtp,rtsp,sami,sdp,srt,swf,vc1,wav,webm_dash,xmv \
+png_pipe,realtext,rm,rtp,rtsp,sami,sdp,srt,wav,webm_dash,xmv \
 $ADDITIONAL_CONFIGURE_FLAG
 make -j
 make install
