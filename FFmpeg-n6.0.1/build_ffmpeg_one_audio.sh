@@ -95,14 +95,14 @@ function build_one() {
   --disable-encoders \
   --enable-libmp3lame \
   --enable-encoder=libmp3lame \
-  --enable-encoder=apng,bmp,dvvideo,flv,gif,h263,h264,hdr,jpeg2000,ljpeg,mjpeg,\
+  --enable-encoder=apng,bmp,gif,hdr,jpeg2000,ljpeg,mjpeg,\
 mpeg1video,mpeg2video,mpeg4,msmpeg4v2,msmpeg4,png,prores,qtrle,rawvideo,tiff,\
 wmv1,wmv2,xbm,zlib,aac,ac3,g722,g726,adpcm_ima_qt,adpcm_ima_wav,adpcm_ms,alac,\
 eac3,flac,mp2,opus,pcm_alaw,pcm_mulaw,pcm_f32le,pcm_f64le,pcm_s16be,pcm_s16le,\
 pcm_s32be,pcm_s32le,pcm_s64be,pcm_s64le,pcm_s8,pcm_u16le,pcm_u32le,pcm_u8,sonic,\
 truehd,tta,vorbis,wavpack,wmav1,wmav2,ssa,ass,dvbsub,dvdsub,mov_text,srt,subrip,ttml,webvtt \
   --disable-decoders \
-  --enable-decoder=av1,dvvideo,flv,gif,h263,h264,hevc,mjpeg,mpeg1video,mpeg2video,mpegvideo,mpeg4,\
+  --enable-decoder=av1,gif,hevc,mjpeg,mpeg1video,mpeg2video,mpegvideo,mpeg4,\
 msmpeg4v2,msmpeg4v3,msvideo1,png,tscc,tscc2,vc1,vp8,vp9,webp,wmv1,wmv2,wmv3,zlib,\
 aac,aac_latm,ac3,adpcm_ima_qt,adpcm_ima_wav,adpcm_ms,alac,amrnb,amrwb,ape,dolby_e,\
 eac3,flac,g722,g726,g729,m4a,mp3float,mp3,mp3adufloat,mp3adu,mp3on4,opus,pcm_alaw,\
@@ -118,7 +118,7 @@ ssa,ass,dvbsub,dvdsub,pgssub,mov_text,sami,srt,subrip,text,webvtt \
   --enable-protocols \
   --disable-demuxers \
   --enable-demuxer=aac,ac3,alaw,amr,amrnb,amrwb,ape,asf,asf_o,ass,av1,avi,cavsvideo,codec2,concat,dash,dnxhd,eac3,flac,flv,\
-g722,g726,g729,gif,gif_pipe,h263,h264,hevc,hls,image2,image2pipe,jpeg_pipe,lrc,m4v,matroska,webm,mjpeg,mov,mp4,m4a,3gp,mp3,mpeg,\
+g722,g726,g729,gif,gif_pipe,hevc,hls,image2,image2pipe,jpeg_pipe,lrc,m4v,matroska,webm,mjpeg,mov,m4a,3gp,mp3,mpeg,\
 mpegts,mpegvideo,mv,mulaw,manifest,ogg,pcm_s16be,pcm_s16le,pcm_s32be,pcm_s32le,pcm_f32be,pcm_f32le,pcm_f64be,pcm_f64le,\
 png_pipe,realtext,rm,rtp,rtsp,sami,sdp,srt,swf,vc1,wav,webm_dash,xmv \
 $ADDITIONAL_CONFIGURE_FLAG
