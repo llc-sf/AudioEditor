@@ -9,6 +9,6 @@ Version: 60.3.100
 Requires: libswresample >= 4.10.100, libavutil >= 58.2.100
 Requires.private: 
 Conflicts:
-Libs: -L${libdir}  -lavcodec -landroid -landroid -pthread -lm -latomic -lmp3lame -lm -lz
+Libs: -L${libdir}  -lavcodec -pthread -lm -latomic -lmp3lame -lm -lz
 Libs.private: 
 Cflags: -I${includedir}
