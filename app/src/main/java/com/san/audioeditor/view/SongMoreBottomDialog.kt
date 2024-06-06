@@ -36,12 +36,12 @@ class SongMoreBottomDialog : BaseBottomTranslucentDialog(), View.OnClickListener
 
         @JvmStatic
         fun show(context: Context?, song: Song?, source: Serializable? = null) {
-            if (context == null || context !is AppCompatActivity || song == null) {
-                return
-            }
-            val dialog = SongMoreBottomDialog()
-            dialog.arguments = bundleOf(EXTRA_ARG_SONG to song, EXTRA_ARG_SOURCE to source)
-            BottomDialogManager.show(context, dialog)
+//            if (context == null || context !is AppCompatActivity || song == null) {
+//                return
+//            }
+//            val dialog = SongMoreBottomDialog()
+//            dialog.arguments = bundleOf(EXTRA_ARG_SONG to song, EXTRA_ARG_SOURCE to source)
+//            BottomDialogManager.show(context, dialog)
         }
     }
 

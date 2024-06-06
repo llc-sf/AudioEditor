@@ -64,9 +64,9 @@ class OutputFragment : BaseMVVMRefreshFragment<FragmentOutputBinding>() {
         mAdapter.notifyDataSetChanged()
 
         viewBinding.multiply.setOnClickListener {
-            mActivity?.let {
-                it.startActivity(Intent(it, MutiManagerActivity::class.java))
-            }
+//            mActivity?.let {
+//                it.startActivity(Intent(it, MutiManagerActivity::class.java))
+//            }
         }
         viewBinding.sort.setOnClickListener {
             SortSelectDialogFragment.show(childFragmentManager, mViewModel.mCurrentSort, AudioSortAdapter()) {
