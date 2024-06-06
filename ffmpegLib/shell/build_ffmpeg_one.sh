@@ -48,8 +48,8 @@ export PREFIX=../ffmpeg-android/$ABI
 export ADDITIONAL_CONFIGURE_FLAG="--cpu=$CPU"
 
 THIRD_LIB=$PREFIX
-export EXTRA_CFLAGS="-Os -fPIC $OPTIMIZE_CFLAGS -I$THIRD_LIB/include -I/Users/chenlu/work/lam/lame-3.100//android/aarch64/include"
-export EXTRA_LDFLAGS="-lc -lm -ldl -llog -lgcc -lz -landroid -L$THIRD_LIB/lib -L/Users/chenlu/work/lam/lame-3.100//android/aarch64/lib"
+export EXTRA_CFLAGS="-Os -fPIC $OPTIMIZE_CFLAGS -I$THIRD_LIB/include -I/Users/chenlu/AndroidStudioProjects/AudioEditor/lame-3.100/android/aarch64/include"
+export EXTRA_LDFLAGS="-lc -lm -ldl -llog -lgcc -lz -landroid -L$THIRD_LIB/lib -L/Users/chenlu/AndroidStudioProjects/AudioEditor/lame-3.100//android/aarch64/lib"
 
 function build_one() {
   ./configure \
