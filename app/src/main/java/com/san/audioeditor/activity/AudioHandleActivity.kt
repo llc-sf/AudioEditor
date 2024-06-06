@@ -31,7 +31,6 @@ import dev.audio.ffmpeglib.tool.FFmpegUtil
 import dev.audio.ffmpeglib.tool.FFmpegUtil.fadeInOutAudio
 import dev.audio.ffmpeglib.tool.FileUtil
 import dev.audio.timeruler.demo.TimeRulerActivity
-import dev.audio.recorder.demo.RecorderActivity
 import java.io.File
 import java.util.Locale
 
@@ -200,12 +199,12 @@ class AudioHandleActivity : BaseActivity() {
                         )
                     }
                     6-> {
-                        startActivity(
-                            Intent(
-                                this@AudioHandleActivity,
-                                RecorderActivity::class.java
-                            )
-                        )
+//                        startActivity(
+//                            Intent(
+//                                this@AudioHandleActivity,
+//                                RecorderActivity::class.java
+//                            )
+//                        )
                     }
 
                     else -> {

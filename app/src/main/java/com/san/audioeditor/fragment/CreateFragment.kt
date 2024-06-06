@@ -3,12 +3,12 @@ package com.san.audioeditor.fragment
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateLayoutParams
-import com.android.app.AppProvider
 import com.san.audioeditor.activity.AudioCutActivity
 import com.san.audioeditor.activity.AudioPickActivity
 import com.san.audioeditor.activity.MultiTrackerAudioEditorActivity
@@ -18,9 +18,7 @@ import com.san.audioeditor.storage.AudioSyncService
 import dev.android.player.framework.base.BaseFragment
 import dev.android.player.framework.data.model.Song
 import dev.android.player.framework.utils.AndroidUtil
-import dev.android.player.framework.utils.dp
 import dev.android.player.framework.utils.getLocationOnScreen
-import dev.audio.recorder.utils.Log
 
 class CreateFragment : BaseFragment() {
 

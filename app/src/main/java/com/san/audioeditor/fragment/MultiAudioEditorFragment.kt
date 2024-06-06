@@ -1,6 +1,7 @@
 package com.san.audioeditor.fragment
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.SeekBar
 import com.google.android.exoplayer2.MediaItem
@@ -18,7 +19,6 @@ import com.san.audioeditor.viewmodel.AudioCutViewModel
 import dev.android.player.framework.base.BaseMVVMFragment
 import dev.android.player.framework.data.model.Song
 import dev.android.player.framework.utils.ImmerseDesign
-import dev.audio.recorder.utils.Log
 import dev.audio.timeruler.bean.TimeBean
 import dev.audio.timeruler.bean.VideoBean
 import dev.audio.timeruler.bean.Waveform

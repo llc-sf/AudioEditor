@@ -11,7 +11,6 @@ import dev.android.player.framework.data.model.Song
 import dev.android.player.framework.utils.DateUtil
 import dev.android.player.framework.utils.FileUtils
 import dev.android.player.framework.utils.bindHighLightColorRes
-import dev.audio.recorder.utils.Log
 import dev.audio.timeruler.player.PlayerManager
 import dev.audio.timeruler.player.PlayerProgressCallback
 import dev.audio.timeruler.utils.AudioFileUtils

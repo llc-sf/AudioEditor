@@ -10,10 +10,9 @@ import android.os.Handler
 import android.os.Message
 import android.provider.MediaStore
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Toast
 import android.widget.toast.ToastCompat
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -29,7 +28,6 @@ import dev.android.player.framework.base.viewmodel.BaseViewModel
 import dev.android.player.framework.data.model.Song
 import dev.audio.ffmpeglib.tool.FFmpegUtil
 import dev.audio.ffmpeglib.tool.FileUtil
-import dev.audio.recorder.utils.Log
 import dev.audio.timeruler.bean.AudioFragmentBean
 import dev.audio.timeruler.utils.AudioFileUtils
 import dev.audio.timeruler.utils.toInverseSegmentsArray

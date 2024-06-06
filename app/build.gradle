@@ -62,7 +62,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.9.0-alpha04'
     implementation project(":waveform")
     implementation project(":timeRuler")
-    implementation project(":recorderLib")
+//    implementation project(":recorderLib")
 
     //Glide
     implementation rootProject.ext.Image.glide

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.text.TextUtils
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -41,7 +42,6 @@ import dev.android.player.framework.utils.ImmerseDesign
 import dev.android.player.framework.utils.OncePreferencesUtil
 import dev.android.player.framework.utils.getLocationOnScreen
 import dev.audio.ffmpeglib.tool.ScreenUtil
-import dev.audio.recorder.utils.Log
 import dev.audio.timeruler.bean.AudioFragmentBean
 import dev.audio.timeruler.bean.Waveform
 import dev.audio.timeruler.listener.OnScaleChangeListener

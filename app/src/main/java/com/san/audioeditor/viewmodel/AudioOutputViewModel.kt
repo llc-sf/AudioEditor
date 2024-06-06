@@ -7,24 +7,14 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
-import android.text.TextUtils
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.android.app.AppProvider
-import com.san.audioeditor.activity.AudioCutActivity
 import com.san.audioeditor.storage.AudioSyncService
 import com.san.audioeditor.storage.AudioSyncUtil
 import com.san.audioeditor.viewmodel.pagedata.AudioListPageState
-import com.san.audioeditor.viewmodel.pagedata.NotifyItemChangedState
 import dev.android.player.app.business.SortBusiness
-import dev.android.player.app.business.data.SortStatus
-import dev.android.player.framework.base.viewmodel.BaseViewModel
-import dev.android.player.framework.data.model.Song
-import dev.audio.recorder.utils.Log
-import dev.audio.timeruler.player.PlayerManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
