@@ -126,7 +126,7 @@ g722,g726,g729,gif,gif_pipe,h263,h264,hevc,hls,image2,image2pipe,jpeg_pipe,lrc,m
 mpegts,mpegvideo,mv,mulaw,manifest,ogg,pcm_s16be,pcm_s16le,pcm_s32be,pcm_s32le,pcm_f32be,pcm_f32le,pcm_f64be,pcm_f64le,\
 png_pipe,realtext,rm,rtp,rtsp,sami,sdp,srt,swf,vc1,wav,webm_dash,xmv \
 $ADDITIONAL_CONFIGURE_FLAG
-make
+make -j
 make install
 }
 
