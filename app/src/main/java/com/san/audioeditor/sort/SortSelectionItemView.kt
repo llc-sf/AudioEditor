@@ -37,10 +37,11 @@ class SortSelectionItemView @JvmOverloads constructor(context: Context,
         super.setSelected(selected)
         if (selected) {
             findViewById<ImageView>(R.id.item_icon).setImageResource(R.drawable.ic_round_checked)
+            findViewById<TextView>(R.id.item_name).setTextColor(ContextCompat.getColor(context, R.color.colorAccent))
             onItemSelected?.invoke()
         } else {
             findViewById<ImageView>(R.id.item_icon).setImageResource(R.drawable.ic_round_check)
-            findViewById<TextView>(R.id.item_name).setTextColor(ContextCompat.getColor(context, R.color.txt_color_primary))
+            findViewById<TextView>(R.id.item_name).setTextColor(ContextCompat.getColor(context, R.color.white))
         }
     }
 }

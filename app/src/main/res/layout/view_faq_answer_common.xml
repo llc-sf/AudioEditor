@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/faq_answer_tittle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dp_16"
+    android:lineSpacingExtra="@dimen/dp_5"
+    android:textColor="@color/white.alpha.60"
+    android:textSize="@dimen/sp_14"
+    tools:text="Question1 answer!"
+    android:textDirection="anyRtl"
+    tools:textColor="@color/white.alpha.60" />

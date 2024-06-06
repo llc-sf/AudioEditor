@@ -46,17 +46,17 @@ class SortSelectDialogFragment : BaseBottomTranslucentDialog() {
                  adapter: ISortAdapter? = null,//排序的选项列表
                  callback: ISortSelectionCallback? = null//排序完成后回调
         ) {
-//            try {
-//                val fragment = SortSelectDialogFragment()
-//                fragment.apply {
-//                    arguments = bundleOf(EXTRA_ARG_SELECTED to action)
-//                }
-//                fragment.mSelectionCallback = callback
-//                fragment.mAdapter = adapter
-//                BottomDialogManager.show(manager, fragment)
-//            } catch (e: Exception) {
-//                e.printStackTrace()
-//            }
+            try {
+                val fragment = SortSelectDialogFragment()
+                fragment.apply {
+                    arguments = bundleOf(EXTRA_ARG_SELECTED to action)
+                }
+                fragment.mSelectionCallback = callback
+                fragment.mAdapter = adapter
+                BottomDialogManager.show(manager, fragment)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
 
 

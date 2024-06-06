@@ -50,7 +50,7 @@
     <!--Seekbar-->
     <style name="ColorAccentSeekBarStyleTheme" parent="Theme.Material3.DayNight">
         <item name="colorControlActivated">@color/colorAccent</item>
-        <item name="colorControlNormal">@color/white.alpha.15</item>
+        <item name="colorControlNormal">@color/white.alpha.40</item>
     </style>
 
     <declare-styleable name="MoreActionItem">

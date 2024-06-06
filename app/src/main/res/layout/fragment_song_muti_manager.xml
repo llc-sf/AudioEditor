@@ -1,5 +1,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -17,42 +18,87 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/select_audio" />
 
-    <LinearLayout
-        android:id="@+id/search"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginStart="@dimen/dp_20"
-        android:layout_marginEnd="@dimen/dp_8"
-        android:background="@drawable/draw_edit_layout_round_bg"
-        android:gravity="center"
+        android:layout_marginHorizontal="@dimen/dp_20"
+        android:background="@drawable/shape_round_search_edit"
         android:minHeight="@dimen/dp_38"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-        <ImageView
-            android:id="@+id/icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_search_editor" />
-
-        <TextView
+        <dev.android.player.widget.text.EditText
             android:id="@+id/query"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_8"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center_vertical"
             android:background="@null"
-            android:hint="@string/search"
+            android:imeOptions="actionSearch"
             android:maxLines="1"
+            android:paddingStart="@dimen/dp_20"
             android:singleLine="true"
             android:textColor="?attr/textColorPrimary"
-            android:textColorHint="@color/white.alpha.50"
-            android:textSize="16sp" />
+            android:textColorHint="@color/black.a1.alpha50"
+            android:textSize="@dimen/sp_16"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/iv_clear"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:paddingVertical="@dimen/dp_10"
+            android:src="@drawable/ic_search_grey"
+            app:layout_constrainedHeight="true"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_search_hint"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_search_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:text="@string/search_audio"
+            android:textColor="@color/white.alpha.25"
+            android:textSize="@dimen/sp_16"
+            app:layout_constrainedHeight="true"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_search"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/iv_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:paddingHorizontal="@dimen/dp_8"
+            android:paddingVertical="@dimen/dp_8"
+            android:src="@drawable/ic_search_clear"
+            android:visibility="gone"
+            app:layout_constrainedHeight="true"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/query"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/folder_selected"
@@ -65,7 +111,7 @@
         android:textSize="@dimen/sp_17"
         app:fontFamily="@font/poppins_semibold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search" />
+        app:layout_constraintTop_toBottomOf="@id/cl_search" />
 
     <ImageView
         android:id="@+id/select_all_icon"
@@ -105,6 +151,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:layout_marginStart="@dimen/dp_38"
         android:orientation="vertical"
         android:paddingVertical="@dimen/dp_16"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -115,13 +162,15 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_more_share" />
+            app:srcCompat="@drawable/ic_share_white" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_8"
-            android:text="@string/share" />
+            android:text="@string/share"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_11" />
     </LinearLayout>
 
     <LinearLayout
@@ -131,6 +180,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:paddingVertical="@dimen/dp_16"
+        android:layout_marginEnd="@dimen/dp_38"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/share_container">
@@ -139,13 +189,43 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_more_share" />
+            app:srcCompat="@drawable/ic_bottom_delete" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_8"
-            android:text="@string/delete" />
+            android:text="@string/delete"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_11" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_search_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_166"
+        android:src="@mipmap/ic_search_empty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_search_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search_result_empty"
+        android:textColor="@color/white.alpha.40"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_search_empty" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="iv_search_empty, tv_search_empty" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

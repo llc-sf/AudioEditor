@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/faq_fold_layout"
+    tools:ignore="MissingDefaultResource">
+
+    <TextView
+        android:id="@+id/faq_answer_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="@dimen/dp_5"
+        android:textColor="@color/white.alpha.60"
+        android:textSize="@dimen/sp_15"
+        tools:text="Question1 answer!" />
+
+    <RelativeLayout
+        android:id="@+id/faq_jump_entrance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/dp_15"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/faq_jump_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:lines="1"
+            android:minHeight="@dimen/dp_46"
+            android:paddingHorizontal="@dimen/dp_49"
+            android:textColor="@color/faq_helpful_text_selected_color"
+            android:textSize="@dimen/sp_16"
+            android:textStyle="bold"
+            app:autoSizeMaxTextSize="@dimen/sp_16"
+            app:autoSizeMinTextSize="@dimen/sp_10"
+            app:autoSizeStepGranularity="@dimen/sp_1"
+            app:autoSizeTextType="uniform"
+            tools:text="test" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/battery_status_not"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/dp_15"
+            android:layout_toStartOf="@id/faq_jump_content" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/battery_status_yes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/dp_15"
+            android:layout_toStartOf="@id/faq_jump_content" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/faq_answer_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="@dimen/dp_5"
+        android:textColor="@color/white.alpha.60"
+        android:textSize="@dimen/sp_15"
+        tools:text="Question2 answer!" />
+
+    <TextView
+        android:id="@+id/faq_answer_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_5"
+        android:lineSpacingExtra="@dimen/dp_5"
+        android:textColor="@color/white.alpha.60"
+        android:textSize="@dimen/sp_15"
+        tools:text="Question3 answer!" />
+</androidx.appcompat.widget.LinearLayoutCompat>

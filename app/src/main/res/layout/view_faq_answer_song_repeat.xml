@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:orientation="vertical"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/faq_fold_layout"
+    tools:ignore="MissingDefaultResource">
+
+    <TextView
+        android:id="@+id/faq_answer_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="@dimen/dp_5"
+        android:text="@string/duplicate_songs_appear_faq_ans1_gpt"
+        android:textColor="@color/white.alpha.60"
+        android:textSize="@dimen/sp_15" />
+
+
+    <TextView
+        android:id="@+id/faq_step_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_12"
+        android:lineSpacingExtra="@dimen/dp_5"
+        android:textColor="@color/white.alpha.60"
+        android:textSize="@dimen/sp_15" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_tips1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:layout_marginTop="@dimen/dp_12"
+        android:background="@drawable/shape_bg_faq_song"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:paddingVertical="@dimen/dp_8">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/playing_cover"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/dp_10"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constrainedHeight="true"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/song_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_3"
+            android:alpha="0.4"
+            android:includeFontPadding="false"
+            android:text="Love Story"
+            android:textColor="@color/faq_helpful_text_selected_color"
+            android:textSize="@dimen/dp_14"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/artist_name"
+            app:layout_constraintStart_toEndOf="@+id/playing_cover"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/artist_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_3"
+            android:alpha="0.4"
+            android:includeFontPadding="false"
+            android:text="Taylor Swift"
+            android:textColor="@color/white.alpha.80"
+            android:textSize="@dimen/dp_12"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/song_name"
+            app:layout_constraintTop_toBottomOf="@id/song_name" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_8"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constrainedHeight="true"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="47:27"
+            app:layout_constraintEnd_toStartOf="@+id/iv_more"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_more"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginEnd="@dimen/dp_8"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constrainedHeight="true"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/faq_answer_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="@dimen/dp_5"
+        android:textColor="@color/white.alpha.60"
+        android:textSize="@dimen/sp_15"
+        tools:text="Question1 answer!" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layout_tips2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:layout_marginTop="@dimen/dp_12"
+        android:background="@drawable/shape_bg_faq_song"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/dp_10"
+        android:paddingVertical="@dimen/dp_8">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_bg_faq_icon_delete"
+            android:padding="@dimen/dp_9">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_faq_delete" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/dp_10"
+            android:text="@string/delete_from_device"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <TextView
+        android:id="@+id/faq_answer_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_16"
+        android:lineSpacingExtra="@dimen/dp_5"
+        android:textColor="@color/white.alpha.60"
+        android:textSize="@dimen/sp_15"
+        tools:text="Question1 answer!" />
+</androidx.appcompat.widget.LinearLayoutCompat>

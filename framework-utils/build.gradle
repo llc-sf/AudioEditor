@@ -48,4 +48,6 @@ dependencies {
     implementation project(":framework-appprovider")
     api project(":framework-simplecache")
     implementation project(':framework-rx')
+    implementation project(":widget-recyclerview")
+    implementation "androidx.documentfile:documentfile:1.0.1"
 }

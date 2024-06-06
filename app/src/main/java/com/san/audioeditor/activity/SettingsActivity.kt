@@ -13,7 +13,7 @@ class SettingsActivity : BaseFragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root.rootView)
+        setContentView(binding.root)
         binding.toolbar.run {
             ImmerseDesign()
             setNavigationOnClickListener { finish() }

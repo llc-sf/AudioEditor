@@ -1,16 +1,9 @@
 package com.san.audioeditor.fragment
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.net.Uri
-import android.os.Bundle
-import android.os.Environment
-import android.os.Handler
-import android.os.Message
-import android.provider.MediaStore
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -20,11 +13,9 @@ import android.widget.HorizontalScrollView
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import android.widget.toast.ToastCompat
 import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.graphics.alpha
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import com.airbnb.lottie.LottieAnimationView
@@ -37,13 +28,11 @@ import com.google.android.exoplayer2.source.MergingMediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
-import com.masoudss.lib.utils.WaveformOptions
 import com.music.font.Poppins
 import com.san.audioeditor.R
 import com.san.audioeditor.activity.AudioCutActivity
+import com.san.audioeditor.activity.FAQActivity
 import com.san.audioeditor.databinding.FragmentAudioCutBinding
-import com.san.audioeditor.handler.FFmpegHandler
-import com.san.audioeditor.storage.convertSong
 import com.san.audioeditor.view.tips.CutPipsView
 import com.san.audioeditor.viewmodel.AudioCutViewModel
 import dev.android.player.framework.base.BaseMVVMFragment
@@ -51,9 +40,6 @@ import dev.android.player.framework.data.model.Song
 import dev.android.player.framework.utils.ImmerseDesign
 import dev.android.player.framework.utils.OncePreferencesUtil
 import dev.android.player.framework.utils.getLocationOnScreen
-import dev.audio.ffmpeglib.FFmpegApplication
-import dev.audio.ffmpeglib.tool.FFmpegUtil
-import dev.audio.ffmpeglib.tool.FileUtil
 import dev.audio.ffmpeglib.tool.ScreenUtil
 import dev.audio.recorder.utils.Log
 import dev.audio.timeruler.bean.AudioFragmentBean
@@ -64,31 +50,22 @@ import dev.audio.timeruler.multitrack.MultiTrackSelector
 import dev.audio.timeruler.player.PlayerManager
 import dev.audio.timeruler.player.PlayerProgressCallback
 import dev.audio.timeruler.timer.EditExitDialog
-import dev.audio.timeruler.timer.EditLoadingDialog
 import dev.audio.timeruler.timer.RedoConfirmDialog
 import dev.audio.timeruler.timer.UndoConfirmDialog
-import dev.audio.timeruler.utils.AudioFileUtils
 import dev.audio.timeruler.utils.cropMiddleThirdWidth
 import dev.audio.timeruler.utils.dp
 import dev.audio.timeruler.utils.format2DurationSimple
 import dev.audio.timeruler.utils.format2DurationSimpleInt
 import dev.audio.timeruler.utils.lastAudioFragmentBean
 import dev.audio.timeruler.utils.nextAudioFragmentBean
-import dev.audio.timeruler.utils.toInverseSegmentsArray
-import dev.audio.timeruler.utils.toSegmentsArray
 import dev.audio.timeruler.weight.AudioCutEditorView
 import dev.audio.timeruler.weight.AudioEditorConfig
 import dev.audio.timeruler.weight.BaseAudioEditorView
 import dev.audio.timeruler.weight.CutPieceFragment
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import java.io.File
 import java.util.Calendar
 
 
-class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
-    EditLoadingDialog.OnCancelListener, Player.EventListener {
+class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(), Player.EventListener {
 
 
     companion object {
@@ -127,7 +104,11 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             val audioFragmentBean = intent.getParcelableExtra<AudioFragmentBean>(AudioCutActivity.PARAM_AUDIO)
             if (audioFragmentBean != null && !TextUtils.isEmpty(audioFragmentBean.path)) {
                 showWaveLoadingView()
-                mViewModel.song = getSongInfo(requireContext(), audioFragmentBean.path!!) ?: return
+                mViewModel.reInitSongInfo(requireContext(), audioFragmentBean.path!!)
+                if (mViewModel.song == null) {
+                    mViewModel.editorError()
+                    return
+                }
                 PlayerManager.playByPath(mViewModel.song.path)
                 initTimeBar(false)
                 PlayerManager.playWithSeek(0, 0)
@@ -206,7 +187,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             (rootView as? FrameLayout)?.addView(tipsView, FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT))
             tipsView.updateLayoutParams<FrameLayout.LayoutParams> {
                 var margin = 0.dp
-                topMargin = location[1] - tipsView.measuredHeight - margin +10.dp
+                topMargin = location[1] - tipsView.measuredHeight - margin + 10.dp
                 marginStart = 20.dp
             }
             tipsView.bottomArrow().updateLayoutParams<ConstraintLayout.LayoutParams> {
@@ -585,15 +566,39 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
 
 
     override fun startObserve() {
-        mViewModel.audioCutState.observe(viewLifecycleOwner) {
-            if (it.isShowEditLoading == true) {
-                showAudioDealLoadingView()
-                viewBinding.progressText.text = "(${0}%)"
-            } else if ((it.progress ?: 0) > 0) {
-                viewBinding.progressText.text = "(${it.progress}%)"
-                viewBinding.progress.progress = it.progress ?: 0
-            } else if (it.isShowEditLoading == false) {
-                hideAudioDealLoadingView()
+        mViewModel.mainModel.observe(viewLifecycleOwner) { uiState ->
+            uiState.isSuccess?.let {
+                if (it.isShowEditLoading == true) {
+                    showAudioDealLoadingView()
+                    viewBinding.progressText.text = "(${0}%)"
+                }
+                if ((it.progress ?: 0) > 0) {
+                    viewBinding.progressText.text = "(${it.progress}%)"
+                    viewBinding.progress.progress = it.progress ?: 0
+                }
+                if (it.isShowEditLoading == false) {
+                    hideAudioDealLoadingView()
+                }
+                if (it.waveform != null) {
+                    if (it.waveform!!.isEmpty()) {
+                        ToastCompat.makeText(AppProvider.context, false, AppProvider.context.getString(R.string.song_unavailable))
+                            .show()
+                        mActivity?.finish()
+                        return@observe
+                    }
+                    viewBinding.timeLine.setWaveform(Waveform(it.waveform!!.toList()), mViewModel.song.duration.toLong(), mViewModel.song.path, it.cutMode
+                        ?: CutPieceFragment.CUT_MODE_SELECT)
+                    hideWaveLoadingView()
+                    freshZoomView()
+                    waveDataLoaded()
+                }
+                if (it.isShowEditTips == true) {
+                    showEditTips()
+                }
+
+                if (it.isEnableBack == true) {
+                    enableBack()
+                }
             }
         }
     }
@@ -907,14 +912,13 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
                     .show()
                 return@setOnClickListener
             }
-            mViewModel.isConformed = true
-            mViewModel.isCancel = false
-            audioDeal(mViewModel.song.path)
+            var realCutPieceFragments = viewBinding.timeLine.cutPieceFragmentsOrder?.filter { !it.isFake }
+            mViewModel.audioDeal(requireContext(), viewBinding.timeLine.cutMode, realCutPieceFragments)
         }
 
         viewBinding.btnCancel.setOnClickListener {
             mViewModel.isCancel = true
-            ffmpegHandler?.cancelExecute(true) //        viewBinding.progressLy.isVisible = false
+            mViewModel.cancelEditor()
         }
 
         freshSaveActions()
@@ -927,10 +931,14 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             disableBack()
             PlayerManager.pause()
             var realCutPieceFragments = viewBinding.timeLine.cutPieceFragmentsOrder?.filter { !it.isFake }
-            mViewModel.save(requireContext(), viewBinding.timeLine.cutMode, mViewModel.song.duration, realCutPieceFragments, mViewModel.datas)
+            mViewModel.save(requireContext(), viewBinding.timeLine.cutMode, realCutPieceFragments)
         }
 
-        PlayerManager.addListener(this)
+        viewBinding.question.setOnClickListener {
+            FAQActivity.open(requireContext(), FAQActivity.OPEN_FROM_AUDIO_CUT)
+        }
+
+        PlayerManager.addEventListener(this)
 
         viewBinding.timeLine.initConfig(AudioEditorConfig.Builder()
                                             .mode(BaseAudioEditorView.MODE_ARRAY[2])
@@ -1006,9 +1014,9 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     }
 
     private fun editPre() {
-        if (mViewModel.datas.isNullOrEmpty() || viewBinding.timeLine.audioFragmentBean == null) { //                Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
+        if (mViewModel.tempConfirmAudios.isNullOrEmpty() || viewBinding.timeLine.audioFragmentBean == null) { //                Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
         } else {
-            var last = mViewModel.datas.lastAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!)
+            var last = mViewModel.tempConfirmAudios.lastAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!)
             if (last == null) { //                    Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
             } else {
                 AudioCutActivity.open(requireContext(), last)
@@ -1017,9 +1025,9 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     }
 
     private fun editNext() {
-        if (mViewModel.datas.isNullOrEmpty() || viewBinding.timeLine.audioFragmentBean == null) { //                Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
+        if (mViewModel.tempConfirmAudios.isNullOrEmpty() || viewBinding.timeLine.audioFragmentBean == null) { //                Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
         } else {
-            var next = mViewModel.datas.nextAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!)
+            var next = mViewModel.tempConfirmAudios.nextAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!)
             if (next == null) { //                    Toast.makeText(requireContext(), "nothing", Toast.LENGTH_SHORT).show()
             } else {
                 AudioCutActivity.open(requireContext(), next)
@@ -1041,32 +1049,11 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     }
 
 
-    //todo requireContext()
     private fun setAudioData(cutMode: Int) { //        var bg = ImageView(requireContext()).apply {
-        //            setBackgroundColor(requireContext().resources.getColor(R.color.transparent))
-        //            id = R.id.tips_bg
-        //            setOnClickListener { }
-        //        }
-        activity?.window?.decorView?.let { rootView -> //            (rootView as? FrameLayout)?.addView(bg, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
-            viewBinding.timeLine.switchCutMode(cutMode)
-            viewBinding.timeLine.setLoadingView(mViewModel.song.duration.toLong(), mViewModel.song.path, cutMode)
-            GlobalScope.launch(Dispatchers.IO) {
-                WaveformOptions.getSampleFrom(requireContext(), mViewModel.song.path) {
-                    viewBinding.timeLine.post {
-                        if(it==null|| it.isEmpty()){
-                            ToastCompat.makeText(AppProvider.context, false, AppProvider.context.getString(R.string.song_unavailable)).show()
-                            mActivity?.finish()
-                            return@post
-                        }
-                        viewBinding.timeLine.setWaveform(Waveform(it.toList()), mViewModel.song.duration.toLong(), mViewModel.song.path, cutMode)
-                        hideWaveLoadingView()
-                        freshZoomView()
-                        waveDataLoaded() //                        (rootView as? FrameLayout)?.removeView(bg)
-                    }
-                }
-            }
-            play(requireContext())
-        }
+        viewBinding.timeLine.switchCutMode(cutMode)
+        viewBinding.timeLine.setLoadingView(mViewModel.song.duration.toLong(), mViewModel.song.path, cutMode)
+        mViewModel.getAudioData(requireContext(), cutMode)
+        play(requireContext())
     }
 
     private fun showWaveLoadingView() {
@@ -1098,7 +1085,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
     }
 
     private fun freshSaveActions() {
-        if (mViewModel.datas.isNullOrEmpty() || viewBinding.timeLine.audioFragmentBean == null) {
+        if (mViewModel.tempConfirmAudios.isNullOrEmpty() || viewBinding.timeLine.audioFragmentBean == null) {
             viewBinding.pre.alpha = 0.5f
             viewBinding.next.alpha = 0.5f
             viewBinding.pre.isEnabled = false
@@ -1107,7 +1094,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             viewBinding.actionEdit.freshRightIconEnable(false)
             return
         }
-        if (mViewModel.datas.lastAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!) == null) {
+        if (mViewModel.tempConfirmAudios.lastAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!) == null) {
             viewBinding.pre.alpha = 0.5f
             viewBinding.pre.isEnabled = false
             viewBinding.actionEdit.freshLeftIconEnable(false)
@@ -1116,7 +1103,7 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
             viewBinding.pre.isEnabled = true
             viewBinding.actionEdit.freshLeftIconEnable(true)
         }
-        if (mViewModel.datas.nextAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!) == null) {
+        if (mViewModel.tempConfirmAudios.nextAudioFragmentBean(viewBinding.timeLine.audioFragmentBean!!) == null) {
             viewBinding.next.alpha = 0.5f
             viewBinding.next.isEnabled = false
             viewBinding.actionEdit.freshRightIconEnable(false)
@@ -1150,59 +1137,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         return player
     }
 
-
-    var outputPath: String = ""
-    private var cutFileName = "cut"
-    private var suffix: String? = null
-    private val PATH = FFmpegApplication.instance?.getExternalFilesDir(Environment.DIRECTORY_MUSIC)?.absolutePath
-        ?: ""
-
-
-    private fun audioDeal(srcFile: String) {
-        PlayerManager.pause()
-        var realCutPieceFragments = viewBinding.timeLine.cutPieceFragmentsOrder?.filter { !it.isFake }
-        if (realCutPieceFragments.isNullOrEmpty()) {
-            ToastCompat.makeText(AppProvider.context, false, AppProvider.context.getString(R.string.error_save))
-                .show()
-            return
-        }
-        var commandLine: Array<String>? = null
-        if (!FileUtil.checkFileExist(srcFile)) {
-            return
-        }
-        if (!FileUtil.isAudio(srcFile)) {
-            return
-        }
-        suffix = FileUtil.getFileSuffix(srcFile)
-        if (suffix.isNullOrEmpty()) {
-            return
-        }
-
-        cutFileName = "cut_" + (System.currentTimeMillis())
-        outputPath = PATH + File.separator + cutFileName + suffix
-
-        commandLine = FFmpegUtil.cutMultipleAudioSegments(srcFile, if (viewBinding.timeLine.cutMode == CutPieceFragment.CUT_MODE_DELETE) realCutPieceFragments.toInverseSegmentsArray(mViewModel.song.duration.toFloat()) else realCutPieceFragments.toSegmentsArray(), outputPath)
-
-        android.util.Log.i(BaseAudioEditorView.jni_tag, "outputPath=${outputPath}") //打印 commandLine
-        var sb = StringBuilder()
-        commandLine?.forEachIndexed { index, s ->
-            sb.append("$s ")
-            android.util.Log.i(BaseAudioEditorView.jni_tag, "s=$s")
-        }
-        android.util.Log.i(BaseAudioEditorView.jni_tag, "sb=$sb")
-        if (ffmpegHandler != null && commandLine != null) {
-            ffmpegHandler!!.executeFFmpegCmd(commandLine)
-        }
-    }
-
-    private var ffmpegHandler: FFmpegHandler? = null
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        ffmpegHandler = FFmpegHandler(mHandler)
-    }
-
     private fun disableBack() {
         canCallBack = false
     }
@@ -1215,9 +1149,6 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         canCallBack = true
     }
 
-    var editLoadingDialog: EditLoadingDialog? = null
-
-
     private fun showAudioDealLoadingView() {
         viewBinding.cover.isVisible = true
         viewBinding.progressLy.isVisible = true //
@@ -1228,86 +1159,12 @@ class AudioCutEditorFragment : BaseMVVMFragment<FragmentAudioCutBinding>(),
         viewBinding.progressLy.isVisible = false //
     }
 
-    //todo  封装
-    @SuppressLint("HandlerLeak")
-    private val mHandler = object : Handler() {
-        override fun handleMessage(msg: Message) {
-            super.handleMessage(msg)
-            when (msg.what) {
-                FFmpegHandler.MSG_BEGIN -> {
-                    Log.i(BaseAudioEditorView.jni_tag, "begin")
-                    showAudioDealLoadingView() //                    editLoadingDialog = EditLoadingDialog.show(parentFragmentManager)
-                    viewBinding.progressText.text = "0%"
-                    editLoadingDialog?.setOnCancelListener(this@AudioCutEditorFragment)
-                    disableBack()
-                }
-
-                FFmpegHandler.MSG_FINISH -> {
-                    Log.i(BaseAudioEditorView.jni_tag, "finish resultCode=${msg.obj}")
-                    enableBack()
-                    hideAudioDealLoadingView()
-                    editLoadingDialog?.dismiss()
-                    if (mViewModel.isCancel) {
-                        return
-                    }
-                    if (msg.obj == 0) {
-                        showEditTips()
-                        var file = AudioFileUtils.copyAudioToFileStore(File(outputPath), requireContext(), cutFileName + suffix)
-                        if (file != null) {
-                            AudioFileUtils.deleteFile(outputPath)
-                            AudioFileUtils.notifyMediaScanner(requireContext(), file.absolutePath) { path: String, uri: Uri ->
-                                val song = getSongInfo(requireContext(), path)
-                                if (song != null) {
-                                    AudioCutActivity.open(requireContext(), song)
-                                }
-                            }
-                        } else {
-                            Toast.makeText(requireContext(), "裁剪失败", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
-
-                FFmpegHandler.MSG_PROGRESS -> {
-                    val progress = msg.arg1
-                    Log.i(BaseAudioEditorView.jni_tag, "progress=$progress")
-                    editLoadingDialog?.freshProgress(progress)
-                    viewBinding.progress.progress = progress
-                    viewBinding.progressText.text = "($progress%)"
-                }
-
-                FFmpegHandler.MSG_INFO -> {
-                    Log.i(BaseAudioEditorView.jni_tag, "${msg.obj}")
-                }
-
-                FFmpegHandler.MSG_CONTINUE -> {
-                    Log.i(BaseAudioEditorView.jni_tag, "continue")
-                }
-
-                else -> {
-                }
-            }
-        }
-    }
-
-
-    fun getSongInfo(context: Context, songPath: String): Song? {
-        val cursor = context.contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, MediaStore.Audio.Media.DATA + "=?", arrayOf(songPath), null)
-        if (cursor?.moveToNext() == true) {
-            return cursor.convertSong()
-        }
-        return null
-    }
-
 
     //注意调用时机 todo
     private fun addData(audioFragmentBean: AudioFragmentBean?) {
         audioFragmentBean?.let {
-            mViewModel.datas.add(it)
+            mViewModel.tempConfirmAudios.add(it)
         }
-    }
-
-    override fun onCancel() {
-        ffmpegHandler?.cancelExecute(true) //        viewBinding.progressLy.isVisible = false
     }
 
 

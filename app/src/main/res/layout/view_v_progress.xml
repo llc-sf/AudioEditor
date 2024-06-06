@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     android:descendantFocusability="blocksDescendants"
     tools:parentTag="android.widget.RelativeLayout">
 
@@ -13,15 +15,16 @@
         android:id="@+id/progress"
         android:layout_width="0dp"
         android:layout_height="@dimen/dp_24"
+        android:layout_marginHorizontal="@dimen/dp_6"
         android:max="100"
-        android:paddingStart="0dp"
-        android:paddingEnd="0dp"
+        android:paddingStart="@dimen/dp_4"
+        android:paddingEnd="@dimen/dp_4"
         android:theme="@style/ColorAccentSeekBarStyleTheme"
         android:thumb="@drawable/o_ee294d_corner_31"
-        android:thumbOffset="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:progress="0" />
 
     <TextView
         android:id="@+id/current_time"
@@ -41,7 +44,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_4"
-        android:layout_marginEnd="@dimen/dp_20"
         android:minWidth="@dimen/dp_30"
         android:textColor="@color/white.alpha.20"
         android:textSize="@dimen/sp_11"

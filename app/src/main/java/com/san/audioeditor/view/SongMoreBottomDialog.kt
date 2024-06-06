@@ -9,16 +9,25 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.view.children
+import com.android.app.AppProvider
 import com.san.audioeditor.R
 import com.san.audioeditor.activity.AudioCutActivity
 import com.san.audioeditor.business.ShareBusiness
 import com.san.audioeditor.databinding.DialogSongMoreBinding
-import com.san.audioeditor.dialog.RenameSongDialog
+import com.san.audioeditor.delete.DeleteAction
+import com.san.audioeditor.delete.DeleteSongPresenterCompat
+import com.san.audioeditor.dialog.RenameAudioDialog
 import com.san.audioeditor.dialog.SongDetailDialog
+import com.san.audioeditor.storage.AudioSyncService
 import dev.android.player.framework.data.model.Song
+import dev.android.player.framework.rx.ioMain
+import dev.android.player.framework.utils.DateUtil
+import dev.android.player.framework.utils.FileUtils
 import dev.android.player.framework.utils.TrackerMultiple
 import dev.audio.timeruler.timer.BaseBottomTranslucentDialog
 import dev.audio.timeruler.timer.BottomDialogManager
+import dev.audio.timeruler.utils.AudioFileUtils
+import io.reactivex.rxjava3.core.Flowable
 import musicplayer.playmusic.audioplayer.base.loader.load
 import java.io.Serializable
 
@@ -36,12 +45,12 @@ class SongMoreBottomDialog : BaseBottomTranslucentDialog(), View.OnClickListener
 
         @JvmStatic
         fun show(context: Context?, song: Song?, source: Serializable? = null) {
-//            if (context == null || context !is AppCompatActivity || song == null) {
-//                return
-//            }
-//            val dialog = SongMoreBottomDialog()
-//            dialog.arguments = bundleOf(EXTRA_ARG_SONG to song, EXTRA_ARG_SOURCE to source)
-//            BottomDialogManager.show(context, dialog)
+            if (context == null || context !is AppCompatActivity || song == null) {
+                return
+            }
+            val dialog = SongMoreBottomDialog()
+            dialog.arguments = bundleOf(EXTRA_ARG_SONG to song, EXTRA_ARG_SOURCE to source)
+            BottomDialogManager.show(context, dialog)
         }
     }
 
@@ -80,9 +89,14 @@ class SongMoreBottomDialog : BaseBottomTranslucentDialog(), View.OnClickListener
 
         mSong?.apply {
             binding.title.text = title
-            binding.description.text = artistName
+            binding.description.text = "${DateUtil.formatTime((this.duration).toLong())} | ${FileUtils.getFileSize(this.size)} | ${
+                AudioFileUtils.getExtension(this.path).uppercase()
+            }"
         }
         binding.cover.load(mSong)
+        binding.close.setOnClickListener {
+            dismiss()
+        }
         TrackerMultiple.onEvent("More_Songs", "PV")
     }
 
@@ -107,7 +121,7 @@ class SongMoreBottomDialog : BaseBottomTranslucentDialog(), View.OnClickListener
 
             R.id.action_rename -> {
                 mSong?.let {
-                    RenameSongDialog.show(activity?.supportFragmentManager, it)
+                    RenameAudioDialog.show(activity?.supportFragmentManager, it)
                 }
             }
 
@@ -117,11 +131,15 @@ class SongMoreBottomDialog : BaseBottomTranslucentDialog(), View.OnClickListener
                 }
             }
 
-            R.id.action_delete -> { //                if (mSong != null && activity is AppCompatActivity) {
-                //                    DeleteSongPresenterCompat.onDelete(DeleteAction(activity, mutableListOf(mSong)))
-                //                }
+            R.id.action_delete -> {
+                Flowable.fromCallable {
+                    DeleteSongPresenterCompat.onDelete(DeleteAction(activity, mutableListOf(mSong)))
+                }.flatMap { it ->
+                    DeleteSongPresenterCompat.getDeleteActionSuccess()
+                }.ioMain().subscribe {
+                    AudioSyncService.sync(AppProvider.context)
+                }
             }
-
         }
         dismiss()
     }

@@ -66,7 +66,7 @@ class MultiAudioEditorFragment : BaseMVVMFragment<FragmentMutilAudioEditorBindin
     }
 
     override fun startObserve() {
-        mViewModel.audioCutState.observe(viewLifecycleOwner) {
+        mViewModel.mainModel.observe(viewLifecycleOwner) {
         }
     }
 

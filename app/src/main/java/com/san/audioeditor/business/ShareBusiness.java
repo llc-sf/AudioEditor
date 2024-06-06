@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 
+import androidx.core.content.FileProvider;
+
 import com.san.audioeditor.R;
 import com.san.audioeditor.config.ShareProvider;
 
@@ -12,7 +14,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-//todo  链接更换
+//todo  链接更换、文案更换
 public class ShareBusiness {
     /**
      * 分享歌曲文件
@@ -45,30 +47,25 @@ public class ShareBusiness {
     }
 
 
-    /**
-     * 分享多个歌曲文件
-     *
-     * @param context
-     * @param paths
-     */
-    public static void shareTrackList(final Context context, List<String> paths) {
+    public static void shareMultipleTracks(final Context context, List<String> paths) {
         try {
             ArrayList<Uri> uris = new ArrayList<>();
-            for (String path : paths) {
-                File file = new File(path);
-                Uri uri;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    uri = ShareProvider.getShareUri(context, file);
-                } else {
-                    uri = Uri.fromFile(file);
-                }
-                uris.add(uri);
-            }
-
             Intent share = new Intent(Intent.ACTION_SEND_MULTIPLE);
             share.setType("audio/*");
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                for (String path : paths) {
+                    File file = new File(path);
+                    Uri uri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", file);
+                    uris.add(uri);
+                }
                 share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            } else {
+                for (String path : paths) {
+                    File file = new File(path);
+                    Uri uri = Uri.fromFile(file);
+                    uris.add(uri);
+                }
             }
 
             share.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
@@ -79,4 +76,5 @@ public class ShareBusiness {
             e.printStackTrace();
         }
     }
+
 }

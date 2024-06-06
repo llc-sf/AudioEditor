@@ -47,7 +47,7 @@
         android:theme="@style/AudioEditorTheme">
         <activity
             android:name=".activity.MainActivity"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -57,7 +57,7 @@
         </activity>
         <activity android:name=".activity.AudioCutHandleActivity"></activity>
         <activity android:name=".activity.AudioPickActivity"></activity>
-        <activity android:name=".activity.MutiManagerActivity"></activity>
+        <activity android:name=".activity.MultiManagerActivity"></activity>
         <activity android:name=".activity.AudioSaveActivity"></activity>
         <activity
             android:name=".activity.AudioCutActivity"
@@ -66,12 +66,31 @@
             ></activity>
         <activity android:name=".activity.MultiTrackerAudioEditorActivity"></activity>
         <activity android:name=".activity.SettingsActivity"></activity>
+        <activity android:name=".activity.SearchActivity"></activity>
+        <activity
+            android:name=".activity.FAQActivity"
+            android:launchMode="singleTop"></activity>
 
         <!--数据同步服务-->
         <service android:name=".storage.AudioSyncService" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+        <provider
+            android:name=".config.ShareProvider"
+            android:authorities="${applicationId}.file"
+            android:exported="false"
+            android:grantUriPermissions="true" />
     </application>
 
 </manifest>

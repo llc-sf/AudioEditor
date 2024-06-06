@@ -12,9 +12,9 @@ object GlideLoaderOptions {
     }
     val songOption by lazy {
         RequestOptions()
-                .fallback(R.drawable.ic_default_song)
-                .placeholder(R.drawable.ic_default_song)
-                .error(R.drawable.ic_default_song)
+                .fallback(R.drawable.ic_cover_default)
+                .placeholder(R.drawable.ic_cover_default)
+                .error(R.drawable.ic_cover_default)
     }
     val albumOption by lazy {
         RequestOptions()

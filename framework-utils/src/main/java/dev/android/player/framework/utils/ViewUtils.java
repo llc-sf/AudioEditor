@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -142,6 +143,15 @@ public class ViewUtils {
 
         return new RippleDrawable(colors, normal, ripple);
 
+    }
+
+    public static int[] onMeasureAtMost(View view) {
+        int maxWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+        int maxHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+        int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(maxWidth, View.MeasureSpec.AT_MOST);
+        int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(maxHeight, View.MeasureSpec.AT_MOST);
+        view.measure(widthMeasureSpec, heightMeasureSpec);
+        return new int[]{view.getMeasuredWidth(), view.getMeasuredHeight()};
     }
 
 }

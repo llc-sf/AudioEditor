@@ -1,8 +1,14 @@
 package dev.audio.ffmpeglib.tool;
 
 
+import android.media.MediaMetadataRetriever;
+
 import dev.audio.ffmpeglib.model.VideoLayout;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -94,6 +100,62 @@ public class FFmpegUtil {
         return insert(cutAudioCmd.split(" "), 2, inputPath, outputPath);
     }
 
+    public static boolean hasCover(String path) {
+        InputStream stream = null;
+        MediaMetadataRetriever retriever = null;
+        try {
+            retriever = new MediaMetadataRetriever();
+            retriever.setDataSource(path);
+            byte[] bytes = retriever.getEmbeddedPicture();
+            if (bytes != null) {
+                stream = new ByteArrayInputStream(bytes);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (retriever != null) {
+                    retriever.release();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return stream!=null;
+    }
+
+    public static String[] addCoverToAudioStep2(String inputPath, String tempOutputPath, String finalOutputPath) {
+        List<String> cmd = new ArrayList<>();
+        cmd.add("ffmpeg");
+        cmd.add("-i");
+        cmd.add(tempOutputPath);
+
+        if (hasCover(inputPath)) {
+            cmd.add("-i");
+            cmd.add(inputPath);
+            cmd.add("-map");
+            cmd.add("0");
+            cmd.add("-map");
+            cmd.add("1:v");
+            cmd.add("-c");
+            cmd.add("copy");
+            cmd.add("-disposition:v");
+            cmd.add("attached_pic");
+            cmd.add("-metadata:s:v");
+            cmd.add("title=Album cover");
+            cmd.add("-metadata:s:v");
+            cmd.add("comment=Cover (Front)");
+        } else {
+            cmd.add("-c");
+            cmd.add("copy");
+        }
+
+        cmd.add("-y");
+        cmd.add(finalOutputPath);
+        return cmd.toArray(new String[0]);
+    }
+
+
     public static String[] cutMultipleAudioSegments(String inputPath, float[][] segments, String outputPath) {
         // 构建 filter_complex 字符串
         StringBuilder filterComplex = new StringBuilder();
@@ -120,6 +182,48 @@ public class FFmpegUtil {
         cmd.add("-map");
         cmd.add("[outa]");
         cmd.add("-y");
+        cmd.add(outputPath);
+
+        // 转换命令列表为数组
+        return cmd.toArray(new String[0]);
+    }
+
+    public static String[] addCoverToAudio(String tempOutputPath, String coverPath, String finalOutputPath) {
+        List<String> cmd = new ArrayList<>();
+        cmd.add("ffmpeg");
+        cmd.add("-i");
+        cmd.add(tempOutputPath);
+        cmd.add("-i");
+        cmd.add(coverPath);
+        cmd.add("-map");
+        cmd.add("0");
+        cmd.add("-map");
+        cmd.add("1");
+        cmd.add("-c");
+        cmd.add("copy");
+        cmd.add("-disposition:v");
+        cmd.add("attached_pic");
+        cmd.add("-metadata:s:v");
+        cmd.add("title=Album cover");
+        cmd.add("-metadata:s:v");
+        cmd.add("comment=Cover (Front)");
+        cmd.add("-y");
+        cmd.add(finalOutputPath);
+
+        return cmd.toArray(new String[0]);
+    }
+
+
+    public static String[] extractAudioCover(String inputPath, String outputPath) {
+        // 构建命令
+        List<String> cmd = new ArrayList<>();
+        cmd.add("ffmpeg");
+        cmd.add("-i");
+        cmd.add(inputPath);
+        cmd.add("-an"); // 去掉音频
+        cmd.add("-vcodec");
+        cmd.add("copy"); // 直接拷贝视频流（封面图）
+        cmd.add("-y"); // 覆盖输出文件
         cmd.add(outputPath);
 
         // 转换命令列表为数组

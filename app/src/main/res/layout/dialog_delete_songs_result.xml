@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/BottomDialog.ParentContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/BottomDialog.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/result" />
+
+    <TextView
+        android:id="@+id/message"
+        style="@style/BottomDialog.Message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_16"
+        android:text="@string/music4_sdcard_permission_required" />
+
+    <TextView
+        android:id="@+id/message_detail"
+        style="@style/BottomDialog.Message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        tools:text="@string/music4_delete_permission_access" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_36"
+        android:minHeight="?attr/ConnerBtnHeight">
+
+        <dev.android.player.widget.text.AutoFitCornersButton
+            android:id="@+id/btn_ok"
+            style="@style/BottomDialog.Button.Cancel_14"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingHorizontal="4dp"
+            android:text="@string/action_ok" />
+
+        <Space
+            android:layout_width="14dp"
+            android:layout_height="wrap_content" />
+
+        <dev.android.player.widget.text.AutoFitCornersButton
+            android:id="@+id/btn_access"
+            style="@style/BottomDialog.Button.Confirm_14"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingHorizontal="4dp"
+            android:text="@string/allow_access" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

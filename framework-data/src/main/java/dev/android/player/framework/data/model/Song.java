@@ -244,6 +244,7 @@ public class Song extends IndexModel implements Serializable, Parcelable, IDelet
         song.genre = genre;
         song.mimeType = mimeType;
         song.cover = cover;
+        song.isSelected = isSelected;
         return song;
     }
 

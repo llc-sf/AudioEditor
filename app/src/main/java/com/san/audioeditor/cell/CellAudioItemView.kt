@@ -7,19 +7,20 @@ import com.san.audioeditor.view.AudioItemView
 import dev.android.player.framework.data.model.Song
 import dev.android.player.widget.cell.ItemViewBinder
 
-class CellAudioItemView(
-    private var itemClickNotify: (Int) -> Unit,
-    private var playingPosition: () -> Int,
-    private var selectCallBack: (Song,Boolean) -> Unit = { _, _ -> },
-    private var source: AudioItemView.Source = AudioItemView.Source.SOURCE_OUTPUT,
-) : ItemViewBinder<Song, CellAudioItemView.CellMediaItemViewHolder>() {
+class CellAudioItemView(private var onItemListener: AudioItemView.OnItemListener?) :
+    ItemViewBinder<Song, CellAudioItemView.CellMediaItemViewHolder>() {
     override fun onCreateViewHolder(inflater: LayoutInflater,
                                     parent: ViewGroup): CellMediaItemViewHolder {
-        return CellMediaItemViewHolder(AudioItemView(source = source, parent.context))
+        return CellMediaItemViewHolder(AudioItemView(parent.context))
     }
 
     override fun onBindViewHolder(holder: CellMediaItemViewHolder, item: Song) {
-        (holder.itemView as? AudioItemView)?.setData(item, holder.adapterPosition, itemClickNotify, playingPosition,selectCallBack)
+        (holder.itemView as? AudioItemView)?.setData(item, holder.adapterPosition, onItemListener)
+    }
+
+
+    fun onDestroy() {
+        onItemListener = null
     }
 
     class CellMediaItemViewHolder(itemView: AudioItemView?) : RecyclerView.ViewHolder(itemView!!)

@@ -6,6 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     android:descendantFocusability="blocksDescendants"
     tools:parentTag="android.widget.RelativeLayout">
 
@@ -25,7 +27,7 @@
         android:id="@+id/mask"
         android:layout_width="@dimen/dp_42"
         android:layout_height="@dimen/dp_42"
-        android:background="@color/black.alpha.70"
+        android:background="@color/black.alpha.40"
         app:layout_constraintBottom_toBottomOf="@id/cover"
         app:layout_constraintEnd_toEndOf="@id/cover"
         app:layout_constraintStart_toStartOf="@id/cover"
@@ -37,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/ic_item_play"
+        android:src="@drawable/ic_item_play"
         app:layout_constraintBottom_toBottomOf="@id/cover"
         app:layout_constraintEnd_toEndOf="@id/cover"
         app:layout_constraintStart_toStartOf="@id/cover"
@@ -64,6 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_16"
         android:layout_marginTop="@dimen/dp_2"
+        app:fontFamily="@font/poppins_light"
         app:layout_constraintBottom_toBottomOf="@id/cover"
         app:layout_constraintEnd_toStartOf="@id/more"
         app:layout_constraintStart_toEndOf="@id/cover"
@@ -79,19 +82,6 @@
         app:layout_constraintBottom_toBottomOf="@id/cover"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/cover" />
-
-
-    <!--    &lt;!&ndash;更多按钮&ndash;&gt;-->
-    <!--    <ImageView-->
-    <!--        android:id="@+id/is_selected"-->
-    <!--        style="@style/Item.NormalMore"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        app:layout_constraintBottom_toBottomOf="@id/cover"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="@id/cover"-->
-    <!--        app:srcCompat="@drawable/song_muti_selected_bg_selector" />-->
-
 
     <com.san.audioeditor.view.BottomProgressView
         android:id="@+id/progress_container"

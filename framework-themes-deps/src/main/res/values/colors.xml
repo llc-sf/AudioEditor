@@ -12,6 +12,7 @@
     <color name="white.alpha.12">#1FFFFFFF</color>
     <color name="white.alpha.15">#26FFFFFF</color>
     <color name="white.alpha.20">#33FFFFFF</color>
+    <color name="white.alpha.25">#3FFFFFFF</color>
     <color name="white.alpha.30">#4DFFFFFF</color>
     <color name="white.alpha.40">#66FFFFFF</color>
     <color name="white.alpha.50">#80FFFFFF</color>
@@ -86,4 +87,11 @@
     <color name="color.ee294d.alpha.80">#CCEE294D</color>
     <color name="color.222020">#222020</color>
     <color name="color.161616">#161616</color>
+    <color name="color.eea045">#EEA045</color>
+    <color name="widget_text_start_color">#E9541D</color>
+    <color name="widget_text_end_color">#EA2200</color>
+    <color name="faq_helpful_text_selected_color">#F44831</color>
+    <color name="faq_helpful_bg_selected_color">#33ff7f61</color>
+    <color name="faq_text_question_start_color">#E9541D</color>
+    <color name="faq_text_question_end_color">#EA2200</color>
 </resources>

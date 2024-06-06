@@ -6,6 +6,14 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/top_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_10"
+        app:srcCompat="@drawable/ic_top_bar" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,7 +25,7 @@
             android:layout_height="@dimen/dp_52"
             android:layout_marginVertical="@dimen/dp_20"
             android:scaleType="centerCrop"
-            app:shapeAppearanceOverlay="@style/ShapeableImageView.Circle" />
+            app:shapeAppearanceOverlay="@style/ShapeableImageView.Round" />
 
 
         <LinearLayout
@@ -45,6 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_2"
+                app:fontFamily="@font/poppins_light"
                 tools:text="Set Fire to the Rain" />
 
         </LinearLayout>
@@ -61,7 +70,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:padding="?attr/IconButtonPadding"
-            app:icon="@drawable/icon_sort" />
+            app:srcCompat="@drawable/ic_more_info" />
 
 
         <!--分享-->
@@ -74,7 +83,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:padding="?attr/IconButtonPadding"
-            android:src="@drawable/ic_more_share" />
+            app:srcCompat="@drawable/ic_more_share" />
 
     </RelativeLayout>
 
@@ -83,7 +92,8 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_marginBottom="@dimen/dp_6"
-        android:background="?attr/divider.color" />
+        android:background="?attr/divider.color"
+        android:visibility="invisible" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -94,14 +104,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="@dimen/dp_4"
-            android:paddingBottom="@dimen/dp_18">
+            android:paddingBottom="@dimen/dp_20">
 
             <com.san.audioeditor.view.MoreActionItem
                 android:id="@+id/action_rename"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:icon="@drawable/icon_sort"
+                app:icon="@drawable/ic_rename"
                 app:title="@string/rename" />
 
 
@@ -109,14 +118,14 @@
                 android:id="@+id/action_trim"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:icon="@drawable/icon_sort"
+                app:icon="@drawable/ic_trim"
                 app:title="@string/trim" />
 
             <com.san.audioeditor.view.MoreActionItem
                 android:id="@+id/action_delete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:icon="@drawable/icon_sort"
+                app:icon="@drawable/ic_delete"
                 app:title="@string/delete" />
 
             <View
@@ -130,5 +139,15 @@
 
     </androidx.core.widget.NestedScrollView>
 
+    <TextView
+        android:id="@+id/close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/dp_24"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/close"
+        android:textColor="@color/white.alpha.60"
+        android:textSize="@dimen/sp_17" />
 
 </LinearLayout>

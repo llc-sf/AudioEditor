@@ -14,32 +14,26 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.android.app.AppProvider
-import com.san.audioeditor.R
+import com.san.audioeditor.activity.AudioCutActivity
 import com.san.audioeditor.storage.AudioSyncService
 import com.san.audioeditor.storage.AudioSyncUtil
-import com.san.audioeditor.viewmodel.pagedata.AudioPickPageData
+import com.san.audioeditor.viewmodel.pagedata.AudioListPageState
+import com.san.audioeditor.viewmodel.pagedata.NotifyItemChangedState
 import dev.android.player.app.business.SortBusiness
 import dev.android.player.app.business.data.SortStatus
 import dev.android.player.framework.base.viewmodel.BaseViewModel
-import dev.android.player.framework.data.model.Directory
 import dev.android.player.framework.data.model.Song
 import dev.audio.recorder.utils.Log
-import dev.audio.timeruler.utils.AudioFileUtils
+import dev.audio.timeruler.player.PlayerManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.io.File
-import java.util.stream.Collectors
 
-class AudioOutputViewModel : BaseViewModel<AudioPickPageData>() {
+class AudioOutputViewModel : BaseAudioListViewModel() {
 
     companion object {
 
-        const val ALL_AUDIO = "all/audio"
     }
 
-    var playingPosition: Int = -1
-
-    lateinit var mCurrentSort: SortStatus
 
     // 定义构造 ViewModel 方法
     class AudioOutputViewFactory() : ViewModelProvider.Factory {
@@ -49,13 +43,14 @@ class AudioOutputViewModel : BaseViewModel<AudioPickPageData>() {
         }
     }
 
-    private val _outputViewState = MutableLiveData<AudioOutputPageState>()
-    var outputState: LiveData<AudioOutputPageState> = _outputViewState
 
-
-    data class AudioOutputPageState(
-        var songs: List<Song>? = null,
-    )
+    init {
+        AudioSyncUtil.songs.observeForever {
+            if (it.isNotEmpty()) {
+                refresh(UiState(isSuccess = AudioListPageState(songs = AudioSyncUtil.getOutputSongs(it))))
+            }
+        }
+    }
 
 
     fun initData(context: Context, arguments: Bundle?) {
@@ -64,8 +59,8 @@ class AudioOutputViewModel : BaseViewModel<AudioPickPageData>() {
             launchOnUI {
                 registerSy(context)
                 AudioSyncService.sync(AppProvider.context)
-                if (AudioSyncUtil.songs.isNotEmpty()) {
-                    refresh(AudioOutputPageState(songs = getOutputSongs()))
+                if (AudioSyncUtil.songs.value?.isNotEmpty() == true) {
+                    refresh(UiState(isSuccess = AudioListPageState(songs = AudioSyncUtil.getOutputSongs(AudioSyncUtil.songs.value))))
                 }
             }
         }
@@ -81,27 +76,23 @@ class AudioOutputViewModel : BaseViewModel<AudioPickPageData>() {
         }
     }
 
+
+
     // 注册广播接收器
     private val syncCompletedReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) { // 收到广播后更新界面
-            Log.i(AudioSyncService.TAG, "syncCompletedReceiver")
-            refresh(AudioOutputPageState(songs = getOutputSongs()))
+            if (AudioSyncUtil.getOutputSongs(AudioSyncUtil.songs.value)?.isEmpty() == true) {
+                refresh(UiState(isSuccess = AudioListPageState(songs = emptyList())))
+                return
+            }
         }
     }
 
-
-    fun getOutputSongs(): List<Song> {
-        return AudioSyncUtil.songs.filter { TextUtils.equals(File(it.path).parent, AudioFileUtils.OUTPUT_FOLDER) }
-    }
-
-
-    private fun refresh(pageState: AudioOutputPageState) {
-        _outputViewState.value = pageState
-    }
 
     fun onRefresh(context: Context) {
         registerSy(context)
         AudioSyncService.sync(context)
     }
+
 
 }

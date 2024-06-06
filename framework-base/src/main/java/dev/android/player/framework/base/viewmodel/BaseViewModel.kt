@@ -44,8 +44,10 @@ open class BaseViewModel<T> : ViewModel() {
     protected val _mainModel = MutableLiveData<UiState<T>>() // 使用泛型T
     var mainModel: LiveData<UiState<T>> = _mainModel          // 同样使用泛型T
 
-    protected fun refresh(pageState: UiState<T>) {            // 参数类型改为UiState<T>
-        _mainModel.value = pageState
+    open fun refresh(pageState: UiState<T>) {            // 参数类型改为UiState<T>
+        launchOnUI{
+            _mainModel.value = pageState
+        }
     }
 
 }

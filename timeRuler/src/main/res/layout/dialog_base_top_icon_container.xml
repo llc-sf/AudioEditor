@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/AudioEditorTheme">
+
+
+    <LinearLayout
+        android:id="@+id/radius_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/icon_container"
+        android:layout_marginTop="-40dp"
+        android:background="@drawable/bg_icon_dialog_radius"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:paddingTop="40dp">
+
+
+        <FrameLayout
+            android:id="@+id/content_container"
+            style="@style/BottomDialog.ParentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="0dp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignTop="@id/radius_container"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/dp_12"
+        android:tintMode="src_in"
+        app:srcCompat="@drawable/ic_dialog_close" />
+
+    <FrameLayout
+        android:id="@+id/icon_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorSecondary"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="@dimen/dp_28"
+        >
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/icon"
+            android:layout_width="@dimen/dp_54"
+            android:layout_height="@dimen/dp_54"
+            android:layout_margin="@dimen/dp_16"
+            app:shapeAppearanceOverlay="@style/ShapeableImageView.Circle" />
+
+    </FrameLayout>
+
+
+</RelativeLayout>

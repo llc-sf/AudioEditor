@@ -8,6 +8,7 @@ import android.widget.toast.ToastCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.san.audioeditor.BuildConfig
 import com.san.audioeditor.R
+import com.san.audioeditor.activity.FAQActivity
 import com.san.audioeditor.cell.CellSettingsCategoryItemView
 import com.san.audioeditor.cell.CellSettingsItemView
 import com.san.audioeditor.cell.CellSettingsVersionItemView
@@ -23,6 +24,7 @@ import dev.android.player.framework.utils.LogUtils
 import dev.android.player.framework.utils.dimen
 import dev.android.player.widget.RecyclerViewItemDecorationHelperV3
 import dev.android.player.widget.cell.MultiTypeFastScrollAdapter
+import dev.audio.timeruler.utils.AudioFileUtils
 
 class SettingsFragment : BaseFragment() {
 
@@ -77,7 +79,7 @@ class SettingsFragment : BaseFragment() {
      * 配置 列表数据
      */
     private fun configItemsData() = mutableListOf(
-        SettingsCommonItemData(R.drawable.ic_settings_storage_path, getString(R.string.settings_save_path), "/storage/emulated/0/Music/品牌名/"),
+        SettingsCommonItemData(R.drawable.ic_settings_storage_path, getString(R.string.settings_save_path), AudioFileUtils.OUTPUT_FOLDER, false),
         SettingsCategoryItemData(getString(R.string.help)),
         SettingsCommonItemData(R.drawable.ic_settings_help, getString(R.string.settings_faq), ""),
         SettingsCommonItemData(R.drawable.ic_settings_policy, getString(R.string.privacy_policy), ""),
@@ -90,13 +92,8 @@ class SettingsFragment : BaseFragment() {
             is SettingsCommonItemView -> {
                 if (date == null || date !is SettingsCommonItemData) return
                 when (date.icon) {
-                    R.drawable.ic_settings_storage_path -> {
-                        ToastCompat.makeText(context, true, getString(R.string.settings_save_path)).show()
-                        LogUtils.getInstance(context).log("settings_save_path====>")
-                    }
                     R.drawable.ic_settings_help -> {
-                        ToastCompat.makeText(context, true, getString(R.string.settings_faq)).show()
-                        LogUtils.getInstance(context).log("settings_faq====>")
+                        FAQActivity.open(requireContext(), FAQActivity.OPEN_FROM_SETTINGS)
                     }
                     R.drawable.ic_settings_policy -> {
                         ToastCompat.makeText(context, true, getString(R.string.privacy_policy)).show()

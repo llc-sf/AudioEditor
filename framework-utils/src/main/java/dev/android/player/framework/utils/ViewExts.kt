@@ -1,8 +1,16 @@
 package dev.android.player.framework.utils
 
+import android.graphics.Canvas
+import android.graphics.ColorFilter
+import android.graphics.LinearGradient
 import android.graphics.Outline
+import android.graphics.Paint
+import android.graphics.PixelFormat
 import android.graphics.Rect
+import android.graphics.RectF
+import android.graphics.Shader
 import android.graphics.Typeface
+import android.graphics.drawable.Drawable
 import android.os.SystemClock
 import android.text.SpannableString
 import android.text.Spanned
@@ -265,6 +273,39 @@ fun View.getLocationOnScreen(): Rect {
     val location = IntArray(2)
     this.getLocationOnScreen(location)
     return Rect(location[0], location[1], location[0] + width, location[1] + height)
+}
+
+// 从左往右渐变边框背景
+fun View.createGradientRoundedBorderDrawable(startColor: Int, endColor: Int, cornerRadius: Float, borderWidth: Float) {
+    this.post {
+        val drawable = object : Drawable() {
+            override fun draw(canvas: Canvas) {
+                // 渐变色
+                val colors = intArrayOf(startColor, endColor)
+                val gradient = LinearGradient(
+                    0f, 0f, width.toFloat(), 0f,
+                    colors, null, Shader.TileMode.CLAMP
+                )
+
+                // 画圆角矩形
+                val paint = Paint().apply {
+                    isAntiAlias = true
+                    shader = gradient
+                    style = Paint.Style.STROKE
+                    strokeWidth = borderWidth
+                }
+                val rectF = RectF(borderWidth / 2, borderWidth / 2, width - borderWidth / 2, height - borderWidth / 2)
+                canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, paint)
+            }
+
+            override fun setAlpha(alpha: Int) {}
+
+            override fun setColorFilter(colorFilter: ColorFilter?) {}
+
+            override fun getOpacity(): Int = PixelFormat.TRANSLUCENT
+        }
+        background = drawable
+    }
 }
 
 

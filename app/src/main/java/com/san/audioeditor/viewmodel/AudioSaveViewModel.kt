@@ -2,21 +2,21 @@ package com.san.audioeditor.viewmodel
 
 import android.content.Context
 import android.os.Bundle
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.san.audioeditor.activity.AudioCutActivity
-import com.san.audioeditor.viewmodel.pagedata.AudioPickPageData
-import com.san.audioeditor.storage.AudioSyncUtil
-import com.san.audioeditor.viewmodel.pagedata.AudioSavePageData
+import com.san.audioeditor.dialog.RenameAudioDialog
 import dev.android.player.framework.base.viewmodel.BaseViewModel
 import dev.android.player.framework.data.model.Song
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AudioSaveViewModel : BaseViewModel<AudioSavePageData>() {
+class AudioSaveViewModel : BaseViewModel<AudioSaveViewModel.AudioSavePageData>(),
+    RenameAudioDialog.OnRenameResultListener {
 
     companion object {
 
@@ -30,9 +30,7 @@ class AudioSaveViewModel : BaseViewModel<AudioSavePageData>() {
         }
     }
 
-    private val _audioSaveState = MutableLiveData<AudioSavePageData>()
-    var audioSaveState: LiveData<AudioSavePageData> = _audioSaveState
-
+    data class AudioSavePageData(var song: Song? = null, var renameResult: Boolean? = null)
 
     var song: Song? = null
     fun initData(context: Context, arguments: Bundle?) {
@@ -40,17 +38,33 @@ class AudioSaveViewModel : BaseViewModel<AudioSavePageData>() {
             launchOnUI {
                 song = arguments?.getSerializable(AudioCutActivity.PARAM_SONG) as Song
                 song?.let {
-                    refresh(AudioSavePageData().apply {
+                    refresh(UiState(isSuccess = AudioSavePageData().apply {
                         song = it
-                    })
+                    }))
                 }
             }
         }
     }
 
 
-    private fun refresh(pageState: AudioSavePageData) {
-        _audioSaveState.value = pageState
+    fun rename(supportFragmentManager: FragmentManager?) {
+        song?.let {
+            RenameAudioDialog.show(supportFragmentManager, it).apply {
+                setOnRenameResultListener(this@AudioSaveViewModel)
+            }
+
+        }
+    }
+
+    override fun onResult(success: Boolean, resultSong: Song) {
+        if (success) {
+            song?.let {
+                refresh(UiState(isSuccess = AudioSavePageData().apply {
+                    renameResult = success
+                    song = resultSong
+                }))
+            }
+        }
     }
 
 }

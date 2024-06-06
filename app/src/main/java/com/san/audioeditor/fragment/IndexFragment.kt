@@ -14,11 +14,14 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.san.audioeditor.R
+import com.san.audioeditor.activity.FAQActivity
+import com.san.audioeditor.activity.SearchActivity
 import com.san.audioeditor.activity.SettingsActivity
 import com.san.audioeditor.databinding.FragmentIndexBinding
 import dev.android.player.framework.base.BaseFragment
 import dev.android.player.framework.utils.ImmerseDesignPadding
 import dev.android.player.framework.utils.PreferencesUtility
+import dev.audio.timeruler.utils.AudioFileUtils
 
 
 class IndexFragment : BaseFragment() {
@@ -50,11 +53,6 @@ class IndexFragment : BaseFragment() {
         super.onViewCreatedCompat(view, savedInstanceState)
         (activity as? AppCompatActivity)?.setSupportActionBar(binding.toolbar)
         (activity as? AppCompatActivity)?.supportActionBar?.setDisplayShowTitleEnabled(false)
-
-        //        binding.search.setOnClickListener {
-        //            val intent = Intent(context, SearchActivity::class.java)
-        //            startActivity(intent)
-        //        }
 
         binding.navView.itemIconTintList = null //设置ViewPager的滑动监听
         binding.viewPager.registerOnPageChangeCallback(OnPageChangeListener(binding.navView))
@@ -97,6 +95,12 @@ class IndexFragment : BaseFragment() {
             R.id.action_setting -> {
                 startActivity(Intent(requireContext(), SettingsActivity::class.java))
             }
+
+            R.id.action_search -> {
+                SearchActivity.open(requireContext(), SearchActivity.FROM_HOME, AudioFileUtils.OUTPUT_FOLDER)
+            }
+
+            R.id.action_question -> FAQActivity.open(requireContext(), FAQActivity.OPEN_FROM_INDEX_HOME)
         }
         return super.onOptionsItemSelected(item)
     }

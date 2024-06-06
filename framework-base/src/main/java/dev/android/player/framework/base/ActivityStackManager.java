@@ -11,6 +11,10 @@ import androidx.annotation.Nullable;
 import java.lang.ref.WeakReference;
 import java.util.Stack;
 
+import dev.android.player.framework.utils.impl.ServiceCenter;
+import dev.android.player.framework.utils.service.AppService;
+import dev.android.player.framework.utils.service.PlayerService;
+
 
 /**
  * Activity 堆栈管理
@@ -182,6 +186,8 @@ public class ActivityStackManager {
                     setStartedActivity(null);
                 }
                 Log.d(TAG, "activityStack.size() = [" + activityStack.size() + "]");
+//                ServiceCenter.INSTANCE.getService(PlayerService.class).stop();
+                ServiceCenter.INSTANCE.getService(PlayerService.class).clearProgress();
             }
         });
     }

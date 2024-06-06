@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/BottomDialog.ParentContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/BottomDialog.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete_song" />
+
+
+    <LinearLayout
+        style="@style/BottomDialog.ButtonContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp_36">
+
+        <dev.android.player.widget.text.CornersButton
+            android:id="@+id/btn_cancel"
+            style="@style/BottomDialog.Button.Cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/cancel" />
+
+        <Space
+            android:layout_width="@dimen/dp_18"
+            android:layout_height="wrap_content" />
+
+        <dev.android.player.widget.text.CornersButton
+            android:id="@+id/btn_delete"
+            style="@style/BottomDialog.Button.Confirm"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/delete" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

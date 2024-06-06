@@ -690,4 +690,69 @@
     <string name="select_audio">Select audio</string>
     <string name="settings_save_path">Storage path</string>
     <string name="settings_faq">FAQ</string>
+    <string name="search_audio">Search audio</string>
+    <string name="music4_sdcard_permission_required">Deleting songs from SD card requires write access.</string>
+    <string name="music4_delete_permission_access"><![CDATA[Please <font color=\"#7D92FF\"><b>follow the steps on the next page</b></font> to allow access.]]></string>
+    <string name="music4_delete_some_no_premission"><![CDATA[But the rest failed due to <font color=\"#7D92FF\"><b>permission issues</b></font>.]]></string>
+    <string name="music4_delete_song_message">Do you want to delete %s?</string>
+    <string name="music4_delete_songs_message">Do you want to delete the selected %s songs?</string>
+    <string name="music4_sd_card_access_step_1_format"><![CDATA[Tap the button in the top left corner and <font color=\"#7D92FF\"><b>choose SD card</b></font>.]]></string>
+    <string name="music4_sd_card_access_step_2_format"><![CDATA[Then <font color=\"#7D92FF\"><b>tap SELECT</b></font> to allow write access.]]></string>
+    <string name="search_result_empty">No Result</string>
+
+
+    <!--Music3 FAQ文案资源，暂时随 FAQ 功能移过来，后面再根据需求删除  start-->
+    <string name="add_lyrics_faq_ans_gpt">If automatic lyric loading fails, you can:\n\n1. Search online to copy and import lyrics\n2. Add local lyrics in .txt or .lrc format\n3. Enter lyrics manually</string>
+    <string name="ads_after_subscribe_faq_answer_gpt">This might happen if you\'re signned into multiple Google Play accounts. Here\'s what you can do:\n\n1. Remove unsubscribed Google Play accounts, &#60;b&#62;leaving only your subscribed one&#60;/b&#62;\n2. Clear Google Play\'s cache and data in your phone\'s Settings, then restart our app\n\nIf the issue persists, you can tap \&#34;%s\&#34; to contact us, and we\'ll assist you promptly.</string>
+    <string name="ads_after_subscribe_faq_ask_gpt">Why are there still ads after subscribing?</string>
+    <string name="allow_background_playback_gpt">Allow background playback</string>
+    <string name="delete_from_device_1">Delete from device</string><!-- 从music3本地上传，原字段名delete_from_device -->
+    <string name="download_music_faq_ans_gpt">%s is an offline music player that &#60;b&#62;can ONLY play local audio files&#60;/b&#62; and does not currently support online music downloads.</string>
+    <string name="duplicate_songs_appear_faq_ans1_gpt">If an audio file is stored in multiple storage paths, they will all be displayed in our app after scanning.\n\nIf this happens, you can delete the duplicate audio files by:</string>
+    <string name="duplicate_songs_appear_faq_ans2_gpt">1. Tap the \&#34;%s\&#34; icon next to the song</string>
+    <string name="duplicate_songs_appear_faq_ans3_gpt">2. Find and tap \&#34;%s\&#34;</string>
+    <string name="duplicate_songs_appear_faq_ans4_gpt">Please NOTE this action will permanently delete the song from your device and cannot be recovered.</string>
+    <string name="duplicate_songs_appear_faq_ask_gpt">Why are there duplicate songs in my list?</string>
+    <string name="faq_how_to_add_lyrics_ask_gpt">How to add lyrics?</string>
+    <string name="faq_how_to_download_music_ask_gpt">How to download music?</string>
+    <string name="faq_song_repeat_playing_ask_gpt">Why is the same song playing repeatedly?</string>
+    <string name="faq_volume_change_its_own_ask_gpt">Why is the volume changing randomly on its own?</string>
+    <string name="feedback_or_suggestion">Feedback or suggestion</string>
+    <string name="helpful_ask">Is it helpful?</string>
+    <string name="hider_sorry_bad_faq_title_gpt">Sorry for not giving you the best experience</string>
+    <string name="lock2_btn_no">No</string><!-- 多语言取自btn_no -->
+    <string name="lock2_btn_yes">Yes</string><!-- 多语言取自btn_yes -->
+    <string name="lyric_not_scrolling_faq_ans1_gpt">Currently, &#60;b&#62;only lyrics with timestamps can scroll&#60;/b&#62; in our app, like this:</string>
+    <string name="lyric_not_scrolling_faq_ans2_gpt">If your lyrics aren\'t scrolling, you can tap \&#34;%1$s\&#34; on the lyrics page, and then tap \&#34;%2$s\&#34; to reimport timestamped lyrics.</string>
+    <string name="lyric_not_scrolling_faq_ask_gpt">Why aren\'t the lyrics scrolling?</string>
+    <string name="music_pause_switch_faq_answer_gpt">This is because some apps send audio usage requests to the system when you switch to them, which causes %s to stop playing.</string>
+    <string name="music_pause_switch_faq_ask_gpt">Music pauses when switching to other apps?</string>
+    <string name="music_stop_faq_ans1_gpt">For uninterrupted music playback, please &#60;b&#62;tap the button below to allow %s to run in the background&#60;/b&#62;.</string>
+    <string name="music_stop_faq_ans2_gpt">If stop still occurs after granting, it may also be caused by:</string>
+    <string name="music_stop_faq_ans3_gpt">1. Another app playing audio\n2. The set sleep timer expiring\n3. Disconnecting headphones with \&#34;%s\&#34; enabled</string>
+    <string name="music_stop_faq_ans4_gpt">The interruption in music playback may be caused by:</string>
+    <string name="music_stop_faq_ask_gpt">Music stops unexpectedly?</string>
+    <string name="not_show_all_faq_ans1_gpt">1. Check if your audio files are damaged or deleted. If not, try rescanning your music\n2. Short audio files might be ignored. You can uncheck all ignore filters on the scan page</string>
+    <string name="not_show_all_faq_ans2_gpt">Rest assured, %s will never delete any files without your permission.</string>
+    <string name="not_show_all_faq_ask_gpt">Not showing all songs?</string>
+    <string name="pdf_reader1_low_rating_to_faq_hint_gpt">Here are some common questions that may assist you. If not, please tap \&#34;%s\&#34; for further help.</string>
+    <string name="player_theme_gpt">Player theme</string>
+    <string name="setting_faq">FAQ</string>
+    <string name="song_repeat_faq_anw_gpt">If you\'re playing music in shuffle mode, this might because of:\n\n1. Frequent tapping \&#34;%1$s\&#34; button\n2. Closing and reopening the app\n3. Selecting other songs, which causes the current one to play again later\n\nIf you\'re not in shuffle mode, it may be due to duplicate songs appearing. &#60;b&#62;Tap here to view \&#34;%2$s\&#34;.&#60;/b&#62;</string>
+    <string name="still_have_problems_1">Still have problems</string>
+    <string name="turn_off_equalizer">Turn off Equalizer</string><!-- 根据faq_hide_ovulation_fertile_days,equalizer整理 -->
+    <string name="using">Using</string>
+    <string name="volume_change_faq_ans1_gpt">Equalizer may cause the volume changes on some devices. You can try to solve this issue by &#60;b&#62;turning off the Equalizer&#60;/b&#62; when it occurs.</string>
+    <string name="volume_change_faq_ans2_gpt">We\'re continuously optimizing this feature. Sorry for any inconvenience caused.</string>
+    <string name="faq_text_app_name" translatable="false">DDMusic</string>
+    <string name="close" >Close</string>
+    <string name="form_title" >Format</string>
+    <string name="bit_rate_title" >Bit rate</string>
+    <string name="sample_rate_title" >Sample rate</string>
+    <!--Music3 FAQ文案资源，暂时随 FAQ 功能移过来，后面再根据需求删除  send-->
+    <string name="text_audio_not_supported" >The audio format is not supported</string>
+    <string name="text_not_supported_selecting_file" >Not supported for selecting non audio files</string>
+    <string name="no_audio" >No audio</string>
+    <string name="create_now" >Create now</string>
+
 </resources>

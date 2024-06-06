@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/faq_fold_layout"
+    tools:ignore="MissingDefaultResource">
+
+    <TextView
+        android:id="@+id/faq_answer_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="@dimen/dp_5"
+        android:textColor="@color/white.alpha.60"
+        android:textSize="@dimen/sp_15"
+        tools:text="Question answer 1!" />
+
+    <TextView
+        android:id="@+id/faq_jump"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/dp_16"
+        android:gravity="center"
+        android:minHeight="@dimen/dp_46"
+        android:textColor="@color/faq_helpful_text_selected_color"
+        android:textSize="@dimen/sp_16"
+        android:textStyle="bold"
+        app:autoSizeMaxTextSize="@dimen/sp_16"
+        app:autoSizeMinTextSize="@dimen/sp_10"
+        app:autoSizeStepGranularity="@dimen/sp_1"
+        app:autoSizeTextType="uniform"
+        tools:text="test" />
+
+    <TextView
+        android:id="@+id/faq_answer_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="@dimen/dp_5"
+        android:textColor="@color/white.alpha.60"
+        android:textSize="@dimen/sp_15"
+        android:visibility="gone"
+        tools:text="Question answer 2!" />
+</androidx.appcompat.widget.LinearLayoutCompat>

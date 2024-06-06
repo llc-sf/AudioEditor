@@ -4,18 +4,32 @@
     style="@style/BottomDialog.ParentContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/dp_20"
+    android:paddingTop="@dimen/dp_10"
+    android:paddingBottom="@dimen/dp_24">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <ImageView
+            android:id="@+id/top_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_10"
+            app:srcCompat="@drawable/ic_top_bar" />
+
+
         <TextView
             android:id="@+id/title"
             style="@style/BottomDialog.Title"
+            app:fontFamily="@font/poppins_semibold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
             android:text="@string/details" />
 
         <TableLayout
@@ -32,8 +46,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="@string/song_title"
-                    android:textColor="?attr/textColorPrimary"
-                    android:textSize="@dimen/sp_16" />
+                    android:textColor="@color/white.alpha.50"
+                    android:textSize="@dimen/sp_13" />
 
                 <TextView
                     android:id="@+id/song_title_value"
@@ -41,94 +55,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_weight="1"
-                    android:textColor="?attr/textColorSecondary"
+                    android:textColor="@color/white"
                     android:textDirection="locale"
-                    android:textSize="@dimen/sp_13" />
+                    android:textSize="@dimen/sp_14" />
             </TableRow>
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_18" />
 
-            <!--专辑-->
-            <TableRow android:gravity="center_vertical">
-
-                <TextView
-                    android:id="@+id/song_album"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/album_title"
-                    android:textColor="?attr/textColorPrimary"
-                    android:textSize="@dimen/sp_16" />
-
-                <TextView
-                    android:id="@+id/song_album_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_16"
-                    android:layout_weight="1"
-                    android:textColor="?attr/textColorSecondary"
-                    android:textDirection="locale"
-                    android:textSize="@dimen/sp_13" />
-            </TableRow>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_18" />
-            <!--歌手-->
-            <TableRow android:gravity="center_vertical">
-
-                <TextView
-                    android:id="@+id/song_artist"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/artist_title"
-                    android:textColor="?attr/textColorPrimary"
-                    android:textSize="@dimen/sp_16" />
-
-                <TextView
-                    android:id="@+id/song_artist_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_16"
-                    android:layout_weight="1"
-                    android:textColor="?attr/textColorSecondary"
-                    android:textDirection="locale"
-                    android:textSize="@dimen/sp_13" />
-            </TableRow>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_18" />
-
-            <!--曲风-->
-            <TableRow android:gravity="center_vertical">
-
-                <TextView
-                    android:id="@+id/song_genre"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/genre_title"
-                    android:textColor="?attr/textColorPrimary"
-                    android:textSize="@dimen/sp_16" />
-
-                <TextView
-                    android:id="@+id/song_genre_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_16"
-                    android:layout_weight="1"
-                    android:textColor="?attr/textColorSecondary"
-                    android:textDirection="locale"
-                    android:textSize="@dimen/sp_13" />
-            </TableRow>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_18" />
             <!--时长-->
             <TableRow android:gravity="center_vertical">
 
@@ -138,8 +73,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="@string/duration"
-                    android:textColor="?attr/textColorPrimary"
-                    android:textSize="@dimen/sp_16" />
+                    android:textColor="@color/white.alpha.50"
+                    android:textSize="@dimen/sp_13" />
 
                 <TextView
                     android:id="@+id/song_duration_value"
@@ -147,14 +82,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_weight="1"
-                    android:textColor="?attr/textColorSecondary"
+                    android:textColor="@color/white"
                     android:textDirection="locale"
-                    android:textSize="@dimen/sp_13" />
+                    android:textSize="@dimen/sp_14" />
             </TableRow>
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_18" />
+
             <!--歌曲大小-->
             <TableRow android:gravity="center_vertical">
 
@@ -164,8 +100,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="@string/size"
-                    android:textColor="?attr/textColorPrimary"
-                    android:textSize="@dimen/sp_16" />
+                    android:textColor="@color/white.alpha.50"
+                    android:textSize="@dimen/sp_13" />
 
                 <TextView
                     android:id="@+id/song_size_value"
@@ -173,14 +109,100 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_weight="1"
-                    android:textColor="?attr/textColorSecondary"
+                    android:textColor="@color/white"
                     android:textDirection="locale"
-                    android:textSize="@dimen/sp_13" />
+                    android:textSize="@dimen/sp_14" />
             </TableRow>
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_18" />
+
+            <!--格式-->
+            <TableRow android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/song_form"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:text="@string/form_title"
+                    android:textColor="@color/white.alpha.50"
+                    android:textSize="@dimen/sp_13" />
+
+                <TextView
+                    android:id="@+id/song_form_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/sp_14" />
+            </TableRow>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_18" />
+            <!--bria_rate-->
+            <TableRow android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/bit_rate_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="@string/bit_rate_title"
+                    android:textColor="@color/white.alpha.50"
+                    android:textSize="@dimen/sp_13" />
+
+                <TextView
+                    android:id="@+id/bit_rate_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/sp_14" />
+            </TableRow>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_18" />
+
+            <!--sample_rate-->
+            <TableRow android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/song_sample_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="@string/sample_rate_title"
+                    android:textColor="@color/white.alpha.50"
+                    android:textSize="@dimen/sp_13" />
+
+                <TextView
+                    android:id="@+id/song_sample_rate_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/sp_14" />
+            </TableRow>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_18" />
+
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_18" />
+
             <!--歌曲位置-->
             <TableRow android:gravity="center_vertical">
 
@@ -190,8 +212,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="@string/location"
-                    android:textColor="?attr/textColorPrimary"
-                    android:textSize="@dimen/sp_16" />
+                    android:textColor="@color/white.alpha.50"
+                    android:textSize="@dimen/sp_13" />
 
                 <TextView
                     android:id="@+id/song_location_value"
@@ -199,49 +221,33 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_weight="1"
-                    android:textColor="?attr/textColorSecondary"
+                    android:autoLink="all"
+                    android:textColor="@color/color.eea045"
                     android:textDirection="locale"
-                    android:textSize="@dimen/sp_13" />
+                    android:textSize="@dimen/sp_14" />
             </TableRow>
 
 
         </TableLayout>
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            style="@style/BottomDialog.ButtonContainer"
+        <View
             android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="@dimen/dp_32"
+            android:background="?attr/divider.color" />
+
+        <TextView
+            android:id="@+id/close"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_36">
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_20"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/close"
+            android:textColor="@color/white.alpha.60"
+            android:textSize="@dimen/sp_17" />
 
-            <dev.android.player.widget.text.AutoFitCornersButton
-                android:id="@+id/btn_edit"
-                style="@style/BottomDialog.Button.Cancel"
-                android:layout_width="0dp"
-                android:layout_height="?attr/ConnerBtnHeight"
-                android:layout_marginEnd="@dimen/dp_18"
-                android:gravity="center"
-                android:paddingHorizontal="@dimen/dp_12"
-                android:text="@string/edit"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/btn_confirm_ok"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <dev.android.player.widget.text.AutoFitCornersButton
-                android:id="@+id/btn_confirm_ok"
-                style="@style/BottomDialog.Button.Confirm"
-                android:layout_width="0dp"
-                android:layout_height="?attr/ConnerBtnHeight"
-                android:gravity="center"
-                android:paddingHorizontal="@dimen/dp_12"
-                android:text="@string/action_ok"
-                app:layout_constraintBottom_toBottomOf="@id/btn_edit"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/btn_edit"
-                app:layout_constraintTop_toTopOf="@id/btn_edit" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

@@ -17,6 +17,7 @@
             <TextView
                 android:id="@+id/tv_title"
                 style="@style/BottomDialog.Title"
+                android:fontFamily="@font/poppins_semibold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sort_by" />
@@ -63,7 +64,7 @@
 
                 <dev.android.player.widget.text.CornersButton
                     android:id="@+id/btn_cancel"
-                    style="@style/BottomDialog.Button.Cancel"
+                    style="@style/BottomDialog.Button.Cancel_14"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -76,7 +77,7 @@
 
                 <dev.android.player.widget.text.CornersButton
                     android:id="@+id/btn_ok"
-                    style="@style/BottomDialog.Button.Confirm"
+                    style="@style/BottomDialog.Button.Confirm_14"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

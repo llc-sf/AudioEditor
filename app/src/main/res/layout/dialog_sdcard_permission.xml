@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content_container"
+    style="@style/BottomDialog.ParentContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/BottomDialog.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/music4_sdcard_permission_required" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_16"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_index_01" />
+
+        <TextView
+            android:id="@+id/tips1"
+            style="@style/BottomDialog.Message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/dp_6"
+            android:gravity="start|center"
+            android:text="@string/music4_sd_card_access_step_1_format" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_14"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_index_02" />
+
+        <TextView
+            android:id="@+id/tips2"
+            style="@style/BottomDialog.Message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/dp_6"
+            android:gravity="start|center"
+            android:text="@string/music4_sd_card_access_step_2_format" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:adjustViewBounds="true"
+        android:src="@mipmap/ic_manager_sdcard" />
+
+
+    <dev.android.player.widget.text.CornersButton
+        android:id="@+id/btn_access"
+        style="@style/BottomDialog.Button.Confirm_14"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/ConnerBtnHeight"
+        android:layout_marginTop="@dimen/dp_36"
+        android:gravity="center"
+        android:text="@string/allow_access"
+        android:textAllCaps="true"
+        android:textSize="@dimen/sp_16" />
+
+</LinearLayout>

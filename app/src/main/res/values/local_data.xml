@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="faq_icons">
+        <item>@drawable/ic_faq_trim_end</item>
+        <item>@drawable/ic_faq_trim_middle</item>
+        <item>@drawable/ic_faq_trim_multiple</item>
+        <item>@mipmap/ic_faq_trim_point</item>
+        <item>@mipmap/ic_faq_trim_quickly</item>
+        <item>@drawable/ic_faq_not_find</item>
+        <item>@drawable/ic_faq_quickly_find</item>
+        <item>@drawable/ic_faq_output_store</item>
+        <item>@drawable/ic_faq_sound_quality</item>
+        <item>@mipmap/ic_faq_support_files</item>
+    </array>
+
+    <string-array name="faq_questions">
+        <item>@string/faq_how_to_download_music_ask_gpt</item>
+        <item>@string/music_stop_faq_ask_gpt</item>
+        <item>@string/not_show_all_faq_ask_gpt</item>
+        <item>@string/lyric_not_scrolling_faq_ask_gpt</item>
+        <item>@string/faq_volume_change_its_own_ask_gpt</item>
+        <item>@string/music_pause_switch_faq_ask_gpt</item>
+        <item>@string/faq_how_to_add_lyrics_ask_gpt</item>
+        <item>@string/ads_after_subscribe_faq_ask_gpt</item>
+        <item>@string/faq_song_repeat_playing_ask_gpt</item>
+        <item>@string/duplicate_songs_appear_faq_ask_gpt</item>
+    </string-array>
+
+</resources>

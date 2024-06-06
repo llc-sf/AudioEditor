@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:background="@color/black"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/faq_fold_layout"
+    tools:ignore="MissingDefaultResource">
+
+    <TextView
+        android:id="@+id/faq_answer_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="@dimen/dp_5"
+        tools:text="Question answer_1!"
+        android:textSize="@dimen/sp_15"
+        android:textColor="@color/white.alpha.60"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_tips"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/dp_12"
+        app:layout_constraintDimensionRatio="h, 885:559"
+        android:adjustViewBounds="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/faq_answer_1"
+        android:src="@mipmap/ic_search_empty" />
+
+    <TextView
+        android:id="@+id/faq_answer_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constrainedHeight="true"
+        android:lineSpacingExtra="@dimen/dp_5"
+        tools:text="Question answer_2!"
+        android:textSize="@dimen/sp_15"
+        android:layout_marginTop="@dimen/dp_12"
+        android:textColor="@color/white.alpha.60"
+        app:layout_constraintTop_toBottomOf="@id/iv_tips"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

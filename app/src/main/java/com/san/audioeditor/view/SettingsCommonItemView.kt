@@ -21,9 +21,6 @@ class SettingsCommonItemView @JvmOverloads constructor(
     init {
         layoutParams =
             LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        binding.root.setOnClickListener {
-            itemClick?.invoke(this, itemData)
-        }
     }
 
     fun setData(data: SettingsCommonItemData) {
@@ -33,6 +30,11 @@ class SettingsCommonItemView @JvmOverloads constructor(
             tvSummary.isVisible = data.desc.isNotEmpty()
             tvSummary.text = data.desc
             ivIcon.setImageResource(data.icon)
+            if (itemData?.clickable == true) {
+                root.setOnClickListener {
+                    itemClick?.invoke(this@SettingsCommonItemView, itemData)
+                }
+            }
         }
     }
 }

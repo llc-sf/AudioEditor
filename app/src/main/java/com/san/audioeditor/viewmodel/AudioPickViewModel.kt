@@ -7,40 +7,30 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
-import androidx.annotation.RequiresApi
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import com.android.app.AppProvider
 import com.san.audioeditor.R
 import com.san.audioeditor.storage.AudioSyncService
 import com.san.audioeditor.storage.AudioSyncUtil
-import com.san.audioeditor.viewmodel.pagedata.AudioPickPageData
+import com.san.audioeditor.viewmodel.pagedata.AudioListPageState
 import dev.android.player.app.business.SortBusiness
-import dev.android.player.app.business.data.SortStatus
-import dev.android.player.framework.base.viewmodel.BaseViewModel
 import dev.android.player.framework.data.model.Directory
 import dev.android.player.framework.data.model.Song
 import dev.audio.recorder.utils.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
-import java.util.function.Function
 import java.util.stream.Collectors
 
-class AudioPickViewModel : BaseViewModel<AudioPickPageData>() {
+class AudioPickViewModel : BaseAudioListViewModel() {
 
     companion object {
 
         const val ALL_AUDIO = "all/audio"
     }
 
-    var playingPosition: Int = -1
-
-    lateinit var mCurrentSort: SortStatus
 
     // 定义构造 ViewModel 方法
     class AudioPickViewFactory() : ViewModelProvider.Factory {
@@ -50,14 +40,16 @@ class AudioPickViewModel : BaseViewModel<AudioPickPageData>() {
         }
     }
 
-    private val _mediaViewState = MutableLiveData<MediaPickPageState>()
-    var mediaPickState: LiveData<MediaPickPageState> = _mediaViewState
-
-
-    data class MediaPickPageState(
-        var songs: List<Song>? = null,
-    )
-
+    init {
+        AudioSyncUtil.songs.observeForever { songs ->
+            if (songs.isNotEmpty()) {
+                refresh(UiState(isSuccess = AudioListPageState(songs = songs.filter {
+                    currentDir == null || ALL_AUDIO == currentDir?.path || File(it.path).parent.equals(currentDir?.path)
+                })))
+                getDirectoriesBySongs(true)
+            }
+        }
+    }
 
     fun initData(context: Context, arguments: Bundle?) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -65,7 +57,9 @@ class AudioPickViewModel : BaseViewModel<AudioPickPageData>() {
             launchOnUI {
                 registerSy(context)
                 AudioSyncService.sync(AppProvider.context)
-                refresh(MediaPickPageState(songs = AudioSyncUtil.songs))
+                if (AudioSyncUtil.songs.value?.isNotEmpty() == true) {
+                    refresh(UiState(isSuccess = AudioListPageState(songs = AudioSyncUtil.songs.value)))
+                }
             }
             dirList = getDirectoriesBySongs()
         }
@@ -84,22 +78,26 @@ class AudioPickViewModel : BaseViewModel<AudioPickPageData>() {
     // 注册广播接收器
     private val syncCompletedReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) { // 收到广播后更新界面
-            Log.i(AudioSyncService.TAG, "syncCompletedReceiver")
-            refresh(MediaPickPageState(songs = AudioSyncUtil.songs))
+            if (AudioSyncUtil.songs.value?.isNullOrEmpty() == true) {
+                refresh(UiState(isSuccess = AudioListPageState(songs = emptyList())))
+            }
         }
     }
 
 
-    var dirList: List<Directory>? = null
-    var currentDir: Directory? = null
-    fun getDirectoriesBySongs(): List<Directory> {
-        if (dirList != null && dirList!!.isNotEmpty()) {
-            return dirList!!
+    private var dirList: List<Directory>? = null
+    var currentDir: Directory? = Directory().apply {
+        name = AppProvider.context.getString(R.string.all_audio)
+        path = ALL_AUDIO
+    }
+
+    fun getDirectoriesBySongs(force: Boolean = false): List<Directory>? {
+        if (!force) {
+            if (dirList != null && dirList!!.isNotEmpty()) {
+                return dirList!!
+            }
         }
-        if (AudioSyncUtil.songs.isEmpty()) {
-            return emptyList()
-        }
-        var songs = AudioSyncUtil.songs
+        var songs = AudioSyncUtil.songs.value ?: return emptyList()
         val mapping = songs.stream().collect(Collectors.groupingBy { song: Song ->
             File(song.path).parent
         }).entries
@@ -123,12 +121,8 @@ class AudioPickViewModel : BaseViewModel<AudioPickPageData>() {
         if (currentDir == null) {
             currentDir = result[0]
         }
-        return result
-    }
-
-
-    private fun refresh(pageState: MediaPickPageState) {
-        _mediaViewState.value = pageState
+        dirList = result
+        return dirList
     }
 
     fun onRefresh(context: Context) {
@@ -138,9 +132,10 @@ class AudioPickViewModel : BaseViewModel<AudioPickPageData>() {
 
     fun onFolderSelected(it: Directory) {
         currentDir = it
-        refresh(MediaPickPageState(songs = AudioSyncUtil.songs.filter {
+        refresh(UiState(isSuccess = AudioListPageState(songs = AudioSyncUtil.songs.value?.filter {
             File(it.path).parent.equals(currentDir?.path) || ALL_AUDIO == currentDir?.path
-        }))
+        })))
     }
+
 
 }

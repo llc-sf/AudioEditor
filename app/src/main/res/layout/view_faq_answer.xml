@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/dp_20"
+    android:paddingBottom="@dimen/dp_16"
+    app:layout_constraintTop_toBottomOf="@+id/faq_fold_layout"
+    tools:background="@color/black">
+
+    <FrameLayout
+        android:id="@+id/fl_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
+
+    <TextView
+        android:id="@+id/faq_is_helpful"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_16"
+        android:gravity="start"
+        android:text="@string/helpful_ask"
+        android:textColor="@color/white.alpha.50"
+        android:alpha="0.6"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintTop_toBottomOf="@+id/fl_content" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/btn_yes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dp_6"
+        android:background="@drawable/selector_button_faq_helpful"
+        android:gravity="center"
+        android:lines="1"
+        android:minHeight="@dimen/dp_38"
+        android:text="@string/lock2_btn_yes"
+        android:textColor="@color/selector_text_color_faq_helpful"
+        android:textSize="@dimen/sp_16"
+        android:textStyle="bold"
+        app:autoSizeMaxTextSize="@dimen/sp_16"
+        app:autoSizeMinTextSize="@dimen/sp_10"
+        app:autoSizeStepGranularity="@dimen/sp_1"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toStartOf="@id/btn_no"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/faq_is_helpful" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/btn_no"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_6"
+        android:layout_marginTop="@dimen/dp_8"
+        android:background="@drawable/selector_button_faq_helpful"
+        android:gravity="center"
+        android:lines="1"
+        android:minHeight="@dimen/dp_38"
+        android:text="@string/lock2_btn_no"
+        android:textColor="@color/selector_text_color_faq_helpful"
+        android:textSize="@dimen/sp_16"
+        android:textStyle="bold"
+        app:autoSizeMaxTextSize="@dimen/sp_16"
+        app:autoSizeMinTextSize="@dimen/sp_10"
+        app:autoSizeStepGranularity="@dimen/sp_1"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_yes"
+        app:layout_constraintTop_toBottomOf="@id/faq_is_helpful" />
+</androidx.constraintlayout.widget.ConstraintLayout>

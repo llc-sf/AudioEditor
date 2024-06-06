@@ -22,4 +22,20 @@
         <!-- Defines whether to automatically resize text to fit to the view's bounds. -->
         <attr name="sizeToFit" format="boolean" />
     </declare-styleable>
+
+    <declare-styleable name="GradientShaderTextView">
+        <attr name="gradient_start" format="color" />
+        <attr name="gradient_end" format="color" />
+        <attr name="gradient_colors" format="reference" />
+        <attr name="gradient_orientation" format="enum">
+            <enum name="left_right" value="0" />
+            <enum name="top_bottom" value="1" />
+            <enum name="right_top" value="2" />
+            <enum name="bottom_top" value="3" />
+            <enum name="left_top_right_bottom" value="4" />
+            <enum name="right_top_left_bottom" value="5" />
+            <enum name="left_bottom_right_top" value="6" />
+            <enum name="right_bottom_left_top" value="7" />
+        </attr>
+    </declare-styleable>
 </resources>

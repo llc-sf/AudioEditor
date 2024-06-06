@@ -7,9 +7,7 @@ import android.os.Looper
 import android.text.TextUtils
 import android.util.Log
 import com.android.app.AppProvider
-import com.google.android.exoplayer2.DefaultLoadControl
 import com.google.android.exoplayer2.ExoPlaybackException
-import com.google.android.exoplayer2.LoadControl
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.PlaybackParameters
 import com.google.android.exoplayer2.Player
@@ -26,7 +24,8 @@ import dev.audio.timeruler.multitrack.MultiTrackSelector
 import dev.audio.timeruler.weight.AudioFragmentWithCut
 import dev.audio.timeruler.weight.BaseAudioEditorView.Companion.playline_tag
 import dev.audio.timeruler.weight.CutPieceFragment
-import java.util.Collections
+import java.util.concurrent.CopyOnWriteArrayList
+
 
 object PlayerManager {
 
@@ -69,6 +68,21 @@ object PlayerManager {
         player.addListener(object : Player.EventListener {
             override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
                 super.onPlayerStateChanged(playWhenReady, playbackState)
+                when (playbackState) {
+                    Player.STATE_IDLE -> {
+                    }
+
+                    Player.STATE_BUFFERING -> {
+                    }
+
+                    Player.STATE_READY -> {
+                    }
+
+                    Player.STATE_ENDED -> {
+                    }
+
+                    else -> {}
+                }
                 eventListeners.forEach {
                     it.onPlayerStateChanged(playWhenReady, playbackState)
                 }
@@ -87,7 +101,8 @@ object PlayerManager {
             }
 
             override fun onIsPlayingChanged(isPlaying: Boolean) {
-                super.onIsPlayingChanged(isPlaying)
+                super.onIsPlayingChanged(isPlaying) //                isPlayingMemory = isPlaying
+                Log.i("llc_fuck", "onIsPlayingChanged: isPlaying=$isPlaying")
                 eventListeners.forEach {
                     it.onIsPlayingChanged(isPlaying)
                 }
@@ -110,9 +125,9 @@ object PlayerManager {
         handler.removeCallbacks(progressRunnable) // 可能还有其他资源释放操作
     }
 
-    var eventListeners: MutableList<Player.EventListener> = mutableListOf()
+    var eventListeners: MutableList<Player.EventListener> = CopyOnWriteArrayList()
 
-    fun addListener(listener: Player.EventListener) {
+    fun addEventListener(listener: Player.EventListener) {
         eventListeners.add(listener)
     }
 
@@ -133,6 +148,7 @@ object PlayerManager {
         player.playWhenReady = autoPlay
         player.setMediaSource(mediaSource)
         player.prepare()
+        player.play()
     }
 
     var uri: Uri? = null
@@ -146,6 +162,11 @@ object PlayerManager {
         val audioSource = ProgressiveMediaSource.Factory(dataSourceFactory)
             .createMediaSource(MediaItem.fromUri(uri!!.apply {}))
         playByMediaSource(audioSource, autoPlay)
+        if(autoPlay){
+            player.play()
+        }
+
+        Log.i("llc_fuck","playByMediaSource player.isPlaying=${player.isPlaying}")
     }
 
     private var isSaveProgress = false
@@ -155,6 +176,10 @@ object PlayerManager {
         if (progressMap.containsKey(path)) {
             player.seekTo(progressMap[path]!!)
         }
+    }
+
+    fun getCacheProgress(path: String): Long {
+        return progressMap[path] ?: 0
     }
 
     fun clearProgress() {
@@ -183,6 +208,9 @@ object PlayerManager {
 
     fun seekTo(position: Long, index: Int = 0) {
         player.seekTo(index, position)
+        if (isSaveProgress) {
+            progressMap[path!!] = position
+        }
     }
 
     fun playCutPiece(start: Long, end: Long) {
@@ -219,7 +247,6 @@ object PlayerManager {
             return
         }
         player.setMediaSource(ClippingMediaSource(audioSource, if (start * 1000 < 0) 0 else start * 1000, end * 1000))
-        Log.i("llc_fuck", "start=$start,end=$end")
     }
 
     fun updateMediaSourceDelete(start: Long, end: Long, duration: Long) {

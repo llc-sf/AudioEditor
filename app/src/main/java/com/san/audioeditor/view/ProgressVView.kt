@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
+import android.widget.TextView
 import com.san.audioeditor.databinding.ViewBottomProgressBinding
 import com.san.audioeditor.databinding.ViewVProgressBinding
 import dev.android.player.framework.data.model.Song
@@ -15,32 +16,12 @@ import dev.audio.timeruler.player.PlayerProgressCallback
  * AudioItem
  */
 class ProgressVView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
-    RelativeLayout(context, attrs), PlayerProgressCallback {
-
-    private val mBinding = ViewVProgressBinding.inflate(LayoutInflater.from(getContext()), this, true)
-
+    BaseProgressView<ViewVProgressBinding>(context, attrs) {
 
     init {
-
-        mBinding.progress.setOnSeekBarChangeListener(object :
-                                                         android.widget.SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: android.widget.SeekBar?,
-                                           progress: Int,
-                                           fromUser: Boolean) {
-                if (fromUser) {
-                    PlayerManager.seekTo((progress * PlayerManager.player.duration / 100).toLong())
-                }
-            }
-
-            override fun onStartTrackingTouch(seekBar: android.widget.SeekBar?) {
-            }
-
-            override fun onStopTrackingTouch(seekBar: android.widget.SeekBar?) {
-
-            }
-        })
+        mBinding = ViewVProgressBinding.inflate(LayoutInflater.from(getContext()), this, true)
+        setupSeekBar(mBinding.progress)
     }
-
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
@@ -48,24 +29,18 @@ class ProgressVView @JvmOverloads constructor(context: Context, attrs: Attribute
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        PlayerManager.removeProgressListener()
+//        PlayerManager.removeProgressListener()
     }
 
-    fun addProgressListener() {
-        PlayerManager.addProgressListener(this)
+    override fun getProgressBar(): android.widget.SeekBar {
+        return mBinding.progress
     }
 
-    fun setData(song: Song) {
-        mBinding.currentTime.text = DateUtil.formatTime(0)
-        mBinding.durationTime.text = DateUtil.formatTime(song.duration.toLong())
+    override fun getCurrentTimeTextView(): TextView {
+        return mBinding.currentTime
     }
 
-
-    override fun onProgressChanged(currentWindowIndex: Int, position: Long, duration: Long) {
-        mBinding.progress.progress = (position * 100 / duration.toFloat()).toInt()
-        mBinding.currentTime.text = DateUtil.formatTime(position)
-        mBinding.durationTime.text = DateUtil.formatTime(duration)
+    override fun getDurationTimeTextView(): TextView {
+        return mBinding.durationTime
     }
-
-
 }
