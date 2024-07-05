@@ -12,16 +12,15 @@ newmdct.lo: newmdct.c ../config.h ../include/lame.h \
   /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/stdint.h \
   /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/bits/wchar_limits.h \
   /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/types.h \
-  /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/aarch64-linux-android/asm/types.h \
-  /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/asm-generic/types.h \
+  /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/arm-linux-androideabi/asm/types.h \
   /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/asm-generic/int-ll64.h \
-  /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/aarch64-linux-android/asm/bitsperlong.h \
+  /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/arm-linux-androideabi/asm/bitsperlong.h \
   /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/asm-generic/bitsperlong.h \
   /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/posix_types.h \
   /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/stddef.h \
   /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/compiler_types.h \
   /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/compiler.h \
-  /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/aarch64-linux-android/asm/posix_types.h \
+  /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/arm-linux-androideabi/asm/posix_types.h \
   /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/asm-generic/posix_types.h \
   /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/bits/pthread_types.h \
   /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/bits/seek_constants.h \
@@ -50,7 +49,7 @@ newmdct.lo: newmdct.c ../config.h ../include/lame.h \
   /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/ctype.h \
   /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/errno.h \
   /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/errno.h \
-  /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/aarch64-linux-android/asm/errno.h \
+  /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/arm-linux-androideabi/asm/errno.h \
   /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/asm-generic/errno.h \
   /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/asm-generic/errno-base.h \
   /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/android/legacy_errno_inlines.h \
@@ -58,7 +57,7 @@ newmdct.lo: newmdct.c ../config.h ../include/lame.h \
   /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/fadvise.h \
   /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/falloc.h \
   /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/fcntl.h \
-  /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/aarch64-linux-android/asm/fcntl.h \
+  /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/arm-linux-androideabi/asm/fcntl.h \
   /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/asm-generic/fcntl.h \
   /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/stat.h \
   /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/uio.h \
@@ -102,13 +101,11 @@ newmdct.lo: newmdct.c ../config.h ../include/lame.h \
 
 /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/types.h:
 
-/Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/aarch64-linux-android/asm/types.h:
-
-/Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/asm-generic/types.h:
+/Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/arm-linux-androideabi/asm/types.h:
 
 /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/asm-generic/int-ll64.h:
 
-/Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/aarch64-linux-android/asm/bitsperlong.h:
+/Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/arm-linux-androideabi/asm/bitsperlong.h:
 
 /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/asm-generic/bitsperlong.h:
 
@@ -120,7 +117,7 @@ newmdct.lo: newmdct.c ../config.h ../include/lame.h \
 
 /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/compiler.h:
 
-/Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/aarch64-linux-android/asm/posix_types.h:
+/Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/arm-linux-androideabi/asm/posix_types.h:
 
 /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/asm-generic/posix_types.h:
 
@@ -180,7 +177,7 @@ version.h:
 
 /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/errno.h:
 
-/Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/aarch64-linux-android/asm/errno.h:
+/Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/arm-linux-androideabi/asm/errno.h:
 
 /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/asm-generic/errno.h:
 
@@ -196,7 +193,7 @@ version.h:
 
 /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/linux/fcntl.h:
 
-/Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/aarch64-linux-android/asm/fcntl.h:
+/Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/arm-linux-androideabi/asm/fcntl.h:
 
 /Users/chenlu/Library/Android/sdk/ndk/android-ndk-r20b/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/asm-generic/fcntl.h:
 

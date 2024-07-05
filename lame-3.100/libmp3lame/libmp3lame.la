@@ -38,4 +38,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/Users/chenlu/work/lam/lame-3.100/android/aarch64/lib'
+libdir='/Users/chenlu/AndroidStudioProjects/AudioEditor/lame-3.100/android/arm/lib'

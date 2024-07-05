@@ -1,7 +1,7 @@
 #!/bin/bash
 make clean
 set -e
-archbit=64
+archbit=32
 
 if [ $archbit -eq 32 ];then
   echo "build for 32bit"
@@ -48,8 +48,14 @@ export PREFIX=../ffmpeg-android/$ABI
 export ADDITIONAL_CONFIGURE_FLAG="--cpu=$CPU"
 
 THIRD_LIB=$PREFIX
-export EXTRA_CFLAGS="-Os -fPIC $OPTIMIZE_CFLAGS -I$THIRD_LIB/include -I/Users/chenlu/AndroidStudioProjects/AudioEditor/lame-3.100/android/aarch64/include"
-export EXTRA_LDFLAGS="-lc -lm -ldl -llog -lgcc -lz -landroid -L$THIRD_LIB/lib -L/Users/chenlu/AndroidStudioProjects/AudioEditor/lame-3.100//android/aarch64/lib"
+if [ $archbit -eq 32 ];then
+  export EXTRA_CFLAGS="-Os -fPIC $OPTIMIZE_CFLAGS -I$THIRD_LIB/include -I/Users/chenlu/AndroidStudioProjects/AudioEditor/lame-3.100/android/arm/include"
+  export EXTRA_LDFLAGS="-lc -lm -ldl -llog -lgcc -lz -landroid -L$THIRD_LIB/lib -L/Users/chenlu/AndroidStudioProjects/AudioEditor/lame-3.100/android/arm/lib"
+else
+  export EXTRA_CFLAGS="-Os -fPIC $OPTIMIZE_CFLAGS -I$THIRD_LIB/include -I/Users/chenlu/AndroidStudioProjects/AudioEditor/lame-3.100/android/aarch64/include"
+  export EXTRA_LDFLAGS="-lc -lm -ldl -llog -lgcc -lz -landroid -L$THIRD_LIB/lib -L/Users/chenlu/AndroidStudioProjects/AudioEditor/lame-3.100//android/aarch64/lib"
+fi
+
 
 function build_one() {
   ./configure \

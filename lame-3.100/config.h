@@ -91,7 +91,7 @@
 /* add int64_t type */
 #define HAVE_INT64_T 1
 #ifndef HAVE_INT64_T
-#define A_INT64_T long
+#define A_INT64_T long long
 	typedef A_INT64_T int64_t;
 #endif
 
@@ -112,11 +112,11 @@
 
 /* Define to 1 if the type `long double' works and has more range or precision
    than `double'. */
-#define HAVE_LONG_DOUBLE 1
+/* #undef HAVE_LONG_DOUBLE */
 
 /* Define to 1 if the type `long double' works and has more range or precision
    than `double'. */
-#define HAVE_LONG_DOUBLE_WIDER 1
+/* #undef HAVE_LONG_DOUBLE_WIDER */
 
 /* Define to 1 if you have the <memory.h> header file. */
 #define HAVE_MEMORY_H 1
@@ -182,7 +182,7 @@
 /* add uint64_t type */
 #define HAVE_UINT64_T 1
 #ifndef HAVE_UINT64_T
-#define A_UINT64_T unsigned long
+#define A_UINT64_T unsigned long long
 	typedef A_UINT64_T uint64_t;
 #endif
 
@@ -247,7 +247,7 @@
 #define SIZEOF_INT 4
 
 /* The size of `long', as computed by sizeof. */
-#define SIZEOF_LONG 8
+#define SIZEOF_LONG 4
 
 /* The size of `long double', as computed by sizeof. */
 /* #undef SIZEOF_LONG_DOUBLE */
@@ -262,7 +262,7 @@
 #define SIZEOF_UNSIGNED_INT 4
 
 /* The size of `unsigned long', as computed by sizeof. */
-#define SIZEOF_UNSIGNED_LONG 8
+#define SIZEOF_UNSIGNED_LONG 4
 
 /* The size of `unsigned long long', as computed by sizeof. */
 #define SIZEOF_UNSIGNED_LONG_LONG 8
@@ -336,7 +336,7 @@
 #endif
 
 /* Number of bits in a file offset, on hosts where this is settable. */
-/* #undef _FILE_OFFSET_BITS */
+#define _FILE_OFFSET_BITS 64
 
 /* Define for large files, on AIX-style hosts. */
 /* #undef _LARGE_FILES */
