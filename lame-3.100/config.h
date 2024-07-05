@@ -196,7 +196,7 @@
 #define HAVE_UNISTD_H 1
 
 /* Define if SSE intrinsics work. */
-/* #undef HAVE_XMMINTRIN_H */
+#define HAVE_XMMINTRIN_H 1
 
 /* Define as const if the declaration of iconv() needs const. */
 /* #undef ICONV_CONST */
@@ -282,13 +282,13 @@
 #define STDC_HEADERS 1
 
 /* IEEE754 compatible machine */
-/* #undef TAKEHIRO_IEEE754_HACK */
+#define TAKEHIRO_IEEE754_HACK 1
 
 /* Define to 1 if you can safely include both <sys/time.h> and <time.h>. */
 #define TIME_WITH_SYS_TIME 1
 
 /* faster log implementation with less but enough precission */
-/* #undef USE_FAST_LOG */
+#define USE_FAST_LOG 1
 
 /* Enable extensions on AIX 3, Interix.  */
 #ifndef _ALL_SOURCE
