@@ -87,7 +87,7 @@ msmpeg4v2,msmpeg4,png,tiff,\
 wmv1,wmv2,xbm,zlib,aac,ac3,g722,g726,adpcm_ima_qt,adpcm_ima_wav,adpcm_ms,alac,\
 eac3,flac,mp2,opus,pcm_alaw,pcm_mulaw,pcm_f32le,pcm_f64le,pcm_s16be,pcm_s16le,\
 pcm_s32be,pcm_s32le,pcm_s64be,pcm_s64le,pcm_s8,pcm_u16le,pcm_u32le,pcm_u8,sonic,\
-truehd,tta,vorbis,wavpack,wmav1,wmav2 \
+truehd,tta,vorbis,wavpack,wmav1,wmav2,ape \
   --disable-decoders \
   --enable-decoder=gif,mjpeg,\
 png,webp,zlib,\
