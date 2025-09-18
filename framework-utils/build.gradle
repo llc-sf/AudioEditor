@@ -44,7 +44,6 @@ dependencies {
     api rootProject.ext.Kotlin.fragment_ktx
     api rootProject.ext.Kotlin.activity_ktx
 
-    implementation project(":third-part:StackBlur")
     implementation project(":framework-appprovider")
     api project(":framework-simplecache")
     implementation project(':framework-rx')

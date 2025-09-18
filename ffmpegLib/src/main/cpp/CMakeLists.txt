@@ -74,7 +74,15 @@ add_library( # Sets the name of the library.
         # Provides a relative path to your source file(s).
         ${SRC_FFMPEG}
         )
-
+# Ensure 16KB page size alignment for LOAD segments when linking
+if (CMAKE_SYSTEM_NAME STREQUAL "Android")
+        # lld supports -z max-page-size. 16384 == 16KB
+        add_link_options(-Wl,-z,max-page-size=16384)
+        # Also apply specifically to media-handle target to be explicit
+        if (COMMAND target_link_options)
+                target_link_options(media-handle PRIVATE -Wl,-z,max-page-size=16384)
+        endif ()
+endif ()
 
 # 指定编译目标库时，cmake要链接的库
 target_link_libraries(

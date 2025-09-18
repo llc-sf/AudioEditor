@@ -1,43 +1,145 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    ext {
+        account_package = "ltd.inston"
+    }
+    repositories {
+        google()
+        mavenCentral()
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        maven {
+            url "artifactregistry://asia-east2-maven.pkg.dev/drojiancode/public"
+        }
+        maven {
+            url = 'https://maven.drojian.dev/repository/drojian-common/'
+            credentials {
+                username = 'common'
+                password = 'YO&MZE4pC0eGEa4c#c@241030'
+            }
+        }
+        maven {
+            url 'https://maven.google.com'
+            name 'Google'
+        }
+        maven { url "https://maven.aliyun.com/repository/jcenter" }
+    }
+    dependencies {
+        classpath account_package + ".safe:DynamicEncryptPlugin:3.0.9.8.x"
+    }
+}
+
+
 plugins {
-    id 'com.android.application' version '8.0.2' apply false
-    id 'com.android.library' version '8.0.2' apply false
-    id 'org.jetbrains.kotlin.android' version '1.8.20' apply false
+    id 'com.android.application' version '8.7.2' apply false
+    id 'com.android.library' version '8.7.2' apply false
+    id 'org.jetbrains.kotlin.android' version '2.1.10' apply false
+    id 'com.google.gms.google-services' version '4.4.2' apply false
+    id 'com.google.firebase.appdistribution' version '5.0.0' apply false
+    id "com.google.firebase.crashlytics" version "3.0.2" apply false
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            url "artifactregistry://asia-east2-maven.pkg.dev/drojiancode/public"
+        }
+        //逐步废弃
+        maven {
+            url = 'https://maven.drojian.dev/repository/drojian-common/'
+            credentials {
+                username = 'common'
+                password = 'YO&MZE4pC0eGEa4c#c@241030'
+            }
+        }
+        maven { url 'https://artifact.bytedance.com/repository/pangle' }
+        maven {
+            url = 'https://maven.drojian.dev/repository/music-release/'
+            credentials {
+                username = 'music-reader'
+                password = 'PDJSxW6mnZD!KZgx7X@241030'
+            }
+        }
+        maven {
+            url = 'https://maven.drojian.dev/repository/music-snapshots'
+            credentials {
+                username = 'music-reader'
+                password = 'PDJSxW6mnZD!KZgx7X@241030'
+            }
+        }
+        //Flutter Support
+        String storageUrl = System.env.FLUTTER_STORAGE_BASE_URL ?: "https://storage.googleapis.com"
+        repositories {
+            maven {
+                url "${rootProject.rootDir}/repo/"
+            }
+            maven {
+                url "$storageUrl/download.flutter.io"
+            }
+        }
+        jcenter()
+    }
+    ext {
+        bundleFile = rootProject.file("bundle.txt")
+        isBundleFileExist = bundleFile.exists()
+        adConfigTag = bundleFile.exists() ? "-release" : ""
+    }
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class) {
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+    }
 }
 
 
 ext {
 
-    MIN_SDK_VERSION = 21
+    MIN_SDK_VERSION = 23
 
-    COMPILE_SDK_VERSION = 33
+    COMPILE_SDK_VERSION = 34
 
-    BUILD_TOOLS_VERSION = "30.0.3"
+    BUILD_TOOLS_VERSION = "35.0.0"
 
-    TARGET_SDK_VERSION = 33
+    TARGET_SDK_VERSION = 35
 
-    VERSION_NAME = "1.2.0"
+    VERSION_NAME = "1.6.0"
 
-    VERSION_CODE = 4
+    VERSION_CODE = 24
 
-    APPLICATION_ID = "com.san.audioeditor"
+    APPLICATION_ID = "audioeditor.mp3cutter.musiceditor"
 
     CLIENT_GIT_SHA_VERSION = getGitSha()//当前提交的Git 版本号，用于追溯提交的版本
 
-    kotlin_version = '1.7.0'
+    kotlin_version = '2.1.10'
 
+    //自动打包配置，勿动
+    bundleFile = rootProject.file("bundle.txt")
+    isBundleFileExist = bundleFile.exists()
+    adConfigTag = bundleFile.exists() ? "-release" : ""
+
+
+    account_package = "ltd.inston"
+
+    Ad = [
+            UEditor: 'com.drojian.adconfig:UEditor:1.1.1-Simple149-C192-F125-PG116-IN125-AL111-VG120-CE102-FL134' + adConfigTag,
+    ]
 
     //Base
     AndroidX = [
-            core      : 'androidx.core:core-ktx:1.7.0',
-            annotation: 'androidx.annotation:annotation:1.3.0',
-            appcompat : 'androidx.appcompat:appcompat:1.4.1',
+            core        : 'androidx.core:core-ktx:1.9.0',
+            annotation  : 'androidx.annotation:annotation:1.3.0',
+            appcompat   : 'androidx.appcompat:appcompat:1.6.1',
+            documentfile: 'androidx.documentfile:documentfile:1.0.1',
     ]
 
     UI = [
-            material  : 'com.google.android.material:material:1.5.0',
+            material  : 'com.google.android.material:material:1.11.0',
             reycler   : 'androidx.recyclerview:recyclerview:1.2.1',
-            constraint: 'androidx.constraintlayout:constraintlayout:2.1.3',
+            constraint: 'androidx.constraintlayout:constraintlayout:2.1.4',
     ]
 
     //Glide 依赖
@@ -64,6 +166,7 @@ ext {
     Lifecycle = [
             viewmodel: "androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE_VERSION",
             process  : "androidx.lifecycle:lifecycle-process:$LIFECYCLE_VERSION",
+            livedata : "androidx.lifecycle:lifecycle-livedata-ktx:$LIFECYCLE_VERSION",  // 添加这行
     ]
 
     DATASTORE_VERSION = "1.0.0"
@@ -71,6 +174,22 @@ ext {
             // optional - RxJava3 support
             dataStore: "androidx.datastore:datastore-preferences-rxjava3:$DATASTORE_VERSION"
     ]
+
+    Third = [
+            lottie            : 'com.airbnb.android:lottie:6.4.1',
+            swiperefreshlayout: 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    ]
+
+    Java_Compat = [
+            desugar_jdk_libs: 'com.android.tools:desugar_jdk_libs:2.0.4',
+    ]
+
+    AudioEditKit = [
+            kit_android: 'com.mediaedit.lib:audioeditkit:1.1.47',
+    ]
+
+    bundleFile = rootProject.file("bundle.txt")
+    isBundleFileExist = bundleFile.exists()
 }
 
 private def getGitSha() {

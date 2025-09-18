@@ -5,11 +5,11 @@ plugins {
 
 android {
     namespace 'dev.audio.ffmpeglib'
-    compileSdk 34
+    compileSdk rootProject.ext.COMPILE_SDK_VERSION
 
     defaultConfig {
-        minSdk 21
-        targetSdk 34
+        minSdk rootProject.ext.MIN_SDK_VERSION
+        targetSdk rootProject.ext.TARGET_SDK_VERSION
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
 

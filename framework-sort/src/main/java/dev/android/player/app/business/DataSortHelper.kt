@@ -100,7 +100,7 @@ object DataSortHelper {
                         source.setIndexer(key, "$C")
                     }
                     Chars.isEnglish(Normal[0]) -> {//英语进行大写转换
-                        source.setIndexer(key, Normal[0].toString().toUpperCase())
+                        source.setIndexer(key, Normal[0].toString().uppercase())
                     }
                     Chars.isNumber(Normal[0]) -> {//数字用.来分组
                         source.setIndexer(key, ".")
@@ -124,7 +124,7 @@ object DataSortHelper {
             if (value is String && !TextUtils.isEmpty(value) && source is IndexModel) {
                 when {
                     Chars.isEnglish(value[0]) -> {//英语进行大写转换
-                        source.setIndexer(key, value[0].toString().toUpperCase())
+                        source.setIndexer(key, value[0].toString().uppercase())
                     }
                     else -> {//其他情况还是为 #
                         source.setIndexer(key, "#")

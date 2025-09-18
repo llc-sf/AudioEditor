@@ -80,7 +80,7 @@ object Chars {
      */
     tailrec fun getCompatIndexer(str: String, left: Int = 'A'.code, right: Int = 'Z'.code): String {
         val mid = (left + right) / 2
-        val s = "${mid.toChar()}".toUpperCase()
+        val s = "${mid.toChar()}".uppercase()
         return when {
             left > right || mUnicodeCollator.compare(s, str) == 0 -> s
             mUnicodeCollator.compare(s, str) < 0 -> getCompatIndexer(str, mid + 1, right)

@@ -111,7 +111,7 @@ object FileUtil {
         if (TextUtils.isEmpty(path)) {
             return false
         }
-        path = path.toLowerCase()
+        path = path.lowercase()
         return (path.endsWith(TYPE_MP3)
                 || path.endsWith(TYPE_AAC)
                 || path.endsWith(TYPE_AMR)
@@ -130,7 +130,7 @@ object FileUtil {
         if (TextUtils.isEmpty(path)) {
             return false
         }
-        path = path.toLowerCase()
+        path = path.lowercase()
         return (path.endsWith(TYPE_MP4)
                 || path.endsWith(TYPE_MKV)
                 || path.endsWith(TYPE_WEBM)
